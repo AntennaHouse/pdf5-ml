@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="urn:oasis:names:tc:dita:rng:map.rng" schematypens="http://relaxng.org/ns/structure/1.0"?> 
+<map>
+ <title>Image Key Definition For Cover Pages</title>
+
+ <keydef keys="ME-LOGO-SMALL" navtitle="Company logo - small" href="topics-en/image/ahlogo_small.svg" format="svg" deliveryTarget="pdf-web"/>
+ <keydef keys="ME-LOGO-SMALL" navtitle="Company logo - small" href="topics-en/image/ahlogo_small.pdf" format="pdf" deliveryTarget="pdf-print-color"/>
+ <keydef keys="ME-LOGO-SMALL" navtitle="Company logo - small" href="topics-en/image/ahlogo_small_mono.pdf" format="pdf" deliveryTarget="pdf-print-mono"/>
+
+ <keydef keys="COVER1-BACKGROUND" navtitle="Cover 1 - background image" href="topics-en/image/cover_vector1.svg" format="svg" deliveryTarget="pdf-web"/>
+ <keydef keys="COVER1-BACKGROUND" navtitle="Cover 1 - background image" href="topics-en/image/cover_vector1.pdf" format="pdf" deliveryTarget="pdf-print-color"/>
+ <keydef keys="COVER1-BACKGROUND" navtitle="Cover 1 - background image" href="topics-en/image/cover_vector1_mono.pdf" format="pdf" deliveryTarget="pdf-print-mono"/>
+ 
+ <keydef keys="AHF-LOGO" navtitle="Formatter logo image" href="topics-en/image/V6-logo.png" format="png" deliveryTarget="pdf-web"/>
+ <keydef keys="AHF-LOGO" navtitle="Formatter logo image" href="topics-en/image/V6-logo.pdf" format="pdf" deliveryTarget="pdf-print-color"/>
+ <keydef keys="AHF-LOGO" navtitle="Formatter logo image" href="topics-en/image/V6-logo-mono.pdf" format="pdf" deliveryTarget="pdf-print-mono"/>
+ 
+ <keydef keys="WEB-SITE-HEADER" navtitle="AH Web site header image" href="topics-en/image/website-header-24Feb14.jpg" format="png" deliveryTarget="pdf-web"/>
+ <keydef keys="WEB-SITE-HEADER" navtitle="AH Web site header image" href="topics-en/image/website-header-24Feb14.pdf" format="pdf" deliveryTarget="pdf-print-color"/>
+ <keydef keys="WEB-SITE-HEADER" navtitle="AH Web site header image" href="topics-en/image/website-header-24Feb14-mono.pdf" format="pdf" deliveryTarget="pdf-print-mono"/>
+
+</map>

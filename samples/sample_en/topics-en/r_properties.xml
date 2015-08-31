@@ -1,0 +1,140 @@
+<?xml version="1.0"?>
+<!DOCTYPE reference PUBLIC "-//OASIS//DTD DITA Reference//EN" "reference.dtd">
+<reference id="reference_A80D6B3CA93146918AAD0AB3DC304937" xml:lang="en-US"> 
+  <title>Properties</title> 
+    <refbody> 
+        <refsyn id="refsyn_05DDDB51837D40E291702F13E4661C9A">
+            <title>No @relcolwidth</title>
+        </refsyn>
+        <properties>
+            <prophead>
+                <proptypehd>Visual Element</proptypehd>
+                <propvaluehd>Value</propvaluehd>
+                <propdeschd>Implication</propdeschd>
+            </prophead>
+            <property>
+                <proptype>color</proptype>
+                <propvalue>red</propvalue>
+                <propdesc>depicts anger</propdesc>
+            </property>
+            <property>
+                <propvalue>green</propvalue>
+                <propdesc>depicts permission</propdesc>
+            </property>
+        </properties>
+        <refsyn>
+            <title>@relcolwidth="1* 2* 3*"</title>
+        </refsyn>
+        <properties relcolwidth="1* 2* 3*">
+            <prophead>
+                <proptypehd>Visual Element</proptypehd>
+                <propvaluehd>Value</propvaluehd>
+                <propdeschd>Implication</propdeschd>
+            </prophead>
+            <property>
+                <proptype>color</proptype>
+                <propvalue>red</propvalue>
+                <propdesc>depicts anger</propdesc>
+            </property>
+            <property>
+                <propvalue>green</propvalue>
+                <propdesc>depicts permission</propdesc>
+            </property>
+        </properties>
+        <refsyn>
+            <title>scale="200"</title>
+        </refsyn>
+        <properties scale="200">
+            <prophead>
+                <proptypehd>Visual Element</proptypehd>
+                <propvaluehd>Value</propvaluehd>
+                <propdeschd>Implication</propdeschd>
+            </prophead>
+            <property>
+                <proptype>color</proptype>
+                <propvalue>red</propvalue>
+                <propdesc>depicts anger</propdesc>
+            </property>
+            <property>
+                <propvalue>green</propvalue>
+                <propdesc>depicts permission</propdesc>
+            </property>
+        </properties>
+        <refsyn>
+            <title>keycol="1"</title>
+        </refsyn>
+        <properties keycol="1">
+            <prophead>
+                <proptypehd>Visual Element</proptypehd>
+                <propvaluehd>Value</propvaluehd>
+                <propdeschd>Implication</propdeschd>
+            </prophead>
+            <property>
+                <proptype>color</proptype>
+                <propvalue>red</propvalue>
+                <propdesc>depicts anger</propdesc>
+            </property>
+            <property>
+                <propvalue>green</propvalue>
+                <propdesc>depicts permission</propdesc>
+            </property>
+        </properties>
+        <refsyn>
+            <title>keycol="2"</title>
+        </refsyn>
+        <properties keycol="2">
+            <prophead>
+                <proptypehd>Visual Element</proptypehd>
+                <propvaluehd>Value</propvaluehd>
+                <propdeschd>Implication</propdeschd>
+            </prophead>
+            <property>
+                <proptype>color</proptype>
+                <propvalue>red</propvalue>
+                <propdesc>depicts anger</propdesc>
+            </property>
+            <property>
+                <propvalue>green</propvalue>
+                <propdesc>depicts permission</propdesc>
+            </property>
+        </properties>
+        <refsyn>
+            <title>frame="none"</title>
+        </refsyn>
+        <properties frame="none">
+            <prophead>
+                <proptypehd>Visual Element</proptypehd>
+                <propvaluehd>Value</propvaluehd>
+                <propdeschd>Implication</propdeschd>
+            </prophead>
+            <property>
+                <proptype>color</proptype>
+                <propvalue>red</propvalue>
+                <propdesc>depicts anger</propdesc>
+            </property>
+            <property>
+                <propvalue>green</propvalue>
+                <propdesc>depicts permission</propdesc>
+            </property>
+        </properties>
+        <refsyn>
+            <title>expanse="page"</title>
+        </refsyn>
+        <properties expanse="page">
+            <prophead>
+                <proptypehd>Visual Element</proptypehd>
+                <propvaluehd>Value</propvaluehd>
+                <propdeschd>Implication</propdeschd>
+            </prophead>
+            <property>
+                <proptype>color</proptype>
+                <propvalue>red</propvalue>
+                <propdesc>depicts anger</propdesc>
+            </property>
+            <property>
+                <propvalue>green</propvalue>
+                <propdesc>depicts permission</propdesc>
+            </property>
+        </properties>
+    </refbody>
+</reference>

@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<!-- Build file for display all passed parameters
+     Revision History
+     - Newly created
+       2015-05-07
+  -->
+<project name="Dispaly properties for this build">
+  <target name="build.disp.property">
+    <echo message="*-- Plug-in Parameters -----------------------------------------*"/>
+    <echo message="style.def.file=${style.def.file}"/>
+    <echo message="assume.sortas.pinyin=${assume.sortas.pinyin}"/>
+    <echo message="make.see.link=${make.see.link}"/>
+    <echo message="include.frontmatter.to.toc=${include.frontmatter.to.toc}"/>
+    <echo message="add.numbering.title.prefix=${add.numbering.title.prefix}"/>
+    <echo message="add.part.to.title=${add.part.to.title}"/>
+    <echo message="add.thumbnail.index=${add.thumbnail.index}"/>
+    <echo message="xml.lang=${xml.lang}"/>
+    <echo message="output.pdf=${output.pdf}"/>
+    <echo message="output.draft.comment=${output.draft.comment}"/>
+    <echo message="output.required.cleanup=${output.required.cleanup}"/>
+    <echo message="use.oid=${use.oid}"/>
+    <echo message="format.dl.as.block=${format.dl.as.block}"/>
+    <echo message="debug.style=${debug.style}"/>
+    <!--echo message="apply.toc.attr=${apply.toc.attr}"/-->
+    <!--echo message="online.pdf=${online.pdf}"/-->
+    <echo message="sort.glossentry=${sort.glossentry}"/>
+    <echo message="output.start.message=${output.start.message}"/>
+    <echo message="auto.scale.down.to.fit=${auto.scale.down.to.fit}"/>
+    <echo message="make.toc.for.map=${make.toc.for.map}"/>
+    <echo message="make.index.for.map=${make.index.for.map}"/>
+    <echo message="make.alt.txt=${make.alt.txt}"/>
+    <echo message="paper.size=${paper.size}"/>
+    <echo message="image.in.output.folder=${image.in.output.folder}"/>
+    <echo message="output.crop.region=${output.crop.region}"/>
+    <echo message="output.type=${output.type}"/>
+    <echo message="exclude.cover.from.counting.page=${exclude.cover.from.counting.page}"/>
+    
+    <echo message="ahf.dir=${ahf.dir}"/>
+    <echo message="ahf.opt=${ahf.opt}"/>
+    <echo message="dita.input.dir.url=${dita.input.dir.url}"/>
+    <echo message="dita.map.filename.root=${dita.map.filename.root}"/>
+    <echo message="com.innodata.i18n.home=${i18n.home}"/>
+    <echo message="use.i18n.index.lib=${use.i18n.index.lib}"/>
+    <echo message="use.saxon.transform=${use.saxon.transform}"/>
+    <echo message="*----------------------------------------------------------------*"/>
+  </target>
+</project>

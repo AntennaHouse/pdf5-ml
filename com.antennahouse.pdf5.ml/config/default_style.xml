@@ -1,0 +1,2905 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+************************************************************
+DITA to XSL-FO Style Definition 
+************************************************************
+File Name : default_style.xml
+************************************************************
+Copyright © 2009-2011 Antenna House, Inc.
+Antenna House is a trademark of Antenna House, Inc.
+URL : http://www.antennahouse.com/
+************************************************************
+-->
+<style-definition xmlns:axf="http://www.antennahouse.com/names/XSL/Extensions"
+    xmlns:fo="http://www.w3.org/1999/XSL/Format"
+    xmlns:ahp="http://www.antennahouse.com/names/XSLT/Document/PageControl"
+    xmlns="http://www.antennahouse.com/names/XSLT/Document/Layout">
+
+    <variables>
+        <!-- Fonts -->
+        <variable name="General_Serif_Font">serif</variable>
+        <variable name="General_Sans_Serif_Font">sans-serif</variable>
+        <variable name="General_Monospace_Font">monospace</variable>
+        <!--variable name="General_Bullet_Font"     select="ZapfDingbats"/-->
+        <variable name="General_Bullet_Font">Arial</variable>
+
+        <variable name="General_Text_Font">$General_Serif_Font</variable>
+        <variable name="General_Title_Font">$General_Sans_Serif_Font</variable>
+
+        <variable name="General_Region_Before_Font">$General_Serif_Font</variable>
+        <variable name="General_Region_After_Font">$General_Serif_Font</variable>
+
+        <!--Color-->
+        <variable name="Color_RGB_Black">black</variable>
+        <variable name="Color_CMYK_Black">rgb-icc(#CMYK,0%,0%,0%,100%)</variable>
+        <variable name="Color_RGB_Red">red</variable>
+        <variable name="Color_CMYK_Red">rgb-icc(#CMYK,0%,100%,100%,0%)</variable>
+        <variable name="General_Text_Color">$Color_RGB_Black</variable>
+        <variable name="General_Text_Color" output-type="print-color print-mono">$Color_CMYK_Black</variable>
+        <variable name="General_Page_Border_Color">rgb(85,107,217)</variable>
+        <variable name="General_Page_Border_Color" output-type="print-color">rgb-icc(#CMYK,60%,50%,0%,14%)</variable>
+        <variable name="General_Page_Border_Color" output-type="print-mono">$Color_CMYK_Black</variable>
+        <variable name="General_Link_Color">rgb(0,68,154)</variable>
+        <variable name="General_Link_Color" output-type="print-color">rgb-icc(#CMYK,100%,56%,0%,40%)</variable>
+        <variable name="General_Link_Color" output-type="print-mono">$Color_CMYK_Black</variable>
+        <!-- General Note border color -->
+        <variable name="General_Note_Border_Color">$Color_RGB_Black</variable>
+        <variable name="General_Note_Border_Color" output-type="print-color print-mono">$Color_CMYK_Black</variable>
+        <!-- Genral Table border color -->
+        <variable name="General_Table_Border_Color">$Color_RGB_Black</variable>
+        <variable name="General_Table_Border_Color" output-type="print-color print-mono">$Color_CMYK_Black</variable>
+        <!-- Genral Table header background color -->
+        <variable name="General_Table_Header_Background_Color">rgb(217,217,217)</variable>
+        <variable name="General_Table_Header_Background_Color" output-type="print-color print-mono">rgb-icc(#CMYK,0%,0%,0%,15%)</variable>
+        <!-- Genral table background color to revert background -->
+        <variable name="General_Table_No_Background_Color">transparent</variable>
+        <!-- Genral Frame border color -->
+        <variable name="General_Frame_Border_Color">$Color_RGB_Black</variable>
+        <variable name="General_Frame_Border_Color" output-type="print-color print-mono">$Color_CMYK_Black</variable>
+        
+        <!--Hyphenation-->
+        <variable name="General_Do_Hyphenation">true</variable>
+        <variable name="General_Hyphenation_Minimum_Character_Count">1</variable>
+
+        <!-- Supported paper specification
+             Name,width,height,crop-width,crop-height
+             crop size is temporary value.
+             Based on http://en.wikipedia.org/wiki/Paper_size
+         -->
+        <variable name="Paper_Info" delim="[,\s]+"> 
+            Letter,215.9mm,279.4mm,10mm,10mm,
+            Government-Letter,203.2mm,266.7mm,10mm,10mm, 
+            Legal,215.9mm,355.6mm,10mm,10mm,
+            B6,125mm,176mm,10mm,10mm, 
+            B5,176mm,250mm,10mm,10mm, 
+            B4,250mm,353mm,10mm,10mm,
+            A6,105mm,148mm,10mm,10mm, 
+            A5,148mm,210mm,10mm,10mm, 
+            A4,210mm,297mm,10mm,10mm </variable>
+
+        <!-- Page size
+             %paper-width and $paper-height will be replaced by the stylesheet parameter
+          -->
+        <variable name="General_Paper_Width">%paper-width</variable>
+        <variable name="General_Paper_Height">%paper-height</variable>
+        <variable name="General_Paper_Margin_Top">0mm</variable>
+        <variable name="General_Paper_Margin_Bottom">0mm</variable>
+        <variable name="General_Paper_Margin_Outer">0mm</variable>
+        <variable name="General_Paper_Margin_Inner">0mm</variable>
+        <variable name="General_Paper_Margin_Left_For_Left_Page">$General_Paper_Margin_Outer</variable>
+        <variable name="General_Paper_Margin_Left_For_Right_Page">$General_Paper_Margin_Inner</variable>
+        <variable name="General_Paper_Margin_Right_For_Left_Page">$General_Paper_Margin_Inner</variable>
+        <variable name="General_Paper_Margin_Right_For_Right_Page">$General_Paper_Margin_Outer</variable>
+        
+        <!-- fo:region-body -->
+        <!--variable name="General_Margin_Top">25.4mm</variable>
+        <variable name="General_Margin_Bottom">25.4mm</variable>
+        <variable name="General_Margin_Outer">31.7mm</variable>
+        <variable name="General_Margin_Inner">31.7mm</variable-->
+
+        <variable name="General_Margin_Top">25mm</variable>
+        <variable name="General_Margin_Bottom">25mm</variable>
+        <variable name="General_Margin_Outer">30mm</variable>
+        <variable name="General_Margin_Outer" output-type="print-color print-mono">25mm</variable>
+        <variable name="General_Margin_Inner">30mm</variable>
+        <variable name="General_Margin_Inner" output-type="print-color print-mono">35mm</variable>
+        <variable name="General_Margin_Left_For_Left_Page">$General_Margin_Outer</variable>
+        <variable name="General_Margin_Left_For_Right_Page">$General_Margin_Inner</variable>
+        <variable name="General_Margin_Right_For_Left_Page">$General_Margin_Inner</variable>
+        <variable name="General_Margin_Right_For_Right_Page">$General_Margin_Outer</variable>
+
+        <variable name="General_Region_Before_Extent">$General_Margin_Top</variable>
+        <variable name="General_Region_After_Extent">$General_Margin_Bottom</variable>
+        
+        <!-- Region before/after alignment -->
+        <variable name="General_Region_Before_Align">right</variable>
+        <variable name="General_Region_Before_Align" output-type="print-color print-mono">outside</variable>
+        <variable name="General_Region_After_Align">right</variable>
+        <variable name="General_Region_After_Align" output-type="print-color print-mono">outside</variable>
+        <variable name="General_Region_Before_Left_Align">$General_Region_Before_Align</variable>
+        <variable name="General_Region_Before_Right_Align">$General_Region_Before_Align</variable>
+        <variable name="General_Region_After_Left_Align">$General_Region_After_Align</variable>
+        <variable name="General_Region_After_Right_Align">$General_Region_After_Align</variable>
+        
+        <!--Crop size, bleed size
+            %crop-size-h, %crop-size-v will be replaced by appropriate value in stylesheet side.
+            Bleed size fixed to 3mm.
+         -->
+        <variable name="Crop_Size_H">%crop-size-h</variable>
+        <variable name="Crop_Size_V">%crop-size-v</variable>
+        <variable name="Bleed_Size">3mm</variable>
+
+        <!-- Body text -->
+        <variable name="Base_Font_Size">11pt</variable>
+        <variable name="Note_Text_Font_Size">9.5pt</variable>
+        <variable name="Little_Title_Font_Size">9.5pt</variable>
+        <variable name="Table_Font_Size">9.5pt</variable>
+        <variable name="Index_Group_Font_Size">12pt</variable>
+        <variable name="Index_Line_Font_Size">11pt</variable>
+        <variable name="Blank_Page_Title_Font_Size">14pt</variable>
+        <variable name="Glossary_List_Font_Size">10pt</variable>
+
+        <!-- Table border width -->
+        <variable name="General_Table_Border_Width">0.5pt</variable>
+        <variable name="Table_Outer_Border_Width">$General_Table_Border_Width</variable>
+        <variable name="Table_Header_Border_After_Width">1pt</variable>
+        
+        <!-- Table cell padding -->
+        <variable name="General_Table_Cell_Padding">1mm</variable>
+        
+        <!-- Spacing & indent -->
+        <!--space-before: 2mm for 11pt, 1.2mm for 9.5pt (in table) -->
+        <variable name="Para_Space_Before">1.5122em - 3.8673mm</variable>
+        <!--start-indent: 7mm for 11pt, 5mm for 9.5pt (in table) -->
+        <variable name="General_Indent_Value">3.7807em - 7.669mm</variable>
+        <!--dl indent: 7mm for 11pt, 3mm for 9.5pt (in table) -->
+        <variable name="Dl_Indent_Value">7.5614em - 22.338mm</variable>
+        <!--dd indent: 5mm for 11pt, 2mm for 9.5pt (in table) -->
+        <variable name="Dl_Dd_Indent_Value">5.671em - 17.003mm</variable>
+
+        <!-- space-before: 5mm for 11pt, 2mm for 9.5pt (in table) -->
+        <variable name="Dl_Dt_Block_Space_Before">5.6693em - 16.9997mm</variable>
+        <variable name="Dl_Dd_Block_Space_Before">$Para_Space_Before</variable>
+
+        <!-- Bookmark -->
+        <variable name="Starting_State">hide</variable>
+        <variable name="Bookmark_Nest_Max">4</variable>
+        <variable name="Title_Prefix_Separator">.</variable>
+
+        <!-- Table, fig title -->
+        <variable name="Title_Separator">-</variable>
+
+        <!-- TOC -->
+        <variable name="Toc_Nest_Max">4</variable>
+
+        <!-- Base indent -->
+        <variable name="Base_Indent_Size">0mm</variable>
+
+        <!-- Glossary list page -->
+        <variable name="Glossary_List_Column_Count">2</variable>
+        <variable name="Glossary_List_Column_Gap">7mm</variable>
+
+        <!-- Index page -->
+        <variable name="Index_Column_Count">2</variable>
+        <variable name="Index_Column_Gap">7mm</variable>
+
+        <!-- Header/footer border width -->
+        <variable name="Header_Border_Width">2pt</variable>
+        <variable name="Footer_Border_Width">2pt</variable>
+
+        <!-- Blank page border width -->
+        <variable name="Blank_Page_Border_Width">3pt</variable>
+
+        <!-- Glossary space-before -->
+        <variable name="Gloss_Entry_Space_Before">5mm</variable>
+
+        <!-- Bullets -->
+        <variable name="Ul_Label_Char">&#x2022;</variable>
+        <!-- Bullet -->
+        <variable name="Level4_Label_Char">&#x25A0;</variable>
+        <!-- Should be &#x25A0; 6E-->
+        <variable name="Level5_Label_Char">&#x25CF;</variable>
+        <!-- Should be &#x25CF; 6C-->
+
+        <!-- User interface -->
+        <variable name="MenuCascade_Symbol">&gt;</variable>
+        <variable name="UiControl_Prefix">[&#x200D;</variable>
+        <variable name="UiControl_Suffix">&#x200D;]</variable>
+
+        <!-- Title Literals -->
+        <variable name="Part_Title_Prefix">Part </variable>
+        <variable name="Part_Title_Suffix"/>
+        <variable name="Chapter_Title_Prefix">Chapter </variable>
+        <variable name="Chapter_Title_Suffix"/>
+
+        <variable name="Toc_Title">Contents</variable>
+        <variable name="Figure_List_Title">Figures</variable>
+        <variable name="Table_List_Title">Tables</variable>
+        <variable name="Abbreviations_List_Title">Abbreviations</variable>
+        <variable name="Trademark_List_Title">Trademaks</variable>
+        <variable name="Bibliographic_List_Title">Bibliography</variable>
+        <variable name="Glossary_List_Title">Glossary</variable>
+        <variable name="Appendices_Title">Appendices</variable>
+        <variable name="Appendix_Title">Appendix </variable>
+        <variable name="Index_Title">Index</variable>
+
+        <variable name="Notice_Title">Notice</variable>
+        <variable name="Preface_Title">Preface</variable>
+
+        <variable name="Blank_Page_Title">&#x00A0;Blank&#x00A0;Page&#x00A0;</variable>
+        <variable name="Relatedlink_Title">&#x00A0;RELATED&#x00A0;LINKS&#x00A0;</variable>
+        <variable name="Postnote_Title">&#x00A0;NOTES&#x00A0;</variable>
+
+        <variable name="Table_Title">Table </variable>
+        <variable name="Figure_Title">Figure </variable>
+
+        <!-- Literals for thumbnail -->
+        <variable name="Toc_Thumbnail_Label">TOC</variable>
+        <variable name="Appendix_Thumbnail_Label">App.</variable>
+        <variable name="Index_Thumbnail_Label">Index</variable>
+
+        <variable name="Toc_Thumbnail_Title"/>
+        <variable name="Appendix_Thumbnail_Title"/>
+        <variable name="Index_Thumbnail_Title"/>
+
+        <!-- Literals for choicetable header -->
+        <variable name="Choptionhd">Option</variable>
+        <variable name="Chdeschd">Description</variable>
+
+        <!-- Literals for note -->
+        <variable name="Note_Note">Note</variable>
+        <variable name="Note_Tip">Tip</variable>
+        <variable name="Note_FastPath">Fast Path</variable>
+        <variable name="Note_Restriction">Restriction</variable>
+        <variable name="Note_Important">Important</variable>
+        <variable name="Note_Remember">Remember</variable>
+        <variable name="Note_Attention">Attention</variable>
+        <variable name="Note_Caution">Caution</variable>
+        <variable name="Note_Notice">Notice</variable>
+        <variable name="Note_Danger">Danger</variable>
+        <variable name="Note_Warning">Warning</variable>
+        <variable name="Note_Other">Other</variable>
+
+        <!-- Right page thumbnail max count -->
+        <variable name="Thumbnail_Index_Max">10</variable>
+
+        <!-- Table/Figure/Footnote numbering level 
+             Changed from 3 ⇒ 2 except footnote. 2011-09-09 t.makita
+          -->
+        <variable name="Table_Grouping_Level_Max">2</variable>
+        <variable name="Figure_Grouping_Level_Max">2</variable>
+        <variable name="Footnote_Grouping_Level_Max">3</variable>
+
+        <!-- Publish date format string -->
+        <variable name="Publish_Date_Picture">[MNn].[D1],[Y1,4]</variable>
+
+        <!-- Layout related variables -->
+        <!-- Related Link: Use U+201C, U+201D if you prefer surrounding title. -->
+        <variable name="Relatedlink_Prefix"> on page </variable>
+        <variable name="Relatedlink_Suffix"/>
+
+        <!-- Cite -->
+        <variable name="Cite_Prefix"/>
+        <variable name="Cite_Suffix"/>
+
+        <!-- Q(uote) -->
+        <variable name="Q_Prefix">“</variable>
+        <variable name="Q_Suffix">”</variable>
+
+        <!-- Xref -->
+        <variable name="Xref_Prefix"> on page </variable>
+        <variable name="Xref_Suffix"/>
+
+        <!-- Draft-comment -->
+        <variable name="Draft_Comment_Title_Prefix">[DRAFT-COMMENT </variable>
+        <variable name="Draft_Comment_Author"> Author:</variable>
+        <variable name="Draft_Comment_Time"> Time:</variable>
+        <variable name="Draft_Comment_Disposition"> Status:</variable>
+        <variable name="Draft_Comment_Title_Suffix">]</variable>
+
+        <!-- Trade Mrak -->
+        <variable name="Tm_Symbol_Tm">&#x2122;</variable>
+        <variable name="Tm_Symbol_Reg">&#x00AE;</variable>
+        <variable name="Tm_Symbol_Service">SM</variable>
+        <!-- &#x2120; -->
+
+        <variable name="Tm_Symbol_Tm_Text">(TM)</variable>
+        <variable name="Tm_Symbol_Reg_Text">(R)</variable>
+        <variable name="Tm_Symbol_Service_Text">(SM)</variable>
+
+        <!-- Required-cleanup -->
+        <variable name="Required_Cleanup_Title_Prefix">[REQUIRED-CLEANUP </variable>
+        <variable name="Required_Cleanup_Remap"> Remap:</variable>
+        <variable name="Required_Cleanup_Title_Suffix">]</variable>
+
+        <!-- Footnote related -->
+        <variable name="Footnote_Tag_Prefix">*</variable>
+        <variable name="Footnote_Tag_Suffix"/>
+
+        <!-- Number format of ol (Format string separate by space!) -->
+        <variable name="Ol_Number_Formats" delim="[,\s]+">1. a. i.</variable>
+
+        <!-- Syntaxdiagram -->
+        <variable name="Sd_Or"> | </variable>
+        <variable name="Sd_Choice_Prefix"> {</variable>
+        <variable name="Sd_Choice_Suffix">} </variable>
+        <variable name="Sd_Optional_Prefix"> [</variable>
+        <variable name="Sd_Optional_Suffix">] </variable>
+        <variable name="Sd_Fragment_Ref_Prefix"> &lt;</variable>
+        <variable name="Sd_Fragment_Ref_Suffix">&gt; </variable>
+        <variable name="Sd_Note_Prefix"> *</variable>
+        <variable name="Sd_Repeat_Prefix"> (</variable>
+        <variable name="Sd_Repeat_Suffix">) </variable>
+        <variable name="Sd_Required_Symbol"> + </variable>
+        <variable name="Sd_Optional_Symbol"> * </variable>
+
+        <!-- Index related -->
+        <!-- Index See prefix and suffix -->
+        <variable name="Index_Symbol_Label">Symbols</variable>
+        <variable name="See_Prefix_Level1">, see </variable>
+        <variable name="See_Suffix_Level1"/>
+        <variable name="See_Prefix_Level2">see </variable>
+        <variable name="See_Suffix_Level2"/>
+
+        <!-- Index See Also prefix and suffix -->
+        <variable name="See_Also_Prefix">see also </variable>
+        <variable name="See_Also_Suffix"/>
+
+        <!-- Index page citation -->
+        <variable name="Index_Page_Citation_List_Separator">,</variable>
+        <variable name="Index_Page_Citation_Range_Separator">-</variable>
+
+        <!-- Evidence of dead link -->
+        <variable name="Dead_Link_PDF">deadlink.pdf</variable>
+        <variable name="Dead_Link_Color">$General_Text_Color</variable>
+
+        <!-- Review PDF color and style -->
+        <variable name="cInsertColor">blue</variable>
+        <variable name="cRemoveColor">magenta</variable>
+        <variable name="cDraftColor">green</variable>
+
+        <variable name="cInsertDecoration">underline</variable>
+        <variable name="cRemoveDecoration">line-through</variable>
+        <variable name="cRemoveDecoration2">line-through no-underline</variable>
+
+        <!-- Collation URI for Saxon 9 -->
+        <variable name="cCollationURI">http://saxon.sf.net/collation?lang=en;</variable>
+
+        <!-- Plug-in relative path test -->
+        <variable name="cNoteIcon">%plug-in-path%common-graphic/note.png</variable>
+
+        <!-- Check mark -->
+        <variable name="cCheckYes">&#x2713;</variable>
+        <variable name="cCheckNo">&#x2717;</variable>
+        <variable name="cCheckDc">-</variable>
+
+    </variables>
+
+    <attribute-sets>
+        <general-attribute-set>
+            <!-- title -->
+            <attribute-set name="atsTitle">
+                <attribute name="font-family">$General_Title_Font</attribute>
+            </attribute-set>
+
+            <!-- Page sequence -->
+            <attribute-set name="atsPageSeq">
+                <attribute name="reference-orientation">from-page-master-region()</attribute>
+                <attribute name="writing-mode">from-page-master-region()</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsPageSeqBase" use-attribute-sets="atsPageSeq">
+                <attribute name="initial-page-number">auto</attribute>
+                <attribute name="force-page-count">no-force</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsPageSeqBase" use-attribute-sets="atsPageSeq" output-type="print-color print-mono">
+                <attribute name="initial-page-number">auto-odd</attribute>
+                <attribute name="force-page-count">auto</attribute>
+            </attribute-set>
+
+            <!-- Crop region & print mark -->
+            <attribute-set name="atsCommonCropAndPrintMark">
+                <attribute name="axf:crop-offset-top">$Crop_Size_V</attribute>
+                <attribute name="axf:crop-offset-bottom">$Crop_Size_V</attribute>
+                <attribute name="axf:crop-offset-left">$Crop_Size_H</attribute>
+                <attribute name="axf:crop-offset-right">$Crop_Size_H</attribute>
+                <attribute name="axf:crop-area-visibility">visible</attribute>
+                <attribute name="axf:bleed">$Bleed_Size</attribute>
+                <attribute name="axf:printer-marks">crop cross</attribute>
+                <attribute name="axf:printer-marks-line-color">rgb-icc(#CMYK,0%,0%,0%,100%)</attribute>
+                <attribute name="axf:printer-marks-line-length">auto</attribute>
+                <attribute name="axf:printer-marks-line-width">auto</attribute>
+            </attribute-set>
+
+            <!-- monospace style -->
+            <attribute-set name="atsMonospaceStyle">
+                <attribute name="font-family">$General_Monospace_Font</attribute>
+                <attribute name="font-size">0.9em</attribute>
+            </attribute-set>
+
+            <!-- Span="all" -->
+            <attribute-set name="atsSpanAll">
+                <attribute name="span">all</attribute>
+            </attribute-set>
+
+        </general-attribute-set>
+
+        <base-attribute-set>
+            <attribute-set name="atsBaseIndent">
+                <attribute name="start-indent">$Base_Indent_Size</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsBaseFontSize">
+                <attribute name="font-size">$Base_Font_Size</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsBaseLineHeight">
+                <attribute name="line-height">normal</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsBase"
+                use-attribute-sets="atsBaseIndent atsBaseFontSize atsBaseLineHeight"/>
+
+        </base-attribute-set>
+
+
+        <!-- Root Attribute set -->
+        <root-attribute-set>
+            <attribute-set name="atsRoot" use-attribute-sets="atsBaseFontSize atsBaseLineHeight">
+                <!--attribute name="xml:lang">en</attribute-->
+                <attribute name="font-family">$General_Text_Font</attribute>
+                <attribute name="line-stacking-strategy">line-height</attribute>
+                <attribute name="text-align">start</attribute>
+                <attribute name="axf:line-break">normal</attribute>
+                <attribute name="color">$General_Text_Color</attribute>
+                <attribute name="hyphenate">$General_Do_Hyphenation</attribute>
+                <attribute name="axf:hyphenation-minimum-character-count">$General_Hyphenation_Minimum_Character_Count</attribute>
+                <attribute name="hyphenation-keep">column</attribute>
+            </attribute-set>
+        </root-attribute-set>
+
+        <paper-attribute-set>
+            <!-- Common layout -->
+            <attribute-set name="atsPaperBase">
+                <attribute name="page-width">$General_Paper_Width</attribute>
+                <attribute name="page-height">$General_Paper_Height</attribute>
+            </attribute-set>
+
+            <!--attribute-set name="atsCommonPage" use-attribute-sets="atsPaperBase">
+                <attribute name="margin-top">$General_Paper_Margin_Top</attribute>
+                <attribute name="margin-right">$General_Paper_Margin_Right</attribute>
+                <attribute name="margin-bottom">$General_Paper_Margin_Bottom</attribute>
+                <attribute name="margin-left">$General_Paper_Margin_Left</attribute>
+            </attribute-set-->
+
+            <attribute-set name="atsCommonPageLeft" use-attribute-sets="atsPaperBase">
+                <attribute name="margin-top">$General_Paper_Margin_Top</attribute>
+                <attribute name="margin-bottom">$General_Paper_Margin_Bottom</attribute>
+                <attribute name="margin-left">$General_Paper_Margin_Left_For_Left_Page</attribute>
+                <attribute name="margin-right">$General_Paper_Margin_Right_For_Left_Page</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsCommonPageRight" use-attribute-sets="atsPaperBase">
+                <attribute name="margin-top">$General_Paper_Margin_Top</attribute>
+                <attribute name="margin-bottom">$General_Paper_Margin_Bottom</attribute>
+                <attribute name="margin-left">$General_Paper_Margin_Left_For_Right_Page</attribute>
+                <attribute name="margin-right">$General_Paper_Margin_Right_For_Right_Page</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsCommonRegionBodyLeft">
+                <attribute name="margin-top">$General_Margin_Top</attribute>
+                <attribute name="margin-bottom">$General_Margin_Bottom</attribute>
+                <attribute name="margin-left">$General_Margin_Left_For_Left_Page</attribute>
+                <attribute name="margin-right">$General_Margin_Right_For_Left_Page</attribute>
+                <attribute name="overflow">error-if-overflow</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsCommonRegionBodyRight">
+                <attribute name="margin-top">$General_Margin_Top</attribute>
+                <attribute name="margin-bottom">$General_Margin_Bottom</attribute>
+                <attribute name="margin-left">$General_Margin_Left_For_Right_Page</attribute>
+                <attribute name="margin-right">$General_Margin_Right_For_Right_Page</attribute>
+                <attribute name="overflow">error-if-overflow</attribute>
+            </attribute-set>
+            
+            <attribute-set name="atsCommonRegionBefore">
+                <attribute name="extent">$General_Region_Before_Extent</attribute>
+                <attribute name="display-align">after</attribute>
+                <attribute name="precedence">false</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsCommonRegionAfter">
+                <attribute name="extent">$General_Region_After_Extent</attribute>
+                <attribute name="display-align">before</attribute>
+                <attribute name="precedence">false</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsCommonRegionStartLeft">
+                <attribute name="extent">$General_Margin_Left_For_Left_Page</attribute>
+                <attribute name="reference-orientation">-90</attribute>
+                <attribute name="display-align">after</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsCommonRegionStartRight">
+                <attribute name="extent">$General_Margin_Left_For_Right_Page</attribute>
+                <attribute name="reference-orientation">-90</attribute>
+                <attribute name="display-align">after</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsCommonRegionEndLeft">
+                <attribute name="extent">$General_Margin_Right_For_Left_Page</attribute>
+                <attribute name="reference-orientation">-90</attribute>
+                <attribute name="display-align">before</attribute>
+            </attribute-set>
+            
+            <attribute-set name="atsCommonRegionEndRight">
+                <attribute name="extent">$General_Margin_Right_For_Right_Page</attribute>
+                <attribute name="reference-orientation">-90</attribute>
+                <attribute name="display-align">before</attribute>
+            </attribute-set>
+            
+            <!-- Cover page-->
+            <attribute-set name="atsCoverPage" use-attribute-sets="atsCommonPageLeft"/>
+            <attribute-set name="atsCoverRegionBodyRight" use-attribute-sets="atsCommonRegionBodyRight"/>
+            <attribute-set name="atsCoverRegionBefore" use-attribute-sets="atsCommonRegionBefore"/>
+            <attribute-set name="atsCoverRegionAfter" use-attribute-sets="atsCommonRegionAfter"/>
+            <attribute-set name="atsCoverRegionStart" use-attribute-sets="atsCommonRegionStartRight"/>
+            <attribute-set name="atsCoverRegionEnd" use-attribute-sets="atsCommonRegionEndRight"/>
+            
+            <!-- Frontmatter page -->
+            <attribute-set name="atsFrontmatterPageLeft" use-attribute-sets="atsCommonPageLeft"/>
+            <attribute-set name="atsFrontmatterPageRight" use-attribute-sets="atsCommonPageRight"/>
+            <attribute-set name="atsFrontmatterRegionBodyLeft" use-attribute-sets="atsCommonRegionBodyLeft"/>
+            <attribute-set name="atsFrontmatterRegionBodyRight" use-attribute-sets="atsCommonRegionBodyRight"/>
+            <attribute-set name="atsFrontmatterRegionBefore" use-attribute-sets="atsCommonRegionBefore"/>
+            <attribute-set name="atsFrontmatterRegionAfter" use-attribute-sets="atsCommonRegionAfter"/>
+            <attribute-set name="atsFrontmatterRegionStartLeft" use-attribute-sets="atsCommonRegionStartLeft"/>
+            <attribute-set name="atsFrontmatterRegionStartRight" use-attribute-sets="atsCommonRegionStartRight"/>
+            <attribute-set name="atsFrontmatterRegionEndLeft" use-attribute-sets="atsCommonRegionEndLeft"/>
+            <attribute-set name="atsFrontmatterRegionEndRight" use-attribute-sets="atsCommonRegionEndRight"/>
+            
+            <!-- Cover page for print -->
+            <attribute-set name="atsCoverPageForPrint" use-attribute-sets="atsPaperBase"/>
+            <attribute-set name="atsCoverRegionBodyForPrint">
+                <attribute name="margin-top">0mm</attribute>
+                <attribute name="margin-right">0mm</attribute>
+                <attribute name="margin-bottom">0mm</attribute>
+                <attribute name="margin-left">0mm</attribute>
+                <attribute name="overflow">error-if-overflow</attribute>
+            </attribute-set>
+
+            <!-- Chapter page -->
+            <attribute-set name="atsChapterPageLeft" use-attribute-sets="atsCommonPageLeft"/>
+            <attribute-set name="atsChapterPageRight" use-attribute-sets="atsCommonPageRight"/>
+            <attribute-set name="atsChapterRegionBodyLeft" use-attribute-sets="atsCommonRegionBodyLeft"/>
+            <attribute-set name="atsChapterRegionBodyRight" use-attribute-sets="atsCommonRegionBodyRight"/>
+            <attribute-set name="atsChapterRegionBefore" use-attribute-sets="atsCommonRegionBefore"/>
+            <attribute-set name="atsChapterRegionAfter" use-attribute-sets="atsCommonRegionAfter"/>
+            <attribute-set name="atsChapterRegionStartLeft" use-attribute-sets="atsCommonRegionStartLeft"/>
+            <attribute-set name="atsChapterRegionStartRight" use-attribute-sets="atsCommonRegionStartRight"/>
+            <attribute-set name="atsChapterRegionEndLeft" use-attribute-sets="atsCommonRegionEndLeft"/>
+            <attribute-set name="atsChapterRegionEndRight" use-attribute-sets="atsCommonRegionEndRight"/>
+            
+            <!-- Glossary list page -->
+            <attribute-set name="atsGlossaryListPageLeft" use-attribute-sets="atsCommonPageLeft"/>
+            <attribute-set name="atsGlossaryListPageRight" use-attribute-sets="atsCommonPageRight"/>
+            <attribute-set name="atsGlossaryListRegionBodyLeft" use-attribute-sets="atsCommonRegionBodyLeft">
+                <attribute name="column-count">$Glossary_List_Column_Count</attribute>
+                <attribute name="column-gap">$Glossary_List_Column_Gap</attribute>
+            </attribute-set>
+            <attribute-set name="atsGlossaryListRegionBodyRight" use-attribute-sets="atsCommonRegionBodyRight">
+                <attribute name="column-count">$Glossary_List_Column_Count</attribute>
+                <attribute name="column-gap">$Glossary_List_Column_Gap</attribute>
+            </attribute-set>
+            <attribute-set name="atsGlossaryListRegionBefore" use-attribute-sets="atsCommonRegionBefore"/>
+            <attribute-set name="atsGlossaryListRegionAfter" use-attribute-sets="atsCommonRegionAfter"/>
+            <attribute-set name="atsGlossaryListRegionStartLeft" use-attribute-sets="atsCommonRegionStartLeft"/>
+            <attribute-set name="atsGlossaryListRegionStartRight" use-attribute-sets="atsCommonRegionStartRight"/>
+            <attribute-set name="atsGlossaryListRegionEndLeft" use-attribute-sets="atsCommonRegionEndLeft"/>
+            <attribute-set name="atsGlossaryListRegionEndRight" use-attribute-sets="atsCommonRegionEndRight"/>
+            
+            <attribute-set name="atsGlossaryListBlankRegionBodyLeft" use-attribute-sets="atsCommonRegionBodyLeft"/>
+            <attribute-set name="atsGlossaryListBlankRegionBodyRight" use-attribute-sets="atsCommonRegionBodyRight"/>
+            
+            <!-- Index page -->
+            <attribute-set name="atsIndexPageLeft" use-attribute-sets="atsCommonPageLeft"/>
+            <attribute-set name="atsIndexPageRight" use-attribute-sets="atsCommonPageRight"/>
+            <attribute-set name="atsIndexRegionBodyLeft" use-attribute-sets="atsCommonRegionBodyLeft">
+                <attribute name="column-count">$Index_Column_Count</attribute>
+                <attribute name="column-gap">$Index_Column_Gap</attribute>
+            </attribute-set>
+            <attribute-set name="atsIndexRegionBodyRight" use-attribute-sets="atsCommonRegionBodyRight">
+                <attribute name="column-count">$Index_Column_Count</attribute>
+                <attribute name="column-gap">$Index_Column_Gap</attribute>
+            </attribute-set>
+            <attribute-set name="atsIndexRegionBefore" use-attribute-sets="atsCommonRegionBefore"/>
+            <attribute-set name="atsIndexRegionAfter" use-attribute-sets="atsCommonRegionAfter"/>
+            <attribute-set name="atsIndexRegionStartLeft" use-attribute-sets="atsCommonRegionStartLeft"/>
+            <attribute-set name="atsIndexRegionStartRight" use-attribute-sets="atsCommonRegionStartRight"/>
+            <attribute-set name="atsIndexRegionEndLeft" use-attribute-sets="atsCommonRegionEndLeft"/>
+            <attribute-set name="atsIndexRegionEndRight" use-attribute-sets="atsCommonRegionEndRight"/>
+            
+            <attribute-set name="atsIndexBlankRegionBodyLeft" use-attribute-sets="atsCommonRegionBodyLeft"/>
+            <attribute-set name="atsIndexBlankRegionBodyRight" use-attribute-sets="atsCommonRegionBodyRight"/>
+            
+            <!-- Backmatter page -->
+            <attribute-set name="atsBackmatterPageLeft" use-attribute-sets="atsCommonPageLeft"/>
+            <attribute-set name="atsBackmatterPageRight" use-attribute-sets="atsCommonPageRight"/>
+            <attribute-set name="atsBackmatterRegionBodyLeft" use-attribute-sets="atsCommonRegionBodyLeft"/>
+            <attribute-set name="atsBackmatterRegionBodyRight" use-attribute-sets="atsCommonRegionBodyRight"/>
+            <attribute-set name="atsBackmatterRegionBefore" use-attribute-sets="atsCommonRegionBefore"/>
+            <attribute-set name="atsBackmatterRegionAfter" use-attribute-sets="atsCommonRegionAfter"/>
+            <attribute-set name="atsBackmatterRegionStartLeft" use-attribute-sets="atsCommonRegionStartLeft"/>
+            <attribute-set name="atsBackmatterRegionStartRight" use-attribute-sets="atsCommonRegionStartRight"/>
+            <attribute-set name="atsBackmatterRegionEndLeft" use-attribute-sets="atsCommonRegionEndLeft"/>
+            <attribute-set name="atsBackmatterRegionEndRight" use-attribute-sets="atsCommonRegionEndRight"/>
+        </paper-attribute-set>
+
+        <common-attribute>
+            <attribute-set name="atsPageNumber" use-attribute-sets="atsB">
+                <attribute name="font-size">11pt</attribute>
+                <!--attribute name="font-weight">bold</attribute-->
+            </attribute-set>
+        </common-attribute>
+
+        <cover-attribute>
+            <!-- Book title block-container -->
+            <attribute-set name="atsCoverBookTitleBC">
+                <attribute name="position">absolute</attribute>
+                <attribute name="top">15%</attribute>
+                <attribute name="left">0%</attribute>
+                <attribute name="width">100%</attribute>
+                <attribute name="height">auto</attribute>
+            </attribute-set>
+
+            <!-- Book library title -->
+            <attribute-set name="atsCoverBookLibrary" use-attribute-sets="atsTitle">
+                <attribute name="space-after">10pt</attribute>
+                <attribute name="font-family">$General_Serif_Font</attribute>
+                <attribute name="font-size">16pt</attribute>
+                <attribute name="line-height">120%</attribute>
+                <attribute name="text-align">center</attribute>
+                <attribute name="white-space">pre</attribute>
+                <attribute name="wrap-option">wrap</attribute>
+            </attribute-set>
+
+            <!-- Book title -->
+            <attribute-set name="atsCoverBookTitle" use-attribute-sets="atsTitle">
+                <attribute name="space-after">10pt</attribute>
+                <attribute name="font-family">$General_Serif_Font</attribute>
+                <attribute name="font-size">28pt</attribute>
+                <attribute name="line-height">140%</attribute>
+                <attribute name="padding">1pt 0pt 10pt 0pt</attribute>
+                <attribute name="border-bottom">2pt solid black</attribute>
+                <attribute name="text-align">center</attribute>
+                <attribute name="white-space">pre</attribute>
+                <attribute name="wrap-option">wrap</attribute>
+            </attribute-set>
+
+            <!-- Alternate book title -->
+            <attribute-set name="atsCoverAltBookTitle" use-attribute-sets="atsTitle">
+                <attribute name="font-size">23pt</attribute>
+                <attribute name="line-height">140%</attribute>
+                <attribute name="text-align">center</attribute>
+                <attribute name="white-space">pre</attribute>
+                <attribute name="wrap-option">wrap</attribute>
+            </attribute-set>
+
+            <!-- Author title block-container -->
+            <attribute-set name="atsCoverBookMetaBC">
+                <attribute name="position">absolute</attribute>
+                <attribute name="top">85%</attribute>
+                <attribute name="left">0%</attribute>
+                <attribute name="width">100%</attribute>
+                <attribute name="height">auto</attribute>
+            </attribute-set>
+
+            <!-- Bookmeta information block -->
+            <attribute-set name="atsCoverBookMeta" use-attribute-sets="atsTitle">
+                <attribute name="font-size">11pt</attribute>
+                <attribute name="line-height">120%</attribute>
+                <attribute name="text-align">center</attribute>
+            </attribute-set>
+
+        </cover-attribute>
+
+	    <cover-print-attribute>
+	        <!-- page sequence -->
+	        <attribute-set name="atsPageSeqCoverForPrint" use-attribute-sets="atsPageSeqBase">
+	            <attribute name="master-reference">pmsPageSeqCoverForPrint</attribute>
+	            <attribute name="initial-page-number">auto</attribute>
+	            <attribute name="force-page-count">1</attribute>
+	            <attribute name="ahp:cover">true</attribute>
+	        </attribute-set>
+
+	        <!-- Blcok container for page N -->
+	        <attribute-set name="atsCoverBlockContainer">
+	            <attribute name="width">$General_Paper_Width</attribute>
+	            <attribute name="height">$General_Paper_Height</attribute>
+	            <attribute name="position">absolute</attribute>
+	            <attribute name="left">0mm</attribute>
+	            <attribute name="top">0mm</attribute>
+	        </attribute-set>
+	        
+	        <!-- Barcode fo:external-graphic/@src
+	             Add barcode text after this text
+	         -->
+	        <variable name="cBarCodeSrc">data:application/vnd.ah-barcode;type=Code39;scale=1;text=none;qz=0;w=0.25mm;h=9.075mm;r=2.5;cd=none,</variable>
+	        
+	        <!--QR code fo:external-graphic/@src
+	             Add barcode text after this text
+	         -->
+	        <variable name="cQrCodeSrc">data:application/vnd.ah-barcode;type=QR;scale=1,</variable>
+	        
+	    </cover-print-attribute>
+
+        <frontmatter-atribute>
+            <!-- page sequence -->
+            <attribute-set name="atsPageSeqFrontmatter" use-attribute-sets="atsPageSeqBase">
+                <attribute name="master-reference">pmsPageSeqFrontmatter</attribute>
+                <attribute name="format">i</attribute>
+            </attribute-set>
+
+            <!-- Region before -->
+            <attribute-set name="atsFrontmatterRegionBeforeBlock">
+                <attribute name="font-size">8pt</attribute>
+                <attribute name="font-weight">normal</attribute>
+                <attribute name="font-family">$General_Region_Before_Font</attribute>
+                <attribute name="padding-after">1mm</attribute>
+                <attribute name="border-after-width">$Header_Border_Width</attribute>
+                <attribute name="border-after-style">solid</attribute>
+                <attribute name="border-after-color">$General_Page_Border_Color</attribute>
+                <attribute name="space-after">3mm</attribute>
+                <attribute name="space-after.conditionality">retain</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsFrontmatterRegionBeforeLeftBlock" use-attribute-sets="atsFrontmatterRegionBeforeBlock">
+                <attribute name="text-align">$General_Region_Before_Left_Align</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsFrontmatterRegionBeforeRightBlock" use-attribute-sets="atsFrontmatterRegionBeforeBlock">
+                <attribute name="text-align">$General_Region_Before_Right_Align</attribute>
+            </attribute-set>
+
+            <!-- Region after -->
+            <attribute-set name="atsFrontmatterRegionAfterBlock">
+                <attribute name="space-before">2mm</attribute>
+                <attribute name="space-before.conditionality">retain</attribute>
+                <attribute name="padding-before">2mm</attribute>
+                <attribute name="font-family">$General_Region_After_Font</attribute>
+                <attribute name="font-size">8pt</attribute>
+                <attribute name="font-weight">normal</attribute>
+                <attribute name="color">$General_Text_Color</attribute>
+                <attribute name="border-before-width">$Footer_Border_Width</attribute>
+                <attribute name="border-before-style">solid</attribute>
+                <attribute name="border-before-color">$General_Page_Border_Color</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsFrontmatterRegionAfterLeftBlock" use-attribute-sets="atsFrontmatterRegionAfterBlock">
+                <attribute name="text-align">$General_Region_After_Left_Align</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsFrontmatterRegionAfterRightBlock" use-attribute-sets="atsFrontmatterRegionAfterBlock">
+                <attribute name="text-align">$General_Region_After_Right_Align</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsFrontmatterRegionAfter_InlineContainer">
+                <attribute name="width">5mm</attribute>
+            </attribute-set>
+
+            <!-- Blank page block -->
+            <attribute-set name="atsBlankPageBlock">
+                <attribute name="font-family">$General_Title_Font</attribute>
+                <attribute name="font-size">$Blank_Page_Title_Font_Size</attribute>
+                <attribute name="text-align">justify</attribute>
+                <attribute name="text-align-last">justify</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsBlankPageInlineContainerBlock">
+                <attribute name="width">40%</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsBlankPageInlineBlock">
+                <attribute name="border-before-width">$Blank_Page_Border_Width</attribute>
+                <attribute name="border-before-style">solid</attribute>
+                <attribute name="border-before-color">$General_Page_Border_Color</attribute>
+                <attribute name="space-before">2pt</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsBlankPageInlineTextBlock">
+                <attribute name="baseline-shift">-1 * $Blank_Page_Border_Width</attribute>
+            </attribute-set>
+        </frontmatter-atribute>
+
+        <toc-attribute>
+
+            <variable name="Toc_Indent_Size">7mm</variable>
+
+            <attribute-set name="atsTocLevel1" use-attribute-sets="atsB">
+                <attribute name="font-family">$General_Text_Font</attribute>
+                <!--attribute name="font-weight">bold</attribute-->
+                <attribute name="font-size">11.5pt</attribute>
+                <attribute name="text-align">justify</attribute>
+                <attribute name="text-align-last">justify</attribute>
+                <attribute name="text-indent">-1 * $Toc_Indent_Size</attribute>
+                <attribute name="start-indent">inherited-property-value(start-indent) + $Toc_Indent_Size</attribute>
+                <attribute name="space-before">3mm</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsTocLevel2">
+                <attribute name="font-family">$General_Text_Font</attribute>
+                <attribute name="font-weight">normal</attribute>
+                <attribute name="font-size">11pt</attribute>
+                <attribute name="text-align">justify</attribute>
+                <attribute name="text-align-last">justify</attribute>
+                <attribute name="text-indent">-1 * $Toc_Indent_Size</attribute>
+                <attribute name="start-indent">inherited-property-value(start-indent) + ($Toc_Indent_Size * 2)</attribute>
+                <attribute name="space-before">2mm</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsTocLevel3">
+                <attribute name="font-family">$General_Text_Font</attribute>
+                <attribute name="font-weight">normal</attribute>
+                <attribute name="font-size">11pt</attribute>
+                <attribute name="text-align">justify</attribute>
+                <attribute name="text-align-last">justify</attribute>
+                <attribute name="text-indent">-1 * $Toc_Indent_Size</attribute>
+                <attribute name="start-indent">inherited-property-value(start-indent) + ($Toc_Indent_Size * 3)</attribute>
+                <attribute name="space-before">0.5mm</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsTocLevel4">
+                <attribute name="font-family">$General_Text_Font</attribute>
+                <attribute name="font-weight">normal</attribute>
+                <attribute name="font-size">11pt</attribute>
+                <attribute name="text-align">justify</attribute>
+                <attribute name="text-align-last">justify</attribute>
+                <attribute name="text-indent">-1 * $Toc_Indent_Size</attribute>
+                <attribute name="start-indent">inherited-property-value(start-indent) + ($Toc_Indent_Size * 4)</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsTocLeader">
+                <attribute name="leader-pattern">dots</attribute>
+                <attribute name="leader-pattern-width">use-font-metrics</attribute>
+                <attribute name="leader-alignment">reference-area</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsTocTitleOnly">
+                <attribute name="text-align">start</attribute>
+                <attribute name="text-align-last">start</attribute>
+            </attribute-set>
+
+
+        </toc-attribute>
+
+        <figure-list-attribute>
+
+            <attribute-set name="atsFigListBlock">
+                <attribute name="font-family">$General_Text_Font</attribute>
+                <attribute name="font-weight">normal</attribute>
+                <attribute name="space-before">0.5mm</attribute>
+                <attribute name="provisional-distance-between-starts">26mm</attribute>
+                <attribute name="provisional-label-separation">0.5mm</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsFigListItem">
+                <attribute name="relative-align">baseline</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsFigListLabel">
+                <attribute name="end-indent">label-end()</attribute>
+                <attribute name="text-align">start</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsFigListBody">
+                <attribute name="start-indent">body-start()</attribute>
+                <attribute name="text-align">justify</attribute>
+                <attribute name="text-align-last">justify</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsFigListLeader">
+                <attribute name="leader-pattern">dots</attribute>
+                <attribute name="leader-pattern-width">5mm</attribute>
+                <attribute name="leader-alignment">reference-area</attribute>
+            </attribute-set>
+
+        </figure-list-attribute>
+
+        <table-list-attribute>
+
+            <attribute-set name="atsTableListBlock">
+                <attribute name="font-family">$General_Text_Font</attribute>
+                <attribute name="font-weight">normal</attribute>
+                <attribute name="space-before">0.5mm</attribute>
+                <attribute name="provisional-distance-between-starts">26mm</attribute>
+                <attribute name="provisional-label-separation">0.5mm</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsTableListItem">
+                <attribute name="relative-align">baseline</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsTableListLabel">
+                <attribute name="end-indent">label-end()</attribute>
+                <attribute name="text-align">start</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsTableListBody">
+                <attribute name="start-indent">body-start()</attribute>
+                <attribute name="text-align">justify</attribute>
+                <attribute name="text-align-last">justify</attribute>
+            </attribute-set>
+
+
+            <attribute-set name="atsTableListLeader">
+                <attribute name="leader-pattern">dots</attribute>
+                <attribute name="leader-pattern-width">5mm</attribute>
+                <attribute name="leader-alignment">reference-area</attribute>
+            </attribute-set>
+
+        </table-list-attribute>
+
+
+        <chapter-attribute>
+            <!-- page sequence -->
+            <attribute-set name="atsPageSeqChapter" use-attribute-sets="atsPageSeqBase">
+                <attribute name="master-reference">pmsPageSeqChapter</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsChapterRegionBeforeBlock">
+                <attribute name="font-size">8pt</attribute>
+                <attribute name="font-weight">normal</attribute>
+                <attribute name="font-family">$General_Region_Before_Font</attribute>
+                <attribute name="padding-after">1mm</attribute>
+                <attribute name="border-after-width">$Header_Border_Width</attribute>
+                <attribute name="border-after-style">solid</attribute>
+                <attribute name="border-after-color">$General_Page_Border_Color</attribute>
+                <attribute name="space-after">3mm</attribute>
+                <attribute name="space-after.conditionality">retain</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsChapterRegionBeforeLeftBlock" use-attribute-sets="atsChapterRegionBeforeBlock">
+                <attribute name="text-align">$General_Region_Before_Left_Align</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsChapterRegionBeforeRightBlock" use-attribute-sets="atsChapterRegionBeforeBlock">
+                <attribute name="text-align">$General_Region_Before_Right_Align</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsChapterRegionBeforeTitleInlineBlock1">
+                <attribute name="font-size">9pt</attribute>
+                <attribute name="font-weight">normal</attribute>
+                <attribute name="font-family">$General_Region_Before_Font</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsChapterRegionBeforeTitleInlineBlock2">
+                <attribute name="width">15mm</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsChapterRegionAfterBlock">
+                <attribute name="space-before">2mm</attribute>
+                <attribute name="space-before.conditionality">retain</attribute>
+                <attribute name="padding-before">2mm</attribute>
+                <attribute name="font-family">$General_Region_After_Font</attribute>
+                <attribute name="font-size">8pt</attribute>
+                <attribute name="font-weight">normal</attribute>
+                <attribute name="color">$General_Text_Color</attribute>
+                <attribute name="border-before-width">$Footer_Border_Width</attribute>
+                <attribute name="border-before-style">solid</attribute>
+                <attribute name="border-before-color">$General_Page_Border_Color</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsChapterRegionAfterLeftBlock" use-attribute-sets="atsChapterRegionAfterBlock">
+                <attribute name="text-align">$General_Region_After_Left_Align</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsChapterRegionAfterRightBlock" use-attribute-sets="atsChapterRegionAfterBlock">
+                <attribute name="text-align">$General_Region_After_Right_Align</attribute>
+            </attribute-set>
+
+            <!-- Part/Chapter region-after spacing fo:inline-container -->
+            <attribute-set name="atsChapterRegionAfter_InlineContainer">
+                <attribute name="width">5mm</attribute>
+            </attribute-set>
+
+        </chapter-attribute>
+
+        <backmatter-atribute>
+            <!-- page sequence -->
+            <attribute-set name="atsPageSeqBackmatter" use-attribute-sets="atsPageSeqBase">
+                <attribute name="master-reference">pmsPageSeqBackmatter</attribute>
+            </attribute-set>
+
+            <!-- Region before -->
+            <attribute-set name="atsBackmatterRegionBeforeBlock" use-attribute-sets="atsFrontmatterRegionBeforeBlock"/> 
+
+            <attribute-set name="atsBackmatterRegionBeforeLeftBlock" use-attribute-sets="atsFrontmatterRegionBeforeLeftBlock"/> 
+
+            <attribute-set name="atsBackmatterRegionBeforeRightBlock" use-attribute-sets="atsFrontmatterRegionBeforeRightBlock"/>
+
+            <!-- Region after -->
+            <attribute-set name="atsBackmatterRegionAfterBlock" use-attribute-sets="atsFrontmatterRegionAfterBlock"/>
+
+            <attribute-set name="atsBackmatterRegionAfterLeftBlock" use-attribute-sets="atsFrontmatterRegionAfterLeftBlock"/> 
+
+            <attribute-set name="atsBackmatterRegionAfterRightBlock" use-attribute-sets="atsFrontmatterRegionAfterRightBlock"/> 
+
+            <attribute-set name="atsBackmatterRegionAfter_InlineContainer" use-attribute-sets="atsFrontmatterRegionAfter_InlineContainer"/>
+        </backmatter-atribute>
+
+        <glossarylist-atribute>
+            <!-- page sequence -->
+            <attribute-set name="atsPageSeqGlossaryList" use-attribute-sets="atsPageSeqBase">
+                <attribute name="master-reference">pmsPageSeqGlossaryList</attribute>
+            </attribute-set>
+
+            <!-- Region before -->
+            <attribute-set name="atsGlossaryListRegionBeforeBlock" use-attribute-sets="atsFrontmatterRegionBeforeBlock"/> 
+
+            <attribute-set name="atsGlossaryListRegionBeforeLeftBlock" use-attribute-sets="atsFrontmatterRegionBeforeLeftBlock"/> 
+
+            <attribute-set name="atsGlossaryListRegionBeforeRightBlock" use-attribute-sets="atsFrontmatterRegionBeforeRightBlock"/> 
+
+            <!-- Region after -->
+            <attribute-set name="atsGlossaryListRegionAfterBlock" use-attribute-sets="atsFrontmatterRegionAfterBlock"/> 
+
+            <attribute-set name="atsGlossaryListRegionAfterLeftBlock" use-attribute-sets="atsFrontmatterRegionAfterLeftBlock"/> 
+
+            <attribute-set name="atsGlossaryListRegionAfterRightBlock" use-attribute-sets="atsFrontmatterRegionAfterRightBlock"/> 
+
+            <attribute-set name="atsGlossaryListRegionAfter_InlineContainer" use-attribute-sets="atsFrontmatterRegionAfter_InlineContainer"/> 
+
+            <attribute-set name="atsGlossaryListFontSize">
+                <attribute name="font-size">$Glossary_List_Font_Size</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsBaseGlossaryListPrefixContent" use-attribute-sets="atsBaseFontSize atsBaseLineHeight">
+                <attribute name="space-after">5mm</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsBaseGlossaryList" use-attribute-sets="atsBaseLineHeight atsGlossaryListFontSize"/>
+
+            <attribute-set name="atsGlossEntry">
+                <attribute name="space-before">$Gloss_Entry_Space_Before</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsGlossTerm" use-attribute-sets="atsB"/>
+
+            <attribute-set name="atsGlossDef"/>
+
+
+        </glossarylist-atribute>
+
+        <index-attribute>
+            <variable name="Index_Indent_Value">$General_Indent_Value</variable>
+
+            <!-- page sequence -->
+            <!-- FIX: Change page numeber format to 1,2,3... and set initial-page-number to "auto". 2011/07/14 t.makita
+         -->
+            <attribute-set name="atsPageSeqIndex" use-attribute-sets="atsPageSeqBase">
+                <attribute name="master-reference">pmsPageSeqIndex</attribute>
+            </attribute-set>
+
+            <!-- Region before -->
+            <attribute-set name="atsIndexRegionBeforeBlock" use-attribute-sets="atsFrontmatterRegionBeforeBlock"/> 
+
+            <attribute-set name="atsIndexRegionBeforeLeftBlock" use-attribute-sets="atsFrontmatterRegionBeforeLeftBlock"/> 
+
+            <attribute-set name="atsIndexRegionBeforeRightBlock" use-attribute-sets="atsFrontmatterRegionBeforeRightBlock"/> 
+
+            <!-- Region after -->
+            <attribute-set name="atsIndexRegionAfterBlock" use-attribute-sets="atsFrontmatterRegionAfterBlock"/> 
+
+            <attribute-set name="atsIndexRegionAfterLeftBlock" use-attribute-sets="atsFrontmatterRegionAfterLeftBlock"/> 
+
+            <attribute-set name="atsIndexRegionAfterRightBlock" use-attribute-sets="atsFrontmatterRegionAfterRightBlock"/> 
+
+            <attribute-set name="atsIndexRegionAfter_InlineContainer" use-attribute-sets="atsFrontmatterRegionAfter_InlineContainer"/> 
+
+            <attribute-set name="atsIndexGroupTitle" use-attribute-sets="atsBTitle">
+                <attribute name="width">10mm</attribute>
+                <attribute name="text-align">left</attribute>
+                <attribute name="font-size">$Index_Group_Font_Size</attribute>
+                <attribute name="font-family">$General_Title_Font</attribute>
+                <attribute name="space-before">4mm</attribute>
+                <attribute name="space-after">2mm</attribute>
+                <attribute name="keep-with-next">always</attribute>
+            </attribute-set>
+
+            <variable name="indexTextIndent">-7mm</variable>
+            <variable name="indexStartIndent">7mm</variable>
+
+            <!-- Index line -->
+            <attribute-set name="atsIndexLine">
+                <attribute name="font-size">$Index_Line_Font_Size</attribute>
+                <!--attribute name="space-after">1mm</attribute-->
+                <attribute name="axf:text-align-first">justify</attribute>
+                <attribute name="text-align">justify</attribute>
+                <attribute name="text-align-last">justify</attribute>
+                <attribute name="text-indent">($Index_Indent_Value) * -1</attribute>
+                <attribute name="start-indent">($Index_Indent_Value) * %level</attribute>
+            </attribute-set>
+
+            <!-- Index leader1 -->
+            <attribute-set name="atsIndexLeader1">
+                <attribute name="leader-pattern">dots</attribute>
+                <attribute name="leader-length.optimum">0pt</attribute>
+            </attribute-set>
+
+            <!-- Second leader surrounded inline -->
+            <attribute-set name="atsIndex2ndLeaderInline">
+                <attribute name="keep-with-next">always</attribute>
+            </attribute-set>
+
+            <!-- Index leader2 -->
+            <attribute-set name="atsIndexLeader2">
+                <attribute name="leader-pattern">dots</attribute>
+            </attribute-set>
+
+            <!-- Index + see line -->
+            <attribute-set name="atsIndexLineSee" use-attribute-sets="atsIndexLine">
+                <attribute name="axf:text-align-first">left</attribute>
+                <attribute name="text-align">left</attribute>
+                <attribute name="text-align-last">left</attribute>
+                <attribute name="keep-with-previous">always</attribute>
+            </attribute-set>
+
+            <!-- Index only line -->
+            <attribute-set name="atsIndexLineOnly" use-attribute-sets="atsIndexLineSee">
+                <attribute name="keep-with-next">always</attribute>
+            </attribute-set>
+
+            <!-- See (no indexterm nested) inline -->
+            <attribute-set name="atsSeePrefix">
+                <attribute name="font-style">italic</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsSeeSuffix">
+                <attribute name="font-style">italic</attribute>
+            </attribute-set>
+
+            <!-- See Also inline -->
+            <attribute-set name="atsSeeAlsoPrefix">
+                <attribute name="font-style">italic</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsSeeAlsoSuffix">
+                <attribute name="font-style">italic</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsIndexKeyReference">
+                <attribute name="page-number-treatment">link</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsIndexPreferred" use-attribute-sets="atsB">
+                <!--attribute name="font-weight">bold</attribute-->
+            </attribute-set>
+
+            <!-- Dummy block for fo:index-range-end -->
+            <attribute-set name="atsIndexDummyBlock">
+                <attribute name="line-height">0.00001mm</attribute>
+            </attribute-set>
+
+
+        </index-attribute>
+
+
+        <!-- Thumb index for region-end -->
+        <thumbindex-attribute>
+            <attribute-set name="atsThumbIndexBlock">
+                <attribute name="line-stacking-strategy">max-height</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsThumbIndexPaddingInlineContainer1">
+                <attribute name="width">25mm</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsThumbIndexInlineContainer">
+                <attribute name="width">10mm</attribute>
+                <attribute name="height">13mm</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsThumbIndexBlockContainer">
+                <attribute name="width">100%</attribute>
+                <attribute name="height">100%</attribute>
+                <attribute name="reference-orientation">90</attribute>
+                <attribute name="font-size">14pt</attribute>
+                <attribute name="text-align">center</attribute>
+                <attribute name="display-align">center</attribute>
+                <attribute name="background-color">black</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsThumbIndexColor">
+                <attribute name="color">white</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsThumbIndexPaddingInlineContainer2">
+                <attribute name="width">2mm</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsThumbIndexTitleBlock">
+                <attribute name="font-size">9pt</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsThumbIndexTitleInline">
+                <attribute name="baseline-shift">16pt</attribute>
+            </attribute-set>
+        </thumbindex-attribute>
+
+        <topic-break-attr>
+            <!-- Frontmatter -->
+            <attribute-set name="atsFrontmatterBreak1">
+                <attribute name="break-before">auto</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsFrontmatterBreak1Online" use-attribute-sets="atsFrontmatterBreak1">
+                <attribute name="break-before">auto</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsFrontmatterBreak2">
+                <attribute name="break-before">auto</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsFrontmatterBreak3">
+                <attribute name="break-before">auto</attribute>
+            </attribute-set>
+
+            <!-- Chapter -->
+            <attribute-set name="atsChapterBreak1">
+                <attribute name="break-before">odd-page</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsChapterBreak1Online" use-attribute-sets="atsChapterBreak1">
+                <attribute name="break-before">page</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsChapterBreak2">
+                <attribute name="break-before">auto</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsChapterBreak3">
+                <attribute name="break-before">auto</attribute>
+            </attribute-set>
+
+        </topic-break-attr>
+
+        <title-attribute>
+            <variable name="Part_Count_Format">1</variable>
+            <variable name="Chapter_Count_Format">1</variable>
+            <variable name="Appendix_Count_Format">A</variable>
+
+            <attribute-set name="atsCancelPageBreak">
+                <attribute name="break-before">auto</attribute>
+            </attribute-set>
+
+            <!-- Frontmatter -->
+            <attribute-set name="atsFmHeader1" use-attribute-sets="atsBTitle">
+                <attribute name="start-indent">0mm</attribute>
+                <attribute name="font-size">24pt</attribute>
+                <attribute name="font-family">$General_Title_Font</attribute>
+                <attribute name="space-after">4mm</attribute>
+                <attribute name="keep-with-next.within-page">always</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsFmHeader2" use-attribute-sets="atsBTitle">
+                <attribute name="start-indent">0mm</attribute>
+                <attribute name="font-size">20pt</attribute>
+                <attribute name="font-family">$General_Title_Font</attribute>
+                <attribute name="space-before">6mm</attribute>
+                <attribute name="space-after">2mm</attribute>
+                <attribute name="keep-with-next.within-page">always</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsFmHeader3" use-attribute-sets="atsBTitle">
+                <attribute name="start-indent">0mm</attribute>
+                <attribute name="font-size">16pt</attribute>
+                <attribute name="font-family">$General_Title_Font</attribute>
+                <attribute name="space-before">2mm</attribute>
+                <attribute name="space-after">2mm</attribute>
+                <attribute name="keep-with-next.within-page">always</attribute>
+            </attribute-set>
+
+            <!-- Part/Chapter Heading -->
+            <!-- level 1 -->
+            <attribute-set name="atsChapterHead1" use-attribute-sets="atsBTitle">
+                <attribute name="start-indent">0mm</attribute>
+                <attribute name="space-after">4mm</attribute>
+                <attribute name="font-size">24pt</attribute>
+                <attribute name="font-family">$General_Title_Font</attribute>
+                <attribute name="text-align">start</attribute>
+                <attribute name="keep-with-next.within-page">always</attribute>
+            </attribute-set>
+
+            <!-- level 2 -->
+            <attribute-set name="atsChapterHead2" use-attribute-sets="atsBTitle">
+                <attribute name="start-indent">0mm</attribute>
+                <attribute name="space-before">6mm</attribute>
+                <attribute name="space-after">2mm</attribute>
+                <attribute name="font-size">20pt</attribute>
+                <attribute name="font-family">$General_Title_Font</attribute>
+                <attribute name="text-align">start</attribute>
+                <attribute name="keep-with-next.within-page">always</attribute>
+            </attribute-set>
+
+            <!-- level 3 -->
+            <attribute-set name="atsChapterHead3" use-attribute-sets="atsBTitle">
+                <attribute name="start-indent">0mm</attribute>
+                <attribute name="space-before">4mm</attribute>
+                <attribute name="space-after">2mm</attribute>
+                <attribute name="font-size">16pt</attribute>
+                <attribute name="font-family">$General_Title_Font</attribute>
+                <attribute name="text-align">start</attribute>
+                <attribute name="keep-with-next.within-page">always</attribute>
+            </attribute-set>
+
+            <!-- Appendix Heading -->
+            <!-- level 1 -->
+            <attribute-set name="atsAppendixHead1" use-attribute-sets="atsBTitle">
+                <attribute name="start-indent">0mm</attribute>
+                <attribute name="space-after">4mm</attribute>
+                <attribute name="font-size">24pt</attribute>
+                <attribute name="font-family">$General_Title_Font</attribute>
+                <attribute name="text-align">start</attribute>
+                <attribute name="keep-with-next.within-page">always</attribute>
+            </attribute-set>
+
+            <!-- level 2 -->
+            <attribute-set name="atsAppendixHead2" use-attribute-sets="atsBTitle">
+                <attribute name="start-indent">0mm</attribute>
+                <attribute name="space-before">6mm</attribute>
+                <attribute name="space-after">2mm</attribute>
+                <attribute name="font-size">20pt</attribute>
+                <attribute name="font-family">$General_Title_Font</attribute>
+                <attribute name="text-align">start</attribute>
+                <attribute name="keep-with-next.within-page">always</attribute>
+            </attribute-set>
+
+            <!-- level 3 -->
+            <attribute-set name="atsAppendixHead3" use-attribute-sets="atsBTitle">
+                <attribute name="start-indent">0mm</attribute>
+                <attribute name="space-before">4mm</attribute>
+                <attribute name="space-after">2mm</attribute>
+                <attribute name="font-size">16pt</attribute>
+                <attribute name="font-family">$General_Title_Font</attribute>
+                <attribute name="text-align">start</attribute>
+                <attribute name="keep-with-next.within-page">always</attribute>
+            </attribute-set>
+
+            <!-- Header 4: Square Bullet Title -->
+            <attribute-set name="atsHeader4List">
+                <attribute name="start-indent">0mm</attribute>
+                <attribute name="provisional-distance-between-starts">6mm</attribute>
+                <attribute name="provisional-label-separation">1mm</attribute>
+                <attribute name="space-before">6mm</attribute>
+                <attribute name="space-after">2.5mm</attribute>
+                <attribute name="space-before.conditionality">retain</attribute>
+                <attribute name="keep-with-next.within-page">always</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsHeader4ListItem">
+                <attribute name="relative-align">baseline</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsHeader4Label">
+                <attribute name="font-family">$General_Bullet_Font</attribute>
+                <attribute name="font-size">14pt</attribute>
+                <attribute name="font-weight">normal</attribute>
+                <attribute name="color">$General_Text_Color</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsHeader4LabelInline">
+                <attribute name="baseline-shift">0.1em</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsHeader4Body" use-attribute-sets="atsTitle atsB">
+                <attribute name="font-size">14pt</attribute>
+                <!--attribute name="font-weight">bold</attribute-->
+            </attribute-set>
+
+            <!-- Header 5: Round Bullet Title -->
+            <attribute-set name="atsHeader5List">
+                <attribute name="start-indent">0mm</attribute>
+                <attribute name="provisional-distance-between-starts">6mm</attribute>
+                <attribute name="provisional-label-separation">1mm</attribute>
+                <attribute name="space-before">4mm</attribute>
+                <attribute name="space-after">2.5mm</attribute>
+                <attribute name="space-before.conditionality">retain</attribute>
+                <attribute name="keep-with-next.within-page">always</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsHeader5ListItem">
+                <attribute name="relative-align">baseline</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsHeader5Label">
+                <attribute name="font-family">$General_Bullet_Font</attribute>
+                <attribute name="font-size">12pt</attribute>
+                <attribute name="font-weight">normal</attribute>
+                <attribute name="color">$General_Text_Color</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsHeader5LabelInline"> </attribute-set>
+
+            <attribute-set name="atsHeader5Body" use-attribute-sets="atsBTitle">
+                <attribute name="font-size">12pt</attribute>
+                <!--attribute name="font-weight">bold</attribute-->
+                <attribute name="font-family">$General_Title_Font</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsIndexHeader" use-attribute-sets="atsFmHeader1">
+                <attribute name="span">all</attribute>
+                <attribute name="space-after.conditionality">retain</attribute>
+            </attribute-set>
+
+        </title-attribute>
+
+        <topic-elements-attribute>
+            <!-- abstract -->
+            <attribute-set name="atsAbstract">
+                <attribute name="start-indent">inherited-property-value(start-indent)</attribute>
+                <attribute name="end-indent">inherited-property-value(end-indent)</attribute>
+                <attribute name="font-size">inherited-property-value(font-size)</attribute>
+                <attribute name="space-before">$Para_Space_Before</attribute>
+            </attribute-set>
+
+            <!-- shortdesc -->
+            <attribute-set name="atsShortdesc" use-attribute-sets="atsAbstract"/>
+
+            <!-- body -->
+            <attribute-set name="atsBody"> </attribute-set>
+
+            <!-- section -->
+            <attribute-set name="atsSection" use-attribute-sets="atsP"/>
+
+            <!-- exapmple -->
+            <attribute-set name="atsExample" use-attribute-sets="atsSection"/>
+
+        </topic-elements-attribute>
+
+        <reference-elements-attribute>
+            <!-- properties -->
+            <attribute-set name="atsPropertyTable" use-attribute-sets="atsSimpleTable"/>
+
+            <attribute-set name="atsPropertyTableFixed" use-attribute-sets="atsSimpleTableFixed"/>
+
+            <attribute-set name="atsPropertyTableHeader" use-attribute-sets="atsSimpleTableHeader"/>
+
+            <attribute-set name="atsPropertyTableBody" use-attribute-sets="atsSimpleTableBody"/>
+
+            <attribute-set name="atsPropertyTableRow" use-attribute-sets="atsSimpleTableRow"/>
+
+            <attribute-set name="atsPropertyTableHeaderCell" use-attribute-sets="atsSimpleTableHeaderCell"/>
+
+            <attribute-set name="atsPropertyTableBodyCell" use-attribute-sets="atsSimpleTableBodyCell"/>
+
+            <attribute-set name="atsPropertyTableKeyCol" use-attribute-sets="atsB">
+                <!--attribute name="font-weight">bold</attribute-->
+                <attribute name="background-color">rgb(217,217,217)</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsPropertyTableNoKeyCol">
+                <attribute name="font-weight">normal</attribute>
+                <attribute name="background-color">white</attribute>
+            </attribute-set>
+
+        </reference-elements-attribute>
+
+        <task-elements-attribute>
+            <!-- stepsection -->
+            <attribute-set name="atsStepSection">
+                <attribute name="space-before">$Para_Space_Before</attribute>
+            </attribute-set>
+
+            <!-- cmd -->
+            <attribute-set name="atsCmd"></attribute-set>
+
+            <!-- info -->
+            <attribute-set name="atsInfo" use-attribute-sets="atsP"></attribute-set>
+
+            <!-- stepxmp -->
+            <attribute-set name="atsStepxmp" use-attribute-sets="atsP"></attribute-set>
+
+            <!-- choicetable -->
+            <attribute-set name="atsChoiceTable" use-attribute-sets="atsSimpleTable"/>
+
+            <attribute-set name="atsChoiceTableFixed" use-attribute-sets="atsSimpleTableFixed"></attribute-set>
+
+            <attribute-set name="atsChhead" use-attribute-sets="atsSimpleTableHeader atsChNoKeyCol">
+                <attribute name="background-color">white</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsChheadRow"></attribute-set>
+
+            <attribute-set name="atsChoptionhd" use-attribute-sets="atsSimpleTableHeaderCell atsChKeyCol"></attribute-set>
+
+            <attribute-set name="atsChdeschd" use-attribute-sets="atsSimpleTableHeaderCell"></attribute-set>
+
+            <attribute-set name="atsChbody" use-attribute-sets="atsSimpleTableBody"></attribute-set>
+
+            <attribute-set name="atsChoption" use-attribute-sets="atsSimpleTableHeaderCell"></attribute-set>
+
+            <attribute-set name="atsChdesc" use-attribute-sets="atsSimpleTableHeaderCell"></attribute-set>
+
+            <attribute-set name="atsChrow"></attribute-set>
+
+            <attribute-set name="atsChoption" use-attribute-sets="atsSimpleTableBodyCell"></attribute-set>
+
+            <attribute-set name="atsChdesc" use-attribute-sets="atsSimpleTableBodyCell"></attribute-set>
+
+            <attribute-set name="atsChKeyCol" use-attribute-sets="atsB">
+                <!--attribute name="font-weight">bold</attribute-->
+            </attribute-set>
+
+            <attribute-set name="atsChNoKeyCol">
+                <attribute name="font-weight">normal</attribute>
+            </attribute-set>
+
+            <!-- stepresult -->
+            <attribute-set name="atsStepresult" use-attribute-sets="atsP"></attribute-set>
+
+            <!-- tutorialinfo -->
+            <attribute-set name="atsTutorialinfo" use-attribute-sets="atsP"></attribute-set>
+
+            <!-- result -->
+            <attribute-set name="atsResult" use-attribute-sets="atsSection"></attribute-set>
+
+            <!-- postreq -->
+            <attribute-set name="atsPostreq" use-attribute-sets="atsSection"></attribute-set>
+
+        </task-elements-attribute>
+
+        <body-elements-attribute>
+            <!-- p -->
+            <attribute-set name="atsP">
+                <attribute name="space-before">$Para_Space_Before</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsNoHyphenate">
+                <attribute name="hyphenate">false</attribute>
+            </attribute-set>
+
+
+            <!-- Notes Icon: CSS style -->
+
+            <!-- ph -->
+            <attribute-set name="atsPh"></attribute-set>
+
+            <attribute-set name="atsDeprecated">
+                <attribute name="text-decoration">line-through</attribute>
+            </attribute-set>
+
+
+            <!-- keyword -->
+            <attribute-set name="atsKeyword"></attribute-set>
+
+            <!-- xref -->
+            <attribute-set name="atsXref">
+                <attribute name="color">$General_Link_Color</attribute>
+            </attribute-set>
+
+            <!-- ul -->
+            <attribute-set name="atsUl">
+                <attribute name="space-before">$Para_Space_Before</attribute>
+                <attribute name="provisional-distance-between-starts">$General_Indent_Value</attribute>
+                <attribute name="provisional-label-separation">1mm</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsUlItem">
+                <attribute name="space-before">$Para_Space_Before</attribute>
+                <attribute name="relative-align">baseline</attribute>
+            </attribute-set>
+            <attribute-set name="atsUlLabel">
+                <attribute name="font-family">$General_Bullet_Font</attribute>
+                <attribute name="text-align">center</attribute>
+            </attribute-set>
+            <attribute-set name="atsUlBody"> </attribute-set>
+
+            <!-- ol -->
+            <attribute-set name="atsOl">
+                <attribute name="space-before">$Para_Space_Before</attribute>
+                <attribute name="provisional-distance-between-starts">$General_Indent_Value</attribute>
+                <attribute name="provisional-label-separation">0.5mm</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsOlItem">
+                <attribute name="space-before">$Para_Space_Before</attribute>
+                <attribute name="relative-align">baseline</attribute>
+            </attribute-set>
+            <attribute-set name="atsOlLabel">
+                <attribute name="text-align">end</attribute>
+            </attribute-set>
+            <attribute-set name="atsOlBody"> </attribute-set>
+
+            <!-- sl/sli -->
+            <attribute-set name="atsSl">
+                <attribute name="space-before">$Para_Space_Before</attribute>
+                <attribute name="provisional-distance-between-starts">$General_Indent_Value</attribute>
+                <attribute name="provisional-label-separation">1mm</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsSlItem">
+                <attribute name="space-before">$Para_Space_Before</attribute>
+            </attribute-set>
+            <!-- Ratio for sl/@compact: must be number -->
+            <variable name="Sl_Compact_Ratio">0.1</variable>
+            <variable name="Sl_Compact_Attr">space-before</variable>
+
+            <!-- dl -->
+            <attribute-set name="atsDl">
+                <attribute name="start-indent">inherited-property-value(start-indent)+$Dl_Indent_Value</attribute>
+                <attribute name="space-before">$Para_Space_Before</attribute>
+                <attribute name="table-layout">auto</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsDlhead" use-attribute-sets="atsB">
+                <attribute name="start-indent">0pt</attribute>
+                <!--attribute name="font-weight">bold</attribute-->
+            </attribute-set>
+
+            <attribute-set name="atsDlbody">
+                <attribute name="start-indent">0pt</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsDthd"> </attribute-set>
+
+            <attribute-set name="atsDdhd">
+                <attribute name="start-indent">$Dl_Dd_Indent_Value</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsDlentry"> </attribute-set>
+
+            <attribute-set name="atsDt" use-attribute-sets="atsB">
+                <attribute name="padding-before">$Para_Space_Before</attribute>
+                <!--attribute name="font-weight">bold</attribute-->
+            </attribute-set>
+
+            <attribute-set name="atsDlBlock"> </attribute-set>
+
+            <attribute-set name="atsDlentryBlock"> </attribute-set>
+
+            <attribute-set name="atsDtBlock" use-attribute-sets="atsBTitle">
+                <attribute name="space-before">$Dl_Dt_Block_Space_Before</attribute>
+                <attribute name="font-family">$General_Title_Font</attribute>
+                <!--attribute name="font-weight">bold</attribute-->
+                <attribute name="keep-with-next">always</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsDdBlock">
+                <attribute name="space-before">$Dl_Dd_Block_Space_Before</attribute>
+                <attribute name="start-indent">inherited-property-value(start-indent) + $Dl_Indent_Value</attribute>
+            </attribute-set>
+
+
+
+            <!-- dt attribute when dl/dlhead exists -->
+            <attribute-set name="atsDtHasDlhead">
+                <attribute name="font-weight">normal</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsDd">
+                <attribute name="padding-before">$Para_Space_Before</attribute>
+                <attribute name="start-indent">$Dl_Dd_Indent_Value</attribute>
+            </attribute-set>
+
+            <!-- Ratio for dl/@compact: must be number -->
+            <variable name="Dl_Compact_Ratio">0.1</variable>
+            <variable name="Dl_Compact_Ratio_Block_Dt">0.3</variable>
+            <variable name="Dl_Compact_Ratio_Block_Dd">0.2</variable>
+            <variable name="Dl_Compact_Attr">padding-before</variable>
+            <variable name="Dl_Compact_Attr_Block">space-before</variable>
+
+            <!-- fig -->
+            <attribute-set name="atsFig">
+                <attribute name="space-before">$Para_Space_Before</attribute>
+                <attribute name="start-indent">inherited-property-value(start-indent)</attribute>
+            </attribute-set>
+
+            <variable name="Fig_Float_Margin_X">1mm</variable>
+
+            <attribute-set name="atsFigFloatLeft">
+                <attribute name="axf:float-margin-x">$Fig_Float_Margin_X</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsFigFloatRight">
+                <attribute name="axf:float-margin-x">$Fig_Float_Margin_X</attribute>
+            </attribute-set>
+            
+            <attribute-set name="atsFigDesc">
+                <attribute name="font-size">$Little_Title_Font_Size</attribute>
+                <attribute name="keep-with-next.within-page">always</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsFigTitle">
+                <attribute name="font-size">$Little_Title_Font_Size</attribute>
+                <attribute name="start-indent">inherited-property-value(start-indent)</attribute>
+                <attribute name="space-before">1.5mm</attribute>
+                <attribute name="keep-with-previous.within-page">always</attribute>
+            </attribute-set>
+
+            <!-- figgroup (??) -->
+            <attribute-set name="atsFiggroup">
+                <attribute name="space-before">1mm</attribute>
+                <attribute name="start-indent"
+                    >inherited-property-value(start-indent)+3mm</attribute>
+            </attribute-set>
+
+            <variable name="Fig_Group_Float_Margin_X">$Fig_Float_Margin_X</variable>
+            
+            <attribute-set name="atsFigGroupFloatLeft">
+                <attribute name="axf:float-margin-x">$Fig_Group_Float_Margin_X</attribute>
+            </attribute-set>
+            
+            <attribute-set name="atsFigGroupFloatRight">
+                <attribute name="axf:float-margin-x">$Fig_Group_Float_Margin_X</attribute>
+            </attribute-set>
+            
+
+            <attribute-set name="atsFiggroupInTable">
+                <attribute name="space-before">1mm</attribute>
+                <attribute name="start-indent">inherited-property-value(start-indent) + 1.5mm</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsFiggroupTitle">
+                <attribute name="font-size">$Little_Title_Font_Size</attribute>
+                <attribute name="start-indent">inherited-property-value(start-indent) + 3mm</attribute>
+                <attribute name="space-before">1.5mm</attribute>
+                <attribute name="keep-with-previous.within-page">always</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsFiggroupTitleInTable">
+                <attribute name="font-size">$Little_Title_Font_Size</attribute>
+                <attribute name="start-indent">inherited-property-value(start-indent) + 1.5mm</attribute>
+                <attribute name="space-before">1mm</attribute>
+                <attribute name="keep-with-previous.within-page">always</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsFiggroupLastSpacing">
+                <attribute name="space-after">1.5mm</attribute>
+            </attribute-set>
+            <attribute-set name="atsFiggroupLastTitleSpacing">
+                <attribute name="space-after">1.5mm</attribute>
+            </attribute-set>
+
+            <!-- pre -->
+            <attribute-set name="atsPre" use-attribute-sets="atsMonospaceStyle">
+                <attribute name="space-before">4mm</attribute>
+                <attribute name="space-after">2mm</attribute>
+                <!--attribute name="linefeed-treatment">preserve</attribute>
+            <attribute name="white-space-treatment">preserve</attribute>
+            <attribute name="white-space-collapse">false</attribute-->
+                <attribute name="white-space">pre</attribute>
+                <attribute name="wrap-option">wrap</attribute>
+                <!--attribute name="keep-together">always</attribute-->
+            </attribute-set>
+
+            <!-- lines -->
+            <attribute-set name="atsLines">
+                <attribute name="space-before">4mm</attribute>
+                <attribute name="space-after">2mm</attribute>
+                <attribute name="linefeed-treatment">preserve</attribute>
+                <attribute name="white-space-treatment">ignore-if-surrounding-linefeed</attribute>
+                <attribute name="white-space-collapse">true</attribute>
+                <attribute name="wrap-option">wrap</attribute>
+                <attribute name="keep-together">always</attribute>
+            </attribute-set>
+
+            <!-- cite -->
+            <attribute-set name="atsCite">
+                <!-- If you don't use “” for cite prefix/suffix, font-style shoule be italic. -->
+                <attribute name="font-style">italic</attribute>
+            </attribute-set>
+
+            <!-- lq -->
+            <attribute-set name="atsLq">
+                <attribute name="start-indent">inherited-property-value(start-indent) + $General_Indent_Value</attribute>
+                <attribute name="end-indent">$General_Indent_Value</attribute>
+                <attribute name="space-before">4mm</attribute>
+                <attribute name="space-after">2mm</attribute>
+                <attribute name="keep-together.within-page">always</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsLqRefTitle">
+                <attribute name="text-align">right</attribute>
+                <attribute name="space-before">1mm</attribute>
+                <attribute name="font-style">italic</attribute>
+            </attribute-set>
+
+            <!-- q -->
+            <attribute-set name="atsQ">
+                <attribute name="font-style">italic</attribute>
+            </attribute-set>
+            
+            <!-- image -->
+            <attribute-set name="atsImageBreak">
+            </attribute-set>
+            
+            <!-- image: auto scalling
+                 2015-08-24 t.makita
+             -->
+            <attribute-set name="atsImageAutoScallDownToFitBlock">
+                <attribute name="start-indent">0mm</attribute>
+                <attribute name="line-height">1</attribute>
+                <attribute name="font-size">0mm</attribute>
+            </attribute-set>
+            
+            <attribute-set name="atsImageAutoScallDownToFit">
+                <attribute name="scaling">uniform</attribute>
+                <attribute name="content-width">scale-down-to-fit</attribute>
+                <attribute name="max-width">100%</attribute>
+                <attribute name="content-height">scale-down-to-fit</attribute>
+                <attribute name="max-height">100vh</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsImageInline">
+            </attribute-set>
+            
+        </body-elements-attribute>
+
+        <table-elements-attribute>
+            <!-- table/desc -->
+            <attribute-set name="atsTableDesc">
+                <attribute name="font-size">$Note_Text_Font_Size</attribute>
+                <attribute name="space-before">$Para_Space_Before</attribute>
+            </attribute-set>
+
+            <!-- table -->
+            <attribute-set name="atsTable">
+                <attribute name="font-size">$Table_Font_Size</attribute>
+                <attribute name="space-after">2mm</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsTableWithTitleAfter" use-attribute-sets="atsTable">
+                <attribute name="space-before">3mm</attribute>
+            </attribute-set>
+            
+            <attribute-set name="atsTableWithTitleBefore" use-attribute-sets="atsTable">
+            </attribute-set>
+
+            <attribute-set name="atsTableTitleAfter">
+                <attribute name="font-size">$Little_Title_Font_Size</attribute>
+                <attribute name="space-before">1.5mm</attribute>
+                <attribute name="keep-with-previous.within-column">always</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsTableTitleBefore">
+                <attribute name="font-size">$Little_Title_Font_Size</attribute>
+                <attribute name="space-before">3mm</attribute>
+                <attribute name="space-after">1.5mm</attribute>
+                <attribute name="keep-with-next.within-column">always</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsTableColumn">
+                <attribute name="border">$General_Table_Border_Width none $General_Table_Border_Color</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsThead" use-attribute-sets="atsB">
+                <attribute name="start-indent">0mm</attribute>
+                <attribute name="end-indent">0mm</attribute>
+                <attribute name="background-color">$General_Table_Header_Background_Color</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsTbody">
+                <attribute name="start-indent">0mm</attribute>
+                <attribute name="end-indent">0mm</attribute>
+                <attribute name="text-align">inherit</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsRow">
+                <!-- Dangerous! -->
+                <!--attribute name="keep-together.within-page">always</attribute-->
+            </attribute-set>
+
+            <attribute-set name="atsHeaderRow" use-attribute-sets="atsB">
+                <attribute name="background-color">$General_Table_Header_Background_Color</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsTableHeaderCell">
+                <attribute name="border">$General_Table_Border_Width none $General_Table_Border_Color</attribute>
+                <attribute name="padding">$General_Table_Cell_Padding</attribute>
+                <attribute name="border-after-width">$Table_Header_Border_After_Width</attribute>
+            </attribute-set>
+
+            <!-- Added border-after-width.conditionality="retain"
+		     2011-07-14 t.makita
+    		 -->
+            <attribute-set name="atsTableBodyCell">
+                <attribute name="border">$General_Table_Border_Width none $General_Table_Border_Color</attribute>
+                <attribute name="padding">$General_Table_Cell_Padding</attribute>
+                <attribute name="border-after-width.conditionality">retain</attribute>
+            </attribute-set>
+
+            <!-- simpletable -->
+            <attribute-set name="atsSimpleTable">
+                <attribute name="space-before">3mm</attribute>
+                <attribute name="space-after">2mm</attribute>
+                <attribute name="font-size">$Table_Font_Size</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsSimpleTableFixed">
+                <attribute name="table-layout">fixed</attribute>
+                <attribute name="width">100%</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsSimpleTableHeader" use-attribute-sets="atsB">
+                <attribute name="start-indent">0mm</attribute>
+                <attribute name="end-indent">0mm</attribute>
+                <attribute name="background-color">$General_Table_Header_Background_Color</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsSimpleTableBody">
+                <attribute name="start-indent">0mm</attribute>
+                <attribute name="end-indent">0mm</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsSimpleTableRow">
+                <attribute name="keep-together.within-page">always</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsSimpleTableHeaderCell">
+                <attribute name="border">$General_Table_Border_Width solid $General_Table_Border_Color</attribute>
+                <attribute name="padding">$General_Table_Cell_Padding</attribute>
+                <attribute name="border-after-width">1pt</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsSimpleTableBodyCell">
+                <attribute name="border">$General_Table_Border_Width solid $General_Table_Border_Color</attribute>
+                <attribute name="padding">$General_Table_Cell_Padding</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsSimpleTableKeyCol" use-attribute-sets="atsB">
+                <attribute name="background-color">$General_Table_Header_Background_Color</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsSimpleTableNoKeyCol">
+                <attribute name="font-weight">normal</attribute>
+                <attribute name="background-color">$General_Table_No_Background_Color</attribute>
+            </attribute-set>
+
+        </table-elements-attribute>
+
+        <notes-attribute>
+            <!-- notes common (border+title+border type) -->
+            <attribute-set name="atsNotesCommonTitleBeforeBlock">
+                <attribute name="font-family">$General_Title_Font</attribute>
+                <attribute name="font-size">10pt</attribute>
+                <attribute name="text-align">justify</attribute>
+                <attribute name="text-align-last">justify</attribute>
+                <attribute name="space-before">4mm</attribute>
+                <attribute name="space-after">1mm</attribute>
+                <attribute name="keep-with-next">always</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsNotesCommonTitleAfterBlock"
+                use-attribute-sets="atsNotesCommonTitleBeforeBlock">
+                <attribute name="space-before">0mm</attribute>
+                <attribute name="space-after">4mm</attribute>
+                <attribute name="keep-with-previous">always</attribute>
+                <attribute name="keep-with-next">auto</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsNotesCommonLeader">
+                <attribute name="leader-pattern">rule</attribute>
+                <attribute name="rule-style">solid</attribute>
+                <attribute name="rule-thickness">1.0pt</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsNotesCommonTextBlock">
+                <attribute name="start-indent">inherited-property-value(start-indent) + 2mm</attribute>
+                <attribute name="font-size">$Note_Text_Font_Size</attribute>
+                <attribute name="space-before">1.5mm</attribute>
+                <attribute name="color">$General_Link_Color</attribute>
+            </attribute-set>
+
+            <!-- related link -->
+            <attribute-set name="atsRelatedLinkTitleBeforeBlock"
+                use-attribute-sets="atsNotesCommonTitleBeforeBlock"/>
+            <attribute-set name="atsRelatedLinkLeader1" use-attribute-sets="atsNotesCommonLeader">
+                <attribute name="leader-length">5%</attribute>
+            </attribute-set>
+            <attribute-set name="atsRelatedLinkInline" use-attribute-sets="atsB">
+                <attribute name="baseline-shift">-0.3em</attribute>
+                <!--attribute name="font-weight">bold</attribute-->
+            </attribute-set>
+            <attribute-set name="atsRelatedLinkLeader2" use-attribute-sets="atsNotesCommonLeader"/>
+            <attribute-set name="atsRelatedLinkLeader3" use-attribute-sets="atsNotesCommonLeader">
+                <attribute name="leader-length">100%</attribute>
+                <attribute name="baseline-shift">0.1em</attribute>
+            </attribute-set>
+            <attribute-set name="atsRelatedLinkBlock" use-attribute-sets="atsNotesCommonTextBlock"/>
+            <attribute-set name="atsRelatedLinkTitleAfterBlock"
+                use-attribute-sets="atsNotesCommonTitleAfterBlock"/>
+
+            <!-- linktext-->
+            <attribute-set name="atsLinkText"> </attribute-set>
+
+            <!-- postnotes -->
+            <attribute-set name="atsPostnoteTitleBeforeBlock"
+                use-attribute-sets="atsNotesCommonTitleBeforeBlock"/>
+            <attribute-set name="atsPostnoteLeader1" use-attribute-sets="atsNotesCommonLeader">
+                <attribute name="leader-length">5%</attribute>
+            </attribute-set>
+            <attribute-set name="atsPostnoteInline" use-attribute-sets="atsB">
+                <attribute name="baseline-shift">-0.3em</attribute>
+                <!--attribute name="font-weight">bold</attribute-->
+            </attribute-set>
+            <attribute-set name="atsPostnoteLeader2" use-attribute-sets="atsNotesCommonLeader"/>
+            <attribute-set name="atsPostnoteLeader3" use-attribute-sets="atsNotesCommonLeader">
+                <attribute name="leader-length">100%</attribute>
+                <attribute name="baseline-shift">0.1em</attribute>
+            </attribute-set>
+            <attribute-set name="atsPostnoteListBlock" use-attribute-sets="atsNotesCommonTextBlock">
+                <attribute name="color">$General_Text_Color</attribute>
+                <attribute name="provisional-distance-between-starts">$General_Indent_Value + 2mm</attribute>
+                <attribute name="provisional-label-separation">0.2mm</attribute>
+                <attribute name="relative-align">inherit</attribute>
+            </attribute-set>
+            <attribute-set name="atsPostnoteLi">
+                <attribute name="space-before">1mm</attribute>
+            </attribute-set>
+            <attribute-set name="atsPostnoteLabel"> </attribute-set>
+            <attribute-set name="atsPostnoteBody"> </attribute-set>
+            <attribute-set name="atsPostnoteTitleAfterBlock"
+                use-attribute-sets="atsNotesCommonTitleAfterBlock"> </attribute-set>
+
+            <!-- footnotes (Newly implemented on 2012-04-04) -->
+            <attribute-set name="atsFootNoteBeforeBlock">
+                <attribute name="font-size">0.1pt</attribute>
+                <attribute name="space-before">4mm</attribute>
+            </attribute-set>
+            <attribute-set name="atsFootNoteAfterBlock">
+                <attribute name="font-size">0.1pt</attribute>
+                <attribute name="space-after">4mm</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsFootNoteGlossentryBeforeBlock">
+                <attribute name="space-before">1mm</attribute>
+            </attribute-set>
+            <attribute-set name="atsFootNoteGlossentryAfterBlock">
+                <attribute name="space-after">4mm</attribute>
+            </attribute-set>
+
+            <!-- notes (icon+block type) -->
+            <attribute-set name="atsNoteIcon">
+                <attribute name="space-before">2mm</attribute>
+                <attribute name="space-after">1mm</attribute>
+                <attribute name="line-stacking-strategy">max-height</attribute>
+                <attribute name="border-after-width">1pt</attribute>
+                <attribute name="border-after-style">solid</attribute>
+                <attribute name="border-after-color">$General_Note_Border_Color</attribute>
+                <attribute name="keep-with-next">always</attribute>
+            </attribute-set>
+
+            <!-- Note title string style for SVG (CSS) -->
+            <attribute-set name="atsNoteTitleStyleCss" use-attribute-sets="atsBTitle">
+                <attribute name="font-family">$General_Title_Font</attribute>
+                <attribute name="font-size">12pt</attribute>
+                <attribute name="fill">black</attribute>
+            </attribute-set>
+            
+            <attribute-set name="atsNoteTitleLine" use-attribute-sets="atsBTitle">
+                <attribute name="font-family">$General_Title_Font</attribute>
+                <attribute name="font-size">12pt</attribute>
+                <attribute name="space-before">2mm</attribute>
+                <attribute name="space-after">1mm</attribute>
+                <attribute name="line-stacking-strategy">max-height</attribute>
+                <attribute name="keep-with-next">always</attribute>
+                <attribute name="axf:leader-expansion">force</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsNoteNoteIconImage">
+                <attribute name="space-end">1mm</attribute>
+                <attribute name="src">$Note_Icon</attribute>
+                <attribute name="content-height">1.1em</attribute>
+                <attribute name="baseline-shift">-0.5mm</attribute>
+            </attribute-set>
+            
+            <attribute-set name="atsNoteTipIconImage">
+                <attribute name="space-end">1mm</attribute>
+                <attribute name="src">$Tip_Icon</attribute>
+                <attribute name="content-width">1em</attribute>
+                <attribute name="baseline-shift">-0.5mm</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsNoteFastPathIconImage">
+                <attribute name="space-end">1mm</attribute>
+                <attribute name="src">$FastPath_Icon</attribute>
+                <attribute name="content-width">1em</attribute>
+                <attribute name="baseline-shift">-0.5mm</attribute>
+            </attribute-set>
+
+            <!--important,restriction,remember-->
+            <attribute-set name="atsNoteImportantIconImage">
+                <attribute name="space-end">1mm</attribute>
+                <attribute name="src">$Important_Icon</attribute>
+                <attribute name="content-width">1em</attribute>
+                <attribute name="baseline-shift">-0.5mm</attribute>
+            </attribute-set>
+            
+            <!--caution,attention,warning,notice-->
+            <attribute-set name="atsNoteCautionIconImage">
+                <attribute name="space-end">1mm</attribute>
+                <attribute name="src">$Caution_Icon</attribute>
+                <attribute name="content-width">1em</attribute>
+                <!--attribute name="baseline-shift">-0.5mm</attribute-->
+            </attribute-set>
+
+            <attribute-set name="atsNoteOtherIconImage">
+                <attribute name="space-end">1mm</attribute>
+                <attribute name="src">$Other_Icon</attribute>
+                <attribute name="content-width">1em</attribute>
+                <attribute name="baseline-shift">-0.5mm</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsNoteLeader">
+                <attribute name="leader-pattern">rule</attribute>
+                <attribute name="rule-style">solid</attribute>
+                <attribute name="rule-thickness">1pt</attribute>
+                <attribute name="color">$General_Note_Border_Color</attribute>
+                <attribute name="alignment-baseline">central</attribute>
+                <attribute name="space-start">1mm</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsNote">
+                <attribute name="start-indent">inherited-property-value(start-indent) + 2mm</attribute>
+                <attribute name="end-indent">2mm</attribute>
+                <attribute name="font-size">10pt</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsNoteAfterBlock">
+                <attribute name="line-height">0.5mm</attribute>
+                <attribute name="space-after">3mm</attribute>
+                <attribute name="padding-after">1.5mm</attribute>
+                <attribute name="border-after-width">1pt</attribute>
+                <attribute name="border-after-style">solid</attribute>
+                <attribute name="border-after-color">$General_Note_Border_Color</attribute>
+                <attribute name="keep-with-previous">always</attribute>
+            </attribute-set>
+            
+            <variable name="Note_Icon">url(%plug-in-path%common-graphic/note.svg)</variable>
+            <variable name="Note_Icon" output-type="print-color">url(%plug-in-path%common-graphic/note.pdf)</variable>
+            <variable name="Note_Icon" output-type="print-mono">url(%plug-in-path%common-graphic/note-mono.pdf)</variable>
+
+            <variable name="Tip_Icon">url(%plug-in-path%common-graphic/tip.svg)</variable>
+            <variable name="Tip_Icon" output-type="print-color">url(%plug-in-path%common-graphic/tip.pdf)</variable>
+            <variable name="Tip_Icon" output-type="print-mono">url(%plug-in-path%common-graphic/tip-mono.pdf)</variable>
+            
+            <variable name="FastPath_Icon">url(%plug-in-path%common-graphic/fastpath.svg)</variable>
+            <variable name="FastPath_Icon" output-type="print-color">url(%plug-in-path%common-graphic/fastpath.pdf)</variable>
+            <variable name="FastPath_Icon" output-type="print-mono">url(%plug-in-path%common-graphic/fastpath-mono.pdf)</variable>
+
+            <variable name="Important_Icon">url(%plug-in-path%common-graphic/important.svg)</variable>
+            <variable name="Important_Icon" output-type="print-color">url(%plug-in-path%common-graphic/important.pdf)</variable>
+            <variable name="Important_Icon" output-type="print-mono">url(%plug-in-path%common-graphic/important.pdf)</variable>
+
+            <variable name="Caution_Icon">url(%plug-in-path%common-graphic/caution.svg)</variable>
+            <variable name="Caution_Icon" output-type="print-color">url(%plug-in-path%common-graphic/caution.pdf)</variable>
+            <variable name="Caution_Icon" output-type="print-mono">url(%plug-in-path%common-graphic/caution.pdf)</variable>
+
+            <variable name="Other_Icon">url(%plug-in-path%common-graphic/other.svg)</variable>
+            <variable name="Other_Icon" output-type="print-color">url(%plug-in-path%common-graphic/other.pdf)</variable>
+            <variable name="Other_Icon" output-type="print-mono">url(%plug-in-path%common-graphic/other.pdf)</variable>
+
+        </notes-attribute>
+
+        <miscellaneous-elements-attribute>
+            <!-- draft-comment:title -->
+            <attribute-set name="atsDraftCommentTitle">
+                <attribute name="font-size">$Little_Title_Font_Size</attribute>
+                <attribute name="color">rgb(0,0,255)</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsDraftComment">
+                <attribute name="space-before">$Para_Space_Before</attribute>
+                <attribute name="color">rgb(255,0,255)</attribute>
+            </attribute-set>
+
+            <!-- fn:prefix -->
+            <attribute-set name="atsFnPrefix">
+                <attribute name="font-size">0.8em</attribute>
+                <attribute name="baseline-shift">super</attribute>
+            </attribute-set>
+
+            <!-- fn:body -->
+            <attribute-set name="atsFnBody">
+                <attribute name="font-size">9pt</attribute>
+            </attribute-set>
+
+            <!-- tm -->
+            <attribute-set name="atsTm"> </attribute-set>
+
+            <attribute-set name="atsTmSymbol">
+                <attribute name="font-size">0.8em</attribute>
+                <attribute name="baseline-shift">super</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsTmSymbolSm" use-attribute-sets="atsB">
+                <attribute name="font-size">0.5em</attribute>
+                <!--attribute name="font-weight">bold</attribute-->
+                <attribute name="baseline-shift">40%</attribute>
+            </attribute-set>
+
+        </miscellaneous-elements-attribute>
+
+        <specialization-elements-attribute>
+
+            <!-- itemgroup -->
+            <attribute-set name="atsItemGroup" use-attribute-sets="atsP"> </attribute-set>
+
+            <!-- required-cleanup -->
+            <attribute-set name="atsRequiredCleanupTitle">
+                <attribute name="font-size">$Little_Title_Font_Size</attribute>
+                <attribute name="color">rgb(0,0,255)</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsRequiredCleanup">
+                <attribute name="space-before">$Para_Space_Before</attribute>
+                <attribute name="color">rgb(255,0,255)</attribute>
+            </attribute-set>
+
+            <!-- state -->
+            <attribute-set name="atsState"> </attribute-set>
+
+            <!-- term -->
+            <attribute-set name="atsTerm">
+                <attribute name="font-style">italic</attribute>
+            </attribute-set>
+
+            <!-- boolean -->
+            <attribute-set name="atsBoolean"></attribute-set>
+
+        </specialization-elements-attribute>
+
+        <typographic-elements-attribute>
+            <!-- b -->
+            <attribute-set name="atsB">
+                <attribute name="font-weight">bold</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsBTitle" use-attribute-sets="atsB"></attribute-set>
+
+            <attribute-set name="atsBMonospace" use-attribute-sets="atsB"></attribute-set>
+
+            <!-- i -->
+            <attribute-set name="atsI">
+                <attribute name="font-style">italic</attribute>
+            </attribute-set>
+
+            <!-- u -->
+            <attribute-set name="atsU">
+                <attribute name="text-decoration">underline</attribute>
+            </attribute-set>
+
+            <!-- tt -->
+            <attribute-set name="atsTt" use-attribute-sets="atsMonospaceStyle"></attribute-set>
+
+            <!-- sup -->
+            <attribute-set name="atsSup">
+                <attribute name="font-size">0.8em</attribute>
+                <attribute name="baseline-shift">super</attribute>
+            </attribute-set>
+
+            <!-- sub -->
+            <attribute-set name="atsSub">
+                <attribute name="font-size">0.8em</attribute>
+                <attribute name="baseline-shift">sub</attribute>
+            </attribute-set>
+
+        </typographic-elements-attribute>
+
+        <programming-elements-attribute>
+
+            <!-- apiname -->
+            <attribute-set name="atsApiName" use-attribute-sets="atsMonospaceStyle"></attribute-set>
+
+            <!-- codeblock -->
+            <variable name="codeBlockPaddingSize">1mm</variable>
+            <attribute-set name="atsCodeBlock" use-attribute-sets="atsPre">
+                <attribute name="background-color">rgb(217,217,217)</attribute>
+                <attribute name="padding">$codeBlockPaddingSize</attribute>
+                <attribute name="start-indent">inherited-property-value(start-indent) + $codeBlockPaddingSize</attribute>
+                <attribute name="end-indent">inherited-property-value(end-indent) + $codeBlockPaddingSize</attribute>
+                <attribute name="hyphenate">false</attribute>
+                <attribute name="axf:word-break">break-all</attribute>
+                <attribute name="axf:word-wrap">break-word</attribute>
+            </attribute-set>
+
+            <!-- codeph -->
+            <attribute-set name="atsCodePh" use-attribute-sets="atsMonospaceStyle">
+                <attribute name="hyphenate">false</attribute>
+                <attribute name="axf:word-break ">break-all</attribute>
+                <attribute name="axf:word-wrap">break-word</attribute>
+            </attribute-set>
+
+            <!-- option -->
+            <attribute-set name="atsOption" use-attribute-sets="atsMonospaceStyle"></attribute-set>
+
+            <!-- paramname -->
+            <attribute-set name="atsParamName" use-attribute-sets="atsMonospaceStyle"></attribute-set>
+
+            <!-- parml -->
+            <attribute-set name="atsParml"> </attribute-set>
+
+            <attribute-set name="atsPlEntry">
+                <attribute name="space-before">$Para_Space_Before</attribute>
+            </attribute-set>
+
+            <!-- Ratio for parml/@compact: must be number -->
+            <variable name="Pl_Compact_Ratio">0.1</variable>
+            <variable name="Pl_Compact_Attr">space-before</variable>
+
+            <attribute-set name="atsPt" use-attribute-sets="atsB">
+                <!--attribute name="font-weight">bold</attribute-->
+                <attribute name="start-indent">inherited-property-value(start-indent)</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsPd">
+                <attribute name="start-indent">inherited-property-value(start-indent) + $General_Indent_Value</attribute>
+            </attribute-set>
+
+            <!-- syntaxdiagram -->
+            <attribute-set name="atsSyntaxDiagram" use-attribute-sets="atsFig"></attribute-set>
+
+            <!-- syntaxdiagram default -->
+            <attribute-set name="atsSdDefault">
+                <attribute name="text-decoration">underline</attribute>
+            </attribute-set>
+
+            <!-- syntaxdiagram/title -->
+            <attribute-set name="atsSyntaxdiagramTitle" use-attribute-sets="atsB">
+                <attribute name="font-size">$Little_Title_Font_Size</attribute>
+                <!--attribute name="font-style">bold</attribute-->
+                <attribute name="start-indent">inherited-property-value(start-indent)</attribute>
+                <attribute name="space-before">1.5mm</attribute>
+                <attribute name="keep-with-previous.within-page">always</attribute>
+            </attribute-set>
+
+            <!-- groupseq/groupcomp/groupchoice -->
+            <attribute-set name="atsGroup"></attribute-set>
+
+            <!-- fragment/title -->
+            <!--attribute-set name="atsFragmentTitle" use-attribute-sets="atsSyntaxdiagramTitle" >
+        </attribute-set-->
+
+            <!-- synnote -->
+            <attribute-set name="atsSynNote">
+                <attribute name="font-size">0.8em</attribute>
+                <attribute name="baseline-shift">super</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsSynNoteListBlock">
+                <attribute name="font-size">$Note_Text_Font_Size</attribute>
+                <attribute name="space-before">1.5mm</attribute>
+                <attribute name="provisional-distance-between-starts">5mm</attribute>
+                <attribute name="provisional-label-separation">0.5mm</attribute>
+                <attribute name="relative-align">inherit</attribute>
+            </attribute-set>
+            <attribute-set name="atsSynNoteLi">
+                <attribute name="space-before">1mm</attribute>
+            </attribute-set>
+            <attribute-set name="atsSynNoteLabel"> </attribute-set>
+            <attribute-set name="atsSynNoteBody"> </attribute-set>
+
+            <!-- kwd -->
+            <attribute-set name="atsKwd" use-attribute-sets="atsMonospaceStyle"></attribute-set>
+
+            <attribute-set name="atsKwdDefault" use-attribute-sets="atsKwd atsSdDefault"></attribute-set>
+
+            <!-- var -->
+            <attribute-set name="atsVar">
+                <attribute name="font-family">$General_Serif_Font</attribute>
+                <attribute name="font-style">italic</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsVarDefault" use-attribute-sets="atsVar atsSdDefault"></attribute-set>
+
+            <!-- oper -->
+            <attribute-set name="atsOper" use-attribute-sets="atsMonospaceStyle"></attribute-set>
+
+            <attribute-set name="atsOperDefault" use-attribute-sets="atsOper atsSdDefault"></attribute-set>
+
+            <!-- delim -->
+            <attribute-set name="atsDelim" use-attribute-sets="atsMonospaceStyle"></attribute-set>
+
+            <attribute-set name="atsDelimDefault" use-attribute-sets="atsDelim atsSdDefault"></attribute-set>
+
+            <!-- sep -->
+            <attribute-set name="atsSep" use-attribute-sets="atsMonospaceStyle"></attribute-set>
+
+            <attribute-set name="atsSepDefault" use-attribute-sets="atsSep atsSdDefault"></attribute-set>
+
+        </programming-elements-attribute>
+
+        <software-elements-attribute>
+            <!-- msgph -->
+            <attribute-set name="atsMsgPh" use-attribute-sets="atsMonospaceStyle"></attribute-set>
+
+            <!-- msgblock -->
+            <attribute-set name="atsMsgBlock" use-attribute-sets="atsPre"></attribute-set>
+
+            <!-- msgnum -->
+            <attribute-set name="atsMsgNum" use-attribute-sets="atsMonospaceStyle"></attribute-set>
+
+            <!-- cmdname -->
+            <attribute-set name="atsCmdName" use-attribute-sets="atsMonospaceStyle"></attribute-set>
+
+            <!-- varname -->
+            <attribute-set name="atsVarName">
+                <attribute name="font-style">italic</attribute>
+            </attribute-set>
+
+            <!-- filepath -->
+            <attribute-set name="atsFilePath" use-attribute-sets="atsMonospaceStyle">
+                <attribute name="hyphenate">false</attribute>
+                <attribute name="axf:word-break">break-all</attribute>
+                <attribute name="axf:word-wrap">break-word</attribute>
+            </attribute-set>
+
+            <!-- userinput -->
+            <attribute-set name="atsUserInput" use-attribute-sets="atsMonospaceStyle"></attribute-set>
+
+            <!-- systemoutput -->
+            <attribute-set name="atsSystemOutput" use-attribute-sets="atsMonospaceStyle"></attribute-set>
+
+        </software-elements-attribute>
+
+        <utility-elements-attribute>
+
+            <!-- imagemap -->
+            <attribute-set name="atsImageMap" use-attribute-sets="atsFig"></attribute-set>
+
+        </utility-elements-attribute>
+
+        <userinterface-elements-attribute>
+            <!-- uicontrol -->
+            <attribute-set name="atsUiControl" use-attribute-sets="atsB">
+                <!--attribute name="font-weight">bold</attribute-->
+            </attribute-set>
+
+            <!-- wintitle -->
+            <attribute-set name="atsWinTitle"></attribute-set>
+
+            <!-- menucascade -->
+            <attribute-set name="atsMenuCascade"></attribute-set>
+
+            <!-- shortcut -->
+            <attribute-set name="atsShortcut">
+                <attribute name="text-decoration">underline</attribute>
+            </attribute-set>
+
+            <!-- screen -->
+            <attribute-set name="atsScreen" use-attribute-sets="atsMonospaceStyle">
+                <attribute name="space-before">4mm</attribute>
+                <attribute name="space-after">2mm</attribute>
+                <attribute name="linefeed-treatment">preserve</attribute>
+                <attribute name="white-space-treatment">preserve</attribute>
+                <attribute name="white-space-collapse">false</attribute>
+                <attribute name="wrap-option">wrap</attribute>
+                <attribute name="background-color">rgb(217,217,217)</attribute>
+                <attribute name="keep-together">always</attribute>
+            </attribute-set>
+
+        </userinterface-elements-attribute>
+
+        <!-- %display-atts; related attributes -->
+        <display-attribute>
+
+            <!-- frame for table -->
+            <attribute-set name="atsTableBorderTop">
+                <attribute name="border-top">$Table_Outer_Border_Width solid $General_Table_Border_Color</attribute>
+                <attribute name="border-before-width.conditionality">retain</attribute>
+                <attribute name="border-bottom">$Table_Outer_Border_Width hidden $General_Table_Border_Color</attribute>
+                <attribute name="border-left">$Table_Outer_Border_Width hidden $General_Table_Border_Color</attribute>
+                <attribute name="border-right">$Table_Outer_Border_Width hidden $General_Table_Border_Color</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsTableBorderBottom">
+                <attribute name="border-top">$Table_Outer_Border_Width hidden $General_Table_Border_Color</attribute>
+                <attribute name="border-bottom">$Table_Outer_Border_Width solid $General_Table_Border_Color</attribute>
+                <attribute name="border-after-width.conditionality">retain</attribute>
+                <attribute name="border-left">$Table_Outer_Border_Width hidden $General_Table_Border_Color</attribute>
+                <attribute name="border-right">$Table_Outer_Border_Width hidden $General_Table_Border_Color</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsTableBorderTopBottom">
+                <attribute name="border-top">$Table_Outer_Border_Width solid $General_Table_Border_Color</attribute>
+                <attribute name="border-before-width.conditionality">retain</attribute>
+                <attribute name="border-bottom">$Table_Outer_Border_Width solid $General_Table_Border_Color</attribute>
+                <attribute name="border-after-width.conditionality">retain</attribute>
+                <attribute name="border-left">$Table_Outer_Border_Width hidden $General_Table_Border_Color</attribute>
+                <attribute name="border-right">$Table_Outer_Border_Width hidden $General_Table_Border_Color</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsTableBorderAll">
+                <attribute name="border-top">$Table_Outer_Border_Width solid $General_Table_Border_Color</attribute>
+                <attribute name="border-before-width.conditionality">retain</attribute>
+                <attribute name="border-bottom">$Table_Outer_Border_Width solid $General_Table_Border_Color</attribute>
+                <attribute name="border-after-width.conditionality">retain</attribute>
+                <attribute name="border-left">$Table_Outer_Border_Width solid $General_Table_Border_Color</attribute>
+                <attribute name="border-right">$Table_Outer_Border_Width solid $General_Table_Border_Color</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsTableBorderSides">
+                <attribute name="border-top">$Table_Outer_Border_Width hidden $General_Table_Border_Color</attribute>
+                <attribute name="border-bottom">$Table_Outer_Border_Width hidden $General_Table_Border_Color</attribute>
+                <attribute name="border-left">$Table_Outer_Border_Width solid $General_Table_Border_Color</attribute>
+                <attribute name="border-right">$Table_Outer_Border_Width solid $General_Table_Border_Color</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsTableBorderNone">
+                <attribute name="border-top">$Table_Outer_Border_Width hidden $General_Table_Border_Color</attribute>
+                <attribute name="border-bottom">$Table_Outer_Border_Width hidden $General_Table_Border_Color</attribute>
+                <attribute name="border-left">$Table_Outer_Border_Width hidden $General_Table_Border_Color</attribute>
+                <attribute name="border-right">$Table_Outer_Border_Width hidden $General_Table_Border_Color</attribute>
+            </attribute-set>
+
+            <!-- frame for other block
+             NOTE: border-? attribute must be used for adjusting indent property calculation in ahf:getFrameAtts() function..
+             2015-01-17 t.makita
+          -->
+            <variable name="Block_Outer_Border_Width">0.5pt</variable>
+            <variable name="Block_Padding">5pt</variable>
+
+            <attribute-set name="atsBlockBorderTop">
+                <attribute name="border-top">$Block_Outer_Border_Width solid $General_Frame_Border_Color</attribute>
+                <attribute name="border-bottom">$Block_Outer_Border_Width hidden $General_Frame_Border_Color</attribute>
+                <attribute name="border-left">$Block_Outer_Border_Width hidden $General_Frame_Border_Color</attribute>
+                <attribute name="border-right">$Block_Outer_Border_Width hidden $General_Frame_Border_Color</attribute>
+                <attribute name="padding-top">$Block_Padding</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsBlockBorderBottom">
+                <attribute name="border-top">$Block_Outer_Border_Width hidden $General_Frame_Border_Color</attribute>
+                <attribute name="border-bottom">$Block_Outer_Border_Width solid $General_Frame_Border_Color</attribute>
+                <attribute name="border-left">$Block_Outer_Border_Width hidden $General_Frame_Border_Color</attribute>
+                <attribute name="border-right">$Block_Outer_Border_Width hidden $General_Frame_Border_Color</attribute>
+                <attribute name="padding-bottom">$Block_Padding</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsBlockBorderTopBottom">
+                <attribute name="border-top">$Block_Outer_Border_Width solid $General_Frame_Border_Color</attribute>
+                <attribute name="border-bottom">$Block_Outer_Border_Width solid $General_Frame_Border_Color</attribute>
+                <attribute name="border-left">$Block_Outer_Border_Width hidden $General_Frame_Border_Color</attribute>
+                <attribute name="border-right">$Block_Outer_Border_Width hidden $General_Frame_Border_Color</attribute>
+                <attribute name="padding-top">$Block_Padding</attribute>
+                <attribute name="padding-bottom">$Block_Padding</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsBlockBorderAll">
+                <attribute name="border-top">$Block_Outer_Border_Width solid $General_Frame_Border_Color</attribute>
+                <attribute name="border-bottom">$Block_Outer_Border_Width solid $General_Frame_Border_Color</attribute>
+                <attribute name="border-left">$Block_Outer_Border_Width solid $General_Frame_Border_Color</attribute>
+                <attribute name="border-right">$Block_Outer_Border_Width solid $General_Frame_Border_Color</attribute>
+                <attribute name="padding">$Block_Padding</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsBlockBorderSides">
+                <attribute name="border-top">$Block_Outer_Border_Width hidden $General_Frame_Border_Color</attribute>
+                <attribute name="border-bottom">$Block_Outer_Border_Width hidden $General_Frame_Border_Color</attribute>
+                <attribute name="border-left">$Block_Outer_Border_Width solid $General_Frame_Border_Color</attribute>
+                <attribute name="border-right">$Block_Outer_Border_Width solid $General_Frame_Border_Color</attribute>
+                <attribute name="padding-left">$Block_Padding</attribute>
+                <attribute name="padding-right">$Block_Padding</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsBlockBorderNone">
+                <attribute name="border-top">$Block_Outer_Border_Width hidden $General_Frame_Border_Color</attribute>
+                <attribute name="border-bottom">$Block_Outer_Border_Width hidden $General_Frame_Border_Color</attribute>
+                <attribute name="border-left">$Block_Outer_Border_Width hidden $General_Frame_Border_Color</attribute>
+                <attribute name="border-right">$Block_Outer_Border_Width hidden $General_Frame_Border_Color</attribute>
+            </attribute-set>
+
+            <!-- expanse for simpletable -->
+            <attribute-set name="atsTableExpanse">
+                <!--attribute name="start-indent">0mm</attribute-->
+                <attribute name="width">100%</attribute>
+            </attribute-set>
+
+            <!-- pgwide="1" for table -->
+            <attribute-set name="atsTablePgWide">
+                <!--attribute name="start-indent">0mm</attribute-->
+                <attribute name="width">100%</attribute>
+            </attribute-set>
+
+
+        </display-attribute>
+
+        <!-- Review PDF attributes: Change bar -->
+        <review-pdf-attribute>
+            <!-- Change bar -->
+            <attribute-set name="atsChangeBarInsert">
+                <attribute name="change-bar-style">solid</attribute>
+                <attribute name="change-bar-color">red</attribute>
+                <attribute name="change-bar-width">1pt</attribute>
+                <attribute name="change-bar-placement">start</attribute>
+                <attribute name="change-bar-offset">5mm</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsChangeBarRemove">
+                <attribute name="change-bar-style">solid</attribute>
+                <attribute name="change-bar-color">red</attribute>
+                <attribute name="change-bar-width">1pt</attribute>
+                <attribute name="change-bar-placement">start</attribute>
+                <attribute name="change-bar-offset">5mm</attribute>
+            </attribute-set>
+
+            <!-- @oid output style -->
+            <attribute-set name="atsIdLine" use-attribute-sets="atsBMonospace">
+                <attribute name="font-family">$General_Monospace_Font</attribute>
+                <attribute name="font-size">8pt</attribute>
+                <!--attribute name="font-weight">bold</attribute-->
+                <attribute name="color">rgb(192,0,0)</attribute>
+                <attribute name="text-decoration">no-line-through no-underline</attribute>
+                <!--attribute name="background-color">white</attribute-->
+                <attribute name="space-before">3.5mm</attribute>
+                <attribute name="space-after">3.5mm</attribute>
+            </attribute-set>
+
+            <!-- Conref proofing attributes -->
+            <attribute-set name="atsConrefFile" use-attribute-sets="atsBMonospace">
+                <attribute name="font-family">$General_Monospace_Font</attribute>
+                <attribute name="font-size">8pt</attribute>
+                <!--attribute name="font-weight">bold</attribute-->
+                <attribute name="color">rgb(192,0,0)</attribute>
+                <attribute name="text-decoration">no-line-through no-underline</attribute>
+                <!--attribute name="background-color">white</attribute-->
+            </attribute-set>
+
+            <attribute-set name="atsConrefProof">
+                <attribute name="background-color">rgb(220,220,220)</attribute>
+            </attribute-set>
+
+        </review-pdf-attribute>
+
+        <character-domian-attribute>
+            <attribute-set name="atsCmYes"></attribute-set>
+
+            <attribute-set name="atsCmNo"></attribute-set>
+
+            <attribute-set name="atsCmDc"></attribute-set>
+        </character-domian-attribute>
+
+    </attribute-sets>
+
+    <instream-objects>
+        <!-- '%' is the placefolder for replacement using getInstreamObjectReplacing template.
+         Automatic replacement is no longer supported.
+         2015-02-12 t.makita
+     -->
+        <instream-object name="Note_Icon">
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="65" height="21" viewBox="0 0 65 21" overflow="visible" enable-background="new 0 0 65 21" preserveAspectRatio="xMidYmid meet" xml:space="preserve">
+            <g id="layer_1">
+                <text x="24" y="16" enable-background="new    " style="%atsNoteTitleStyleCss">%Note_Note</text>
+                <path fill="#DEDEDE" d="M9.498,0.499c-4.972,0-8.999,4.039-8.999,9.006c0,4.977,4.027,9.007,8.999,9.007
+                    c4.973,0,8.999-4.03,8.999-9.007C18.497,4.536,14.471,0.499,9.498,0.499"/>
+                <path fill="none" stroke="#000000" stroke-width="0.9982" stroke-linejoin="round" stroke-miterlimit="10" d="M9.498,0.499
+                    c-4.972,0-8.999,4.039-8.999,9.006c0,4.977,4.027,9.007,8.999,9.007c4.973,0,8.999-4.03,8.999-9.007
+                    C18.497,4.536,14.471,0.499,9.498,0.499"/>
+                <g>
+                    
+                        <rect x="7.739" y="2.71" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0.7478" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" width="3.616" height="11.813"/> 
+                    
+                        <rect x="11.502" y="8.506" transform="matrix(0.6048 0.7964 -0.7964 0.6048 15.02 -4.7869)" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0.7478" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" width="1.662" height="8.467"/> 
+                    
+                        <rect x="5.87" y="8.64" transform="matrix(-0.6194 0.7851 -0.7851 -0.6194 20.959 15.5869)" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0.7478" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" width="1.662" height="8.469"/> 
+                    <g>
+                        
+                            <line stroke="#000000" stroke-width="0.7478" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="7.739" y1="2.622" x2="7.484" y2="10.99"/>
+                        
+                            <line stroke="#000000" stroke-width="0.7478" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="11.351" y1="2.622" x2="11.359" y2="11.24"/>
+                        
+                            <line stroke="#000000" stroke-width="0.7478" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="7.739" y1="2.612" x2="11.359" y2="2.622"/>
+                        
+                            <line stroke="#000000" stroke-width="0.7478" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="4.234" y1="8.615" x2="7.484" y2="10.99"/>
+                        
+                            <line stroke="#000000" stroke-width="0.7478" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="14.609" y1="8.365" x2="11.359" y2="11.24"/>
+                        
+                            <line stroke="#000000" stroke-width="0.7478" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="14.609" y1="8.365" x2="16.789" y2="10.786"/>
+                        
+                            <line stroke="#000000" stroke-width="0.7478" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="2.31" y1="10.786" x2="4.234" y2="8.615"/>
+                        
+                            <line stroke="#000000" stroke-width="0.7478" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="2.31" y1="10.786" x2="9.549" y2="16.229"/>
+                        
+                            <line stroke="#000000" stroke-width="0.7478" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="9.549" y1="16.229" x2="16.789" y2="10.786"/>
+                    </g>
+                </g>
+            </g>
+        </svg>
+        </instream-object>
+
+        <instream-object name="Tip_Icon">
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="45" height="19" viewBox="0 0 45 19" overflow="visible" enable-background="new 0 0 45 19" preserveAspectRatio="xMidYmid meet" xml:space="preserve">
+            <g id="layer_1">
+                <g>
+                    <text x="24" y="16" enable-background="new    " style="%atsNoteTitleStyle">%Note_Tip</text>
+                </g>
+                <path fill="#DEDEDE" d="M9.498,0.499c-4.972,0-8.999,4.038-8.999,9.006c0,4.976,4.027,9.006,8.999,9.006
+                    c4.973,0,8.999-4.03,8.999-9.006C18.497,4.536,14.471,0.499,9.498,0.499"/>
+                <path fill="none" stroke="#000000" stroke-width="0.9982" stroke-linejoin="round" stroke-miterlimit="10" d="M9.498,0.499                     c-4.972,0-8.999,4.038-8.999,9.006c0,4.976,4.027,9.006,8.999,9.006c4.973,0,8.999-4.03,8.999-9.006                     C18.497,4.536,14.471,0.499,9.498,0.499"/>
+                <path fill="none" stroke="#000000" stroke-width="0.9982" stroke-linejoin="round" stroke-miterlimit="10" d="M4.631,13.438
+                    c3.247,2.236,6.487,2.236,9.734,0"/>
+                <path fill="#9A9A9A" d="M6.618,5.88c-0.518,0-0.938,0.42-0.938,0.938c0,0.519,0.42,0.938,0.938,0.938                     c0.519,0,0.938-0.42,0.938-0.938C7.557,6.3,7.137,5.88,6.618,5.88"/>
+                <path fill="#9A9A9A" d="M12.385,5.88c-0.517,0-0.937,0.42-0.937,0.938c0,0.519,0.42,0.938,0.937,0.938                     c0.519,0,0.938-0.42,0.938-0.938C13.323,6.3,12.902,5.88,12.385,5.88"/>
+                
+                    <path fill="none" stroke="#000000" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M6.618,5.691c-0.621,0-1.125,0.504-1.125,1.125s0.504,1.125,1.125,1.125s1.125-0.504,1.125-1.125S7.239,5.691,6.618,5.691"/>
+                
+                    <path fill="none" stroke="#000000" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M12.385,5.691c-0.62,0-1.125,0.504-1.125,1.125s0.505,1.125,1.125,1.125c0.621,0,1.125-0.504,1.125-1.125 S13.006,5.691,12.385,5.691"/>
+            </g>
+        </svg>
+        </instream-object>
+
+        <instream-object name="FastPath_Icon">
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="95" height="20" viewBox="0 0 95 21" overflow="visible" enable-background="new 0 0 95 21" preserveAspectRatio="xMidYmid meet" xml:space="preserve">
+            <g id="layer_1">
+                <text x="24" y="16" enable-background="new    " style="%atsNoteTitleStyle">%Note_FastPath</text>
+                <path fill="#C8C8C8" d="M9.498,0.499c-4.972,0-8.999,4.038-8.999,9.006c0,4.977,4.027,9.006,8.999,9.006s8.999-4.029,8.999-9.006
+                    C18.497,4.537,14.47,0.499,9.498,0.499"/>
+                <path fill="none" stroke="#000000" stroke-width="0.9982" stroke-linejoin="round" stroke-miterlimit="10" d="M9.498,0.499
+                    c-4.972,0-8.999,4.038-8.999,9.006c0,4.977,4.027,9.006,8.999,9.006s8.999-4.029,8.999-9.006
+                    C18.497,4.537,14.47,0.499,9.498,0.499"/>
+                
+                    <polygon fill="#FFFFFF" stroke="#000000" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
+                    9.565,16.269 9.754,16.269 9.915,16.246 10.09,16.204 10.253,16.164 10.429,16.101 10.565,16.028 10.69,15.945 10.804,15.843 
+                    10.927,15.749 11.026,15.624 11.114,15.511 11.188,15.386 11.265,15.249 11.315,15.104 11.34,14.948 11.34,14.804 11.34,14.751 
+                    11.34,14.604 11.34,14.388 11.34,14.106 11.34,13.786 11.34,13.476 11.34,13.175 11.34,12.874 11.34,12.759 11.39,12.634 
+                    11.427,12.519 11.478,12.396 11.653,12.158 11.862,11.918 12.414,11.461 13.038,10.942 13.376,10.663 13.665,10.341 
+                    13.95,10.019 14.213,9.644 14.338,9.468 14.438,9.25 14.526,9.042 14.601,8.804 14.676,8.585 14.726,8.327 14.751,8.067 
+                    14.751,7.808 14.751,7.569 14.726,7.351 14.701,7.153 14.651,6.935 14.601,6.739 14.526,6.511 14.438,6.313 14.338,6.114 
+                    14.237,5.938 14.125,5.753 14,5.577 13.877,5.399 13.563,5.056 13.239,4.755 12.875,4.485 12.464,4.226 12.251,4.121 
+                    12.026,4.017 11.815,3.925 11.603,3.843 11.365,3.759 11.114,3.688 10.854,3.623 10.616,3.581 10.353,3.541 10.115,3.521 
+                    9.853,3.498 9.565,3.498 9.291,3.498 9.028,3.521 8.79,3.541 8.53,3.581 8.291,3.623 8.028,3.688 7.776,3.759 7.542,3.843 
+                    7.33,3.925 7.117,4.017 6.892,4.121 6.679,4.226 6.269,4.485 5.903,4.755 5.581,5.056 5.269,5.399 5.144,5.577 5.019,5.753 
+                    4.905,5.938 4.804,6.114 4.705,6.313 4.619,6.511 4.544,6.739 4.494,6.935 4.444,7.153 4.419,7.351 4.394,7.569 4.394,7.808 
+                    4.394,8.067 4.419,8.327 4.469,8.585 4.544,8.804 4.619,9.042 4.705,9.25 4.804,9.468 4.931,9.644 5.192,10.019 5.481,10.341 
+                    5.767,10.663 6.104,10.942 6.729,11.461 7.278,11.918 7.492,12.158 7.665,12.396 7.715,12.519 7.752,12.634 7.802,12.759 
+                    7.802,12.874 7.802,13.175 7.802,13.476 7.802,13.786 7.802,14.106 7.802,14.388 7.802,14.604 7.802,14.751 7.802,14.804 
+                    7.802,14.948 7.827,15.104 7.878,15.249 7.953,15.386 8.028,15.511 8.116,15.624 8.216,15.749 8.341,15.843 8.454,15.945 
+                    8.58,16.028 8.715,16.101 8.89,16.164 9.054,16.204 9.228,16.246 9.392,16.269 "/>
+                
+                    <path fill="none" stroke="#000000" stroke-width="0.2542" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+                    M8.797,11.647"/>
+                
+                    <path fill="none" stroke="#000000" stroke-width="0.2542" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+                    M7.474,8.171"/>
+                
+                    <path fill="none" stroke="#000000" stroke-width="0.2542" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+                    M10.121,9.33"/>
+                
+                    <path fill="none" stroke="#000000" stroke-width="0.2542" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+                    M9.459,8.171"/>
+                
+                    <path fill="none" stroke="#000000" stroke-width="0.2542" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+                    M10.121,9.33"/>
+                
+                    <path fill="none" stroke="#000000" stroke-width="0.2542" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+                    M11.444,8.171"/>
+                
+                    <path fill="none" stroke="#000000" stroke-width="0.2542" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+                    M10.121,11.647"/>
+                
+                    <path fill="none" stroke="#000000" stroke-width="0.2542" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+                    M8.797,11.647"/>
+                
+                    <rect x="8.983" y="12.866" stroke="#000000" stroke-width="0.2393" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" width="1" height="1.25"/> 
+                <g>
+                    <polygon points="6.917,7.026 8.365,11.673 10.536,11.673 11.983,7.026 10.633,8.708 9.547,7.005 8.582,8.708 "/>
+                </g>
+            </g>
+        </svg>
+        </instream-object>
+
+        <instream-object name="Restriction_Icon">
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="110" height="20" viewBox="0 0 110 20" overflow="visible" enable-background="new 0 0 110 20" preserveAspectRatio="xMidYmid meet" xml:space="preserve">
+            <g id="layer_1">
+                <path fill="#DEDEDE" d="M9.498,0.499c-4.972,0-8.999,4.038-8.999,9.006c0,4.976,4.027,9.006,8.999,9.006s8.999-4.03,8.999-9.006
+                    C18.497,4.536,14.47,0.499,9.498,0.499"/>
+                <path fill="none" stroke="#000000" stroke-width="0.9982" stroke-linejoin="round" stroke-miterlimit="10" d="M9.498,0.499
+                    c-4.972,0-8.999,4.038-8.999,9.006c0,4.976,4.027,9.006,8.999,9.006s8.999-4.03,8.999-9.006
+                    C18.497,4.536,14.47,0.499,9.498,0.499"/>
+                <text x="24" y="16" enable-background="new    " style="%atsNoteTitleStyle">%Note_Restriction</text>
+                <g>
+                    <path fill="#FFFFFF" d="M9.72,13.375c-0.862,0-1.561,0.657-1.561,1.467c0,0.811,0.699,1.467,1.561,1.467
+                        c0.862,0,1.562-0.656,1.562-1.467C11.281,14.031,10.582,13.375,9.72,13.375"/>
+                        <path fill="none" stroke="#000000" stroke-width="0.7505" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+                        M9.72,13.375c-0.862,0-1.561,0.657-1.561,1.467c0,0.811,0.699,1.467,1.561,1.467c0.862,0,1.562-0.656,1.562-1.467
+                        C11.281,14.031,10.582,13.375,9.72,13.375"/>
+                    <path fill="#FFFFFF" d="M9.72,2.083c-1.15,0-2.082,2.401-2.082,5.364c0,2.964,0.932,5.365,2.082,5.365
+                        c1.15,0,2.082-2.401,2.082-5.365S10.87,2.083,9.72,2.083"/>
+                    <path fill="none" stroke="#000000" stroke-width="0.7505" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M9.72,2.083c-1.15,0-2.082,2.401-2.082,5.364c0,2.964,0.932,5.365,2.082,5.365c1.15,0,2.082-2.401,2.082-5.365
+                        S10.87,2.083,9.72,2.083"/>
+                </g>
+            </g>
+        </svg>
+        </instream-object>
+
+        <instream-object name="Important_Icon">
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="110" height="20" viewBox="0 0 110 20" overflow="visible" enable-background="new 0 0 110 20" preserveAspectRatio="xMidYmid meet" xml:space="preserve">
+            <g id="layer_1">
+                <text x="24" y="16" enable-background="new    " style="%atsNoteTitleStyle">%Note_Important</text>
+                <path fill="#DEDEDE" d="M9.498,0.499c-4.972,0-8.999,4.038-8.999,9.006c0,4.976,4.027,9.007,8.999,9.007s8.999-4.031,8.999-9.007
+                    C18.497,4.536,14.47,0.499,9.498,0.499"/>
+                <path fill="none" stroke="#000000" stroke-width="0.9982" stroke-linejoin="round" stroke-miterlimit="10" d="M9.498,0.499
+                    c-4.972,0-8.999,4.038-8.999,9.006c0,4.976,4.027,9.007,8.999,9.007s8.999-4.031,8.999-9.007
+                    C18.497,4.536,14.47,0.499,9.498,0.499"/>
+                <g>
+                    <polygon fill="#FFFFFF" points="9.461,1.867 7.883,7.289 2.698,7.289 6.906,10.668 5.328,16.048 9.461,12.751 13.595,16.048 
+                        12.017,10.668 16.226,7.289 11.039,7.289 "/>
+                    
+                        <polygon fill="none" stroke="#000000" stroke-width="0.7478" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
+                        9.461,1.867 7.883,7.289 2.698,7.289 6.906,10.668 5.328,16.048 9.461,12.751 13.595,16.048 12.017,10.668 16.226,7.289 
+                        11.039,7.289 "/>
+                </g>
+            </g>
+        </svg>
+        </instream-object>
+
+        <instream-object name="Remember_Icon">
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="110" height="20" viewBox="0 0 110 20" overflow="visible" enable-background="new 0 0 110 20" preserveAspectRatio="xMidYmid meet" xml:space="preserve">
+            <symbol id="arrow_3" viewBox="-5.245 -4.779 10.49 9.559">
+                <g>
+                    <polygon fill="#FA0F12" points="-5.245-4.779 -1.208,0 -5.245,4.779 5.245,0 "/>
+                </g>
+                <g>
+                    <polygon points="-5.245-4.779 -1.208,0 -5.245,4.779 5.245,0 "/>
+                </g>
+            </symbol>
+            <g id="layer_1">
+                <path fill="#DEDEDE" d="M9.498,0.499c-4.972,0-8.999,4.038-8.999,9.006c0,4.976,4.027,9.006,8.999,9.006s8.999-4.03,8.999-9.006C18.497,4.537,14.47,0.499,9.498,0.499"/>
+                <path fill="none" stroke="#000000" stroke-width="0.9982" stroke-linejoin="round" stroke-miterlimit="10" d="M9.498,0.499c-4.972,0-8.999,4.038-8.999,9.006c0,4.976,4.027,9.006,8.999,9.006s8.999-4.03,8.999-9.006C18.497,4.537,14.47,0.499,9.498,0.499"/>
+                <text x="24" y="16" enable-background="new    " style="%atsNoteTitleStyle">%Note_Remember</text>
+            
+                <use xlink:href="#arrow_3" width="10.49" height="9.559" x="-5.245" y="-4.779" transform="matrix(1 0 0 -0.9788 10.3594 9.5332)"/>
+            
+            </g>
+        </svg>
+        </instream-object>
+
+        <instream-object name="Caution_Icon">
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="90" height="20" viewBox="0 0 90 20" overflow="visible" enable-background="new 0 0 90 20" preserveAspectRatio="xMidYmid meet" xml:space="preserve">
+            <g id="layer_1">
+                <text x="24" y="16" enable-background="new    " style="%atsNoteTitleStyle">%Note_Caution</text>
+                <g>
+                    <polygon fill-rule="evenodd" clip-rule="evenodd" fill="#DDDDDD" points="10.185,0.374 0.374,19.315 19.997,19.315 "/>
+                    <polygon fill="none" stroke="#000000" stroke-width="0.7478" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
+                        10.185,0.374 0.374,19.315 19.997,19.315 "/>
+                </g>
+                <g>
+                    <path fill-rule="evenodd" clip-rule="evenodd" fill="#000000" d="M10.246,15.32c-0.654,0-1.185,0.584-1.185,1.306
+                        c0,0.721,0.531,1.307,1.185,1.307c0.653,0,1.183-0.586,1.183-1.307C11.429,15.904,10.899,15.32,10.246,15.32"/>
+                    <path fill="none" stroke="#000000" stroke-width="0.7505" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+                        M10.246,15.32c-0.654,0-1.185,0.584-1.185,1.306c0,0.721,0.531,1.307,1.185,1.307c0.653,0,1.183-0.586,1.183-1.307
+                        C11.429,15.904,10.899,15.32,10.246,15.32"/>
+                    <polygon fill-rule="evenodd" clip-rule="evenodd" fill="#000000" points="9.068,13.795 11.429,13.795 12.61,8.571 7.887,8.571 
+                        9.068,13.795 "/>
+                    <polygon fill="none" stroke="#000000" stroke-width="0.7505" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
+                        9.068,13.795 11.429,13.795 12.61,8.571 7.887,8.571 9.068,13.795 "/>
+                </g>
+            </g>
+        </svg>
+        </instream-object>
+
+        <instream-object name="Other_Icon">
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="80" height="20" viewBox="0 0 80 20" overflow="visible" enable-background="new 0 0 80 20" preserveAspectRatio="xMidYmid meet" xml:space="preserve">
+    		<g id="layer_1">
+                <text x="24" y="16" enable-background="new    " style="%atsNoteTitleStyle">%Note_Other</text>
+    			<path fill-rule="evenodd" clip-rule="evenodd" fill="#DEDEDE" d="M9.498,0.499c-4.972,0-8.999,4.038-8.999,9.006
+    				c0,4.976,4.027,9.006,8.999,9.006c4.972,0,8.999-4.03,8.999-9.006C18.497,4.537,14.47,0.499,9.498,0.499"/>
+    			<path fill="none" stroke="#000000" stroke-width="0.9982" stroke-linejoin="round" stroke-miterlimit="10" d="M9.498,0.499
+    				c-4.972,0-8.999,4.038-8.999,9.006c0,4.976,4.027,9.006,8.999,9.006c4.972,0,8.999-4.03,8.999-9.006
+    				C18.497,4.537,14.47,0.499,9.498,0.499"/>
+    			<rect x="6.288" y="6.235" fill-rule="evenodd" clip-rule="evenodd" stroke="#000000" width="6.904" height="7.214"/> 
+    		</g>
+    	</svg>
+        </instream-object>
+
+    </instream-objects>
+
+    <formatting-objects>
+        
+        <formatting-object name="foColSpanDummyBlock">
+            <fo:block span="all" line-height="0mm">&#xA0;</fo:block>
+        </formatting-object>
+
+    </formatting-objects>
+
+</style-definition>

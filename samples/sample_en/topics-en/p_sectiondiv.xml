@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic id="topic_CDA0FDC098A0A456CF4C97AB5560" xml:lang="en-US">
+	<title>Sectiondiv testing</title>
+	<shortdesc>The &lt;sectiondiv&gt; element allows logical grouping of content within a section. There is no additional meaning
+		associated with the sectiondiv element, aside from its function as a container for other content. The sectiondiv
+		element does not contain a title; the lowest level of titled content within a topic is the section itself. If additional
+		hierarchy is required, nested topics should be used in place of the section.</shortdesc>
+	<body>
+		<p>PDF output will generate fo:wrapper for &lt;sectiondiv&gt;.</p>
+		<section>
+			<title>Nice pets</title>
+			<sectiondiv id="smallpets">
+				<p>Cats are nice.</p>
+				<p>Dogs are nice.</p>
+				<p>Friends of mine really love their hedgehogs.</p>
+			</sectiondiv>
+			<sectiondiv id="biggerpets">
+				<p>Lots of people want ponies when they grow up.</p>
+				<p>Llamas are also popular.</p>
+			</sectiondiv>
+		</section>
+	</body>
+</topic>

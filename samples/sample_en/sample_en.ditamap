@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE bookmap PUBLIC "-//OASIS//DTD DITA BookMap//EN" "bookmap.dtd">
+<bookmap id = "bookmap_26F29B320CC448C6BDEE032B001C3627" xml:lang="en-US">
+        <booktitle>
+                <booklibrary>Antenna House DITA Open Toolkit Testcase</booklibrary>
+                <mainbooktitle><image href="topics-en/image/book.tif" height="1em"/>DITA to XSL-FO Transformation<ph><indexterm>AAA</indexterm></ph></mainbooktitle>
+                <booktitlealt>Unit test cases</booktitlealt>
+        </booktitle>
+        <bookmeta>
+                <source href="http://www.antennahouse.com">Antenna House Home page</source>
+                <publisherinformation>
+                    <organization>Antenna House, Inc.</organization>
+                    <printlocation>Japan</printlocation>
+                    <published>
+                        <completed>
+                            <day>06</day>
+                            <month>12</month>
+                            <year>2013</year>
+                        </completed>
+                    </published>
+                </publisherinformation>
+                <category>Testcase Report</category>
+                <keywords>
+                        <keyword>installing</keyword>
+                        <keyword>uninstalling</keyword>
+                        <keyword>prerequisites</keyword>
+                        <keyword>helps</keyword>
+                        <keyword>wizards</keyword>
+                </keywords>
+                <prodinfo>
+                        <prodname>Anttena House Testcase</prodname>
+                        <vrmlist>
+                                <vrm version = "1" release = ".01"/>
+                                <vrm version = "2" release = ".02"/>
+                        </vrmlist>
+                </prodinfo>
+                <bookid>
+                        <bookpartno>UD2013-001</bookpartno>
+                        <edition>1</edition>
+                </bookid>
+                <bookrights>
+                        <copyrfirst>
+                                <year>2006</year>
+                        </copyrfirst>
+                        <copyrlast>
+                                <year>2013</year>
+                        </copyrlast>
+                        <bookowner>
+                                <organization>Antenna House, Inc.</organization>
+                        </bookowner>
+                </bookrights>
+        </bookmeta>
+<!-- -->
+        <frontmatter>
+            <topicref href="topics-en/dita_sample.xml#batintro" type="concept">
+                <topicmeta>
+                    <keywords>
+                        <indexterm start="DITA sample range indexterm &lt;topicmeta&gt;">DITA sample range indexterm &lt;topicmeta&gt;</indexterm>
+                        <indexterm start="DITA sample range indexterm &lt;topicmeta&gt; that has @end">DITA sample range indexterm &lt;topicmeta&gt; that has @end</indexterm>
+                        <indexterm end="DITA sample range indexterm &lt;topicmeta&gt; that has @end"/>
+                        <indexterm>DITA sample indexterm &lt;topicmeta&gt;</indexterm>
+                    </keywords>
+                </topicmeta>
+                <topicref href="topics-en/c_preface.xml" type="concept"/>
+            </topicref>
+            <booklists>
+                <toc/>
+                <figurelist/>
+                <tablelist/>
+            </booklists>
+        </frontmatter>
+<!-- -->
+        <chapter navtitle="Title testing">
+            <topicref href="topics-en/p_weirdtitle1.xml" type="topic">
+                <topicmeta>
+                    <keywords>
+                        <indexterm>Title testing</indexterm>
+                        <indexterm>Title<indexterm>testing<indexterm start="title-testing-key">between page</indexterm></indexterm></indexterm>
+                    </keywords>
+                </topicmeta>
+            </topicref>
+            <topicref href="topics-en/p_weirdtitle2.xml" type="topic">
+                <topicmeta>
+                    <keywords>
+                        <indexterm>Title testing(2)</indexterm>
+                        <indexterm end="title-testing-key"/>
+                    </keywords>
+                </topicmeta>
+            </topicref>
+        </chapter>
+        <chapter href="topics-en/c_test_introduction.xml" type="concept">
+            <topicref href="topics-en/p_abstract.xml" type="topic"/>
+            <!--topicref href="topics-en/p_abstract.xml" type="topic"/-->
+            <topicref href="topics-en/p_xref.xml" type="topic"/>
+            <topicref href="topics-en/p_note.xml" type="topic"/>
+            <topicref href="topics-en/p_bodyelements.xml" type="topic"/>
+            <topicref href="topics-en/p_miscellaneouselements.xml" type="topic"/>
+            <topicref href="topics-en/p_specializationelements.xml" type="topic"/>
+            <topicref href="topics-en/p_typographic.xml" type="topic"/>
+            <topicref href="topics-en/p_programmingelements.xml" type="topic"/>
+            <topicref href="topics-en/p_softwareelements.xml" type="topic"/>
+            <topicref href="topics-en/p_utilityelements.xml" type="topic"/>
+            <topichead navtitle="Fig and table testing">
+                <topicref href="topics-en/p_fig.xml" type="topic">
+                </topicref>
+                <topicref href="topics-en/p_table.xml" type="topic">
+                </topicref>
+                <topicref href="topics-en/r_properties.xml" type="reference"/>
+                <!--topicref href="topics-en/p_foreign.xml" type="topic"/-->
+            </topichead>
+        </chapter>
+        
+        <chapter href="topics-en/t_logging_in_to_client.xml" type="task">
+        </chapter>
+
+        <!--chapter href="topics-en/r_xslt.xml" type="reference">
+        </chapter-->
+        
+        <chapter href="topics-en/p_dita12.xml" type="topic">
+            <topicmeta>
+                <keywords>
+                    <indexterm start="DITA_12_Testing_In_Topicmeta">DITA 1.2 Testing in &lt;topicmeta&gt;</indexterm>
+                </keywords>
+            </topicmeta>
+        	<topicref href="topics-en/p_longdescref.xml" type="topic"/>
+        	<topicref href="topics-en/p_longquoteref.xml" type="topic"/>
+        	<mapref href="topics-en/m_keydef.ditamap" type="map"/>
+        	<topicref href="topics-en/p_sectiondiv.xml" type="topic"/>
+        </chapter>
+
+        <chapter navtitle="Test: Link to removed topic">
+            <topicref href="topics-en/p_reference_to_no_print.xml" type="topic"/>
+            <topicref href="topics-en/p_no_print.xml" type="topic" print="no"/>
+        </chapter>
+
+        <chapter navtitle="Complecated index example">
+            <topicref href="topics-en/p_complecated_index_example.xml" type="topic"/>
+        </chapter>
+    
+        <!--chapter navtitle="Dir attribute example">
+            <topicref href="topics-en/p_dir_attribute.xml" type="topic"/>
+        </chapter-->
+    
+        <appendices>
+        	<appendix href="topics-en/r_xslt.xml" type="reference">
+	            <topicmeta>
+	                <keywords>
+	                    <indexterm start="XSLT_Testing_In_Appendix_Topicmeta">XSLT testing in appendix &lt;topicmeta&gt;</indexterm>
+	                </keywords>
+	            </topicmeta>
+        	</appendix>
+            <appendix navtitle="Dir attribute example (level 1)">
+                <topichead navtitle="Dir attribute example (level 2)">
+                    <topicref href="topics-en/p_dir_attribute.xml" type="topic"/>
+                </topichead>
+            </appendix>
+            <!--appendix href="topics-en/p_fo_property_test.xml"/-->
+        </appendices>
+		
+        <backmatter>
+        	<topicref href="topics-en/p_backmatter.xml" type="topic"/>
+            <booklists>
+            	<glossarylist href="topics-en/glossary_en.ditamap" format="ditamap"/>
+                <indexlist/>
+            </booklists>
+        </backmatter>
+        
+
+        <reltable id="reltable_2009_1009" title="Title test" toc="no"> 
+            <relheader>
+                <relcolspec type="topic"/>
+                <relcolspec type="topic"/>
+            </relheader> 
+            <relrow>
+                <relcell> 
+                    <topicref format="dita" href="topics-en/p_weirdtitle1.xml" navtitle="[navititle] p_weirdtitle1.xml" scope="local" type="topic"> 
+                        <topicmeta><linktext>[linktext] p_weirdtitle1.xml</linktext></topicmeta>
+                    </topicref>
+                </relcell>
+                <relcell>
+                    <topicref format="dita" href="topics-en/p_weirdtitle2.xml" navtitle="[navtitle] p_weirdtitle2.xml" scope="local" type="topic">
+                        <topicmeta><linktext>[linktext] p_weirdtitle2.xml</linktext></topicmeta>
+                    </topicref> 
+                </relcell>
+            </relrow>
+        </reltable>        
+
+        <reltable id="reltable_2009_10_09_2" title="Link to external" toc="no"> 
+            <relheader>
+                <relcolspec type="topic"/>
+                <relcolspec type=""/>
+            </relheader> 
+            <relrow>
+                <relcell> 
+                    <topicref format="dita" href="topics-en/p_weirdtitle1.xml" navtitle="[navititle] Source navtitle" scope="local" type="topic" linking="sourceonly"> 
+                    <topicmeta><linktext>[linktext] p_weirdtitle1.xml</linktext></topicmeta></topicref>
+                    <topicref format="dita" href="topics-en/p_weirdtitle2.xml" navtitle="[navititle] Source navtitle" scope="local" type="topic" linking="sourceonly"> 
+                    <topicmeta><linktext>[linktext] p_weirdtitle2.xml</linktext></topicmeta></topicref>
+                </relcell>
+                <relcell> 
+                    <topicref href="http://www.w3.org/TR/2006/REC-xsl11-20061205/xsl11.pdf" scope="external" type="pdf" linking="targetonly">
+                       <topicmeta><linktext><keyword>Extensible Stylesheet Language (XSL)</keyword> Version 1.1 (PDF)</linktext><shortdesc></shortdesc></topicmeta>
+                    </topicref>
+
+                    <topicref href="http://www.w3.org/TR/xsl/" scope="external" type="pdf" linking="targetonly">
+                        <topicmeta><linktext><keyword>Extensible Stylesheet Language (XSL)</keyword> Version 1.1 (HTML)</linktext><shortdesc></shortdesc></topicmeta>
+                    </topicref>
+
+
+                    <topicref href="deadlink.pdf" scope="external" type="pdf" linking="targetonly">
+                    <topicmeta><linktext><keyword>Extensible Stylesheet Language (XSL)</keyword> Version 1.1 (BOOK)</linktext><shortdesc></shortdesc></topicmeta>
+                    </topicref>
+
+                    <topicref href="sample.pdf" scope="external" type="pdf" linking="targetonly">
+                        <topicmeta><linktext>Sample PDF</linktext><shortdesc></shortdesc></topicmeta>
+                    </topicref>
+
+                    <topicref href="sample_ja.pdf#topic_ja_2" scope="external" type="pdf" linking="targetonly">
+                        <topicmeta><linktext>Japanese Constitution Preamble</linktext><shortdesc></shortdesc></topicmeta>
+                    </topicref>
+
+            </relcell>
+            </relrow>
+        </reltable>
+    
+        <reltable  id="reltable_2013_09_02" title="Link to no-print topic">
+            <relrow>
+                <relcell>
+                    <topicref href="topics-en/p_reference_to_no_print.xml" type="topic" format="dita" linking="normal"/>
+                </relcell>
+                <relcell>
+                    <topicref href="topics-en/p_no_print.xml" type="topic" format="dita" linking="normal"/>
+                </relcell>
+            </relrow>
+        </reltable>
+    <!-- -->
+</bookmap>

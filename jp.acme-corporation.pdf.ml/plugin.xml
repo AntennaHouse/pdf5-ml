@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin id="jp.acme-corporation.pdf.ml">
+    <feature extension="dita.conductor.transtype.check" value="acme-corporation.pdf.ml" type="pdf"/>
+    <feature extension="dita.conductor.target.relative" value="integrator.xml" type="file"/>
+    <feature extension="dita.transtype.print" value="acme-corporation.pdf.ml"/>
+    <require plugin="com.antennahouse.pdf5.ml"/>
+</plugin>

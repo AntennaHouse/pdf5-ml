@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<!DOCTYPE map PUBLIC "-//OASIS//DTD DITA Map//EN" "map.dtd">
+<!-- Created with XMetaL (http://www.xmetal.com) -->
+<map id="map_961DFA33E19248B4B6F833712DE48F58"><title>Glossary</title>
+	<topicref>
+		<topicref format="dita" href="gloss_DOM.xml" navtitle="Document Object Model" scope="local" type="concept"/>
+		<topicref format="dita" href="gloss_DTD.xml" navtitle="Document Type Definition" scope="local" type="concept"/><topicref format="dita" scope="local"/>
+	</topicref>
+</map>

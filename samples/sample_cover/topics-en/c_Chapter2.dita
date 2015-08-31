@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<?xml-model href="urn:oasis:names:tc:dita:rng:concept.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="urn:oasis:names:tc:dita:rng:concept.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<concept id="concept_lhs_bkh_2t">
+ <title>Output Type Page Layout Feature</title>
+ <conbody>
+  <conbodydiv deliveryTarget="pdf-web">
+   <section>
+    <p>In the web output, the following layout features are adopted:</p>
+    <ul>
+     <li>The cover takes one page and the back cover also takes one page.</li>
+     <li>The page layout of odd page and even page are the same.</li>
+     <li>The chapter page begins from odd page or even page.</li>
+     <li>The total page count has no constraints.</li>
+    </ul>
+   </section>
+  </conbodydiv>
+  <conbodydiv deliveryTarget="pdf-print">
+   <section>
+    <p>In the print output, the following layout features are adopted:</p>
+    <ul>
+     <li>The cover pages and back cover pages takes two pages respectively.</li>
+     <li>The page layout is different in odd page and even pages. In both page the inner margin is wider than the outer margin. 
+      This means the left margin of an even page is same as the right margin of an odd page and the right margin of an even page is same as the left margin of an odd page.</li>
+     <li>The chapter page begins from odd page. At the end of chapter, the blank page will be inserted to adjust pages.</li>
+     <li>The total page count will became even.</li>
+    </ul>
+   </section>
+  </conbodydiv>
+ </conbody>
+</concept>

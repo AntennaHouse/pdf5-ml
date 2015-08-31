@@ -1,0 +1,403 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<!--concept-->
+<concept id="concept__introduction" xml:lang="en-US">
+	<title> Testing examples</title>
+	<shortdesc>[Short desc] This part contains DITA element testing examples. </shortdesc>
+    <prolog>
+    <metadata>
+    <keywords>
+        <!--indexterm><keyword>Windows7<tm tmtype="reg"/></keyword>
+            <index-see><keyword>Microsoft<tm tmtype="tm"/></keyword>
+            </index-see>
+        </indexterm>
+
+        <indexterm><keyword>Microsoft<tm tmtype="tm"/></keyword>
+        </indexterm-->
+        <!--indexterm><keyword>Microsoft</keyword>
+        </indexterm-->
+
+        <!--indexterm><keyword>MS-DOS<tm tmtype="reg"/></keyword>
+            <index-see-also><keyword>Microsoft<tm tmtype="tm"/></keyword>
+            </index-see-also>
+        </indexterm-->
+
+		<!--indexterm>ー</indexterm>
+		<indexterm>あ</indexterm>
+		<indexterm>か</indexterm>
+		<indexterm>さ</indexterm>
+		<indexterm>た</indexterm>
+		<indexterm>な</indexterm>
+		<indexterm>は</indexterm>
+		<indexterm>ま</indexterm>
+		<indexterm>や</indexterm>
+		<indexterm>ら</indexterm>
+		<indexterm>わ</indexterm>
+		<indexterm>ん</indexterm>
+		<indexterm>ー</indexterm>
+
+		<indexterm>パラメータ<index-sort-as>ぱらめーた</index-sort-as></indexterm>
+		<indexterm>パラメータ<index-sort-as>ぱらめた</index-sort-as></indexterm-->
+
+		<indexterm>#all</indexterm>
+		<indexterm>#default
+			<index-see-also>Mode parameter (template)</index-see-also>
+		</indexterm>
+
+		<indexterm>Mode parameter (template)</indexterm>
+
+        <indexterm>cheese
+            <indexterm>sheeps milk
+                <indexterm>pecorino</indexterm>
+            </indexterm>
+            <indexterm>goats milk
+                <indexterm>chevre</indexterm>
+            </indexterm>
+        </indexterm>
+        
+        <indexterm>cheese
+            <indexterm>sheeps milk
+                <indexterm>pecorino
+                    <index-see-also>cheese
+                        <indexterm>goats milk
+                            <indexterm>chevre
+                            </indexterm>
+                        </indexterm>
+                    </index-see-also>
+                </indexterm>
+            </indexterm>
+        </indexterm>
+
+        <indexterm>cheese
+            <indexterm>goats milk
+                <indexterm>chevre
+                    <index-see-also>cheese
+                        <indexterm>sheeps milk
+                            <indexterm>pecorino
+                            </indexterm>
+                        </indexterm>
+                    </index-see-also>
+                </indexterm>
+            </indexterm>
+        </indexterm>
+
+        <indexterm>cheese
+        </indexterm>
+
+        <indexterm>cheese
+            <indexterm>goats milk
+            </indexterm>
+        </indexterm>
+
+        <indexterm>cheese
+            <indexterm>goats milk
+                <indexterm>chevre
+                </indexterm>
+            </indexterm>
+        </indexterm>
+
+
+        <indexterm>cheese
+            <indexterm>goats milk
+                <indexterm>chevre
+                    <index-see-also>Cheese maker
+                    </index-see-also>
+                </indexterm>
+            </indexterm>
+        </indexterm>
+        
+        <indexterm>Cheese maker
+        </indexterm>
+        
+        
+        
+        <indexterm>Feeding goldfish
+            <index-see>Goldfish <indexterm>feeding</indexterm></index-see>
+        </indexterm>
+        <indexterm>Feeding goldfish
+            <index-see>Carp</index-see>
+        </indexterm>
+        <indexterm>Carp
+            <index-see-also>Goldfish</index-see-also>
+        </indexterm>
+        <indexterm>Feeding
+            <index-see-also>Goldfish <indexterm>feeding</indexterm></index-see-also>
+        </indexterm>
+        <indexterm>Goldfish
+        </indexterm>
+        <indexterm>Goldfish
+            <indexterm>feeding</indexterm>
+        </indexterm>
+        
+        <indexterm>data<index-sort-as>data</index-sort-as></indexterm>
+        <indexterm>data</indexterm>
+        <indexterm>&lt;data&gt;<index-sort-as>data</index-sort-as></indexterm>
+        <indexterm>&lt;data&gt;<index-sort-as>&lt;data&gt;</index-sort-as></indexterm>
+        <indexterm>Test data<index-see>data</index-see></indexterm>
+        
+        <!-- DITA supports deepely nested indexterm -->
+        <!--indexterm><keyword>indexterm1</keyword>
+            <indexterm><option>indexterm2</option>
+                <indexterm><parmname>indexterm3</parmname>
+                    <indexterm><apiname>indexterm4</apiname>
+                        <indexterm><cmdname>indexterm5</cmdname>
+                        </indexterm>
+                    </indexterm>
+                </indexterm>
+            </indexterm>
+        </indexterm>
+
+        <indexterm><keyword>Indexterm-1</keyword>
+            <indexterm><option>Indexterm-2</option>
+                <indexterm><parmname>Indexterm-3</parmname>
+                    <indexterm><apiname>Indexterm-4</apiname>
+                        <indexterm><cmdname>Indexterm-5</cmdname>
+                            <indexterm><cmdname>Indexterm-6</cmdname>
+                            </indexterm>
+                        </indexterm>
+                    </indexterm>
+                </indexterm>
+            </indexterm>
+        </indexterm-->
+
+        <!--indexterm>WWW
+            <indexterm start="level-2-w3">W3
+                <indexterm>ORG
+                    <indexterm end="level-4-home">HOME
+                        <indexterm end="level-5-home">PAGE
+                        </indexterm>
+                    </indexterm>
+                </indexterm>
+            </indexterm>
+        </indexterm-->
+
+        <!--indexterm end="level-1-www">WWW
+            <indexterm>W3
+                <indexterm start="level-3-org">ORG
+                    <indexterm start="level-3-home">HOME
+                    </indexterm>
+                </indexterm>
+            </indexterm>
+        </indexterm-->
+
+        <!--indexterm>WWW
+            <indexterm>W3
+                <indexterm start="level-3-org">ORG
+                </indexterm>
+            </indexterm>
+        </indexterm-->
+
+
+        <!--indexterm>www
+            <indexterm>apache
+                <indexterm>org
+                    <indexterm>Xalan
+                    </indexterm>
+                </indexterm>
+            </indexterm>
+        </indexterm-->
+
+        <!--indexterm>www
+            <indexterm>yahoo
+                <indexterm>com
+                </indexterm>
+            </indexterm>
+        </indexterm-->
+
+        <!--indexterm>www
+            <indexterm>saxonica
+                <indexterm>com
+                    <index-see>Michael Kay
+                    </index-see>
+                </indexterm>
+            </indexterm>
+        </indexterm-->
+
+        <!--indexterm>www
+            <indexterm>saxonica
+                <indexterm>com
+                    <index-see>Saxon
+                    </index-see>
+                </indexterm>
+            </indexterm>
+        </indexterm-->
+
+        <!--indexterm>www
+            <indexterm>saxonica
+                <indexterm>com
+                    <index-see>XSLT&amp;XPath 2.0 Programmer's Reference
+                        <indexterm>Wrox
+                        </indexterm>
+                    </index-see>
+                </indexterm>
+            </indexterm>
+        </indexterm-->
+
+        <!--indexterm>Saxon</indexterm-->
+
+        <!--indexterm>Michael Kay</indexterm-->
+        
+        <!--indexterm>XSLT&amp;XPath 2.0 Programmer's Reference
+            <indexterm>Wrox
+            </indexterm>
+        </indexterm-->
+
+
+        <indexterm><keyword>error1</keyword>
+            <indexterm><option>error2</option>
+                <indexterm><parmname>error3</parmname>
+                    <indexterm><apiname>error4</apiname>
+                        <indexterm><cmdname>error5</cmdname>
+                        </indexterm>
+                    </indexterm>
+                </indexterm>
+            </indexterm>
+        </indexterm>
+
+        <!--indexterm>See error
+            <indexterm>See error 2
+            </indexterm>
+            <index-see>See
+            </index-see>
+        </indexterm-->
+
+        <!--indexterm>See also error
+            <indexterm>See also error 2
+            </indexterm>
+            <index-see-also>See Also Text
+            </index-see-also>
+        </indexterm-->
+
+        <!--indexterm>See and see also error
+            <indexterm>See and see also error 2
+                <index-see-also>See Also Text
+                </index-see-also>
+                <index-see>See Text
+                </index-see>
+            </indexterm>
+        </indexterm-->
+        
+        <!--indexterm>NO TEXT
+            <indexterm/>
+        </indexterm-->
+
+        <!--indexterm>WWW
+            <indexterm>W3
+               <indexterm> ORGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG
+                </indexterm>
+            </indexterm>
+        </indexterm-->
+
+        <!--indexterm start="level_1">LEVEL-1
+            <indexterm start="level_2">LEVEL-2
+                <indexterm start="level_3">LEVEL-3
+                </indexterm>
+            </indexterm>
+        </indexterm-->
+        
+        <!--indexterm start="level_0">LEVEL_0</indexterm>
+
+        <indexterm end="level_0"/>
+        <indexterm end="level_0"/-->
+
+
+        <!--indexterm end="level_1"/>
+        <indexterm end="level_1"/-->
+        
+        <!--indexterm end="level_2"/>
+        <indexterm end="level_3"/-->
+
+
+        <!--indexterm end="level_99"/-->
+
+
+        <!--indexterm start="level_100">LEVEL-100
+        </indexterm-->
+
+        <!--indexterm start="level_100">LEVEL-100
+        </indexterm-->
+
+        <!--indexterm>LEVEL-100
+            <indexterm end="level_100">LEVEL-101
+            </indexterm>
+        </indexterm-->
+
+        <!--indexterm end="level_100">LEVEL-100
+            <indexterm>LEVEL-101
+            </indexterm>
+        </indexterm-->
+
+        <indexterm start="TestingExamplesKey">Testing Examples
+        </indexterm>
+
+
+        <!--indexterm start="level_1" end="level_3">LEVEL-1
+        </indexterm-->
+
+        <!--indexterm end="level_3">LEVEL-1
+            <indexterm>LEVEL-2
+                <indexterm start="level_1">LEVEL-3
+                </indexterm>
+            </indexterm>
+        </indexterm-->
+
+        <!--indexterm start="level_1">LEVEL-1
+            <indexterm>LEVEL-2
+                <indexterm end="level_3">LEVEL-3
+                </indexterm>
+            </indexterm>
+        </indexterm-->
+
+        
+        <!--indexterm end="level_1"/-->
+
+        <indexterm end="TestingExamplesKey"/>
+        
+        <!--indexterm>Carassius auratus
+            <index-see>Goldfish</index-see>
+        </indexterm>
+        <indexterm>Carassius auratus
+            <index-see>Silverfish</index-see>
+        </indexterm>
+        <indexterm>Carassius auratus
+            <index-see>Diamondfish</index-see>
+        </indexterm-->
+
+        <!--indexterm end="level-3-org"/-->
+        
+        <!-- indexterm test example: lower case/upper case -->
+		<indexterm>License control PC</indexterm>
+		<indexterm>License Control PC</indexterm>
+		<indexterm>License control software</indexterm>
+		<indexterm>License</indexterm>
+		<indexterm>license</indexterm>
+		<indexterm>License
+			<indexterm>Standalone license</indexterm>
+		</indexterm>
+		<indexterm>License
+			<indexterm>Server license</indexterm>
+		</indexterm>
+		<indexterm>License
+			<indexterm>Developer license</indexterm>
+		</indexterm>
+		<indexterm>License
+			<indexterm>Developer license
+				<indexterm>For Visual C++</indexterm>
+			</indexterm>
+		</indexterm>
+		<indexterm>License
+			<indexterm>Developer license
+				<indexterm>For Java</indexterm>
+			</indexterm>
+		</indexterm>
+		<indexterm>Change the license</indexterm>
+        
+        
+    </keywords>
+    </metadata>
+    </prolog>
+	<conbody>
+    <p>First<!--fn>the ordinal form of the number one </fn--> paragraph.</p>
+    <p>Second paragraph.<!--fn>A paragraph (from the Greek paragraphos, "to write beside" or "written beside") is a self-contained unit of a discourse in writing dealing with a particular point or idea. The start of a paragraph is indicated by beginning on a new line. Sometimes the first line is indented.</fn--></p>
+    </conbody>
+</concept>

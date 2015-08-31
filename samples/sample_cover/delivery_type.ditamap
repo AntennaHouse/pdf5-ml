@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="urn:oasis:names:tc:dita:rng:subjectScheme.rng" schematypens="http://relaxng.org/ns/structure/1.0"?> 
+<subjectScheme>
+    <subjectdef keys="output-type" navtitle="Output Type">
+        <subjectdef keys="pdf-web" navtitle="PDF For WEB"/>
+        <subjectdef keys="pdf-print" navtitle="PDF For Print">
+            <subjectdef keys="pdf-print-mono"  navtitle="PDF For Monochrome Printing"/>
+            <subjectdef keys="pdf-print-color"  navtitle="PDF For Color Printing"/>
+        </subjectdef>
+    </subjectdef>
+    <enumerationdef>
+        <attributedef name="deliveryTarget"/>
+        <subjectdef keyref="output-type"/>
+    </enumerationdef>
+</subjectScheme>

@@ -1,0 +1,219 @@
+<?xml version="1.0"?>
+<!-- Build file for merged middle file to PDF transformation
+     Revision History
+     - Newly created. 
+       2015-05-07 t.makita
+     [Parameter] 
+     prmInputFile:  Merged middle file path
+     prmOutputFile: PDF file path
+  -->
+<project name="build.transform">
+    <import file="build_ahf.xml"/>
+
+    <!-- Genarate XSL-FO & PDF from merged middle fiel.
+         Parameter：prmInputFile⇒Path of merged middle file
+                    prmOutputFile⇒Path of output PDF file
+      -->
+    <target name="build.project.class.path.wo.plugin" unless="use.18n_index.class.path">
+        <path id="project.class.path">
+            <pathelement path="${java.class.path}"/>
+        </path>
+    </target>
+
+    <target name="build.project.class.path.with.plugin" if="use.18n_index.class.path">
+        <path id="project.class.path">
+            <path refid="i18n_index.class.path"/>
+            <pathelement path="${java.class.path}"/>
+        </path>
+    </target>
+
+    <target name="build.project.class.path"
+        depends="build.project.class.path.wo.plugin,build.project.class.path.with.plugin"/>
+
+    <target name="transform.merged2pdf.impl">
+
+        <antcall target="transform.merged">
+            <param name="prmInputFile" value="${prmInputFile}"/>
+            <param name="prmOutputFile"
+                value="${build.temp.dir}${file.separator}${converted.merged.file}"/>
+        </antcall>
+
+        <antcall target="transform.merged2psmi">
+            <param name="prmInputFile"
+                value="${build.temp.dir}${file.separator}${converted.merged.file}"/>
+            <param name="prmOutputFile"
+                value="${build.temp.dir}${file.separator}${dita.map.filename.root}_psmi.fo"/>
+        </antcall>
+
+        <antcall target="transform.psmi2fo">
+            <param name="prmInputFile"
+                value="${build.temp.dir}${file.separator}${dita.map.filename.root}_psmi.fo"/>
+            <param name="prmOutputFile"
+                value="${dita.map.output.dir}${file.separator}${dita.map.filename.root}.fo"/>
+        </antcall>
+
+        <antcall target="transform.fo2pdf">
+            <param name="prmInputFile"
+                value="${dita.map.output.dir}${file.separator}${dita.map.filename.root}.fo"/>
+            <param name="prmOutputFile" value="${prmOutputFile}"/>
+            <param name="prmMultiVol" value="no"/>
+        </antcall>
+
+    </target>
+
+    <!-- Convert merged middle file -->
+    <target name="transform.merged">
+        <property name="stylesheet" value="${xsl.dir}${file.separator}dita2fo_convmerged_shell.xsl"/>
+        <antcall target="transform.merged.common">
+            <param name="prmInputFile" value="${prmInputFile}"/>
+            <param name="prmOutputFile" value="${prmOutputFile}"/>
+            <param name="prmStylesheetFile" value="${stylesheet}"/>
+        </antcall>
+    </target>
+
+    <!-- Make XSL-FO(PSMI) from merged middle file -->
+    <target name="transform.merged2psmi">
+        <property name="stylesheet" value="${xsl.dir}${file.separator}dita2fo_shell.xsl"/>
+        <antcall target="transform.merged.common">
+            <param name="prmInputFile" value="${prmInputFile}"/>
+            <param name="prmOutputFile" value="${prmOutputFile}"/>
+            <param name="prmStylesheetFile" value="${stylesheet}"/>
+        </antcall>
+    </target>
+
+    <target name="transform.merged.common">
+        <antcall target="transform.merged.common.saxon">
+            <param name="prmInputFile" value="${prmInputFile}"/>
+            <param name="prmOutputFile" value="${prmOutputFile}"/>
+            <param name="prmStylesheetFile" value="${stylesheet}"/>
+        </antcall>
+        <antcall target="transform.merged.common.jaxp">
+            <param name="prmInputFile" value="${prmInputFile}"/>
+            <param name="prmOutputFile" value="${prmOutputFile}"/>
+            <param name="prmStylesheetFile" value="${stylesheet}"/>
+        </antcall>
+    </target>
+
+    <target name="transform.merged.common.jaxp" depends="build.project.class.path"
+        unless="${use.saxon.transform}">
+        <echo message="Stylesheet=${prmStylesheetFile}"/>
+        <echo message="use.i18n.index.lib=${use.i18n.index.lib}"/>
+        <echo message="user.input.dir=${user.input.dir}"/>
+        <property name="classpath" refid="project.class.path"/>
+        <echo message="classpath=${classpath}"/>
+        <xslt processor="trax" in="${prmInputFile}" out="${prmOutputFile}"
+            style="${prmStylesheetFile}" classpathref="project.class.path" force="true">
+            <factory name="net.sf.saxon.TransformerFactoryImpl">
+                <attribute name="http://saxon.sf.net/feature/timing" value="true"/>
+            </factory>
+            <param name="PRM_STYLE_DEF_FILE" expression="${style.def.file}" if="style.def.file"/>
+            <param name="PRM_INCLUDE_FRONTMATTER_TO_TOC" expression="${include.frontmatter.to.toc}"
+                if="include.frontmatter.to.toc"/>
+            <param name="PRM_ADD_NUMBERING_TITLE_PREFIX" expression="${add.numbering.title.prefix}"
+                if="add.numbering.title.prefix"/>
+            <param name="PRM_ADD_PART_TO_TITLE" expression="${add.part.to.title}"
+                if="add.part.to.title"/>
+            <param name="PRM_ADD_THUMBNAIL_INDEX" expression="${add.thumbnail.index}"
+                if="add.thumbnail.index"/>
+            <param name="PRM_ASSUME_SORTAS_PINYIN" expression="${assume.sortas.pinyin}"
+                if="assume.sortas.pinyin"/>
+            <param name="PRM_LANG" expression="${xml.lang}" if="xml.lang"/>
+            <param name="PRM_MAKE_SEE_LINK" expression="${make.see.link}" if="make.see.link"/>
+            <param name="PRM_OUTPUT_DRAFT_COMMENT" expression="${output.draft.comment}"
+                if="output.draft.comment"/>
+            <param name="PRM_OUTPUT_REQUIRED_CLEANUP" expression="${output.required.cleanup}"
+                if="output.required.cleanup"/>
+            <param name="PRM_USE_OID" expression="${use.oid}" if="use.oid"/>
+            <param name="PRM_FORMAT_DL_AS_BLOCK" expression="${format.dl.as.block}"
+                if="format.dl.as.block"/>
+            <param name="PRM_DEBUG_STYLE" expression="${debug.style}"
+                if="debug.style"/>
+            <!--param name="PRM_APPLY_TOC_ATTR" expression="${apply.toc.attr}" if="apply.toc.attr"/-->
+            <!--param name="PRM_ONLINE_PDF" expression="${online.pdf}" if="online.pdf"/-->
+            <param name="PRM_SORT_GLOSSENTRY" expression="${sort.glossentry}"
+                if="output.start.message"/>
+            <param name="PRM_OUTPUT_START_MESSAGE" expression="${output.start.message}"
+                if="output.start.message"/>
+            <param name="PRM_AUTO_SCALE_DOWN_TO_FIT" expression="${auto.scale.down.to.fit}"
+                if="auto.scale.down.to.fit"/>
+            <param name="PRM_MAKE_TOC_FOR_MAP" expression="${make.toc.for.map}"
+                if="make.toc.for.map"/>
+            <param name="PRM_MAKE_INDEX_FOR_MAP" expression="${make.index.for.map}"
+                if="make.index.for.map"/>
+            <param name="PRM_MAKE_ALT_TEXT" expression="${make.alt.text}" if="make.alt.text"/>
+            <param name="PRM_PAPER_SIZE" expression="${paper.size}" if="paper.size"/>
+            <param name="PRM_IMAGE_IN_OUTPUT_FOLDER" expression="${image.in.output.folder}"
+                if="image.in.output.folder"/>
+            <param name="PRM_OUTPUT_CROP_REGION" expression="${output.crop.region}"
+                if="output.crop.region"/>
+            <param name="PRM_OUTPUT_TYPE" expression="${output.type}"
+                if="output.type"/>
+            <param name="PRM_EXCLUDE_COVER_FROM_COUNTING_PAGE" expression="${exclude.cover.from.counting.page}"
+                if="exclude.cover.from.counting.page"/>
+            <param name="PRM_USE_I18N_INDEX_LIB" expression="${use.i18n.index.lib}"
+                if="use.i18n.index.lib"/>
+            <param name="PRM_MAP_DIR_URL" expression="${user.input.dir.url}" if="user.input.dir.url"/>
+            <param name="PRM_OT_VERSION" expression="${otversion}" if="otversion"/>
+            <sysproperty key="com.innodata.i18n.home" value="${i18n.home}"/>
+            <sysproperty key="use.i18n.index.lib" value="${use.i18n.index.lib}"/>
+        </xslt>
+    </target>
+
+    <target name="transform.merged.common.saxon" depends="build.project.class.path"
+        if="${use.saxon.transform}">
+        <!-- XSLT Transformation Class Name -->
+        <property name="transformer.classname" value="net.sf.saxon.Transform"/>
+        <echo message="Stylesheet=${prmStylesheetFile}"/>
+        <echo message="use.i18n.index.lib=${use.i18n.index.lib}"/>
+        <echo message="user.input.dir=${user.input.dir}"/>
+        <property name="classpath" refid="project.class.path"/>
+        <echo message="classpath=${classpath}"/>
+
+        <java classname="${transformer.classname}" classpathref="project.class.path"
+            failonerror="true">
+            <arg line="-t"/>
+            <arg line='-o:"${prmOutputFile}"'/>
+            <arg line='-s:"${prmInputFile}"'/>
+            <arg line='-xsl:"${prmStylesheetFile}"'/>
+            <arg line='"PRM_STYLE_DEF_FILE=${style.def.file}"'/>
+            <arg line='"PRM_INCLUDE_FRONTMATTER_TO_TOC=${include.frontmatter.to.toc}"'/>
+            <arg line='"PRM_ADD_NUMBERING_TITLE_PREFIX=${add.numbering.title.prefix}"'/>
+            <arg line='"PRM_ADD_PART_TO_TITLE=${add.part.to.title}"'/>
+            <arg line='"PRM_ADD_THUMBNAIL_INDEX=${add.thumbnail.index}"'/>
+            <arg line='"PRM_ASSUME_SORTAS_PINYIN=${assume.sortas.pinyin}"'/>
+            <arg line='"PRM_LANG=${xml.lang}"'/>
+            <arg line='"PRM_MAKE_SEE_LINK=${make.see.link}"'/>
+            <arg line='"PRM_OUTPUT_DRAFT_COMMENT=${output.draft.comment}"'/>
+            <arg line='"PRM_OUTPUT_REQUIRED_CLEANUP=${output.required.cleanup}"'/>
+            <arg line='"PRM_USE_OID=${use.oid}"'/>
+            <arg line='"PRM_FORMAT_DL_AS_BLOCK=${format.dl.as.block}"'/>
+            <arg line='"PRM_DEBUG_STYLE=${debug.style}"'/>
+            <!--arg line='"PRM_APPLY_TOC_ATTR=${apply.toc.attr}"'/-->
+            <!--arg line='"PRM_ONLINE_PDF=${online.pdf}"'/-->
+            <arg line='"PRM_SORT_GLOSSENTRY=${sort.glossentry}"'/>
+            <arg line='"PRM_OUTPUT_START_MESSAGE=${output.start.message}"'/>
+            <arg line='"PRM_AUTO_SCALE_DOWN_TO_FIT=${auto.scale.down.to.fit}"'/>
+            <arg line='"PRM_MAKE_TOC_FOR_MAP=${make.toc.for.map}"'/>
+            <arg line='"PRM_MAKE_INDEX_FOR_MAP=${make.index.for.map}"'/>
+            <arg line='"PRM_MAKE_ALT_TEXT=${make.alt.text}"'/>
+            <arg line='"PRM_PAPER_SIZE=${paper.size}"'/>
+            <arg line='"PRM_IMAGE_IN_OUTPUT_FOLDER=${image.in.output.folder}"'/>
+            <arg line="'PRM_OUTPUT_CROP_REGION=${output.crop.region}'"/>
+            <arg line="'PRM_OUTPUT_TYPE=${output.type}'"/>
+            <arg line="'PRM_EXCLUDE_COVER_FROM_COUNTING_PAGE=${exclude.cover.from.counting.page}'"/>
+            <arg line='"PRM_USE_I18N_INDEX_LIB=${use.i18n.index.lib}"'/>
+            <arg line='"PRM_MAP_DIR_URL=${user.input.dir.url}"'/>
+            <arg line='"PRM_OT_VERSION=${otversion}"'/>
+            <sysproperty key="com.innodata.i18n.home" value="${i18n.home}"/>
+            <sysproperty key="use.i18n.index.lib" value="${use.i18n.index.lib}"/>
+        </java>
+    </target>
+
+    <!-- Make XSL-FO from XSL-FO(PSMI) -->
+    <target name="transform.psmi2fo">
+        <property name="stylesheet" value="${xsl.dir}${file.separator}psmi.xsl"/>
+        <xslt processor="trax" in="${prmInputFile}" out="${prmOutputFile}" style="${stylesheet}"
+        > </xslt>
+    </target>
+
+</project>

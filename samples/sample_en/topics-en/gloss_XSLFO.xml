@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<!DOCTYPE glossentry PUBLIC "-//OASIS//DTD DITA Glossary Entry//EN" "glossentry.dtd">
+<glossentry id="glossentry_99D6FF2EE4E449A1AD591EDF91B2232B" xml:lang="en-US"> 
+  <glossterm>XSL Formatting Objects
+  </glossterm> 
+  <glossdef>XSL Formatting Objects, or XSL-FO, is a markup language for XML
+	 document formatting which is most often used to generate PDFs. XSL-FO is part
+	 of XSL (Extensible Stylesheet Language), a set of W3C technologies designed for
+	 the transformation and formatting of XML data. The other parts of XSL are XSLT
+	 and XPath. As of December 12, 2006, the current version of XSL-FO is v1.1
+  </glossdef> 
+</glossentry>

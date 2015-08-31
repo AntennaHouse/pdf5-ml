@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dita PUBLIC "-//OASIS//DTD DITA Composite//EN" "ditabase.dtd">
+<dita>
+	<concept id="batintro" xml:lang="en-US">
+		<title>Test data title</title>
+		<prolog>
+			<metadata>
+				<keywords>
+					<indexterm>&lt;dita&gt; sample indexterm in &lt;metadata&gt;</indexterm>
+					<indexterm start="&lt;dita&gt; sample range indexterm in &lt;metadata&gt;">&lt;dita&gt; sample range indexterm in &lt;metadata&gt;</indexterm>
+					<indexterm start="&lt;dita&gt; sample range indexterm in &lt;metadata&gt; that have @end">&lt;dita&gt; sample range indexterm in &lt;metadata&gt; that have @end</indexterm>
+					<indexterm end="&lt;dita&gt; sample range indexterm in &lt;metadata&gt; that have @end"/>
+				</keywords>
+			</metadata>
+		</prolog>
+		<conbody>
+			<p>The test data begins from here!</p>
+		</conbody>
+	</concept>
+	<reference id="batparts" xml:lang="en-US">
+		<title>Reference title</title>
+	</reference>
+	<task id="batfeeding" xml:lang="en-US">
+		<title>Task title</title>
+	</task>
+	<task id="battraining" xml:lang="en-US">
+		<title>Task title</title>
+	</task>
+	<task id="batcleanup" xml:lang="en-US">
+		<title>Task title</title>
+	</task>
+</dita>

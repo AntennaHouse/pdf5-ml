@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic id="topic_89CD34EDAC4076FF" xml:lang="en-US">
+	<title>Specialization elements testing</title>
+	<shortdesc>Several DITA elements exist either for architectural reasons or for support of specialized markup yet to be designed. Although there is little need to use these elements unless you are directed to, some of them,
+such as &lt;state&gt;, can be used if your content makes use of these semantic distinctions. A discussion of
+signals on a gate of an integrated logic circuit, for example, might use the state element to represent
+either on or off conditions of that gate.</shortdesc>
+
+	<body>
+        <section>
+            <title>itemgroup</title>
+            <p>The &lt;itemgroup&gt; element is reserved for use in specializations of DITA. As a container element, it can be used to sub-divide or organize elements that occur inside a list item, definition, or parameter definition.</p>
+            <ol>
+                <li>First point of a list.</li>
+                <li>Second point of a list.
+                    <itemgroup>related discourse</itemgroup>
+                </li>
+            </ol>
+
+        </section>
+        <section>
+            <title>required-cleanup</title>
+            <p>A &lt;reqired-cleanup&gt; element is used as a placeholder for migrated elements that cannot be
+appropriately tagged without manual intervention. As the element name implies, the intent for authors is
+to clean up the contained material and eventually get rid of the &lt;reqired-cleanup&gt; element. Authors
+should not insert this element into documents.</p>
+            <note type="note">Because the content of &lt;reqired-cleanup&gt; is not considered to be verified data, <b>DITA processors are required to strip this element from output by default.</b> A runtime flag may be provided to allow a draft view of migrated content in context.</note>
+            <required-cleanup remap="center">Some original content migrated
+            from a &lt;center&gt; tag.</required-cleanup>
+        </section>
+        <section>
+            <title>state</title>
+            <p>The &lt;state&gt; element specifies a name/value pair whenever it is necessary to represent a named state that has a variable value. The element is primarily intended for use in specializations to represent specific states (like logic circuit states, chemical reaction states, airplane instrumentation states, and so forth).</p>
+            <ol>
+                <li>Verify the presence of an "on" or high condition at the input gate
+            (ie, <state name="inflag" value="high"/>)</li>
+            </ol>
+        </section>
+        <section>
+            <title>term</title>
+            <p>The &lt;term&gt; element identifies words that may have or require extended definitions or explanations. In
+future development of DITA, for example, terms might provide associative linking to matching glossary entries.</p>
+
+            <p>The <term>reference implementation</term> of DITA represents the standard,
+            <q>fallback</q> behaviors intended for DITA elements.</p>
+
+        </section>
+        <section>
+            <title>boolean</title>
+            <p>The &lt;boolean&gt; element is used to express one of two opposite values, such as yes or no, on or off, true
+            or false, high or low, and so forth. The element itself is empty; the value of the element is stored in its
+            state attribute, and the semantic associated with the value is typically in a specialized name derived from
+            this element.</p>
+
+            <note type="note">This element is deprecated. It is functionally equivalent to &lt;state value=″yes|no″/&gt;,
+            which is recommended as its replacement in all cases.
+            </note>
+
+            <p>She said "<boolean state="yes"/>" when I asked her to marry me!</p>
+
+        </section>
+        <section>
+            <title>glossentry &amp; no-topic-nesting</title>
+            <p>Following is the glossentry &amp; no-topic-nesting test data.</p>
+        </section>
+    </body>
+</topic>

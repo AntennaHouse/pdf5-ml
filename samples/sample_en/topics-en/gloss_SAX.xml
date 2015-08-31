@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE glossentry PUBLIC "-//OASIS//DTD DITA Glossary//EN" "glossary.dtd">
+<glossentry id="glossentry_1w3_d33_wd" xml:lang="en-US">
+    <glossterm>Simple API for XML</glossterm>
+    <glossdef>SAX (Simple API for XML) is an event-based sequential access parser API developed by the XML-DEV mailing list for XML documents. 
+        SAX provides a mechanism for reading data from an XML document that is an alternative to that provided by the Document Object Model (DOM). 
+        Where the DOM operates on the document as a whole, SAX parsers operate on each piece of the XML document sequentially.</glossdef>
+</glossentry>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE map PUBLIC "-//OASIS//DTD DITA Map//EN" "map.dtd">
+<map id = "map_CB0026F29B320CC448C6BDEE032B001C" xml:lang="en">
+	<title>Key definition map</title>
+    <keydef  keys="web_scorpa" href="http://www.scorpa.fr/" format="html" navtitle="Scorpa WEB Site"/>
+</map>

@@ -1,0 +1,145 @@
+<?xml version="1.0"?>
+<!DOCTYPE reference PUBLIC "-//OASIS//DTD DITA Reference//EN" "reference.dtd">
+<reference id="reference_0987BC4F7654A21FC9FA44DBAED49371D619C236" xml:lang="en-US"> 
+    <title><ph>XSL Transformations<indexterm>XSL Transformations (in title)</indexterm></ph></title> 
+    <prolog>
+        <metadata>
+            <keywords>
+                <indexterm start="xslt">XSLT</indexterm>
+                <indexterm end="xslt"></indexterm>
+            </keywords>
+        </metadata>
+    </prolog>
+    <refbody> 
+        <section id="section_53107B4B0EE348B1AD1A22D6A93B08AB">
+            <p>XSL Transformations (XSLT) is a declarative XML-based language used for the transformation of XML documents into other XML documents. The original document is not changed; rather, a new document is created based on the content of an existing one. The new document may be serialized (output) by the processor in standard XML syntax or in another format, such as HTML or plain text. XSLT is often used to convert XML data into HTML or XHTML documents for display as a web page: the transformation may happen dynamically either on the client or on the server, or it may be done as part of the publishing process. It is also used to create output for printing or direct video display, typically by transforming the original XML into XSL Formatting Objects to create formatted output which can then be converted to a variety of formats, a few of which are PDF, PostScript, AWT and PNG. XSLT is also used to translate XML messages between different XML schemas, or to make changes to documents within the scope of a single schema, for example by removing the parts of a message that are not needed.
+            </p>
+        </section>
+    </refbody>
+    <reference id="__reference_123456789BBCD">
+        <title>Origins</title>
+	    <refbody>
+	    <section>
+	    <p>XSLT is developed by the World Wide Web Consortium (W3C)<!-- Normal indexterm test --><indexterm>W3C<indexterm>World Wide Web Consortium</indexterm></indexterm>. The most recent version is XSLT 2.0, which reached W3C recommendation status on 23 January 2007. As of 2008, however, XSLT 1.0 is still more widely used and implemented.
+	    </p>
+        <p>Originally, XSLT was part of the W3C's Extensible Stylesheet Language (XSL) development effort of 1998–1999, a project that also produced XSL Formatting Objects and the XML Path Language, XPath. The editor of the first version was James Clark. XSLT 1.0 was published as a Recommendation by the W3C on 16 November 1999. After an abortive attempt to create a version 1.1 in 2001, the XSL working group joined forces with the XQuery working group to create XPath 2.0, with a richer data model and type system based on XML Schema. XSLT 2.0, developed under the editorship of Michael Kay, was built on this foundation in 2002–2006.
+        </p>
+        <p>As a language, XSLT is influenced by functional languages, and by text-based pattern matching languages like SNOBOL and awk. Its most direct predecessor was ISO DSSSL, a language that performed the same function for full SGML that XSLT performs for XML. Many of the standards committee that developed XSLT had previously worked on DSSSL, including James Clark. XSLT can also be considered Turing-complete template processor.
+        </p>
+        <p>Most of this article is applicable to both XSLT versions; any differences are noted in the text.
+        </p>
+        </section>
+        </refbody>
+    </reference> 
+    <reference id="__reference_9986BCDF123456789BBCD">
+        <title>Overview</title>
+        <refbody>
+        <section>
+        <p>The XSLT processing model involves:
+        </p>
+        <ul>
+            <li>one or more XML source documents;</li>
+            <li>one or more XSLT stylesheet modules;</li>
+            <li>the XSLT template processing engine (the processor); and</li>
+            <li>one or more result documents.</li>
+        </ul>
+        <p>The XSLT processor ordinarily takes two input documents—an XML source document, and an XSLT stylesheet—and produces an output document. The XSLT stylesheet contains a collection of template rules: instructions and other directives that guide the processor in the production of the output document.
+        </p>
+        </section>
+        <section>
+            <title>Template rule processing</title>
+            <p>The XSLT language is declarative—rather than listing an imperative sequence of actions to perform in a stateful environment, template rules only define how to handle a node matching a particular XPath-like pattern, if the processor should happen to encounter one, and the contents of the templates effectively comprise functional expressions that directly represent their evaluated form: the result tree, which is the basis of the processor's output.
+            </p>
+            <p>The processor follows a fixed algorithm: Assuming a stylesheet has already been read and prepared, the processor builds a source tree from the input XML document. It then starts by processing the source tree's root node, finding in the stylesheet the best-matching template for that node, and evaluating the template's contents. Instructions in each template generally direct the processor to either create nodes in the result tree, or process more nodes in the source tree in the same way as the root node. Output is derived from the result tree.
+            </p>
+        </section>
+        </refbody>
+    </reference>  
+    <reference id="__reference_224C98BFBCDF123456789BBCD">
+        <title>Processor implementations</title>
+        <refbody>
+        <section>
+        <p>XSLT processor implementations fall into two main categories: server-side, and client-side.
+        </p>
+        <p>Although client-side XSLT processing has been available in Microsoft's Internet Explorer since 1999 (or even earlier, but in a form that was incompatible with the W3C specifications), adoption has been slower because of the widespread deployment of older and alternative browsers without XSLT support. For similar reasons, adoption of XSLT 2.0 in such environments remains limited.
+        </p>
+        
+        <p>XSLT processors may be delivered as standalone products, or as components of other software including web browsers, application servers, frameworks such as Java and .NET, or even operating systems. For example, Windows XP comes with the MSXML3 library, which includes an XSLT 1.0 processor. Earlier versions may be upgraded and there are many alternatives. See the external links section.
+        </p>
+        </section>
+        </refbody>
+    </reference>
+    <reference id="__reference_12BCF543CDE398BFBCDF123456789BBCD">
+        <title>Performance</title>
+        <refbody>
+        <section>
+        <p><indexterm>XSLT<indexterm start="XSLT-Performance">Performance</indexterm></indexterm>The performance of XSLT processors has steadily improved as the technology has become more mature, although the very first processor, James Clark's xt, was unbeaten for several years.
+        </p>
+        <p>Most of the earlier XSLT processors were interpreters; in more recent products, code generation is increasingly common, using portable intermediate languages such as Java bytecode or .NET Common Intermediate Language as the target. However, even the interpretive products generally offer separate analysis and execution phases, allowing an optimized expression tree to be created in memory and reused to perform multiple transformations: this gives substantial performance benefits in online publishing applications where the same transformation is applied many times per second to different source documents. This separation is reflected in the design of XSLT processing APIs such as JAXP (Java API for XML Processing).
+        </p>
+        <p>Early XSLT processors had very few optimizations; stylesheet documents were read into Document Object Models and the processor would act on them directly. XPath engines were also not optimized. Increasingly, however, XSLT processors use the kind of optimization techniques found in functional programming languages and database query languages, notably static rewriting of the expression tree for example to move calculations out of loops, and lazy pipelined evaluation to reduce the use of memory for intermediate results and allow "early exit" when the processor can evaluate an expression such as <codeph>following-sibling::*[1]</codeph> without a complete evaluation of all subexpressions. Many processors also use tree representations that are much more efficient (in both space and time) than general purpose DOM implementations.<!--indexterm end="XSLT-Performance"/-->
+        </p>
+
+
+        <p><!--indexterm>XSLT<indexterm start="XSLT-Performance">Performance</indexterm></indexterm-->The performance of XSLT processors has steadily improved as the technology has become more mature, although the very first processor, James Clark's xt, was unbeaten for several years.
+        </p>
+        <p>Most of the earlier XSLT processors were interpreters; in more recent products, code generation is increasingly common, using portable intermediate languages such as Java bytecode or .NET Common Intermediate Language as the target. However, even the interpretive products generally offer separate analysis and execution phases, allowing an optimized expression tree to be created in memory and reused to perform multiple transformations: this gives substantial performance benefits in online publishing applications where the same transformation is applied many times per second to different source documents. This separation is reflected in the design of XSLT processing APIs such as JAXP (Java API for XML Processing).
+        </p>
+        <p>Early XSLT processors had very few optimizations; stylesheet documents were read into Document Object Models and the processor would act on them directly. XPath engines were also not optimized. Increasingly, however, XSLT processors use the kind of optimization techniques found in functional programming languages and database query languages, notably static rewriting of the expression tree for example to move calculations out of loops, and lazy pipelined evaluation to reduce the use of memory for intermediate results and allow "early exit" when the processor can evaluate an expression such as <codeph>following-sibling::*[1]</codeph> without a complete evaluation of all subexpressions. Many processors also use tree representations that are much more efficient (in both space and time) than general purpose DOM implementations.<!--indexterm end="XSLT-Performance"/-->
+        </p>
+
+
+        <p><!--indexterm>XSLT<indexterm start="XSLT-Performance">Performance</indexterm></indexterm-->The performance of XSLT processors has steadily improved as the technology has become more mature, although the very first processor, James Clark's xt, was unbeaten for several years.
+        </p>
+        <p>Most of the earlier XSLT processors were interpreters; in more recent products, code generation is increasingly common, using portable intermediate languages such as Java bytecode or .NET Common Intermediate Language as the target. However, even the interpretive products generally offer separate analysis and execution phases, allowing an optimized expression tree to be created in memory and reused to perform multiple transformations: this gives substantial performance benefits in online publishing applications where the same transformation is applied many times per second to different source documents. This separation is reflected in the design of XSLT processing APIs such as JAXP (Java API for XML Processing).
+        </p>
+        <p>Early XSLT processors had very few optimizations; stylesheet documents were read into Document Object Models and the processor would act on them directly. XPath engines were also not optimized. Increasingly, however, XSLT processors use the kind of optimization techniques found in functional programming languages and database query languages, notably static rewriting of the expression tree for example to move calculations out of loops, and lazy pipelined evaluation to reduce the use of memory for intermediate results and allow "early exit" when the processor can evaluate an expression such as <codeph>following-sibling::*[1]</codeph> without a complete evaluation of all subexpressions. Many processors also use tree representations that are much more efficient (in both space and time) than general purpose DOM implementations.<!--indexterm end="XSLT-Performance"/-->
+        </p>
+
+
+        <p><!--indexterm>XSLT<indexterm start="XSLT-Performance">Performance</indexterm></indexterm-->The performance of XSLT processors has steadily improved as the technology has become more mature, although the very first processor, James Clark's xt, was unbeaten for several years.
+        </p>
+        <p>Most of the earlier XSLT processors were interpreters; in more recent products, code generation is increasingly common, using portable intermediate languages such as Java bytecode or .NET Common Intermediate Language as the target. However, even the interpretive products generally offer separate analysis and execution phases, allowing an optimized expression tree to be created in memory and reused to perform multiple transformations: this gives substantial performance benefits in online publishing applications where the same transformation is applied many times per second to different source documents. This separation is reflected in the design of XSLT processing APIs such as JAXP (Java API for XML Processing<indexterm>Java API for XML Processing</indexterm>).
+        </p>
+        <p>Early XSLT processors had very few optimizations; stylesheet documents were read into Document Object Models and the processor would act on them directly. XPath engines were also not optimized. Increasingly, however, XSLT processors use the kind of optimization techniques found in functional programming languages and database query languages, notably static rewriting of the expression tree for example to move calculations out of loops, and lazy pipelined evaluation to reduce the use of memory for intermediate results and allow "early exit" when the processor can evaluate an expression such as <codeph>following-sibling::*[1]</codeph> without a complete evaluation of all subexpressions. Many processors also use tree representations that are much more efficient (in both space and time) than general purpose DOM implementations.<indexterm end="XSLT-Performance"/>
+        </p>
+
+
+
+        </section>
+        </refbody>
+    </reference>
+    <reference id="__reference_CC90FD4576ABCDE398BFBCDF123456789BBCD">
+        <title>XSLT and XPath</title>
+        <refbody>
+        <section>
+        <p>XSLT relies upon the W3C's XPath language for identifying subsets of the source document tree, as well as for performing calculations. XPath also provides a range of functions, which XSLT itself further augments. This reliance upon XPath adds a great deal of power and flexibility to XSLT.</p>
+        <p>XSLT 1.0 uses XPath 1.0. Similarly, XSLT 2.0 relies on XPath 2.0; both specifications were published on the same date.</p>
+        
+        </section>
+        </refbody>
+    </reference>
+    <reference id="__reference_2430CB5676ABCDE398BFBCDF123456789BBCD">
+        <title>XSLT and XQuery compared</title>
+        <refbody>
+        <section>
+        <p>XSLT capabilities overlap with XQuery, which was initially conceived as a query language for large collections of XML documents.</p>
+        <p>The XSLT 2.0 and XQuery 1.0 standards were developed by separate working groups within W3C, working together to ensure a common approach where appropriate. They share the same data model, type system, and function library, and both include XPath 2.0 as a sublanguage.</p>
+        <p>The two languages, however, are rooted in different traditions and serve the needs of different communities. XSLT was primarily conceived as a stylesheet language whose primary goal was to render XML for the human reader on screen, on the web (as web template language), or on paper. XQuery was primarily conceived as a database query language in the tradition of SQL.</p>
+        <p>Because the two languages originate in different communities, XSLT is stronger in its handling of narrative documents with more flexible structure, while XQuery is stronger in its data handling, for example when performing relational joins.</p>
+        </section>
+        </refbody>
+    </reference>
+    <reference id="__reference_BAC09876CC40FD3476ABCDE398BFBCDF123456789BBCD">
+        <title>XSLT media types</title>
+        <refbody>
+        <section>
+        <p>As of 2009, there is no MIME/Internet media type registered for XSLT.</p>
+        <p>The XSLT 1.0 Recommendation (1999) says "The MIME media types text/xml and application/xml should be used for XSLT stylesheets. It is possible that a media type will be registered specifically for XSLT stylesheets; if and when it is, that media type may also be used." It goes on to use text/xml in an example of how to embed a stylesheet with the xml-stylesheet processing instruction.</p>
+        <p>RFC 3023 points out potential technical problems with text/* types in general, and proposes application/xslt+xml as an ideal media type for XSLT. The XSLT 2.0 Recommendation (January 2007) includes a formal application to register this media type. However, at the time of writing (January 2009) the process of registration has not yet been completed, and RFC 3023 warns that "... this media type should not be used until such registration has been completed."</p>
+        <p>Pre-1.0 working drafts of XSLT used text/xsl in their embedding examples, and this type was implemented and continues to be promoted by Microsoft in Internet Explorer and MSXML. It is also widely recognized in the xml-stylesheet processing instruction by other browsers. In practice, therefore, users wanting to control transformation in the browser using this processing instruction are obliged to use this unregistered media type.</p>
+        <p><i>Above contents are the excerpts from Wikipedia to test range indexterm. (<xref href="http://en.wikipedia.org/wiki/XSLT" scope="external" format="html">http://en.wikipedia.org/wiki/XSLT</xref>)</i></p>
+        </section>
+        </refbody>
+    </reference>
+</reference>

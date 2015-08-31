@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic id="topic_98A0A456CF4C97AB5560" xml:lang="en-US">
+	<title>Longdescref testing</title>
+    <shortdesc>The &lt;longdescref&gt; element supports a reference to a text description of the graphic or object. This element
+        replaces the deprecated longdescref attribute on image and object elements.</shortdesc>
+	<body>
+		<p>PDF output does not generate any results for &lt;longdescref&gt;.</p>
+	    <section>
+	        <title>Image example (1)</title>
+	        <image href="image/tys125f.jpg" placement="break" height="50mm">
+	            <longdescref href="r_tys125f.xml" scope="local" type="reference" format="dita"/>
+	        </image>
+	    </section>
+	    <section>
+	        <title>Image example (2)</title>
+	        <image href="image/tys125f.jpg" placement="break" height="50mm">
+	            <longdescref href="http://www.scorpa.fr/" scope="external" format="html"/>
+	        </image>
+	    </section>
+	</body>
+</topic>

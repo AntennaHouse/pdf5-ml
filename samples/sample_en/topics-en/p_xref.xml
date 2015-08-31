@@ -1,0 +1,96 @@
+<?xml version="1.0"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic id="__TOPIC_AB12CD569C4576FDEEC4BC4098DF" xml:lang="en-US">
+	<title>Xref testing</title>
+	<shortdesc>Xref is cross-reference element to link a diffrent location within the  current topc, or a diffrent topic within the same help system, or to external source such as Web pages, or to a location in another topic. </shortdesc>
+
+	<body>
+    <dl>
+    	<dlentry>
+	        <dt>Fn definition</dt>
+	        <!--p>Abstract testing is found in the topic titled <xref href="#__TOPIC_9C4576FDEEC4" scope="local" format="dita"></xref>.</p-->
+	        <dd>This is fn test.<fn id="fn_9990">This is &lt;fn&gt; body</fn></dd>
+	    </dlentry>
+    </dl>
+	
+    <section>
+        <title>Xref to topic</title>
+        <!--p>Abstract testing is found in the topic titled <xref href="#__TOPIC_9C4576FDEEC4" scope="local" format="dita"></xref>.</p-->
+        <p>Abstract testing is found in the topic titled <xref href="p_abstract.xml#__TOPIC_9C4576FDEEC4" scope="local" format="dita"></xref>.</p>
+    </section>
+
+    <section id="__SECTION_9987FDCA">
+        <title>Xref to section</title>
+        <p>Xref to section is found in the section titled <xref href="p_xref.xml#__TOPIC_AB12CD569C4576FDEEC4BC4098DF/__SECTION_9987FDCA" scope="local" format="dita"></xref>.</p>
+    </section>
+
+    <example id="__EXAMPLE_BC5412AF456799FDC4B3">
+        <title>Xref to example</title>
+        <p>Xref to example is found in the example titled <xref href="p_xref.xml#__TOPIC_AB12CD569C4576FDEEC4BC4098DF/__EXAMPLE_BC5412AF456799FDC4B3" scope="local" format="dita"></xref>.</p>
+    </example>
+
+    <section>
+        <title>Xref to refsyn</title>
+        <p>Second Property sample is found in the topic titled <xref href="r_properties.xml#reference_A80D6B3CA93146918AAD0AB3DC304937/refsyn_05DDDB51837D40E291702F13E4661C9A" scope="local" format="dita"/>.</p>
+        <!--p>Second Property sample is found in the topic titled <xref href="r_properties2.xml#reference_A80D6B3CA93146918AAD0AB3DC309999/refsyn_05DDDB51837D40E291702F13E4661C9A" scope="local" format="dita"/>.</p-->
+    </section>
+
+    <!-- If you prepare this file, link actually works ! -->
+    <!--section>
+        <title>Xref to external PDF file concept</title>
+        <p>Refer to <xref href="sample.pdf#concept_0F4D8EDD9720402D9D96D83C88CD5C62" scope="external" format="pdf"><ph>Sample.pdf</ph> <desc>"X window"</desc></xref> for details.</p>
+    </section-->
+
+    <section>
+        <title>Xref to external PDF file</title>
+        <p>Refer to <xref href="sample.pdf" scope="external" format="pdf"><ph>Sample.pdf</ph></xref> for details.</p>
+    </section>
+
+    
+    <section>
+        <title>Xref to table sample</title>
+        <p>Refer to <xref href="p_table.xml#topic_AA40CD54674028FD/table_9947BCFD23EF5562" scope="local"/> for details.</p>
+    </section>
+    <section>
+        <title>Xref to li sample</title>
+        
+        <p>Then you should back to step <xref href="t_logging_in_to_client.xml#task_2C8A3D1A966544A58013075B77CB9022/li_4FE452DB39074F5C9AC1EFF20744C38A" scope="local"/> to complete logging into system.</p>
+        
+    </section>
+    <section>
+        <title>Xref to fig sample</title>
+        
+        <p>Then you should refer to <xref href="p_fig.xml#topic_A456CF4C97AB5560/fig_99302FCD39DF45EA32FD" scope="local"/> for details.</p>
+        
+    </section>
+    <section>
+        <title>Xref to fn sample</title>
+        
+        <p>Xref to fn <xref href="c_preface.xml#concept_7FCFF8FD66F44819A8F4F03810EB6840/fn_DA409A2C671E3C40BCDA9876" scope="local"/> .</p>
+        <p>Xref to fn <xref href="#__TOPIC_AB12CD569C4576FDEEC4BC4098DF/fn_9990"/> .</p>
+        
+    </section>
+    
+	<!--section>
+        <title>Xref to sub sample</title>
+        <p>This sample causes DOTX032E error in topicpull because &lt;b&gt; has no &lt;title&gt;.</p>
+        <p>Xref to sub <xref href="p_typographic.xml#topic_55762342DAC09974FDC8/sub_99876530FDA634CE2A34" scope="local"/> .</p>
+        
+    </section-->
+
+    <!--section>
+        <title>Xref to illegal element sample <tm tmtype="reg" id="__TM_AC4658219CBE"/></title>
+        <p>Xref to tm element <xref href="p_xref.xml#__TOPIC_AB12CD569C4576FDEEC4BC4098DF/__TM_AC4658219CBE" scope="local"/>.</p>
+        <p>Xref to ol element <xref href="p_xref.xml#__TOPIC_AB12CD569C4576FDEEC4BC4098DF/__ol_ac4658219cbe" scope="local"/>.</p>
+    </section>
+	    
+	<ol id="__ol_ac4658219cbe">
+	    <li>aaa</li>
+	    <li>bbb</li>
+	    <li>ccc</li>
+	</ol-->
+	    
+    
+    
+    </body>
+</topic>

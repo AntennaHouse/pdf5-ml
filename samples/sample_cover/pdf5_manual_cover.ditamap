@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="urn:oasis:names:tc:dita:rng:bookmap.rng" schematypens="http://relaxng.org/ns/structure/1.0"?> 
+<bookmap id="bookmap_26F29B320CC448C6BDEE032B001C3627" xml:lang="en">
+    <booktitle>
+        <booklibrary><keyword keyref="ME-SHORT"/> <keyword keyref="PLUGIN-NAME"/> plug-in</booklibrary>
+        <mainbooktitle>User's Guide</mainbooktitle>
+        <booktitlealt>For <keyword keyref="DITA-OT"/></booktitlealt>
+    </booktitle>
+    <bookmeta>
+        <source href="http://www.antennahouse.com"><keyword keyref="ME-SHORT"/> Home page</source>
+        <publisherinformation>
+            <organization><keyword keyref="ME-LONG"/></organization>
+            <printlocation>Japan</printlocation>
+            <published>
+                <completed>
+                    <day>30</day>
+                    <month>8</month>
+                    <year>2015</year>
+                </completed>
+            </published>
+        </publisherinformation>
+        <prodinfo>
+            <prodname><keyword keyref="ME-SHORT"/> <keyword keyref="PLUGIN-NAME"/> user's
+                guide</prodname>
+            <vrmlist>
+                <vrm version="2" release=".1.2"/>
+            </vrmlist>
+        </prodinfo>
+        <bookid>
+            <bookpartno><keyword keyref="PLUGIN-NAME"/>-001</bookpartno>
+            <edition>2</edition>
+        </bookid>
+        <bookrights>
+            <copyrfirst>
+                <year>2009</year>
+            </copyrfirst>
+            <copyrlast>
+                <year>2015</year>
+            </copyrlast>
+            <bookowner>
+                <organization><keyword keyref="ME-LONG"/></organization>
+            </bookowner>
+        </bookrights>
+    </bookmeta>
+    <frontmatter>
+        <mapref href="delivery_type.ditamap" format="ditamap"/>
+        <mapref href="keydef_pdf5.ditamap" format="ditamap"/>
+        <mapref href="keydef_cover_image.ditamap" format="ditamap"/>
+        <topicref href="topics-en/c_Cover1.dita" format="dita" outputclass="cover1"/>
+        <topicref href="topics-en/c_DummyCover.dita" format="dita" outputclass="cover2" deliveryTarget="pdf-print"/>
+    </frontmatter>
+    <chapter href="topics-en/c_Chapter1.dita" format="dita" navtitle="Cover Pages And Output Type Testing"/>
+    <chapter href="topics-en/c_Chapter2.dita" format="dita" navtitle="Output Type Page Layout Feature"/>
+    <backmatter>
+        <topicref href="topics-en/c_DummyCover.dita" format="dita" outputclass="cover3" deliveryTarget="pdf-print"/>
+        <topicref href="topics-en/c_Cover4.dita" format="dita" outputclass="cover4"/>
+    </backmatter>
+</bookmap>

@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!DOCTYPE glossentry PUBLIC "-//OASIS//DTD DITA Glossary Entry//EN" "glossentry.dtd">
+<glossentry id="glossentry_666544FF4614421A8F98F77BF25D4813" xml:lang="en-US"> 
+  <glossterm>XSLT
+  </glossterm> 
+  <glossdef>XSLT (Extensible Stylesheet Language Transformations) is a
+	 declarative, XML-based language used for the transformation of XML documents.
+	 The original document is not changed; rather, a new document is created based
+	 on the content of an existing one.<fn>XSL Transformations (XSLT)</fn> The new
+	 document may be serialized (output) by the processor in standard XML syntax or
+	 in another format, such as HTML or plain text.<fn>See e. g.,
+		http://www.w3.org/TR/xslt#output, specifying alternate output methods.</fn>
+	 XSLT is most often used to convert data between different XML schemas or to
+	 convert XML data into web pages or PDF documents.
+  </glossdef> 
+</glossentry>

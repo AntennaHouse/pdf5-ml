@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic id="topic_BAFD65FAEFDE0029CF54AF40BAC30987ABCD1234FFDC56AB" xml:lang="en-US">
+	<title>Utility elements testing</title>
+	<shortdesc>The utilities domain elements represent common features of a language that may not necessarily be
+semantic, such as image maps.</shortdesc>
+
+	<body>
+        <section id="__SECTION_4CD0FDAC45EC12AF">
+            <title>imgmap</title>
+            <p>The imagemap element supports the basic functionality of the HTML “client-side” image map
+            markup.
+            Imagemap allows you to designate a linkable area or region over an image, allowing a link in 
+            that region to display another topic.</p>
+
+            <imagemap id="imagemap_98FC34DC5643EDAC9876ABCEF">
+                <image href="image/fossile.jpg"></image>
+                <area>
+                    <shape>rect</shape>
+                    <coords>2,0,53,59</coords>
+                    <xref href="p_utilityelements.xml">Section 1</xref>
+                </area>
+                <area>
+                    <shape>rect</shape>
+                    <coords>54,1,117,60</coords>
+                    <xref href="p_utilityelements.xml"></xref>
+                </area>
+                <area>
+                    <shape>rect</shape>
+                    <coords>54,62,114,116</coords>
+                    <xref href="p_utilityelements.xml#topic_BAFD65FAEFDE0029CF54AF40BAC30987ABCD1234FFDC56AB/__SECTION_4CD0FDAC45EC12AF" scope="local"></xref>
+                </area>
+                <area>
+                    <shape>circle</shape>
+                    <coords>120,154,29</coords>
+                    <xref format="html" href="test.html"></xref>
+                </area>
+                <area>
+                    <shape>poly</shape>
+                    <coords>246,39,200,35,173,52,177,86,215,90,245,84,254,65</coords>
+                    <xref format="pdf" href="test.pdf"></xref>
+                </area>
+            </imagemap>
+        </section>
+    </body>
+</topic>

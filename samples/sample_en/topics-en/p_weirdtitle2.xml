@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<!--topic-->
+<topic id="__TOPIC_23AD567C1FDADC7F32AD7431CF73" xml:lang="en-US">
+	<title><ph><sup>Weird</sup> <sub>title</sub> <tt>testing</tt> <tm tmtype="tm"/> (2)</ph></title>
+	<body>
+        <p>The &lt;title&gt; element contains a heading or label for the main parts of a topic, 
+        including the topic as a whole, its sections and examples, and its labelled content, 
+        such as figures and tables.</p>
+        <p>The title content model is as follows.</p>
+        <codeblock frame="all">( text data or ph or codeph or synph or filepath or msgph or userinput or systemoutput or b or u or
+        i or tt or sup or sub or uicontrol or menucascade or term or q or boolean or state or keyword or
+        option or parmname or apiname or cmdname or msgnum or varname or wintitle or tm or image or
+        data or data-about or foreign or unknown) (any number)</codeblock>
+        <p>This topic also contains related-link test.</p>
+
+        <!--table id="table_9947BCFD23EF5562_01" frame="all" colsep="1" rowsep="1" >
+            <title>Normal Table Sample</title>
+    		<tgroup cols="3">
+                <colspec colname="column1" colwidth="1*" align="left" />
+                <colspec colname="column2" colwidth="1*" align="left"/>
+                <colspec colname="column3" colwidth="1*" align="left"/>
+                <colspec colname="column4" colwidth="1*" align="left"/>
+                <colspec colname="column5" colwidth="1*" align="left"/>
+                <thead>
+    				<row>
+                        <entry>Item</entry>
+                        <entry>Word</entry>
+    					<entry>DocBook</entry>
+    					<entry>XSL-FO</entry>
+    					<entry>Notes</entry>
+    				</row>
+                </thead>
+    			<tbody>
+    				<row>
+    					<entry>Table Style</entry>
+                        <entry>w:tbl/w:tblPr/w:tblStyle/@w:val</entry>
+                        <entry>table@style</entry>
+    					<entry>-</entry>
+    					<entry>-</entry>
+    				</row>
+    				<row>
+    					<entry>Table width</entry>
+    					<entry>w:tbl/w:tblPr/w:tblw</entry>
+    					<entry>table/@pgwide(?)</entry>
+    					<entry>fo:table/@width</entry>
+    					<entry>-</entry>
+    				</row>
+    				<row>
+    					<entry>Column width</entry>
+    					<entry>w:tblGrid/w:gridCol/@w:w</entry>
+    					<entry>tgroup/colspec/@colwidth</entry>
+    					<entry>fo:table-column/@column-width</entry>
+    					<entry>-</entry>
+    				</row>
+    				<row>
+    					<entry>Header row</entry>
+    					<entry>w:tr/w:trPr/@w:tblHeader</entry>
+    					<entry>tgroup/thead</entry>
+    					<entry>fo:table-header</entry>
+    					<entry>-</entry>
+    				</row>
+    				<row>
+    					<entry>Body row</entry>
+    					<entry>-</entry>
+    					<entry>tgroup/tbody</entry>
+    					<entry>fo:table-body</entry>
+    					<entry>-</entry>
+    				</row>
+                </tbody>
+            </tgroup>
+        </table-->
+
+    </body>
+</topic>

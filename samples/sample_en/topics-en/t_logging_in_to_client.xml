@@ -1,0 +1,312 @@
+<?xml version="1.0"?>
+<!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN" "task.dtd">
+<task id="task_2C8A3D1A966544A58013075B77CB9022" xml:lang="en-US"> 
+  <title>Logging in to DB3 Client</title> 
+  <shortdesc> You must log in to the DB3 Client to access any DB3 functions.
+  </shortdesc> 
+  <taskbody> 
+	 <prereq id="prereq_71247568165948DCA53E5873B018B0C1">
+		<p>The system administrator must set up a DB3 account for you to use.
+		</p>
+	 </prereq>
+	 <context id="context_5408808BD33C44899B23CB9016FD3E86">DB3 supports two
+		types of authentication: Windows Authentication and DB3 Authentication. Use the
+		appropriate type, depending on the type of user account you have. Contact your
+		DB3 system administrator if you are not sure. If you are logging in to DB3
+		Client for the first time after a new installation of DB3, use DB3
+		Authentication. 
+	 </context> 
+	 <steps id="steps_89C07B924C5C431BBD1A9802DA9C91EC"> 
+		<step id="step_AB92CFEDCB774F95BC29228945988186"> 
+		  <cmd>From your desktop, select 
+			 <menucascade><uicontrol><shortcut>S</shortcut>tart</uicontrol><uicontrol><shortcut>D</shortcut>B3</uicontrol><uicontrol><shortcut>D</shortcut>B3 Manager</uicontrol></menucascade> from
+			 the menu. 
+		  </cmd> 
+		  <stepresult>The following 
+			 <wintitle>DB3 - Login</wintitle> dialog box appears. 
+		  </stepresult> 
+		</step> 
+		<stepsection>
+			<p>The next step explains how to authenticate your login.</p>
+		</stepsection>
+		<step id="step_170EA4BF367848A9BF7ACDA0C03FB5F7"> 
+		  <cmd>Authenticate your login in one of the following ways: 
+		  </cmd> 
+		  <choices id="choices_D0AAD47435C3471A84B74EBA66DC9C13"> 
+			 <choice id="choice_13F024B54F9B46DE969649FE0DF2CC39">Windows
+				authentication: Select 
+				<uicontrol>Windows Authentication</uicontrol> from the
+				Authentication drop-down list. Both the User name and Password text boxes
+				become greyed out, with the text box User name automatically displaying your
+				Windows login name. You do not need to edit the contents. 
+				<note type="tip" id="NOTE_99886655EE0A">If your windows user account belongs to more then
+				  one DB3 group, a dialog appears, asking you to select a DB3 group. In this
+				  case, select the DB3 group of your choice, and click 
+				  <uicontrol>OK</uicontrol>. 
+				</note> 
+			 </choice> 
+			 <choice id="choice_1D369A6F3B2C4A5B9B8B4BDFE7CB74A6">DB3
+				Authentication: 
+				<ol id="ol_1D8114E9948F44ADB1A7B6C1770E2906"> 
+				  <li id="li_B6348699AE324BCF88B3461C5C4D7933">Select 
+					 <uicontrol>DB3 Authentication</uicontrol> from the 
+					 <uicontrol>Authentication</uicontrol> drop-down list. 
+				  </li> 
+				  <li id="li_4FE452DB39074F5C9AC1EFF20744C38A"> 
+					 <p>Enter your user name and password. 
+					 </p> 
+					 <p>If you are logging in for the first time after a new
+						installation of DB3, you can use one of the following default user accounts.
+						Log in using the ADMINISTRATOR account if you require a full set of read and
+						write permissions for all features. 
+					 </p> 
+				  </li> 
+				</ol> 
+                <p>Type "edit" after the command line prompt and press Enter. The following
+editing interface will be displayed.</p>
+<screen scale="70">
+  File Edit Search View Options Help
+  +--------------------------------- UNTITLED1 ----------------------------------+
+  ¦                                                                              ¦
+  ¦                                                                              ¦
+  ¦                                                                              ¦
+  ¦                                                                              ¦
+  ¦ Line:1 Col:1 F1=Help                                                         ¦
+  +------------------------------------------------------------------------------+
+ 
+</screen>
+<screen scale="60" frame="all">
+  File Edit Search View Options Help
+  +--------------------------------- UNTITLED1 ----------------------------------+
+  ¦                                                                              ¦
+  ¦                                                                              ¦
+  ¦                                                                              ¦
+  ¦                                                                              ¦
+  ¦ Line:1 Col:1 F1=Help                                                         ¦
+  +------------------------------------------------------------------------------+
+ 
+</screen>
+			 </choice> 
+		  </choices> 
+		  <info>If DB3 Client is configured to use multiple server sets, the
+			 dialog box shows an additional Server set list. In this case, select the server
+			 set you want to connect to from the list. 
+		  </info> 
+		</step> 
+		<step id="step_E27B26DE940E44608E74FEF33E3E3CEC"> 
+		  <cmd>Click 
+			 <uicontrol>OK</uicontrol> 
+		  </cmd> 
+          <stepxmp>For example, <userinput>OK</userinput></stepxmp>
+		  <info> 
+			 <note type="tip">If the number of history records stored in DB3
+				Server exceeds 9999999, a dialog box appears, asking you to optimize the database
+				on DB3 server. Click 
+				<uicontrol>OK</uicontrol> to close the dialog box. If you do not
+				have adminstrative rights, contact the DB3 administrator. 
+			 </note> 
+		  </info> 
+		  <stepresult>DB3 Client opens. 
+		  </stepresult> 
+		</step> 
+        <!-- choicetable sample -->
+        <step><cmd>Then this</cmd>
+            <substeps>
+                <substep importance="optional"><cmd>which is done by doing this</cmd></substep>
+                <substep importance="required"><cmd>and then this.</cmd></substep>
+            </substeps>
+            <choicetable keycol=" 1" scale="200">
+                <chhead>
+                    <choptionhd>Do something</choptionhd>
+                    <chdeschd>Or Else this</chdeschd>
+                </chhead>
+                <chrow>
+                    <choption>Do this</choption>
+                    <chdesc>and this will happen</chdesc>
+                </chrow>
+                <chrow>
+                    <choption>Do that</choption>
+                    <chdesc>and that will happen</chdesc>
+                </chrow>
+            </choicetable>
+            <choicetable>
+                <!--chhead>
+                    <choptionhd>Do something</choptionhd>
+                    <chdeschd>Or Else this</chdeschd>
+                </chhead-->
+                <chrow>
+                    <choption>Do this</choption>
+                    <chdesc>and this will happen</chdesc>
+                </chrow>
+                <chrow>
+                    <choption>Do that</choption>
+                    <chdesc>and that will happen</chdesc>
+                </chrow>
+            </choicetable>
+            <choicetable keycol=" 1" frame="top">
+                <chhead>
+                    <choptionhd>Do something</choptionhd>
+                    <chdeschd>Or Else this</chdeschd>
+                </chhead>
+                <chrow>
+                    <choption>Do this</choption>
+                    <chdesc>and this will happen</chdesc>
+                </chrow>
+                <chrow>
+                    <choption>Do that</choption>
+                    <chdesc>and that will happen</chdesc>
+                </chrow>
+            </choicetable>
+            <choicetable keycol=" 1" frame="bottom">
+                <chhead>
+                    <choptionhd>Do something</choptionhd>
+                    <chdeschd>Or Else this</chdeschd>
+                </chhead>
+                <chrow>
+                    <choption>Do this</choption>
+                    <chdesc>and this will happen</chdesc>
+                </chrow>
+                <chrow>
+                    <choption>Do that</choption>
+                    <chdesc>and that will happen</chdesc>
+                </chrow>
+            </choicetable>
+            <choicetable keycol=" 1" frame="topbot">
+                <chhead>
+                    <choptionhd>Do something</choptionhd>
+                    <chdeschd>Or Else this</chdeschd>
+                </chhead>
+                <chrow>
+                    <choption>Do this</choption>
+                    <chdesc>and this will happen</chdesc>
+                </chrow>
+                <chrow>
+                    <choption>Do that</choption>
+                    <chdesc>and that will happen</chdesc>
+                </chrow>
+            </choicetable>
+            <choicetable keycol=" 1" frame="all">
+                <chhead>
+                    <choptionhd>Do something</choptionhd>
+                    <chdeschd>Or Else this</chdeschd>
+                </chhead>
+                <chrow>
+                    <choption>Do this</choption>
+                    <chdesc>and this will happen</chdesc>
+                </chrow>
+                <chrow>
+                    <choption>Do that</choption>
+                    <chdesc>and that will happen</chdesc>
+                </chrow>
+            </choicetable>
+            <choicetable keycol=" 1" frame="sides">
+                <chhead>
+                    <choptionhd>Do something</choptionhd>
+                    <chdeschd>Or Else this</chdeschd>
+                </chhead>
+                <chrow>
+                    <choption>Do this</choption>
+                    <chdesc>and this will happen</chdesc>
+                </chrow>
+                <chrow>
+                    <choption>Do that</choption>
+                    <chdesc>and that will happen</chdesc>
+                </chrow>
+            </choicetable>
+            <choicetable keycol=" 1" frame="none">
+                <chhead>
+                    <choptionhd>Do something</choptionhd>
+                    <chdeschd>Or Else this</chdeschd>
+                </chhead>
+                <chrow>
+                    <choption>Do this</choption>
+                    <chdesc>and this will happen</chdesc>
+                </chrow>
+                <chrow>
+                    <choption>Do that</choption>
+                    <chdesc>and that will happen</chdesc>
+                </chrow>
+            </choicetable>
+            <choicetable keycol=" 1" frame="all" expanse="page">
+                <chhead>
+                    <choptionhd>Do something</choptionhd>
+                    <chdeschd>Or Else this</chdeschd>
+                </chhead>
+                <chrow>
+                    <choption>Do this</choption>
+                    <chdesc>and this will happen</chdesc>
+                </chrow>
+                <chrow>
+                    <choption>Do that</choption>
+                    <chdesc>and that will happen</chdesc>
+                </chrow>
+            </choicetable>
+            <choicetable keycol=" 1" relcolwidth="1* 2*">
+                <chhead>
+                    <choptionhd>Do something</choptionhd>
+                    <chdeschd>Or Else this</chdeschd>
+                </chhead>
+                <chrow>
+                    <choption>Do this</choption>
+                    <chdesc>and this will happen</chdesc>
+                </chrow>
+                <chrow>
+                    <choption>Do that</choption>
+                    <chdesc>and that will happen</chdesc>
+                </chrow>
+            </choicetable>
+            
+            <choicetable keycol="2" relcolwidth="1* 2*">
+                <chhead>
+                    <choptionhd>Do something</choptionhd>
+                    <chdeschd>Or Else this</chdeschd>
+                </chhead>
+                <chrow>
+                    <choption>Do this</choption>
+                    <chdesc>and this will happen</chdesc>
+                </chrow>
+                <chrow>
+                    <choption>Do that</choption>
+                    <chdesc>and that will happen</chdesc>
+                </chrow>
+            </choicetable>
+            <choicetable keycol="0" relcolwidth="1* 2*">
+                <chhead>
+                    <choptionhd>Do something</choptionhd>
+                    <chdeschd>Or Else this</chdeschd>
+                </chhead>
+                <chrow>
+                    <choption>Do this</choption>
+                    <chdesc>and this will happen</chdesc>
+                </chrow>
+                <chrow>
+                    <choption>Do that</choption>
+                    <chdesc>and that will happen</chdesc>
+                </chrow>
+            </choicetable>
+        </step>
+        <!-- choices sample -->
+        <step>
+            <cmd>Choose a server.</cmd>
+            <choices>
+                <choice>If you have a remote server you want to test on, type the
+                IP address or hostname of the server here.</choice>
+                <choice>If you want to do local testing, just type localhost.</choice>
+            </choices>
+        </step>
+        <!-- tutorialinfo sample -->
+        <step>
+            <cmd>Do this</cmd>
+            <tutorialinfo>In your editor, open the first element and click on
+            the dialog.</tutorialinfo>
+        </step>
+        <step>
+            <cmd>Do that</cmd>
+            <tutorialinfo>Move the framulator into the foobar box.</tutorialinfo>
+        </step>
+	 </steps> 
+     <result>The SQLJ file is successfully created when the SQLJ server displays the "File Created" dialog.</result>
+
+     <postreq>Notify the proctor upon completing this self-test.</postreq>
+   </taskbody>
+</task>

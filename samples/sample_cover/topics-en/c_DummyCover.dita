@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<?xml-model href="urn:x-antennahouse:dita:rng:concept.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="urn:x-antennahouse:dita:rng:concept.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<concept id="concept_il3_gmm_dt">
+ <title>Dummy Blank Cover Page</title>
+ <shortdesc></shortdesc>
+ <conbody>
+ </conbody>
+</concept>

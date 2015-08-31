@@ -1,0 +1,1121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic id="topic_AA40CD54674028FD" xml:lang="en-US">
+ 	<title>Table testing</title>
+    <body>
+        <section>
+            <title>Table testing</title>
+            <p>The &lt;table&gt; element organizes arbitrarily complex relationships of tabular information. This standard table markup allows column or row spanning and table captions or descriptions. An optional title
+allowed inside the table element provides a caption to describe the table.</p>
+            <p>See simpletable for a simplified table model that can be specialized to represent more regular
+relationships of data.</p>
+            <p>The DITA table is based on the OASIS Exchange Table Model, augmented with DITA attributes which
+enable it for specialization, conref, and other DITA processing. In addition, the table includes a desc
+element, which enables table description that is parallel with figure description.</p>
+
+            <p>In DITA tables, in place of the expanse attribute used by other DITA elements, the pgwide attribute is used in order to conform with the OASIS Exchange Table Model. This attribute has a similar semantic
+(1=page width; 0=resize to galley or column).</p>
+
+            <note type="note">The scale attribute represents a stylistic markup property that is maintained for now in tables for legacy purposes. External stylesheets should enable less dependency on this attribute. You should use the scale attribute judiciously in your topics.
+            </note>
+
+            <table id="table_9947BCFD23EF5562_01" frame="all" colsep="1" rowsep="1" >
+                <title>Normal Table Sample</title>
+                <desc>This table shows the relationships of table items between Microsoft Word, DocBook and XSL-FO.</desc>
+    			<tgroup cols="5">
+                    <colspec colname="column1" colwidth="1*" align="left" />
+                    <colspec colname="column2" colwidth="1*" align="left"/>
+                    <colspec colname="column3" colwidth="1*" align="left"/>
+                    <colspec colname="column4" colwidth="1*" align="left"/>
+                    <colspec colname="column5" colwidth="1*" align="left"/>
+                    <thead>
+    					<row>
+                            <entry align="left">Item</entry>
+                            <entry align="center">Word</entry>
+    						<entry align="right">DocBook</entry>
+    						<entry align="left">XSL-FO</entry>
+    						<entry align="center">Notes</entry>
+    					</row>
+                    </thead>
+    				<tbody>
+    					<row>
+    						<entry align="left">Table Style</entry>
+                            <entry align="center">w:tbl/w:tblPr/w:tblStyle/@w:val</entry>
+                            <entry align="right">table@style</entry>
+    						<entry align="left">-</entry>
+    						<entry align="center">-</entry>
+    					</row>
+    					<row>
+    						<entry>Table width</entry>
+    						<entry>w:tbl/w:tblPr/w:tblw</entry>
+    						<entry>table/@pgwide(?)</entry>
+    						<entry>fo:table/@width</entry>
+    						<entry>-</entry>
+    					</row>
+    					<row>
+    						<entry>Column width</entry>
+    						<entry>w:tblGrid/w:gridCol/@w:w</entry>
+    						<entry>tgroup/colspec/@colwidth</entry>
+    						<entry>fo:table-column/@column-width</entry>
+    						<entry>-</entry>
+    					</row>
+    					<row>
+    						<entry>Header row</entry>
+    						<entry>w:tr/w:trPr/@w:tblHeader</entry>
+    						<entry>tgroup/thead</entry>
+    						<entry>fo:table-header</entry>
+    						<entry>-</entry>
+    					</row>
+    					<row>
+    						<entry>Body row</entry>
+    						<entry>-</entry>
+    						<entry>tgroup/tbody</entry>
+    						<entry>fo:table-body</entry>
+    						<entry>-</entry>
+    					</row>
+                    </tbody>
+                </tgroup>
+            </table>
+
+            <table id="table_9947BCFD23EF5562_02" frame="none" colsep="1" rowsep="1" scale="140">
+                <title>Normal Table Sample with scale="140" frame="none"</title>
+    			<tgroup cols="5">
+                    <colspec colname="column1" colwidth="1*" align="left" />
+                    <colspec colname="column2" colwidth="1*" align="left"/>
+                    <colspec colname="column3" colwidth="1*" align="left"/>
+                    <colspec colname="column4" colwidth="1*" align="left"/>
+                    <colspec colname="column5" colwidth="1*" align="left"/>
+                    <thead>
+    					<row>
+                            <entry align="center">Item</entry>
+                            <entry align="center">Word</entry>
+    						<entry align="center">DocBook</entry>
+    						<entry align="center">XSL-FO</entry>
+    						<entry align="center">Notes</entry>
+    					</row>
+                    </thead>
+    				<tbody>
+    					<row>
+    						<entry>Table Style</entry>
+                            <entry>w:tbl/w:tblPr/w:tblStyle/@w:val</entry>
+                            <entry>table@style</entry>
+    						<entry>-</entry>
+    						<entry>-</entry>
+    					</row>
+    					<row>
+    						<entry>Table width</entry>
+    						<entry>w:tbl/w:tblPr/w:tblw</entry>
+    						<entry>table/@pgwide(?)</entry>
+    						<entry>fo:table/@width</entry>
+    						<entry>-</entry>
+    					</row>
+    					<row>
+    						<entry>Column width</entry>
+    						<entry>w:tblGrid/w:gridCol/@w:w</entry>
+    						<entry>tgroup/colspec/@colwidth</entry>
+    						<entry>fo:table-column/@column-width</entry>
+    						<entry>-</entry>
+    					</row>
+    					<row>
+    						<entry>Header row</entry>
+    						<entry>w:tr/w:trPr/@w:tblHeader</entry>
+    						<entry>tgroup/thead</entry>
+    						<entry>fo:table-header</entry>
+    						<entry>-</entry>
+    					</row>
+    					<row>
+    						<entry>Body row</entry>
+    						<entry>-</entry>
+    						<entry>tgroup/tbody</entry>
+    						<entry>fo:table-body</entry>
+    						<entry>-</entry>
+    					</row>
+                    </tbody>
+                </tgroup>
+            </table>
+
+            <table id="table_9947BCFD23EF5562_03_00" frame="topbot">
+                <title>Normal Table without theader</title>
+                <tgroup cols="5">
+                    <colspec colname="column1" colwidth="1*" align="left" />
+                    <colspec colname="column2" colwidth="1*" align="left"/>
+                    <colspec colname="column3" colwidth="1*" align="left"/>
+                    <colspec colname="column4" colwidth="1*" align="left"/>
+                    <colspec colname="column5" colwidth="1*" align="left"/>
+                    <tbody>
+                        <row>
+                            <entry>Table Style</entry>
+                            <entry>w:tbl/w:tblPr/w:tblStyle/@w:val</entry>
+                            <entry>table@style</entry>
+                            <entry>-</entry>
+                            <entry>-</entry>
+                        </row>
+                        <row>
+                            <entry>Table width</entry>
+                            <entry>w:tbl/w:tblPr/w:tblw</entry>
+                            <entry>table/@pgwide(?)</entry>
+                            <entry>fo:table/@width</entry>
+                            <entry>-</entry>
+                        </row>
+                        <row>
+                            <entry>Column width</entry>
+                            <entry>w:tblGrid/w:gridCol/@w:w</entry>
+                            <entry>tgroup/colspec/@colwidth</entry>
+                            <entry>fo:table-column/@column-width</entry>
+                            <entry>-</entry>
+                        </row>
+                        <row>
+                            <entry>Header row</entry>
+                            <entry>w:tr/w:trPr/@w:tblHeader</entry>
+                            <entry>tgroup/thead</entry>
+                            <entry>fo:table-header</entry>
+                            <entry>-</entry>
+                        </row>
+                        <row>
+                            <entry>Body row</entry>
+                            <entry>-</entry>
+                            <entry>tgroup/tbody</entry>
+                            <entry>fo:table-body</entry>
+                            <entry>-</entry>
+                        </row>
+                    </tbody>
+                </tgroup>
+            </table>
+
+            <table id="table_9947BCFD23EF5562_03" rowheader="firstcol">
+                <title>Normal Table Sample with rowheader='firstcol'</title>
+    			<tgroup cols="5">
+                    <colspec colname="column1" colwidth="1*" align="left" />
+                    <colspec colname="column2" colwidth="1*" align="left"/>
+                    <colspec colname="column3" colwidth="1*" align="left"/>
+                    <colspec colname="column4" colwidth="1*" align="left"/>
+                    <colspec colname="column5" colwidth="1*" align="left"/>
+                    <thead>
+    					<row>
+                            <entry>Item</entry>
+                            <entry>Word</entry>
+    						<entry>DocBook</entry>
+    						<entry>XSL-FO</entry>
+    						<entry>Notes</entry>
+    					</row>
+                    </thead>
+    				<tbody>
+    					<row>
+    						<entry>Table Style</entry>
+                            <entry>w:tbl/w:tblPr/w:tblStyle/@w:val</entry>
+                            <entry>table@style</entry>
+    						<entry>-</entry>
+    						<entry>-</entry>
+    					</row>
+    					<row>
+    						<entry>Table width</entry>
+    						<entry>w:tbl/w:tblPr/w:tblw</entry>
+    						<entry>table/@pgwide(?)</entry>
+    						<entry>fo:table/@width</entry>
+    						<entry>-</entry>
+    					</row>
+    					<row>
+    						<entry>Column width</entry>
+    						<entry>w:tblGrid/w:gridCol/@w:w</entry>
+    						<entry>tgroup/colspec/@colwidth</entry>
+    						<entry>fo:table-column/@column-width</entry>
+    						<entry>-</entry>
+    					</row>
+    					<row>
+    						<entry>Header row</entry>
+    						<entry>w:tr/w:trPr/@w:tblHeader</entry>
+    						<entry>tgroup/thead</entry>
+    						<entry>fo:table-header</entry>
+    						<entry>-</entry>
+    					</row>
+    					<row>
+    						<entry>Body row</entry>
+    						<entry>-</entry>
+    						<entry>tgroup/tbody</entry>
+    						<entry>fo:table-body</entry>
+    						<entry>-</entry>
+    					</row>
+                    </tbody>
+                </tgroup>
+            </table>
+
+            <table id="table_9947BCFD23EF5562_04" rowsep="0" colsep="0">
+                <title>Normal Table with rowsep="0" colsep="0"</title>
+    			<tgroup cols="5">
+                    <colspec colname="column1" colwidth="1*" align="left" />
+                    <colspec colname="column2" colwidth="1*" align="left"/>
+                    <colspec colname="column3" colwidth="1*" align="left"/>
+                    <colspec colname="column4" colwidth="1*" align="left"/>
+                    <colspec colname="column5" colwidth="1*" align="left"/>
+                    <thead>
+    					<row>
+                            <entry>Item</entry>
+                            <entry>Word</entry>
+    						<entry>DocBook</entry>
+    						<entry>XSL-FO</entry>
+    						<entry>Notes</entry>
+    					</row>
+                    </thead>
+    				<tbody>
+    					<row>
+    						<entry>Table Style</entry>
+                            <entry>w:tbl/w:tblPr/w:tblStyle/@w:val</entry>
+                            <entry>table@style</entry>
+    						<entry>-</entry>
+    						<entry>-</entry>
+    					</row>
+    					<row>
+    						<entry>Table width</entry>
+    						<entry>w:tbl/w:tblPr/w:tblw</entry>
+    						<entry>table/@pgwide(?)</entry>
+    						<entry>fo:table/@width</entry>
+    						<entry>-</entry>
+    					</row>
+    					<row>
+    						<entry>Column width</entry>
+    						<entry>w:tblGrid/w:gridCol/@w:w</entry>
+    						<entry>tgroup/colspec/@colwidth</entry>
+    						<entry>fo:table-column/@column-width</entry>
+    						<entry>-</entry>
+    					</row>
+    					<row>
+    						<entry>Header row</entry>
+    						<entry>w:tr/w:trPr/@w:tblHeader</entry>
+    						<entry>tgroup/thead</entry>
+    						<entry>fo:table-header</entry>
+    						<entry>-</entry>
+    					</row>
+    					<row>
+    						<entry>Body row</entry>
+    						<entry>-</entry>
+    						<entry>tgroup/tbody</entry>
+    						<entry>fo:table-body</entry>
+    						<entry>-</entry>
+    					</row>
+                    </tbody>
+                </tgroup>
+            </table>
+
+            <table id="table_9947BCFD23EF5562_05" pgwide="1">
+                <title>Normal Table with pgwide="1"</title>
+    			<tgroup cols="5">
+                    <colspec colname="column1" colwidth="1*" align="left" />
+                    <colspec colname="column2" colwidth="1*" align="left"/>
+                    <colspec colname="column3" colwidth="1*" align="left"/>
+                    <colspec colname="column4" colwidth="1*" align="left"/>
+                    <colspec colname="column5" colwidth="1*" align="left"/>
+                    <thead>
+    					<row>
+                            <entry>Item</entry>
+                            <entry>Word</entry>
+    						<entry>DocBook</entry>
+    						<entry>XSL-FO</entry>
+    						<entry>Notes</entry>
+    					</row>
+                    </thead>
+    				<tbody>
+    					<row>
+    						<entry>Table Style</entry>
+                            <entry>w:tbl/w:tblPr/w:tblStyle/@w:val</entry>
+                            <entry>table@style</entry>
+    						<entry>-</entry>
+    						<entry>-</entry>
+    					</row>
+    					<row>
+    						<entry>Table width</entry>
+    						<entry>w:tbl/w:tblPr/w:tblw</entry>
+    						<entry>table/@pgwide(?)</entry>
+    						<entry>fo:table/@width</entry>
+    						<entry>-</entry>
+    					</row>
+    					<row>
+    						<entry>Column width</entry>
+    						<entry>w:tblGrid/w:gridCol/@w:w</entry>
+    						<entry>tgroup/colspec/@colwidth</entry>
+    						<entry>fo:table-column/@column-width</entry>
+    						<entry>-</entry>
+    					</row>
+    					<row>
+    						<entry>Header row</entry>
+    						<entry>w:tr/w:trPr/@w:tblHeader</entry>
+    						<entry>tgroup/thead</entry>
+    						<entry>fo:table-header</entry>
+    						<entry>-</entry>
+    					</row>
+    					<row>
+    						<entry>Body row</entry>
+    						<entry>-</entry>
+    						<entry>tgroup/tbody</entry>
+    						<entry>fo:table-body</entry>
+    						<entry>-</entry>
+    					</row>
+                    </tbody>
+                </tgroup>
+            </table>
+
+            <table id="table_9947BCFD23EF5562_06">
+                <title>dl in table sample</title>
+    			<tgroup cols="5">
+                    <colspec colname="column1" colwidth="28*" align="left" />
+                    <colspec colname="column2" colwidth="56*" align="left"/>
+                    <colspec colname="column3" colwidth="28*" align="left"/>
+                    <colspec colname="column4" colwidth="20*" align="left"/>
+                    <colspec colname="column5" colwidth="20*" align="left"/>
+                    <thead>
+    					<row>
+                            <entry>Name</entry>
+                            <entry>Description</entry>
+    						<entry>Data Type</entry>
+    						<entry>Default Value</entry>
+    						<entry>Required?</entry>
+    					</row>
+                    </thead>
+    				<tbody>
+    					<row>
+    						<entry>frame</entry>
+                            <entry><p>Specifies which portion of a border should
+surround the element. Allowable values are:</p>
+                            <dl>
+                                <dlentry>
+                                    <dt>top</dt>
+                                    <dd>Draw a line before the element</dd>
+                                </dlentry>
+                                <dlentry>
+                                    <dt>bottom</dt>
+                                    <dd>Draw a line after the element</dd>
+                                </dlentry>
+                                <dlentry>
+                                    <dt>topbot</dt>
+                                    <dd>Draw a line both before and after the element</dd>
+                                </dlentry>
+                                <dlentry>
+                                    <dt>all</dt>
+                                    <dd>Draw a box around the element</dd>
+                                </dlentry>
+                                <dlentry>
+                                    <dt>sides</dt>
+                                    <dd>Draw a line at each side of the element</dd>
+                                </dlentry>
+                                <dlentry>
+                                    <dt>none</dt>
+                                    <dd>Don't draw any lines around this element</dd>
+                                </dlentry>
+                                <dlentry>
+                                    <dt>-dita-use-conref-target</dt>
+                                    <dd>See "using the -dita-use-conref-target value" for more information.</dd>
+                                </dlentry>
+                            </dl>
+                            <p>Some DITA processors or output formats may not able to support all values.</p>
+                            </entry>
+                            <entry>(top | bottom | topbot | all sides | none | -dita-use-conref-target)</entry>
+    						<entry>#IMPLIED</entry>
+    						<entry>No</entry>
+    					</row>
+    					<row>
+    						<entry>colsep</entry>
+    						<entry>Column separator. A value of 0 indicates no separators; 1 indicates separators.</entry>
+    						<entry>NMTOKEN</entry>
+    						<entry>#IMPLIED</entry>
+    						<entry>No</entry>
+    					</row>
+    					<row>
+    						<entry>rowsep</entry>
+    						<entry>Row separator. A value of 0 indicates no separators; 1 indicates separators.</entry>
+    						<entry>NMTOKEN</entry>
+    						<entry>#IMPLIED</entry>
+    						<entry>No</entry>
+    					</row>
+    					<row>
+    						<entry>pgwide</entry>
+    						<entry>
+                                <p>Determines the horizontal placement of
+                                   the element. Supported values are 1 and
+                                   0, although these are not mandated by
+                                   the DTD.</p>
+                                <p>For PDF, the value ″1″ places the element
+                                   on the left page margin; ″0″ aligns the
+                                   element with the left margin of the
+                                   current text line and takes indention into
+                                   account.</p>
+                               <p>For XHTML, the table surrounds the
+                                  table data. Either value sets the table
+                                  width to 100%.</p>
+                            </entry>
+    						<entry>NMTOKEN</entry>
+    						<entry>#IMPLIED</entry>
+    						<entry>No</entry>
+    					</row>
+
+    					<row>
+    						<entry>rowheader</entry>
+                            <entry>
+                                <p>This attribute specifies whether the
+                                   content of the first column in a table
+                                   contains row headings. In the same way
+                                   that a column header introduces a table
+                                   column, the row header introduces the
+                                   table row. This attribute makes tables
+                                   whose first column contains row
+                                   headings more readable on output.
+                                   Allowable values are:</p>
+                            <dl >
+                                <dlentry>
+                                    <dt>firstcol</dt>
+                                    <dd>The first column contains the row headings.</dd>
+                                </dlentry>
+                                <dlentry>
+                                    <dt>norowheader</dt>
+                                    <dd>Indicates that no column
+                                        contains row headings. This is
+                                        the processing default.</dd>
+                                </dlentry>
+                                <dlentry>
+                                    <dt>-dita-use-conref-target</dt>
+                                    <dd>See “Using the
+                                        -dita-use-conref-target value”
+                                        for more information.</dd>
+                                </dlentry>
+                            </dl>
+                            </entry>
+                            <entry>(firstCol | norowheader| -dita-use-conreftarget)</entry>
+    						<entry>#IMPLIED</entry>
+    						<entry>No</entry>
+    					</row>
+                    </tbody>
+                </tgroup>
+            </table>
+
+            <table id="table_9947BCFD23EF5562_07">
+                <title>sl in table sample</title>
+    			<tgroup cols="1">
+                    <thead>
+    					<row>
+                            <entry>sl</entry>
+    					</row>
+                    </thead>
+    				<tbody>
+    					<row>
+    						<entry>
+                                <p>Messages from the ags_open module are identical with messages from:</p>
+                                <sl>
+                                    <sli>ags_read</sli>
+                                    <sli>ags_write</sli>
+                                    <sli>ags_close</sli>
+                                </sl>
+                                <p>sl/@compact='yes'</p>
+                                <p>Messages from the ags_open module are identical with messages from:</p>
+                                <sl compact="yes">
+                                    <sli>ags_read</sli>
+                                    <sli>ags_write</sli>
+                                    <sli>ags_close</sli>
+                                </sl>
+                            </entry>
+    					</row>
+                    </tbody>
+                </tgroup>
+            </table>
+
+            <table id="table_9947BCFD23EF5562_08">
+                <title>ol in table sample</title>
+    			<tgroup cols="1">
+                    <thead>
+    					<row>
+                            <entry>ol</entry>
+    					</row>
+                    </thead>
+    				<tbody>
+    					<row>
+    						<entry>
+                                <p>Here are the colors of the rainbow in order of appearance from top to bottom:</p>
+                                <ol>
+                                    <li>Red
+                                        <ol>
+                                            <li>Blood red</li>
+                                            <li>Thin red</li>
+                                        </ol>
+                                        </li>
+                                    <li>Orange
+                                        <ol>
+                                            <li>Blood orange
+                                            </li>
+                                            <li>Thin orange</li>
+                                        </ol>
+                                        </li>
+                                    <li>Yellow</li>
+                                    <li>Green</li>
+                                    <li>Blue</li>
+                                    <li>Indigo</li>
+                                    <li>Violet</li>
+                                    <li>Red</li>
+                                    <li>Orange</li>
+                                    <li>Yellow</li>
+                                    <li>Green</li>
+                                    <li>Blue</li>
+                                    <li>Indigo</li>
+                                    <li>Violet</li>
+                                </ol>
+                            </entry>
+    					</row>
+                    </tbody>
+                </tgroup>
+            </table>
+
+            <table id="table_9947BCFD23EF5562_09">
+                <title>ul in table sample</title>
+    			<tgroup cols="1">
+                    <thead>
+    					<row>
+                            <entry>ul</entry>
+    					</row>
+                    </thead>
+    				<tbody>
+    					<row>
+    						<entry>
+                                <p>Here are the colors of the rainbow in order of appearance from top to bottom:</p>
+                                <ul>
+                                    <li>Red
+                                        <ul>
+                                            <li>Blood red</li>
+                                            <li>Thin red</li>
+                                        </ul>
+                                        </li>
+                                    <li>Orange
+                                        <ul>
+                                            <li>Blood orange
+                                                <ol>
+                                                    <li>Blood orage #1</li>
+                                                    <li>Blood orage #2</li>
+                                                    <li>Blood orage #3
+                                                        <ol>
+                                                            <li>Blood orage #3-1</li>
+                                                            <li>Blood orage #3-2</li>
+                                                            <li>Blood orage #3-3
+                                                                <ol>
+                                                                    <li>Blood orage #3-3-1</li>
+                                                                    <li>Blood orage #3-3-2</li>
+                                                                    <li>Blood orage #3-3-3</li>
+                                                                </ol>
+                                                            </li>
+                                                        </ol>
+                                                    </li>
+                                                </ol>
+                                            </li>
+                                            <li>Thin orange</li>
+                                        </ul>
+                                        </li>
+                                    <li>Yellow</li>
+                                    <li>Green</li>
+                                    <li>Blue</li>
+                                    <li>Indigo</li>
+                                    <li>Violet</li>
+                                    <li>Red
+                                        <ol>
+                                            <li>Blood red</li>
+                                            <li>Thin red</li>
+                                        </ol>
+                                        </li>
+                                    <li>Orange
+                                        <ol>
+                                            <li>Blood orange</li>
+                                            <li>Thin orange</li>
+                                        </ol>
+                                        </li>
+                                    <li>Yellow</li>
+                                    <li>Green</li>
+                                    <li>Blue</li>
+                                    <li>Indigo</li>
+                                    <li>Violet
+                                        <!--ol>
+                                            <li>Blood violet</li>
+                                            <li>Thin violet
+                                                <ol>
+                                                    <li>Thin violet #2-1</li>
+                                                    <li>Thin violet #2-2</li>
+                                                    <li>Thin violet #2-2
+                                                        <ol>
+                                                            <li>Thin violet #3-1</li>
+                                                            <li>Thin violet #3-2</li>
+                                                            <li>Thin violet #3-2
+                                                            </li>
+                                                        </ol>
+                                                    </li>
+                                                </ol>
+                                            </li>
+                                        </ol-->
+                                    </li>
+                                    <!--li>Yellow</li-->
+                                    <!--li>Green</li>
+                                    <li>Blue</li-->
+                                    <!--li>Indigo</li>
+                                    <li>Violet</li-->
+                                </ul>
+                            </entry>
+    					</row>
+                    </tbody>
+                </tgroup>
+            </table>
+            
+            <p>Stylesheet user can customize &lt;ol&gt; number formats by modifying config/[langage-code]_style.xml.</p>
+            
+            <table id="table_9947BCFD23EF5562_10">
+                <title>fig in table sample</title>
+    			<tgroup cols="1">
+                    <thead>
+    					<row>
+                            <entry>fig</entry>
+    					</row>
+                    </thead>
+    				<tbody>
+    					<row>
+    						<entry align="center">
+                                <fig>
+                                    <title>Book &amp; bird</title>
+                                    <desc>This is the tiff image of book&amp;bird.</desc>
+                                    <image href="image/book.tif">
+                                        <alt>Here is a description!</alt>
+                                    </image>
+                                    <image href="image/bird.tif">
+                                        <alt>Here is a description!</alt>
+                                    </image>
+                                </fig>
+                            </entry>
+    					</row>
+                    </tbody>
+                </tgroup>
+            </table>
+
+            <table frame="all">
+                <title>Valign sample</title>
+                <tgroup cols="4">
+                    <colspec colname="c1" colwidth="25.4mm"/>
+                    <colspec colname="c2" colwidth="25.4mm"/>
+                    <colspec colname="c3" colwidth="25.4mm"/>
+                    <colspec colname="c4" colwidth="25.4mm"/>
+                    <tbody>
+                        <row><entry align="center" valign="middle">
+                                <image href="image/airplane.tif" />
+                             </entry>
+                             <entry align="center" morerows="2" valign="top">
+                                <p>aligned top</p>
+                                <image href="image/airplane.tif" />
+                             </entry>
+                             <entry align="center" morerows="2" valign="middle">
+                                <p>aligned middle</p>
+                                <image href="image/airplane.tif" />
+                             </entry>
+                             <entry align="center" morerows="2" valign="bottom">
+                                <p>aligned bottom</p>
+                                <image href="image/airplane.tif" />
+                             </entry>
+                        </row>
+                        <row>
+                             <entry align="center" valign="middle">
+                                <image href="image/airplane.tif" />
+                             </entry>
+                        </row>
+                        <row>
+                             <entry align="center" valign="middle">
+                                <image href="image/airplane.tif" />
+                             </entry>
+                        </row>
+                    </tbody>
+                </tgroup>
+            </table>
+
+            <table frame="all">
+                <title>Cell span sample</title>
+                <tgroup cols="3">
+                    <colspec colname="c1" colwidth="1*"/>
+                    <colspec colname="c2" colwidth="1*"/>
+                    <colspec colname="c3" colwidth="1*"/>
+                    <tbody>
+                        <row><entry align="center" nameend="c2" namest="c1" valign="middle">
+                                <p>horizontally spanned</p>
+                                <image href="image/smile.pdf"/>
+                            </entry>
+                            <entry align="center" morerows="1" valign="middle">
+                                <p>vertically spanned</p>
+                                <image href="image/smile.pdf"/>
+                            </entry>
+                        </row>
+                        <row>
+                            <entry align="center" morerows="1" valign="middle">
+                                <p>vertically spanned</p>
+                                <image href="image/smile.pdf"/>
+                            </entry>
+                            <entry align="center" valign="middle">
+                                <image href="image/smile.pdf"/>
+                            </entry>
+                        </row>
+                        <row>
+                            <entry align="center" nameend="c3" namest="c2" valign="middle">
+                                <p>horizontally spanned</p>
+                                <image href="image/smile.pdf"/>
+                            </entry>
+                        </row>
+                    </tbody>
+                </tgroup>
+            </table>
+
+
+            <table id="table_9947BCFD23EF5562" frame="none" colsep="0" rowsep="0" >
+                <title>Table align sample (No cell rule)</title>
+    			<tgroup cols="3">
+                    <colspec colname="column1" colwidth="1*" align="left" />
+                    <colspec colname="column2" colwidth="1*" align="right"/>
+                    <colspec colname="column3" colwidth="1*" align="char" char="." charoff="50" />
+                    <thead valign="middle">
+    					<row>
+    						<entry>
+                                NO.1
+    						</entry>
+    						<entry>
+                                NO.2
+    						</entry>
+    						<entry>
+                                NO.3
+    						</entry>
+    					</row>
+                    </thead>
+    				<tbody>
+    					<row>
+    						<entry>
+                                a1
+    						</entry>
+    						<entry morerows="3">
+                                b1
+    						</entry>
+    						<entry>
+                                1.0
+    						</entry>
+    					</row>
+    					<row>
+    						<entry>
+                                a2
+    						</entry>
+    						<entry>
+                                0.0001
+    						</entry>
+    					</row>
+    					<row>
+    						<entry morerows="1">
+                                a3
+    						</entry>
+    						<entry>
+                                111.01
+    						</entry>
+    					</row>
+    					<row>
+    						<entry>
+                                12.34
+    						</entry>
+    					</row>
+                    </tbody>
+                </tgroup>
+            </table>
+
+            <table id="table_ABCD9947BCFD23EF5562" frame="all">
+                <title>Table align sample</title>
+    			<tgroup cols="3">
+                    <colspec colname="column1" colwidth="1*" align="left" />
+                    <colspec colname="column2"  colwidth="1*" align="right"/>
+                    <colspec colname="column3"  colwidth="1*" align="char" char="." />
+                    <thead valign="middle">
+    					<row>
+    						<entry>
+                                NO.1
+    						</entry>
+    						<entry>
+                                NO.2
+    						</entry>
+    						<entry>
+                                NO.3
+    						</entry>
+    					</row>
+                    </thead>
+    				<tbody>
+    					<row>
+    						<entry>
+                                a1
+    						</entry>
+    						<entry>
+                                b1
+    						</entry>
+    						<entry>
+                                1.0
+    						</entry>
+    					</row>
+    					<row>
+    						<entry namest="column1" nameend="column2">
+                                a2
+    						</entry>
+    						<entry>
+                                0.0001
+    						</entry>
+    					</row>
+    					<row>
+    						<entry morerows="1" namest="column1" nameend="column2">
+                                a3
+    						</entry>
+    						<entry>
+                                111.01
+    						</entry>
+    					</row>
+    					<row>
+    						<entry>
+                                12.34
+    						</entry>
+    					</row>
+                    </tbody>
+                </tgroup>
+            </table>
+        </section>
+        
+        <section>
+            <title>Simple table testing</title>
+            <p>The &lt;simpletable&gt; element is used for tables that are regular in structure and do not need a caption.
+Choose the simple table element when you want to show information in regular rows and columns. For
+example, multi-column tabular data such as phone directory listings or parts lists are good candidates for
+simpletable. Another good use of simpletable is for information that seems to beg for a ″three-part
+definition list″—just use the keycol attribute to indicate which column represents the ″key″ or term-like
+column of your structure.</p>
+
+            <p>The keycol attribute is not specified.The styleshhet will apply font-weight="bold" &amp; background-color="rgb(217,217,217)" to the header row.</p>
+
+            <simpletable>
+                <sthead>
+                    <stentry>Type style</stentry>
+                    <stentry>Elements used</stentry>
+                </sthead>
+                <strow>
+                    <stentry>Bold</stentry>
+                    <stentry>b</stentry>
+                </strow>
+                <strow>
+                    <stentry>Italic</stentry>
+                    <stentry>i</stentry>
+                </strow>
+                <strow>
+                    <stentry>Underlined</stentry>
+                    <stentry>u</stentry>
+                </strow>
+            </simpletable>
+
+            <p>keycol="1": The styleshhet will apply font-weight="bold" &amp; background-color="rgb(217,217,217)" to the column number 1. Then the first row's background-color will become white.</p>
+            <simpletable keycol="1">
+                <sthead>
+                    <stentry>Type style</stentry>
+                    <stentry>Elements used</stentry>
+                </sthead>
+                <strow>
+                    <stentry>Bold</stentry>
+                    <stentry>b</stentry>
+                </strow>
+                <strow>
+                    <stentry>Italic</stentry>
+                    <stentry>i</stentry>
+                </strow>
+                <strow>
+                    <stentry>Underlined</stentry>
+                    <stentry>u</stentry>
+                </strow>
+            </simpletable>
+
+            <p>keycol="2": The styleshhet will apply font-weight="bold" &amp; background-color="rgb(217,217,217)" to the column number 2. Then the first row's background-color will become white.</p>
+            <simpletable keycol="2">
+                <sthead>
+                    <stentry>Type style</stentry>
+                    <stentry>Elements used</stentry>
+                </sthead>
+                <strow>
+                    <stentry>Bold</stentry>
+                    <stentry>b</stentry>
+                </strow>
+                <strow>
+                    <stentry>Italic</stentry>
+                    <stentry>i</stentry>
+                </strow>
+                <strow>
+                    <stentry>Underlined</stentry>
+                    <stentry>u</stentry>
+                </strow>
+            </simpletable>
+
+            <p>scale="150": The styleshhet will apply font-size 1.5 * 9pt for this table.</p>
+            <simpletable scale="140">
+                <sthead>
+                    <stentry>Type style</stentry>
+                    <stentry>Elements used</stentry>
+                </sthead>
+                <strow>
+                    <stentry>Bold</stentry>
+                    <stentry>b</stentry>
+                </strow>
+                <strow>
+                    <stentry>Italic</stentry>
+                    <stentry>i</stentry>
+                </strow>
+                <strow>
+                    <stentry>Underlined</stentry>
+                    <stentry>u</stentry>
+                </strow>
+            </simpletable>
+
+
+            <p>relcolwidth="90* 150*": The styleshhet will apply fixed table layout and width will be 100%. The column width will be 37.5% and 62.5%.</p>
+            <simpletable relcolwidth="90* 150*">
+                <sthead>
+                    <stentry>Type style</stentry>
+                    <stentry>Elements used</stentry>
+                </sthead>
+                <strow>
+                    <stentry>Bold</stentry>
+                    <stentry>b</stentry>
+                </strow>
+                <strow>
+                    <stentry>Italic</stentry>
+                    <stentry>i</stentry>
+                </strow>
+                <strow>
+                    <stentry>Underlined</stentry>
+                    <stentry>u</stentry>
+                </strow>
+            </simpletable>
+
+            <p>frame="topbot": The styleshhet will apply top/bottom border for table</p>
+            <simpletable frame="topbot">
+                <sthead>
+                    <stentry>Type style</stentry>
+                    <stentry>Elements used</stentry>
+                    <stentry>FO description</stentry>
+                </sthead>
+                <strow>
+                    <stentry>Bold</stentry>
+                    <stentry>b</stentry>
+                    <stentry>font-weight="bold"</stentry>
+                </strow>
+                <strow>
+                    <stentry>Italic</stentry>
+                    <stentry>i</stentry>
+                    <stentry>font-style="italic"</stentry>
+                </strow>
+                <strow>
+                    <stentry>Underlined</stentry>
+                    <stentry>u</stentry>
+                    <stentry>text-decoration="underline"</stentry>
+                </strow>
+            </simpletable>
+
+            <p>frame="none": The styleshhet will remove all surrounding border from table</p>
+            <simpletable frame="none">
+                <sthead>
+                    <stentry>Type style</stentry>
+                    <stentry>Elements used</stentry>
+                    <stentry>FO description</stentry>
+                </sthead>
+                <strow>
+                    <stentry>Bold</stentry>
+                    <stentry>b</stentry>
+                    <stentry>font-weight="bold"</stentry>
+                </strow>
+                <strow>
+                    <stentry>Italic</stentry>
+                    <stentry>i</stentry>
+                    <stentry>font-style="italic"</stentry>
+                </strow>
+                <strow>
+                    <stentry>Underlined</stentry>
+                    <stentry>u</stentry>
+                    <stentry>text-decoration="underline"</stentry>
+                </strow>
+            </simpletable>
+            <p>expanse="page": The styleshhet will apply start-indent="0mm", end-indent="0mm" to surrounding fo:block and the width of table will reach to page margin.</p>
+            <simpletable expanse="page">
+                <sthead>
+                    <stentry>Type style</stentry>
+                    <stentry>Elements used</stentry>
+                    <stentry>FO description</stentry>
+                </sthead>
+                <strow>
+                    <stentry>Bold</stentry>
+                    <stentry>b</stentry>
+                    <stentry>font-weight="bold"</stentry>
+                </strow>
+                <strow>
+                    <stentry>Italic</stentry>
+                    <stentry>i</stentry>
+                    <stentry>font-style="italic"</stentry>
+                </strow>
+                <strow>
+                    <stentry>Underlined</stentry>
+                    <stentry>u</stentry>
+                    <stentry>text-decoration="underline"</stentry>
+                </strow>
+            </simpletable>
+
+        </section>
+    </body>
+    <topic id="topic_AA40CD54674028FD_2">
+     	<title>Additional table testing in nested topic</title>
+        <body>
+            <table id="table_9947BCFD23EF5562_99">
+                <title>Normal Table Sample (Again)</title>
+    			<tgroup cols="5">
+                    <colspec colname="column1" colwidth="1*" align="left" />
+                    <colspec colname="column2" colwidth="1*" align="left"/>
+                    <colspec colname="column3" colwidth="1*" align="left"/>
+                    <colspec colname="column4" colwidth="1*" align="left"/>
+                    <colspec colname="column5" colwidth="1*" align="left"/>
+                    <thead>
+    					<row>
+                            <entry>Item</entry>
+                            <entry>Word</entry>
+    						<entry>DocBook</entry>
+    						<entry>XSL-FO</entry>
+    						<entry>Notes</entry>
+    					</row>
+                    </thead>
+    				<tbody>
+    					<row>
+    						<entry>Table Style</entry>
+                            <entry>w:tbl/w:tblPr/w:tblStyle/@w:val</entry>
+                            <entry>table@style</entry>
+    						<entry>-</entry>
+    						<entry>-</entry>
+    					</row>
+    					<row>
+    						<entry>Table width</entry>
+    						<entry>w:tbl/w:tblPr/w:tblw</entry>
+    						<entry>table/@pgwide(?)</entry>
+    						<entry>fo:table/@width</entry>
+    						<entry>-</entry>
+    					</row>
+    					<row>
+    						<entry>Column width</entry>
+    						<entry>w:tblGrid/w:gridCol/@w:w</entry>
+    						<entry>tgroup/colspec/@colwidth</entry>
+    						<entry>fo:table-column/@column-width</entry>
+    						<entry>-</entry>
+    					</row>
+    					<row>
+    						<entry>Header row</entry>
+    						<entry>w:tr/w:trPr/@w:tblHeader</entry>
+    						<entry>tgroup/thead</entry>
+    						<entry>fo:table-header</entry>
+    						<entry>-</entry>
+    					</row>
+    					<row>
+    						<entry>Body row</entry>
+    						<entry>-</entry>
+    						<entry>tgroup/tbody</entry>
+    						<entry>fo:table-body</entry>
+    						<entry>-</entry>
+    					</row>
+                    </tbody>
+                </tgroup>
+            </table>
+
+        </body>
+    </topic>
+
+</topic>

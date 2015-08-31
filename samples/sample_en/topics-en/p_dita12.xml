@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic id="__TOPIC_66F09C4576FDEEC4" xml:lang="en-US">
+	<title>DITA 1.2 element test</title>
+	<prolog>
+		<metadata>
+			<keywords>
+				<indexterm start="DITA_12_Testing_In_Metadata">DITA 1.2 Testing in &lt;metadata&gt;</indexterm>
+			</keywords>
+		</metadata>
+	</prolog>
+	<body>
+	    <p id="p_01">The Darwin Information Typing Architecture (DITA) 1.2 specification defines a set of document types for
+	        authoring and organizing topic-oriented information, as well as a set of mechanisms for combining, extending,
+	        and constraining document types.</p>
+	    <p>
+	       The DITA 1.2 specification consists of the following components:</p>
+	    <dl>
+	        <dlentry>
+	            <dt>Document Type Definitions (DTDs) and XML Schemas (XSDs)</dt>
+	            <dd>The DTDs and XSDs – along with the catalog files – define DITA markup for the DITA vocabulary modules
+	                and DITA document types. While the DTDs and XSDs should define the same DITA elements, the DTDs are
+	                normative if there is a discrepancy. If there is a discrepancy between the written specification (this document)
+	                and the DTDs, the written specification takes precedence.</dd>
+	        </dlentry>
+	        <dlentry>
+	            <dt>DITA 1.2 written specification</dt>
+	            <dd>While the DITA 1.2 documentation does contain some introductory information, it is intended neither as an
+	                introduction to DITA nor as a users guide. The intended audience of this documentation consists of
+	                implementers of the DITA standard, including tool developers and XML architects who develop
+	                specializations. The documentation contains several parts:
+	                <ul>
+	                    <li>Architectural specification</li>
+	                    <li>Language reference</li>
+	                    <li>Conformance statement</li>
+	                    <li>Appendices</li>
+	                </ul>
+	                The DITA 1.2 written specification is available in the following formats: XHTML, CHM, PDF, and DITA source.
+	                The XHTML version is authoritative.</dd>
+	        </dlentry>
+	    </dl>
+    </body>
+</topic>

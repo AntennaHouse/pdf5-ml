@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE bookmap PUBLIC "-//OASIS//DTD DITA BookMap//EN" "bookmap.dtd">
+<bookmap id = "bookmap_26F29B320CC448C6BDEE032B001C3627" xml:lang = "ja">
+        <booktitle>
+                <mainbooktitle>DITA 索引テストデータ(日本語）</mainbooktitle>
+        </booktitle>
+        <bookmeta>
+                <publisherinformation>
+                        <organization>Antenna House, Inc.</organization>
+                        <published>
+                                <completed>
+                                        <day>12</day>
+                                        <month>11</month>
+                                        <year>2009</year>
+                                </completed>
+                        </published>
+                </publisherinformation>
+                <category>日本国憲法</category>
+                <prodinfo>
+                        <prodname>DITA-OT testing</prodname>
+                        <vrmlist>
+                                <vrm version = "1" release = ".01"/>
+                        </vrmlist>
+                </prodinfo>
+                <bookid>
+                        <bookpartno>UD2009-002</bookpartno>
+                        <edition>1</edition>
+                </bookid>
+                <bookrights>
+                        <copyrfirst>
+                                <year>2009</year>
+                        </copyrfirst>
+                        <copyrlast>
+                                <year>2009</year>
+                        </copyrlast>
+                        <bookowner>
+                                <organization>Antenna House, Inc.</organization>
+                        </bookowner>
+                </bookrights>
+        </bookmeta>
+        <frontmatter>
+            <booklists>
+                <toc/>
+            </booklists>
+        </frontmatter>
+        <chapter navtitle="テストデータ：日本国憲法">
+            <topicref href="topics-ja/sample_ja_1.xml" format="dita"/>
+            <topicref href="topics-ja/sample_ja_2.xml" format="dita"/>
+            <topicref href="topics-ja/sample_ja_3.xml" format="dita"/>
+            <topicref href="topics-ja/sample_ja_4.xml" format="dita"/>
+            <topicref href="topics-ja/sample_ja_5.xml" format="dita"/>
+        </chapter>
+        <backmatter>
+                <booklists>
+                        <indexlist/>
+                </booklists>
+        </backmatter>
+</bookmap>

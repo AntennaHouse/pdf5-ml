@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic id="topic_22407CF4ED67BA2132A1" xml:lang="en-US">
+	<title>Miscellaneous elements testing</title>
+	<shortdesc>Most DITA elements represent discourse, or information that is placed exactly as entered. However, there are also types of information that are usually authored in context with a thought or issue, but upon output, the content might be relocated, suppressed, or used only for purposes such as inline annotations for drafts. These elements include footnotes, index entries, draft comments, and special cleanup containers that can hold migrated data that still needs a writer’s intervention to get into the right place.</shortdesc>
+
+	<body>
+        <section>
+            <title>draft-comment</title>
+            <p>The &lt;draft-comment&gt; element allows simple review and discussion of topic contents within the
+    marked-up content. Use the &lt;draft-comment&gt; element to ask a question or make a comment that you
+    would like others to review. To indicate the source of the draft comment or the status of the comment,
+    use the author, time or disposition attributes.</p>
+
+            <p>Processing systems should provide a run-time flag or parameter<draft-comment author="toshi" time="Sep 8, 2009" disposition="accepted">This parameter is implemented as "PRM_OUT_DRAFT_COMMENT".</draft-comment> to cause the content of this element to be specially displayed for draft output only. By default, it is stripped out to prevent publishing internal
+    comments by mistake.</p>
+        <draft-comment author="EBP">Where’s the usage information for this
+    section?</draft-comment>
+        </section>
+        <section>
+            <title>index-base</title>
+            <p>The &lt;index-base&gt; element allows indexing extensions to be added by specializing off this element. It does not in itself have any meaning and should be ignored in processing.</p>
+            <p>The &lt;index-base&gt; element can only exist as a child of an &lt;indexterm&gt; element. This characteristic makes it the appropriate element to specialize to add indexing extensions. Specifically, the index-see , index-see-also, and index-sort-as elements only make sense as children of &lt;indexterm&gt; and so are specializations of &lt;index-base&gt;<indexterm>&lt;index-base&gt;<!--index-base>index-base text <indexterm>descendant indexterm of index-base</indexterm></index-base--></indexterm>. Those elements are all part of the indexing domain, which is new for DITA 1.1.</p>
+        </section>
+        <section>
+            <title>tm</title>
+            <p>The trademark (&lt;tm&gt;) element in DITA is used to markup and identify a term or phrase that is
+trademarked. Trademarks include registered trademarks, service marks, slogans and logos.</p>
+            <p>The business rules for indicating and displaying trademarks may differ from company to company and
+may be enforced by authoring policy and by specific processing.</p>
+            <p>The advantages of using <tm trademark="DB2 Universal Database" tmtype="tm"> <tm trademark="DB2" tmtype="reg" tmclass="ibm">DB2</tm> Universal Database</tm> are well known.</p>
+            <p>Hyper Gear Corporation offers <tm trademark="Worldwide Techinical Assistant Serveice" tmtype="service">Worldwide Techinical Assistant Service</tm> for their products.</p>
+        </section>
+        
+        <section>
+            <title>data-about &amp; data
+                <data-about href="urn:isbn:0156983508" format="isbn" scope="external">
+                    <data name="title">The World Doesn’t End</data>
+                    <data name="author">
+                        <data name="firstname">Charles</data>
+                        <data name="lastname">Simic</data>
+                    </data>
+                    <data name="published" datatype="year">1989</data>
+                </data-about>
+            </title>
+            <p>The &lt;data-about&gt; element identifies the subject of a property when the subject isn't associated with the context in which the property is specified. The property itself is expressed by the &lt;data&gt; element. The &lt;data-about&gt; element handles exception cases where a property must be expressed somewhere other than inside the actual subject of the property. The &lt;data-about&gt; element is particularly useful as a basis for specialization in combination with the &lt;data&gt; element.</p>
+        
+            <p>The &lt;data&gt; element represents a property within a DITA topic or map. While the &lt;data&gt; element can be used directly to capture properties, it is particularly useful as a basis for specialization. Default processing treats the property values as an unknown kind of metadata, but custom processing can match the name attribute or specialized element to format properties as sidebars or other adornments or to harvest properties for automated processing<data name="exampleOf">
+    <data name="library" href="http://www.some-organization.org/javascript/ajaxLibrary.js" format="javascript" scope="external"/>
+    <data name="version" value="2006-6-19"/>
+    </data>.</p>
+        </section>
+        
+    </body>
+</topic>

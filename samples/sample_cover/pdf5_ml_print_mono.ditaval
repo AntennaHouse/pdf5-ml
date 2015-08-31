@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<val>
+    <prop action="include" att="product" val="PDF5-ML" />
+    <prop action="exclude" att="product" val="PDF5" />
+    <prop action="exclude" att="deliveryTarget" val="pdf-web" />
+    <prop action="include" att="deliveryTarget" val="pdf-print" />
+    <prop action="exclude" att="deliveryTarget" val="pdf-print-color" />
+    <prop action="include" att="deliveryTarget" val="pdf-print-mono" />
+</val>

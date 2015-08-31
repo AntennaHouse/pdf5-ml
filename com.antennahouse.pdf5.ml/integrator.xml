@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+  <property name="pdf5.ml.plugin.folder" value="com.antennahouse.pdf5.ml"/>
+  <property name="pdf5.ml.dir" value="plugins"/>
+
+  <!-- Set property not to copy image unless ${copy.image.to.output.folder} = "yes" -->
+  <condition property="preprocess.copy-image.skip">
+    <and>
+      <not>
+        <equals arg1="${copy.image.to.output.folder}" arg2="yes" casesensitive="false"/>
+      </not>
+      <equals arg1="${transtype}" arg2="pdf5.ml" casesensitive="false"/>
+    </and>
+  </condition>
+
+  <condition property="preprocess.copy-html.skip">
+    <and>
+      <not>
+        <equals arg1="${copy.image.to.output.folder}" arg2="yes" casesensitive="false"/>
+      </not>
+      <equals arg1="${transtype}" arg2="pdf5.ml" casesensitive="false"/>
+    </and>
+  </condition>
+  
+  <target name="dita2pdf5.ml" depends="build-init, preprocess, map2pdf5.ml, topic2pdf5.ml"/> 
+  
+  <target name="topic2pdf5.ml" if="noMap" depends="preprocess">
+	<echo message="[pdf5.ml] This plugin does not support topic formatting. Use map or bookmap!"/>
+  </target>
+
+  <target name="map2pdf5.ml" unless="noMap" depends="preprocess">
+    <!-- Call Java TopicMerge -->
+    <echo message="Start generating merged middle file."/>
+  	<dirname property="dita.temp.dir.fullpath" file="${dita.temp.dir}${file.separator}dummy.file"/>
+    <pipeline message="topicmerge" 
+              inputmap="${dita.temp.dir.fullpath}${file.separator}${user.input.file}"
+              tempdir="${dita.temp.dir.fullpath}">
+		<module class="org.dita.dost.module.TopicMergeModule">
+			<param name="output" location="${dita.temp.dir.fullpath}${file.separator}${dita.map.filename.root}_MERGED.xml"></param>
+		</module>
+    </pipeline>
+    
+    <!-- Merged middle file to PDF -->
+    <ant dir="${dita.dir}${file.separator}${pdf5.ml.dir}${file.separator}${pdf5.ml.plugin.folder}" target="merged2pdf">
+        <property name="caller.basedir" value="${basedir}"/>
+    </ant>
+  </target>
+</project>

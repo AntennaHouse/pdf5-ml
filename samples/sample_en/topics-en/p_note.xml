@@ -1,0 +1,169 @@
+<?xml version="1.0"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<!--topic-->
+<topic id="__TOPIC_C990AED0F3C5EC" xml:lang="en-US">
+	<title>Note testing<ph><indexterm>Indexterm of Note Title</indexterm><indexterm start="NOTE_TITLE_RANGE">Range indexterm of Note title</indexterm></ph></title>
+	<shortdesc>A &lt;note&gt; element contains information, differentiated from the main text, which expands on or calls attention to a particular point.<ph><indexterm>Indexterm of Note Shortdesc</indexterm><indexterm start="NOTE_SHORTDESC_RANGE">Range indexterm of Note Shortdesc</indexterm></ph></shortdesc>
+
+	<body>
+        <section>
+            <title>Note<ph><indexterm>Indexterm of Note Section Title</indexterm><indexterm start="NOTE_SECTION_TITLE_RANGE">Range indexterm of Note Section Title</indexterm></ph></title>
+            <note type="note">Defines the type of a note. For example,
+if the note is a tip, the word Tip is used
+to draw the reader’s attention to it. Note
+that this differs from the type attribute
+on many other DITA elements. See “The
+type attribute” on page 480 for detailed
+information on supported values and
+processing implications.
+            </note>
+        </section>
+        <section>
+            <title>Tip</title>
+            <note type="tip">Defines the type of a note. For example,
+if the note is a tip, the word Tip is used
+to draw the reader’s attention to it. Note
+that this differs from the type attribute
+on many other DITA elements. See “The
+type attribute” on page 480 for detailed
+information on supported values and
+processing implications.
+            </note>
+        </section>
+        <section>
+            <title>fastpath</title>
+            <note type="fastpath">Defines the type of a note. For example,
+if the note is a tip, the word Tip is used
+to draw the reader’s attention to it. Note
+that this differs from the type attribute
+on many other DITA elements. See “The
+type attribute” on page 480 for detailed
+information on supported values and
+processing implications.
+            </note>
+        </section>
+        <section>
+            <title>restriction</title>
+            <note type="restriction">Defines the type of a note. For example,
+if the note is a tip, the word Tip is used
+to draw the reader’s attention to it. Note
+that this differs from the type attribute
+on many other DITA elements. See “The
+type attribute” on page 480 for detailed
+information on supported values and
+processing implications.
+            </note>
+        </section>
+        <section>
+            <title>important</title>
+            <note type="important">Defines the type of a note. For example,
+if the note is a tip, the word Tip is used
+to draw the reader’s attention to it. Note
+that this differs from the type attribute
+on many other DITA elements. See “The
+type attribute” on page 480 for detailed
+information on supported values and
+processing implications.
+            </note>
+        </section>
+        <section>
+            <title>remember</title>
+            <note type="remember">Defines the type of a note. For example,
+if the note is a tip, the word Tip is used
+to draw the reader’s attention to it. Note
+that this differs from the type attribute
+on many other DITA elements. See “The
+type attribute” on page 480 for detailed
+information on supported values and
+processing implications.
+            </note>
+        </section>
+        <section>
+            <title>attention</title>
+            <note type="attention">Defines the type of a note. For example,
+if the note is a tip, the word Tip is used
+to draw the reader’s attention to it. Note
+that this differs from the type attribute
+on many other DITA elements. See “The
+type attribute” on page 480 for detailed
+information on supported values and
+processing implications.
+            </note>
+        </section>
+	    <section>
+	        <title>caution</title>
+	        <note type="caution">Defines the type of a note. For example,
+	            if the note is a tip, the word Tip is used
+	            to draw the reader’s attention to it. Note
+	            that this differs from the type attribute
+	            on many other DITA elements. See “The
+	            type attribute” on page 480 for detailed
+	            information on supported values and
+	            processing implications.
+	        </note>
+	    </section>
+	    <section>
+	        <title>notice</title>
+	        <note type="notice">Defines the type of a note. For example,
+	            if the note is a tip, the word Tip is used
+	            to draw the reader’s attention to it. Note
+	            that this differs from the type attribute
+	            on many other DITA elements. See “The
+	            type attribute” on page 480 for detailed
+	            information on supported values and
+	            processing implications.
+	        </note>
+	    </section>
+	    <section>
+            <title>danger</title>
+            <note type="danger">Defines the type of a note. For example,
+if the note is a tip, the word Tip is used
+to draw the reader’s attention to it. Note
+that this differs from the type attribute
+on many other DITA elements. See “The
+type attribute” on page 480 for detailed
+information on supported values and
+processing implications.
+            </note>
+        </section>
+	    <section>
+	        <title>warning</title>
+	        <note type="warning">Defines the type of a note. For example,
+	            if the note is a tip, the word Tip is used
+	            to draw the reader’s attention to it. Note
+	            that this differs from the type attribute
+	            on many other DITA elements. See “The
+	            type attribute” on page 480 for detailed
+	            information on supported values and
+	            processing implications.
+	        </note>
+	    </section>
+	    <section>
+            <title>other</title>
+            <note type="other" othertype="Other">Defines the type of a note. For example,
+if the note is a tip, the word Tip is used
+to draw the reader’s attention to it. Note
+that this differs from the type attribute
+on many other DITA elements. See “The
+type attribute” on page 480 for detailed
+information on supported values and
+processing implications.
+            </note>
+        </section>
+        <section>
+            <title>other='Warning'</title>
+            <note type="other" othertype="Warning">Defines the type of a note. For example,
+if the note is a tip, the word Tip is used
+to draw the reader’s attention to it. Note
+that this differs from the type attribute
+on many other DITA elements. See “The
+type attribute” on page 480 for detailed
+information on supported values and
+processing implications.
+            </note>
+            <ph><indexterm end="NOTE_TITLE_RANGE"/></ph>
+            <ph><indexterm end="NOTE_SHORTDESC_RANGE"/></ph>
+            <ph><indexterm end="NOTE_SECTION_TITLE_RANGE"/></ph>
+        </section>
+    </body>
+</topic>

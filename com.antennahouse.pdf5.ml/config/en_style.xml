@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+************************************************************
+DITA to XSL-FO Style Definition 
+************************************************************
+File Name : en_style.xml
+************************************************************
+Copyright © 2009 2009 Antenna House, Inc.
+Antenna House is a trademark of Antenna House, Inc.
+URL : http://www.antennahouse.co.jp/
+************************************************************
+-->
+<style-definition 
+ xmlns:axf="http://www.antennahouse.com/names/XSL/Extensions"
+ xmlns="http://www.antennahouse.com/names/XSLT/Document/Layout">
+
+</style-definition>

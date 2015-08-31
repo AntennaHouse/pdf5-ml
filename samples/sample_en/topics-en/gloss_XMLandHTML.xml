@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!DOCTYPE glossgroup PUBLIC "-//OASIS//DTD DITA Glossary Group//EN" "glossgroup.dtd">
+<!-- Created with XMetaL (http://www.xmetal.com) -->
+<glossgroup id="glossgroup_C806F5C6DAC94414A98C2B1709C2D350" xml:lang="en-US"> 
+<title>HTML &amp; XML</title> 
+	<glossentry id="glossentry_78F506EC56484C3D873E5DB1138495C5" xml:lang="en-US"> 
+  <glossterm>XML 
+  </glossterm> 
+  <glossdef>Extensible Markup Language (XML) is a set of rules for encoding
+	 documents in machine-readable form. It is defined in the XML 1.0
+	 Specification<fn>"<xref href="http://www.w3.org/TR/REC-xml" scope="external"
+		format="html">XML 1.0 Specification". W3.org. Retrieved 2010-08-22.</xref></fn>
+	 produced by the W3C, and several other related specifications, all gratis open
+	 standards.<fn><xref
+		href="http://www.w3.org/Consortium/Legal/2002/copyright-documents-20021231"
+		scope="external" format="html">"W3C DOCUMENT LICENSE".</xref></fn> 
+  </glossdef> 
+</glossentry> 
+	<glossentry id="glossentry_BE814B2EF5EF459EA76F349C6327AED1" xml:lang="en-US"> 
+  <glossterm>HTML 
+  </glossterm> 
+  <glossdef>Hypertext Markup Language (HTML) is the predominant markup language for
+	 web pages. HTML elements are the basic building-blocks of webpages.
+	 
+	 <p>HTML is written in the form of HTML elements consisting of tags,
+		enclosed in angle brackets (like &lt;html&gt;), within the web page content.
+		HTML tags most commonly come in pairs like &lt;h1&gt; and &lt;/h1&gt;, although
+		some tags, known as empty elements, are unpaired, for example &lt;img&gt;. The
+		first tag in a pair is the start tag, the second tag is the end tag (they are
+		also called opening tags and closing tags). In between these tags web designers
+		can add text, tags, comments, and other types of text-based content.
+	 </p>
+  </glossdef> 
+</glossentry> </glossgroup>

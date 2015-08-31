@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+************************************************************
+DITA to XSL-FO Style Definition 
+************************************************************
+File Name : ja_style.xml
+************************************************************
+Copyright © 2009 2009 Antenna House, Inc.
+Antenna House is a trademark of Antenna House, Inc.
+URL : http://www.antennahouse.co.jp/
+************************************************************
+-->
+<style-definition 
+ xmlns:axf="http://www.antennahouse.com/names/XSL/Extensions"
+ xmlns="http://www.antennahouse.com/names/XSLT/Document/Layout">
+ 
+ <variables>
+        <!-- Page size (A4) -->
+        <variable name="General_Paper_Width">210mm</variable>
+        <variable name="General_Paper_Height">297mm</variable>
+        <variable name="General_Margin_Top">20mm</variable>
+        <variable name="General_Margin_Right">20mm</variable>
+        <variable name="General_Margin_Bottom">20mm</variable>
+        <variable name="General_Margin_Left">20mm</variable>
+
+		<!-- Fonts -->
+        <variable name="General_Serif_Font">Times New Roman,MS Mincho</variable>
+        <variable name="General_Sans_Serif_Font">Arial,MS Gothic</variable>
+		<variable name="General_Monospace_Font">Courier New, MS Gothic</variable>
+        <variable name="General_Text_Font">$General_Serif_Font</variable>
+        <variable name="General_Title_Font">$General_Sans_Serif_Font</variable>
+        <variable name="General_Region_Before_Font">$General_Serif_Font</variable>
+        <variable name="General_Region_After_Font">$General_Serif_Font</variable>
+     
+        <!-- Literals -->
+        <!-- Title Literals -->
+        <variable name="Part_Title_Prefix">第</variable>
+        <variable name="Part_Title_Suffix">部</variable>
+        <variable name="Chapter_Title_Prefix">第</variable>
+        <variable name="Chapter_Title_Suffix">章</variable>
+
+
+ 		<variable name="Toc_Title">目次</variable>
+ 		<variable name="Figure_List_Title">図一覧</variable>
+ 		<variable name="Table_List_Title">表一覧</variable>
+ 		<variable name="Abbreviations_List_Title">略語一覧</variable>
+ 		<variable name="Trademark_List_Title">商標</variable>
+ 		<variable name="Bibliographic_List_Title">参考文献</variable>
+ 		<variable name="Glossary_List_Title">用語集</variable>
+ 		<variable name="Appendices_Title">付録</variable>
+ 		<variable name="Appendix_Title">付録</variable>
+ 		<variable name="Index_Title">索引</variable>
+        
+        <variable name="Notice_Title">特記事項</variable>
+        <variable name="Preface_Title">はじめに</variable>
+
+        <variable name="Blank_Page_Title">&#x00A0;Blank&#x00A0;Page&#x00A0;</variable>
+        <variable name="Relatedlink_Title">&#x00A0;関連リンク&#x00A0;</variable>
+        <variable name="Postnote_Title">&#x00A0;注&#x00A0;</variable>
+
+        <variable name="Table_Title">表 </variable>
+        <variable name="Figure_Title">図 </variable>
+
+
+        <!-- Literals for thumbnail -->
+        <variable name="Toc_Thumbnail_Label">目次</variable>
+        <variable name="Appendix_Thumbnail_Label">付録</variable>
+        <variable name="Index_Thumbnail_Label">索引</variable>
+
+        <variable name="Toc_Thumbnail_Title"></variable>
+        <variable name="Appendix_Thumbnail_Title"></variable>
+        <variable name="Index_Thumbnail_Title"></variable>
+
+        <!-- Literals for choicetable header -->
+        <variable name="Choptionhd">オプション</variable>
+        <variable name="Chdeschd">説明</variable>
+
+        <!-- Literals for note -->
+        <variable name="Note_Note">注</variable>
+        <variable name="Note_Tip">ヒント</variable>
+        <variable name="Note_FastPath">便利な方法</variable>
+        <variable name="Note_Restriction">制限事項</variable>
+        <variable name="Note_Important">重要</variable>
+        <variable name="Note_Remember">留意事項</variable>
+        <variable name="Note_Attention">注目事項</variable>
+        <variable name="Note_Caution">注意事項</variable>
+        <variable name="Note_Notice">通知事項</variable>
+        <variable name="Note_Danger">危険事項</variable>
+        <variable name="Note_Warning">警告事項</variable>
+        <variable name="Note_Other">その他</variable>
+
+        <!-- Layout related variables -->
+        <!-- Related Link: Use U+201C, U+201D if you prefer surrounding title. -->
+        <variable name="Relatedlink_Prefix"> (</variable>
+        <variable name="Relatedlink_Suffix">ページ)</variable>
+
+        <!-- Xref -->
+        <variable name="Xref_Prefix"> (</variable>
+        <variable name="Xref_Suffix">ページ)</variable>
+
+        <!-- Index related -->
+        <!-- Index See prefix and suffix -->
+        <variable name="Index_Symbol_Label">記号・数字</variable>
+        <variable name="See_Prefix_Level1">, </variable>
+        <variable name="See_Suffix_Level1"> を参照</variable>
+        <variable name="See_Prefix_Level2"></variable>
+        <variable name="See_Suffix_Level2"> を参照</variable>
+
+        <!-- Index See Also prefix and suffix -->
+        <variable name="See_Also_Prefix"></variable>
+        <variable name="See_Also_Suffix"> も参照</variable>
+
+        <!-- Collation URI for Saxon 9 -->
+        <variable name="cCollationURI">http://saxon.sf.net/collation?lang=ja;</variable>
+     
+        <!-- Check mark -->
+        <variable name="cCheckYes">○</variable>
+        <variable name="cCheckNo">×</variable>
+        <variable name="cCheckDc">－</variable>
+     
+ </variables>
+ <attribute-sets>
+    <basic>
+        <!-- If you want to change fonts for bold style, customize below attribute-set.  -->
+        <attribute-set name="atsB">
+            <attribute name="font-weight">normal</attribute>
+        </attribute-set>
+    </basic>
+ 
+    <index-attribute>
+        <attribute-set name="atsIndexGroupTitle">
+            <attribute name="font-weight">normal</attribute>
+        </attribute-set>
+
+        <!-- See (no indexterm nested) inline -->
+        <attribute-set name="atsSeePrefix">
+            <attribute name="font-style">normal</attribute>
+        </attribute-set>
+
+        <attribute-set name="atsSeeSuffix">
+            <attribute name="font-style">normal</attribute>
+        </attribute-set>
+
+        <!-- See Also inline -->
+        <attribute-set name="atsSeeAlsoPrefix">
+            <attribute name="font-style">normal</attribute>
+        </attribute-set>
+
+        <attribute-set name="atsSeeAlsoSuffix">
+            <attribute name="font-style">normal</attribute>
+        </attribute-set>
+
+    </index-attribute>
+
+    <figure-list-attribute>
+
+        <attribute-set name="atsFigListBlock">
+            <attribute name="provisional-distance-between-starts">24mm</attribute>
+        </attribute-set>
+
+    </figure-list-attribute>
+    
+    <table-list-attribute>
+
+        <attribute-set name="atsTableListBlock">
+            <attribute name="provisional-distance-between-starts">24mm</attribute>
+        </attribute-set>
+
+    </table-list-attribute>
+
+    <topic-elements-attribute>
+        <!-- abstract -->
+        <attribute-set name="atsAbstract">
+            <attribute name="text-align">justify</attribute>
+        </attribute-set>
+        
+        <!-- shortdesc -->
+        <attribute-set name="atsShortdesc" use-attribute-sets="atsAbstract"/>
+        
+        <!-- body -->
+        <attribute-set name="atsBody">
+            <attribute name="text-align">justify</attribute>
+        </attribute-set>
+        
+    </topic-elements-attribute>
+
+    <programming-elements-attribute>
+
+        <!-- codeblock -->
+        <attribute-set name="atsCodeBlock" use-attribute-sets="atsPre">
+            <attribute name="axf:text-autospace-width">0%</attribute>
+        </attribute-set>
+
+    </programming-elements-attribute>
+
+ </attribute-sets>
+
+</style-definition>

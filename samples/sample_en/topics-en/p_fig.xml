@@ -1,0 +1,160 @@
+<?xml version="1.0"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic id="topic_A456CF4C97AB5560" xml:lang="en-US">
+	<title>Fig testing</title>
+	<shortdesc>The figure (&lt;fig&gt;) element is a display context (sometimes called an “exhibit”) with an optional title for a
+wide variety of content. Most commonly, the figure element contains an image element (a graphic or
+artwork), but it can contain several kinds of text objects as well. A title is placed inside the figure element
+to provide a caption to describe the content.</shortdesc>
+
+	<body>
+        <section>
+            <title>GIF sample</title>
+            <p>This is simple GIF sample</p>
+            <fig expanse="column" id="fig_99302FCD39DF45EA32FD">
+                <title>Flower</title>
+                <desc>The &lt;desc&gt; element contains the description of the current element. A description should provide more information than the title. This is its behavior in fig/table/linklist, for example. In xref/link, it provides a description of the target; processors that support it may choose to display this as hover help. In object, it contains alternate content for use when in contexts that cannot display the object.</desc>
+                <image href="image/flower.gif" alt="Flower">
+                    <alt>Here is a description!</alt>
+                </image>
+            </fig>
+        </section>
+        <section>
+            <title>%display-atts; sample</title>
+            <fig frame="all" >
+                <title>Flower frame='all'</title>
+                <image href="image/flower.gif" alt="Flower" placement="break"/>
+            </fig>
+            <fig frame="topbot" >
+                <title>Flower frame='topbot'</title>
+                <image href="image/flower.gif" alt="Flower" placement="break"/>
+            </fig>
+        </section>
+        <section>
+            <title>image attribute sample</title>
+            <fig frame="all" >
+                <title>Flower width="3cm"</title>
+                <image href="image/flower.gif" alt="Flower" width="3cm"/>
+            </fig>
+            <p></p>
+            <fig frame="all" >
+                <title>Flower height="5cm"</title>
+                <image href="image/flower.gif" alt="Flower" height="5cm"/>
+            </fig>
+            <p></p>
+            <fig frame="all" >
+                <title>Flower width="3cm", height="5cm"</title>
+                <image href="image/flower.gif" alt="Flower" width="3cm" height="5cm"/>
+            </fig>
+            <p></p>
+            <fig frame="all" >
+                <title>Flower scale="200"</title>
+                <image href="image/flower.gif" alt="Flower" scale="200"/>
+            </fig>
+            <p></p>
+            <fig frame="all" >
+                <title>Flower placement="break"&amp;align="center"</title>
+                <image href="image/flower.gif" alt="Flower" placement="break" align="center"/>
+            </fig>
+            <p></p>
+            <fig frame="all" >
+                <title>Flower placement="break"&amp;align="rifht"</title>
+                <image href="image/flower.gif" alt="Flower" placement="break" align="right"/>
+            </fig>
+            <p></p>
+            <fig frame="all" >
+                <title>Flower placement="break"&amp;align="left"</title>
+                <image href="image/flower.gif" alt="Flower" placement="break" align="left"/>
+            </fig>
+            <p></p>
+            <fig frame="all" >
+                <title>Flower placement="break"&amp;align="current"</title>
+                <image href="image/flower.gif" alt="Flower" placement="break" align="current"/>
+            </fig>
+        </section>
+        <section>
+            <title>Jpeg sample</title>
+            <fig frame="all" >
+                <title>Dragon</title>
+                <image href="image/dragon.jpg" alt="Dragon"/>
+            </fig>
+        </section>
+        <section>
+            <title>figgroup sample from dita1.2</title>
+            <fig frame="all">
+              <title>Sample complex figure</title>
+              <figgroup>
+                <title>First group</title>
+                <ph>These elements</ph>
+                <ph>are grouped together</ph>
+                <ph>for some purpose</ph>
+              </figgroup>
+              <figgroup>
+                <title>Second group</title>
+                <ph>name="MetaItem" value="13"</ph>
+                <ph>name="MetaThing" value="31"</ph>
+                <ph>These elements</ph>
+                <ph>are grouped with associated metadata</ph>
+              </figgroup>
+            </fig>         
+            <fig frame="all">
+              <title>Sample complex figure (2)</title>
+              <figgroup>
+                <title>First group</title>
+                <ph>These elements</ph>
+                <ph>are grouped together</ph>
+                <ph>for some purpose</ph>
+              </figgroup>
+              <figgroup>
+                <!--title>Second group</title-->
+                <ph>name="MetaItem" value="13"</ph>
+                <ph>name="MetaThing" value="31"</ph>
+                <ph>These elements</ph>
+                <ph>are grouped with associated metadata</ph>
+              </figgroup>
+            </fig>         
+            <fig>
+              <title>Sample complex figure (3): no frame</title>
+              <figgroup>
+                <title>First group</title>
+                <ph>These elements</ph>
+                <ph>are grouped together</ph>
+                <ph>for some purpose</ph>
+              </figgroup>
+              <figgroup>
+                <title>Second group</title>
+                <ph>name="MetaItem" value="13"</ph>
+                <ph>name="MetaThing" value="31"</ph>
+                <ph>These elements</ph>
+                <ph>are grouped with associated metadata</ph>
+              </figgroup>
+            </fig>         
+        </section>
+    </body>
+    <topic id="topic_A456CF4C97AB5560_2">
+	    <title>Fig testing in nested topic</title>
+        <body>
+            <section>
+                <title>Figure in the nested topic</title>
+                <fig>
+                    <title>Flower</title>
+                    <image href="image/flower.gif">
+                        <alt>Here is a description!</alt>
+                    </image>
+                </fig>
+            </section>
+        </body>
+    </topic>
+    <topic id="topic_BCAD4FC0987FDC34">
+	    <title>Image testing</title>
+        <body>
+            <section>
+                <title>Image that have @longdescref</title>
+                <fig>
+                    <title>Link to Wikipedia</title>
+                    <image href="image/wikipedia.png" longdescref="http://www.wikipedia.org/"/>
+                </fig>
+            </section>
+        </body>
+    </topic>
+</topic>

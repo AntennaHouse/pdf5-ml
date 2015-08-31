@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<!--topic-->
+<topic id="__TOPIC_9C4576F944F756D" xml:lang="en-US">
+	<title>Backmatter testing</title>
+	<body>
+    <p id="p_01">The &lt;backmatter&gt; element contains the material that follows the main body of a document and any appendices.
+It may include items such as a colophon, legal notices, and various types of book lists such as a glossary or an
+index.</p>
+    <p id="p_02">The backmatter has following content model</p>
+    <codeblock>(amendments or booklists or colophon or dedication or notices or topicref or anchorref or keydef or mapref or topicgroup or topichead or topicset or topicsetref) (any number)</codeblock>
+    </body>
+</topic>

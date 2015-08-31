@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE map PUBLIC "-//OASIS//DTD DITA Map//EN" "map.dtd">
+<map id = "map_26F29B320CC448C6BDEE032B001C3627" xml:lang="en">
+	<title>Glossary map</title>
+    <!--topicref href="p_glossary_introduction.xml" type="topic"-->
+    <topicref navtitle="Glossary map">
+	    <topicref href="gloss_XSLT.xml" type="glossentry"/>
+	    <topicref href="gloss_XSLFO.xml" type="glossentry"/>
+        <topicref href="gloss_XMLandHTML.xml" type="glossgroup"/>
+        <topicref href="gloss_XMLSchema.xml" type="glossentry"/>
+	    <topicref href="gloss_DTD.xml" type="glossentry"/>
+	    <topicref href="gloss_DOM.xml" type="glossentry"/>
+	    <topicref href="gloss_SAX.xml" type="glossentry"/>
+    </topicref>
+</map>

@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic id="topic_FDC098A0A456CF4C97AB5560" xml:lang="en-US">
+	<title>Longquoteref testing</title>
+	<abstract><p>The &lt;longquoteref&gt; element provides a reference to the source of a long quote. The long quote (&lt;lq&gt;) element
+		itself allows an href attribute to specify the source of a quote, but it does not allow other standard linking
+		attributes such as keyref, scope, and format. The &lt;longquoteref&gt; element should be used for references that
+		make use of these attributes.</p>
+		<p>Rendering of this element is left up to DITA processors. Depending on the presentation format, it may be
+		appropriate to ignore the element, present it as a link, use it to turn the entire quote into a link, or do something
+		else.</p></abstract>
+	<body>
+		<p>PDF output will generate link for &lt;longdescref&gt; if &lt;lq&gt; has no @reftitle attribute.</p>
+	    <section>
+	        <title>Longquoteref example (1)</title>
+	    	<lq reftitle="Scorpa motorcycles">Scorpa is a manufacturer of trials motorcycles based near Alès, France. 
+	    		It was founded in 1993 by Marc Teissier and Joël Domergue. 
+	    		The first model produced by the company was the WORKS 294 in 1994, powered by a single-cylinder, two-stroke Rotax engine. 
+	    		In 1998, Scorpa signed an agreement with Yamaha Motor Company to use its engines in subsequent models.
+	    		The final range included trials bikes ranging from 125 cc to 249 cc, in both two- and four-stroke variants. 
+	    		Scorpa also produced "long ride" models, that were mechanically similar to the SY trials range, but with a larger fuel tank, and a seat to allow longer trekking use. 
+	    		Non-traditional models included the BMX-inspiried 4-Tricks and the trials/trail hybrid T-Ride.
+	    		On July 13, 2009, Scorpa announced on its website that it was going into bankruptcy liquidation. [1]
+	    		In September 2009 it was announced that original owner Marc Tessier had purchased the company. 
+	    		Operations have moved from Ales to Nimes, France, and a full complement of Trials models will be produced for 2010. 
+	    		These will include the TYS125 four-stroke, a 125 and 250 cc two-stroke SY, and a T-Ride model.
+	    		<longquoteref href="http://www.scorpa.fr/" scope="external" format="html"/>
+	        </lq>
+	    </section>
+	    <!--section>
+	    	<title>Longquoteref example (2)</title>
+	    	<lq reftitle="Scorpa motorcycles">Scorpa is a manufacturer of trials motorcycles based near Alès, France. 
+	    		It was founded in 1993 by Marc Teissier and Joël Domergue. 
+	    		The first model produced by the company was the WORKS 294 in 1994, powered by a single-cylinder, two-stroke Rotax engine. 
+	    		In 1998, Scorpa signed an agreement with Yamaha Motor Company to use its engines in subsequent models.
+	    		The final range included trials bikes ranging from 125 cc to 249 cc, in both two- and four-stroke variants. 
+	    		Scorpa also produced "long ride" models, that were mechanically similar to the SY trials range, but with a larger fuel tank, and a seat to allow longer trekking use. 
+	    		Non-traditional models included the BMX-inspiried 4-Tricks and the trials/trail hybrid T-Ride.
+	    		On July 13, 2009, Scorpa announced on its website that it was going into bankruptcy liquidation. [1]
+	    		In September 2009 it was announced that original owner Marc Tessier had purchased the company. 
+	    		Operations have moved from Ales to Nimes, France, and a full complement of Trials models will be produced for 2010. 
+	    		These will include the TYS125 four-stroke, a 125 and 250 cc two-stroke SY, and a T-Ride model.
+	    		<longquoteref  href="r_tys125f.xml" scope="local" format="dita" type="reference"/>
+	    	</lq>
+	    </section-->
+		<section>
+			<title>Longquoteref example (3)</title>
+			<lq reftitle="Scorpa motorcycles">Scorpa is a manufacturer of trials motorcycles based near Alès, France. 
+				It was founded in 1993 by Marc Teissier and Joël Domergue. 
+				The first model produced by the company was the WORKS 294 in 1994, powered by a single-cylinder, two-stroke Rotax engine. 
+				In 1998, Scorpa signed an agreement with Yamaha Motor Company to use its engines in subsequent models.
+				The final range included trials bikes ranging from 125 cc to 249 cc, in both two- and four-stroke variants. 
+				Scorpa also produced "long ride" models, that were mechanically similar to the SY trials range, but with a larger fuel tank, and a seat to allow longer trekking use. 
+				Non-traditional models included the BMX-inspiried 4-Tricks and the trials/trail hybrid T-Ride.
+				On July 13, 2009, Scorpa announced on its website that it was going into bankruptcy liquidation. [1]
+				In September 2009 it was announced that original owner Marc Tessier had purchased the company. 
+				Operations have moved from Ales to Nimes, France, and a full complement of Trials models will be produced for 2010. 
+				These will include the TYS125 four-stroke, a 125 and 250 cc two-stroke SY, and a T-Ride model.
+				<longquoteref keyref="web_scorpa"/>
+			</lq>
+		</section>
+	</body>
+</topic>

@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic id="topic_l3z_qq5_jm" xml:lang="en-US">
+  <title>@dir attribute</title>
+  <body>
+    <dl>
+      <dlentry>
+        <dt>dir="ltr": </dt>
+        <dd><p dir="ltr">Extensible Markup Language XML is a markup language that defines a set of rules for encoding documents in a format that is both human-readable and machine-readable.</p></dd>
+      </dlentry>
+      <dlentry>
+        <dt>dir="rtl": </dt>
+        <dd><p dir="rtl">Extensible Markup Language XML is a markup language that defines a set of rules for encoding documents in a format that is both human-readable and machine-readable.</p></dd>
+      </dlentry>
+      <dlentry>
+        <dt>dir="rlo": </dt>
+        <dd><p dir="rlo">Extensible Markup Language XML is a markup language that defines a set of rules for encoding documents in a format that is both human-readable and machine-readable.</p></dd>
+      </dlentry>
+    </dl>
+    <p>The dir attribute is explained as follows:</p>
+    <table>
+      <title>dir attribute in DITA</title>
+      <tgroup cols="2">
+        <thead>
+          <row>
+            <entry>Value</entry>
+            <entry>Relevant CSS notation</entry>
+          </row>
+        </thead>
+        <tbody>
+          <row>
+            <entry>ltr</entry>
+            <entry>direction: ltr; unicode-bidi: embed;</entry>
+          </row>
+          <row>
+            <entry>rtl</entry>
+            <entry>direction: rtl; unicode-bidi: embed;</entry>
+          </row>
+          <row>
+            <entry>lro</entry>
+            <entry>direction: ltr; unicode-bidi: bidi-override;</entry>
+          </row>
+          <row>
+            <entry>rlo</entry>
+            <entry>direction: rtl; unicode-bidi: bidi-override;</entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </table>
+    <p>The dir attribute in HTML is explained as follows:</p>
+    <table>
+      <title>dir attribute and HTML element</title>
+      <tgroup cols="2">
+        <thead>
+          <row>
+            <entry>Selector pattern</entry>
+            <entry>Relevant CSS notation</entry>
+          </row>
+        </thead>
+        <tbody>
+          <row>
+            <entry>*[dir="ltr"]</entry>
+            <entry>direction: ltr; unicode-bidi: embed;</entry>
+          </row>
+          <row>
+            <entry>*[dir="rtl"]</entry>
+            <entry>direction: rtl; unicode-bidi: embed;</entry>
+          </row>
+          <row>
+            <entry>bdo[dir="ltr"]</entry>
+            <entry>direction: ltr; unicode-bidi: bidi-override;</entry>
+          </row>
+          <row>
+            <entry>bdo[dir="rtl"]</entry>
+            <entry>direction: rtl; unicode-bidi: bidi-override;</entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </table>
+    <fig>
+      <title>dir attribute in DITA</title>
+      <p>
+        <table>
+          <tgroup cols="2">
+            <thead>
+              <row>
+                <entry>Value</entry>
+                <entry>Relevant CSS notation</entry>
+              </row>
+            </thead>
+            <tbody>
+              <row>
+                <entry>ltr</entry>
+                <entry>direction: ltr; unicode-bidi: embed;</entry>
+              </row>
+              <row>
+                <entry>rtl</entry>
+                <entry>direction: rtl; unicode-bidi: embed;</entry>
+              </row>
+              <row>
+                <entry>lro</entry>
+                <entry>direction: ltr; unicode-bidi: bidi-override;</entry>
+              </row>
+              <row>
+                <entry>rlo</entry>
+                <entry>direction: rtl; unicode-bidi: bidi-override;</entry>
+              </row>
+            </tbody>
+          </tgroup>
+        </table>
+      </p>
+    </fig>
+    <fig>
+      <title>dir attribute and HTML element</title>
+      <p>
+      <table>
+        <tgroup cols="2">
+          <thead>
+            <row>
+              <entry>Selector pattern</entry>
+              <entry>Relevant CSS notation</entry>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <entry>*[dir="ltr"]</entry>
+              <entry>direction: ltr; unicode-bidi: embed;</entry>
+            </row>
+            <row>
+              <entry>*[dir="rtl"]</entry>
+              <entry>direction: rtl; unicode-bidi: embed;</entry>
+            </row>
+            <row>
+              <entry>bdo[dir="ltr"]</entry>
+              <entry>direction: ltr; unicode-bidi: bidi-override;</entry>
+            </row>
+            <row>
+              <entry>bdo[dir="rtl"]</entry>
+              <entry>direction: rtl; unicode-bidi: bidi-override;</entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </table>
+      </p>
+    </fig>
+  </body>
+</topic>

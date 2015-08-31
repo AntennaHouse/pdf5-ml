@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<!--topic-->
+<topic id="__TOPIC_9986DC7F32AD7431CF73" xml:lang="en-US">
+	<title><ph><i>Weird</i> <b>title</b> <u>testing</u> <tm tmtype="reg"/> (1)</ph></title>
+    <titlealts>
+        <navtitle><ph><i>Weird</i> <b>title</b> <u>testing</u> <tm tmtype="reg"/> (1) - Navi Title</ph></navtitle>
+        <searchtitle><ph><i>Weird</i> <b>title</b> <u>testing</u> <tm tmtype="reg"/> (1) - Search Title</ph></searchtitle>
+    </titlealts>
+	<body>
+    <p>The &lt;title&gt; element contains a heading or label for the main parts of a topic, 
+    including the topic as a whole, its sections and examples, and its labelled content, 
+    such as figures and tables.</p>
+    <p>The title content model is as follows.</p>
+    <codeblock frame="all">( text data or ph or codeph or synph or filepath or msgph or userinput or systemoutput or b or u or
+i or tt or sup or sub or uicontrol or menucascade or term or q or boolean or state or keyword or
+option or parmname or apiname or cmdname or msgnum or varname or wintitle or tm or image or
+data or data-about or foreign or unknown) (any number)</codeblock>
+    <p>This topic also contains related-link test.</p>
+    
+    </body>
+</topic>

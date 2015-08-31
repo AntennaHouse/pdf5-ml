@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic id="topic_tdq_qrg_jl" xml:lang="en-US">
+  <title>Complecated indexterm example</title>
+  <abstract>
+    This topic contains complecated index example.
+  </abstract>
+  <prolog>
+    <metadata>
+      <keywords>
+        <indexterm>Load</indexterm>
+        <indexterm>Plain Paper</indexterm>
+        <indexterm>Load<indexterm>Plain Paper</indexterm></indexterm>
+        <indexterm>Load<indexterm>Thin Paper</indexterm></indexterm>
+        <indexterm>Load<indexterm>Recycled Paper</indexterm></indexterm>
+        <indexterm>Load<indexterm>Bond Paper</indexterm></indexterm>
+        <indexterm>Load<indexterm>Bond Paper<index-see-also>Load<indexterm>Recycled Paper</indexterm></index-see-also></indexterm></indexterm>
+        <indexterm>Manual Feed Slot</indexterm>
+        <indexterm>Manual Feed Slot<index-see>Load</index-see></indexterm>
+        <indexterm>Manual Feed Slot<index-see>Load<indexterm>Plain Paper</indexterm></index-see></indexterm>
+        <indexterm>Manual Feed Slot<index-see-also>Plain Paper</index-see-also></indexterm>
+        <indexterm>Manual
+          <indexterm>Feed
+            <indexterm>Slot</indexterm>
+          </indexterm>
+        </indexterm>
+        <indexterm>Manual
+          <indexterm>Feed
+            <indexterm>Slot<index-see>Load</index-see></indexterm>
+          </indexterm>
+        </indexterm>
+        <indexterm>Manual
+          <indexterm>Feed
+            <indexterm>Slot<index-see>Load<indexterm>Plain Paper</indexterm></index-see></indexterm>
+          </indexterm>
+        </indexterm>
+        <indexterm>Manual
+          <indexterm>Feed
+            <indexterm>Slot<index-see-also>Plain Paper</index-see-also></indexterm>
+          </indexterm>
+        </indexterm>
+      </keywords>
+    </metadata>
+  </prolog>
+  <body>
+    <p>Topic paragraph</p>
+  </body>
+</topic>

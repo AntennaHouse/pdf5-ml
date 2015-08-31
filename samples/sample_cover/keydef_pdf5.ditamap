@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="urn:oasis:names:tc:dita:rng:map.rng" schematypens="http://relaxng.org/ns/structure/1.0"?> 
+<map>
+ <title>Key definition map</title>
+
+ <keydef keys="ME-SHORT" navtitle="Antenna House">
+  <topicmeta>
+   <keywords><keyword>Antenna House</keyword></keywords>
+  </topicmeta>
+ </keydef>
+ 
+ <keydef keys="ME-LONG" navtitle="Antenna House, Inc.">
+  <topicmeta>
+   <keywords><keyword>Antenna House, Inc.</keyword></keywords>
+  </topicmeta>
+ </keydef>
+ 
+ <keydef keys="DITA" navtitle="DITA">
+  <topicmeta>
+   <keywords><keyword>DITA</keyword></keywords>
+  </topicmeta>
+ </keydef>
+ 
+ <keydef keys="DITA-OT" navtitle="DITA Open Toolkit">
+  <topicmeta>
+   <keywords><keyword>DITA Open Toolkit</keyword></keywords>
+  </topicmeta>
+ </keydef>
+
+ <keydef keys="DITA-OT-SHORT" navtitle="DITA-OT">
+  <topicmeta>
+   <keywords><keyword>DITA-OT</keyword></keywords>
+  </topicmeta>
+ </keydef>
+
+ <keydef keys="DITA-OT-VERSION" navtitle="DITA-OT Version" product="PDF5">
+  <topicmeta>
+   <keywords><keyword>1.8.5</keyword></keywords>
+  </topicmeta>
+ </keydef>
+ 
+ <keydef keys="DITA-OT-VERSION" navtitle="DITA-OT Version" product="PDF5-ML">
+  <topicmeta>
+   <keywords><keyword>2.1.0</keyword></keywords>
+  </topicmeta>
+ </keydef>
+
+ <keydef keys="DITA-OT-VERSION-TESTED" navtitle="Tested DITA-OT Version" product="PDF5">
+  <topicmeta>
+   <keywords><keyword>1.6.3</keyword></keywords>
+  </topicmeta>
+ </keydef>
+ 
+ <keydef keys="DITA-OT-VERSION-TESTED" navtitle="Tested DITA-OT Version" product="PDF5-ML">
+  <topicmeta>
+   <keywords><keyword>1.8.5</keyword></keywords>
+  </topicmeta>
+ </keydef>
+ 
+ <keydef keys="DITA-OT-URL" navtitle="DITA-OT URL" href="http://www.dita-ot.org/" scope="external" format="html">
+  <topicmeta>
+   <keywords><keyword>http://www.dita-ot.org/</keyword></keywords>
+  </topicmeta>
+ </keydef>
+
+ <keydef keys="XSL-FO" navtitle="XSL-FO">
+  <topicmeta>
+   <keywords><keyword>XSL-FO</keyword></keywords>
+  </topicmeta>
+ </keydef>
+
+ <keydef keys="AHF" navtitle="Antenna House Formatter">
+  <topicmeta>
+   <keywords><keyword>Antenna House Formatter</keyword></keywords>
+  </topicmeta>
+ </keydef>
+ 
+ <keydef keys="AHF-SHORT" navtitle="Formatter">
+  <topicmeta>
+   <keywords><keyword>Formatter</keyword></keywords>
+  </topicmeta>
+ </keydef>
+ 
+ <keydef keys="PDF5" navtitle="Plug-in name: PDF5">
+  <topicmeta>
+   <keywords><keyword>PDF5</keyword></keywords>
+  </topicmeta>
+ </keydef>
+ <keydef keys="PDF5-ML" navtitle="Plug-in name: PDF5-ML">
+  <topicmeta>
+   <keywords><keyword>PDF5-ML</keyword></keywords>
+  </topicmeta>
+ </keydef>
+ 
+
+ <keydef keys="PLUGIN-NAME" navtitle="Plug-in name" product="PDF5">
+  <topicmeta>
+   <keywords><keyword>PDF5</keyword></keywords>
+  </topicmeta>
+ </keydef>
+ <keydef keys="PLUGIN-NAME" navtitle="Plug-in name" product="PDF5-ML">
+  <topicmeta>
+   <keywords><keyword>PDF5-ML</keyword></keywords>
+  </topicmeta>
+ </keydef>
+
+ <keydef keys="PLUGIN-NAME-LCASE" navtitle="Plug-in name lower case" product="PDF5">
+  <topicmeta>
+   <keywords><keyword>pdf5</keyword></keywords>
+  </topicmeta>
+ </keydef>
+ <keydef keys="PLUGIN-NAME-LCASE" navtitle="Plug-in name lower case" product="PDF5-ML">
+  <topicmeta>
+   <keywords><keyword>pdf5-ml</keyword></keywords>
+  </topicmeta>
+ </keydef>
+
+ <keydef keys="PLUGIN-TRANSTYPE" navtitle="Plug-in transformation type" product="PDF5">
+  <topicmeta>
+   <keywords><keyword>pdf5</keyword></keywords>
+  </topicmeta>
+ </keydef>
+ <keydef keys="PLUGIN-TRANSTYPE" navtitle="Plug-in transformation type" product="PDF5-ML">
+  <topicmeta>
+   <keywords><keyword>pdf5.ml</keyword></keywords>
+  </topicmeta>
+ </keydef>
+
+ <keydef keys="PLUGIN-FOLDER" navtitle="Plug-in folder" product="PDF5">
+  <topicmeta>
+   <keywords><keyword>com.antennahouse.pdf5</keyword></keywords>
+  </topicmeta>
+ </keydef>
+ <keydef keys="PLUGIN-FOLDER" navtitle="Plug-in folder" product="PDF5-ML">
+  <topicmeta>
+   <keywords><keyword>com.antennahouse.pdf5.ml</keyword></keywords>
+  </topicmeta>
+ </keydef>
+
+ <keydef keys="SAMPLE-PLUGIN-FOLDER" navtitle="Sample plug-in folder" product="PDF5">
+  <topicmeta>
+   <keywords><keyword>com.acme-corp.pdf</keyword></keywords>
+  </topicmeta>
+ </keydef>
+ <keydef keys="SAMPLE-PLUGIN-FOLDER" navtitle="Sample plug-in folder" product="PDF5-ML">
+  <topicmeta>
+   <keywords><keyword>com.acme-corp.pdf.ml</keyword></keywords>
+  </topicmeta>
+ </keydef>
+
+ <keydef keys="SAMPLE-PLUGIN-TRANSTYPE" navtitle="Sample plug-in transtype" product="PDF5">
+  <topicmeta>
+   <keywords><keyword>acme-corp.pdf</keyword></keywords>
+  </topicmeta>
+ </keydef>
+ <keydef keys="SAMPLE-PLUGIN-TRANSTYPE" navtitle="Sample plug-in transtype" product="PDF5-ML">
+  <topicmeta>
+   <keywords><keyword>acme-corp.pdf.ml</keyword></keywords>
+  </topicmeta>
+ </keydef>
+
+ <keydef keys="I18N-INDEX-LIB" navtitle="I18N Index Library">
+  <topicmeta>
+   <keywords><keyword>I18N Index Library</keyword></keywords>
+  </topicmeta>
+ </keydef>
+
+ <keydef keys="I18N-INDEX-LIB-LONG" navtitle="Antenna House I18N Index Library">
+  <topicmeta>
+   <keywords><keyword>Antenna House I18N Index Library</keyword></keywords>
+  </topicmeta>
+ </keydef>
+
+ <keydef keys="I18N-INDEX-LIB-URL" navtitle="I18N Index Library URL" href="http://www.antennahouse.com/antenna1/i18n-index-library/" scope="external" format="html">
+  <topicmeta>
+   <keywords><keyword>http://www.antennahouse.com/antenna1/i18n-index-library/</keyword></keywords>
+  </topicmeta>
+ </keydef>
+
+ <keydef keys="AH-DITA-URL" navtitle="AH-DITA URL" href="https://github.com/AntennaHouse/ah-dita" scope="external" format="html">
+  <topicmeta>
+   <keywords><keyword>https://github.com/AntennaHouse/ah-dita</keyword></keywords>
+  </topicmeta>
+ </keydef>
+ 
+
+</map>

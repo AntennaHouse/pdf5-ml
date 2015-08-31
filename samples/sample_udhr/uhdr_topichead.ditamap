@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE map PUBLIC "-//OASIS//DTD DITA Map//EN" "map.dtd">
+<map xml:lang="en-US">
+ <title>Universal Declaration of Human Rights</title>
+ <topichead>
+  <topicmeta>
+   <navtitle>Universal Declaration of Human Rights</navtitle>
+  </topicmeta>
+  <topicref href="topics/c_udhr_en.dita"/>
+ </topichead>
+ <topichead xml:lang="ja-JP">
+  <topicmeta>
+   <navtitle>『世界人権宣言』</navtitle>
+  </topicmeta>
+  <topicref href="topics/c_udhr_ja.dita"/>
+ </topichead>
+ <topichead xml:lang="ko-KR">
+  <topicmeta>
+   <navtitle>세 계 인 권 선 언<ph xml:lang="ja-JP"> せかいじんけんせんげん</ph></navtitle>
+  </topicmeta>
+  <topicref href="topics/c_udhr_ko-KR.dita"/>
+ </topichead>
+ <topichead xml:lang="zh-CN">
+  <topicmeta>
+   <navtitle>世界人权宣言<ph xml:lang="ja-JP"> せかいじんけんせんげん</ph></navtitle>
+  </topicmeta>
+  <topicref href="topics/c_uhdr_zh-CN.dita"/>
+ </topichead>
+ <topichead xml:lang="zh-TW">
+  <topicmeta>
+   <navtitle>世界人權宣言<ph xml:lang="ja-JP"> せかいじんけんせんげん</ph></navtitle>
+  </topicmeta>
+  <topicref href="topics/c_uhdr_zh-TW.dita"/>
+ </topichead>
+</map>

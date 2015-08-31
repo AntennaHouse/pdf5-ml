@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<?xml-model href="urn:x-antennahouse:dita:rng:concept.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="urn:x-antennahouse:dita:rng:concept.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<concept id="concept_b31_qjq_hr" xmlns:fo="http://www.w3.org/1999/XSL/Format">
+ <title>Back cover</title>
+ <conbody>
+  <conbodydiv
+   fo:prop="position:absolute;left:0mm;right:0mm;top:0mm;bottom:0mm;display-align:center;text-align:center;">
+   <!--Formatter image-->
+   <section>
+    <p fo:prop="space-before:20mm;font-family:sans-serif;">Powered by</p>
+    <image keyref="AHF-LOGO" placement="break" fo:prop="content-width:50%;"/>
+   </section>
+   <section fo:prop="space-before:20mm;font-family:sans-serif;">
+    <p>Visit us on the World Wide Web</p>
+    <p><xref href="http://www.antennahouse.com" format="html" scope="external">http://www.antennahouse.com</xref></p>
+   </section>
+  </conbodydiv>
+  <conbodydiv 
+   fo:prop="position:absolute;left:10mm;right:10mm;height:50mm;bottom:10mm;display-align:after;">
+   <section fo:prop="border-top:1mm solid black;">
+    <table frame="none">
+     <tgroup cols="2">
+      <colspec colnum="1" colname="col1" colwidth="2*"/>
+      <colspec colnum="2" colname="col2" colwidth="3*"/>
+      <tbody>
+       <row>
+        <entry colsep="0" rowsep="0">
+         <image keyref="WEB-SITE-HEADER" placement="break"/>
+        </entry>
+        <entry colsep="0" rowsep="0">
+         <p><keyword keyref="ME-LONG"/> Ina Branch</p>
+         <p>8077-1 Minaminowa Vil. Kamiina Co. Nagano Pref.  399-4511 Japan</p>
+        </entry>
+       </row>
+      </tbody>
+     </tgroup>
+    </table>
+   </section>
+  </conbodydiv>
+ </conbody>
+</concept>

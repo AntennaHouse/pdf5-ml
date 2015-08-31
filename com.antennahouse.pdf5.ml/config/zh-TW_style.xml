@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+************************************************************
+DITA to XSL-FO Style Definition 
+************************************************************
+File Name : zh-TW_style.xml
+************************************************************
+Copyright © 2009 2009 Antenna House, Inc.
+Antenna House is a trademark of Antenna House, Inc.
+URL : http://www.antennahouse.co.jp/
+************************************************************
+-->
+<style-definition xmlns:axf="http://www.antennahouse.com/names/XSL/Extensions" xmlns="http://www.antennahouse.com/names/XSLT/Document/Layout">
+
+    <variables>
+        <!-- Fonts -->
+        <variable name="General_Serif_Font">MingLiU</variable>
+        <variable name="General_Sans_Serif_Font">Microsoft JhengHei</variable>
+        <variable name="General_Monospace_Font">Courier New,Microsoft JhengHei</variable>
+        <variable name="General_Text_Font">$General_Serif_Font</variable>
+        <variable name="General_Title_Font">$General_Sans_Serif_Font</variable>
+        <variable name="General_Region_Before_Font">$General_Serif_Font</variable>
+        <variable name="General_Region_After_Font">$General_Serif_Font</variable>
+        
+        <!-- Literals -->
+        <variable name="Toc_Title">目錄</variable>
+        <variable name="Figure_List_Title">圖一覽</variable>
+        <variable name="Table_List_Title">表一覽</variable>
+        <variable name="Abbreviations_List_Title">略語一覽</variable>
+        <variable name="Trademark_List_Title">商標</variable>
+        <variable name="Bibliographic_List_Title">參考文獻</variable>
+        <variable name="Glossary_List_Title">用語集</variable>
+        <variable name="Appendices_Title">附錄</variable>
+        <variable name="Appendix_Title">附錄</variable>
+        <variable name="Index_Title">索引</variable>
+
+        <!-- Literals for note -->
+        <variable name="Note_Note">註釋</variable>
+        <!-- Literals for thumbnail -->
+        <variable name="Toc_Thumbnail_Label">目錄</variable>
+        <variable name="Appendix_Thumbnail_Label">附錄</variable>
+        <variable name="Index_Thumbnail_Label">索引</variable>
+
+        <variable name="Toc_Thumbnail_Title"/>
+        <variable name="Appendix_Thumbnail_Title"/>
+        <variable name="Index_Thumbnail_Title"/>
+
+        <!-- Index related -->
+        <!-- Index See prefix and suffix -->
+        <variable name="Index_Symbol_Label">記號，數字</variable>
+        <variable name="See_Prefix_Level1">, 見 </variable>
+        <variable name="See_Suffix_Level1"/>
+        <variable name="See_Prefix_Level2">見 </variable>
+        <variable name="See_Suffix_Level2"/>
+
+        <!-- Index See Also prefix and suffix -->
+        <variable name="See_Also_Prefix">參見 </variable>
+        <variable name="See_Also_Suffix"/>
+
+    </variables>
+    <attribute-sets>
+        <basic>
+            <!-- If you want to change fonts for bold style, customize below attribute-set.  -->
+            <attribute-set name="atsB">
+                <attribute name="font-weight">normal</attribute>
+            </attribute-set>
+        </basic>
+
+        <index-attribute>
+            <attribute-set name="atsIndexGroupTitle">
+                <attribute name="font-weight">normal</attribute>
+            </attribute-set>
+
+            <!-- See (no indexterm nested) inline -->
+            <attribute-set name="atsSeePrefix">
+                <attribute name="font-style">normal</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsSeeSuffix">
+                <attribute name="font-style">normal</attribute>
+            </attribute-set>
+
+            <!-- See Also inline -->
+            <attribute-set name="atsSeeAlsoPrefix">
+                <attribute name="font-style">normal</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsSeeAlsoSuffix">
+                <attribute name="font-style">normal</attribute>
+            </attribute-set>
+        </index-attribute>
+
+    </attribute-sets>
+
+</style-definition>

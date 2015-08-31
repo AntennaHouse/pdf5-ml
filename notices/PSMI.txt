@@ -1,0 +1,12 @@
+ Interpret the Page Sequence Master Interleave formatting semantic described
+ at http://www.CraneSoftwrights.com/resources/psmi for interleaving page
+ geometries in XSLFO flows.
+
+ $Id: PSMI.txt 10 2009-12-24 06:42:19Z tmakita $
+
+This semantic, its stylesheet file, and the information contained herein is
+provided on an "AS IS" basis and CRANE SOFTWRIGHTS LTD. DISCLAIMS
+ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO 
+ANY WARRANTY THAT THE USE OF THE INFORMATION HEREIN WILL NOT INFRINGE
+ANY RIGHTS OR ANY IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS 
+FOR A PARTICULAR PURPOSE.

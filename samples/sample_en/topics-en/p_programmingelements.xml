@@ -1,0 +1,667 @@
+<?xml version="1.0"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic id="topic_0987ABCD1234FFDC56ABCC4098ED" xml:lang="en-US">
+	<title>Programming elements testing</title>
+	<shortdesc>The programming domains elements are used to define the syntax and to give examples of programming
+languages.</shortdesc>
+
+	<body>
+        <section>
+            <title>apiname</title>
+            <p>The &lt;apiname&gt; element provides the name of an application programming interface (API) 
+            such as a Java class name or method name. This element is part of the DITA programming 
+            domain, a special set of DITA elements designed to document programming tasks, concepts 
+            and reference information.</p>
+            <p>Use the <apiname>document.write</apiname> method to create text
+            output in the dynamically constructed view.</p>
+
+        </section>
+        <section>
+            <title>codeblock</title>
+            <p>The &lt;codeblock&gt; element represents lines of program code. Like the &lt;pre&gt; element,
+             content of this element has preserved line endings and is output in a monospaced font. 
+             This element is part of the DITA programming domain, a special set of DITA elements designed 
+             to document programming tasks, concepts and reference information.</p>
+
+            <codeblock>/* a long sample program */
+Do forever
+Say "Hello, World"
+End
+</codeblock>        
+            <p>Following is the codeblock template. scale="90" frame="all"</p>
+<codeblock scale="90" frame="all"><![CDATA[<!-- 
+ function:	codeblock template
+ param:		prmTopicRef
+ return:	fo:block
+ note:		
+ -->
+<xsl:template match="*[contains(@class, ' pr-d/codeblock ')]" priority="2">
+    <xsl:param name="prmTopicRef" required="yes"  as="element()?"/>
+    <xsl:param name="prmNeedId"   required="yes"  as="xs:boolean"/>
+    
+    <fo:block>
+        <xsl:copy-of select="ahf:getAttributeSet('atsCodeBlock')"/>
+        <xsl:copy-of select="ahf:getDisplayAtts(.,'atsCodeBlock')"/>
+        <xsl:copy-of select="ahf:getUnivAtts(.,$prmTopicRef,$prmNeedId)"/>
+        <xsl:apply-templates>
+            <xsl:with-param name="prmTopicRef" select="$prmTopicRef"/>
+            <xsl:with-param name="prmNeedId"   select="$prmNeedId"/>
+        </xsl:apply-templates>
+    </fo:block>
+</xsl:template>]]>
+</codeblock>
+
+        </section>
+
+
+        <section>
+            <title>codeph</title>
+            <p>The code phrase (&lt;codeph&gt;) element represents a snippet of code within the main flow 
+            of text. The code phrase is displayed in a monospaced font for emphasis. This element is part 
+            of the DITA programming domain, a special set of DITA elements designed to document programming
+            tasks, concepts and reference information.</p>
+            
+            <p>The second line of the sample program code, <codeph>Do forever</codeph>,
+represents the start of a loop construct.</p>
+        </section>
+        
+        
+        
+        <section>
+            <title>option</title>
+            <p>The &lt;option&gt; element describes an option that can be used to modify a command
+             (or something else, like a configuration). 
+             This element is part of the DITA programming domain, a special set of DITA elements
+             designed to document programming tasks, concepts and reference information.</p>
+
+            <p>The <option>--valid</option> option of <cmdname>xmllint</cmdname> command enables to validate the document in addition to standard well-formed check.</p>
+
+        </section>
+        <section>
+            <title>parmname</title>
+            <p>When referencing the name of an application programming interface parameter within the text flow of
+            your topic, use the parameter name (&lt;parmname&gt;) element to markup the parameter. This element is
+            part of the DITA programming domain, a special set of DITA elements designed to document
+            programming tasks, concepts and reference information.</p>
+
+            <p>Use the <parmname>/env</parmname> parameter of the <cmdname>config</cmdname>
+command to update the field value.</p>
+
+        </section>
+        <section>
+            <title>parml</title>
+            <p>The parameter list (&lt;parml&gt;) element contains a list of terms and definitions that describes the
+            parameters in an application programming interface. This is a special kind of definition list that is
+            designed for documenting programming parameters. This element is part of the DITA programming
+            domain, a special set of DITA elements designed to document programming tasks, concepts and reference
+            information.</p>
+            
+            <p>This code example is a basic method signature:
+                <codeblock>returnType methodName(pList1, pList2) {</codeblock>
+                where
+                <parml>
+                    <plentry>
+                        <pt>pList1</pt>
+                        <pd>is the first variable declaration passed to methodName</pd>
+                    </plentry>
+                    <plentry>
+                        <pt>pList2</pt>
+                        <pd>is the second variable declaration passed to methodName</pd>
+                    </plentry>
+                </parml>
+            </p>
+            
+            <table>
+                <title>parml in table sample</title>
+    			<tgroup cols="2">
+                    <colspec colname="col1"/>
+                    <colspec colname="col2"/>
+                    <thead>
+    					<row>
+                            <entry namest="col1" nameend="col2">parml</entry>
+    					</row>
+                    </thead>
+    				<tbody>
+    					<row>
+    						<entry>
+                                <p>This code example is a basic method signature:
+                                    <codeblock>returnType methodName(pList1, pList2) {</codeblock>
+                                    where
+                                    <parml>
+                                        <plentry>
+                                            <pt>pList1</pt>
+                                            <pd>is the first variable declaration passed to methodName</pd>
+                                        </plentry>
+                                        <plentry>
+                                            <pt>pList2</pt>
+                                            <pd>is the second variable declaration passed to methodName</pd>
+                                        </plentry>
+                                    </parml>
+                                </p>
+                            </entry>
+    						<entry>
+                                <p>This code example is a basic method signature:
+                                    <codeblock>returnType methodName(pList1, pList2) {</codeblock>
+                                    where
+                                    <parml>
+                                        <plentry>
+                                            <pt>pList1</pt>
+                                            <pd>is the first variable declaration passed to methodName</pd>
+                                        </plentry>
+                                        <plentry>
+                                            <pt>pList2</pt>
+                                            <pd>is the second variable declaration passed to methodName</pd>
+                                        </plentry>
+                                    </parml>
+                                </p>
+                            </entry>
+    					</row>
+                    </tbody>
+                </tgroup>
+            </table>
+        </section>
+        <section>
+            <title>synph</title>
+            <p>The syntax phrase (&lt;synph&gt;) element is a container for syntax definition elements. It is used when a
+            complete syntax diagram is not needed, but some of the syntax elements, such as kwd, oper, delim, are
+            used within the text flow of the topic content. This element is part of the DITA programming domain, a
+            special set of DITA elements designed to document programming tasks, concepts and reference
+            information.</p>
+            
+            <draft-comment author="toshi">Stylesheet does not apply special formatting for synph.</draft-comment>
+            
+            <p>Synph sample: <synph id="synph_2240EDF545AC96FC"><kwd>format</kwd> <var>volumename</var></synph></p>
+        </section>
+
+        <section>
+            <title>syntaxdiagram</title>
+            <p><i>This section contains sample data from Yahoo! dita-users group file section.</i></p>
+            <p>The syntax diagram (&lt;syntaxdiagram&gt;) element is the main container for all the syntax elements that
+            make up a syntax definition. The syntax diagram represents the syntax of a statement from a computer
+            language, or a command, function call or programming language statement. Traditionally, the syntax
+            diagram is formatted with “railroad tracks” that connect the units of the syntax together, but this
+            presentation may differ depending on the output media. The syntax diagram element is part of the DITA
+            programming domain, a special set of DITA elements designed to document programming tasks, concepts
+            and reference information.</p>
+            
+            <!--draft-comment author="toshi">Stylesheet does not apply special formatting for synph.</draft-comment-->
+            
+            <p>Example from syntaxdiagram</p>
+            
+            <syntaxdiagram frame="all">
+                <title>CopyFile</title>
+                <groupseq><kwd>COPYF</kwd></groupseq>
+                <groupcomp><var>input-filename</var><kwd>*INFILE</kwd></groupcomp>
+                <groupseq><var>output-filename</var><kwd>*OUTFILE</kwd></groupseq>
+                <groupchoice> <var>input-filename</var> <kwd>*INFILE</kwd></groupchoice>
+                <groupchoice> <var>output-filename</var> <kwd>*OUTFILE</kwd></groupchoice>
+            </syntaxdiagram>
+            
+            <p>Example from "Table-based rendering of DITA Syntax Diagram markup"</p>
+            <syntaxdiagram frame="all">
+                <title>SAA CPI Database Reference</title> 
+                <groupseq> 
+                    <kwd>ERASE</kwd> 
+                    <groupchoice> 
+                        <kwd>FORM</kwd> 
+                        <kwd>PROC</kwd> 
+                        <kwd>QUERY</kwd> 
+                        <kwd>TABLE</kwd> 
+                    </groupchoice> 
+                    <var>name</var> 
+                    <groupcomp importance="optional"> 
+                        <delim>(</delim> 
+                        <kwd>CONFIRM</kwd> 
+                        <oper>=</oper> 
+                        <groupchoice> 
+                            <kwd>YES</kwd> 
+                            <kwd>NO</kwd> 
+                        </groupchoice> 
+                        <delim>)</delim> 
+                    </groupcomp> 
+                </groupseq> 
+            </syntaxdiagram>             
+            <p>Example from "fragref"</p>
+            <syntaxdiagram frame="all">
+                <title>CopyFile</title>
+                <groupseq><kwd>COPYF</kwd></groupseq>
+                <groupcomp><var>input-filename</var><kwd>*INFILE</kwd></groupcomp>
+                <groupseq><var>output-filename</var><kwd>*OUTFILE</kwd></groupseq>
+                <fragref href="#topic_0987ABCD1234FFDC56ABCC4098ED/overlay"></fragref>
+                <groupchoice><var>input-filename</var><kwd>*INFILE</kwd></groupchoice>
+                <groupchoice><var>output-filename</var><kwd>*OUTFILE</kwd></groupchoice>
+                <fragment id="overlay">
+                <title>Overlay</title>
+                <groupchoice><kwd>*OVERLAP</kwd><kwd>*Prompt</kwd></groupchoice>
+                </fragment>
+            </syntaxdiagram>
+
+            <p>Example from "Combining groups"</p>
+            <syntaxdiagram frame="all">
+                <title>URL syntax</title>
+                <groupseq>
+                    <groupchoice>
+                        <groupseq>
+                            <groupseq>
+                                <groupchoice>
+                                    <kwd>http</kwd>
+                                    <kwd>https</kwd>
+                                    <kwd>ftp</kwd>
+                                    <kwd>file</kwd>
+                                </groupchoice>
+                                <sep>:</sep>
+                            </groupseq>
+                            <groupseq>
+                                <sep>//</sep>
+                                <groupcomp importance="optional">
+                                    <var>user</var>
+                                    <sep>@</sep>
+                                </groupcomp>
+                                <var>host</var>
+                                <groupcomp importance="optional">
+                                    <sep>:</sep>
+                                    <var>port</var>
+                                </groupcomp>
+                                <sep>/</sep>
+                            </groupseq>
+                        </groupseq>
+                        <groupseq importance="optional">
+                            <sep>/</sep>
+                        </groupseq>
+                    </groupchoice>
+                    <var>path</var>
+                </groupseq>
+            </syntaxdiagram>
+            
+            <p>Example from "Optional elements"</p>
+            <syntaxdiagram frame="all">
+                <title><cmdname id="cmdname_ABC09981FE65EC74">uname</cmdname> can take the
+                    <synph>-a</synph> option</title>
+                <synblk>
+                    <title>Optional importance</title>
+                    <groupseq>
+                        <kwd>uname</kwd>
+                        <kwd importance="optional">-a</kwd>
+                    </groupseq>
+                </synblk>
+                <synblk>
+                    <title>With empty sequence in
+                        <keyword>groupchoice</keyword></title>
+                    <groupseq>
+                        <kwd>uname</kwd>
+                    </groupseq>
+                    <groupchoice>
+                        <groupseq/>
+                        <kwd>-a</kwd>
+                    </groupchoice>
+                </synblk>
+            </syntaxdiagram>            
+            
+            <p>Example from "Default elements"</p>
+            <syntaxdiagram frame="all">
+                <title><cmdname>uname</cmdname> assumes the
+                    <synph>-s</synph> option by default</title>
+                <groupseq>
+                    <kwd>uname</kwd>
+                    <kwd importance="default">-s</kwd>
+                </groupseq>
+            </syntaxdiagram>
+
+            <p>Example from "importance on groupchoice"</p>
+            <syntaxdiagram frame="all">
+                <title><cmdname>uname</cmdname> synopsis</title>
+                <groupseq>
+                    <kwd>uname</kwd>
+                    <groupchoice importance="optional">
+                        <kwd>-a</kwd>
+                        <kwd>-m</kwd>
+                        <kwd>-n</kwd>
+                        <kwd>-p</kwd>
+                        <kwd importance="default">-s</kwd>
+                        <kwd>-r</kwd>
+                        <kwd>-v</kwd>
+                    </groupchoice>
+                </groupseq>
+            </syntaxdiagram>
+
+            <p>Example from "Repetition using empty repsep element"</p>
+            <syntaxdiagram frame="all">
+                <title>Hexadecimal literal</title>
+                <synblk>
+                    <groupseq>
+                        <kwd>0x</kwd>
+                    </groupseq>
+                    <groupchoice>
+                        <repsep/>
+                        <var>digit</var>
+                        <var>letter-a-to-f</var>
+                        <var>letter-A-to-F</var>
+                    </groupchoice>
+                </synblk>
+            </syntaxdiagram>
+
+            <p>Example from "Repetition using non-empty repsep  element"</p>
+            <syntaxdiagram frame="all">
+                <title>Comma-separated list of numbers</title>
+                <groupseq>
+                    <repsep>,</repsep>
+                    <var>number</var>
+                </groupseq>
+            </syntaxdiagram>
+
+            <p>Example from "repsep is stateless"</p>
+            <syntaxdiagram frame="all">
+                <title>Repeating a group <synph>
+                        <var>A</var>
+                    </synph> exactly 1 to 3 times</title>
+                <groupseq>
+                    <var>A</var>
+                    <groupseq importance="optional">
+                        <var>A</var>
+                        <groupseq importance="optional">
+                            <var>A</var>
+                        </groupseq>
+                    </groupseq>
+                </groupseq>
+            </syntaxdiagram>
+
+            <syntaxdiagram frame="all">
+                <title>Positive decimal integer</title>
+                <groupchoice>
+                    <kwd>1</kwd>
+                    <kwd>2</kwd>
+                    <kwd>3</kwd>
+                    <kwd>4</kwd>
+                    <kwd>5</kwd>
+                    <kwd>6</kwd>
+                    <kwd>7</kwd>
+                    <kwd>8</kwd>
+                    <kwd>9</kwd>
+                </groupchoice>
+                <groupseq importance="optional">
+                    <groupchoice>
+                        <repsep/>
+                        <kwd>0</kwd>
+                        <kwd>1</kwd>
+                        <kwd>2</kwd>
+                        <kwd>3</kwd>
+                        <kwd>4</kwd>
+                        <kwd>5</kwd>
+                        <kwd>6</kwd>
+                        <kwd>7</kwd>
+                        <kwd>8</kwd>
+                        <kwd>9</kwd>
+                    </groupchoice>
+                </groupseq>
+            </syntaxdiagram>
+
+            <p>Example from "Importance on repsep"</p>
+            <syntaxdiagram frame="all">
+                <title>Applying adjectives to a noun</title>
+                <groupseq>
+                    <groupseq>
+                        <repsep importance="optional">,</repsep>
+                        <var>adjective</var>
+                    </groupseq>
+                    <var>noun</var>
+                </groupseq>
+            </syntaxdiagram>
+
+            <p>Example from "Repetition of optional groups"</p>
+            <syntaxdiagram frame="all">
+                <title>How <keyword>repsep</keyword> in combination with
+                    <keyword>importance</keyword> is disambiguated</title>
+                <synblk>
+                    <title>Optional group, itself containing repsep</title>
+                    <groupseq importance="optional">
+                        <repsep>,</repsep>
+                        <var>A</var>
+                    </groupseq>
+                </synblk>
+                <synblk>
+                    <title>Each repeated <synph>
+                        <var>A</var>
+                    </synph> is optional; commas can be adjacent</title>
+                    <groupseq>
+                        <repsep>,</repsep>
+                        <groupseq importance="optional">
+                            <var>A</var>
+                        </groupseq>
+                    </groupseq>
+                </synblk>
+                <synblk>
+                    <title>Commas cannot be adjacent; entire production may
+                        be empty</title>
+                    <groupseq importance="optional">
+                        <groupseq>
+                            <repsep>,</repsep>
+                            <var>A</var>
+                        </groupseq>
+                    </groupseq>
+                </synblk>
+                <synblk>
+                    <title>Additional sample: repetation is required.</title>
+                    <groupseq>
+                        <groupseq>
+                            <repsep importance="required">,</repsep>
+                            <var>A</var>
+                        </groupseq>
+                    </groupseq>
+                </synblk>
+            </syntaxdiagram>
+
+            <p>Example from "Complex repetition separators"</p>
+            <syntaxdiagram frame="all">
+                <title>Refactoring <keyword>repsep</keyword></title>
+                <synblk>
+                    <title>Repetition with simple separator <synph>
+                        <sep>B</sep>
+                    </synph></title>
+                    <groupseq>
+                        <repsep>B</repsep>
+                        <var>A</var>
+                    </groupseq>
+                </synblk>
+                <synblk>
+                    <title>Repetition with complex separator <synph>
+                        <sep>B</sep>
+                    </synph></title>
+                    <groupseq>
+                        <groupseq>
+                            <repsep/>
+                            <var>A</var>
+                            <sep>B</sep>
+                        </groupseq>
+                        <var>A</var>
+                    </groupseq>
+                </synblk>
+            </syntaxdiagram>
+
+            <p>Example from "Fragments"</p>
+            <syntaxdiagram frame="all">
+                <title>IPV4 address in dot form</title>
+                <groupseq>
+                    <fragref href="#topic_0987ABCD1234FFDC56ABCC4098ED/zero-to-255"/>
+                    <sep>.</sep>
+                    <fragref href="#topic_0987ABCD1234FFDC56ABCC4098ED/zero-to-255"/>
+                    <sep>.</sep>
+                    <fragref href="#topic_0987ABCD1234FFDC56ABCC4098ED/zero-to-255"/>
+                    <sep>.</sep>
+                    <fragref href="#topic_0987ABCD1234FFDC56ABCC4098ED/zero-to-255"/>
+                </groupseq>
+                <fragment id="zero-to-255">
+                    <title>IPv4-range integer</title>
+                    <groupchoice>
+                        <title>IPv4-range integer Group Choice</title>
+                        <groupseq>
+                            <fragref href="#topic_0987ABCD1234FFDC56ABCC4098ED/digit"/>
+                        </groupseq>
+                        <groupseq>
+                            <groupchoice>
+                                <kwd>1</kwd>
+                                <kwd>2</kwd>
+                                <kwd>3</kwd>
+                                <kwd>4</kwd>
+                                <kwd>5</kwd>
+                                <kwd>6</kwd>
+                                <kwd>7</kwd>
+                                <kwd>8</kwd>
+                                <kwd>9</kwd>
+                            </groupchoice>
+                            <fragref href="#topic_0987ABCD1234FFDC56ABCC4098ED/digit"/>
+                        </groupseq>
+                        <groupseq>
+                            <kwd>1</kwd>
+                            <fragref href="#topic_0987ABCD1234FFDC56ABCC4098ED/digit"/>
+                            <fragref href="#topic_0987ABCD1234FFDC56ABCC4098ED/digit"/>
+                        </groupseq>
+                        <groupseq>
+                            <kwd>2</kwd>
+                            <groupchoice>
+                                <kwd>0</kwd>
+                                <kwd>1</kwd>
+                                <kwd>2</kwd>
+                                <kwd>3</kwd>
+                                <kwd>4</kwd>
+                            </groupchoice>
+                            <fragref href="#topic_0987ABCD1234FFDC56ABCC4098ED/digit"/>
+                        </groupseq>
+                        <groupseq>
+                            <kwd>2</kwd>
+                            <kwd>5</kwd>
+                            <groupchoice>
+                                <kwd>0</kwd>
+                                <kwd>1</kwd>
+                                <kwd>2</kwd>
+                                <kwd>3</kwd>
+                                <kwd>4</kwd>
+                                <kwd>5</kwd>
+                            </groupchoice>
+                        </groupseq>
+                    </groupchoice>
+                </fragment>
+                <fragment id="digit">
+                    <title>decimal digit</title>
+                    <groupchoice>
+                        <kwd>0</kwd>
+                        <kwd>1</kwd>
+                        <kwd>2</kwd>
+                        <kwd>3</kwd>
+                        <kwd>4</kwd>
+                        <kwd>5</kwd>
+                        <kwd>6</kwd>
+                        <kwd>7</kwd>
+                        <kwd>8</kwd>
+                        <kwd>9</kwd>
+                    </groupchoice>
+                </fragment>
+            </syntaxdiagram>
+
+            <p>Example from "Notes"</p>
+            <syntaxdiagram frame="all">
+                <title>Decimal integer</title>
+                <synblk>
+                    <title>Pattern 1</title>
+                    <groupseq>
+                        <groupseq importance="optional">
+                            <kwd>-</kwd>
+                            <synnote>Minus sign must not be followed by zero
+                                digit.</synnote>
+                        </groupseq>
+                        <groupchoice>
+                            <repsep/>
+                            <kwd>0</kwd>
+                            <synnote>Zero must not be chosen for the first digit,
+                                unless it is the only digit.</synnote>
+                            <kwd>1</kwd>
+                            <kwd>2</kwd>
+                            <kwd>3</kwd>
+                            <kwd>4</kwd>
+                            <kwd>5</kwd>
+                            <kwd>6</kwd>
+                            <kwd>7</kwd>
+                            <kwd>8</kwd>
+                            <kwd>9</kwd>
+                        </groupchoice>
+                        <synnote>Thousands separator of <synph>
+                            <sep>,</sep>
+                        </synph> or <synph>
+                            <sep>.</sep>
+                        </synph> may occur every three digits.</synnote>
+                    </groupseq>
+                </synblk>
+                <synblk>
+                    <title>Pattern 2</title>
+                    <synnote id="nosignforzero">Sign must not be followed by zero.</synnote>
+                    <groupseq>
+                        <groupchoice importance="optional">
+                            <kwd importance="default">+</kwd>
+                            <synnoteref href="#topic_0987ABCD1234FFDC56ABCC4098ED/nosignforzero"/>
+                            <!--synnoteref href="#nosignforzero"/-->
+                            <kwd>-</kwd>
+                            <synnoteref href="#topic_0987ABCD1234FFDC56ABCC4098ED/nosignforzero"/>
+                        </groupchoice>
+                        <groupseq>
+                            <repsep/>
+                            <var>digit</var>
+                        </groupseq>
+                    </groupseq>
+                </synblk>
+            </syntaxdiagram>
+
+            <p>Example from "Notes": using @callout</p>
+            <syntaxdiagram frame="all">
+                <title>Decimal integer</title>
+                <synblk>
+                    <title>Pattern 1</title>
+                    <groupseq>
+                        <groupseq importance="optional">
+                            <kwd>-</kwd>
+                            <synnote callout="#a">Minus sign must not be followed by zero
+                                digit.</synnote>
+                        </groupseq>
+                        <groupchoice>
+                            <repsep/>
+                            <kwd>0</kwd>
+                            <synnote callout="#b">Zero must not be chosen for the first digit,
+                                unless it is the only digit.</synnote>
+                            <kwd>1</kwd>
+                            <kwd>2</kwd>
+                            <kwd>3</kwd>
+                            <kwd>4</kwd>
+                            <kwd>5</kwd>
+                            <kwd>6</kwd>
+                            <kwd>7</kwd>
+                            <kwd>8</kwd>
+                            <kwd>9</kwd>
+                        </groupchoice>
+                        <synnote callout="#c">Thousands separator of <synph>
+                            <sep>,</sep>
+                        </synph> or <synph>
+                            <sep>.</sep>
+                        </synph> may occur every three digits.</synnote>
+                    </groupseq>
+                </synblk>
+                <synblk>
+                    <title>Pattern 2</title>
+                    <synnote id="nosignforzero2">Sign must not be followed by zero.</synnote>
+                    <groupseq>
+                        <groupchoice importance="optional">
+                            <kwd importance="default">+</kwd>
+                            <synnoteref href="#topic_0987ABCD1234FFDC56ABCC4098ED/nosignforzero2"/>
+                            <kwd>-</kwd>
+                            <synnoteref href="#topic_0987ABCD1234FFDC56ABCC4098ED/nosignforzero2"/>
+                        </groupchoice>
+                        <groupseq>
+                            <repsep/>
+                            <var>digit</var>
+                        </groupseq>
+                    </groupseq>
+                </synblk>
+            </syntaxdiagram>
+
+
+        </section>
+
+    </body>
+</topic>

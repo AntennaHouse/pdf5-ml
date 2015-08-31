@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE glossentry PUBLIC "-//OASIS//DTD DITA Glossary//EN" "glossary.dtd">
+<glossentry id="glossentry_fzw_vh3_wd" xml:lang="en-US">
+    <glossterm>Document Object Model</glossterm>
+    <glossdef>The Document Object Model (DOM) is a cross-platform and language-independent convention 
+        for representing and interacting with objects in HTML, XHTML and XML documents. 
+        Aspects of the DOM (such as its "Elements") may be addressed and manipulated 
+        within the syntax of the programming language in use. 
+        The public interface of a DOM is specified in its application programming interface (API).</glossdef>
+</glossentry>

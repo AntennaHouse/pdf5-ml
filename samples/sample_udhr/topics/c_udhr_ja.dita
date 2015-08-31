@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_v1m_nhl_ct" xml:lang="ja-JP">
+ <title>『世界人権宣言』</title>
+ <!--prolog>
+  <metadata>
+   <keywords>
+    <indexterm>世界人権宣言（日本）<index-sort-as>せかいじんけんせんげん（にほん）</index-sort-as></indexterm>
+   </keywords>
+  </metadata>
+ </prolog-->
+ <conbody>
+  <section>
+   <title>第１条</title>
+   <p>すべての人間は、生まれながらにして自由であり、かつ、尊厳と権利とについて平等である。人間は、理性と良心とを授けられており、互いに同胞の精神をもって行動しなければならない。</p>
+  </section>
+ </conbody>
+</concept>

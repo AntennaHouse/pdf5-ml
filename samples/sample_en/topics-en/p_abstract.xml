@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<!--topic-->
+<topic id="__TOPIC_9C4576FDEEC4" xml:lang="en-US">
+	<title>Abstract testing</title>
+	<!--shortdesc>Short desc of the introduction. </shortdesc-->
+    <!-- Example: abstract with phrase-level short description -->
+    <!--abstract>The abstract is being used to provide more complex content.
+<shortdesc>The shortdesc must be directly contained by the abstract.</shortdesc>
+The abstract can put text around the shortdesc.
+</abstract-->
+    <!--Example: abstract with block-level short description-->
+    <!--abstract><p>The abstract is being used to provide more complex content.</p>
+<shortdesc>The shortdesc must be directly contained by the abstract.</shortdesc>
+<p>The abstract can put text around the shortdesc.</p>
+</abstract-->
+
+    <!--Example: abstract with multiple short descriptions-->
+    <abstract>The abstract is being used to provide more complex content.
+<shortdesc>The shortdesc must be directly contained by the abstract.</shortdesc>
+<p>The abstract can put text around the shortdesc.</p>
+<shortdesc>There can be more than one shortdesc.</shortdesc>
+</abstract>
+
+	<body>
+    <p id="p_01">First paragraph of the introduction.</p>
+    <p id="p_02">Second paragraph of the introduction.</p>
+    </body>
+</topic>

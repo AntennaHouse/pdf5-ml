@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<formatter-config>
+	<formatter-settings latin-ligature="true" pair-kerning="true" pxpi="120" punctuation-trim="true"/>
+	<font-settings missing-glyph="2" missing-font="2" use-windows-api="false"/>
+	<pdf-settings embed-all-fonts="true" pdf-version="PDF1.6" image-compression="zlib" />
+</formatter-config>

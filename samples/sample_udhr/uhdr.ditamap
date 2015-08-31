@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE map PUBLIC "-//OASIS//DTD DITA Map//EN" "map.dtd">
+<map xml:lang="en-US">
+ <title>Universal Declaration of Human Rights</title>
+ <topicref href="topics/c_udhr_en.dita"/>
+ <topicref href="topics/c_udhr_ja.dita"/>
+ <topicref href="topics/c_udhr_ko-KR.dita"/>
+ <topicref href="topics/c_uhdr_zh-CN.dita"/>
+ <topicref href="topics/c_uhdr_zh-TW.dita"/>
+</map>

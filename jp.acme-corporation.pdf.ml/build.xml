@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Notes:
+    2015-03-25
+    Made as the example that imports PDF5 plug-in.
+  -->
+<project name="jp.acme-corporation.pdf.ml.build"  basedir=".">
+    <import file="../com.antennahouse.pdf5.ml/build.xml"/>
+</project>
+

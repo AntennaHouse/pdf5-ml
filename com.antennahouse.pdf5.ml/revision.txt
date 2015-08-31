@@ -1,0 +1,12 @@
+﻿_______________________________________________________________________________
+
+                 Antenna House PDF5-ML Plugin Revision Notes
+
+      Copyright (C) 2009-2015 Antenna House, Inc. All rights reserved.
+             Antenna House is a trademark of Antenna House, Inc.
+_______________________________________________________________________________
+Sep, 2015
+V1.0
+- First release.
+
+                       --- END OF DOCUMENT --

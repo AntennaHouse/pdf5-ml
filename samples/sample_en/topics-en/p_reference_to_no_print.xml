@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic id="topic_es1_5kg_jl" xml:lang="en-US">
+  <title>Topic title</title>
+  <abstract>
+    This topic refrences the topic who's topicref has @print="no" via reltable.
+  </abstract>
+  <body>
+    <p>Topic paragraph</p>
+  </body>
+</topic>

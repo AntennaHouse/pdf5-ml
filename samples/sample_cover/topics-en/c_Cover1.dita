@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<?xml-model href="urn:x-antennahouse:dita:rng:concept.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="urn:x-antennahouse:dita:rng:concept.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<concept id="concept_b31_qjq_hr" xmlns:fo="http://www.w3.org/1999/XSL/Format">
+ <title>Front cover</title>
+ <conbody>
+  <conbodydiv
+   fo:prop="position:absolute;top:40mm;right:10mm;width:40%;height:150mm;">
+   <!--title-->
+   <section>
+    <p fo:prop="font-family:Franklin Gothic Demi Cond;font-size:24pt;line-height:120%;"><keyword keyref="ME-SHORT"/></p>
+    <p fo:prop="font-family:Arial;font-weight:bold;font-size:32pt;line-height:120%;">PDF5-<i fo:prop="color:deeppink;" deliveryTarget="pdf-web">ML</i><i fo:prop="color:rgb-icc(#CMYK,0%,92%,42%,0%);" deliveryTarget="pdf-print-color">ML</i><i deliveryTarget="pdf-print-mono">ML</i> <ph fo:prop="font-size:28pt;">plug-in</ph></p>
+    <p fo:prop="font-family:Times New Roman;font-weight:bold;font-size:28pt;line-height:120%;">User's Guide</p>
+    <p fo:prop="font-family:Times New Roman;font-weight:bold;font-size:28pt;line-height:120%;"><ph deliveryTarget="pdf-web">For Web</ph></p>
+    <p fo:prop="font-family:Times New Roman;font-weight:bold;font-size:28pt;line-height:120%;"><ph deliveryTarget="pdf-print-color">For Color Print</ph></p>
+    <p fo:prop="font-family:Times New Roman;font-weight:bold;font-size:28pt;line-height:120%;"><ph deliveryTarget="pdf-print-mono">For Monochrome Print</ph></p>
+   </section>
+  </conbodydiv>
+  <conbodydiv fo:prop="position:absolute;bottom:10mm;left:25mm;right:25mm;height:40mm;display-align:after;">
+   <!--notes-->
+   <section> 
+    <table frame="none" rowsep="0" colsep="0" fo:prop="width:100%;font-size:10pt;">
+     <tgroup cols="3">
+      <colspec colname="c1" colnum="1" colwidth="1.0*"/> 
+      <colspec colname="c2" colnum="2" colwidth="2.5*"/> 
+      <colspec colname="c2" colnum="3" colwidth="0.8*"/> 
+      <tbody> 
+       <row> 
+        <entry fo:prop="padding-after:3mm;"> 
+         <p>
+          <image placement="break" keyref="ME-LOGO-SMALL" fo:prop="content-width:scale-to-fit;"/>
+         </p>
+        </entry> 
+        <entry fo:prop="font-family:sans-serif;font-size:9pt;padding-start:2mm;padding-end:2mm;padding-after:3mm;"> 
+         <p fo:prop="font-weight:bold;"><ph>User's Guide</ph> 
+         </p> 
+         <p>To get the newest information, visit our website at <br/><xref href="https://github.com/AntennaHouse/pdf5-ml" scope="external" format="html">https://github.com/AntennaHouse/pdf5-ml</xref>. </p>
+        </entry> 
+        <entry> 
+         <p fo:prop="text-align:start;"> 
+          <data name="qrcode" href="https://github.com/AntennaHouse/pdf5-ml" fo:prop="content-width:20mm;"/> 
+         </p> 
+        </entry>
+       </row>
+      </tbody>
+     </tgroup>
+    </table>
+   </section>
+  </conbodydiv>
+  
+  <conbodydiv fo:prop="position:absolute;left:0mm;right:0mm;top:0mm;bottom:0mm;z-index:-1;">
+   <!--Background image-->
+   <section>
+    <image keyref="COVER1-BACKGROUND" placement="break" outputclass="background"
+     fo:prop="axf-background-repeat:no-repeat;axf-background-content-width:scale-to-fit;"/>
+   </section>
+  </conbodydiv>
+ </conbody>
+</concept>

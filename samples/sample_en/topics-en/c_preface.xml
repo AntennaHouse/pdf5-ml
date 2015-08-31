@@ -1,0 +1,153 @@
+<?xml version="1.0"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_7FCFF8FD66F44819A8F4F03810EB6840" xml:lang="en-US"> 
+  <title>Preface</title> 
+  
+  <conbody> 
+  <p><i>This test data contains the excerpts and the samples from DITA 1.1 specifications
+   (<xref href="http://docs.oasis-open.org/dita/v1.1/OS/langspec/ditaref-type.html" scope="external" format="html">http://docs.oasis-open.org/dita/v1.1/OS/langspec/ditaref-type.html</xref>).
+   Also contains the excerpts from Wikipedia (<xref href="http://en.wikipedia.org/" scope="external" format="html">http://en.wikipedia.org/</xref>) 
+   The Wikipedia text content is available under the <xref href="http://en.wikipedia.org/wiki/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License" scope="external" format="html">Creative Commons Attribution-ShareAlike License</xref>.</i></p>
+     <section>
+     <title>Safety Precaution</title>
+	 <ul id="ul_B771764F004245B799D5E425D9D85C76">
+		<li id="li_B7B89E2F80574D109428E52091F4B9BA">In order to protect the
+		  system controlled by the product and the product itself and ensure safe
+		  operation, observe the safety precautions described in this user’s manual. We
+		  assume no liability for safety if users fail to observe these instructions when
+		  operating the product.
+		</li>
+		<li id="li_66613002F8B24CD2B5A72493D959CF8B">The following symbols are
+		  used in the product and user’s manual to indicate that there are precautions
+		  for safety:
+		  <table id="table_B6D83F11BEB24F9C9007008CDB06F7C3">
+			 <tgroup cols="2">
+                <colspec colnum="1" colname="col1" colwidth="1.00*"/>
+                <colspec colnum="2" colname="col2" colwidth="5.08*"/>
+                <thead>
+					<row>
+					  <entry colname="col1">Symbol
+					  </entry>
+					  <entry colname="col2">Description
+					  </entry>
+					</row>
+                </thead>
+					 <tbody>
+						<row>
+						  <entry colname="col1">
+						  </entry>
+						  <entry colname="col2">Indicates that caution is required
+							 for operation. This symbol is placed on the product to refer the user to the
+							 user’s manual in order to protect the operator and the equipment. In the user’s
+							 manuals you will find precautions to avoid physical injury or death of the
+							 operator, including electrical shocks.
+						  </entry>
+						</row>
+						<row>
+						  <entry colname="col1">
+						  </entry>
+						  <entry colname="col2">Identifies a protective grounding
+							 terminal. Before using the product, ground the terminal.
+						  </entry>
+						</row>
+						<row>
+						  <entry colname="col1">
+						  </entry>
+						  <entry colname="col2">Identifies a functional grounding
+							 terminal. Before using the product, ground the terminal.<fn>A terminal is a the point at which a conductor from an electrical component, device or network comes to an end and provides a point of connection to external circuits.</fn>
+						  </entry>
+						</row>
+						<row>
+						  <entry colname="col1">
+						  </entry>
+						  <entry colname="col2">Indicates an AC supply.<xref href="#concept_7FCFF8FD66F44819A8F4F03810EB6840/fn001"/><fn id="fn001">Power is defined as the rate of flow of energy past a given point. In alternating current circuits, energy storage elements such as inductance and capacitance may result in periodic reversals of the direction of energy flow. The portion of power flow that, averaged over a complete cycle of the AC waveform, results in net transfer of energy in one direction is known as real power. The portion of power flow due to stored energy, which returns to the source in each cycle, is known as reactive power.
+
+</fn>
+						  </entry>
+						</row>
+						<row>
+						  <entry colname="col1">
+						  </entry>
+						  <entry colname="col2">Indicates a DC supply.<fn id="fn_DA409A2C671E3C40BCDA9876">Direct current (DC) is the unidirectional flow of electric charge. Direct current is produced by such sources as batteries, thermocouples, solar cells, and commutator-type electric machines of the dynamo type. Direct current may flow in a conductor such as a wire, but can also be through semiconductors, insulators, or even through a vacuum as in electron or ion beams. The electric charge flows in a constant direction, distinguishing it from alternating current (AC).</fn>
+						  </entry>
+						</row>
+						<row>
+						  <entry colname="col1">
+						  </entry>
+						  <entry colname="col2">Indicates that the main switch is ON.
+                          
+						  </entry>
+						</row>
+						<row>
+						  <entry colname="col1">
+						  </entry>
+						  <entry colname="col2">Indicates that the main switch is
+							 OFF.
+						  </entry>
+						</row>
+					 </tbody>
+			 </tgroup>
+		  </table>
+		</li>
+	  </ul> 
+      </section>
+  </conbody>
+  <concept id="concept_7FCFF8FD66F44819A8F4F03810EB6840_2"> 
+      <title>Addendum</title> 
+      <conbody>
+        <dl>
+            <dlentry>
+                <dt>Warning</dt>
+                    <dd>Indicates a potentially hazardous situation which, if
+                    instructions are not followed, could result in death
+                    or serious injury.<fn callout="*@">In the People's Republic of China,
+                    warning signs appear with a black border and a yellow 
+                    background. In Sweden, Serbia, Bosnia and Herzegovina, Croatia, 
+                    Greece, Finland, Iceland, the Republic of Macedonia and Poland, 
+                    they have a red border with an amber background. This is due to 
+                    the weather, as it is easier to see a red/amber sign in the 
+                    snowy weather than a red/white sign. The polar bear warning 
+                    sign in Svalbard recently changed from displaying a black bear 
+                    on white background to a white bear on black background (both 
+                    signs are triangular with a red border). Some countries that 
+                    normally use a white background have adopted an orange or amber 
+                    background for road work or construction signs.</fn>
+                    </dd>
+            </dlentry>
+            <dlentry>
+                <dt>Caution</dt>
+                    <dd>Indicates a potentially hazardous situation which, if 
+                    instructions are not followed, may result in
+                    minor or moderate injury or damage to property.
+                    <fn>The solid yellow flag, or caution flag, universally
+                     requires drivers to slow down due to a hazard on the track. 
+                     However, the procedures for displaying the yellow flag vary 
+                     for different racing styles and sanctioning bodies.
+                    </fn></dd>
+            </dlentry>
+            <dlentry>
+                <dt>Important</dt>
+                    <dd>Indicates points to pay attention to when using the machine, 
+                    and explanations of likely causes of paper
+                    misfeeds, damage to originals, or loss of data.
+                    Be sure to read these warnings.<fn>The quality or condition of
+                    being important or worthy of note 
+                    </fn></dd>
+            </dlentry>
+            <dlentry>
+                <dt>Note</dt>
+                    <dd>Indicates supplementary explanations of the machine’s 
+                    functions, and instructions on resolving user errors.
+                    <fn>The term "note" can be used in both generic and specific
+                    senses: one might say either "the piece Happy Birthday to You 
+                    begins with two notes having the same pitch," or "the piece 
+                    begins with two repetitions of the same note." In the former 
+                    case, one uses "note" to refer to a specific musical event; in 
+                    the latter, one uses the term to refer to a class of events 
+                    sharing the same pitch.
+                    </fn></dd>
+            </dlentry>
+        </dl>
+      </conbody>
+  </concept>
+</concept>

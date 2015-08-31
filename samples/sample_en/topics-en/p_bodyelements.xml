@@ -1,0 +1,253 @@
+<?xml version="1.0"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic id="topic_09874FCDAD4565FC9812" xml:lang="en-US">
+	<title>Bodyelements testing</title>
+	<shortdesc>The body elements support the most common types of content authoring for topics: paragraphs, lists, phrases, figures, and other common types of exhibits in a document.</shortdesc>
+
+	<body>
+        <section>
+            <title>ph element</title>
+            <p>The phrase (&lt;ph&gt;) element is used to organize content for reuse or conditional processing (for example, when part of a paragraph applies to a particular audience). It can be used by specializations of DITA to
+    create semantic markup for content at the phrase level, which then allows (but does not require) specific
+    processing or formatting.</p>
+            <p/>
+            <p>This was not changed. <ph rev="v5r2">This was updated.</ph> This was not.</p>
+        </section>
+
+        <section>
+            <title>keyword element</title>
+            <p>The &lt;keyword&gt; element identifies a keyword or token, such as a single value from an enumerated list, the name of a command or parameter, product name, or a lookup key for a message.</p>
+        <p/>
+        <p>The <keyword>assert</keyword> pragma statement allows messages to be passed to the emulator, pre-compiler, etc..</p>
+        </section>
+
+        <section>
+            <title>sl element</title>
+            <p>The simple list (&lt;sl&gt;) element contains a simple list of items of short, phrase-like content, such as in documenting the materials in a kit or package. On output, the list should have no bullets, on the assumption that each item is short enough to fit on one line, and needs no additional differentiation from its neighbors.</p>
+            <p/>
+            <p>Messages from the ags_open module are identical with messages from:</p>
+            <sl>
+                <sli>ags_read</sli>
+                <sli>ags_write</sli>
+                <sli>ags_close</sli>
+            </sl>
+            <p>sl/@compact='yes'</p>
+            <p>Messages from the ags_open module are identical with messages from:</p>
+            <sl compact="yes">
+                <sli>ags_read</sli>
+                <sli>ags_write</sli>
+                <sli>ags_close</sli>
+            </sl>
+        </section>
+
+        <section>
+            <title>dl element</title>
+            <p>A definition list (&lt;dl&gt;) is a list of terms and corresponding definitions. The term (&lt;dt&gt;) is usually flush left. The description or definition (&lt;dd&gt;) is usually either indented and on the next line, or on the same line to the right of the term. You can also provide an optional heading for the terms and definitions, using the &lt;dlhead&gt; element, which contains header elements for those columns. The default formatting for the &lt;dlhead&gt; looks like a table with a heading row.</p>
+            <p/>
+
+            <p>Simple:</p>
+            <dl>
+                <dlentry>
+                    <dt>Bytes returned</dt>
+                    <dd>The number of bytes of data returned.</dd>
+                </dlentry>
+                <dlentry>
+                    <dt>Bytes available</dt>
+                    <dd>The number of bytes of data available to be returned.</dd>
+                </dlentry>
+                <dlentry>
+                    <dt>Handle</dt>
+                    <dd>The returned handle value</dd>
+                </dlentry>
+            </dl>
+
+            <p>Simple &amp; @compact="yes":</p>
+            <dl compact="yes">
+                <dlentry>
+                    <dt>Bytes returned</dt>
+                    <dd>The number of bytes of data returned.</dd>
+                </dlentry>
+                <dlentry>
+                    <dt>Bytes available</dt>
+                    <dd>The number of bytes of data available to be returned.</dd>
+                </dlentry>
+                <dlentry>
+                    <dt>Handle</dt>
+                    <dd>The returned handle value</dd>
+                </dlentry>
+            </dl>
+
+            <!-- As "dl" default layout is block, this sample is omitted. -->
+            <!--p>With heading:</p>
+            <dl>
+                <dlhead>
+                    <dthd>Image File View Selection</dthd>
+                    <ddhd>Resulting Information</ddhd>
+                </dlhead>
+                <dlentry>
+                    <dt>File Type</dt>
+                    <dd>Image’s file extension</dd>
+                </dlentry>
+                <dlentry>
+                    <dt>Image Class</dt>
+                    <dd>Image is raster, vector, metafile or 3D</dd>
+                </dlentry>
+                <dlentry>
+                    <dt>Number of pages</dt>
+                    <dd>Number of pages in the image</dd>
+                </dlentry>
+                <dlentry>
+                    <dt>Fonts</dt>
+                    <dd>Names of the fonts contained within a vector image</dd>
+                </dlentry>
+            </dl-->
+            <!--p>With heading &amp; @compact="yes":</p>
+            <dl compact="yes">
+                <dlhead>
+                    <dthd>Image File View Selection</dthd>
+                    <ddhd>Resulting Information</ddhd>
+                </dlhead>
+                <dlentry>
+                    <dt>File Type</dt>
+                    <dd>Image’s file extension</dd>
+                </dlentry>
+                <dlentry>
+                    <dt>Image Class</dt>
+                    <dd>Image is raster, vector, metafile or 3D</dd>
+                </dlentry>
+                <dlentry>
+                    <dt>Number of pages</dt>
+                    <dd>Number of pages in the image</dd>
+                </dlentry>
+                <dlentry>
+                    <dt>Fonts</dt>
+                    <dd>Names of the fonts contained within a vector image</dd>
+                </dlentry>
+            </dl-->
+        </section>
+        <section>
+            <title>foreign element</title>
+            <p>The &lt;foreign&gt; element is an open extension that allows information architects to incorporate existing standard vocabularies for non-textual content. like MathML and SVG, as inline objects. If &lt;foreign&gt; contains more than one alternative content element, they will all be processed. Specialization of &lt;foreign&gt; should be implemented as a domain, but for those looking for more control over the content can implement foreign vocabulary as an element specialization.</p>
+            <p/>
+            <p>What’s EIM?
+            <!--object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
+            codebase="http://download.macromedia.com/pub/shockwave/cabs/
+            flash/swflash.cab#version=6,0,0,0"
+            data="eim.swf"
+            height="400"
+            width="500"
+            id="eim">
+            <desc>Some great, glorious info</desc>
+            <param name="movie" value="eim.swf"/>
+            <param name="quality" value="high"/>
+            <param name="bgcolor" value="#FFFFFF"/>
+            <param name="pluginspace"
+            value="http://www.macromedia.com/go/getflashplayer"/>
+            </object-->
+            
+            <!--object>
+            <foreign>
+            </foreign>
+            </object-->.
+            </p>
+        </section>
+        <section>
+            <title>pre element</title>
+            <p>The preformatted element (&lt;pre&gt;) preserves line breaks and spaces entered manually by the author in the content of the element, and also presents the content in a monospaced type font (depending on your
+output formatting processor). Do not use &lt;pre&gt; when a more semantically specific element is appropriate,
+such as &lt;codeblock&gt;.</p>
+            <p/>
+            <p><b>No parameter</b></p>
+            <pre>MEMO: programming team fun day
+Remember to bring a kite, softball glove, or other favorite
+outdoor accessory to tomorrow’s fun day outing at Zilker Park.
+Volunteers needed for the dunking booth.
+</pre>
+            <p><b>frame="topbot" scale="90"</b></p>
+            <!--pre frame="topbot" scale="-dita-use-conref-target"--><pre frame="topbot" scale="90">MEMO: programming team fun day
+Remember to bring a kite, softball glove, or other favorite
+outdoor accessory to tomorrow’s fun day outing at Zilker Park.
+Volunteers needed for the dunking booth.
+</pre>
+            <p><b>frame="all" scale="90"</b></p>
+            <pre frame="all" scale="90">MEMO: programming team fun day
+Remember to bring a kite, softball glove, or other favorite
+outdoor accessory to tomorrow’s fun day outing at Zilker Park.
+Volunteers needed for the dunking booth.
+</pre>
+        </section>
+        
+        <section>
+            <title>lines element</title>
+            <p>The &lt;lines&gt; element may be used to represent dialogs, lists, text fragments, and so forth. The &lt;lines&gt; element is similar to &lt;pre&gt; in that hard line breaks are preserved, but the font style is not set to monospace, and extra spaces inside the lines are not preserved.</p>
+            <p/>
+            <p>On a trip to the beach, don’t forget:
+                <lines>suntan lotion
+                       sunglasses
+                       a beach towel
+                </lines>
+            </p>
+            <p><b>frame="all"</b></p>
+            <p>On a trip to the beach, don’t forget:
+                <lines frame="all">suntan lotion
+                       sunglasses
+                       a beach towel
+                </lines>
+            </p>
+        </section>
+
+        <section>
+            <title>cite element</title>
+            <p>The &lt;cite&gt; element is used when you need a bibliographic citation that refers to a book or article. It specifically identifies the title of the resource.</p>
+            <p/>
+            <p>The online article <cite>Specialization in the Darwin Information Typing Architecture</cite> provides a detailed explanation of how to define new topic types.</p>
+        </section>
+        
+        <section>
+            <title>lq element</title>
+            <p>The long quote (&lt;lq&gt;) element indicates content quoted from another source. Use the quote element &lt;q&gt;
+for short, inline quotations, and long quote &lt;lq&gt; for quotations that are too long for inline use, following
+normal guidelines for quoting other sources. You can store a URL to the source of the quotation in the
+href attribute; the href value may point to a DITA topic.</p>
+            <p/>
+            <p>This is the first line of the address that
+            Abraham Lincoln delivered on November 19, 1863 for the dedication
+            of the cemetery at Gettysburg, Pennsylvania.</p>
+            <lq reftitle="Gettysburg, Pennsylvania November 19, 1863"
+             href="http://showcase.netins.net/web/creative/lincoln/speeches/gettysburg.htm" scope="external" format="html">
+             Four score and seven years ago our fathers 
+             brought forth on this continent
+             a new nation, conceived in liberty, and dedicated to the proposition that all men
+             are created equal.
+             Four score and seven years ago our fathers 
+             brought forth on this continent
+             a new nation, conceived in liberty, and dedicated to the proposition that all men
+             are created equal.</lq>
+            <p>Another lq</p>
+            <lq reftitle="no @relcolwidth" 
+                href="r_properties.xml#reference_A80D6B3CA93146918AAD0AB3DC304937"
+                scope="local">This is the test of properties table with no @relcolwidth.</lq>
+            <!--lq reftitle="no @relcolwidth" 
+                href="r_properties.xml#reference_A80D6B3CA93146918AAD0AB3DC304937"
+                type="internal">This is the test of properties table with no @relcolwidth.</lq-->
+            <!--lq reftitle="no @relcolwidth" 
+                href="r_properties.xml#reference_A80D6B3CA93146918AAD0AB3DC304937/refsyn_05DDDB51837D40E291702F13E4661C9A"
+                type="internal">This is the test of properties table with no @relcolwidth.</lq-->
+            <!--lq reftitle="no @relcolwidth" 
+                href="r_properties2.xml#reference_A80D6B3CA93146918AAD0AB3DC309999/refsyn_05DDDB51837D40E291702F13E4661C9A"
+                type="internal">This is the test of properties table with no @relcolwidth.</lq-->
+        </section>
+
+        <section>
+            <title>q element</title>
+            <p>A quotation element (&lt;q&gt;) indicates content quoted from another source. This element is used for short 
+               quotes which are displayed inline. Use the long quote element &lt;lq&gt;) for quotations that should be set off
+               from the surrounding text.</p>
+            <p/>
+            
+            <p>George said, <q>Disengage the power supply before servicing the unit.</q></p>
+        </section>
+
+        
+    </body>
+</topic>

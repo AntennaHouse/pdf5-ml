@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic id="topic_55762342DAC09974FDC8" xml:lang="en-US">
+	<title>Typographic elements testing</title>
+	<shortdesc>The typographic elements are used to highlight text with styles (such as bold, italic, and monospace). Never use these elements when a semantically specific element is available. These elements are not
+intended for use by specializers, and are intended solely for use by authors when no semantically
+appropriate element is available and a formatting effect is required.</shortdesc>
+
+	<body>
+    <section>
+        <title>b element</title>
+        <p>The bold (&lt;b&gt;) element is used to apply bold highlighting to the content of the element. Use this element
+only when there is not some other more proper element. For example, for specific items such as GUI
+controls, use the &lt;uicontrol&gt; element. This element is part of the DITA highlighting domain.</p>
+        <p/>
+        <p><b>STOP!</b> This is <b>very</b> important!</p>
+    </section>
+
+    <section>
+        <title>i element</title>
+        <p>The italic (&lt;i&gt;) element is used to apply italic highlighting to the content of the element. Use this element only when there is not some other more proper element. For example, for specific items such as GUI controls, use the &lt;uicontrol&gt; element. This element is part of the DITA highlighting domain.</p>
+    <p/>
+    <p>Unplug the unit <i>before</i> placing the metal screwdriver against the terminal screw.</p>
+    
+    
+    </section>
+
+    <section>
+        <title>u element</title>
+        <p>The underline (&lt;u&gt;) element is used to apply underline highlighting to the content of the element. Use
+this element only when there is not some other more proper element. For example, for specific items such
+as GUI controls, use the &lt;uicontrol&gt; element. This element is part of the DITA highlighting domain.</p>
+        <p/>
+        <p>Beware: <u>overuse</u> <i>of</i> <b>highlighting</b> is
+sometimes known as font-itis!</p>
+    
+    </section>
+    
+    <section>
+        <title>tt element</title>
+        <p>The teletype (&lt;tt&gt;) element is used to apply monospaced highlighting to the content of the element. Use this element only when there is not some other more proper element. For example, for specific items such as GUI controls, use the &lt;uicontrol&gt; element. This element is part of the DITA highlighting domain.</p>
+       <p/>
+       <p>Make sure that the screen displays <tt>File successfully created</tt> before proceeding to the next stage of the task.</p>
+    </section>
+    <section>
+        <title>sup/sub element</title>
+        
+        <p>The superscript (&lt;sup&gt;) element indicates that text should be superscripted, or vertically raised in relationship to the surrounding text. Superscripts are usually a smaller font than the surrounding text. Use this element only when there is not some other more proper tag. This element is part of the DITA highlighting domain.</p>
+        <p>A subscript (&lt;sub&gt;) indicates that text should be subscripted, or placed lower in relationship to the surrounding text. Subscripted text is often a smaller font than the surrounding text. Formatting may vary depending on your output process. This element is part of the DITA highlighting domain.</p>
+        <p/>
+        <p>The power produced by the electrohydraulic dam was 10<sup>10</sup> more than the older electric plant. The difference was H<sub id="sub_99876530FDA634CE2A34">2</sub>O.</p>
+    </section>
+    
+    </body>
+</topic>

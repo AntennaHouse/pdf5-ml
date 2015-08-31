@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic
+  PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic id="topic_ja_1">
+ 	<title>英数字データ</title>
+    <body>
+        <p><indexterm>2000年問題<index-sort-as>2000ねんもんだい</index-sort-as></indexterm>2000年問題</p>
+        <p><indexterm>&lt;DATA/&gt;<index-sort-as>&lt;DATA/&gt;</index-sort-as></indexterm>&lt;DATA/&gt;</p>
+        <p><indexterm>XML文書<index-sort-as>XMLぶんしょ</index-sort-as></indexterm>XML文書</p>
+        <p><indexterm>&lt;element/&gt;<index-sort-as>element</index-sort-as></indexterm>&lt;element/&gt;</p>
+    </body>
+</topic>

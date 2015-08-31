@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE glossentry PUBLIC "-//OASIS//DTD DITA Glossary//EN" "glossary.dtd">
+<glossentry id="glossentry_hpw_xc3_wd" xml:lang="en-US">
+    <glossterm>XML Schema (W3C)</glossterm>
+    <glossdef>XML Schema, published as a W3C recommendation in May 2001, is one of several XML schema languages. 
+              It was the first separate schema language for XML to achieve Recommendation status by the W3C. 
+              Because of confusion between XML Schema as a specific W3C specification, 
+              and the use of the same term to describe schema languages in general, 
+              some parts of the user community referred to this language as WXS, an initialism for W3C XML Schema, 
+              while others referred to it as XSD, an initialism for XML Schema Document—a document written in the XML Schema language, 
+              typically containing the "xsd" XML namespace prefix and stored with the ".xsd" filename extension. 
+              In Version 1.1 (currently in July 2011 a Candidate Recommendation), the W3C has chosen to adopt XSD as the preferred name, 
+              and that is the name used in this article.</glossdef>
+</glossentry>

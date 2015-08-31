@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//ANTENNA HOUSE//DTD DITA Topic//EN" "topic.dtd">
+<topic id="topic_gvx_22x_4p" xml:lang="en-US">
+  <title>@fo:prop attribute testing</title>
+  <topic id="topic_jmz_2ht_xn">
+    <title>Setting the FO property</title>
+    <body>
+      <p>The quick brown fox jumps over the lazy dog</p>
+      <p fo:prop="text-decoration:line-through;color:mediumvioletred;font-size:1.5em;">The quick brown fox jumps over the lazy dog</p>
+      <p fo:prop="text-decoration:underline;color:steelblue;font-size:1.5em;">The quick brown fox jumps over the lazy dog</p>
+      <p fo:prop="border:1pt solid black;padding:1mm;color:teal;font-size:1.5em;">The quick brown fox jumps over the lazy dog</p>
+      <p fo:prop="padding:1mm;color:white;font-size:1.5em;background-color:darkblue;">The quick brown fox jumps over the lazy dog</p>
+    </body>
+  </topic>
+  <topic id="topic_mwt_5dl_4p">
+    <title>Assigning fonts</title>
+    <body fo:prop="font-size:14pt;">
+      <p>TOC is written as "<ph fo:prop="font-family:MS Gothic;color:midnightblue;">目次</ph>" in <ph fo:prop="color:darkgreen;">Japanese.</ph></p>
+      <p>TOC is written as "<ph fo:prop="font-family:SimHei;color:midnightblue;">目录</ph>" in <ph fo:prop="color:green;">Simplified Chinese.</ph></p>
+      <p>TOC is written as "<ph fo:prop="font-family:Microsoft JhengHei;color:midnightblue;">目錄</ph>" in <ph fo:prop="color:forestgreen;">Traditional Chinese.</ph></p>
+      <p>TOC is written as "<ph fo:prop="font-family:Gulim;color:midnightblue;">목차</ph>" in <ph fo:prop="color:seagreen;">Korean.</ph></p>
+    </body>
+  </topic>
+  <topic id="topic_r1z_1bx_xn">
+    <title>Table customization</title>
+    <body fo:prop="font-size:12pt;">
+      <p>a. Standard table</p>
+      <table fo:prop="font-size:12pt;">
+        <tgroup cols="3">
+          <colspec colnum="1" align="center"/>
+          <thead>
+            <row>
+              <entry>No.</entry>
+              <entry>Item</entry>
+              <entry>Role</entry>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <entry>1.</entry>
+              <entry>font-size</entry>
+              <entry>Specify the font size</entry>
+            </row>
+            <row>
+              <entry>2.</entry>
+              <entry>font-weight</entry>
+              <entry>Specify the font weight</entry>
+            </row>
+            <row>
+              <entry>3.</entry>
+              <entry>font-style</entry>
+              <entry>Specify font style. (Italic or normal)</entry>
+            </row>
+            <row>
+              <entry>4.</entry>
+              <entry>text-decoration</entry>
+              <entry>Specify text decoration. (Underline, strike-through, upper-line, blinking)</entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </table>
+      <p>b. Customizing by fo property</p>
+      <table fo:prop="font-size:12pt;font-family:Arial;">
+        <tgroup cols="3">
+          <colspec colnum="1" align="center"/>
+          <thead fo:prop="text-align:center;background-color:lavender;font-family:Arial;">
+            <row>
+              <entry fo:prop="border-bottom-width:2pt;border-bottom-style:double;">No.</entry>
+              <entry fo:prop="border-bottom-width:2pt;border-bottom-style:double;">Item</entry>
+              <entry fo:prop="border-bottom-width:2pt;border-bottom-style:double;">Role</entry>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <entry>1.</entry>
+              <entry>font-size</entry>
+              <entry>Specify the font size</entry>
+            </row>
+            <row>
+              <entry>2.</entry>
+              <entry>font-weight</entry>
+              <entry>Specify the font weight</entry>
+            </row>
+            <row>
+              <entry>3.</entry>
+              <entry>font-style</entry>
+              <entry>Specify font style. (Italic or normal)</entry>
+            </row>
+            <row>
+              <entry>4.</entry>
+              <entry>text-decoration</entry>
+              <entry>Specify text decoration. (Underline, strike-through, upper-line, blinking)</entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </table>
+    </body>
+  </topic>
+  <topic id="topic_opw_24x_4p">
+    <title>@fo:style attribute test</title>
+    <body>
+      <p fo:style="atsB">@fo:style="atsB"</p>
+      <p fo:style="atsB atsI">@fo:style="atsB atsI"</p>
+      <p fo:style="atsB atsU">@fo:style="atsB atsU"</p>
+      <p fo:style="atsB atsI atsU">@fo:style="atsB atsI atsU"</p>
+      <p fo:style="atsB atsU" fo:prop="font-family:Courier New;">@fo:style="atsB atsU" fo:prop="font-family:Courier New;"</p>
+      <p fo:style="atsB atsU" fo:prop="font-family:Times New Roman;">@fo:style="atsB atsU" fo:prop="font-family:Times New Roman;"</p>
+      <p fo:style="atsU" fo:prop="font-family:Times New Roman;">@fo:style="atsU" fo:prop="font-family:Times New Roman;"</p>
+    </body>
+  </topic>
+</topic>
