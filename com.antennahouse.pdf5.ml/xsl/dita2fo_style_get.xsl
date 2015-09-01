@@ -252,13 +252,20 @@
         function: Get current xml:lang as string
         parameter: prmElem
         notes: Refers to $map/@xml:lang when $prmElem belongs topic.
+               BugFix: Complement $rootXmlLang when $map/xml:lang is absent.
+               2015-09-01 t.makita
      -->
     <xsl:function name="ahf:getCurrentXmlLang" as="xs:string">
         <xsl:param name="prmElem" as="element()"/>
         <xsl:variable name="tempXmlLangSeq" as="xs:string+">
-            <xsl:if test="$prmElem/ancestor-or-self::*[contains(@class,' topic/topic ')]">
-                <xsl:sequence select="$rootXmlLang"/>
-            </xsl:if>
+            <xsl:choose>
+                <xsl:when test="$prmElem/ancestor-or-self::*[contains(@class,' topic/topic ')]">
+                    <xsl:sequence select="$rootXmlLang"/>
+                </xsl:when>
+                <xsl:when test="empty($map/@xml:lang)">
+                    <xsl:sequence select="$rootXmlLang"/>
+                </xsl:when>
+            </xsl:choose>
             <xsl:for-each select="$prmElem/ancestor-or-self::*/@xml:lang">
                 <xsl:sequence select="ahf:nomalizeXmlLang(string(.))"/>    
             </xsl:for-each>
@@ -270,15 +277,21 @@
          ahf:isXmlLangChanged function
          function: Return true() is xml:lang has been changed from the nearest ancestor xml:lang.
          parameter: prmElem: Current document element.
-         notes: 
+         notes: BugFix: Complement $rootXmlLang when $map/xml:lang is absent.
+                2015-09-01 t.makita
       -->
     <xsl:function name="ahf:isXmlLangChanged" as="xs:boolean">
         <xsl:param name="prmElem" as="element()"/>
         <!--xsl:variable name="curXmlLang" as="xs:string?" select="if (exists($prmElem/@xml:lang)) then ahf:nomalizeXmlLang(string($prmElem/@xml:lang)) else ()"/-->
         <xsl:variable name="ancestorOrSelfXmlLang" as="xs:string+">
-            <xsl:if test="$prmElem/ancestor-or-self::*[contains(@class,' topic/topic ')]">
-                <xsl:sequence select="$rootXmlLang"/>
-            </xsl:if>
+            <xsl:choose>
+                <xsl:when test="$prmElem/ancestor-or-self::*[contains(@class,' topic/topic ')]">
+                    <xsl:sequence select="$rootXmlLang"/>
+                </xsl:when>
+                <xsl:when test="empty($map/@xml:lang)">
+                    <xsl:sequence select="$rootXmlLang"/>
+                </xsl:when>
+            </xsl:choose>
             <xsl:for-each select="$prmElem/ancestor-or-self::*/@xml:lang">
                 <xsl:sequence select="ahf:nomalizeXmlLang(string(.))"/>
             </xsl:for-each>
