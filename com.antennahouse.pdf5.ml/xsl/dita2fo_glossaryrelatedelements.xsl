@@ -84,16 +84,17 @@ E-mail : info@antennahouse.com
                         </fo:basic-link>
                     </xsl:when>
                     <xsl:otherwise>
+                        <xsl:variable name="glossTerm" as="element()" select="$topicElement/*[contains(@class, ' glossentry/glossterm ')][1]"/>
                         <fo:basic-link>
                             <xsl:copy-of select="$destAttr"/>
                             <xsl:call-template name="getAttributeSetWithLang">
                                 <xsl:with-param name="prmAttrSetName" select="'atsXref'"/>
-                                <xsl:with-param name="prmElem" select="$glossSurfaceFormElem"/>
+                                <xsl:with-param name="prmElem" select="$glossTerm"/>
                                 <xsl:with-param name="prmDoInherit" select="true()"/>
                             </xsl:call-template>
                             <xsl:call-template name="ahf:getUnivAtts"/>
                             <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
-                            <xsl:apply-templates select="$topicElement/*[contains(@class, ' glossentry/glossterm  ')]" mode="GET_CONTENTS"/>
+                            <xsl:apply-templates select="$glossTerm" mode="GET_CONTENTS"/>
                         </fo:basic-link>
                     </xsl:otherwise>
                 </xsl:choose>
