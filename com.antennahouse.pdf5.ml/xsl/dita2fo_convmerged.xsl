@@ -99,6 +99,30 @@ E-mail : info@antennahouse.com
     </xsl:template>
 
     <!--
+     function:	topicref: @chunk contains 'to-content'
+     param:		none
+     return:	self only
+     note:		if @print="no", ignore it.
+     -->
+    <xsl:template match="*[contains(@class,' map/topicref ')][ahf:HasAttr(@chunk,'to-content')]" priority="2">
+        <xsl:choose>
+            <xsl:when test="@print='no'" >
+                <xsl:for-each select="descendant-or-self::*[contains(@class,' map/topicref ')]">
+                    <xsl:if test="exists(@href)">
+                        <xsl:message select="'[convmerged 1001I] Removing topicref. href=',string(@href),' ohref=',string(@ohref)"/>
+                    </xsl:if>
+                </xsl:for-each>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:copy>
+                    <xsl:copy-of select="@*"/>
+                </xsl:copy>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    
+
+    <!--
      function:	topic
      param:		none
      return:	self and descendant element or none
@@ -206,6 +230,26 @@ E-mail : info@antennahouse.com
      note:		If not output draft-comment, remove it at this template.
      -->
     <xsl:template match="*[contains(@class,' topic/draft-comment ')][not($pOutputDraftComment)]"/>
-    
+
+    <!-- 
+     function:	Check $prmAttr has $prmValue
+     param:		prmAttr, prmValue
+     return:	xs:boolean 
+     note:		Return true() if $prmAttr attribute has $prmValue
+     -->
+    <xsl:function name="ahf:HasAttr" as="xs:boolean">
+        <xsl:param name="prmAttr" as="attribute()?"/>
+        <xsl:param name="prmValue" as="xs:string"/>
+        <xsl:choose>
+            <xsl:when test="empty($prmAttr)">
+                <xsl:sequence select="false()"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:variable name="attr" as="xs:string" select="string($prmAttr)"/>
+                <xsl:variable name="attVals" as="xs:string*" select="tokenize($attr,'[\s]+')"/>
+                <xsl:sequence select="$prmValue = $attVals"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:function>
 
 </xsl:stylesheet>
