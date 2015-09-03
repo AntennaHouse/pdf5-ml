@@ -103,6 +103,8 @@ E-mail : info@antennahouse.com
      param:		none
      return:	self only
      note:		if @print="no", ignore it.
+                Skip child topicref because they are nested in topic referenced by this topicref/@href.
+                2015-09-04 t.makita
      -->
     <xsl:template match="*[contains(@class,' map/topicref ')][ahf:HasAttr(@chunk,'to-content')]" priority="2">
         <xsl:choose>
@@ -116,6 +118,7 @@ E-mail : info@antennahouse.com
             <xsl:otherwise>
                 <xsl:copy>
                     <xsl:copy-of select="@*"/>
+                    <xsl:apply-templates select="* except *[contains(@class,' map/topicref ')]"/>
                 </xsl:copy>
             </xsl:otherwise>
         </xsl:choose>
