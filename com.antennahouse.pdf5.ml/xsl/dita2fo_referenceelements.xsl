@@ -84,44 +84,50 @@ E-mail : info@antennahouse.com
             <fo:table-row>
                 <xsl:copy-of select="ahf:getAttributeSet('atsPropertyTableRow')"/>
                 <!-- proptypehd -->
-                <fo:table-cell>
-                    <xsl:copy-of select="ahf:getAttributeSet('atsPropertyTableHeaderCell')"/>
-                    <xsl:choose>
-                        <xsl:when test="$prmKeyCol eq 1">
-                            <xsl:copy-of select="ahf:getAttributeSet('atsPropertyTableKeyCol')"/>
-                        </xsl:when>
-                        <xsl:when test="$prmKeyCol ne 0">
-                            <xsl:copy-of select="ahf:getAttributeSet('atsPropertyTableNoKeyCol')"/>
-                        </xsl:when>
-                    </xsl:choose>
-                    <xsl:apply-templates select="*[contains(@class, ' reference/proptypehd ')]"/>
-                </fo:table-cell>
+                <xsl:if test="exists(*[contains(@class, ' reference/proptypehd ')])">
+                    <fo:table-cell>
+                        <xsl:copy-of select="ahf:getAttributeSet('atsPropertyTableHeaderCell')"/>
+                        <xsl:choose>
+                            <xsl:when test="$prmKeyCol eq 1">
+                                <xsl:copy-of select="ahf:getAttributeSet('atsPropertyTableKeyCol')"/>
+                            </xsl:when>
+                            <xsl:when test="$prmKeyCol ne 0">
+                                <xsl:copy-of select="ahf:getAttributeSet('atsPropertyTableNoKeyCol')"/>
+                            </xsl:when>
+                        </xsl:choose>
+                        <xsl:apply-templates select="*[contains(@class, ' reference/proptypehd ')]"/>
+                    </fo:table-cell>
+                </xsl:if>
                 <!-- propvaluehd -->
-                <fo:table-cell>
-                    <xsl:copy-of select="ahf:getAttributeSet('atsPropertyTableHeaderCell')"/>
-                    <xsl:choose>
-                        <xsl:when test="$prmKeyCol eq 2">
-                            <xsl:copy-of select="ahf:getAttributeSet('atsPropertyTableKeyCol')"/>
-                        </xsl:when>
-                        <xsl:when test="$prmKeyCol ne 0">
-                            <xsl:copy-of select="ahf:getAttributeSet('atsPropertyTableNoKeyCol')"/>
-                        </xsl:when>
-                    </xsl:choose>
-                    <xsl:apply-templates select="*[contains(@class, ' reference/propvaluehd ')]"/>
-                </fo:table-cell>
+                <xsl:if test="exists(*[contains(@class, ' reference/propvaluehd ')])">
+                    <fo:table-cell>
+                        <xsl:copy-of select="ahf:getAttributeSet('atsPropertyTableHeaderCell')"/>
+                        <xsl:choose>
+                            <xsl:when test="$prmKeyCol eq 2">
+                                <xsl:copy-of select="ahf:getAttributeSet('atsPropertyTableKeyCol')"/>
+                            </xsl:when>
+                            <xsl:when test="$prmKeyCol ne 0">
+                                <xsl:copy-of select="ahf:getAttributeSet('atsPropertyTableNoKeyCol')"/>
+                            </xsl:when>
+                        </xsl:choose>
+                        <xsl:apply-templates select="*[contains(@class, ' reference/propvaluehd ')]"/>
+                    </fo:table-cell>
+                </xsl:if>
                 <!-- propvaluehd -->
-                <fo:table-cell>
-                    <xsl:copy-of select="ahf:getAttributeSet('atsPropertyTableHeaderCell')"/>
-                    <xsl:choose>
-                        <xsl:when test="$prmKeyCol eq 3">
-                            <xsl:copy-of select="ahf:getAttributeSet('atsPropertyTableKeyCol')"/>
-                        </xsl:when>
-                        <xsl:when test="$prmKeyCol ne 0">
-                            <xsl:copy-of select="ahf:getAttributeSet('atsPropertyTableNoKeyCol')"/>
-                        </xsl:when>
-                    </xsl:choose>
-                    <xsl:apply-templates select="*[contains(@class, ' reference/propdeschd ')]"/>
-                </fo:table-cell>
+                <xsl:if test="exists(*[contains(@class, ' reference/propdeschd ')])">
+                    <fo:table-cell>
+                        <xsl:copy-of select="ahf:getAttributeSet('atsPropertyTableHeaderCell')"/>
+                        <xsl:choose>
+                            <xsl:when test="$prmKeyCol eq 3">
+                                <xsl:copy-of select="ahf:getAttributeSet('atsPropertyTableKeyCol')"/>
+                            </xsl:when>
+                            <xsl:when test="$prmKeyCol ne 0">
+                                <xsl:copy-of select="ahf:getAttributeSet('atsPropertyTableNoKeyCol')"/>
+                            </xsl:when>
+                        </xsl:choose>
+                        <xsl:apply-templates select="*[contains(@class, ' reference/propdeschd ')]"/>
+                    </fo:table-cell>
+                </xsl:if>
             </fo:table-row>
         </fo:table-header>
     </xsl:template>
@@ -181,44 +187,50 @@ E-mail : info@antennahouse.com
             <xsl:copy-of select="ahf:getAttributeSet('atsPropertyTableRow')"/>
             <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
             <!-- proptype -->
-            <fo:table-cell>
-                <xsl:copy-of select="ahf:getAttributeSet('atsPropertyTableBodyCell')"/>
-                <xsl:choose>
-                    <xsl:when test="$prmKeyCol eq 1">
-                        <xsl:copy-of select="ahf:getAttributeSet('atsPropertyTableKeyCol')"/>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:copy-of select="ahf:getAttributeSet('atsPropertyTableNoKeyCol')"/>
-                    </xsl:otherwise>
-                </xsl:choose>
-                <xsl:apply-templates select="*[contains(@class, ' reference/proptype ')]"/>
-            </fo:table-cell>
+            <xsl:if test="exists(*[contains(@class, ' reference/proptype ')])">
+                <fo:table-cell>
+                    <xsl:copy-of select="ahf:getAttributeSet('atsPropertyTableBodyCell')"/>
+                    <xsl:choose>
+                        <xsl:when test="$prmKeyCol eq 1">
+                            <xsl:copy-of select="ahf:getAttributeSet('atsPropertyTableKeyCol')"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:copy-of select="ahf:getAttributeSet('atsPropertyTableNoKeyCol')"/>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                    <xsl:apply-templates select="*[contains(@class, ' reference/proptype ')]"/>
+                </fo:table-cell>
+            </xsl:if>
             <!-- propvalue -->
-            <fo:table-cell>
-                <xsl:copy-of select="ahf:getAttributeSet('atsPropertyTableBodyCell')"/>
-                <xsl:choose>
-                    <xsl:when test="$prmKeyCol eq 2">
-                        <xsl:copy-of select="ahf:getAttributeSet('atsPropertyTableKeyCol')"/>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:copy-of select="ahf:getAttributeSet('atsPropertyTableNoKeyCol')"/>
-                    </xsl:otherwise>
-                </xsl:choose>
-                <xsl:apply-templates select="*[contains(@class, ' reference/propvalue ')]"/>
-            </fo:table-cell>
+            <xsl:if test="exists(*[contains(@class, ' reference/propvalue ')])">
+                <fo:table-cell>
+                    <xsl:copy-of select="ahf:getAttributeSet('atsPropertyTableBodyCell')"/>
+                    <xsl:choose>
+                        <xsl:when test="$prmKeyCol eq 2">
+                            <xsl:copy-of select="ahf:getAttributeSet('atsPropertyTableKeyCol')"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:copy-of select="ahf:getAttributeSet('atsPropertyTableNoKeyCol')"/>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                    <xsl:apply-templates select="*[contains(@class, ' reference/propvalue ')]"/>
+                </fo:table-cell>
+            </xsl:if>
             <!-- propdesc -->
-            <fo:table-cell>
-                <xsl:copy-of select="ahf:getAttributeSet('atsPropertyTableBodyCell')"/>
-                <xsl:choose>
-                    <xsl:when test="$prmKeyCol eq 3">
-                        <xsl:copy-of select="ahf:getAttributeSet('atsPropertyTableKeyCol')"/>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:copy-of select="ahf:getAttributeSet('atsPropertyTableNoKeyCol')"/>
-                    </xsl:otherwise>
-                </xsl:choose>
-                <xsl:apply-templates select="*[contains(@class, ' reference/propdesc ')]"/>
-            </fo:table-cell>
+            <xsl:if test="exists(*[contains(@class, ' reference/propdesc ')])">
+                <fo:table-cell>
+                    <xsl:copy-of select="ahf:getAttributeSet('atsPropertyTableBodyCell')"/>
+                    <xsl:choose>
+                        <xsl:when test="$prmKeyCol eq 3">
+                            <xsl:copy-of select="ahf:getAttributeSet('atsPropertyTableKeyCol')"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:copy-of select="ahf:getAttributeSet('atsPropertyTableNoKeyCol')"/>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                    <xsl:apply-templates select="*[contains(@class, ' reference/propdesc ')]"/>
+                </fo:table-cell>
+            </xsl:if>
         </fo:table-row>
     </xsl:template>
     
