@@ -372,7 +372,7 @@ E-mail : info@antennahouse.com
     
     
     <!-- Appendices
-         Changed to generate no title because appendice is only a wrapper of appendix in bookmap.
+         Changed to generate no title because appendices is only a wrapper of appendix in bookmap.
          2014-09-14 t.makita
      -->
      <xsl:template match="*[contains(@class,' bookmap/appendices ')][ahf:isToc(.)]" mode="MAKE_BOOKMARK" priority="2" >
@@ -405,20 +405,6 @@ E-mail : info@antennahouse.com
         <xsl:variable name="linkContent" as="element()?" select="ahf:getTopicFromTopicRef($topicRef)"/>
         <xsl:variable name="oid" select="if (empty($linkContent)) then () else ahf:getIdAtts($linkContent,$topicRef,true())" as="attribute()*"/>
         <xsl:variable name="topicRefId" select="ahf:getIdAtts($topicRef,$topicRef,true())" as="attribute()*"/>
-        <xsl:variable name="hasNavtitle" as="xs:boolean">
-            <xsl:choose>
-                <xsl:when test="$topicRef/*[contains(@class,' map/topicmeta ')]/*[contains(@class,' topic/navtitle ')]">
-                    <xsl:sequence select="true()"/>
-                </xsl:when>
-                <xsl:when test="$topicRef/@navtitle">
-                    <xsl:sequence select="true()"/>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:sequence select="false()"/>
-                </xsl:otherwise>
-            </xsl:choose>
-        </xsl:variable>
-    
         <xsl:variable name="nestedTopicCount" as="xs:integer">
             <xsl:sequence select="count(ancestor-or-self::*[contains(@class, ' map/topicref ')]
                                                            [not(contains(@class, ' bookmap/frontmatter '))]
@@ -438,15 +424,12 @@ E-mail : info@antennahouse.com
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:variable>
-    
-        <!--xsl:message>[topicref] $addBookmark="<xsl:value-of select="$addBookmark"/>"</xsl:message-->
         
         <xsl:choose>
             <xsl:when test="not($addBookmark)">
                 <!-- Ignore this element and descendant. -->
             </xsl:when>
-            <xsl:when test="exists($linkContent) or $hasNavtitle or string($prmDefaultTitle)">
-                <!--xsl:comment>id=<xsl:value-of select="if exists($oid) then string($oid[1]) else ''"/></xsl:comment-->
+            <xsl:otherwise>
                 <fo:bookmark starting-state="{$cStartingState}">
                 	<xsl:choose>
     	                <xsl:when test="exists($oid)">
@@ -471,9 +454,6 @@ E-mail : info@antennahouse.com
                     <!-- Navigate to lower level -->
                     <xsl:apply-templates mode="#current"/>
                 </fo:bookmark>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:apply-templates mode="#current"/>
             </xsl:otherwise>
         </xsl:choose>
     
