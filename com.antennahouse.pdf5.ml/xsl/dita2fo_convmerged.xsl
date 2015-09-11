@@ -105,8 +105,10 @@ E-mail : info@antennahouse.com
      note:		if @print="no", ignore it.
                 Skip child topicref because they are nested in topic referenced by this topicref/@href.
                 2015-09-04 t.makita
+                Add condition empty(@copy-to).
+                2015-09-10 t.makita
      -->
-    <xsl:template match="*[contains(@class,' map/topicref ')][ahf:HasAttr(@chunk,'to-content')]" priority="2">
+    <xsl:template match="*[contains(@class,' map/topicref ')][ahf:HasAttr(@chunk,'to-content')][empty(@copy-to)]" priority="2">
         <xsl:choose>
             <xsl:when test="@print='no'" >
                 <xsl:for-each select="descendant-or-self::*[contains(@class,' map/topicref ')]">
