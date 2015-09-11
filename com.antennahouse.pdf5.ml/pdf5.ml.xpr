@@ -24,6 +24,21 @@
                         <scenarioAssociation-array>
                             <scenarioAssociation>
                                 <field name="url">
+                                    <String>../../../../My_Documents/GitHub/userguide/DITA/UserManual.ditamap</String>
+                                </field>
+                                <field name="scenarioIds">
+                                    <list>
+                                        <String>PDF5-ML Merged to PDF by DITA-OT 2.1.0 (Saxon 9) - oXygen manual</String>
+                                    </list>
+                                </field>
+                                <field name="scenarioTypes">
+                                    <list>
+                                        <String>ANT</String>
+                                    </list>
+                                </field>
+                            </scenarioAssociation>
+                            <scenarioAssociation>
+                                <field name="url">
                                     <String>../../../../SVN/pdf5/testdata/20150902_chunk/sample_chunk.ditamap</String>
                                 </field>
                                 <field name="scenarioIds">
@@ -49,21 +64,6 @@
                                 <field name="scenarioTypes">
                                     <list>
                                         <String>DITAMAP</String>
-                                    </list>
-                                </field>
-                            </scenarioAssociation>
-                            <scenarioAssociation>
-                                <field name="url">
-                                    <String>../../../../My_Documents/GitHub/userguide/DITA/UserManual.ditamap</String>
-                                </field>
-                                <field name="scenarioIds">
-                                    <list>
-                                        <String>PDF5-ML Merged to PDF by DITA-OT 2.1.0 (Saxon 9) - oXygen manual</String>
-                                    </list>
-                                </field>
-                                <field name="scenarioTypes">
-                                    <list>
-                                        <String>ANT</String>
                                     </list>
                                 </field>
                             </scenarioAssociation>
@@ -3672,7 +3672,7 @@
                                                 <String>build temp dir</String>
                                             </field>
                                             <field name="value">
-                                                <String>${cfd}/temp/pdf/oxygen_dita_temp</String>
+                                                <String>${cfd}/temp/pdf</String>
                                             </field>
                                             <field name="defaultValue">
                                                 <null/>
@@ -3772,7 +3772,7 @@
                                                 <String>dita-ot temporary directory</String>
                                             </field>
                                             <field name="value">
-                                                <String>${cfd}/temp/pdf/oxygen_dita_temp</String>
+                                                <String>${cfd}/temp/pdf</String>
                                             </field>
                                             <field name="defaultValue">
                                                 <null/>
