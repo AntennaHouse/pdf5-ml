@@ -3,9 +3,9 @@
 ************************************************************
 DITA to XSL-FO Style Definition 
 ************************************************************
-File Name : km_style.xml
+File Name : th-TH_style.xml
 ************************************************************
-Copyright © 2009 2014 Antenna House, Inc.
+Copyright © 2009 2015 Antenna House, Inc.
 Antenna House is a trademark of Antenna House, Inc.
 URL : http://www.antennahouse.com/
 ************************************************************
@@ -13,12 +13,5 @@ URL : http://www.antennahouse.com/
 <style-definition 
  xmlns:axf="http://www.antennahouse.com/names/XSL/Extensions"
  xmlns="http://www.antennahouse.com/names/XSLT/Document/Layout">
- 
- <variables>
-     <!-- Fonts -->
-     <variable name="General_Serif_Font">serif,DaunPenh</variable>
-     <variable name="General_Sans_Serif_Font">sans-serif,DaunPenh</variable>
-     <variable name="General_Monospace_Font">Courier New,DaunPenh</variable>
- </variables>
-
+	<include href="th_style.xml"/>
 </style-definition>
