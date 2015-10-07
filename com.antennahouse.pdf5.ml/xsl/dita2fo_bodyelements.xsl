@@ -1044,25 +1044,28 @@ E-mail : info@antennahouse.com
         </xsl:choose>
     </xsl:template>
     
+    <xsl:function name="ahf:getImageUrl" as="xs:string">
+        <xsl:param name="prmImage" as="element()"/>
+        <xsl:choose>
+            <xsl:when test="string($prmImage/@scope) eq 'external'">
+                <xsl:sequence select="concat('url(',string($prmImage/@href),')')"/>
+            </xsl:when>
+            <xsl:when test="$pImageInOutputFolder">
+                <xsl:sequence select="concat('url(',string($prmImage/@href),')')"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:sequence select="concat('url(',$pMapDirUrl,string($prmImage/@href),')')"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:function>
+    
     <xsl:function name="ahf:getImageCommonAttr" as="attribute()*">
         <xsl:param name="prmImage" as="element()"/>
     
         <xsl:if test="$prmImage/@href">
             <!--xsl:message select="'$prmImage/@href=',string($prmImage/@href)"/>
             <xsl:message select="'$pMapDirUrl=',$pMapDirUrl"/-->
-            <xsl:variable name="url" as="xs:string">
-                <xsl:choose>
-                    <xsl:when test="string($prmImage/@scope) eq 'external'">
-                        <xsl:sequence select="concat('url(',string($prmImage/@href),')')"/>
-                    </xsl:when>
-                    <xsl:when test="$pImageInOutputFolder">
-                        <xsl:sequence select="concat('url(',string($prmImage/@href),')')"/>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:sequence select="concat('url(',$pMapDirUrl,string($prmImage/@href),')')"/>
-                    </xsl:otherwise>
-                </xsl:choose>
-            </xsl:variable>
+            <xsl:variable name="url" as="xs:string" select="ahf:getImageUrl($prmImage)"/>
             <!--xsl:message select="'$url=',$url"/-->
             <xsl:attribute name="src" select="$url"/>
         </xsl:if>

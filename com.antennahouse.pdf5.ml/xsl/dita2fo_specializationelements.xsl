@@ -21,14 +21,15 @@ E-mail : info@antennahouse.com
     <!-- required-cleanup is coded in dita2fo_regacyconversionelements.xsl -->
     
     <!-- 
-     function:	data-about
+     function:	data-about template
      param:	    
-     return:	none
-     note:		ignore descendant-or-self
+     return:	Only apply-templates for child elements
+     note:		
      -->
     <xsl:template match="*[contains(@class,' topic/data-about ')]">
+        <xsl:apply-templates/>
     </xsl:template>
-    
+
     <!-- 
      function:	data
      param:	    

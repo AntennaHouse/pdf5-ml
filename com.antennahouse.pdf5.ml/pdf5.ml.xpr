@@ -24,6 +24,21 @@
                         <scenarioAssociation-array>
                             <scenarioAssociation>
                                 <field name="url">
+                                    <String>../../../../My_Documents/XML2015/XMetaL/20151005-diff/mathml_test.ditamap</String>
+                                </field>
+                                <field name="scenarioIds">
+                                    <list>
+                                        <String>PDF5-ML Map to PDF by project DITA-OT (Saxon 9)</String>
+                                    </list>
+                                </field>
+                                <field name="scenarioTypes">
+                                    <list>
+                                        <String>ANT</String>
+                                    </list>
+                                </field>
+                            </scenarioAssociation>
+                            <scenarioAssociation>
+                                <field name="url">
                                     <String>../../../../My_Documents/GitHub/userguide/DITA/UserManual.ditamap</String>
                                 </field>
                                 <field name="scenarioIds">
@@ -1121,7 +1136,7 @@
                                     <Boolean>true</Boolean>
                                 </field>
                                 <field name="customANTHomeDir">
-                                    <String>${pd}/../../tools/ant</String>
+                                    <String>${pd}/../..</String>
                                 </field>
                                 <field name="workingDir">
                                     <String>${cfd}</String>

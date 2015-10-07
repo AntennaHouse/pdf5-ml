@@ -102,4 +102,14 @@ E-mail : info@antennahouse.com
         </fo:wrapper>
     </xsl:template>
 
+    <!-- 
+     function:	sortas template
+     param:	    
+     return:	none
+     note:		none
+     -->
+    <xsl:template match="*[contains(@class,' ut-d/sort-as ')]" priority="2">
+    </xsl:template>
+    
+
 </xsl:stylesheet>
