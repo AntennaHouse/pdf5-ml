@@ -186,7 +186,7 @@ E-mail : info@antennahouse.com
     
     <!-- Document language -->
     <xsl:variable name="documentLang" as="xs:string">
-        <xsl:variable name="defaultLang" as="xs:string" select="'en'"/>
+        <xsl:variable name="defaultLang" as="xs:string" select="'en-US'"/>
         <xsl:choose>
             <xsl:when test="string($PRM_LANG) and ($PRM_LANG != $doubleApos)">
                 <xsl:sequence select="$PRM_LANG"/>
@@ -197,7 +197,7 @@ E-mail : info@antennahouse.com
             <xsl:otherwise>
                 <xsl:call-template name="warningContinue">
                     <xsl:with-param name="prmMes">
-                        <xsl:value-of select="$stMes101"/>
+                        <xsl:value-of select="ahf:replace($stMes101,('%lang'),($defaultLang))"/>
                     </xsl:with-param>
                 </xsl:call-template>
                 <xsl:sequence select="$defaultLang"/>

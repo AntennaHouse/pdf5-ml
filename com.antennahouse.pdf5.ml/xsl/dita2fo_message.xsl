@@ -196,7 +196,7 @@ URL : http://www.antennahouse.co.jp/
     </xsl:variable>
     
     <xsl:variable name="stMes101">
-        <xsl:text>[documentLang 101W] xml:lang is not specified in map. Adopt 'en' as default language.</xsl:text>
+        <xsl:text>[documentLang 101W] xml:lang is not specified in map. Adopt '%lang' as default language.</xsl:text>
     </xsl:variable>
     
     <xsl:variable name="stMes102">

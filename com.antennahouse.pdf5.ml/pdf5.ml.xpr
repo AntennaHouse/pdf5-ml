@@ -24,6 +24,36 @@
                         <scenarioAssociation-array>
                             <scenarioAssociation>
                                 <field name="url">
+                                    <String>../../../../SVN/pdf5/diffs/20151008-ml-diff/map.ditamap</String>
+                                </field>
+                                <field name="scenarioIds">
+                                    <list>
+                                        <String>PDF5-ML Map to PDF by project DITA-OT (Saxon 9) - Debug Style</String>
+                                    </list>
+                                </field>
+                                <field name="scenarioTypes">
+                                    <list>
+                                        <String>ANT</String>
+                                    </list>
+                                </field>
+                            </scenarioAssociation>
+                            <scenarioAssociation>
+                                <field name="url">
+                                    <String>../../../../SVN/pdf5/diffs/20151008-ml-diff/bookmap.ditamap</String>
+                                </field>
+                                <field name="scenarioIds">
+                                    <list>
+                                        <String>PDF5-ML Map to PDF by project DITA-OT (Saxon 9)</String>
+                                    </list>
+                                </field>
+                                <field name="scenarioTypes">
+                                    <list>
+                                        <String>ANT</String>
+                                    </list>
+                                </field>
+                            </scenarioAssociation>
+                            <scenarioAssociation>
+                                <field name="url">
                                     <String>../../../../My_Documents/XML2015/XMetaL/20151005-diff/mathml_test.ditamap</String>
                                 </field>
                                 <field name="scenarioIds">
@@ -2009,6 +2039,26 @@
                                         </antParameter>
                                         <antParameter>
                                             <field name="name">
+                                                <String>debug.style</String>
+                                            </field>
+                                            <field name="description">
+                                                <String>Debug style</String>
+                                            </field>
+                                            <field name="value">
+                                                <String>yes</String>
+                                            </field>
+                                            <field name="defaultValue">
+                                                <null/>
+                                            </field>
+                                            <field name="type">
+                                                <Integer>5</Integer>
+                                            </field>
+                                            <field name="possibleValues">
+                                                <null/>
+                                            </field>
+                                        </antParameter>
+                                        <antParameter>
+                                            <field name="name">
                                                 <String>dita.temp.dir</String>
                                             </field>
                                             <field name="description">
@@ -2165,7 +2215,7 @@
                                     <Boolean>true</Boolean>
                                 </field>
                                 <field name="customANTHomeDir">
-                                    <String>${pd}/../../tools/ant</String>
+                                    <String>${pd}/../..</String>
                                 </field>
                                 <field name="workingDir">
                                     <String>${cfd}</String>

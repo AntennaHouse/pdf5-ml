@@ -27,11 +27,12 @@
 	<!--============================================
 	     External dependencies:
 	     $PRM_STYLE_DEF_FILE (dita2fo_param.xsl)
+	     $documetLang (dita2fo_global.xsl)
 	    ============================================-->
 	<!--============================================
 	     Constants
 	    ============================================-->
-	<!-- Variable refernce symbol -->
+	<!-- Variable reference symbol -->
 	<xsl:variable name="varRefChar" select="'$'"/>
 	<xsl:variable name="varRefEscapeChar" select="'\'"/>
 	<!--xsl:variable name="styleRefChar" select="'%'"/-->
@@ -82,6 +83,7 @@
 	  -->
 	<xsl:variable name="uniqueXmlLang" as="xs:string*">
 		<xsl:variable name="xmlLang" as="xs:string*">
+			<xsl:sequence select="$documentLang"/>
 			<xsl:for-each select="$map/descendant-or-self::*/@xml:lang
 								| $root//*[contains(@class,' topic/topic ')]/descendant-or-self::*/@xml:lang">
 				<xsl:sequence select="ahf:nomalizeXmlLang(string(.))"/>
@@ -93,7 +95,7 @@
 	</xsl:variable>
 	
 	<!-- Language specific style definition file:
-	     This value is obtaind from map/@xml:lang, topic/@xml:lang.
+	     This value is obtained from map/@xml:lang, topic/@xml:lang.
 	     This parameter has been changed from xsl:param to xsl:variable
 	     because there is no needs to pass the value as parameter.
 	     2012-12-19 t.makita
