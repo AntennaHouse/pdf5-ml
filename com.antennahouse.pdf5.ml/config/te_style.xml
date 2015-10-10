@@ -16,9 +16,9 @@ URL : http://www.antennahouse.com/
  
  <variables>
     <!-- Fonts -->
-    <variable name="General_Serif_Font">Gautami,serif</variable>
-    <variable name="General_Sans_Serif_Font">Gautami,sans-serif</variable>
-    <variable name="General_Monospace_Font">monospace,Gautami</variable>
+    <variable name="General_Serif_Font">Gautami,Times New Roman</variable>
+    <variable name="General_Sans_Serif_Font">Gautami,Arial</variable>
+    <variable name="General_Monospace_Font">Courier New,Gautami</variable>
     <variable name="General_Text_Font">$General_Serif_Font</variable>
     <variable name="General_Title_Font">$General_Sans_Serif_Font</variable>
     <variable name="General_Region_Before_Font">$General_Serif_Font</variable>
