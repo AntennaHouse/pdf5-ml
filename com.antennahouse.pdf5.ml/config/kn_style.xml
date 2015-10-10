@@ -3,7 +3,7 @@
 ************************************************************
 DITA to XSL-FO Style Definition 
 ************************************************************
-File Name : si_style.xml
+File Name : kn_style.xml
 ************************************************************
 Copyright © 2009 2014 Antenna House, Inc.
 Antenna House is a trademark of Antenna House, Inc.
@@ -15,14 +15,14 @@ URL : http://www.antennahouse.com/
  xmlns="http://www.antennahouse.com/names/XSLT/Document/Layout">
  
  <variables>
-    <!-- Fonts -->
-    <variable name="General_Serif_Font">Iskoola Pota,serif</variable>
-    <variable name="General_Sans_Serif_Font">Iskoola Pota,sans-serif</variable>
-    <variable name="General_Monospace_Font">monospace,Iskoola Pota</variable>
-    <variable name="General_Text_Font">$General_Serif_Font</variable>
-    <variable name="General_Title_Font">$General_Sans_Serif_Font</variable>
-    <variable name="General_Region_Before_Font">$General_Serif_Font</variable>
-    <variable name="General_Region_After_Font">$General_Serif_Font</variable>
+     <!-- Fonts -->
+     <variable name="General_Serif_Font">Tunga,serif</variable>
+     <variable name="General_Sans_Serif_Font">Tunga,sans-serif</variable>
+     <variable name="General_Monospace_Font">monospace,Tunga</variable>
+     <variable name="General_Text_Font">$General_Serif_Font</variable>
+     <variable name="General_Title_Font">$General_Sans_Serif_Font</variable>
+     <variable name="General_Region_Before_Font">$General_Serif_Font</variable>
+     <variable name="General_Region_After_Font">$General_Serif_Font</variable>
  </variables>
 
 </style-definition>

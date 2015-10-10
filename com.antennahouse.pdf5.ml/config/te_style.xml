@@ -3,9 +3,9 @@
 ************************************************************
 DITA to XSL-FO Style Definition 
 ************************************************************
-File Name : si_style.xml
+File Name : te_style.xml
 ************************************************************
-Copyright © 2009 2014 Antenna House, Inc.
+Copyright © 2009 2015 Antenna House, Inc.
 Antenna House is a trademark of Antenna House, Inc.
 URL : http://www.antennahouse.com/
 ************************************************************
@@ -16,9 +16,9 @@ URL : http://www.antennahouse.com/
  
  <variables>
     <!-- Fonts -->
-    <variable name="General_Serif_Font">Iskoola Pota,serif</variable>
-    <variable name="General_Sans_Serif_Font">Iskoola Pota,sans-serif</variable>
-    <variable name="General_Monospace_Font">monospace,Iskoola Pota</variable>
+    <variable name="General_Serif_Font">Gautami,serif</variable>
+    <variable name="General_Sans_Serif_Font">Gautami,sans-serif</variable>
+    <variable name="General_Monospace_Font">monospace,Gautami</variable>
     <variable name="General_Text_Font">$General_Serif_Font</variable>
     <variable name="General_Title_Font">$General_Sans_Serif_Font</variable>
     <variable name="General_Region_Before_Font">$General_Serif_Font</variable>

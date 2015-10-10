@@ -16,9 +16,13 @@ URL : http://www.antennahouse.com/
  
  <variables>
      <!-- Fonts -->
-     <variable name="General_Serif_Font">serif,DaunPenh</variable>
-     <variable name="General_Sans_Serif_Font">sans-serif,DaunPenh</variable>
-     <variable name="General_Monospace_Font">Courier New,DaunPenh</variable>
+     <variable name="General_Serif_Font">DaunPenh,serif</variable>
+     <variable name="General_Sans_Serif_Font">DaunPenh,sans-serif</variable>
+     <variable name="General_Monospace_Font">monospace,DaunPenh</variable>
+     <variable name="General_Text_Font">$General_Serif_Font</variable>
+     <variable name="General_Title_Font">$General_Sans_Serif_Font</variable>
+     <variable name="General_Region_Before_Font">$General_Serif_Font</variable>
+     <variable name="General_Region_After_Font">$General_Serif_Font</variable>
  </variables>
 
 </style-definition>
