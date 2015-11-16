@@ -15,14 +15,6 @@ URL : http://www.antennahouse.com/
  xmlns="http://www.antennahouse.com/names/XSLT/Document/Layout">
  
  <variables>
-        <!-- Page size (A4) -->
-        <variable name="General_Paper_Width">210mm</variable>
-        <variable name="General_Paper_Height">297mm</variable>
-        <variable name="General_Margin_Top">20mm</variable>
-        <variable name="General_Margin_Right">20mm</variable>
-        <variable name="General_Margin_Bottom">20mm</variable>
-        <variable name="General_Margin_Left">20mm</variable>
-
 		<!-- Fonts -->
         <variable name="General_Serif_Font">Times New Roman,MS Mincho</variable>
         <variable name="General_Sans_Serif_Font">Arial,MS Gothic</variable>
