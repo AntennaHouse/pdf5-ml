@@ -68,4 +68,6 @@ E-mail : info@antennahouse.com
    <xsl:include href="dita2fo_note.xsl"/>
    <xsl:include href="dita2fo_float_fig.xsl"/>
    <xsl:include href="dita2fo_mathml_domain.xsl"/>
+   <xsl:include href="dita2fo_equation-block_util.xsl"/>
+   <xsl:include href="dita2fo_equation-block_map.xsl"/>
 </xsl:stylesheet>
