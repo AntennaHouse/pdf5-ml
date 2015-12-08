@@ -439,6 +439,10 @@ URL : http://www.antennahouse.co.jp/
     <xsl:variable name="stMes1500">
         <xsl:text>[parameter 1500F] Paper size parameter is invalid. Parameter=%param Supported value=%sptval.</xsl:text>
     </xsl:variable>
+
+    <xsl:variable name="stMes1600">
+        <xsl:text>[hasAutoEquationNumber 1600F] $prmEquationNumber does not have @class value 'equation-d/equation-number'. @class='%class'.</xsl:text>
+    </xsl:variable>
     
 
 </xsl:stylesheet>
