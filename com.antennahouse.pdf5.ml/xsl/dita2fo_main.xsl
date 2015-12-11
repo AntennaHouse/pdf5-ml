@@ -39,6 +39,7 @@ E-mail : info@antennahouse.com
         <!--xsl:call-template name="dumpTableMap"/-->
         <!--xsl:call-template name="dumpThumbIndexMap"/-->
         <!--xsl:call-template name="dumpFootnoteMap"/-->
+        <!--xsl:call-template name="outputEquationCountMap"/-->
     <xsl:template match="/">
         <!--xsl:message select="'$lastTopicRef=',name($lastTopicRef),' class=',string($lastTopicRef/@class),' ohref=',string($lastTopicRef/@ohref)"/>
         -->

@@ -36,20 +36,20 @@
             <xsl:when test="$prmEquationNumber[contains(@class,' equation-d/equation-number ')]">
                 <xsl:choose>
                     <xsl:when test="exists($prmEquationNumber/*)">
-                        <xsl:sequence select="true()"/>
+                        <xsl:sequence select="false()"/>
                     </xsl:when>
                     <xsl:when test="string(normalize-space(string($prmEquationNumber)))">
-                        <xsl:sequence select="true()"/>
+                        <xsl:sequence select="false()"/>
                     </xsl:when>
                     <xsl:otherwise>
-                        <xsl:sequence select="false()"/>
+                        <xsl:sequence select="true()"/>
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:call-template name="errorExit">
+                <!--xsl:call-template name="errorExit">
                     <xsl:with-param name="prmMes" select="ahf:replace($stMes1600,('%class'),(string($prmEquationNumber/@class)))"/>
-                </xsl:call-template>
+                </xsl:call-template-->
                 <xsl:sequence select="false()"/>
             </xsl:otherwise>
         </xsl:choose>
