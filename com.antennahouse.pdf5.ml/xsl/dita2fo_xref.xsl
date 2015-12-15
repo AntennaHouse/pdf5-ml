@@ -318,6 +318,52 @@ E-mail : info@antennahouse.com
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:when>
+
+            <!-- equation-block -->
+            <xsl:when test="$prmDestElement[contains(@class, ' equation-d/equation-block ')]">
+                <xsl:variable name="equtionNumberResult" as="node()*">
+                    <xsl:choose>
+                        <xsl:when test="$prmDestElement/*[contains(@class, ' equation-d/equation-number ')]">
+                            <xsl:variable name="equationNumber" as="element()" select="($prmDestElement/*[contains(@class, ' equation-d/equation-number ')])[1]"/>
+                            <xsl:call-template name="getVarValueWithLangAsText">
+                                <xsl:with-param name="prmVarName" select="'Equatuion_Number_Ref_Prefix'"/>
+                                <xsl:with-param name="prmElem" select="$equationNumber"/>
+                            </xsl:call-template>
+                            <xsl:call-template name="getVarValueWithLangAsText">
+                                <xsl:with-param name="prmVarName" select="'Equatuion_Number_Prefix'"/>
+                                <xsl:with-param name="prmElem" select="$equationNumber"/>
+                            </xsl:call-template>
+                            <xsl:choose>
+                                <xsl:when test="ahf:hasAutoEquationNumber($equationNumber)">
+                                    <xsl:variable name="autoEquationNumber" as="xs:string">
+                                        <xsl:call-template name="ahf:getAutoEquationNumber">
+                                            <xsl:with-param name="prmTopicRef" tunnel="yes" select="$prmTitleTopicRef"/>
+                                            <xsl:with-param name="prmEquationNumber" select="$equationNumber"/>
+                                        </xsl:call-template>
+                                    </xsl:variable>
+                                    <xsl:value-of select="$autoEquationNumber"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:apply-templates select="$equationNumber" mode="GET_CONTENTS"/>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                            <xsl:call-template name="getVarValueWithLangAsText">
+                                <xsl:with-param name="prmVarName" select="'Equatuion_Number_Suffix'"/>
+                                <xsl:with-param name="prmElem" select="$equationNumber"/>
+                            </xsl:call-template>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <!-- equation-block without equation-number -->
+                            <xsl:apply-templates select="$prmXref/node()">
+                                <xsl:with-param name="prmTopicRef" tunnel="yes" select="$prmTopicRef"/>
+                            </xsl:apply-templates>
+                        </xsl:otherwise>
+                    </xsl:choose>    
+                </xsl:variable>
+                <fo:inline>
+                    <xsl:copy-of select="$equtionNumberResult"/>
+                </fo:inline>
+            </xsl:when>
             
             <!-- fn -->
             <xsl:when test="$prmDestElement[contains(@class, ' topic/fn ')]">

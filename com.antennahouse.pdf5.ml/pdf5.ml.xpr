@@ -24,7 +24,7 @@
                         <scenarioAssociation-array>
                             <scenarioAssociation>
                                 <field name="url">
-                                    <String>../../../../My_Documents/pdf5/diffs/20151103-equation/dita_equation_format_test.ditamap</String>
+                                    <String>../../../../SVN/pdf5/testdata/20151211-equation/equation_test.ditamap</String>
                                 </field>
                                 <field name="scenarioIds">
                                     <list>
@@ -39,7 +39,7 @@
                             </scenarioAssociation>
                             <scenarioAssociation>
                                 <field name="url">
-                                    <String>../../../../SVN/pdf5/testdata/20151211-equation/equation_test.ditamap</String>
+                                    <String>../../../../My_Documents/pdf5/diffs/20151103-equation/dita_equation_format_test.ditamap</String>
                                 </field>
                                 <field name="scenarioIds">
                                     <list>
