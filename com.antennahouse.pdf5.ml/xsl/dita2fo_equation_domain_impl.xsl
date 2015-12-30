@@ -43,17 +43,34 @@
     
     <xsl:template match="*[contains(@class, ' equation-d/equation-block ')]" as="element()">
         <xsl:variable name="equationBlock" as="element()" select="."/>
-        <xsl:variable name="equationNumberAndBody" as="document-node()" select="ahf:divideEquation($equationBlock)"/>
-        <xsl:variable name="candidateEquationNumber" as="element()?" select="($equationNumberAndBody/equation/equation-number)[1]/*"/>
-        <xsl:variable name="isManualEquationNumber" as="xs:boolean" select="ahf:hasManualEquationNumber($candidateEquationNumber)"/>
+        <xsl:variable name="candidateEquationNumber" as="element()?" select="$equationBlock/*[contains(@class,' equation-d/equation-number ')][1]"/>
+        <xsl:variable name="isManualEquationNumber" as="xs:boolean" select="ahf:isManualEquationNumber($candidateEquationNumber)"/>
         <xsl:variable name="isAutoEquationNumber" as="xs:boolean" select="not($isManualEquationNumber)"/>
-        <xsl:variable name="candidateEquationBody" as="node()*" select="ahf:getCandidateEquationBody($equationNumberAndBody)"/>
+        <xsl:variable name="candidateEquationBody" as="element()?" select="ahf:getCandidateEquationBody($equationBlock)"/>
         <xsl:variable name="isInEquationFigure" as="xs:boolean" select="exists(ancestor::*[contains(@class,' equation-d/equation-figure ')])"/>
+        <xsl:variable name="outputEquationAndNumber" as="xs:boolean">
+            <xsl:choose>
+                <xsl:when test="$pNumberEquationBlockUnconditionally">
+                    <xsl:choose>
+                        <xsl:when test="$isInEquationFigure and $isAutoEquationNumber">
+                            <xsl:sequence select="$pExcludeAutoNumberingFromEquationFigure"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:sequence select="true()"/>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:sequence select="exists($candidateEquationNumber)"/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
         <xsl:choose>
             <!-- generate equation and equation number-->
-            <xsl:when test="$isManualEquationNumber or ($pNumberEquationBlockUnconditionally and not($isInEquationFigure and $isAutoEquationNumber))">
+            <xsl:when test="$outputEquationAndNumber">
                 <fo:block>
                     <xsl:call-template name="ahf:getUnivAtts"/>
+                    <xsl:call-template name="getAttributeSetWithLang"/>
                     <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
                     <!-- equation body -->
                     <fo:inline>
@@ -67,12 +84,12 @@
                     <!-- equation-number -->
                     <xsl:choose>
                         <xsl:when test="exists($candidateEquationNumber)">
-                            <xsl:apply-templates select="$candidateEquationNumber">
-                                <xsl:with-param name="prmEquationBlock" tunnel="yes" select="$equationBlock"/>
-                            </xsl:apply-templates>
+                            <xsl:apply-templates select="$candidateEquationNumber"/>
                         </xsl:when>
                         <xsl:otherwise>
-                            
+                            <xsl:call-template name="generateAutoEquationNumber">
+                                <xsl:with-param name="prmEquationBlock" tunnel="yes" select="$equationBlock"/>
+                            </xsl:call-template>
                         </xsl:otherwise>
                     </xsl:choose>
                 </fo:block>
@@ -88,59 +105,9 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
-
-    <!-- 
-        function:	grouping equation-block by equation-number
-        param:	    
-        return:	    xs:integer
-        note:		group with preceding-sibling::equation-number
-    -->
-    <xsl:function name="ahf:getEquationGroupNumber" as="xs:integer">
-        <xsl:param name="prmNode" as="node()"/>
-        <xsl:choose>
-            <xsl:when test="$prmNode[contains(@class, ' equation-d/equation-number ')]">
-                <xsl:sequence select="count($prmNode | $prmNode/preceding-sibling::*[contains(@class, ' equation-d/equation-number ')])"/>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:sequence select="count($prmNode/preceding-sibling::*[contains(@class, ' equation-d/equation-number ')])"/>
-            </xsl:otherwise>
-        </xsl:choose>
-    </xsl:function>
-    
-    <!-- 
-        function:	Divide equation-block by equation-number
-        param:	    prmEquationBlock
-        return:	    document-node
-        note:		empty equation will be automatically omitted
-    -->
-    <xsl:function name="ahf:divideEquation" as="document-node()">
-        <xsl:param name="prmEquationBlock" as="element()"/>
-        <xsl:document>
-            <xsl:for-each-group select="$prmEquationBlock/node()" group-adjacent="ahf:getEquationGroupNumber($prmEquationBlock)">
-                <xsl:variable name="currentGroup" as="node()*" select="current-group()"/>
-                <xsl:variable name="currentEquationNumber" as="element()?" select="$currentGroup[contains(@class,' equation-d/equation-number ')][1]"/>
-                <xsl:variable name="currentEquationBody" as="node()*" select="$currentGroup except (*[contains(@class,' equation-d/equation-number ')] | self::comment() | self::processing-instruction())"/>
-                <xsl:variable name="currentEquationBodyWoWs" as="node()*" select="ahf:getFirstEquationPart($currentEquationBody)"/>
-                <xsl:choose>
-                    <xsl:when test="empty($currentEquationNumber) and (every $t in $currentEquationBody satisfies (($t/self::text() and not(string(normalize-space(string($t)))))))"/>
-                    <xsl:otherwise>
-                        <equation>
-                            <equation-number>
-                                <xsl:sequence select="$currentEquationNumber"/>
-                            </equation-number>
-                            <equation-body>
-                                <xsl:sequence select="$currentEquationBodyWoWs"/>
-                            </equation-body>
-                        </equation>
-                    </xsl:otherwise>
-                </xsl:choose>
-            </xsl:for-each-group>    
-        </xsl:document>
-    </xsl:function>
-
     <!-- 
         function:	Select candidate equation body
-        param:	    document-node() (Output of ahf:divideEquation)
+        param:	    element()*
         return:	    node()*
         note:		Select candidate equation node()
                     1. <mathml> element
@@ -149,39 +116,21 @@
                     4. Otherwise 1st defined one
                     The selection strategy is implementation dependent.
     -->
-    <xsl:function name="ahf:getCandidateEquationBody" as="node()*">
-        <xsl:param name="prmEquation" as="document-node()"/>
+    <xsl:function name="ahf:getCandidateEquationBody" as="element()?">
+        <xsl:param name="prmEquationBlock" as="element()"/>
+        <xsl:variable name="prmEquation" as="element()*" select="$prmEquationBlock/*"/>
         <xsl:choose>
-            <xsl:when test="$prmEquation/equation/equation-body/node()[1][contains(@class,' mathml-d/mathml ')]">
-                <xsl:sequence select="($prmEquation/equation/equation-body/node()[1][contains(@class,' mathml-d/mathml ')])[1]"/>
+            <xsl:when test="$prmEquation[contains(@class,' mathml-d/mathml ')]">
+                <xsl:sequence select="$prmEquation[contains(@class,' mathml-d/mathml ')][1]"/>
             </xsl:when>
-            <xsl:when test="$prmEquation/equation/equation-body/node()[1][contains(@class,' topic/image ')][ends-with(string(@src),'.mml') or ends-with(string(@src),'.xml')]">
-                <xsl:sequence select="($prmEquation/equation/equation-body/node()[1][contains(@class,' topic/image ')][ends-with(string(@src),'.mml') or ends-with(string(@src),'.xml')])[1]"/>
+            <xsl:when test="$prmEquation[contains(@class,' topic/image ')][ends-with(string(@src),'.mml') or ends-with(string(@src),'.xml')]">
+                <xsl:sequence select="$prmEquation[contains(@class,' topic/image ')][ends-with(string(@src),'.mml') or ends-with(string(@src),'.xml')][1]"/>
             </xsl:when>
-            <xsl:when test="$prmEquation/equation/equation-body/node()[1][contains(@class,' svg-d/svg-container  ')]">
-                <xsl:sequence select="($prmEquation/equation/equation-body/node()[1][contains(@class,' svg-d/svg-container ')])[1]"/>
+            <xsl:when test="$prmEquation[contains(@class,' svg-d/svg-container ')]">
+                <xsl:sequence select="$prmEquation[contains(@class,' svg-d/svg-container ')][1]"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:sequence select="$prmEquation/equation/equation-body[1]/node()"/>
-            </xsl:otherwise>
-        </xsl:choose>
-    </xsl:function>
-    
-    <!-- 
-        function:	Get first body of equation
-        param:	    node()*
-        return:	    node()*
-        note:		Return equation body first
-    -->
-    <xsl:function name="ahf:getFirstEquationPart" as="node()*">
-        <xsl:param name="prmEquationBody" as="node()*"/>
-        <xsl:variable name="firstNode" as="node()" select="$prmEquationBody[1]"/>
-        <xsl:choose>
-            <xsl:when test="$firstNode[self::text()][not(string(normalize-space(string(.))))]">
-                <xsl:sequence select="$prmEquationBody except $firstNode"/>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:sequence select="$prmEquationBody"/>
+                <xsl:sequence select="$prmEquation[1]"/>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:function>
@@ -205,7 +154,7 @@
                 <xsl:with-param name="prmVarName" select="'Equatuion_Number_Prefix'"/>
             </xsl:call-template>
             <xsl:choose>
-                <xsl:when test="ahf:hasAutoEquationNumber(.)">
+                <xsl:when test="ahf:isAutoEquationNumber(.)">
                     <xsl:call-template name="ahf:getAutoEquationNumber">
                         <xsl:with-param name="prmEquationNumber" select="."/>
                     </xsl:call-template>
@@ -249,15 +198,15 @@
 
     <!-- 
      function:	Generate equation-number
-     param:		prmTopicRef, prmEquationNumber, prmEquationBlock
+     param:		prmTopicRef, prmEquationNumber
      return:	Equation number string
-     note:		
+     note:		If equation-block has no equation-number, equation-block is passed as $prmEquationNumber. 
      -->
     <xsl:template name="ahf:getAutoEquationNumber" as="xs:string">
         <xsl:param name="prmTopicRef" tunnel="yes" required="yes" as="element()?"/>
         <xsl:param name="prmEquationNumber" required="no" as="element()" select="."/>
-        <xsl:param name="prmEquationBlock" tunnel="yes" required="yes" as="element()"/>
         
+        <xsl:variable name="equationBlock" as="element()" select="$prmEquationNumber/ancestor-or-self::*[contains(@class,' equation-d/equation-block ')][1]"/>
         <xsl:variable name="titlePrefix" as="xs:string">
             <xsl:choose>
                 <xsl:when test="$pAddNumberingTitlePrefix">
@@ -277,7 +226,7 @@
             </xsl:choose>
         </xsl:variable>
         
-        <xsl:variable name="topic" as="element()" select="$prmEquationBlock/ancestor::*[contains(@class, ' topic/topic ')][position() eq last()]"/>
+        <xsl:variable name="topic" as="element()" select="$prmEquationNumber/ancestor::*[contains(@class, ' topic/topic ')][position() eq last()]"/>
         
         <xsl:variable name="equationNumberPreviousAmount" as="xs:integer">
             <xsl:variable name="topicId" as="xs:string">
@@ -293,8 +242,29 @@
         </xsl:variable>
         
         <xsl:variable name="equationNumberCurrentAmount" as="xs:integer">
-            <xsl:sequence select="count($topic//*[contains(@class,' equation-d/equation-block ')][ahf:hasAutoEquationNumber(.)][. &lt;&lt; $prmEquationBlock]|$prmEquationBlock)"/>
+            <xsl:choose>
+                <xsl:when test="$pNumberEquationBlockUnconditionally and not($pExcludeAutoNumberingFromEquationFigure)">
+                    <xsl:sequence select="count($topic//*[contains(@class,' equation-d/equation-block ')]
+                                                    [not(ancestor::*[contains(@class,' topic/related-links ')])]
+                                                    [ahf:hasAutoEquationNumber(.) or ahf:hasNoEquationNumber(.)]
+                                                    [. &lt;&lt; $equationBlock]|$equationBlock)"/>
+                </xsl:when>
+                <xsl:when test="$pNumberEquationBlockUnconditionally and $pExcludeAutoNumberingFromEquationFigure">
+                    <xsl:sequence select="count($topic//*[contains(@class,' equation-d/equation-block ')]
+                                                    [not(ancestor::*[contains(@class,' topic/related-links ')])]
+                                                    [ahf:hasAutoEquationNumber(.) or ahf:hasNoEquationNumber(.)]
+                                                    [empty(ancestor::*[contains(@class,' equation-d/equation-figure ')])]
+                                                    [. &lt;&lt; $equationBlock]|$equationBlock)"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:sequence select="count($topic//*[contains(@class,' equation-d/equation-block ')]
+                                                    [not(ancestor::*[contains(@class,' topic/related-links ')])]
+                                                    [ahf:hasAutoEquationNumber(.)]
+                                                    [. &lt;&lt; $equationBlock]|$equationBlock)"/>
+                </xsl:otherwise>
+            </xsl:choose>
         </xsl:variable>
+        
         <xsl:variable name="equationNumber" select="$equationNumberPreviousAmount + $equationNumberCurrentAmount" as="xs:integer"/>
         
         <xsl:sequence select="concat($cEquationNumberTitle,$titlePrefix,string($equationNumber))"/>

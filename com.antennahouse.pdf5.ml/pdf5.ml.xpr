@@ -1184,7 +1184,7 @@
                                     </list>
                                 </field>
                                 <field name="jvmArgs">
-                                    <String>-Xmx256m</String>
+                                    <String>-Xmx256m -Xss64m</String>
                                 </field>
                                 <field name="useCustomJavaHome">
                                     <Boolean>true</Boolean>

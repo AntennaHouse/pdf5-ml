@@ -46,9 +46,9 @@
          Attribute：id⇒topic/@id
                count⇒Count of equation-block that equation number should be automatically generated.
          Count condition:
-            - If $pNumberEquationBlockUnconditionally is "yes", count all of the eqaution-block that does not has manually coded equation-number element.
-            - If $pExcludeAutoNumberingFromEquationFigure is "yes", exclude equation-blcok in equation-figure.
-            - If $pNumberEquationBlockUnconditionally is "yes", count only eqaution-block that does not has manually coded equation-number element.
+            - If $pNumberEquationBlockUnconditionally is "yes", count all of the equation-block that does not has manually coded equation-number element.
+            - If $pExcludeAutoNumberingFromEquationFigure is "yes", exclude equation-block in equation-figure.
+            - If $pNumberEquationBlockUnconditionally is "yes", count only equation-block that does not has manually coded equation-number element.
       -->
     <xsl:variable name="equationBlockCountMap" as="document-node()">
         <xsl:document>
@@ -79,15 +79,15 @@
     <xsl:template match="*[contains(@class, ' map/topicref ')]" mode="MODE_EQUATION_BLCOK_COUNT" as="element()">
         <xsl:variable name="topicRef" as="element()" select="."/>
         <xsl:variable name="targetTopic" as="element()?" select="ahf:getTopicFromTopicRef($topicRef)"/>
-        <xsl:variable name="equationNumberCount" as="xs:integer">
+        <xsl:variable name="equationBlockCount" as="xs:integer">
             <xsl:choose>
                 <xsl:when test="exists($targetTopic)">
-                    <xsl:variable name="topicEquationNumber" as="element()*">
+                    <xsl:variable name="topicEquationCount" as="element()*">
                         <xsl:call-template name="getTopicEquationBlock">
                             <xsl:with-param name="prmTopic" select="$targetTopic"/>
                         </xsl:call-template>
                     </xsl:variable>
-                    <xsl:sequence select="count($topicEquationNumber)"/>
+                    <xsl:sequence select="count($topicEquationCount)"/>
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:sequence select="0"/>
@@ -113,15 +113,15 @@
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:variable>
-        <xsl:element name="equation-number-count">
+        <xsl:element name="equation-block-count">
             <xsl:attribute name="id" select="$topicId"/>
-            <xsl:attribute name="count" select="$equationNumberCount"/>
+            <xsl:attribute name="count" select="$equationBlockCount"/>
             <xsl:apply-templates select="*[contains(@class, ' map/topicref ')]" mode="#current"/>
         </xsl:element>
     </xsl:template>
     
     <!-- 
-     function:	Return equation-number that is descendant of given topic.
+     function:	Return equation-block that is descendant of given topic.
      param:		prmTopic
      return:	equation-block elements
      note:		Count only automatic equation numbering equation-block.
@@ -141,10 +141,10 @@
                                                        [not(ancestor::*[contains(@class,' topic/related-links ')])]
                                                        [ahf:hasAutoEquationNumber(.) or ahf:hasNoEquationNumber(.)]"/>
                 </xsl:when>
-                <xsl:when test="$pNumberEquationBlockUnconditionally and not($pExcludeAutoNumberingFromEquationFigure)">
+                <xsl:when test="$pNumberEquationBlockUnconditionally and $pExcludeAutoNumberingFromEquationFigure">
                     <xsl:sequence select="$prmTopic//*[contains(@class,' equation-d/equation-block ')]
                                                        [not(ancestor::*[contains(@class,' topic/related-links ')])]
-                                                       [ahf:hasAutoEquationNumber(.)]
+                                                       [ahf:hasAutoEquationNumber(.) or ahf:hasNoEquationNumber(.)]
                                                        [empty(ancestor::*[contains(@class,' equation-d/equation-figure ')])]"/>
                 </xsl:when>
                 <xsl:otherwise>
@@ -167,7 +167,7 @@
         <xsl:apply-templates select="$equationBlockCountMap//*" mode="MODE_EQUATION_NUMBER_START_COUNT"/>
     </xsl:template>
     
-    <xsl:template match="equation-number-count" mode="MODE_EQUATION_NUMBER_START_COUNT" as="element()">
+    <xsl:template match="equation-block-count" mode="MODE_EQUATION_NUMBER_START_COUNT" as="element()">
         <xsl:variable name="level" as="xs:integer" select="count(ancestor-or-self::*)"/>
         <xsl:variable name="countTopElem" as="element()?" select="(ancestor-or-self::*)[position() eq $cEquationBlockGroupingLevelMax]"/>
         <xsl:variable name="prevCount" as="xs:integer">
@@ -200,11 +200,11 @@
      note:		
      -->
     <xsl:template name="outputEquationCountMap">
-        <xsl:variable name="fileName1" select="'equationNumberCountMap.xml'"/>
+        <xsl:variable name="fileName1" select="'equationBlockCountMap.xml'"/>
         <xsl:result-document href="{$fileName1}" encoding="UTF-8" indent="yes">
             <xsl:copy-of select="$equationBlockCountMap"/>
         </xsl:result-document>
-        <xsl:variable name="fileName2" select="'equationNumberingMap.xml'"/>
+        <xsl:variable name="fileName2" select="'equationBlockNumberingMap.xml'"/>
         <xsl:result-document href="{$fileName2}" encoding="UTF-8" indent="yes">
             <xsl:copy-of select="$equationBlockNumberingMap"/>
         </xsl:result-document>
@@ -216,7 +216,7 @@
      return:	xs:integer
      note:		
      -->
-    <xsl:template name="ahf:getEquationNumberPrevAmount" as="xs:integer">
+    <xsl:template name="ahf:getEquationBlockPrevAmount" as="xs:integer">
         <xsl:param name="prmTopic" as="element()" required="yes"/>
         
         <xsl:variable name="idAttr" as="attribute()*">

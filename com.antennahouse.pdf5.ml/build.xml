@@ -158,6 +158,12 @@
     <condition property="exclude.cover.from.counting.page" value="yes">
         <equals arg1="${use.saxon.transform}" arg2="yes"/> 
     </condition>
+    <condition property="number.equation.block.unconditionally" value="no">
+        <equals arg1="${use.saxon.transform}" arg2="yes"/> 
+    </condition>
+    <condition property="exclude.auto.numbering.from.equation.figure" value="yes">
+        <equals arg1="${use.saxon.transform}" arg2="yes"/> 
+    </condition>
     
     <!-- Make absolute path for temporary directory -->
     <available property="build.temp.dir" value="${dita.temp.dir}" file="${dita.temp.dir}" type="dir"/>

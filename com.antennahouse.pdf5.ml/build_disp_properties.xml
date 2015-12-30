@@ -34,6 +34,8 @@
     <echo message="output.crop.region=${output.crop.region}"/>
     <echo message="output.type=${output.type}"/>
     <echo message="exclude.cover.from.counting.page=${exclude.cover.from.counting.page}"/>
+    <echo message="number.equation.block.unconditionally=${number.equation.block.unconditionally}"/>
+    <echo message="exclude.auto.numbering.from.equation.figure=${exclude.auto.numbering.from.equation.figure}"/>
     
     <echo message="ahf.dir=${ahf.dir}"/>
     <echo message="ahf.opt=${ahf.opt}"/>
