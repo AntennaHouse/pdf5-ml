@@ -260,4 +260,16 @@ E-mail : info@antennahouse.com
     <xsl:variable name="pExcludeCoverFromCountingPage" as="xs:boolean" select="$PRM_EXCLUDE_COVER_FROM_COUNTING_PAGE eq $cYes"/>
     <xsl:variable name="pIncludeCoverIntoPageCounting" as="xs:boolean" select="not($pExcludeCoverFromCountingPage)"/>
     
+    <!-- Number <equation-block> unconditionally
+         <equation-number> with effective number will be honored
+     -->
+    <xsl:param name="PRM_NUMBER_EQUATION_BLOCK_UNCONDITIONALLY" as="xs:string" required="no" select="$cNo"/>
+    <xsl:variable name="pNumberEquationBlockUnconditionally" as="xs:boolean" select="$PRM_NUMBER_EQUATION_BLOCK_UNCONDITIONALLY eq $cYes"/>
+    
+    <!-- Exclude <equation-block> in <equation-figure> in unconditionally numbering mode
+     -->
+    <xsl:param name="PRM_EXCLUDE_AUTO_NUMBERING_FROM_EQUATION_FIGURE" as="xs:string" required="no" select="$cYes"/>
+    <xsl:variable name="pExcludeAutoNumberingFromEquationFigure" as="xs:boolean" select="$PRM_EXCLUDE_AUTO_NUMBERING_FROM_EQUATION_FIGURE eq $cYes"/>
+    
+    
 </xsl:stylesheet>

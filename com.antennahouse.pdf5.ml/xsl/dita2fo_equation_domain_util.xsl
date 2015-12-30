@@ -25,13 +25,13 @@
       -->
 
     <!-- 
-        function:	return equation-block has automatic equation number
+        function:	return equation-number has automatic equation numbering
         param:	    equation-number
         return:	    xs:boolean
         note:		Check children is empty or white-space only content
     -->
-    <xsl:function name="ahf:hasAutoEquationNumber" as="xs:boolean">
-        <xsl:param name="prmEquationNumber" as="element()"/>
+    <xsl:function name="ahf:isAutoEquationNumber" as="xs:boolean">
+        <xsl:param name="prmEquationNumber" as="element()?"/>
         <xsl:choose>
             <xsl:when test="$prmEquationNumber[contains(@class,' equation-d/equation-number ')]">
                 <xsl:choose>
@@ -55,4 +55,40 @@
         </xsl:choose>
     </xsl:function>
 
+
+    <xsl:function name="ahf:isManualEquationNumber" as="xs:boolean">
+        <xsl:param name="prmEquationNumber" as="element()?"/>
+        <xsl:sequence select="not(ahf:isAutoEquationNumber($prmEquationNumber))"/>
+    </xsl:function>
+
+    <!-- 
+        function:	return equation-block has automatic equation numbering equation-number
+        param:	    equation-number
+        return:	    xs:boolean
+        note:		Check children is empty or white-space only content
+    -->
+    <xsl:function name="ahf:hasAutoEquationNumber" as="xs:boolean">
+        <xsl:param name="prmEquationBlock" as="element()?"/>
+        <xsl:variable name="equationNumber" as="element()?" select="($prmEquationBlock/*[contains(@class,' equation-d/equation-number ')])[1]"/>
+        <xsl:sequence select="ahf:isAutoEquationNumber($equationNumber)"/>
+    </xsl:function>    
+
+    <xsl:function name="ahf:hasManualEquationNumber" as="xs:boolean">
+        <xsl:param name="prmEquationBlock" as="element()?"/>
+        <xsl:variable name="equationNumber" as="element()?" select="($prmEquationBlock/*[contains(@class,' equation-d/equation-number ')])[1]"/>
+        <xsl:sequence select="ahf:isManualEquationNumber($equationNumber)"/>
+    </xsl:function>    
+    
+    <!-- 
+        function:	return equation-block has no equation-number element
+        param:	    equation-block
+        return:	    xs:boolean
+        note:		
+    -->
+    <xsl:function name="ahf:hasNoEquationNumber" as="xs:boolean">
+        <xsl:param name="prmEquationBlock" as="element()?"/>
+        <xsl:variable name="equationNumber" as="element()?" select="($prmEquationBlock/*[contains(@class,' equation-d/equation-number ')])[1]"/>
+        <xsl:sequence select="empty($equationNumber)"/>
+    </xsl:function>    
+    
 </xsl:stylesheet>
