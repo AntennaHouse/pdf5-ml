@@ -80,11 +80,17 @@
     </xsl:function>    
     
     <!-- 
-        function:	return equation-block has no equation-number element
+        function:	return equation-block has equation-number element
         param:	    equation-block
         return:	    xs:boolean
         note:		
     -->
+    <xsl:function name="ahf:hasEquationNumber" as="xs:boolean">
+        <xsl:param name="prmEquationBlock" as="element()?"/>
+        <xsl:variable name="equationNumber" as="element()?" select="($prmEquationBlock/*[contains(@class,' equation-d/equation-number ')])[1]"/>
+        <xsl:sequence select="exists($equationNumber)"/>
+    </xsl:function>    
+
     <xsl:function name="ahf:hasNoEquationNumber" as="xs:boolean">
         <xsl:param name="prmEquationBlock" as="element()?"/>
         <xsl:variable name="equationNumber" as="element()?" select="($prmEquationBlock/*[contains(@class,' equation-d/equation-number ')])[1]"/>

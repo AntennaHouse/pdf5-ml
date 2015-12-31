@@ -44,16 +44,17 @@
     <xsl:template match="*[contains(@class, ' equation-d/equation-block ')]" as="element()">
         <xsl:variable name="equationBlock" as="element()" select="."/>
         <xsl:variable name="candidateEquationNumber" as="element()?" select="$equationBlock/*[contains(@class,' equation-d/equation-number ')][1]"/>
-        <xsl:variable name="isManualEquationNumber" as="xs:boolean" select="ahf:isManualEquationNumber($candidateEquationNumber)"/>
-        <xsl:variable name="isAutoEquationNumber" as="xs:boolean" select="not($isManualEquationNumber)"/>
+        <!--xsl:variable name="hasManualEquationNumber" as="xs:boolean" select="ahf:isManualEquationNumber($candidateEquationNumber)"/>
+        <xsl:variable name="hasAutoEquationNumber" as="xs:boolean" select="not($hasManualEquationNumber)"/-->
+        <xsl:variable name="hasNoEquationNumber" as="xs:boolean" select="ahf:hasNoEquationNumber($equationBlock)"/>
         <xsl:variable name="candidateEquationBody" as="element()?" select="ahf:getCandidateEquationBody($equationBlock)"/>
         <xsl:variable name="isInEquationFigure" as="xs:boolean" select="exists(ancestor::*[contains(@class,' equation-d/equation-figure ')])"/>
         <xsl:variable name="outputEquationAndNumber" as="xs:boolean">
             <xsl:choose>
                 <xsl:when test="$pNumberEquationBlockUnconditionally">
                     <xsl:choose>
-                        <xsl:when test="$isInEquationFigure and $isAutoEquationNumber">
-                            <xsl:sequence select="$pExcludeAutoNumberingFromEquationFigure"/>
+                        <xsl:when test="$isInEquationFigure and $hasNoEquationNumber">
+                            <xsl:sequence select="not($pExcludeAutoNumberingFromEquationFigure)"/>
                         </xsl:when>
                         <xsl:otherwise>
                             <xsl:sequence select="true()"/>
@@ -250,11 +251,19 @@
                                                     [. &lt;&lt; $equationBlock]|$equationBlock)"/>
                 </xsl:when>
                 <xsl:when test="$pNumberEquationBlockUnconditionally and $pExcludeAutoNumberingFromEquationFigure">
-                    <xsl:sequence select="count($topic//*[contains(@class,' equation-d/equation-block ')]
-                                                    [not(ancestor::*[contains(@class,' topic/related-links ')])]
-                                                    [ahf:hasAutoEquationNumber(.) or ahf:hasNoEquationNumber(.)]
-                                                    [empty(ancestor::*[contains(@class,' equation-d/equation-figure ')])]
-                                                    [. &lt;&lt; $equationBlock]|$equationBlock)"/>
+                    <xsl:variable name="equationBlockCountOutsideEquationFigure" as="xs:integer" 
+                        select="count($topic//*[contains(@class,' equation-d/equation-block ')]
+                                                [not(ancestor::*[contains(@class,' topic/related-links ')])]
+                                                [ahf:hasNoEquationNumber(.) or ahf:hasAutoEquationNumber(.) ]
+                                                [empty(ancestor::*[contains(@class,' equation-d/equation-figure ')])]
+                                                [. &lt;&lt; $equationBlock])"/>
+                    <xsl:variable name="equationBlockCountInsideEquationFigure" as="xs:integer"
+                        select="count($topic//*[contains(@class,' equation-d/equation-block ')]
+                                                [not(ancestor::*[contains(@class,' topic/related-links ')])]
+                                                [ahf:hasEquationNumber(.) and ahf:hasAutoEquationNumber(.) ]
+                                                [exists(ancestor::*[contains(@class,' equation-d/equation-figure ')])]
+                                                [. &lt;&lt; $equationBlock])"/>
+                    <xsl:sequence select="$equationBlockCountOutsideEquationFigure + $equationBlockCountInsideEquationFigure + 1"/>
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:sequence select="count($topic//*[contains(@class,' equation-d/equation-block ')]
