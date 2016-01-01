@@ -31,11 +31,12 @@
         function:	equation-block implementation
         param:	    
         return:	    fo:block
-        note:		generate *SINGLE* fo:block selecting appropriate equation in the child.
-                    <equation-block> can have multiple equations separated <equation-number>.
-                    In this case all of the content of equation-number should be the same
-                    because <equation-block> expresses only *SINGLE* equation.
-                    This template adopts equation-block/equation-number[1] as equation number.
+        note:		Generate single fo:block selecting appropriate equation in the child.
+                    <equation-block> can have multiple equations as the each direct child elements.
+                    ahf:getCandidateEquationBody will select most appropriate one from child elements.
+                    Also <equation-block> can have multiple <equation-number>. But DITA 1.3 spec says that
+                    they are used for conditional processing. 
+                    So this template adopts equation-block/equation-number[1] as equation number.
     -->
     <xsl:template match="*[contains(@class, ' equation-d/equation-block ')]" mode="MODE_GET_STYLE" as="xs:string*">
         <xsl:sequence select="'atsEquationBlock'"/>
