@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+************************************************************
+DITA to XSL-FO Style Definition 
+************************************************************
+File Name : fa_style.xml
+************************************************************
+Copyright © 2009 2015 Antenna House, Inc.
+Antenna House is a trademark of Antenna House, Inc.
+URL : http://www.antennahouse.com/
+************************************************************
+-->
+<style-definition xmlns:axf="http://www.antennahouse.com/names/XSL/Extensions"
+ xmlns="http://www.antennahouse.com/names/XSLT/Document/Layout">
+
+ <variables>
+  <!-- Fonts -->
+  <variable name="General_Serif_Font">Arabic Typesetting,Times New Roman</variable>
+  <variable name="General_Sans_Serif_Font">Arabic Typesetting,Arial</variable>
+  <variable name="General_Monospace_Font">Courier New,Arabic Typesetting</variable>
+  <variable name="General_Text_Font">$General_Serif_Font</variable>
+  <variable name="General_Title_Font">$General_Sans_Serif_Font</variable>
+  <variable name="General_Region_Before_Font">$General_Serif_Font</variable>
+  <variable name="General_Region_After_Font">$General_Serif_Font</variable>
+
+ </variables>
+
+</style-definition>
