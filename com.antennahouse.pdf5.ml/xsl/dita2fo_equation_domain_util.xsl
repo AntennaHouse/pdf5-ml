@@ -35,6 +35,9 @@
         <xsl:choose>
             <xsl:when test="$prmEquationNumber[contains(@class,' equation-d/equation-number ')]">
                 <xsl:choose>
+                    <xsl:when test="$pAssumeEquationNumberAsAuto">
+                        <xsl:sequence select="true()"/>
+                    </xsl:when>
                     <xsl:when test="exists($prmEquationNumber/*)">
                         <xsl:sequence select="false()"/>
                     </xsl:when>

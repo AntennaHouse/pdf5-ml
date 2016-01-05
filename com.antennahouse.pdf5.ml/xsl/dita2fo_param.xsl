@@ -270,6 +270,13 @@ E-mail : info@antennahouse.com
      -->
     <xsl:param name="PRM_EXCLUDE_AUTO_NUMBERING_FROM_EQUATION_FIGURE" as="xs:string" required="no" select="$cYes"/>
     <xsl:variable name="pExcludeAutoNumberingFromEquationFigure" as="xs:boolean" select="$PRM_EXCLUDE_AUTO_NUMBERING_FROM_EQUATION_FIGURE eq $cYes"/>
+
+    <!-- Assume all <equation-number> as auto
+         This parameter ignores manual numbering of <equation-number>
+         This function is not in OASIS standard. But useful for making books. 
+     -->
+    <xsl:param name="PRM_ASSUME_EQUATION_NUMBER_AS_AUTO" as="xs:string" required="no" select="$cNo"/>
+    <xsl:variable name="pAssumeEquationNumberAsAuto" as="xs:boolean" select="$PRM_ASSUME_EQUATION_NUMBER_AS_AUTO eq $cYes"/>
     
     
 </xsl:stylesheet>

@@ -28,6 +28,41 @@
     <xsl:variable name="cEquationNumberTitle" select="ahf:getVarValue('Equation_Number_Title')" as="xs:string"/>
 
     <!-- 
+        function:	equation-figure implementation
+        param:	    
+        return:	    
+        note:		From the DITA 1.3 spec:
+                    "When an <equation-figure> element has multiple direct child <mathml>, <image>, or <pre> elements, each child represents an alternative form of the equation.
+                     Processors are free to choose the form or forms that they use in deliverables.When an <equation-figure> element has multiple direct child <mathml>, <image>, 
+                     or <pre> elements, each child represents an alternative form of the equation. Processors are free to choose the form or forms that they use in deliverables.
+                     For example, if there is both an image and MathML markup, an HTML-generating processor could output both the image reference and the MathML with appropriate
+                     HTML @class or @id values to enable dynamic showing or hiding of one form or the other based on browser capability. All other direct-child elements of
+                     <equation-figure> are treated normally.
+                     For example, if there is both an image and MathML markup, an HTML-generating processor could output both the image reference and the MathML with appropriate
+                     HTML @class or @id values to enable dynamic showing or hiding of one form or the other based on browser capability. All other direct-child elements of
+                     <equation-figure> are treated normally."
+                     
+                     This is hard to implement in PDF plug-in. If an author want to write the equation-figure in above purpose, the contents should be identified by @delivaryTarget
+                     conditional attribute such like @deliveryTarget="html".
+                     
+                     As a result the PDF plug-in does not do anything about above. Only calls next priority template (fig templet) by xsl:next-match.
+    -->
+    <xsl:template match="*[contains(@class, ' equation-d/equation-figure ')]" priority="2">
+        <xsl:next-match/>
+    </xsl:template>
+    
+    <!-- 
+        function:	equation-inline implementation
+        param:	    
+        return:	    
+        note:		equation-inline is the specialization of ph element. 
+                    The PDF plug-in only calls ph template by xsl:next-match.
+    -->
+    <xsl:template match="*[contains(@class, ' equation-d/equation-inline ')]" priority="2">
+        <xsl:next-match/>
+    </xsl:template>
+    
+    <!-- 
         function:	equation-block implementation
         param:	    
         return:	    fo:block
@@ -38,15 +73,13 @@
                     they are used for conditional processing. 
                     So this template adopts equation-block/equation-number[1] as equation number.
     -->
-    <xsl:template match="*[contains(@class, ' equation-d/equation-block ')]" mode="MODE_GET_STYLE" as="xs:string*">
+    <xsl:template match="*[contains(@class, ' equation-d/equation-block ')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
         <xsl:sequence select="'atsEquationBlock'"/>
     </xsl:template>
     
-    <xsl:template match="*[contains(@class, ' equation-d/equation-block ')]" as="element()">
+    <xsl:template match="*[contains(@class, ' equation-d/equation-block ')]" priority="2">
         <xsl:variable name="equationBlock" as="element()" select="."/>
         <xsl:variable name="candidateEquationNumber" as="element()?" select="$equationBlock/*[contains(@class,' equation-d/equation-number ')][1]"/>
-        <!--xsl:variable name="hasManualEquationNumber" as="xs:boolean" select="ahf:isManualEquationNumber($candidateEquationNumber)"/>
-        <xsl:variable name="hasAutoEquationNumber" as="xs:boolean" select="not($hasManualEquationNumber)"/-->
         <xsl:variable name="hasNoEquationNumber" as="xs:boolean" select="ahf:hasNoEquationNumber($equationBlock)"/>
         <xsl:variable name="candidateEquationBody" as="element()?" select="ahf:getCandidateEquationBody($equationBlock)"/>
         <xsl:variable name="isInEquationFigure" as="xs:boolean" select="exists(ancestor::*[contains(@class,' equation-d/equation-figure ')])"/>
