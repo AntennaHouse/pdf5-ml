@@ -156,16 +156,16 @@
         <xsl:variable name="prmEquation" as="element()*" select="$prmEquationBlock/*"/>
         <xsl:choose>
             <xsl:when test="$prmEquation[contains(@class,' mathml-d/mathml ')]">
-                <xsl:sequence select="$prmEquation[contains(@class,' mathml-d/mathml ')][1]"/>
+                <xsl:sequence select="($prmEquation[contains(@class,' mathml-d/mathml ')])[1]"/>
             </xsl:when>
             <xsl:when test="$prmEquation[contains(@class,' topic/image ')][ends-with(string(@src),'.mml') or ends-with(string(@src),'.xml')]">
-                <xsl:sequence select="$prmEquation[contains(@class,' topic/image ')][ends-with(string(@src),'.mml') or ends-with(string(@src),'.xml')][1]"/>
+                <xsl:sequence select="($prmEquation[contains(@class,' topic/image ')][ends-with(string(@src),'.mml') or ends-with(string(@src),'.xml')])[1]"/>
             </xsl:when>
             <xsl:when test="$prmEquation[contains(@class,' svg-d/svg-container ')]">
-                <xsl:sequence select="$prmEquation[contains(@class,' svg-d/svg-container ')][1]"/>
+                <xsl:sequence select="($prmEquation[contains(@class,' svg-d/svg-container ')])[1]"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:sequence select="$prmEquation[1]"/>
+                <xsl:sequence select="($prmEquation[not(contains(@class, ' equation-d/equation-number '))])[1]"/>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:function>

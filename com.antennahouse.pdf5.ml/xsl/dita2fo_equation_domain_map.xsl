@@ -167,7 +167,7 @@
      note:		
      -->
     <xsl:template name="makeEquationBlockStartCount" as="element()*">
-        <xsl:apply-templates select="$equationBlockCountMap//*" mode="MODE_EQUATION_NUMBER_START_COUNT"/>
+        <xsl:apply-templates select="$equationBlockCountMap/*" mode="MODE_EQUATION_NUMBER_START_COUNT"/>
     </xsl:template>
     
     <xsl:template match="equation-block-count" mode="MODE_EQUATION_NUMBER_START_COUNT" as="element()">
@@ -185,14 +185,15 @@
                 </xsl:when>
                 <xsl:otherwise>
                     <!-- Count equation number with grouping topicref considering $cEquationNumberGroupingLevelMax -->
-                    <xsl:variable name="countTragetElem" as="element()*" select="preceding::* except $countTopElem/preceding::*"/>
-                    <xsl:sequence select="sum($countTragetElem/@count)"/>
+                    <xsl:variable name="countTragetElem" as="element()*" select="$equationBlockCountMap//*[. &lt;&lt; current()] except $equationBlockCountMap//*[. &lt;&lt; $countTopElem]"/>
+                    <xsl:sequence select="xs:integer(sum($countTragetElem/@count))"/>
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:variable>
         <xsl:copy>
             <xsl:copy-of select="@*"/>
             <xsl:attribute name="prev-count" select="string($prevCount)"/>
+            <xsl:apply-templates select="*" mode="#current"/>
         </xsl:copy>
     </xsl:template>
     
