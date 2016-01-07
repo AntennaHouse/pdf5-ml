@@ -185,7 +185,7 @@
                 </xsl:when>
                 <xsl:otherwise>
                     <!-- Count equation number with grouping topicref considering $cEquationNumberGroupingLevelMax -->
-                    <xsl:variable name="countTragetElem" as="element()*" select="$equationBlockCountMap//*[. &lt;&lt; current()] except $equationBlockCountMap//*[. &lt;&lt; $countTopElem]"/>
+                    <xsl:variable name="countTragetElem" as="element()*" select="root(current())//*[. &lt;&lt; current()] except root(current())//*[. &lt;&lt; $countTopElem]"/>
                     <xsl:sequence select="xs:integer(sum($countTragetElem/@count))"/>
                 </xsl:otherwise>
             </xsl:choose>
