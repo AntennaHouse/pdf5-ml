@@ -45,7 +45,7 @@
                      This is hard to implement in PDF plug-in. If an author want to write the equation-figure in above purpose, the contents should be identified by @delivaryTarget
                      conditional attribute such like @deliveryTarget="html".
                      
-                     As a result the PDF plug-in does not do anything about above. Only calls next priority template (fig templet) by xsl:next-match.
+                     As a result the PDF plug-in does not do anything about above. Only calls next priority template (fig template) by xsl:next-match.
     -->
     <xsl:template match="*[contains(@class, ' equation-d/equation-figure ')]" priority="2">
         <xsl:next-match/>
@@ -186,7 +186,7 @@
             <xsl:call-template name="ahf:getUnivAtts"/>
             <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
             <xsl:call-template name="getVarValueWithLangAsText">
-                <xsl:with-param name="prmVarName" select="'Equatuion_Number_Prefix'"/>
+                <xsl:with-param name="prmVarName" select="'Equation_Number_Prefix'"/>
             </xsl:call-template>
             <xsl:choose>
                 <xsl:when test="ahf:isAutoEquationNumber(.)">
@@ -199,7 +199,7 @@
                 </xsl:otherwise>
             </xsl:choose>
             <xsl:call-template name="getVarValueWithLangAsText">
-                <xsl:with-param name="prmVarName" select="'Equatuion_Number_Suffix'"/>
+                <xsl:with-param name="prmVarName" select="'Equation_Number_Suffix'"/>
             </xsl:call-template>
         </fo:inline>
     </xsl:template>
@@ -218,14 +218,14 @@
                 <xsl:with-param name="prmElem" select="$prmEquationBlock"/>
             </xsl:call-template>
             <xsl:call-template name="getVarValueWithLangAsText">
-                <xsl:with-param name="prmVarName" select="'Equatuion_Number_Prefix'"/>
+                <xsl:with-param name="prmVarName" select="'Equation_Number_Prefix'"/>
                 <xsl:with-param name="prmElem" select="$prmEquationBlock"/>
             </xsl:call-template>
             <xsl:call-template name="ahf:getAutoEquationNumber">
                 <xsl:with-param name="prmEquationNumber" select="."/>
             </xsl:call-template>
             <xsl:call-template name="getVarValueWithLangAsText">
-                <xsl:with-param name="prmVarName" select="'Equatuion_Number_Suffix'"/>
+                <xsl:with-param name="prmVarName" select="'Equation_Number_Suffix'"/>
                 <xsl:with-param name="prmElem" select="$prmEquationBlock"/>
             </xsl:call-template>
         </fo:inline>

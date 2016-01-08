@@ -177,7 +177,7 @@
             <xsl:choose>
                 <xsl:when test="$cEquationBlockGroupingLevelMax eq 0">
                     <!-- Equation number is not grouped. -->
-                    <xsl:sequence select="sum(preceding::*/@count)"/>
+                    <xsl:sequence select="xs:integer(sum(root(current())//*[. &lt;&lt; current()]/@count))"/>
                 </xsl:when>
                 <xsl:when test="$level le $cEquationBlockGroupingLevelMax">
                     <!-- Equation number always starts from 1. -->

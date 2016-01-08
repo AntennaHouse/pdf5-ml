@@ -332,26 +332,26 @@ E-mail : info@antennahouse.com
                                 </xsl:call-template>
                             </xsl:variable>
                             <xsl:call-template name="getVarValueWithLangAsText">
-                                <xsl:with-param name="prmVarName" select="'Equatuion_Number_Ref_Prefix'"/>
+                                <xsl:with-param name="prmVarName" select="'Equation_Number_Ref_Prefix'"/>
                                 <xsl:with-param name="prmElem" select="$prmDestElement"/>
                             </xsl:call-template>
                             <xsl:call-template name="getVarValueWithLangAsText">
-                                <xsl:with-param name="prmVarName" select="'Equatuion_Number_Prefix'"/>
+                                <xsl:with-param name="prmVarName" select="'Equation_Number_Prefix'"/>
                                 <xsl:with-param name="prmElem" select="$prmDestElement"/>
                             </xsl:call-template>
                             <xsl:value-of select="$autoEquationNumber"/>
                             <xsl:call-template name="getVarValueWithLangAsText">
-                                <xsl:with-param name="prmVarName" select="'Equatuion_Number_Suffix'"/>
+                                <xsl:with-param name="prmVarName" select="'Equation_Number_Suffix'"/>
                                 <xsl:with-param name="prmElem" select="$prmDestElement"/>
                             </xsl:call-template>
                         </xsl:when>
                         <xsl:when test="$prmDestElement/*[contains(@class, ' equation-d/equation-number ')]">
                             <xsl:call-template name="getVarValueWithLangAsText">
-                                <xsl:with-param name="prmVarName" select="'Equatuion_Number_Ref_Prefix'"/>
+                                <xsl:with-param name="prmVarName" select="'Equation_Number_Ref_Prefix'"/>
                                 <xsl:with-param name="prmElem" select="$equationNumber"/>
                             </xsl:call-template>
                             <xsl:call-template name="getVarValueWithLangAsText">
-                                <xsl:with-param name="prmVarName" select="'Equatuion_Number_Prefix'"/>
+                                <xsl:with-param name="prmVarName" select="'Equation_Number_Prefix'"/>
                                 <xsl:with-param name="prmElem" select="$equationNumber"/>
                             </xsl:call-template>
                             <xsl:choose>
@@ -369,7 +369,7 @@ E-mail : info@antennahouse.com
                                 </xsl:otherwise>
                             </xsl:choose>
                             <xsl:call-template name="getVarValueWithLangAsText">
-                                <xsl:with-param name="prmVarName" select="'Equatuion_Number_Suffix'"/>
+                                <xsl:with-param name="prmVarName" select="'Equation_Number_Suffix'"/>
                                 <xsl:with-param name="prmElem" select="$equationNumber"/>
                             </xsl:call-template>
                         </xsl:when>

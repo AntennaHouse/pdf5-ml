@@ -18,9 +18,9 @@
     <variables>
         <variable name="Equation_Block_Grouping_Level_Max">2</variable>
         <variable name="Equation_Number_Title"></variable>
-        <variable name="Equatuion_Number_Ref_Prefix">Eq. </variable>
-        <variable name="Equatuion_Number_Prefix">(</variable>
-        <variable name="Equatuion_Number_Suffix">)</variable>
+        <variable name="Equation_Number_Ref_Prefix">Eq. </variable>
+        <variable name="Equation_Number_Prefix">(</variable>
+        <variable name="Equation_Number_Suffix">)</variable>
     </variables>
     
     <attribute-sets>
