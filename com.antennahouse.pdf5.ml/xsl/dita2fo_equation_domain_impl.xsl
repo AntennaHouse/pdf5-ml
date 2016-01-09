@@ -81,7 +81,7 @@
         <xsl:variable name="equationBlock" as="element()" select="."/>
         <xsl:variable name="candidateEquationNumber" as="element()?" select="$equationBlock/*[contains(@class,' equation-d/equation-number ')][1]"/>
         <xsl:variable name="hasNoEquationNumber" as="xs:boolean" select="ahf:hasNoEquationNumber($equationBlock)"/>
-        <xsl:variable name="candidateEquationBody" as="element()?" select="ahf:getCandidateEquationBody($equationBlock)"/>
+        <xsl:variable name="candidateEquationBody" as="node()*" select="ahf:getCandidateEquationBody($equationBlock) | $equationBlock/text()"/>
         <xsl:variable name="isInEquationFigure" as="xs:boolean" select="exists(ancestor::*[contains(@class,' equation-d/equation-figure ')])"/>
         <xsl:variable name="outputEquationAndNumber" as="xs:boolean">
             <xsl:choose>
