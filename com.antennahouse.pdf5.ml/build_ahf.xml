@@ -10,7 +10,7 @@
 <project name="build.ahf">
     
     <!-- Traget of XSL-FO⇒PDF -->
-    <target name="transform.fo2pdf">
+    <target name="transform.fo2pdf" unless="${skip.pdf.generation}">
 
         <!-- AH Formatter Option file -->
         <condition property="ahf.opt" value="${env.AHF_OPT}">

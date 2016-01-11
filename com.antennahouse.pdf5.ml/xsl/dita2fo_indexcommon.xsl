@@ -546,7 +546,7 @@ E-mail : info@antennahouse.com
     
     <xsl:template match="*" mode="MODE_INDEX_DEBUG">
         <xsl:copy>
-            <xsl:copy-of select="@* except @xtrf"/>
+            <xsl:copy-of select="@* except (@xtrf|@id)"/>
             <xsl:apply-templates mode="#current"/>
         </xsl:copy>
     </xsl:template>
