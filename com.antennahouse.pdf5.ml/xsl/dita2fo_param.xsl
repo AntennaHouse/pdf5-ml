@@ -278,5 +278,17 @@ E-mail : info@antennahouse.com
     <xsl:param name="PRM_ASSUME_EQUATION_NUMBER_AS_AUTO" as="xs:string" required="no" select="$cNo"/>
     <xsl:variable name="pAssumeEquationNumberAsAuto" as="xs:boolean" select="$PRM_ASSUME_EQUATION_NUMBER_AS_AUTO eq $cYes"/>
     
+    <!-- Output directory URL
+         2016-01-11 t.makita
+     -->
+    <xsl:param name="PRM_OUTPUT_DIR_URL" required="yes" as="xs:string"/>
+    <xsl:variable name="pOutputDirUrl" as="xs:string" select="$PRM_OUTPUT_DIR_URL"/>
+
+    <!-- DITA input file name (wo directory & extension)
+         2016-01-11 t.makita
+     -->
+    <xsl:param name="PRM_INPUT_MAP_NAME" required="yes" as="xs:string"/>
+    <xsl:variable name="pInputMapName" as="xs:string" select="$PRM_INPUT_MAP_NAME"/>
     
+
 </xsl:stylesheet>

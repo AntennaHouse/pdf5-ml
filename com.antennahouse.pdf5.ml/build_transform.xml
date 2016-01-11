@@ -159,6 +159,9 @@
             <param name="PRM_USE_I18N_INDEX_LIB" expression="${use.i18n.index.lib}"
                 if="use.i18n.index.lib"/>
             <param name="PRM_MAP_DIR_URL" expression="${user.input.dir.url}" if="user.input.dir.url"/>
+            <param name="PRM_OUTPUT_DIR_URL" expression="${output.dir.url}" if="output.dir.url"/>
+            <param name="PRM_INPUT_MAP_NAME" expression="${dita.map.filename.root}" if="dita.map.filename.root"/>
+            <param name="PRM_DEBUG_INDEX_SORT_RESULT" expression="${debug.index.sort.result}" if="debug.index.sort.result"/>
             <param name="PRM_OT_VERSION" expression="${otversion}" if="otversion"/>
             <sysproperty key="com.innodata.i18n.home" value="${i18n.home}"/>
             <sysproperty key="use.i18n.index.lib" value="${use.i18n.index.lib}"/>
@@ -212,6 +215,9 @@
             <arg line="'PRM_ASSUME_EQUATION_NUMBER_AS_AUTO=${assume.equation.number.as.auto}'"/>
             <arg line='"PRM_USE_I18N_INDEX_LIB=${use.i18n.index.lib}"'/>
             <arg line='"PRM_MAP_DIR_URL=${user.input.dir.url}"'/>
+            <arg line='"PRM_OUTPUT_DIR_URL=${output.dir.url}"'/>
+            <arg line='"PRM_INPUT_MAP_NAME=${dita.map.filename.root}"'/>
+            <arg line='"PRM_DEBUG_INDEX_SORT_RESULT=${debug.index.sort.result}"'/>
             <arg line='"PRM_OT_VERSION=${otversion}"'/>
             <sysproperty key="com.innodata.i18n.home" value="${i18n.home}"/>
             <sysproperty key="use.i18n.index.lib" value="${use.i18n.index.lib}"/>

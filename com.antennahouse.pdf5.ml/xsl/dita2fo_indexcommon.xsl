@@ -38,8 +38,9 @@ E-mail : info@antennahouse.com
     <xsl:variable name="cIndexPageCitationRangeSeparator" select="ahf:getVarValue('Index_Page_Citation_Range_Separator')" as="xs:string"/>
 
     <!-- DEBUG Parameter: hidden -->
-    <xsl:param name="PRM_DEBUG_INDEX_SORT_RESULT" select="$cNo"/>
-    
+    <xsl:param name="PRM_DEBUG_INDEX_SORT_RESULT" required="no" as="xs:string" select="$cNo"/>
+    <xsl:variable name="pDebugIndexSortResult" as="xs:boolean" select="$PRM_DEBUG_INDEX_SORT_RESULT eq $cYes"/>
+
     <!-- indexkey for @significance="preferred" (DocBook Only) -->
     <xsl:variable name="KEY_PREFERRED" select="'__KEY_PREFERRED'" as="xs:string"/>
     
@@ -481,18 +482,18 @@ E-mail : info@antennahouse.com
             </xsl:call-template>
     	</xsl:if>
     
-        <xsl:if test="$PRM_DEBUG_INDEX_SORT_RESULT=$cYes">
+        <xsl:if test="$pDebugIndexSortResult">
             <xsl:call-template name="warningContinue">
                 <xsl:with-param name="prmMes" select="$stMes601"/>
             </xsl:call-template>
-            <xsl:result-document href="indexInput.xml" encoding="UTF-8" byte-order-mark="no" indent="yes">
+            <!--xsl:result-document href="{concat($pOutputDirUrl,$pInputMapName,'_index_input.xml')}" encoding="UTF-8" byte-order-mark="no" indent="yes">
                 <index-input>
                     <xsl:copy-of select="$indextermOrigin"/>
                 </index-input>
-            </xsl:result-document>
-            <xsl:result-document href="indexOutput.xml" encoding="UTF-8" byte-order-mark="no" indent="yes">
+            </xsl:result-document-->
+            <xsl:result-document href="{concat($pOutputDirUrl,$pInputMapName,'_index_out.xml')}" encoding="UTF-8" byte-order-mark="no" indent="yes">
                 <index-output>
-                    <xsl:copy-of select="$indextermSorted"/>
+                    <xsl:apply-templates select="$indextermSorted/*" mode="MODE_INDEX_DEBUG"/>
                 </index-output>
             </xsl:result-document>
             <xsl:call-template name="warningContinue">
@@ -543,6 +544,13 @@ E-mail : info@antennahouse.com
         </xsl:if>
     </xsl:template>
     
+    <xsl:template match="*" mode="MODE_INDEX_DEBUG">
+        <xsl:copy>
+            <xsl:copy-of select="@* except @xtrf"/>
+            <xsl:apply-templates mode="#current"/>
+        </xsl:copy>
+    </xsl:template>
+    
     <!-- 
          Function: Make index page sequence for simple map
          Param:    none.
@@ -559,18 +567,18 @@ E-mail : info@antennahouse.com
             </xsl:call-template>
         </xsl:if>
         
-        <xsl:if test="$PRM_DEBUG_INDEX_SORT_RESULT=$cYes">
+        <xsl:if test="$pDebugIndexSortResult">
             <xsl:call-template name="warningContinue">
                 <xsl:with-param name="prmMes" select="$stMes601"/>
             </xsl:call-template>
-            <xsl:result-document href="indexInput.xml" encoding="UTF-8" byte-order-mark="no" indent="yes">
+            <!--xsl:result-document href="{concat($pOutputDirUrl,$pInputMapName,'_index_input.xml')}" encoding="UTF-8" byte-order-mark="no" indent="yes">
                 <index-input>
                     <xsl:copy-of select="$indextermOrigin"/>
                 </index-input>
-            </xsl:result-document>
-            <xsl:result-document href="indexOutput.xml" encoding="UTF-8" byte-order-mark="no" indent="yes">
+            </xsl:result-document-->
+            <xsl:result-document href="{concat($pOutputDirUrl,$pInputMapName,'_index_out.xml')}" encoding="UTF-8" byte-order-mark="no" indent="yes">
                 <index-output>
-                    <xsl:copy-of select="$indextermSorted"/>
+                    <xsl:apply-templates select="$indextermSorted//*" mode="MODE_INDEX_DEBUG"/>
                 </index-output>
             </xsl:result-document>
             <xsl:call-template name="warningContinue">

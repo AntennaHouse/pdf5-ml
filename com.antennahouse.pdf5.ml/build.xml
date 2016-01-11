@@ -165,6 +165,10 @@
         <equals arg1="${use.saxon.transform}" arg2="yes"/> 
     </condition>
     
+    <condition property="debug.index.sort.result" value="no">
+        <equals arg1="${use.saxon.transform}" arg2="yes"/> 
+    </condition>
+    
     <!-- Make absolute path for temporary directory -->
     <available property="build.temp.dir" value="${dita.temp.dir}" file="${dita.temp.dir}" type="dir"/>
     <condition property="build.temp.dir" value="${caller.basedir}${file.separator}${dita.temp.dir}">
@@ -175,7 +179,10 @@
 
     <!-- Make URL for input directory -->
     <makeurl property="user.input.dir.url" file="${user.input.dir}"/>
-
+    
+    <!-- Make URL for output directory -->
+    <makeurl property="output.dir.url" file="${dita.map.output.dir}"/>
+    
     <!-- Main target -->
     <target name="merged2pdf">
     	<echo message="dita.temp.dir=${dita.temp.dir} build.temp.dir=${build.temp.dir}"/>
