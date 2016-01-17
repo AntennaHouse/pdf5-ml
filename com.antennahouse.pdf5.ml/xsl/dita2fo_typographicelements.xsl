@@ -131,4 +131,44 @@ E-mail : info@antennahouse.com
         </fo:inline>
     </xsl:template>
 
+    <!-- 
+     function:	line-through template
+     param:	    
+     return:	fo:inline
+     note:		none
+     -->
+    <xsl:template match="*[contains(@class, ' hi-d/line-through ')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
+        <xsl:sequence select="'atsLineThrough'"/>
+    </xsl:template>    
+    
+    <xsl:template match="*[contains(@class,' hi-d/line-through ')]" priority="2">
+        <fo:inline>
+            <xsl:call-template name="getAttributeSetWithLang"/>
+            <xsl:call-template name="ahf:getUnivAtts"/>
+            <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
+            <xsl:apply-templates/>
+        </fo:inline>
+    </xsl:template>
+    
+    <!-- 
+     function:	line-through template
+     param:	    
+     return:	fo:inline
+     note:		none
+     -->
+    <xsl:template match="*[contains(@class, ' hi-d/overline ')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
+        <xsl:sequence select="'atsOverLine'"/>
+    </xsl:template>    
+    
+    <xsl:template match="*[contains(@class,' hi-d/hi-d/overline ')]" priority="2">
+        <fo:inline>
+            <xsl:call-template name="getAttributeSetWithLang"/>
+            <xsl:call-template name="ahf:getUnivAtts"/>
+            <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
+            <xsl:apply-templates/>
+        </fo:inline>
+    </xsl:template>
+    
+
+
 </xsl:stylesheet>

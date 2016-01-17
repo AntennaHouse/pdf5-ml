@@ -2286,7 +2286,17 @@ URL : http://www.antennahouse.com/
                 <attribute name="font-size">0.8em</attribute>
                 <attribute name="baseline-shift">sub</attribute>
             </attribute-set>
-
+            
+            <!-- line-through -->
+            <attribute-set name="atsLineThrough">
+                <attribute name="text-decoration">line-through</attribute>
+            </attribute-set>
+            
+            <!-- overline -->
+            <attribute-set name="atsOverLine">
+                <attribute name="text-decoration">overline</attribute>
+            </attribute-set>
+            
         </typographic-elements-attribute>
 
         <programming-elements-attribute>
