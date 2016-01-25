@@ -59,7 +59,14 @@
                            'color',
                            'dominant-baseline',
                            'line-height',
-                           'text-decoration'
+                           'text-decoration',
+                           'country',
+                           'language',
+                           'script',
+                           'hyphenate',
+                           'hyphenation-character',
+                           'hyphenation-push-character-count',
+                           'hyphenation-remain-character-count'
                             )"/>
     <!--xsl:variable name="inlineXslFoPorpperties" as="xs:string+" 
                   select="('font-family',
