@@ -25,42 +25,82 @@
         <variable name="TextEntity_Prefix">&amp;</variable>
         <variable name="TextEntity_Suffix">;</variable>
         <variable name="XmlAtt_Prefix">@</variable>
-        <variable name="XmlAtt_Suffix"></variable>
         <variable name="XmlElement_Prefix">&lt;</variable>
         <variable name="XmlElement_Suffix">&gt;</variable>
-        <variable name="XmlNsName_Prefix"></variable>
-        <variable name="XmlNsName_Suffix"></variable>
-        <variable name="XmlPi_Prefix"></variable>
-        <variable name="XmlPi_Suffix"></variable>
     </variables>
     
     <attribute-sets>
-        <attribute-set name="atsNumCharRef">
+        <attribute-set name="atsXmlMentionCommon">
             <attribute name="font-family">$XML_Mention_Font</attribute>
-        </attribute-set>
-        
-        <attribute-set name="atsParameterEntity">
-            <attribute name="font-family">$XML_Mention_Font</attribute>
-        </attribute-set>
-        
-        <attribute-set name="atsTextEntity">
-            <attribute name="font-family">$XML_Mention_Font</attribute>
-        </attribute-set>
-        
-        <attribute-set name="atsXmlAtt">
-            <attribute name="font-family">$XML_Mention_Font</attribute>
-        </attribute-set>
-        
-        <attribute-set name="atsXmlElement">
-            <attribute name="font-family">$XML_Mention_Font</attribute>
+            <attribute name="hyphenate">false</attribute>
         </attribute-set>
 
-        <attribute-set name="atsXmlNsName">
-            <attribute name="font-family">$XML_Mention_Font</attribute>
+        <attribute-set name="atsNumCharRef" use-attribute-sets="atsXmlMentionCommon">
+            <attribute name="keep-together.within-line">always</attribute>
+        </attribute-set>
+        
+        <attribute-set name="atsParameterEntity" use-attribute-sets="atsXmlMentionCommon">
         </attribute-set>
 
-        <attribute-set name="atsXmlPi">
-            <attribute name="font-family">$XML_Mention_Font</attribute>
+        <attribute-set name="atsParameterEntityPrefix">
+            <attribute name="keep-with-next.within-line">always</attribute>
+        </attribute-set>
+
+        <attribute-set name="atsParameterEntitySuffix">
+            <attribute name="keep-with-previous.within-line">always</attribute>
+        </attribute-set>
+
+        <attribute-set name="atsParameterEntityBody">
+            <attribute name="axf:word-wrap">break-word</attribute>
+        </attribute-set>
+
+        <attribute-set name="atsTextEntity" use-attribute-sets="atsXmlMentionCommon">
+        </attribute-set>
+
+        <attribute-set name="atsTextEntityPrefix">
+            <attribute name="keep-with-next.within-line">always</attribute>
+        </attribute-set>
+        
+        <attribute-set name="atsTextEntitySuffix">
+            <attribute name="keep-with-previous.within-line">always</attribute>
+        </attribute-set>
+        
+        <attribute-set name="atsTextEntityBody">
+            <attribute name="axf:word-wrap">break-word</attribute>
+        </attribute-set>
+
+        <attribute-set name="atsXmlAtt" use-attribute-sets="atsXmlMentionCommon">
+        </attribute-set>
+
+        <attribute-set name="atsXmlAttPrefix">
+            <attribute name="keep-with-next.within-line">always</attribute>
+        </attribute-set>
+        
+        <attribute-set name="atsXmlAttBody">
+            <attribute name="axf:word-wrap">break-word</attribute>
+        </attribute-set>
+
+        <attribute-set name="atsXmlElement" use-attribute-sets="atsXmlMentionCommon">
+        </attribute-set>
+
+        <attribute-set name="atsXmlElementPrefix">
+            <attribute name="keep-with-next.within-line">always</attribute>
+        </attribute-set>
+        
+        <attribute-set name="atsXmlElementSuffix">
+            <attribute name="keep-with-previous.within-line">always</attribute>
+        </attribute-set>
+        
+        <attribute-set name="atsXmlElementBody">
+            <attribute name="axf:word-wrap">break-word</attribute>
+        </attribute-set>
+
+        <attribute-set name="atsXmlNsName" use-attribute-sets="atsXmlMentionCommon">
+            <attribute name="axf:word-wrap">break-word</attribute>
+        </attribute-set>
+
+        <attribute-set name="atsXmlPi" use-attribute-sets="atsXmlMentionCommon">
+            <attribute name="axf:word-wrap">break-word</attribute>
         </attribute-set>
         
     </attribute-sets>

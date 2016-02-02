@@ -69,13 +69,28 @@
             <xsl:call-template name="getAttributeSetWithLang"/>
             <xsl:call-template name="ahf:getUnivAtts"/>
             <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
-            <xsl:call-template name="getVarValueAsText">
-                <xsl:with-param name="prmVarName" select="'ParameterEntity_Prefix'"/>
-            </xsl:call-template>
-            <xsl:apply-templates/>
-            <xsl:call-template name="getVarValueAsText">
-                <xsl:with-param name="prmVarName" select="'ParameterEntity_Suffix'"/>
-            </xsl:call-template>
+            <fo:inline>
+                <xsl:call-template name="getAttributeSet">
+                    <xsl:with-param name="prmAttrSetName" select="'atsParameterEntityPrefix'"/>
+                </xsl:call-template>
+                <xsl:call-template name="getVarValueAsText">
+                    <xsl:with-param name="prmVarName" select="'ParameterEntity_Prefix'"/>
+                </xsl:call-template>
+            </fo:inline>
+            <fo:inline>
+                <xsl:call-template name="getAttributeSet">
+                    <xsl:with-param name="prmAttrSetName" select="'atsParameterEntityBody'"/>
+                </xsl:call-template>
+                <xsl:apply-templates/>
+            </fo:inline>
+            <fo:inline>
+                <xsl:call-template name="getAttributeSet">
+                    <xsl:with-param name="prmAttrSetName" select="'atsParameterEntitySuffix'"/>
+                </xsl:call-template>
+                <xsl:call-template name="getVarValueAsText">
+                    <xsl:with-param name="prmVarName" select="'ParameterEntity_Suffix'"/>
+                </xsl:call-template>
+            </fo:inline>
         </fo:inline>
     </xsl:template>
     
@@ -104,13 +119,28 @@
             <xsl:call-template name="getAttributeSetWithLang"/>
             <xsl:call-template name="ahf:getUnivAtts"/>
             <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
-            <xsl:call-template name="getVarValueAsText">
-                <xsl:with-param name="prmVarName" select="'TextEntity_Prefix'"/>
-            </xsl:call-template>
-            <xsl:apply-templates/>
-            <xsl:call-template name="getVarValueAsText">
-                <xsl:with-param name="prmVarName" select="'TextEntity_Suffix'"/>
-            </xsl:call-template>
+            <fo:inline>
+                <xsl:call-template name="getAttributeSet">
+                    <xsl:with-param name="prmAttrSetName" select="'atsTextEntityPrefix'"/>
+                </xsl:call-template>
+                <xsl:call-template name="getVarValueAsText">
+                    <xsl:with-param name="prmVarName" select="'TextEntity_Prefix'"/>
+                </xsl:call-template>
+            </fo:inline>
+            <fo:inline>
+                <xsl:call-template name="getAttributeSet">
+                    <xsl:with-param name="prmAttrSetName" select="'atsTextEntityBody'"/>
+                </xsl:call-template>
+                <xsl:apply-templates/>
+            </fo:inline>
+            <fo:inline>
+                <xsl:call-template name="getAttributeSet">
+                    <xsl:with-param name="prmAttrSetName" select="'atsTextEntitySuffix'"/>
+                </xsl:call-template>
+                <xsl:call-template name="getVarValueAsText">
+                    <xsl:with-param name="prmVarName" select="'TextEntity_Suffix'"/>
+                </xsl:call-template>
+            </fo:inline>
         </fo:inline>
     </xsl:template>
     
@@ -139,13 +169,20 @@
             <xsl:call-template name="getAttributeSetWithLang"/>
             <xsl:call-template name="ahf:getUnivAtts"/>
             <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
-            <xsl:call-template name="getVarValueAsText">
-                <xsl:with-param name="prmVarName" select="'XmlAtt_Prefix'"/>
-            </xsl:call-template>
-            <xsl:apply-templates/>
-            <xsl:call-template name="getVarValueAsText">
-                <xsl:with-param name="prmVarName" select="'XmlAtt_Suffix'"/>
-            </xsl:call-template>
+            <fo:inline>
+                <xsl:call-template name="getAttributeSet">
+                    <xsl:with-param name="prmAttrSetName" select="'atsXmlAttPrefix'"/>
+                </xsl:call-template>
+                <xsl:call-template name="getVarValueAsText">
+                    <xsl:with-param name="prmVarName" select="'XmlAtt_Prefix'"/>
+                </xsl:call-template>
+            </fo:inline>
+            <fo:inline>
+                <xsl:call-template name="getAttributeSet">
+                    <xsl:with-param name="prmAttrSetName" select="'atsXmlAttBody'"/>
+                </xsl:call-template>
+                <xsl:apply-templates/>
+            </fo:inline>
         </fo:inline>
     </xsl:template>
     
@@ -154,9 +191,6 @@
             <xsl:with-param name="prmVarName" select="'XmlAtt_Prefix'"/>
         </xsl:call-template>
         <xsl:apply-templates mode="#current"/>
-        <xsl:call-template name="getVarValueAsText">
-            <xsl:with-param name="prmVarName" select="'XmlAtt_Suffix'"/>
-        </xsl:call-template>
     </xsl:template>
 
     <!-- 
@@ -174,13 +208,28 @@
             <xsl:call-template name="getAttributeSetWithLang"/>
             <xsl:call-template name="ahf:getUnivAtts"/>
             <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
-            <xsl:call-template name="getVarValueAsText">
-                <xsl:with-param name="prmVarName" select="'XmlElement_Prefix'"/>
-            </xsl:call-template>
-            <xsl:apply-templates/>
-            <xsl:call-template name="getVarValueAsText">
-                <xsl:with-param name="prmVarName" select="'XmlElement_Suffix'"/>
-            </xsl:call-template>
+            <fo:inline>
+                <xsl:call-template name="getAttributeSet">
+                    <xsl:with-param name="prmAttrSetName" select="'atsXmlElementPrefix'"/>
+                </xsl:call-template>
+                <xsl:call-template name="getVarValueAsText">
+                    <xsl:with-param name="prmVarName" select="'XmlElement_Prefix'"/>
+                </xsl:call-template>
+            </fo:inline>
+            <fo:inline>
+                <xsl:call-template name="getAttributeSet">
+                    <xsl:with-param name="prmAttrSetName" select="'atsXmlElementBody'"/>
+                </xsl:call-template>
+                <xsl:apply-templates/>
+            </fo:inline>
+            <fo:inline>
+                <xsl:call-template name="getAttributeSet">
+                    <xsl:with-param name="prmAttrSetName" select="'atsXmlElementSuffix'"/>
+                </xsl:call-template>
+                <xsl:call-template name="getVarValueAsText">
+                    <xsl:with-param name="prmVarName" select="'XmlElement_Suffix'"/>
+                </xsl:call-template>
+            </fo:inline>
         </fo:inline>
     </xsl:template>
     
@@ -209,24 +258,12 @@
             <xsl:call-template name="getAttributeSetWithLang"/>
             <xsl:call-template name="ahf:getUnivAtts"/>
             <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
-            <xsl:call-template name="getVarValueAsText">
-                <xsl:with-param name="prmVarName" select="'XmlNsName_Prefix'"/>
-            </xsl:call-template>
             <xsl:apply-templates/>
-            <xsl:call-template name="getVarValueAsText">
-                <xsl:with-param name="prmVarName" select="'XmlNsName_Suffix'"/>
-            </xsl:call-template>
         </fo:inline>
     </xsl:template>
     
     <xsl:template match="*[contains(@class, ' xml-d/xmlnsname ')]" priority="4" mode="TEXT_ONLY">
-        <xsl:call-template name="getVarValueAsText">
-            <xsl:with-param name="prmVarName" select="'XmlNsName_Prefix'"/>
-        </xsl:call-template>
         <xsl:apply-templates mode="#current"/>
-        <xsl:call-template name="getVarValueAsText">
-            <xsl:with-param name="prmVarName" select="'XmlNsName_Suffix'"/>
-        </xsl:call-template>
     </xsl:template>
 
     <!-- 
@@ -244,24 +281,12 @@
             <xsl:call-template name="getAttributeSetWithLang"/>
             <xsl:call-template name="ahf:getUnivAtts"/>
             <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
-            <xsl:call-template name="getVarValueAsText">
-                <xsl:with-param name="prmVarName" select="'XmlPi_Prefix'"/>
-            </xsl:call-template>
             <xsl:apply-templates/>
-            <xsl:call-template name="getVarValueAsText">
-                <xsl:with-param name="prmVarName" select="'XmlPi_Suffix'"/>
-            </xsl:call-template>
         </fo:inline>
     </xsl:template>
     
     <xsl:template match="*[contains(@class, ' xml-d/xmlpi ')]" priority="4" mode="TEXT_ONLY">
-        <xsl:call-template name="getVarValueAsText">
-            <xsl:with-param name="prmVarName" select="'XmlPi_Prefix'"/>
-        </xsl:call-template>
         <xsl:apply-templates mode="#current"/>
-        <xsl:call-template name="getVarValueAsText">
-            <xsl:with-param name="prmVarName" select="'XmlPi_Suffix'"/>
-        </xsl:call-template>
     </xsl:template>
 
 </xsl:stylesheet>
