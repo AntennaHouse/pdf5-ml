@@ -20,6 +20,21 @@ E-mail : info@antennahouse.com
             Table Templates
          ****************************-->
     <!-- 
+     function:	table[@orient="land"] template
+     param:	    
+     return:	fo:bloc-container
+     note:		Table will be located by 90 degrees counterclockwise from the text flow.
+     -->
+    <xsl:template match="*[contains(@class, ' topic/table ')][string(@orient) eq 'land']" priority="2">
+        <fo:block-container>
+            <xsl:call-template name="getAttributeSet">
+                <xsl:with-param name="prmAttrSetName" select="'atsBlockContainerForLandscapeTable'"/>
+            </xsl:call-template>
+            <xsl:next-match/>
+        </fo:block-container>
+    </xsl:template>
+
+    <!-- 
      function:	table template
      param:	    
      return:	fo:wrapper

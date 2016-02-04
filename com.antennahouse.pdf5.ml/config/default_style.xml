@@ -1847,6 +1847,12 @@ URL : http://www.antennahouse.com/
                 <attribute name="space-before">$Para_Space_Before</attribute>
             </attribute-set>
 
+            <!-- landscape table -->
+            <attribute-set name="atsBlockContainerForLandscapeTable">
+                <attribute name="reference-orientation">90</attribute>
+                <attribute name="space-before">3mm</attribute>
+            </attribute-set>
+            
             <!-- table -->
             <attribute-set name="atsTable">
                 <attribute name="font-size">$Table_Font_Size</attribute>
