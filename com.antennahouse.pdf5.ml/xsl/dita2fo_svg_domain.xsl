@@ -44,7 +44,9 @@ E-mail : info@antennahouse.com
             <xsl:copy-of select="."/>
         </fo:instream-foreign-object>
     </xsl:template>
-    
+
+    <xsl:template match="svg:svg" mode="TEXT_ONLY"/>
+
     <!-- 
      function:	svgref template
      param:	    
