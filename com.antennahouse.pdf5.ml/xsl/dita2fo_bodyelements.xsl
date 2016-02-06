@@ -22,6 +22,26 @@ E-mail : info@antennahouse.com
     <!-- note is implemented in dita2fo_note.xsl -->
     
     <!-- 
+     function:	div template
+     param:	    
+     return:	fo:wrapper with its contents
+     note:		div is used for only grouping the contents
+                It has no intended style
+     -->
+    <xsl:template match="*[contains(@class, ' topic/div ')]" mode="MODE_GET_STYLE" as="xs:string*">
+        <xsl:sequence select="'atsDiv'"/>
+    </xsl:template>
+    
+    <xsl:template match="*[contains(@class, ' topic/div ')]">
+        <fo:wrapper>
+            <xsl:call-template name="getAttributeSetWithLang"/>
+            <xsl:call-template name="ahf:getUnivAtts"/>
+            <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
+            <xsl:apply-templates/>
+        </fo:wrapper>
+    </xsl:template>
+
+    <!-- 
      function:	p template
      param:	    
      return:	fo:block with p's contents

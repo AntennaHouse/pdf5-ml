@@ -1554,6 +1554,9 @@ URL : http://www.antennahouse.com/
         </task-elements-attribute>
 
         <body-elements-attribute>
+            <!-- div -->
+            <attribute-set name="atsDiv"/>
+                
             <!-- p -->
             <attribute-set name="atsP">
                 <attribute name="space-before">$Para_Space_Before</attribute>
