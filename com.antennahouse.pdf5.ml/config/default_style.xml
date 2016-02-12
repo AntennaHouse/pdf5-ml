@@ -1853,7 +1853,7 @@ URL : http://www.antennahouse.com/
             <!-- landscape table -->
             <attribute-set name="atsBlockContainerForLandscapeTable">
                 <attribute name="reference-orientation">90</attribute>
-                <attribute name="space-before">3mm</attribute>
+                <attribute name="break-before">page</attribute>
             </attribute-set>
             
             <!-- table -->
