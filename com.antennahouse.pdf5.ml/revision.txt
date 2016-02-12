@@ -2,9 +2,26 @@
 
                  Antenna House PDF5-ML Plugin Revision Notes
 
-      Copyright (C) 2009-2015 Antenna House, Inc. All rights reserved.
+      Copyright (C) 2009-2016 Antenna House, Inc. All rights reserved.
              Antenna House is a trademark of Antenna House, Inc.
 _______________________________________________________________________________
+Feb, 2016
+V1.0.1
+- Fix @xml:lang related bug
+- Fix property table related bug
+- Partially implemented @chunk attribute
+- Add Asian language configuration
+- Remove paper size definition from JA style
+- Implement DITA 1.3 features
+  MathML domain, equation domain,
+  @overline, @line-through
+  XML mention domain, markup domain
+  table/@orient="land"
+  SVG domain
+  div element
+- Add equation domain parameter
+- Add index debugging parameter
+
 Sep, 2015
 V1.0
 - First release.
