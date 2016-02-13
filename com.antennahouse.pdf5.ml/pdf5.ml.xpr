@@ -4263,5 +4263,6 @@
         <file name="build_transform.xml"/>
         <file name="integrator.xml"/>
         <file name="plugin.xml"/>
+        <file name="revision.txt"/>
     </projectTree>
 </project>
