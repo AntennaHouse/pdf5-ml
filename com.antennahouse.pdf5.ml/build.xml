@@ -10,7 +10,6 @@
     - If I18n Index Library plug-in is installed, following property are passed from [DITA-OT]/build.xml.
       com.antennahouse.i18n.home
       com.antennahouse.i18n_index.plugin.lib
-    - Currently I18n Index Library .jar file is hard-coded in this plug-in. 
   -->
 <project name="com.antennahouse.pdf5.build"  basedir=".">
     <import file="build_transform.xml"/>
@@ -27,44 +26,36 @@
     <condition property="i18n.home" value="${com.antennahouse.i18n.home}">
         <isset property="com.antennahouse.i18n.home"/>
     </condition>
-    <!--property name="i18n.lib.dir" value="${basedir}${file.separator}lib"/>
-    <property name="i18n.home" value="${basedir}${file.separator}lib${file.separator}i18n_support"/-->
     
     <!-- I18n Index Library Path
-         - Available only when I18n Index Library is installed in DITA-OT.
+         - Available only when I18n Index Library is installed in DITA-OT as plugin.
       -->
     <path id="i18n_index.class.path">
-        <pathelement location="${com.antennahouse.i18n_index.plugin.lib}${file.separator}i18n_support${file.separator}lib${file.separator}icu4j-4_8.jar"/>
+        <!--pathelement location="${com.antennahouse.i18n_index.plugin.lib}${file.separator}i18n_support${file.separator}lib${file.separator}icu4j-4_8.jar"/>
         <pathelement location="${com.antennahouse.i18n_index.plugin.lib}${file.separator}ah_i18n_index.jar"/>
-        <pathelement location="${com.antennahouse.i18n_index.plugin.lib}${file.separator}i18n_support.jar"/>
+        <pathelement location="${com.antennahouse.i18n_index.plugin.lib}${file.separator}i18n_support.jar"/-->
+        <fileset dir="${com.antennahouse.i18n_index.plugin.lib}${file.separator}i18n_support${file.separator}lib">
+            <include name="*.jar"/>
+        </fileset>
+        <fileset dir="${com.antennahouse.i18n_index.plugin.lib}">
+            <include name="*.jar"/>
+        </fileset>
     </path>
-
-    <!--path id="i18n_index.class.path">
-        <pathelement location="${i18n.lib.dir}${file.separator}i18n_support${file.separator}lib${file.separator}icu4j-4_8.jar"/>
-        <pathelement location="${i18n.lib.dir}${file.separator}ah_i18n_index.jar"/>
-        <pathelement location="${i18n.lib.dir}${file.separator}i18n_support.jar"/>
-    </path-->
 
     <condition property="use.18n_index.class.path">
         <and>
             <equals arg1="${use.i18n.index.lib}" arg2="yes"/>
-            <or>
-                <isset property="com.antennahouse.i18n_index.plugin.lib"/>
-                <isset property="i18n.lib.dir"/>
-            </or>
+            <isset property="com.antennahouse.i18n_index.plugin.lib"/>
         </and>
     </condition>
 
     <!-- Logical check -->
-    <fail message="[com.antennahouse.pdf5] I18n Index Library plug-in is needed if use.i18n.index.lib is 'yes'.">
+    <fail message="[com.antennahouse.pdf5.ml] I18n Index Library plug-in is needed if use.i18n.index.lib is 'yes'.">
         <condition>
             <and>
                 <equals arg1="${use.i18n.index.lib}" arg2="yes"/>
                 <not>
                     <isset property="com.antennahouse.i18n_index.plugin.lib"/>
-                </not>
-                <not>
-                    <isset property="i18n.lib.dir"/>
                 </not>
             </and>
         </condition>
