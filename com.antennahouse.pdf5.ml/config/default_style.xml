@@ -376,7 +376,20 @@ URL : http://www.antennahouse.com/
         <variable name="cCheckYes">&#x2713;</variable>
         <variable name="cCheckNo">&#x2717;</variable>
         <variable name="cCheckDc">-</variable>
-
+        
+        <!-- Variables for rotated table cell-->
+        <!-- Average character width per em
+             Font: Times New Roman (times.ttf)
+             xAvgCharWidth (OS/2 table) / unitsPerEm (head table) = 821 ÷ 2048 ≒ 0.4
+             This value can be overridden by fo:prop="ahs-avg-char-width-in-table-cell:[value];"
+          -->
+        <variable name="Avg_Char_Width_In_Table_Cell">0.4</variable>
+        
+        <!-- Max character count in rotated table cell
+             This value can be overridden by fo:prop="ahs-max-char-count-in-rotated-table-cell:[value];"
+          -->
+        <variable name="Max_Char_Count_In_Rotated_Table_Cell">30</variable>
+        
     </variables>
 
     <attribute-sets>
