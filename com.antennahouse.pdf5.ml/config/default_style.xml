@@ -383,12 +383,12 @@ URL : http://www.antennahouse.com/
              xAvgCharWidth (OS/2 table) / unitsPerEm (head table) = 821 ÷ 2048 ≒ 0.4
              This value can be overridden by fo:prop="ahs-avg-char-width-in-table-cell:[value];"
           -->
-        <variable name="Avg_Char_Width_In_Table_Cell">0.4</variable>
+        <variable name="Avg_Char_Width_In_Table_Entry">0.4</variable>
         
         <!-- Max character count in rotated table cell
              This value can be overridden by fo:prop="ahs-max-char-count-in-rotated-table-cell:[value];"
           -->
-        <variable name="Max_Char_Count_In_Rotated_Table_Cell">30</variable>
+        <variable name="Max_Char_Count_In_Rotated_Table_Entry">60</variable>
         
     </variables>
 
@@ -1933,6 +1933,14 @@ URL : http://www.antennahouse.com/
                 <attribute name="border">$General_Table_Border_Width none $General_Table_Border_Color</attribute>
                 <attribute name="padding">$General_Table_Cell_Padding</attribute>
                 <attribute name="border-after-width.conditionality">retain</attribute>
+            </attribute-set>
+            
+            <!-- entry/@rotate="1"
+                 2016-02-17 t.makita
+              -->
+            <attribute-set name="atsRotatedEntry">
+                <attribute name="reference-orientation">90</attribute>
+                <attribute name="overflow">error-if-overflow</attribute>
             </attribute-set>
 
             <!-- simpletable -->

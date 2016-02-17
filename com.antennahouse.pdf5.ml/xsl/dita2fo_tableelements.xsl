@@ -428,15 +428,24 @@ E-mail : info@antennahouse.com
         <xsl:param name="prmColSpec" required="yes" as="element()*"/>
     
         <xsl:variable name="rowAttr" select="ahf:addRowAttr(.,$prmRowUpperAttr)" as="element()"/>
+        <xsl:variable name="rowHeight" as="xs:double">
+            <xsl:call-template name="getRowHeight">
+                <xsl:with-param name="prmRow" select="."/>
+            </xsl:call-template>
+        </xsl:variable>
         <fo:table-row>
             <xsl:call-template name="getAttributeSetWithLang">
                 <xsl:with-param name="prmAttrSetName" select="'atsRow'"/>
             </xsl:call-template>
             <xsl:call-template name="ahf:getUnivAtts"/>
+            <xsl:if test="$rowHeight gt 0.0">
+                <xsl:attribute name="height" select="concat(string($rowHeight),'em')"/>
+            </xsl:if>
             <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
             <xsl:apply-templates select="*[contains(@class, ' topic/entry ')]">
                 <xsl:with-param name="prmRowAttr"    select="$rowAttr"/>
                 <xsl:with-param name="prmColSpec"    select="$prmColSpec"/>
+                <xsl:with-param name="prmRowHeight"  select="$rowHeight"/>
             </xsl:apply-templates>
         </fo:table-row>
     </xsl:template>
@@ -462,14 +471,69 @@ E-mail : info@antennahouse.com
     </xsl:function>
     
     <!-- 
+     function:	get row height considering entry/@rotate="1"
+     param:		prmRow
+     return:	xs:double (Row height as em unit. 0.0 means no needs to set row height)
+     note:		
+     -->
+    <xsl:template name="getRowHeight" as="xs:double">
+        <xsl:param name="prmRow" as="element()" required="no" select="."/>
+        <xsl:variable name="rotatedEntries" as="element()*" select="$prmRow/*[contains(@class,' topic/entry ')][string(@rotate) eq '1']"/>
+        <xsl:choose>
+            <xsl:when test="exists($rotatedEntries)">
+                <!-- Average character width in table cell -->
+                <xsl:variable name="avgCharWidthInTableCell" as="xs:double">
+                    <xsl:call-template name="getVarValueAsDouble">
+                        <xsl:with-param name="prmVarName" select="'Avg_Char_Width_In_Table_Entry'"/>
+                    </xsl:call-template>
+                </xsl:variable>
+                <!-- Max character count in rotated entry -->
+                <xsl:variable name="maxCharCountInRotatedTableEntry" as="xs:double">
+                    <xsl:call-template name="getVarValueAsDouble">
+                        <xsl:with-param name="prmVarName" select="'Max_Char_Count_In_Rotated_Table_Entry'"/>
+                    </xsl:call-template>
+                </xsl:variable>
+                <!-- Row height in em unit -->
+                <xsl:variable name="rowHeights" as="xs:double+">
+                    <xsl:for-each select="$rotatedEntries">
+                        <xsl:variable name="rotatedEntry" as="element()" select="."/>
+                        <!-- Entry character count -->
+                        <xsl:variable name="rotatedEntryCharCount" as="xs:double">
+                            <xsl:variable name="entryCharTexts" as="xs:string*">
+                                <xsl:apply-templates select="$rotatedEntry" mode="TEXT_ONLY"/>
+                            </xsl:variable>
+                            <xsl:sequence select="xs:double(string-length(normalize-space(string-join($entryCharTexts,''))))"/>
+                        </xsl:variable>
+                        <xsl:choose>
+                            <xsl:when test="$rotatedEntryCharCount gt $maxCharCountInRotatedTableEntry">
+                                <xsl:sequence select="$maxCharCountInRotatedTableEntry * $avgCharWidthInTableCell"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:sequence select="$rotatedEntryCharCount * $avgCharWidthInTableCell"/>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:for-each>
+                </xsl:variable>
+                <xsl:sequence select="max($rowHeights)"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:sequence select="0.0"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    
+    
+    <!-- 
      function:	entry template
-     param:		prmRowAttr, prmColSpec
+     param:		prmRowAttr, prmColSpec,prmRowHeight
      return:	fo:table-cell
      note:		Honor the entry attribute than colspec attribute. 2011-08-29 t.makita
+                $prmRowHeight is needed for entry/@rotate="1" when specifying fo:block-container/@width
      -->
     <xsl:template match="*[contains(@class, ' topic/entry ')]">
         <xsl:param name="prmRowAttr" required="yes" as="element()"/>
         <xsl:param name="prmColSpec" required="yes" as="element()*"/>
+        <xsl:param name="prmRowHeight" required="yes" as="xs:double"/>
     
         <xsl:variable name="entryAttr" select="ahf:addEntryAttr(.,$prmRowAttr)" as="element()"/>
         <xsl:variable name="colname" select="string($entryAttr/@colname)"/>
@@ -482,12 +546,26 @@ E-mail : info@antennahouse.com
             <xsl:copy-of select="ahf:getColSpecAttr($colname,$prmColSpec)"/>
             <xsl:copy-of select="ahf:getEntryAttr(.,$entryAttr,$prmColSpec)"/>
             <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
-            <fo:block>
-                <xsl:apply-templates/>
-            </fo:block>
+            <xsl:choose>
+                <xsl:when test="string(@rotate) eq '1'">
+                    <fo:block-container>
+                        <xsl:call-template name="getAttributeSet">
+                            <xsl:with-param name="prmAttrSetName" select="'atsRotatedEntry'"/>
+                        </xsl:call-template>
+                        <xsl:attribute name="width" select="concat(string($prmRowHeight),'em')"/>
+                        <fo:block>
+                            <xsl:apply-templates/>
+                        </fo:block>
+                    </fo:block-container>
+                </xsl:when>
+                <xsl:otherwise>
+                    <fo:block>
+                        <xsl:apply-templates/>
+                    </fo:block>
+                </xsl:otherwise>
+            </xsl:choose>
         </fo:table-cell>
     </xsl:template>
-    
     
     <!-- 
      function:	build entry attributes
