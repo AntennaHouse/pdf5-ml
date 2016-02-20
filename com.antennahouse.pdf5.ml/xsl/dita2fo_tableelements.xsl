@@ -209,6 +209,7 @@ E-mail : info@antennahouse.com
             <xsl:copy-of select="$prmTgroup/@colsep"/>
             <xsl:copy-of select="$prmTgroup/@rowsep"/>
             <xsl:copy-of select="$prmTgroup/@align"/>
+            <xsl:copy-of select="$prmTgroup/@fo:prop"/>"
         </dummy>
     </xsl:function>
     
@@ -363,6 +364,7 @@ E-mail : info@antennahouse.com
         <dummy>
             <xsl:copy-of select="$prmTgroupAttr/@*"/>
             <xsl:copy-of select="$prmThead/@valign"/>
+            <xsl:copy-of select="$prmThead/@fo:prop"/>"
         </dummy>
     </xsl:function>
     
@@ -404,6 +406,7 @@ E-mail : info@antennahouse.com
         <dummy>
             <xsl:copy-of select="$prmTgroupAttr/@*"/>
             <xsl:copy-of select="$prmTbody/@valign"/>
+            <xsl:copy-of select="$prmTbody/@fo:prop"/>"
         </dummy>
     </xsl:function>
     
@@ -421,6 +424,7 @@ E-mail : info@antennahouse.com
         <xsl:variable name="rowHeight" as="xs:double">
             <xsl:call-template name="getRowHeight">
                 <xsl:with-param name="prmRow" select="."/>
+                <xsl:with-param name="prmRowAttr" select="$rowAttr"/>
             </xsl:call-template>
         </xsl:variable>
         <fo:table-row>
@@ -453,31 +457,52 @@ E-mail : info@antennahouse.com
             <xsl:copy-of select="$prmRowUpperAttr/@*"/>
             <xsl:copy-of select="$prmRow/@rowsep"/>
             <xsl:copy-of select="$prmRow/@valign"/>
+            <xsl:copy-of select="$prmRow/@fo:prop"/>"
         </dummy>
     </xsl:function>
     
     <!-- 
      function:	get row height considering entry/@rotate="1"
-     param:		prmRow
+     param:		prmRow, prmRowAttr
      return:	xs:double (Row height as em unit. 0.0 means no needs to set row height)
      note:		
      -->
     <xsl:template name="getRowHeight" as="xs:double">
-        <xsl:param name="prmRow" as="element()" required="no" select="."/>
+        <xsl:param name="prmRow" as="element()" required="yes"/>
+        <xsl:param name="prmRowAttr" as="element()" required="yes"/>
         <xsl:variable name="rotatedEntries" as="element()*" select="$prmRow/*[contains(@class,' topic/entry ')][string(@rotate) eq '1']"/>
         <xsl:choose>
             <xsl:when test="exists($rotatedEntries)">
                 <!-- Average character width in table cell -->
                 <xsl:variable name="avgCharWidthInTableCell" as="xs:double">
-                    <xsl:call-template name="getVarValueAsDouble">
-                        <xsl:with-param name="prmVarName" select="'Avg_Char_Width_In_Table_Entry'"/>
-                    </xsl:call-template>
+                    <!-- Manually specified row charracter width -->
+                    <xsl:variable name="maunuallySpecifiedCharWidth" as="xs:double?" select="xs:double(ahf:getStylesheetProperty($prmRowAttr)[local-name() eq 'avg-char-width-in-table-entry'])"/>
+                    <xsl:choose>
+                        <xsl:when test="exists($maunuallySpecifiedCharWidth)">
+                            <xsl:sequence select="$maunuallySpecifiedCharWidth"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:call-template name="getVarValueAsDouble">
+                                <xsl:with-param name="prmVarName" select="'Avg_Char_Width_In_Table_Entry'"/>
+                            </xsl:call-template>
+                        </xsl:otherwise>
+                    </xsl:choose>    
                 </xsl:variable>
                 <!-- Max character count in rotated entry -->
                 <xsl:variable name="maxCharCountInRotatedTableEntry" as="xs:double">
-                    <xsl:call-template name="getVarValueAsDouble">
-                        <xsl:with-param name="prmVarName" select="'Max_Char_Count_In_Rotated_Table_Entry'"/>
-                    </xsl:call-template>
+                    <!-- Manually specified row height -->
+                    <xsl:variable name="maunuallyAssignRowHeight" as="xs:double?" select="xs:double(ahf:getStylesheetProperty($prmRowAttr)[local-name() eq 'max-char-count-in-rotated-table-entry'])"/>
+                    <xsl:message select="'ahf:getStylesheetProperty($prmRowAttr)=',ahf:getStylesheetProperty($prmRowAttr)"/>
+                    <xsl:choose>
+                        <xsl:when test="exists($maunuallyAssignRowHeight)">
+                            <xsl:sequence select="$maunuallyAssignRowHeight"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:call-template name="getVarValueAsDouble">
+                                <xsl:with-param name="prmVarName" select="'Max_Char_Count_In_Rotated_Table_Entry'"/>
+                            </xsl:call-template>
+                        </xsl:otherwise>
+                    </xsl:choose>
                 </xsl:variable>
                 <!-- Row height in em unit -->
                 <xsl:variable name="rowHeights" as="xs:double+">

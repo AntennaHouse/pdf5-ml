@@ -381,12 +381,12 @@ URL : http://www.antennahouse.com/
         <!-- Average character width per em
              Font: Times New Roman (times.ttf)
              xAvgCharWidth (OS/2 table) / unitsPerEm (head table) = 821 ÷ 2048 ≒ 0.4
-             This value can be overridden by fo:prop="ahs-avg-char-width-in-table-cell:[value];"
+             This value can be overridden by fo:prop="ahs-avg-char-width-in-table-entry:[value];"
           -->
         <variable name="Avg_Char_Width_In_Table_Entry">0.4</variable>
         
         <!-- Max character count in rotated table cell
-             This value can be overridden by fo:prop="ahs-max-char-count-in-rotated-table-cell:[value];"
+             This value can be overridden by fo:prop="ahs-max-char-count-in-rotated-table-entry:[value];"
           -->
         <variable name="Max_Char_Count_In_Rotated_Table_Entry">60</variable>
         
@@ -1941,6 +1941,8 @@ URL : http://www.antennahouse.com/
             <attribute-set name="atsRotatedEntry">
                 <attribute name="reference-orientation">90</attribute>
                 <attribute name="overflow">error-if-overflow</attribute>
+                <!--attribute name="overflow">condense</attribute>
+                <attribute name="axf:overflow-condense">font-size</attribute-->
             </attribute-set>
 
             <!-- simpletable -->
