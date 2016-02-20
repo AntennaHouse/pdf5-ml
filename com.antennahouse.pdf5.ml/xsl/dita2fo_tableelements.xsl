@@ -206,15 +206,9 @@ E-mail : info@antennahouse.com
         <dummy>
             <xsl:copy-of select="$prmTableAttr/@*"/>
             <xsl:attribute name="cols" select="string($prmTgroup/@cols)"/>
-            <xsl:if test="exists($prmTgroup/@colsep)">
-                <xsl:attribute name="colsep" select="string($prmTgroup/@colsep)"/>
-            </xsl:if>
-            <xsl:if test="exists($prmTgroup/@rowsep)">
-                <xsl:attribute name="rowsep" select="string($prmTgroup/@rowsep)"/>
-            </xsl:if>
-            <xsl:if test="exists($prmTgroup/@align)">
-                <xsl:attribute name="align" select="string($prmTgroup/@align)"/>
-            </xsl:if>
+            <xsl:copy-of select="$prmTgroup/@colsep"/>
+            <xsl:copy-of select="$prmTgroup/@rowsep"/>
+            <xsl:copy-of select="$prmTgroup/@align"/>
         </dummy>
     </xsl:function>
     
@@ -368,9 +362,7 @@ E-mail : info@antennahouse.com
         <xsl:param name="prmTgroupAttr" as="element()"/>
         <dummy>
             <xsl:copy-of select="$prmTgroupAttr/@*"/>
-            <xsl:if test="exists($prmThead/@valign)">
-                <xsl:attribute name="valign" select="string($prmThead/@valign)"/>
-            </xsl:if>
+            <xsl:copy-of select="$prmThead/@valign"/>
         </dummy>
     </xsl:function>
     
@@ -411,9 +403,7 @@ E-mail : info@antennahouse.com
         <xsl:param name="prmTgroupAttr" as="element()"/>
         <dummy>
             <xsl:copy-of select="$prmTgroupAttr/@*"/>
-            <xsl:if test="$prmTbody/@valign">
-                <xsl:attribute name="valign" select="string($prmTbody/@valign)"/>
-            </xsl:if>
+            <xsl:copy-of select="$prmTbody/@valign"/>
         </dummy>
     </xsl:function>
     
@@ -461,12 +451,8 @@ E-mail : info@antennahouse.com
         <xsl:param name="prmRowUpperAttr" as="element()"/>
         <dummy>
             <xsl:copy-of select="$prmRowUpperAttr/@*"/>
-            <xsl:if test="exists($prmRow/@rowsep)">
-                <xsl:attribute name="rowsep" select="string($prmRow/@rowsep)"/>
-            </xsl:if>
-            <xsl:if test="exists($prmRow/@valign)">
-                <xsl:attribute name="valign" select="string($prmRow/@valign)"/>
-            </xsl:if>
+            <xsl:copy-of select="$prmRow/@rowsep"/>
+            <xsl:copy-of select="$prmRow/@valign"/>
         </dummy>
     </xsl:function>
     
@@ -578,36 +564,15 @@ E-mail : info@antennahouse.com
         <xsl:param name="prmRowAttr"  as="element()"/>
         <dummy>
             <xsl:copy-of select="$prmRowAttr/@*"/>
-            <xsl:if test="exists($prmEntry/@colname)">
-                <xsl:attribute name="colname" select="string($prmEntry/@colname)"/>
-            </xsl:if>
-            <xsl:if test="exists($prmEntry/@namest)">
-                <xsl:attribute name="namest" select="string($prmEntry/@namest)"/>
-            </xsl:if>
-            <xsl:if test="exists($prmEntry/@nameend)">
-                <xsl:attribute name="nameend" select="string($prmEntry/@nameend)"/>
-            </xsl:if>
-            <xsl:if test="exists($prmEntry/@morerows)">
-                <xsl:attribute name="morerows" select="string($prmEntry/@morerows)"/>
-            </xsl:if>
-            <xsl:if test="exists($prmEntry/@colsep)">
-                <xsl:attribute name="colsep" select="string($prmEntry/@colsep)"/>
-            </xsl:if>
-            <xsl:if test="exists($prmEntry/@rowsep)">
-                <xsl:attribute name="rowsep" select="string($prmEntry/@rowsep)"/>
-            </xsl:if>
-            <xsl:if test="exists($prmEntry/@align)">
-                <xsl:attribute name="align" select="string($prmEntry/@align)"/>
-            </xsl:if>
-            <xsl:if test="exists($prmEntry/@char)">
-                <xsl:attribute name="char" select="string($prmEntry/@char)"/>
-            </xsl:if>
-            <!--xsl:if test="exists($prmEntry/@charoff)">
-                <xsl:attribute name="charoff" select="string($prmEntry/@charoff)"/>
-            </xsl:if-->
-            <xsl:if test="exists($prmEntry/@valign)">
-                <xsl:attribute name="valign" select="string($prmEntry/@valign)"/>
-            </xsl:if>
+            <xsl:copy-of select="$prmEntry/@colname"/>
+            <xsl:copy-of select="$prmEntry/@namest"/>
+            <xsl:copy-of select="$prmEntry/@nameend"/>
+            <xsl:copy-of select="$prmEntry/@morerows"/>
+            <xsl:copy-of select="$prmEntry/@colsep"/>
+            <xsl:copy-of select="$prmEntry/@rowsep"/>
+            <xsl:copy-of select="$prmEntry/@align"/>
+            <xsl:copy-of select="$prmEntry/@char"/>
+            <xsl:copy-of select="$prmEntry/@valign"/>
         </dummy>
     </xsl:function>
     
