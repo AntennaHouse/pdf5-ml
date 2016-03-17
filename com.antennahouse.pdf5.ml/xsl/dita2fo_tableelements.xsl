@@ -14,7 +14,8 @@ E-mail : info@antennahouse.com
  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
  xmlns:xs="http://www.w3.org/2001/XMLSchema"
  xmlns:ahf="http://www.antennahouse.com/names/XSLT/Functions/Document"
- exclude-result-prefixes="xs ahf"
+ xmlns:ahs="http://www.antennahouse.com/names/XSLT/Document/Layout"
+ exclude-result-prefixes="xs ahf ahs"
 >
     <!-- **************************** 
             Table Templates
@@ -198,7 +199,8 @@ E-mail : info@antennahouse.com
      function:	build tgroup attributes
      param:		prmTgroup, prmTableAttr
      return:	element()
-     note:		
+     note:		@fo:prop is only used to separate text-align because it is only applied to fo:table-and-caption.
+                2016-02-26 t.makita
      -->
     <xsl:function name="ahf:addTgroupAttr" as="element()">
         <xsl:param name="prmTgroup"    as="element()"/>
@@ -362,9 +364,9 @@ E-mail : info@antennahouse.com
         <xsl:param name="prmThead"    as="element()"/>
         <xsl:param name="prmTgroupAttr" as="element()"/>
         <dummy>
-            <xsl:copy-of select="$prmTgroupAttr/@*"/>
+            <xsl:copy-of select="$prmTgroupAttr/@* except $prmTgroupAttr/@fo:prop"/>
             <xsl:copy-of select="$prmThead/@valign"/>
-            <xsl:copy-of select="$prmThead/@fo:prop"/>"
+            <xsl:copy-of select="ahf:getStylesheetProperty($prmThead)"/>"
         </dummy>
     </xsl:function>
     
@@ -404,9 +406,9 @@ E-mail : info@antennahouse.com
         <xsl:param name="prmTbody"    as="element()"/>
         <xsl:param name="prmTgroupAttr" as="element()"/>
         <dummy>
-            <xsl:copy-of select="$prmTgroupAttr/@*"/>
+            <xsl:copy-of select="$prmTgroupAttr/@* except $prmTgroupAttr/@fo:prop"/>
             <xsl:copy-of select="$prmTbody/@valign"/>
-            <xsl:copy-of select="$prmTbody/@fo:prop"/>"
+            <xsl:copy-of select="ahf:getStylesheetProperty($prmTbody)"/>"
         </dummy>
     </xsl:function>
     
@@ -457,7 +459,7 @@ E-mail : info@antennahouse.com
             <xsl:copy-of select="$prmRowUpperAttr/@*"/>
             <xsl:copy-of select="$prmRow/@rowsep"/>
             <xsl:copy-of select="$prmRow/@valign"/>
-            <xsl:copy-of select="$prmRow/@fo:prop"/>"
+            <xsl:copy-of select="ahf:getStylesheetProperty($prmRow)"/>
         </dummy>
     </xsl:function>
     
@@ -476,7 +478,7 @@ E-mail : info@antennahouse.com
                 <!-- Average character width in table cell -->
                 <xsl:variable name="avgCharWidthInTableCell" as="xs:double">
                     <!-- Manually specified row charracter width -->
-                    <xsl:variable name="maunuallySpecifiedCharWidth" as="xs:double?" select="xs:double(ahf:getStylesheetProperty($prmRowAttr)[local-name() eq 'avg-char-width-in-table-entry'])"/>
+                    <xsl:variable name="maunuallySpecifiedCharWidth" as="xs:double?" select="xs:double($prmRowAttr/@*[name() eq 'ahs:avg-char-width-in-table-entry'])"/>
                     <xsl:choose>
                         <xsl:when test="exists($maunuallySpecifiedCharWidth)">
                             <xsl:sequence select="$maunuallySpecifiedCharWidth"/>
@@ -491,7 +493,7 @@ E-mail : info@antennahouse.com
                 <!-- Max character count in rotated entry -->
                 <xsl:variable name="maxCharCountInRotatedTableEntry" as="xs:double">
                     <!-- Manually specified row height -->
-                    <xsl:variable name="maunuallyAssignRowHeight" as="xs:double?" select="xs:double(ahf:getStylesheetProperty($prmRowAttr)[local-name() eq 'max-char-count-in-rotated-table-entry'])"/>
+                    <xsl:variable name="maunuallyAssignRowHeight" as="xs:double?" select="xs:double($prmRowAttr/@*[name() eq 'ahs:max-char-count-in-rotated-table-entry'])"/>
                     <xsl:message select="'ahf:getStylesheetProperty($prmRowAttr)=',ahf:getStylesheetProperty($prmRowAttr)"/>
                     <xsl:choose>
                         <xsl:when test="exists($maunuallyAssignRowHeight)">
