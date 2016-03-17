@@ -5,6 +5,7 @@
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
     xmlns:axf="http://www.antennahouse.com/names/XSL/Extensions"
     xmlns:ahf="http://www.antennahouse.com/names/XSLT/Functions/Document"
+    xmlns:ahs="http://www.antennahouse.com/names/XSLT/Document/Layout"
     exclude-result-prefixes="xs ahf"
     >
 
@@ -56,6 +57,8 @@
          return:	Attribute node
          note:		XSL-FO attribute is authored in $prmElem/@fo:prop in CSS notation.
                     2014-04-22 t.makita
+                    Remove stylesheet specific style (starts with "ahs-").
+                    2016-02-20 t,makita
     -->
     <xsl:function name="ahf:getFoProperty" as="attribute()*">
         <xsl:param name="prmElem" as="element()"/>
@@ -71,9 +74,13 @@
                             <xsl:variable name="propName" as="xs:string">
                                 <xsl:variable name="tempPropName" as="xs:string" select="normalize-space(substring-before($propDesc,':'))"/>
                                 <xsl:variable name="axfExt" as="xs:string" select="'axf-'"/>
+                                <xsl:variable name="ahsExt" as="xs:string" select="'ahs-'"/>
                                 <xsl:choose>
                                     <xsl:when test="starts-with($tempPropName,$axfExt)">
                                         <xsl:sequence select="concat('axf:',substring-after($tempPropName,$axfExt))"/>
+                                    </xsl:when>
+                                    <xsl:when test="starts-with($tempPropName,$ahsExt)">
+                                        <xsl:sequence select="''"/>
                                     </xsl:when>
                                     <xsl:otherwise>
                                         <xsl:sequence select="$tempPropName"/>
@@ -82,6 +89,7 @@
                             </xsl:variable>                            
                             <xsl:variable name="propValue" as="xs:string" select="normalize-space(substring-after($propDesc,':'))"/>
                             <xsl:choose>
+                                <xsl:when test="not(string($propName))"/>
                                 <!--"castable as xs:NAME" can be used only in Saxon PE or EE.
                                     If $propName does not satisfy above, xsl:attribute instruction will be faild!
                                     2014-04-22 t.makita
@@ -198,5 +206,60 @@
             ($pPaperWidth,$pPaperHeight,$pCropSizeH,$pCropSizeV,$pBleedSize))"/>
     </xsl:function>
     
+
+    <!-- 
+         function:	Expand stylesheet specific property into attribute()*
+                    Stylesheet oriented property has prefix "ahs-" as its signature and written in fo:prop attribute for convenience.
+         param:		prmElem
+         return:	Attribute node ("http://www.antennahouse.com/names/XSLT/Document/Layout" namespace)
+         note:		Stylesheet specific property is not XSL-FO property.
+                    It is used to override the style defined default_style.xml or others. 
+                    2016-02-20 t,makita
+    -->
+    <xsl:function name="ahf:getStylesheetProperty" as="attribute()*">
+        <xsl:param name="prmElem" as="element()"/>
+        
+        <xsl:choose>
+            <xsl:when test="exists($prmElem/@fo:prop)">
+                <xsl:variable name="foAttr" as="xs:string" select="normalize-space(string($prmElem/@fo:prop))"/>
+                <xsl:message select="'$foAttr=',$foAttr"></xsl:message>
+                <xsl:for-each select="tokenize($foAttr, ';')">
+                    <xsl:variable name="propDesc" select="normalize-space(string(.))"/>
+                    <xsl:choose>
+                        <xsl:when test="not(string($propDesc))"/>
+                        <xsl:when test="contains($propDesc,':')">
+                            <xsl:variable name="propName" as="xs:string">
+                                <xsl:variable name="tempPropName" as="xs:string" select="normalize-space(substring-before($propDesc,':'))"/>
+                                <xsl:variable name="ahsExt" as="xs:string" select="'ahs-'"/>
+                                <xsl:choose>
+                                    <xsl:when test="starts-with($tempPropName,$ahsExt)">
+                                        <xsl:sequence select="concat('ahs:',substring-after($tempPropName,$ahsExt))"/>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:sequence select="''"/>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                            </xsl:variable>                            
+                            <xsl:variable name="propValue" as="xs:string" select="normalize-space(substring-after($propDesc,':'))"/>
+                            <xsl:choose>
+                                <xsl:when test="not(string($propName))"/>
+                                <xsl:when test="true()">
+                                    <xsl:attribute name="{$propName}" select="$propValue"/>
+                                </xsl:when>
+                            </xsl:choose>                            
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:call-template name="warningContinue">
+                                <xsl:with-param name="prmMes" select="ahf:replace($stMes800,('%foAttr','%xtrc','%xtrf'),($foAttr,string($prmElem/@xtrc),string($prmElem/@xtrf)))"/>
+                            </xsl:call-template>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:for-each>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:sequence select="()"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:function>
 
 </xsl:stylesheet>

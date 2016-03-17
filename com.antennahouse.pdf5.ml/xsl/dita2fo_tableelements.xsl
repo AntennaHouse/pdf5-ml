@@ -206,15 +206,10 @@ E-mail : info@antennahouse.com
         <dummy>
             <xsl:copy-of select="$prmTableAttr/@*"/>
             <xsl:attribute name="cols" select="string($prmTgroup/@cols)"/>
-            <xsl:if test="exists($prmTgroup/@colsep)">
-                <xsl:attribute name="colsep" select="string($prmTgroup/@colsep)"/>
-            </xsl:if>
-            <xsl:if test="exists($prmTgroup/@rowsep)">
-                <xsl:attribute name="rowsep" select="string($prmTgroup/@rowsep)"/>
-            </xsl:if>
-            <xsl:if test="exists($prmTgroup/@align)">
-                <xsl:attribute name="align" select="string($prmTgroup/@align)"/>
-            </xsl:if>
+            <xsl:copy-of select="$prmTgroup/@colsep"/>
+            <xsl:copy-of select="$prmTgroup/@rowsep"/>
+            <xsl:copy-of select="$prmTgroup/@align"/>
+            <xsl:copy-of select="$prmTgroup/@fo:prop"/>"
         </dummy>
     </xsl:function>
     
@@ -368,9 +363,8 @@ E-mail : info@antennahouse.com
         <xsl:param name="prmTgroupAttr" as="element()"/>
         <dummy>
             <xsl:copy-of select="$prmTgroupAttr/@*"/>
-            <xsl:if test="exists($prmThead/@valign)">
-                <xsl:attribute name="valign" select="string($prmThead/@valign)"/>
-            </xsl:if>
+            <xsl:copy-of select="$prmThead/@valign"/>
+            <xsl:copy-of select="$prmThead/@fo:prop"/>"
         </dummy>
     </xsl:function>
     
@@ -411,9 +405,8 @@ E-mail : info@antennahouse.com
         <xsl:param name="prmTgroupAttr" as="element()"/>
         <dummy>
             <xsl:copy-of select="$prmTgroupAttr/@*"/>
-            <xsl:if test="$prmTbody/@valign">
-                <xsl:attribute name="valign" select="string($prmTbody/@valign)"/>
-            </xsl:if>
+            <xsl:copy-of select="$prmTbody/@valign"/>
+            <xsl:copy-of select="$prmTbody/@fo:prop"/>"
         </dummy>
     </xsl:function>
     
@@ -428,15 +421,25 @@ E-mail : info@antennahouse.com
         <xsl:param name="prmColSpec" required="yes" as="element()*"/>
     
         <xsl:variable name="rowAttr" select="ahf:addRowAttr(.,$prmRowUpperAttr)" as="element()"/>
+        <xsl:variable name="rowHeight" as="xs:double">
+            <xsl:call-template name="getRowHeight">
+                <xsl:with-param name="prmRow" select="."/>
+                <xsl:with-param name="prmRowAttr" select="$rowAttr"/>
+            </xsl:call-template>
+        </xsl:variable>
         <fo:table-row>
             <xsl:call-template name="getAttributeSetWithLang">
                 <xsl:with-param name="prmAttrSetName" select="'atsRow'"/>
             </xsl:call-template>
             <xsl:call-template name="ahf:getUnivAtts"/>
+            <xsl:if test="$rowHeight gt 0.0">
+                <xsl:attribute name="height" select="concat(string($rowHeight),'em')"/>
+            </xsl:if>
             <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
             <xsl:apply-templates select="*[contains(@class, ' topic/entry ')]">
                 <xsl:with-param name="prmRowAttr"    select="$rowAttr"/>
                 <xsl:with-param name="prmColSpec"    select="$prmColSpec"/>
+                <xsl:with-param name="prmRowHeight"  select="$rowHeight"/>
             </xsl:apply-templates>
         </fo:table-row>
     </xsl:template>
@@ -452,24 +455,96 @@ E-mail : info@antennahouse.com
         <xsl:param name="prmRowUpperAttr" as="element()"/>
         <dummy>
             <xsl:copy-of select="$prmRowUpperAttr/@*"/>
-            <xsl:if test="exists($prmRow/@rowsep)">
-                <xsl:attribute name="rowsep" select="string($prmRow/@rowsep)"/>
-            </xsl:if>
-            <xsl:if test="exists($prmRow/@valign)">
-                <xsl:attribute name="valign" select="string($prmRow/@valign)"/>
-            </xsl:if>
+            <xsl:copy-of select="$prmRow/@rowsep"/>
+            <xsl:copy-of select="$prmRow/@valign"/>
+            <xsl:copy-of select="$prmRow/@fo:prop"/>"
         </dummy>
     </xsl:function>
     
     <!-- 
+     function:	get row height considering entry/@rotate="1"
+     param:		prmRow, prmRowAttr
+     return:	xs:double (Row height as em unit. 0.0 means no needs to set row height)
+     note:		
+     -->
+    <xsl:template name="getRowHeight" as="xs:double">
+        <xsl:param name="prmRow" as="element()" required="yes"/>
+        <xsl:param name="prmRowAttr" as="element()" required="yes"/>
+        <xsl:variable name="rotatedEntries" as="element()*" select="$prmRow/*[contains(@class,' topic/entry ')][string(@rotate) eq '1']"/>
+        <xsl:choose>
+            <xsl:when test="exists($rotatedEntries)">
+                <!-- Average character width in table cell -->
+                <xsl:variable name="avgCharWidthInTableCell" as="xs:double">
+                    <!-- Manually specified row charracter width -->
+                    <xsl:variable name="maunuallySpecifiedCharWidth" as="xs:double?" select="xs:double(ahf:getStylesheetProperty($prmRowAttr)[local-name() eq 'avg-char-width-in-table-entry'])"/>
+                    <xsl:choose>
+                        <xsl:when test="exists($maunuallySpecifiedCharWidth)">
+                            <xsl:sequence select="$maunuallySpecifiedCharWidth"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:call-template name="getVarValueAsDouble">
+                                <xsl:with-param name="prmVarName" select="'Avg_Char_Width_In_Table_Entry'"/>
+                            </xsl:call-template>
+                        </xsl:otherwise>
+                    </xsl:choose>    
+                </xsl:variable>
+                <!-- Max character count in rotated entry -->
+                <xsl:variable name="maxCharCountInRotatedTableEntry" as="xs:double">
+                    <!-- Manually specified row height -->
+                    <xsl:variable name="maunuallyAssignRowHeight" as="xs:double?" select="xs:double(ahf:getStylesheetProperty($prmRowAttr)[local-name() eq 'max-char-count-in-rotated-table-entry'])"/>
+                    <xsl:message select="'ahf:getStylesheetProperty($prmRowAttr)=',ahf:getStylesheetProperty($prmRowAttr)"/>
+                    <xsl:choose>
+                        <xsl:when test="exists($maunuallyAssignRowHeight)">
+                            <xsl:sequence select="$maunuallyAssignRowHeight"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:call-template name="getVarValueAsDouble">
+                                <xsl:with-param name="prmVarName" select="'Max_Char_Count_In_Rotated_Table_Entry'"/>
+                            </xsl:call-template>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:variable>
+                <!-- Row height in em unit -->
+                <xsl:variable name="rowHeights" as="xs:double+">
+                    <xsl:for-each select="$rotatedEntries">
+                        <xsl:variable name="rotatedEntry" as="element()" select="."/>
+                        <!-- Entry character count -->
+                        <xsl:variable name="rotatedEntryCharCount" as="xs:double">
+                            <xsl:variable name="entryCharTexts" as="xs:string*">
+                                <xsl:apply-templates select="$rotatedEntry" mode="TEXT_ONLY"/>
+                            </xsl:variable>
+                            <xsl:sequence select="xs:double(string-length(normalize-space(string-join($entryCharTexts,''))))"/>
+                        </xsl:variable>
+                        <xsl:choose>
+                            <xsl:when test="$rotatedEntryCharCount gt $maxCharCountInRotatedTableEntry">
+                                <xsl:sequence select="$maxCharCountInRotatedTableEntry * $avgCharWidthInTableCell"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:sequence select="$rotatedEntryCharCount * $avgCharWidthInTableCell"/>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:for-each>
+                </xsl:variable>
+                <xsl:sequence select="max($rowHeights)"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:sequence select="0.0"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    
+    
+    <!-- 
      function:	entry template
-     param:		prmRowAttr, prmColSpec
+     param:		prmRowAttr, prmColSpec,prmRowHeight
      return:	fo:table-cell
      note:		Honor the entry attribute than colspec attribute. 2011-08-29 t.makita
+                $prmRowHeight is needed for entry/@rotate="1" when specifying fo:block-container/@width
      -->
     <xsl:template match="*[contains(@class, ' topic/entry ')]">
         <xsl:param name="prmRowAttr" required="yes" as="element()"/>
         <xsl:param name="prmColSpec" required="yes" as="element()*"/>
+        <xsl:param name="prmRowHeight" required="yes" as="xs:double"/>
     
         <xsl:variable name="entryAttr" select="ahf:addEntryAttr(.,$prmRowAttr)" as="element()"/>
         <xsl:variable name="colname" select="string($entryAttr/@colname)"/>
@@ -482,12 +557,26 @@ E-mail : info@antennahouse.com
             <xsl:copy-of select="ahf:getColSpecAttr($colname,$prmColSpec)"/>
             <xsl:copy-of select="ahf:getEntryAttr(.,$entryAttr,$prmColSpec)"/>
             <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
-            <fo:block>
-                <xsl:apply-templates/>
-            </fo:block>
+            <xsl:choose>
+                <xsl:when test="string(@rotate) eq '1'">
+                    <fo:block-container>
+                        <xsl:call-template name="getAttributeSet">
+                            <xsl:with-param name="prmAttrSetName" select="'atsRotatedEntry'"/>
+                        </xsl:call-template>
+                        <xsl:attribute name="width" select="concat(string($prmRowHeight),'em')"/>
+                        <fo:block>
+                            <xsl:apply-templates/>
+                        </fo:block>
+                    </fo:block-container>
+                </xsl:when>
+                <xsl:otherwise>
+                    <fo:block>
+                        <xsl:apply-templates/>
+                    </fo:block>
+                </xsl:otherwise>
+            </xsl:choose>
         </fo:table-cell>
     </xsl:template>
-    
     
     <!-- 
      function:	build entry attributes
@@ -500,36 +589,15 @@ E-mail : info@antennahouse.com
         <xsl:param name="prmRowAttr"  as="element()"/>
         <dummy>
             <xsl:copy-of select="$prmRowAttr/@*"/>
-            <xsl:if test="exists($prmEntry/@colname)">
-                <xsl:attribute name="colname" select="string($prmEntry/@colname)"/>
-            </xsl:if>
-            <xsl:if test="exists($prmEntry/@namest)">
-                <xsl:attribute name="namest" select="string($prmEntry/@namest)"/>
-            </xsl:if>
-            <xsl:if test="exists($prmEntry/@nameend)">
-                <xsl:attribute name="nameend" select="string($prmEntry/@nameend)"/>
-            </xsl:if>
-            <xsl:if test="exists($prmEntry/@morerows)">
-                <xsl:attribute name="morerows" select="string($prmEntry/@morerows)"/>
-            </xsl:if>
-            <xsl:if test="exists($prmEntry/@colsep)">
-                <xsl:attribute name="colsep" select="string($prmEntry/@colsep)"/>
-            </xsl:if>
-            <xsl:if test="exists($prmEntry/@rowsep)">
-                <xsl:attribute name="rowsep" select="string($prmEntry/@rowsep)"/>
-            </xsl:if>
-            <xsl:if test="exists($prmEntry/@align)">
-                <xsl:attribute name="align" select="string($prmEntry/@align)"/>
-            </xsl:if>
-            <xsl:if test="exists($prmEntry/@char)">
-                <xsl:attribute name="char" select="string($prmEntry/@char)"/>
-            </xsl:if>
-            <!--xsl:if test="exists($prmEntry/@charoff)">
-                <xsl:attribute name="charoff" select="string($prmEntry/@charoff)"/>
-            </xsl:if-->
-            <xsl:if test="exists($prmEntry/@valign)">
-                <xsl:attribute name="valign" select="string($prmEntry/@valign)"/>
-            </xsl:if>
+            <xsl:copy-of select="$prmEntry/@colname"/>
+            <xsl:copy-of select="$prmEntry/@namest"/>
+            <xsl:copy-of select="$prmEntry/@nameend"/>
+            <xsl:copy-of select="$prmEntry/@morerows"/>
+            <xsl:copy-of select="$prmEntry/@colsep"/>
+            <xsl:copy-of select="$prmEntry/@rowsep"/>
+            <xsl:copy-of select="$prmEntry/@align"/>
+            <xsl:copy-of select="$prmEntry/@char"/>
+            <xsl:copy-of select="$prmEntry/@valign"/>
         </dummy>
     </xsl:function>
     
