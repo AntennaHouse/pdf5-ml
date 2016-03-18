@@ -68,7 +68,7 @@
         return:	    fo:block
         note:		Generate single fo:block selecting appropriate equation in the child.
                     <equation-block> can have multiple equations as the each direct child elements.
-                    ahf:getCandidateEquationBody will select most appropriate one from child elements.
+                    ahf:getCandidateEquationElement will select most appropriate one from child elements.
                     Also <equation-block> can have multiple <equation-number>. But DITA 1.3 spec says that
                     they are used for conditional processing. 
                     So this template adopts equation-block/equation-number[1] as equation number.
@@ -81,7 +81,16 @@
         <xsl:variable name="equationBlock" as="element()" select="."/>
         <xsl:variable name="candidateEquationNumber" as="element()?" select="$equationBlock/*[contains(@class,' equation-d/equation-number ')][1]"/>
         <xsl:variable name="hasNoEquationNumber" as="xs:boolean" select="ahf:hasNoEquationNumber($equationBlock)"/>
-        <xsl:variable name="candidateEquationBody" as="node()*" select="ahf:getCandidateEquationBody($equationBlock) | $equationBlock/text()"/>
+        <xsl:variable name="candidateEquationBody" as="node()*">
+            <xsl:variable name="candidateEquation" as="element()?" select="ahf:getCandidateEquationElement($equationBlock)"/>
+            <xsl:variable name="exceptEquationGroup" as="element()*">
+                <xsl:if test="exists($candidateEquation)">
+                    <xsl:sequence select="ahf:getCandidateEquationElementsGroup($equationBlock)"/>
+                </xsl:if>
+                <xsl:sequence select="$equationBlock/*[contains(@class,' equation-d/equation-number ')]"/>
+            </xsl:variable>
+            <xsl:sequence select="(node() except $exceptEquationGroup) | $candidateEquation"/>
+        </xsl:variable>
         <xsl:variable name="isInEquationFigure" as="xs:boolean" select="exists(ancestor::*[contains(@class,' equation-d/equation-figure ')])"/>
         <xsl:variable name="outputEquationAndNumber" as="xs:boolean">
             <xsl:choose>
@@ -141,33 +150,53 @@
         </xsl:choose>
     </xsl:template>
     <!-- 
-        function:	Select candidate equation body
-        param:	    element()*
-        return:	    node()*
+        function:	Select candidate equation element
+        param:	    element()
+        return:	    element()?
         note:		Select candidate equation node()
                     1. <mathml> element
                     2. MathML <img>
                     3. SVG container
                     4. Otherwise 1st defined one
-                    The selection strategy is implementation dependent.
+                    The selection strategy depends on authoring.
     -->
-    <xsl:function name="ahf:getCandidateEquationBody" as="element()?">
+    <xsl:function name="ahf:getCandidateEquationElement" as="element()?">
         <xsl:param name="prmEquationBlock" as="element()"/>
         <xsl:variable name="prmEquation" as="element()*" select="$prmEquationBlock/*"/>
         <xsl:choose>
             <xsl:when test="$prmEquation[contains(@class,' mathml-d/mathml ')]">
                 <xsl:sequence select="($prmEquation[contains(@class,' mathml-d/mathml ')])[1]"/>
             </xsl:when>
-            <xsl:when test="$prmEquation[contains(@class,' topic/image ')][ends-with(string(@src),'.mml') or ends-with(string(@src),'.xml')]">
-                <xsl:sequence select="($prmEquation[contains(@class,' topic/image ')][ends-with(string(@src),'.mml') or ends-with(string(@src),'.xml')])[1]"/>
+            <xsl:when test="$prmEquation[contains(@class,' topic/image ')][ends-with(string(@src),'.mml') or ends-with(string(@src),'.xml') or ends-with(string(@src),'.svg') or ends-with(string(@src),'.pdf')]">
+                <xsl:sequence select="($prmEquation[contains(@class,' topic/image ')][ends-with(string(@src),'.mml') or ends-with(string(@src),'.xml') or ends-with(string(@src),'.svg') or ends-with(string(@src),'.pdf')])[1]"/>
             </xsl:when>
             <xsl:when test="$prmEquation[contains(@class,' svg-d/svg-container ')]">
                 <xsl:sequence select="($prmEquation[contains(@class,' svg-d/svg-container ')])[1]"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:sequence select="($prmEquation[not(contains(@class, ' equation-d/equation-number '))])[1]"/>
+                <xsl:sequence select="()"/>
             </xsl:otherwise>
         </xsl:choose>
+    </xsl:function>
+    
+    <!-- 
+        function:	Select candidate equation candidate elements group
+        param:	    element()
+        return:	    element()*
+        note:		Select candidate equation element
+                    1. <mathml> element
+                    2. MathML <img>
+                    3. SVG container
+                    The selection strategy depends on authoring.
+                    This function must be compatible with ahf:getCandidateEquationElement
+    -->
+    <xsl:function name="ahf:getCandidateEquationElementsGroup" as="element()*">
+        <xsl:param name="prmEquationBlock" as="element()"/>
+        <xsl:variable name="prmEquation" as="element()*" select="$prmEquationBlock/*"/>
+        <xsl:variable name="mathmlElem" as="element()*" select="$prmEquation[contains(@class,' mathml-d/mathml ')]"/>
+        <xsl:variable name="imageElem" as="element()*" select="$prmEquation[contains(@class,' topic/image ')]"/>
+        <xsl:variable name="svgElem" as="element()*" select="$prmEquation[contains(@class,' svg-d/svg-container ')]"/>
+        <xsl:sequence select="$mathmlElem | $imageElem | $svgElem"/>
     </xsl:function>
 
     <!-- 
