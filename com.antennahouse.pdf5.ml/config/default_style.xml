@@ -220,7 +220,7 @@ URL : http://www.antennahouse.com/
         <variable name="Figure_List_Title">Figures</variable>
         <variable name="Table_List_Title">Tables</variable>
         <variable name="Abbreviations_List_Title">Abbreviations</variable>
-        <variable name="Trademark_List_Title">Trademaks</variable>
+        <variable name="Trademark_List_Title">Trademarks</variable>
         <variable name="Bibliographic_List_Title">Bibliography</variable>
         <variable name="Glossary_List_Title">Glossary</variable>
         <variable name="Appendices_Title">Appendices</variable>
@@ -262,6 +262,7 @@ URL : http://www.antennahouse.com/
         <variable name="Note_Notice">Notice</variable>
         <variable name="Note_Danger">Danger</variable>
         <variable name="Note_Warning">Warning</variable>
+        <variable name="Note_Trouble">Trouble</variable>
         <variable name="Note_Other">Other</variable>
 
         <!-- Right page thumbnail max count -->
