@@ -79,7 +79,7 @@ E-mail : info@antennahouse.com
                         </xsl:call-template>
                     </fo:leader>
                 </xsl:when>
-                <xsl:when test="$type = ('important','restriction','remember')">
+                <xsl:when test="$type = ('important','restriction','remember','trouble')">
                     <fo:external-graphic>
                         <xsl:call-template name="getAttributeSetWithLang">
                             <xsl:with-param name="prmAttrSetName" select="'atsNoteImportantIconImage'"/>
@@ -90,7 +90,8 @@ E-mail : info@antennahouse.com
                             <xsl:choose>
                                 <xsl:when test="$type eq 'important'"><xsl:sequence select="'Note_Important'"/></xsl:when>
                                 <xsl:when test="$type eq 'restriction'"><xsl:sequence select="'Note_Restriction'"/></xsl:when>
-                                <xsl:otherwise><xsl:sequence select="'Note_Remember'"/></xsl:otherwise>
+                                <xsl:when test="$type eq 'remember'"><xsl:sequence select="'Note_Remember'"/></xsl:when>
+                                <xsl:otherwise><xsl:sequence select="'Note_Trouble'"/></xsl:otherwise>
                             </xsl:choose>
                         </xsl:with-param>
                     </xsl:call-template>
