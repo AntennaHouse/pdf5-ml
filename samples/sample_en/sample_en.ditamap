@@ -123,7 +123,10 @@
                 </keywords>
             </topicmeta>
         	<topicref href="topics-en/p_longdescref.xml" type="topic"/>
-        	<topicref href="topics-en/p_longquoteref.xml" type="topic"/>
+            <!-- Temporary removed by DITA-OT BUG
+                 https://github.com/dita-ot/dita-ot/issues/2246
+              -->
+        	<!--topicref href="topics-en/p_longquoteref.xml" type="topic"/-->
         	<mapref href="topics-en/m_keydef.ditamap" type="map"/>
         	<topicref href="topics-en/p_sectiondiv.xml" type="topic"/>
         </chapter>
