@@ -21,12 +21,21 @@
         <variable name="Equation_Number_Ref_Prefix">Eq. </variable>
         <variable name="Equation_Number_Prefix">(</variable>
         <variable name="Equation_Number_Suffix">)</variable>
+        <variable name="Equation_Block_Non_Textual_Parent" delim=","> topic/body , topic/fig , topic/figgroup , troubleshooting/cause , troubleshooting/condition </variable>
     </variables>
     
     <attribute-sets>
         <attribute-set name="atsEquationBlock">
-            <attribute name="space-before">$Para_Space_Before</attribute>
             <attribute name="axf:leader-expansion">force</attribute>
+        </attribute-set>
+        
+        <attribute-set name="atsEquationBlockNonTextualParent">
+            <attribute name="space-before">$Para_Space_Before</attribute>
+        </attribute-set>
+        
+        <attribute-set name="atsEquationBlockTextualParent">
+            <attribute name="space-before">( $Para_Space_Before ) * 0.5</attribute>
+            <attribute name="space-after">( $Para_Space_Before ) * 0.5</attribute>
         </attribute-set>
         
         <attribute-set name="atsEquationLeader">
