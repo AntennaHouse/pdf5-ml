@@ -72,9 +72,27 @@
                     Also <equation-block> can have multiple <equation-number>. But DITA 1.3 spec says that
                     they are used for conditional processing. 
                     So this template adopts equation-block/equation-number[1] as equation number.
+                    
+                    Spacing rule (temporary):
+                    If <equation-block> has parent that has textual content then apply space-before and space-after for the val $Para_Space_Before / 2
+                    Else apply space-before for the value $Para_Space_Before.
     -->
+    <xsl:variable name="equationBlockNonTextualParent" as="xs:string*">
+        <xsl:variable name="equationBlockNonTextualParent" as="xs:string*">
+            <xsl:call-template name="getVarValueAsStringSequence">
+                <xsl:with-param name="prmVarName" select="'Equation_Block_Non_Textual_Parent'"/>
+            </xsl:call-template>
+        </xsl:variable>
+        <xsl:sequence select="$equationBlockNonTextualParent"/>
+    </xsl:variable>
+    
     <xsl:template match="*[contains(@class, ' equation-d/equation-block ')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
+        <xsl:variable name="hasNonTextualParent" as="xs:boolean">
+            <xsl:variable name="parentClass" as="xs:string" select="string(parent::*[1]/@class)"/>
+            <xsl:sequence select="ahf:seqContains($parentClass,$equationBlockNonTextualParent)"/>
+        </xsl:variable>
         <xsl:sequence select="'atsEquationBlock'"/>
+        <xsl:sequence select="if ($hasNonTextualParent) then 'atsEquationBlockNonTextualParent' else 'atsEquationBlockTextualParent'"/>
     </xsl:template>
     
     <xsl:template match="*[contains(@class, ' equation-d/equation-block ')]" priority="2">

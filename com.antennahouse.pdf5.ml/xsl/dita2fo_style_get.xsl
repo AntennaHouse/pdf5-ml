@@ -1115,9 +1115,9 @@
             </xsl:call-template>
         </xsl:variable>
         <xsl:variable name="stringValue" as="xs:string" select="$stringAndDelim[1]"/>
-        <xsl:variable name="delim" as="xs:string" select="$stringAndDelim[2]"/>
-        <xsl:variable name="tempDelim" as="xs:string" select="$prmDelim"/>
-        <xsl:for-each select="tokenize($stringValue,$delim)">
+        <xsl:variable name="delim" as="xs:string?" select="$stringAndDelim[2]"/>
+        <xsl:variable name="tempDelim" as="xs:string" select="if (exists($delim)) then $delim else $prmDelim"/>
+        <xsl:for-each select="tokenize($stringValue,$tempDelim)">
             <xsl:variable name="token" as="xs:string" select="."/>
             <xsl:choose>
                 <xsl:when test="not(string($token))"/>
