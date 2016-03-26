@@ -290,5 +290,10 @@ E-mail : info@antennahouse.com
     <xsl:param name="PRM_INPUT_MAP_NAME" required="yes" as="xs:string"/>
     <xsl:variable name="pInputMapName" as="xs:string" select="$PRM_INPUT_MAP_NAME"/>
     
-
+    <!-- Output index
+         2016-03-26 t.makita
+     -->
+    <xsl:param name="PRM_OUTPUT_INDEX" required="no" as="xs:string" select="$cYes"/>
+    <xsl:variable name="pOutputIndex" as="xs:boolean" select="$PRM_OUTPUT_INDEX eq $cYes"/>
+    
 </xsl:stylesheet>

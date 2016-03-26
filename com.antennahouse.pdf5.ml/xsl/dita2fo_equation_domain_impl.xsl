@@ -74,8 +74,8 @@
                     So this template adopts equation-block/equation-number[1] as equation number.
                     
                     Spacing rule (temporary):
-                    If <equation-block> has parent that has textual content then apply space-before and space-after for the val $Para_Space_Before / 2
-                    Else apply space-before for the value $Para_Space_Before.
+                    If <equation-block> has parent that has textual content (e.g <p>)then apply space-before and space-after for the value $Para_Space_Before / 2.
+                    Otherwisee apply space-before for the value $Para_Space_Before (e.g. <body>).
     -->
     <xsl:variable name="equationBlockNonTextualParent" as="xs:string*">
         <xsl:variable name="equationBlockNonTextualParent" as="xs:string*">

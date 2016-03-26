@@ -290,7 +290,7 @@ E-mail : info@antennahouse.com
         </xsl:next-match>
     </xsl:template>
     <xsl:template match="*[contains(@class,' bookmap/indexlist ')][empty(@href)][ahf:isToc(.)]" mode="MAKE_TOC" priority="2" >
-        <xsl:if test="$indextermSortedCount gt 0">
+        <xsl:if test="$pOutputIndex and ($indextermSortedCount gt 0)">
             <xsl:next-match>
                 <xsl:with-param name="prmDefaultTitle" select="$cIndexTitle"/>
                 <xsl:with-param name="prmProcessChild" select="false()"/>

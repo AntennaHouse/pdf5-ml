@@ -38,7 +38,8 @@
     <echo message="exclude.auto.numbering.from.equation.figure=${exclude.auto.numbering.from.equation.figure}"/>
     <echo message="assume.equation.number.as.auto=${assume.equation.number.as.auto}"/>
     <echo message="debug.index.sort.result=${debug.index.sort.result}"/>
-    <echo message="skip.pdf.generation=${skip.pdf.generation}"></echo>
+    <echo message="skip.pdf.generation=${skip.pdf.generation}"/>
+    <echo message="output.index=${output.index}"/>
     
     <echo message="ahf.dir=${ahf.dir}"/>
     <echo message="ahf.opt=${ahf.opt}"/>

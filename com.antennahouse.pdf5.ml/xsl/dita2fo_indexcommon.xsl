@@ -501,7 +501,7 @@ E-mail : info@antennahouse.com
             </xsl:call-template>
         </xsl:if>
     	
-    	<xsl:if test="$indextermSortedCount &gt; 0">
+        <xsl:if test="$pOutputIndex and ($indextermSortedCount &gt; 0)">
     	    <psmi:page-sequence>
                 <xsl:copy-of select="ahf:getAttributeSet('atsPageSeqIndex')"/>
                 <fo:static-content flow-name="rgnIndexBeforeLeft">

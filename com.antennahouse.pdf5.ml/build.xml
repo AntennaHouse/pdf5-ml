@@ -161,7 +161,11 @@
     </condition>
 
     <property name="skip.pdf.generation" value="no"/>
-    
+
+    <condition property="output.index" value="yes">
+        <equals arg1="${use.saxon.transform}" arg2="yes"/> 
+    </condition>
+
     <!-- Make absolute path for temporary directory -->
     <available property="build.temp.dir" value="${dita.temp.dir}" file="${dita.temp.dir}" type="dir"/>
     <condition property="build.temp.dir" value="${caller.basedir}${file.separator}${dita.temp.dir}">
