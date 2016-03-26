@@ -28,7 +28,7 @@ E-mail : info@antennahouse.com
     	        <xsl:call-template name="genMapTocBookmark"/>
     	    </xsl:if>
     		<xsl:apply-templates select="$map" mode="MAKE_BOOKMARK"/>
-    	    <xsl:if test="$isMap and $pMakeIndexForMap and ($indextermSortedCount gt 0)">
+    	    <xsl:if test="$isMap and $pMakeIndexForMap and $pOutputIndex and ($indextermSortedCount gt 0)">
     	        <xsl:call-template name="genMapIndexBookmark"/>
     	    </xsl:if>
     	</fo:bookmark-tree>
@@ -214,7 +214,7 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <xsl:template match="*[contains(@class,' bookmap/indexlist ')][empty(@href)][ahf:isToc(.)]" mode="MAKE_BOOKMARK" priority="2">
-        <xsl:if test="$indextermSortedCount gt 0">
+        <xsl:if test="$pOutputIndex and ($indextermSortedCount gt 0)">
             <xsl:variable name="topicRef" as="element()" select="."/>
             <xsl:variable name="id" as="xs:string" select="string(ahf:getIdAtts($topicRef,$topicRef,true())[1])"/>
             <xsl:call-template name="genBookmark">
