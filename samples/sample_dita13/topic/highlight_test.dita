@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic id="topic_fdf_fmm_h5" xml:lang="en-US">
+    <title>Highlight domain testing</title>
+  <body>
+    <section>
+      <title>line-through element</title>
+      <p>The <![CDATA[<line-through>]]> element indicates text that is rendered with a line struck through the content. </p>
+      <p>Line-through: DITA technology can be
+        <line-through>maddening</line-through>a challenge to implement.</p>
+      <p>Line-through with u.</p>
+      <p>Line-through: DITA technology can be
+        <line-through>ma<u>dd</u>ening</line-through>a challenge to implement.</p>
+    </section>
+    <section> 
+      <title>overline element</title>
+      <p>The <![CDATA[<overline>]]> element indicates content that is rendered with a line above it. </p>
+      <p>Overline: <overline><i>x</i></overline> is the 
+        average value of <i>x<sub>i</sub></i></p>    </section>
+  </body>
+</topic>

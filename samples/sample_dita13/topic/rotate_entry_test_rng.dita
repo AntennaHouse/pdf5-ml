@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="urn:x-antennahouse:dita:rng:topic.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="urn:x-antennahouse:dita:rng:topic.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<topic id="topic_cpl_ktn_1v" xmlns:fo="http://www.w3.org/1999/XSL/Format" xml:lang="en-US">
+  <title>Rotating table cell by specifying entry/@rotate="1"</title>
+  <body>
+    <p>You can rotate table entry content rotated 90 degrees counterclockwise by specifying entry/@rotate="1"</p>
+    <section>
+      <title>Normal pattern</title>
+      <table>
+        <tgroup cols="11">
+          <colspec colnum="1" colwidth="10*"/>
+          <colspec colnum="2" colwidth="3*"/>
+          <colspec colnum="3" colwidth="1*" align="center"/>
+          <colspec colnum="4" colwidth="1*" align="center"/>
+          <colspec colnum="5" colwidth="1*" align="center"/>
+          <colspec colnum="6" colwidth="1*" align="center"/>
+          <colspec colnum="7" colwidth="1*" align="center"/>
+          <colspec colnum="8" colwidth="1*" align="center"/>
+          <colspec colnum="9" colwidth="1*" align="center"/>
+          <colspec colnum="10" colwidth="1*" align="center"/>
+          <colspec colnum="11" colwidth="1*" align="center"/>
+          <colspec colnum="12" colwidth="1*" align="center"/>
+          <tbody>
+            <row>
+              <entry>Model name</entry>
+              <entry>Odometer reading</entry>
+              <entry rotate="1" align="left">Check fuel hoses for cracks or damages</entry>
+              <entry rotate="1" align="left">Replace spark plug</entry>
+              <entry rotate="1" align="left">Clean air filter element</entry>
+              <entry rotate="1" align="left">Adjust clutch</entry>
+              <entry rotate="1" align="left">Check clutch operation</entry>
+              <entry rotate="1" align="left">Check front brake fluid level and vehicle for fluid leakage</entry>
+              <entry rotate="1" align="left">Replace front brake pads</entry>
+              <entry rotate="1" align="left">Check brake hoses for cracks or damage</entry>
+              <entry rotate="1" align="left">Check wheel runout, spoke tightness and for damage</entry>
+              <entry rotate="1" align="left">Check tire tread depth and for damage</entry>
+            </row>
+            <row>
+              <entry morerows="4" valign="middle">DT125R</entry>
+              <entry>1000</entry>
+              <entry></entry>
+              <entry></entry>
+              <entry></entry>
+              <entry><cm value="yes" fo:prop="font-family:Arial Unicode MS;"/></entry>
+              <entry><cm value="yes" fo:prop="font-family:Arial Unicode MS;"/></entry>
+              <entry><cm value="yes" fo:prop="font-family:Arial Unicode MS;"/></entry>
+              <entry></entry>
+              <entry></entry>
+              <entry></entry>
+              <entry></entry>
+            </row>
+            <row>
+              <entry>6000</entry>
+              <entry><cm value="yes" fo:prop="font-family:Arial Unicode MS;"/></entry>
+              <entry><cm value="yes" fo:prop="font-family:Arial Unicode MS;"/></entry>
+              <entry><cm value="yes" fo:prop="font-family:Arial Unicode MS;"/></entry>
+              <entry><cm value="yes" fo:prop="font-family:Arial Unicode MS;"/></entry>
+              <entry><cm value="yes" fo:prop="font-family:Arial Unicode MS;"/></entry>
+              <entry><cm value="yes" fo:prop="font-family:Arial Unicode MS;"/></entry>
+              <entry><cm value="yes" fo:prop="font-family:Arial Unicode MS;"/></entry>
+              <entry><cm value="yes" fo:prop="font-family:Arial Unicode MS;"/></entry>
+              <entry><cm value="yes" fo:prop="font-family:Arial Unicode MS;"/></entry>
+              <entry><cm value="yes" fo:prop="font-family:Arial Unicode MS;"/></entry>
+            </row>
+            <row>
+              <entry>12000</entry>
+              <entry><cm value="yes" fo:prop="font-family:Arial Unicode MS;"/></entry>
+              <entry><cm value="yes" fo:prop="font-family:Arial Unicode MS;"/></entry>
+              <entry><cm value="yes" fo:prop="font-family:Arial Unicode MS;"/></entry>
+              <entry><cm value="yes" fo:prop="font-family:Arial Unicode MS;"/></entry>
+              <entry><cm value="yes" fo:prop="font-family:Arial Unicode MS;"/></entry>
+              <entry><cm value="yes" fo:prop="font-family:Arial Unicode MS;"/></entry>
+              <entry><cm value="yes" fo:prop="font-family:Arial Unicode MS;"/></entry>
+              <entry><cm value="yes" fo:prop="font-family:Arial Unicode MS;"/></entry>
+              <entry><cm value="yes" fo:prop="font-family:Arial Unicode MS;"/></entry>
+              <entry><cm value="yes" fo:prop="font-family:Arial Unicode MS;"/></entry>
+            </row>
+            <row>
+              <entry>18000</entry>
+              <entry><cm value="yes" fo:prop="font-family:Arial Unicode MS;"/></entry>
+              <entry><cm value="yes" fo:prop="font-family:Arial Unicode MS;"/></entry>
+              <entry><cm value="yes" fo:prop="font-family:Arial Unicode MS;"/></entry>
+              <entry><cm value="yes" fo:prop="font-family:Arial Unicode MS;"/></entry>
+              <entry><cm value="yes" fo:prop="font-family:Arial Unicode MS;"/></entry>
+              <entry><cm value="yes" fo:prop="font-family:Arial Unicode MS;"/></entry>
+              <entry><cm value="yes" fo:prop="font-family:Arial Unicode MS;"/></entry>
+              <entry><cm value="yes" fo:prop="font-family:Arial Unicode MS;"/></entry>
+              <entry><cm value="yes" fo:prop="font-family:Arial Unicode MS;"/></entry>
+              <entry><cm value="yes" fo:prop="font-family:Arial Unicode MS;"/></entry>
+            </row>
+            <row>
+              <entry>24000</entry>
+              <entry><cm value="yes" fo:prop="font-family:Arial Unicode MS;"/></entry>
+              <entry><cm value="yes" fo:prop="font-family:Arial Unicode MS;"/></entry>
+              <entry><cm value="yes" fo:prop="font-family:Arial Unicode MS;"/></entry>
+              <entry><cm value="yes" fo:prop="font-family:Arial Unicode MS;"/></entry>
+              <entry><cm value="yes" fo:prop="font-family:Arial Unicode MS;"/></entry>
+              <entry><cm value="yes" fo:prop="font-family:Arial Unicode MS;"/></entry>
+              <entry><cm value="yes" fo:prop="font-family:Arial Unicode MS;"/></entry>
+              <entry><cm value="yes" fo:prop="font-family:Arial Unicode MS;"/></entry>
+              <entry><cm value="yes" fo:prop="font-family:Arial Unicode MS;"/></entry>
+              <entry><cm value="yes" fo:prop="font-family:Arial Unicode MS;"/></entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </table>
+    </section>
+    <section>
+      <title>Manuallly specifying <xmlatt>ahs-max-char-count-in-rotated-table-entry</xmlatt> value in <xmlatt>fo:prop</xmlatt></title>
+      <table>
+        <tgroup cols="8">
+          <colspec colnum="1" colwidth="10*"/>
+          <colspec colnum="2" colwidth="3*"/>
+          <colspec colnum="3" colwidth="2*" align="center"/>
+          <colspec colnum="4" colwidth="2*" align="center"/>
+          <colspec colnum="5" colwidth="2*" align="center"/>
+          <colspec colnum="6" colwidth="2*" align="center"/>
+          <colspec colnum="7" colwidth="2*" align="center"/>
+          <colspec colnum="8" colwidth="2*" align="center"/>
+          <tbody fo:prop="ahs-avg-char-width-in-table-entry:0.4;ahs-max-char-count-in-rotated-table-entry:30;">
+            <row fo:prop="keep-with-next.within-column:always;">
+              <entry>Model name</entry>
+              <entry>Odometer reading</entry>
+              <entry rotate="1" align="left">Check fuel hoses for cracks or damages</entry>
+              <entry rotate="1" align="left">Replace spark plug</entry>
+              <entry rotate="1" align="left">Clean air filter element</entry>
+              <entry rotate="1" align="left">Adjust clutch</entry>
+              <entry rotate="1" align="left">Check clutch operation</entry>
+              <entry rotate="1" align="left">Check front brake fluid level and vehicle for fluid leakage</entry>
+            </row>
+            
+            <row>
+              <entry morerows="4" valign="middle">DT125R</entry>
+              <entry>1000</entry>
+              <entry></entry>
+              <entry></entry>
+              <entry></entry>
+              <entry><cm value="yes" fo:prop="font-family:Arial Unicode MS;"/></entry>
+              <entry><cm value="yes" fo:prop="font-family:Arial Unicode MS;"/></entry>
+              <entry><cm value="yes" fo:prop="font-family:Arial Unicode MS;"/></entry>
+            </row>
+            <row>
+              <entry>6000</entry>
+              <entry><cm value="yes" fo:prop="font-family:Arial Unicode MS;"/></entry>
+              <entry><cm value="yes" fo:prop="font-family:Arial Unicode MS;"/></entry>
+              <entry><cm value="yes" fo:prop="font-family:Arial Unicode MS;"/></entry>
+              <entry><cm value="yes" fo:prop="font-family:Arial Unicode MS;"/></entry>
+              <entry><cm value="yes" fo:prop="font-family:Arial Unicode MS;"/></entry>
+              <entry><cm value="yes" fo:prop="font-family:Arial Unicode MS;"/></entry>
+            </row>
+            <row>
+              <entry>12000</entry>
+              <entry><cm value="yes" fo:prop="font-family:Arial Unicode MS;"/></entry>
+              <entry><cm value="yes" fo:prop="font-family:Arial Unicode MS;"/></entry>
+              <entry><cm value="yes" fo:prop="font-family:Arial Unicode MS;"/></entry>
+              <entry><cm value="yes" fo:prop="font-family:Arial Unicode MS;"/></entry>
+              <entry><cm value="yes" fo:prop="font-family:Arial Unicode MS;"/></entry>
+              <entry><cm value="yes" fo:prop="font-family:Arial Unicode MS;"/></entry>
+            </row>
+            <row>
+              <entry>18000</entry>
+              <entry><cm value="yes" fo:prop="font-family:Arial Unicode MS;"/></entry>
+              <entry><cm value="yes" fo:prop="font-family:Arial Unicode MS;"/></entry>
+              <entry><cm value="yes" fo:prop="font-family:Arial Unicode MS;"/></entry>
+              <entry><cm value="yes" fo:prop="font-family:Arial Unicode MS;"/></entry>
+              <entry><cm value="yes" fo:prop="font-family:Arial Unicode MS;"/></entry>
+              <entry><cm value="yes" fo:prop="font-family:Arial Unicode MS;"/></entry>
+            </row>
+            <row>
+              <entry>24000</entry>
+              <entry><cm value="yes" fo:prop="font-family:Arial Unicode MS;"/></entry>
+              <entry><cm value="yes" fo:prop="font-family:Arial Unicode MS;"/></entry>
+              <entry><cm value="yes" fo:prop="font-family:Arial Unicode MS;"/></entry>
+              <entry><cm value="yes" fo:prop="font-family:Arial Unicode MS;"/></entry>
+              <entry><cm value="yes" fo:prop="font-family:Arial Unicode MS;"/></entry>
+              <entry><cm value="yes" fo:prop="font-family:Arial Unicode MS;"/></entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </table>
+    </section>
+  </body>
+</topic>

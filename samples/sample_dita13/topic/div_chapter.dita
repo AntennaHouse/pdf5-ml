@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_bh3_nfl_x5" xml:lang="en-US">
+ <title><xmlelement>div</xmlelement> element</title>
+ <conbody>
+  <p>The <xmlelement>div</xmlelement> element is used to organize subsets of content into logical groups that are not intended to be or should not be contained as a topic.</p>
+  <p>The <xmlelement>div</xmlelement> element is designed to be a grouping element; it does not imply any explicit semantics or contain an explicit title. This avoids enabling the creation of deeply-nested content that would otherwise be written as separate topics. If the content requires a title, use a <xmlelement>section</xmlelement> element, a nested <xmlelement>topic</xmlelement>, or possibly a <xmlelement>fig</xmlelement> element.</p>
+  <div id="div-01">
+   <p>The first paragraph</p>
+   <p>The second paragraph</p>
+   <note>This is a note</note>
+  </div>
+ </conbody>
+</concept>

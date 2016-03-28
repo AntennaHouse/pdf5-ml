@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_wqx_vh5_3v" xml:lang="en-US">
+ <title><xmlelement>equation-inline</xmlelement></title>
+ <shortdesc>Use the <xmlelement>equation-inline</xmlelement> element to represent an equation that
+  is presented inline within a paragraph or similar context. Inline equations are not intended to be
+  numbered.</shortdesc>
+ <conbody>
+  <section>
+   <title>Area of triangle</title>
+   <p>The area of the triangle is represented by the formula <equation-inline>
+    <mathml>
+     <m:math display="inline" xmlns:m="http://www.w3.org/1998/Math/MathML">
+      <m:mrow mathcolor="mediumblue">
+       <m:mfrac>
+        <m:mrow>
+         <m:mi>base</m:mi>
+         <m:mo>×</m:mo>
+         <m:mi>height</m:mi>
+        </m:mrow>
+        <m:mrow>
+         <m:mi>2</m:mi>
+        </m:mrow>
+       </m:mfrac>
+      </m:mrow>
+     </m:math>
+    </mathml>
+   </equation-inline>.</p>
+  </section>
+  <section>
+   <title>Mass–energy equivalence</title>
+   <p>In physics, mass–energy equivalence is a concept formulated by Albert Einstein that explains the relationship between mass and energy. 
+      It states every mass has an energy equivalent and vice versa—expressed using the formula
+      <equation-inline>
+       <mathml>
+        <m:math display="inline" xmlns:m="http://www.w3.org/1998/Math/MathML">
+         <m:mrow mathcolor="mediumblue">
+           <m:mrow>
+            <m:mi>E</m:mi>
+            <m:mo>=</m:mo>
+            <m:mi>m</m:mi>
+            <m:msup>
+             <m:mi>c</m:mi>
+             <m:mn>2</m:mn>
+            </m:msup>
+           </m:mrow>
+         </m:mrow>
+        </m:math>
+       </mathml>
+      </equation-inline>      
+    where E is the energy of a physical system, m is the mass of the system, and c is the speed of light in a vacuum (about 3×108 m/s). </p>
+  </section>  
+ </conbody>
+</concept>

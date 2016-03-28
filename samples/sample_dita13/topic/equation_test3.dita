@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<topic id="topic_fdf_fmm_h5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="urn:oasis:names:tc:dita:xsd:topic.xsd" xml:lang="en-US">
+  <title><![CDATA[<equation-figure>]]></title>
+  <body>
+    <p>Use the <![CDATA[<equation-figure>]]> element to represent an equation that functions as form of figure or display. Display equations are intended to be numbered when numbering is desired.
+    </p>
+    <equation-figure>
+      <title>Sample <![CDATA[<equation-figure>]]></title>
+      <equation-block id="equation-block_xcm_y3q_35">
+        <equation-number/>
+        <mathml>
+          <math display="block" xmlns="http://www.w3.org/1998/Math/MathML">
+            <mrow>
+              <mi>c</mi>
+              <mo>=</mo>
+              <mover>
+                <mover>
+                  <mrow>
+                    <munder>
+                      <munder>
+                        <mrow>
+                          <mspace width="1em"/>
+                          <mi>a</mi>
+                          <mspace width="1em"/>
+                        </mrow>
+                        <mo>&#x23DF;</mo>
+                      </munder>
+                      <mtext>real</mtext>
+                    </munder>
+                    <mo>+</mo>
+                    <munder>
+                      <munder>
+                        <mrow>
+                          <mspace width="1em"/>
+                          <mi>b</mi>
+                          <mo>&#x2062;</mo>
+                          <mi>&#x2148;</mi>
+                          <mspace width="1em"/>
+                        </mrow>
+                        <mo>&#x23DF;</mo>
+                      </munder>
+                      <mtext>imaginary</mtext>
+                    </munder>
+                  </mrow>
+                  <mo>&#x23DE;</mo>
+                </mover>
+                <mtext>complex number</mtext>
+              </mover>
+            </mrow>
+          </math>
+        </mathml>
+      </equation-block>
+      <equation-block>
+        <!--equation-number/-->
+        <mathml>
+          <math display="block" xmlns="http://www.w3.org/1998/Math/MathML">
+            <mover>
+              <mrow>
+                <munder>
+                  <mo>⋃</mo>
+                  <mrow>
+                    <mi>i</mi>
+                    <mo>∈</mo>
+                    <mi>I</mi>
+                  </mrow>
+                </munder>
+                <msub>
+                  <mi>A</mi>
+                  <mi>i</mi>
+                </msub>
+              </mrow>
+              <mo>&#x203E;</mo>
+            </mover>
+            <mo>&#x2261;</mo>
+            <munder>
+              <mo>⋂</mo>
+              <mrow>
+                <mi>i</mi>
+                <mo>∈</mo>
+                <mn>I</mn>
+              </mrow>
+            </munder>
+            <mover>
+              <msub>
+                <mi>A</mi>
+                <mi>i</mi>
+              </msub>
+              <mo>&#x203E;</mo>
+            </mover>
+          </math>
+        </mathml>
+      </equation-block>
+      <equation-block>
+        <equation-number/>
+        <mathml>
+          <math display="block" xmlns="http://www.w3.org/1998/Math/MathML">
+            <mrow>
+              <mi>C</mi>
+              <mfenced>
+                <mi>n</mi>
+                <mi>k</mi>
+              </mfenced>
+              <mo>=</mo>
+              <msubsup>
+                <mi>C</mi>
+                <mi>k</mi>
+                <mi>n</mi>
+              </msubsup>
+              <mo>=</mo>
+              <mmultiscripts>
+                <mi>C</mi>
+                <mi>k</mi>
+                <none/>
+                <mprescripts/>
+                <mi>n</mi>
+                <none/>
+              </mmultiscripts>
+              <mo>=</mo>
+              <mfenced>
+                <mfrac linethickness="0">
+                  <mi>n</mi>
+                  <mi>k</mi>
+                </mfrac>
+              </mfenced>
+              <mo>=</mo>
+              <mfrac>
+                <mrow>
+                  <mi>n</mi>
+                  <mo>!</mo>
+                </mrow>
+                <mrow>
+                  <mi>k</mi>
+                  <mo>!</mo>
+                  <mo>&#x2062;</mo>
+                  <mfenced>
+                    <mrow>
+                      <mi>n</mi>
+                      <mo>−</mo>
+                      <mi>k</mi>
+                    </mrow>
+                  </mfenced>
+                  <mo>!</mo>
+                </mrow>
+              </mfrac>
+            </mrow>
+          </math>
+        </mathml>
+      </equation-block>
+    </equation-figure>
+  </body>
+</topic>

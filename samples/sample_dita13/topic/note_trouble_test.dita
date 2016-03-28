@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic id="topic_sgm_x4q_3v" xml:lang="en-US">
+  <title><codeph>note/@type="trouble"</codeph></title>
+  <body>
+    <p>DITA 1.3 added <xmlatt>type="trouble"</xmlatt> to <xmlelement>note</xmlelement> element.</p>
+    <note type="trouble">
+      <p>If you get "Insufficient memory" error, increase virtual memory size from system setting menu.</p>
+    </note>
+  </body>
+</topic>

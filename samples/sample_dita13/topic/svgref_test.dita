@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic id="topic_gqm_vf2_x5" xml:lang="en-US">
+  <title>svgref test</title>
+  <body>
+    <section>
+      <title>Reference to the external XML root element</title>
+      <fig>
+        <title>Figure With SVG Container</title>
+        <svg-container>
+          <svgref 
+            href="media/svg/svg-graphic-01.xml" 
+            format="svg"
+          />
+        </svg-container>
+      </fig>
+    </section>
+    <section>
+      <title>Reference to a specific <xmlelement>svg</xmlelement> element in a containing XML file</title>
+      <fig>
+        <title>Figure with SVG Container</title>
+        <svg-container>
+          <svgref 
+            href="media/svg/svg-library.xml#frag-0001" 
+          />
+        </svg-container>
+      </fig>
+    </section>
+  </body>
+</topic>

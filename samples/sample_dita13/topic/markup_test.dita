@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic id="topic_fdf_fmm_h10" xml:lang="en-US">
+  <title>Markup domain testing</title>
+  <body>
+    <section>
+      <title>markupname</title>
+      <p>The <markupname>p.attributes</markupname> attribute group defines 
+        the allowed attributes for the <xmlelement>p</xmlelement> element.</p>
+    </section>
+  </body>
+</topic>

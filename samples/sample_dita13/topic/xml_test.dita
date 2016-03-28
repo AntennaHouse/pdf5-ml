@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic id="topic_fdf_fmm_h9" xml:lang="en-US">
+  <title>XML mention domain testing</title>
+  <body>
+    <section>
+      <title>numcharref</title>
+      <p>Numeric character references represent characters from the Universal
+        Character Set (UCS) of Unicode. They are used to reference characters  that 
+        cannot easily be directly encoded in a document, such as a copyright 
+        symbol. When a markup-aware processor encounters a numeric  character 
+        reference, for example, <numcharref>225</numcharref>, it renders the 
+        reference as the Unicode character that it represents: a-acute.</p>
+    </section>
+    <section> 
+      <title>parameterentity</title>
+      <p> ... The <parameterentity>p.content</parameterentity> parameter entity 
+        defines the content model for the <xmlelement>p</xmlelement> element.</p><p>To include the XML-mention domain in a DTD document-type shell, you must 
+          declare the <parameterentity>xml-d-dec</parameterentity> parameter entity.</p>
+    </section>
+    <section>
+      <title>textentity</title>
+      <p>The <textentity>hi-d-att</textentity> entity holds the contribution for the 
+        <xmlatt>domains</xmlatt> attribute.</p>
+    </section>
+    <section>
+      <title>xmlatt</title>
+      <p>The <xmlatt>collection-type</xmlatt> and <xmlatt>linking</xmlatt> 
+        attributes affect how related links are generated for topics that are 
+        referenced in the DITA map.</p>
+    </section>
+    <section>
+      <title>xmlelement</title>
+      <p>Use the <xmlelement>uicontrol</xmlelement> (user interface control) 
+        element to indicate the names of buttons, entry fields, menu items, or 
+        other objects that enable a user to interact with a graphical user 
+        interface.</p>
+    </section>
+    <section>
+      <title>xmlnsname</title>
+      <p>The namespace name for XHTML is <xmlnsname>http://www.w3.org/1999/xhtml</xmlnsname>. </p>
+    </section>
+    <section>
+      <title>xmlpi</title>
+      <p>While DITA does not define any processing instructions, some applications might
+        use some DocBook processing instructions, such as <xmlpi>dbhtml_bgcolor</xmlpi>.</p>
+    </section>
+  </body>
+</topic>

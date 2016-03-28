@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "topic.dtd">
+<topic id="topic_fdf_fmm_h10" xml:lang="en-US">
+  <title>Table/@orient attribute</title>
+  <body>
+    <section>
+      <title>table/@orient</title>
+      <p>@orient: 
+        Specifies the orientation of the table in page-based outputs. This attribute is primarily useful for print-oriented display. </p>
+      <table pgwide="1" orient="land">
+        <title>Sample rotated table</title>
+        <tgroup cols="5">
+          <colspec colnum="1" colwidth="1*"/>
+          <colspec colnum="2" colwidth="1*"/>
+          <colspec colnum="3" colwidth="1*"/>
+          <colspec colnum="4" colwidth="1*"/>
+          <colspec colnum="5" colwidth="1*"/>
+          <thead>
+            <row>
+              <entry>Item</entry>
+              <entry>Word</entry>
+              <entry>DocBook</entry>
+              <entry>XSL-FO</entry>
+              <entry>Notes</entry>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <entry>Table Style</entry>
+              <entry>w:tbl/w:tblPr/w:tblStyle/@w:val<fn>Table style is dropped in Open XML specification</fn></entry>
+              <entry>table@style</entry>
+              <entry>-</entry>
+              <entry>-</entry>
+            </row>
+            <row>
+              <entry>Table width</entry>
+              <entry>w:tbl/w:tblPr/w:tblw</entry>
+              <entry>table/@pgwide(?)</entry>
+              <entry>fo:table/@width</entry>
+              <entry>-</entry>
+            </row>
+            <row>
+              <entry>Column width</entry>
+              <entry>w:tblGrid/w:gridCol/@w:w</entry>
+              <entry>tgroup/colspec/@colwidth</entry>
+              <entry>fo:table-column/@column-width</entry>
+              <entry>-</entry>
+            </row>
+            <row>
+              <entry>Header row</entry>
+              <entry>w:tr/w:trPr/@w:tblHeader</entry>
+              <entry>tgroup/thead</entry>
+              <entry>fo:table-header</entry>
+              <entry>-</entry>
+            </row>
+            <row>
+              <entry>Body row</entry>
+              <entry>-</entry>
+              <entry>tgroup/tbody</entry>
+              <entry>fo:table-body</entry>
+              <entry>-</entry>
+            </row>
+            <row>
+              <entry>Body row</entry>
+              <entry>-</entry>
+              <entry>tgroup/tbody</entry>
+              <entry>fo:table-body</entry>
+              <entry>-</entry>
+            </row>
+            <row>
+              <entry>Body row</entry>
+              <entry>-</entry>
+              <entry>tgroup/tbody</entry>
+              <entry>fo:table-body</entry>
+              <entry>-</entry>
+            </row>
+            <row>
+              <entry>Body row</entry>
+              <entry>-</entry>
+              <entry>tgroup/tbody</entry>
+              <entry>fo:table-body</entry>
+              <entry>-</entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </table>
+    </section>
+  </body>
+</topic>

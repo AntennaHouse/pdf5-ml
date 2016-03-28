@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+    <part>
+        <svg id="frag-0001"
+            xmlns="http://www.w3.org/2000/svg"
+            width="100"
+            height="100">
+            <defs>
+                <filter
+                    id="f1"
+                    x="0"
+                    y="0">
+                    <feGaussianBlur
+                        in="SourceGraphic"
+                        stdDeviation="15"/>
+                </filter>
+            </defs>
+            <rect
+                width="90"
+                height="90"
+                stroke="green"
+                stroke-width="3"
+                fill="yellow"
+                filter="url(#f1)"/>
+        </svg>
+        <svg id="frag-0002"
+            width="4in" height="6in" version="1.1"
+            >
+            <circle cx="150" cy="200" r="100" fill="url(#grad_blue)" >
+                <animate attributeName="r" begin="Go.click" end="Stop.click" dur="4s"  
+                    values="100; 0; 100" repeatCount="indefinite"/>
+            </circle>
+            <radialGradient id="grad_blue" cx="20%" cy="20%" r="100%" fx="30%" fy="30%">
+                <stop stop-color="white" offset="0"/>
+                <stop stop-color="blue" offset="25%"/>
+                <stop stop-color="rgb(0,0,192)" offset="50%"/>
+                <stop stop-color="rgb(0,0,127)" offset="70%"/>
+                <stop stop-color="rgb(0,0,64)" offset="85%"/>
+                <stop stop-color="rgb(0,0,0)" offset="100%"/>
+            </radialGradient>
+            <g id="Go">
+                <rect x="70" y="320" height="40" width="80" fill="aqua"/>
+                <text x="90" y="350" font-size="30" fill="green">Go </text>
+            </g>
+            <g id="Stop">
+                <rect x="160" y="320" height="40" width="80" fill="aqua"/>
+                <text x="170" y="350" font-size="30" fill="red">Stop</text>
+            </g>
+        </svg>
+    </part>
+</root>
+

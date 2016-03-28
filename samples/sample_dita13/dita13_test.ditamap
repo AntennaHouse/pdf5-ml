@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE bookmap PUBLIC "-//OASIS//DTD DITA BookMap//EN" "bookmap.dtd">
+<bookmap xml:lang="en-US">
+    <booktitle>
+        <mainbooktitle>DITA 1.3 Implementation Test</mainbooktitle>
+    </booktitle>
+    <chapter href="topic/highlight_chapter.dita">
+        <topicref href="topic/highlight_test.dita" format="dita"/>
+    </chapter>
+    <chapter href="topic/xml_chapter.dita">
+        <topicref href="topic/xml_test.dita" format="dita"/>
+    </chapter>
+    <chapter href="topic/markup_chapter.dita">
+        <topicref href="topic/markup_test.dita" format="dita"/>
+    </chapter>
+    <chapter href="topic/table_orient_att_chapter.dita">
+        <topicref href="topic/table_orient_att_test.dita" format="dita"/>
+    </chapter>
+    <chapter href="topic/rotate_entry_chapter.dita" format="dita">
+        <topicref href="topic/rotate_entry_test.dita" format="dita"/>
+        <!--topicref href="topic/rotate_entry_test_rng.dita" format="dita"/-->
+    </chapter>
+    <chapter href="topic/equation_chapter.dita">
+        <topicref href="topic/equation_test3.dita" format="dita">
+            <topicref href="topic/equation_test4.dita" format="dita">
+                <topicref href="topic/equation_test4.dita" format="dita"/>
+            </topicref>            
+            <topicref href="topic/equation_test4.dita" format="dita">
+                <topicref href="topic/equation_test4.dita" format="dita"/>
+            </topicref>            
+        </topicref>
+        <topicref href="topic/equation_test1.dita" format="dita"/>
+        <topicref href="topic/equation_test2.dita" format="dita"/>
+        <!--topicref href="topic/equation_test5.dita" format="dita"/-->
+        <topicref href="topic/equation_test6.dita" format="dita"/>
+    </chapter>
+    <chapter href="topic/svg_chapter.dita">
+        <topicref href="topic/svg-container_test.dita" format="dita"/>
+        <topicref href="topic/svgref_test.dita" format="dita"/>
+    </chapter>
+    <chapter href="topic/div_chapter.dita"/>
+    <chapter href="topic/note_trouble_chapter.dita" format="dita">
+        <topicref href="topic/note_trouble_test.dita" format="dita"/>
+    </chapter>
+</bookmap>

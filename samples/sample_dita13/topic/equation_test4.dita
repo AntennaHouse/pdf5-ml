@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<topic id="topic_xqn_hc5_45" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="urn:oasis:names:tc:dita:xsd:topic.xsd" xml:lang="en-US">
+  <title>Nested topic test</title>
+  <body>
+      <equation-block id="equation-block_h3y_53q_35">
+        <mathml>
+          <math display="block" xmlns="http://www.w3.org/1998/Math/MathML">
+            <mrow>
+              <mi>x</mi>
+              <mo>=</mo>
+              <mfrac>
+                <mrow>
+                  <mo>-</mo>
+                  <mi>b</mi>
+                  <mo>±</mo>
+                  <msqrt>
+                    <mrow>
+                      <msup>
+                        <mi>b</mi>
+                        <mn>2</mn>
+                      </msup>
+                      <mo>-</mo>
+                      <mn>4</mn>
+                      <mi>a</mi>
+                      <mi>c</mi>
+                    </mrow>
+                  </msqrt>
+                </mrow>
+                <mrow>
+                  <mn>2</mn>
+                  <mi>a</mi>
+                </mrow>
+              </mfrac>
+            </mrow>
+          </math>
+        </mathml>
+      </equation-block>
+    <equation-block id="equation-block_ec2_w3q_35">
+      <equation-number/>
+      <ph>z<sup>2</sup>=x<sup>2</sup>+y<sup>2</sup></ph>
+    </equation-block>
+    <equation-block id="equation-block_ec2_w3q_36">
+      <equation-number>9999-1</equation-number>
+      <ph>z<sup>3</sup>=x<sup>3</sup>+y<sup>3</sup></ph>
+    </equation-block>
+    <equation-figure frame="all">
+      <title>Equation-figure example</title>
+      <equation-block id="equation-block_ec2_w3q_37">
+        <ph>z<sup>4</sup>=x<sup>4</sup>+y<sup>4</sup></ph>
+      </equation-block>
+      <equation-block id="equation-block_ec2_w3q_38">
+        <equation-number>9999-2</equation-number>
+        <ph>z<sup>5</sup>=x<sup>5</sup>+y<sup>5</sup></ph>
+      </equation-block>
+      <equation-block id="equation-block_ec2_w3q_39">
+        <equation-number/>
+        <ph>z<sup>6</sup>=x<sup>6</sup>+y<sup>6</sup></ph>
+      </equation-block>
+    </equation-figure>
+  </body>
+</topic>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<topic id="topic_wx4_5th_3v" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="urn:oasis:names:tc:dita:xsd:topic.xsd" xml:lang="en-US">
+  <title><xmlelement>equation-figure</xmlelement> testing</title>
+  <body>
+    <p>Here are <xmlelement>equation-figure</xmlelement> that have <xmlelement>mathml</xmlelement>, <xmlelement>image</xmlelement>, <xmlelement>pre</xmlelement> as the direct children.</p>
+    <equation-figure>
+      <title><xmlelement>equation-figure</xmlelement> that have <xmlelement>mathml</xmlelement>, <xmlelement>image</xmlelement>, <xmlelement>pre</xmlelement></title>
+      <p>This equation expresses 三平方の定理 of triangle.</p>
+      <mathml>
+        <math display="block" xmlns="http://www.w3.org/1998/Math/MathML">
+          <msup>
+            <mi>z</mi>
+            <mn>2</mn>
+          </msup>
+          <mo>=</mo>
+          <msup>
+            <mi>x</mi>
+            <mn>2</mn>
+          </msup>
+          <mo>+</mo>
+          <msup>
+            <mi>y</mi>
+            <mn>2</mn>
+          </msup>
+        </math>
+      </mathml>
+      <pre>z**2 = x**2 + z **2</pre>
+      <image href="image/math1.mml" placement="break"/>
+    </equation-figure>
+  </body>
+</topic>
