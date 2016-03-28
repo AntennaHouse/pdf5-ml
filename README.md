@@ -206,9 +206,10 @@ This folder contains the sample DITA instance and formatted results.
 |sample_ja|Contains Japanese index page example.|
 |sample_cover|Contains the example of cover page generation and three output-type (web, print-color and print-mono). This sample data needs DITA 1.3 RELAX NG schema and [ah-dita] [8] specialization to get the output.|
 |sample_udhr|Contains multi-language DITA instance example.|
+|sample_dita13|Contains DITA 1.3 example.|
 
 ## Copyright
-Copyright (C) 2009-2015 Antenna House, Inc. All rights reserved.  
+Copyright (C) 2009-2016 Antenna House, Inc. All rights reserved.  
 Antenna House is a trademark of [Antenna House, Inc.] [2]
 
 This plug-in uses graphics from www.vectorbackground.net under the Creative Commons Attribution license.
