@@ -5,6 +5,16 @@
       Copyright (C) 2009-2016 Antenna House, Inc. All rights reserved.
              Antenna House is a trademark of Antenna House, Inc.
 _______________________________________________________________________________
+Mar 2016
+V1.0.2
+- Add output.index parameter
+- Add DITA 1.3 test data
+- Update pdf5-ml_manual.pdf
+- Implement DITA 1.3 features
+  entry/@rotate="1"
+  note/@type="trouble"
+  Adjust equation-block spacing
+
 Feb, 2016
 V1.0.1
 - Fix @xml:lang related bug
