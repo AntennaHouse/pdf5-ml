@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <topic id="topic_txv_k3q_35" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:noNamespaceSchemaLocation="urn:oasis:names:tc:dita:xsd:topic.xsd" xml:lang="en-US">
-  <title>Refrence to <xmlelement>equation-block</xmlelement></title>
+  <title>Reference to <xmlelement>equation-block</xmlelement></title>
   <body>
     <p>Reference to Quadratic Formula (no equation-number): <xref href="equation_test1.dita#topic_fdf_fmm_h5/equation-block_h3y_53q_35">(Text of xref)</xref></p>
     <p>Reference to hand-made equation with <xmlelement>sup</xmlelement> and <xmlelement>sub</xmlelement> (no equation-number): <xref href="equation_test1.dita#topic_fdf_fmm_h5/equation-block_ec2_w3q_35">(Text of xref)</xref></p>
