@@ -149,15 +149,6 @@ E-mail : info@antennahouse.com
         <xsl:sequence select="'atsTableWithTitleBefore'"/>
     </xsl:template>    
 
-    <xsl:template match="*[contains(@class, ' topic/tgroup ')][string(parent::*/@pgwide) eq '1']" priority="2">
-        <xsl:param name="prmTableAttr" required="yes" as="element()"/>
-        <fo:block start-indent="0mm" end-indent="0mm">
-            <xsl:next-match>
-                <xsl:with-param name="prmTableAttr" select="$prmTableAttr"/>
-            </xsl:next-match>
-        </fo:block>
-    </xsl:template>
-
     <xsl:template match="*[contains(@class, ' topic/tgroup ')]">
         <xsl:param name="prmTableAttr" required="yes" as="element()"/>
     
@@ -170,29 +161,27 @@ E-mail : info@antennahouse.com
         <xsl:variable name="tableAttr" as="attribute()*">
             <xsl:call-template name="getAttributeSetWithLang"/>
         </xsl:variable>
-        <fo:wrapper>
-            <xsl:copy-of select="$tableAttr[name() eq 'font-size']"/>
-            <fo:table-and-caption>
-                <xsl:copy-of select="ahf:getFoStyleAndProperty($tgroupAttr)[name() eq 'text-align']"/>
-                <fo:table>
-                    <xsl:copy-of select="$tableAttr"/>
-                    <xsl:call-template name="ahf:getUnivAtts"/>
-                    <xsl:copy-of select="ahf:getScaleAtts($tgroupAttr,$tableAttr)"/>
-                    <xsl:copy-of select="ahf:getFrameAtts($tgroupAttr,$tableAttr)"/>
-                    <xsl:copy-of select="ahf:getFoStyleAndProperty($tgroupAttr)[name() ne 'text-align']"/>
-                    <!-- Copy fo:table-column -->
-                    <xsl:apply-templates select="$colSpec" mode="COPY_COLSPEC"/>
-                    <xsl:apply-templates select="*[contains(@class, ' topic/thead ')]">
-                        <xsl:with-param name="prmTgroupAttr" select="$tgroupAttr"/>
-                        <xsl:with-param name="prmColSpec"    select="$colSpec"/>
-                    </xsl:apply-templates>
-                    <xsl:apply-templates select="*[contains(@class, ' topic/tbody ')]">
-                        <xsl:with-param name="prmTgroupAttr" select="$tgroupAttr"/>
-                        <xsl:with-param name="prmColSpec"    select="$colSpec"/>
-                    </xsl:apply-templates>
-                </fo:table>
-            </fo:table-and-caption>
-    	</fo:wrapper>
+        <fo:table-and-caption>
+            <xsl:copy-of select="ahf:getTablePgwideAttr($tgroupAttr)"/>
+            <xsl:copy-of select="ahf:getFoStyleAndProperty($tgroupAttr)[name() eq 'text-align']"/>
+            <fo:table>
+                <xsl:copy-of select="$tableAttr"/>
+                <xsl:call-template name="ahf:getUnivAtts"/>
+                <xsl:copy-of select="ahf:getScaleAtts($tgroupAttr,$tableAttr)"/>
+                <xsl:copy-of select="ahf:getFrameAtts($tgroupAttr,$tableAttr)"/>
+                <xsl:copy-of select="ahf:getFoStyleAndProperty($tgroupAttr)[name() ne 'text-align']"/>
+                <!-- Copy fo:table-column -->
+                <xsl:apply-templates select="$colSpec" mode="COPY_COLSPEC"/>
+                <xsl:apply-templates select="*[contains(@class, ' topic/thead ')]">
+                    <xsl:with-param name="prmTgroupAttr" select="$tgroupAttr"/>
+                    <xsl:with-param name="prmColSpec"    select="$colSpec"/>
+                </xsl:apply-templates>
+                <xsl:apply-templates select="*[contains(@class, ' topic/tbody ')]">
+                    <xsl:with-param name="prmTgroupAttr" select="$tgroupAttr"/>
+                    <xsl:with-param name="prmColSpec"    select="$colSpec"/>
+                </xsl:apply-templates>
+            </fo:table>
+        </fo:table-and-caption>
     </xsl:template>
     
     <!-- 
@@ -214,7 +203,20 @@ E-mail : info@antennahouse.com
             <xsl:copy-of select="$prmTgroup/@fo:prop"/>"
         </dummy>
     </xsl:function>
-    
+
+    <!-- 
+     function:	Get pgwide attributes
+     param:		prmTgroupAttr
+     return:	attribute()
+     note:		
+     -->
+    <xsl:function name="ahf:getTablePgwideAttr" as="attribute()*">
+        <xsl:param name="prmTgroupAttr"    as="element()"/>
+        <xsl:if test="string($prmTgroupAttr/@pgwide) eq '1'">
+            <xsl:attribute name="start-indent" select="'0mm'"/>
+        </xsl:if>
+    </xsl:function>
+
     <!-- 
      function:	fo:table-column copy template
      param:		none

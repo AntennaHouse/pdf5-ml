@@ -24,6 +24,21 @@
                         <scenarioAssociation-array>
                             <scenarioAssociation>
                                 <field name="url">
+                                    <String>../../../../SVN/pdf5/testdata/index-data/sample_en/sample_en.ditamap</String>
+                                </field>
+                                <field name="scenarioIds">
+                                    <list>
+                                        <String>PDF5-ML Map to PDF by project DITA-OT (Saxon 9)</String>
+                                    </list>
+                                </field>
+                                <field name="scenarioTypes">
+                                    <list>
+                                        <String>ANT</String>
+                                    </list>
+                                </field>
+                            </scenarioAssociation>
+                            <scenarioAssociation>
+                                <field name="url">
                                     <String>../../../../SVN/pdf5/testdata/index-data-ml/sample_en/sample_en.ditamap</String>
                                 </field>
                                 <field name="scenarioIds">
