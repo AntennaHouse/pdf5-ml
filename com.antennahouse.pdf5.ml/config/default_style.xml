@@ -2636,10 +2636,9 @@ URL : http://www.antennahouse.com/
                 <attribute name="border-right">$Block_Outer_Border_Width hidden $General_Frame_Border_Color</attribute>
             </attribute-set>
 
-            <!-- expanse for simpletable -->
-            <attribute-set name="atsTableExpanse">
-                <!--attribute name="start-indent">0mm</attribute-->
-                <attribute name="width">100%</attribute>
+            <!-- expanse for block elements -->
+            <attribute-set name="atsExpanse">
+                <attribute name="start-indent">0mm</attribute>
             </attribute-set>
 
             <!-- pgwide="1" for table -->

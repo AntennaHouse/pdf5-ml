@@ -551,26 +551,10 @@ E-mail : info@antennahouse.com
     
         <xsl:if test="exists($prmElement/@expanse)">
             <xsl:variable name="expanse" as="xs:string" select="string($prmElement/@expanse)"/>
-            
-            <xsl:choose>
-                <xsl:when test="contains($prmElement/@class, ' topic/simpletable ')">
-                    <xsl:if test="$expanse = ('page','column')">
-                        <xsl:sequence select="ahf:getAttributeSet('atsTableExpanse')"/>
-                    </xsl:if>
-                </xsl:when>
-                <xsl:otherwise/>
-            </xsl:choose>
+            <xsl:if test="$expanse = ('page','column','spread')">
+                <xsl:sequence select="ahf:getAttributeSet('atsExpanse')"/>
+            </xsl:if>
         </xsl:if>
-    
-        <xsl:if test="string($prmElement/@pgwide) eq '1'">
-            <xsl:choose>
-                <xsl:when test="contains($prmElement/@class, ' topic/table ')">
-                    <xsl:sequence select="ahf:getAttributeSet('atsTablePgWide')"/>
-                </xsl:when>
-                <xsl:otherwise/>
-            </xsl:choose>
-        </xsl:if>
-    
     </xsl:function>
     
     
