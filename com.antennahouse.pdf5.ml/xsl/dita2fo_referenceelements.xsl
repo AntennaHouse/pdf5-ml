@@ -31,12 +31,6 @@ E-mail : info@antennahouse.com
         <xsl:sequence select="'atsPropertyTable'"/>
     </xsl:template>    
 
-    <!--xsl:template match="*[contains(@class, ' reference/properties ')][string(@expanse) = ('page','column')]" priority="4">
-        <fo:block start-indent="0mm" end-indent="0mm">
-            <xsl:next-match/>
-        </fo:block>
-    </xsl:template-->    
-
     <xsl:template match="*[contains(@class, ' reference/properties ')]" priority="2">
         <xsl:variable name="keyCol" select="ahf:getKeyCol(.)" as="xs:integer"/>
         <xsl:variable name="propertiesAttr" as="attribute()*">

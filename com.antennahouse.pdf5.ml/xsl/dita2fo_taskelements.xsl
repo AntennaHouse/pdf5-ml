@@ -132,12 +132,6 @@ E-mail : info@antennahouse.com
         <xsl:sequence select="'atsChoiceTable'"/>
     </xsl:template>    
 
-    <!--xsl:template match="*[contains(@class, ' task/choicetable ')][string(@expanse) = ('page','column')]" priority="4">
-        <fo:block start-indent="0mm" end-indent="0mm">
-            <xsl:next-match/>
-        </fo:block>
-    </xsl:template-->    
-
     <xsl:template match="*[contains(@class, ' task/choicetable ')]" priority="2">
         <xsl:variable name="choiceTable" select="."/>
         <xsl:variable name="keyCol" select="ahf:getKeyCol(.)" as="xs:integer"/>

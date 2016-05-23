@@ -746,12 +746,6 @@ E-mail : info@antennahouse.com
         <xsl:sequence select="'atsSimpleTable'"/>
     </xsl:template>    
 
-    <xsl:template match="*[contains(@class, ' topic/simpletable ')][string(@expanse) = ('page','column')]" priority="4">
-        <fo:block start-indent="0mm" end-indent="0mm">
-            <xsl:next-match/>
-        </fo:block>
-    </xsl:template>    
-
     <xsl:template match="*[contains(@class, ' topic/simpletable ')]">
         <xsl:variable name="keyCol" select="ahf:getKeyCol(.)" as="xs:integer"/>
         <xsl:variable name="simpleTableAttr" as="attribute()*">
