@@ -190,7 +190,7 @@ Paper size definition can be customized by yourself according to your output req
 
 ## com.antennahouse.pdf5.ml folder
 
-This folder contains PDF5-ML plug-in files and folders. To install this plug-in, refer to pdf5-ml_manual_web.pdf.
+This folder contains PDF5-ML plug-in files and folders. To install this plug-in, refer to pdf5-ml_manual.pdf.
 
 ## jp.acme-corporation.pdf.ml folder
 
@@ -202,7 +202,7 @@ This folder contains the sample DITA instance and formatted results.
 
 |Folder|Contents|
 |---|---|
-|sample_en|This folder contains DITA elements and attribute test data. It also demonstrates the index page generation.|
+|sample_en|This folder contains DITA elements and attribute test data. It also demonstrates index page generation.|
 |sample_ja|Contains Japanese index page example.|
 |sample_cover|Contains the example of cover page generation and three output-type (web, print-color and print-mono). This sample data needs DITA 1.3 RELAX NG schema and [ah-dita] [8] specialization to get the output.|
 |sample_udhr|Contains multi-language DITA instance example.|
