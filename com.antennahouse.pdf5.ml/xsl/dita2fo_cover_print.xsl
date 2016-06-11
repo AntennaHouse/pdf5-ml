@@ -82,7 +82,7 @@ E-mail : info@antennahouse.com
      return:	fo:wrapper
      note:		
      -->
-    <xsl:template match="*[contains(@class, ' topic/body ')]" priority="4">
+    <xsl:template match="*[contains(@class, ' topic/body ')]" priority="20">
         <xsl:param name="prmTopicRef" tunnel="yes" required="yes" as="element()?"/>
         <xsl:choose>
             <xsl:when test="ahf:isCoverTopicRef($prmTopicRef)">
@@ -103,7 +103,7 @@ E-mail : info@antennahouse.com
      return:	fo:block-container
      note:		
      -->
-    <xsl:template match="*[contains(@class, ' topic/bodydiv ')]" priority="4">
+    <xsl:template match="*[contains(@class, ' topic/bodydiv ')]" priority="20">
         <xsl:param name="prmTopicRef" tunnel="yes" required="yes" as="element()?"/>
         <xsl:choose>
             <xsl:when test="ahf:isCoverTopicRef($prmTopicRef)">
@@ -124,7 +124,7 @@ E-mail : info@antennahouse.com
      return:	fo:block-container
      note:		
      -->
-    <xsl:template match="*[contains(@class, ' topic/bodydiv ')][descendant::*[contains(@class,' topic/image ')][@outputclass eq 'background']]" priority="6">
+    <xsl:template match="*[contains(@class, ' topic/bodydiv ')][descendant::*[contains(@class,' topic/image ')][@outputclass eq 'background']]" priority="22">
         <xsl:param name="prmTopicRef" tunnel="yes" required="yes" as="element()?"/>
         <xsl:choose>
             <xsl:when test="ahf:isCoverTopicRef($prmTopicRef)">
@@ -149,7 +149,7 @@ E-mail : info@antennahouse.com
      return:	fo:block
      note:		
      -->
-    <xsl:template match="*[contains(@class, ' topic/section ')]" priority="4">
+    <xsl:template match="*[contains(@class, ' topic/section ')]" priority="20">
         <xsl:param name="prmTopicRef" tunnel="yes" required="yes" as="element()?"/>
         <xsl:choose>
             <xsl:when test="ahf:isCoverTopicRef($prmTopicRef)">
@@ -170,11 +170,11 @@ E-mail : info@antennahouse.com
      return:	ignore
      note:		
      -->
-    <xsl:template match="*[contains(@class, ' topic/draft-comment ')]" priority="4" mode="TEXT_ONLY">
+    <xsl:template match="*[contains(@class, ' topic/draft-comment ')]" priority="20" mode="TEXT_ONLY">
         <xsl:next-match/>
     </xsl:template>
     
-    <xsl:template match="*[contains(@class, ' topic/draft-comment ')]" priority="4">
+    <xsl:template match="*[contains(@class, ' topic/draft-comment ')]" priority="20">
         <xsl:param name="prmTopicRef" tunnel="yes" required="yes" as="element()?"/>
         <xsl:choose>
             <xsl:when test="ahf:isCoverTopicRef($prmTopicRef)"/>
@@ -190,7 +190,7 @@ E-mail : info@antennahouse.com
      return:	see probe
      note:		
      -->
-    <xsl:template match="*[contains(@class, ' topic/image ')]" priority="4">
+    <xsl:template match="*[contains(@class, ' topic/image ')]" priority="20">
         <xsl:param name="prmTopicRef" tunnel="yes" required="yes" as="element()?"/>
         <xsl:choose>
             <xsl:when test="not(ahf:isCoverTopicRef($prmTopicRef))">
@@ -236,7 +236,7 @@ E-mail : info@antennahouse.com
      return:	fo:external-graphic
      note:      assume data/@name="barcode" express barcode
      -->
-    <xsl:template match="*[contains(@class, ' topic/data ')][string(@name) eq 'barcode']" priority="4">
+    <xsl:template match="*[contains(@class, ' topic/data ')][string(@name) eq 'barcode']" priority="20">
         <xsl:param name="prmTopicRef" tunnel="yes" required="yes" as="element()?"/>
         <xsl:choose>
             <xsl:when test="ahf:isCoverTopicRef($prmTopicRef)">
@@ -265,7 +265,7 @@ E-mail : info@antennahouse.com
      note:      data/@name="qrcode" expresses QR code
                 data/@href is the target URL
      -->
-    <xsl:template match="*[contains(@class, ' topic/data ')][string(@name) eq 'qrcode']" priority="4">
+    <xsl:template match="*[contains(@class, ' topic/data ')][string(@name) eq 'qrcode']" priority="20">
         <xsl:param name="prmTopicRef" tunnel="yes" required="yes" as="element()?"/>
         <xsl:choose>
             <xsl:when test="ahf:isCoverTopicRef($prmTopicRef)">
@@ -288,7 +288,7 @@ E-mail : info@antennahouse.com
      return:	fo:block
      note:      		
      -->
-    <xsl:template match="*[contains(@class, ' topic/p ')]" priority="4">
+    <xsl:template match="*[contains(@class, ' topic/p ')]" priority="20">
         <xsl:param name="prmTopicRef" tunnel="yes" required="yes" as="element()?"/>
         <xsl:choose>
             <xsl:when test="ahf:isCoverTopicRef($prmTopicRef)">
@@ -309,7 +309,7 @@ E-mail : info@antennahouse.com
         return:	    fo:inline-container, fo:block
         note:		
     -->
-    <xsl:template match="*[contains(@class,' topic/ph ')][string(@outputclass) eq 'inline-container']" priority="4">
+    <xsl:template match="*[contains(@class,' topic/ph ')][string(@outputclass) eq 'inline-container']" priority="20">
         <xsl:param name="prmTopicRef" tunnel="yes" required="yes" as="element()?"/>
         
         <xsl:choose>
@@ -325,7 +325,7 @@ E-mail : info@antennahouse.com
         </xsl:choose>
     </xsl:template>
     
-    <xsl:template match="*[contains(@class,' topic/ph ')][string(@outputclass) eq 'block']" priority="4">
+    <xsl:template match="*[contains(@class,' topic/ph ')][string(@outputclass) eq 'block']" priority="20">
         <xsl:param name="prmTopicRef" tunnel="yes" required="yes" as="element()?"/>
         
         <xsl:choose>

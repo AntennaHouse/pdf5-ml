@@ -25,7 +25,7 @@ E-mail : info@antennahouse.com
                 Ex: Child of fo:flow, table elements (colspec,thead,tbody,row,entry,sthead,strow,stentry) are not allowed to generate fo:bidi-override.
                 This is checked using ahf:isBidiOverrideAllowedElem() function.
      -->
-    <xsl:template match="*[exists(@dir)][ahf:isBidiOverrideAllowedElem(.)]" priority="10">
+    <xsl:template match="*[exists(@dir)][ahf:isBidiOverrideAllowedElem(.)]" priority="30">
         <xsl:variable name="dir" as="xs:string" select="string(@dir)"/>
         <xsl:variable name="unicodeBidi" as="xs:string">
             <xsl:choose>
