@@ -25,11 +25,11 @@
         return:	    fo:inline
         note:		
     -->
-    <xsl:template match="*[contains(@class, ' xml-d/numcharref ')]" mode="MODE_GET_STYLE" as="xs:string*" priority="4">
+    <xsl:template match="*[contains(@class, ' xml-d/numcharref ')]" mode="MODE_GET_STYLE" as="xs:string*" priority="6">
         <xsl:sequence select="'atsNumCharRef'"/>
     </xsl:template>
     
-    <xsl:template match="*[contains(@class, ' xml-d/numcharref ')]" priority="4">
+    <xsl:template match="*[contains(@class, ' xml-d/numcharref ')]" priority="6">
         <fo:inline>
             <xsl:call-template name="getAttributeSetWithLang"/>
             <xsl:call-template name="ahf:getUnivAtts"/>
@@ -44,7 +44,7 @@
         </fo:inline>
     </xsl:template>
 
-    <xsl:template match="*[contains(@class, ' xml-d/numcharref ')]" priority="4" mode="TEXT_ONLY">
+    <xsl:template match="*[contains(@class, ' xml-d/numcharref ')]" priority="6" mode="TEXT_ONLY">
         <xsl:call-template name="getVarValueAsText">
             <xsl:with-param name="prmVarName" select="'NumCharRef_Prefix'"/>
         </xsl:call-template>
@@ -60,11 +60,11 @@
         return:	    fo:inline
         note:		
     -->
-    <xsl:template match="*[contains(@class, ' xml-d/parameterentity ')]" mode="MODE_GET_STYLE" as="xs:string*" priority="4">
+    <xsl:template match="*[contains(@class, ' xml-d/parameterentity ')]" mode="MODE_GET_STYLE" as="xs:string*" priority="6">
         <xsl:sequence select="'atsParameterEntity'"/>
     </xsl:template>
     
-    <xsl:template match="*[contains(@class, ' xml-d/parameterentity ')]" priority="4">
+    <xsl:template match="*[contains(@class, ' xml-d/parameterentity ')]" priority="6">
         <fo:inline>
             <xsl:call-template name="getAttributeSetWithLang"/>
             <xsl:call-template name="ahf:getUnivAtts"/>
@@ -94,7 +94,7 @@
         </fo:inline>
     </xsl:template>
     
-    <xsl:template match="*[contains(@class, ' xml-d/parameterentity ')]" priority="4" mode="TEXT_ONLY">
+    <xsl:template match="*[contains(@class, ' xml-d/parameterentity ')]" priority="6" mode="TEXT_ONLY">
         <xsl:call-template name="getVarValueAsText">
             <xsl:with-param name="prmVarName" select="'ParameterEntity_Prefix'"/>
         </xsl:call-template>
@@ -110,11 +110,11 @@
         return:	    fo:inline
         note:		
     -->
-    <xsl:template match="*[contains(@class, ' xml-d/textentity ')]" mode="MODE_GET_STYLE" as="xs:string*" priority="4">
+    <xsl:template match="*[contains(@class, ' xml-d/textentity ')]" mode="MODE_GET_STYLE" as="xs:string*" priority="6">
         <xsl:sequence select="'atsTextEntity'"/>
     </xsl:template>
     
-    <xsl:template match="*[contains(@class, ' xml-d/textentity ')]" priority="4">
+    <xsl:template match="*[contains(@class, ' xml-d/textentity ')]" priority="6">
         <fo:inline>
             <xsl:call-template name="getAttributeSetWithLang"/>
             <xsl:call-template name="ahf:getUnivAtts"/>
@@ -144,7 +144,7 @@
         </fo:inline>
     </xsl:template>
     
-    <xsl:template match="*[contains(@class, ' xml-d/textentity ')]" priority="4" mode="TEXT_ONLY">
+    <xsl:template match="*[contains(@class, ' xml-d/textentity ')]" priority="6" mode="TEXT_ONLY">
         <xsl:call-template name="getVarValueAsText">
             <xsl:with-param name="prmVarName" select="'TextEntity_Prefix'"/>
         </xsl:call-template>
@@ -160,11 +160,11 @@
         return:	    fo:inline
         note:		
     -->
-    <xsl:template match="*[contains(@class, ' xml-d/xmlatt ')]" mode="MODE_GET_STYLE" as="xs:string*" priority="4">
+    <xsl:template match="*[contains(@class, ' xml-d/xmlatt ')]" mode="MODE_GET_STYLE" as="xs:string*" priority="6">
         <xsl:sequence select="'atsXmlAtt'"/>
     </xsl:template>
     
-    <xsl:template match="*[contains(@class, ' xml-d/xmlatt ')]" priority="4">
+    <xsl:template match="*[contains(@class, ' xml-d/xmlatt ')]" priority="6">
         <fo:inline>
             <xsl:call-template name="getAttributeSetWithLang"/>
             <xsl:call-template name="ahf:getUnivAtts"/>
@@ -186,7 +186,7 @@
         </fo:inline>
     </xsl:template>
     
-    <xsl:template match="*[contains(@class, ' xml-d/xmlatt ')]" priority="4" mode="TEXT_ONLY">
+    <xsl:template match="*[contains(@class, ' xml-d/xmlatt ')]" priority="6" mode="TEXT_ONLY">
         <xsl:call-template name="getVarValueAsText">
             <xsl:with-param name="prmVarName" select="'XmlAtt_Prefix'"/>
         </xsl:call-template>
@@ -199,11 +199,11 @@
         return:	    fo:inline
         note:		
     -->
-    <xsl:template match="*[contains(@class, ' xml-d/xmlelement ')]" mode="MODE_GET_STYLE" as="xs:string*" priority="4">
+    <xsl:template match="*[contains(@class, ' xml-d/xmlelement ')]" mode="MODE_GET_STYLE" as="xs:string*" priority="6">
         <xsl:sequence select="'atsXmlElement'"/>
     </xsl:template>
     
-    <xsl:template match="*[contains(@class, ' xml-d/xmlelement ')]" priority="4">
+    <xsl:template match="*[contains(@class, ' xml-d/xmlelement ')]" priority="6">
         <fo:inline>
             <xsl:call-template name="getAttributeSetWithLang"/>
             <xsl:call-template name="ahf:getUnivAtts"/>
@@ -233,7 +233,7 @@
         </fo:inline>
     </xsl:template>
     
-    <xsl:template match="*[contains(@class, ' xml-d/xmlelement ')]" priority="4" mode="TEXT_ONLY">
+    <xsl:template match="*[contains(@class, ' xml-d/xmlelement ')]" priority="6" mode="TEXT_ONLY">
         <xsl:call-template name="getVarValueAsText">
             <xsl:with-param name="prmVarName" select="'XmlElement_Prefix'"/>
         </xsl:call-template>
@@ -249,11 +249,11 @@
         return:	    fo:inline
         note:		
     -->
-    <xsl:template match="*[contains(@class, ' xml-d/xmlnsname ')]" mode="MODE_GET_STYLE" as="xs:string*" priority="4">
+    <xsl:template match="*[contains(@class, ' xml-d/xmlnsname ')]" mode="MODE_GET_STYLE" as="xs:string*" priority="6">
         <xsl:sequence select="'atsXmlNsName'"/>
     </xsl:template>
     
-    <xsl:template match="*[contains(@class, ' xml-d/xmlnsname ')]" priority="4">
+    <xsl:template match="*[contains(@class, ' xml-d/xmlnsname ')]" priority="6">
         <fo:inline>
             <xsl:call-template name="getAttributeSetWithLang"/>
             <xsl:call-template name="ahf:getUnivAtts"/>
@@ -262,7 +262,7 @@
         </fo:inline>
     </xsl:template>
     
-    <xsl:template match="*[contains(@class, ' xml-d/xmlnsname ')]" priority="4" mode="TEXT_ONLY">
+    <xsl:template match="*[contains(@class, ' xml-d/xmlnsname ')]" priority="6" mode="TEXT_ONLY">
         <xsl:apply-templates mode="#current"/>
     </xsl:template>
 
@@ -272,11 +272,11 @@
         return:	    fo:inline
         note:		
     -->
-    <xsl:template match="*[contains(@class, ' xml-d/xmlpi ')]" mode="MODE_GET_STYLE" as="xs:string*" priority="4">
+    <xsl:template match="*[contains(@class, ' xml-d/xmlpi ')]" mode="MODE_GET_STYLE" as="xs:string*" priority="6">
         <xsl:sequence select="'atsXmlPi'"/>
     </xsl:template>
     
-    <xsl:template match="*[contains(@class, ' xml-d/xmlpi ')]" priority="4">
+    <xsl:template match="*[contains(@class, ' xml-d/xmlpi ')]" priority="6">
         <fo:inline>
             <xsl:call-template name="getAttributeSetWithLang"/>
             <xsl:call-template name="ahf:getUnivAtts"/>
@@ -285,7 +285,7 @@
         </fo:inline>
     </xsl:template>
     
-    <xsl:template match="*[contains(@class, ' xml-d/xmlpi ')]" priority="4" mode="TEXT_ONLY">
+    <xsl:template match="*[contains(@class, ' xml-d/xmlpi ')]" priority="6" mode="TEXT_ONLY">
         <xsl:apply-templates mode="#current"/>
     </xsl:template>
 

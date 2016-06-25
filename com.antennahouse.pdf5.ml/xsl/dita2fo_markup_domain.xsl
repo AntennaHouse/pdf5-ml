@@ -25,11 +25,11 @@
         return:	    fo:inline
         note:		
     -->
-    <xsl:template match="*[contains(@class, ' markup-d/markupname ')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
+    <xsl:template match="*[contains(@class, ' markup-d/markupname ')]" mode="MODE_GET_STYLE" as="xs:string*" priority="4">
         <xsl:sequence select="'atsMarkupName'"/>
     </xsl:template>
     
-    <xsl:template match="*[contains(@class, ' markup-d/markupname ')]" priority="2">
+    <xsl:template match="*[contains(@class, ' markup-d/markupname ')]" priority="4">
         <xsl:call-template name="processMarkupName"/>
     </xsl:template>
     
