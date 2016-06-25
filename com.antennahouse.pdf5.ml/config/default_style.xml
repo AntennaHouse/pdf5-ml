@@ -1715,16 +1715,6 @@ URL : http://www.antennahouse.com/
                 <attribute name="space-before">$Para_Space_Before</attribute>
                 <attribute name="start-indent">inherited-property-value(start-indent)</attribute>
             </attribute-set>
-
-            <variable name="Fig_Float_Margin_X">1mm</variable>
-
-            <attribute-set name="atsFigFloatLeft">
-                <attribute name="axf:float-margin-x">$Fig_Float_Margin_X</attribute>
-            </attribute-set>
-
-            <attribute-set name="atsFigFloatRight">
-                <attribute name="axf:float-margin-x">$Fig_Float_Margin_X</attribute>
-            </attribute-set>
             
             <attribute-set name="atsFigDesc">
                 <attribute name="font-size">$Little_Title_Font_Size</attribute>
@@ -1736,6 +1726,45 @@ URL : http://www.antennahouse.com/
                 <attribute name="start-indent">inherited-property-value(start-indent)</attribute>
                 <attribute name="space-before">1.5mm</attribute>
                 <attribute name="keep-with-previous.within-page">always</attribute>
+            </attribute-set>
+
+            <!-- floatfig -->
+            <variable name="Fig_Float_Margin_X">1mm</variable>
+            
+            <attribute-set name="atsFloatFigLeft">
+                <attribute name="float">start</attribute>
+                <attribute name="start-indent">0mm</attribute>
+                <attribute name="end-indent">0mm</attribute>
+                <attribute name="clear">both</attribute>
+                <attribute name="axf:float-margin-x">$Fig_Float_Margin_X</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsFloatFigGroupLeft" use-attribute-sets="atsFloatFigLeft">
+            </attribute-set>
+
+            <attribute-set name="atsFloatFigRight">
+                <attribute name="float">end</attribute>
+                <attribute name="start-indent">0mm</attribute>
+                <attribute name="end-indent">0mm</attribute>
+                <attribute name="clear">both</attribute>
+                <attribute name="axf:float-margin-x">$Fig_Float_Margin_X</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsFloatFigGroupRight" use-attribute-sets="atsFloatFigRight">
+            </attribute-set>
+
+            <attribute-set name="atsFloatFigBc">
+                <attribute name="width">50%</attribute>
+                <attribute name="text-align">center</attribute>
+                <attribute name="space-after">2mm</attribute>
+                <attribute name="space-after.conditionality">retain</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsFloatFigGroupBc" use-attribute-sets="atsFloatFigBc">
+            </attribute-set>
+
+            <attribute-set name="atsFloatFigGroupAuto">
+                <attribute name="clear">none</attribute>
             </attribute-set>
 
             <!-- figgroup (??) -->

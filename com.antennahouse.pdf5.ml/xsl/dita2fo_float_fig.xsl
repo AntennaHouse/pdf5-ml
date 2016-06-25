@@ -16,36 +16,52 @@ E-mail : info@antennahouse.com
  xmlns:ahf="http://www.antennahouse.com/names/XSLT/Functions/Document"
  exclude-result-prefixes="xs ahf"
 >
-    <!-- This stylesheet expresses an floating image using fig/@float="left/right".
-         @float is specialized attribute for fig element.
+    <!-- This stylesheet expresses an floating image using floatfig/@float="left/right".
+         @float is specialized attribute for floatfig element.
          Floating image is typically used in task's step by following authoring.
          
          <step>
-           <cmd>Command of this step</cmd>
+           <cmd>Command of this step.</cmd>
            <info>
-             <fig float="left/right" href="...">
+             <floatfig float="left/right">
                <desc>Description of figure</desc>
                <image placement="break" href="..."/>
-             </fig>
+             </floatfig>
            </info>
          </step>
+
+         In this case floatfig is converted into fo:float as if it exists in <cmd>.
+         (Not yet implemented.)
+
+         Or it may be inserted in simple <p> element.
+
+         <p>
+           <floatfig float="right">
+             <image placement="break" href="tys125f.jpg"/>
+           </floatfig>
+           Scorpa is a manufacturer of trials motorcycles based near Alès, France. 
+           It was founded in 1993 by Marc Teissier and Joël Domergue. 
+           The first model produced by the company was the WORKS 294 in 1994, powered by a single-cylinder, two-stroke Rotax engine. 
+           In 1998, Scorpa signed an agreement with Yamaha Motor Company to use its engines in subsequent models.
+         </p>
          
-         In this case fig is converted into fo:float before <cmd>.
+         floatfig is available in ah-dita specialization.
+         https://github.com/AntennaHouse/ah-dita/tree/master/com.antennahouse.dita.dita13.doctypes
      -->
     <!-- 
      function:  floating figure
      param:     
-     return:    fo:float
-     note:      This function is experimental.
+     return:    fo:float or fo:wrapper
+     note:      This function is still experimental.
      -->
-    <xsl:template match="*[contains(@class, ' topic/fig ')][ahf:isFloatFig(.)][$pSupportFloatFig]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
+    <xsl:template match="*[contains(@class, ' floatfig-d/floatfig ')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
         <xsl:variable name="float" as="xs:string" select="string(@float)"/>
         <xsl:choose>
             <xsl:when test="$float eq 'left'">
-                <xsl:sequence select="'atsFigFloatLeft'"/>
+                <xsl:sequence select="'atsFloatFigLeft'"/>
             </xsl:when>
             <xsl:when test="$float eq 'right'">
-                <xsl:sequence select="'atsFigFloatRight'"/>
+                <xsl:sequence select="'atsFloatFigRight'"/>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:sequence select="()"/>
@@ -53,25 +69,26 @@ E-mail : info@antennahouse.com
         </xsl:choose>
     </xsl:template>
 
-    <xsl:template match="*[contains(@class, ' topic/fig ')][ahf:isFloatFig(.)][$pSupportFloatFig]">
+    <xsl:template match="*[contains(@class, ' floatfig-d/floatfig ')][string(@float) = ('left','right')]" priority="2">
         <fo:float>
-            <xsl:attribute name="float" select="string(@float)"/>
             <xsl:call-template name="getAttributeSetWithLang"/>
             <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
-            <xsl:apply-templates/>
+            <fo:block-container>
+                <xsl:call-template name="getAttributeSet">
+                    <xsl:with-param name="prmAttrSetName" select="'atsFloatFigBc'"/>
+                </xsl:call-template>
+                <xsl:apply-templates/>
+            </fo:block-container>
         </fo:float>
     </xsl:template>
 
-    <!-- 
-     function:  Return that the element is floating figure
-     param:     prmElement
-     return:    xs:boolean
-     note:      
-     -->
-    <xsl:function name="ahf:isFloatFig" as="xs:boolean">
-        <xsl:param name="prmElem" as="element()"/>
-        <xsl:sequence select="string($prmElem/@float) = ('left','right')"/>        
-    </xsl:function>
+    <xsl:template match="*[contains(@class, ' floatfig-d/floatfig ')][string(@float) eq 'none']" priority="2">
+        <fo:wrapper>
+            <xsl:call-template name="ahf:getUnivAtts"/>
+            <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
+            <xsl:apply-templates/>
+        </fo:wrapper>
+    </xsl:template>
 
     <!-- 
      function:  floating figure group
@@ -79,14 +96,19 @@ E-mail : info@antennahouse.com
      return:    fo:float
      note:      This function is experimental.
      -->
-    <xsl:template match="*[contains(@class, ' topic/figgroup ')][ahf:isFloatFig(.)][$pSupportFloatFig]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
+    <xsl:template match="*[contains(@class, ' floatfig-d/floatfig-group ')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
         <xsl:variable name="float" as="xs:string" select="string(@float)"/>
         <xsl:choose>
             <xsl:when test="$float eq 'left'">
-                <xsl:sequence select="'atsFigGroupFloatLeft'"/>
+                <xsl:sequence select="'atsFloatFigGroupLeft'"/>
             </xsl:when>
             <xsl:when test="$float eq 'right'">
-                <xsl:sequence select="'atsFigGroupFloatRight'"/>
+                <xsl:sequence select="'atsFloatFigGroupRight'"/>
+            </xsl:when>
+            <!-- @float='auto" inherits preceding-sibling floatfig-group/@float and @clear must be 'none'-->
+            <xsl:when test="$float eq 'auto'">
+                <xsl:apply-templates select="(preceding-sibling::*[contains(@class, ' floatfig-d/floatfig-group ')][string(@float) ne 'none'])[1]" mode="MODE_GET_STYLE"/>
+                <xsl:sequence select="'atsFloatFigGroupAuto'"/>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:sequence select="()"/>
@@ -94,12 +116,16 @@ E-mail : info@antennahouse.com
         </xsl:choose>
     </xsl:template>
     
-    <xsl:template match="*[contains(@class, ' topic/figgroup ')][ahf:isFloatFig(.)][$pSupportFloatFig]">
+    <xsl:template match="*[contains(@class, ' floatfig-d/floatfig-group ')]" priority="2">
         <fo:float>
-            <xsl:attribute name="float" select="string(@float)"/>
             <xsl:call-template name="getAttributeSetWithLang"/>
             <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
-            <xsl:apply-templates/>
+            <fo:block-container>
+                <xsl:call-template name="getAttributeSet">
+                    <xsl:with-param name="prmAttrSetName" select="'atsFloatFigGroupBc'"/>
+                </xsl:call-template>
+                <xsl:apply-templates/>
+            </fo:block-container>
         </fo:float>
     </xsl:template>
 
