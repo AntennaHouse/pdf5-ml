@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+<?xml-model href="urn:x-antennahouse:dita:rng:concept.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="urn:x-antennahouse:dita:rng:concept.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<concept id="concept__floatfig_test" xml:lang="en-US">
+	<title>Old days computer in German Museum</title>
+	<shortdesc>Sample using <xmlelement>dl</xmlelement>.</shortdesc>
+	<conbody>
+		<dl>
+			<dlentry>
+				<dt>The punched card system</dt>
+				<dd>
+					<floatfig float="right">
+						<image placement="break" href="image/20160406_153149.jpg"/>
+					</floatfig>
+					A punched card or punch card is a piece of stiff paper that contains digital information represented by the presence or absence of holes in predefined positions. The information might be data for data processing applications or, in earlier examples, used to directly controlling automated machinery. The terms IBM card, or Hollerith card specifically refer to punched cards used in semiautomatic data processing.
+					Punched cards were widely used through much of the 20th century in what became known as the data processing industry, where specialized and increasingly complex unit record machines, organized into data processing systems, used punched cards for data input, output, and storage. Many early digital computers used punched cards, often prepared using keypunch machines, as the primary medium for input of both computer programs and data.
+					While now obsolete as a recording medium, as of 2012, some voting machines still use punched cards to record votes.
+				</dd>
+			</dlentry>
+			<dlentry>
+				<dt>UNIVAC I</dt>
+				<dd>
+					<floatfig float="right">
+						<image placement="break" href="image/20160406_153525.jpg"/>
+					</floatfig>
+					The UNIVAC I (UNIVersal Automatic Computer I) was the first commercial computer produced in the United States.
+					It was designed principally by J. Presper Eckert and John Mauchly, the inventors of the ENIAC. 
+					Design work was started by their company, Eckert–Mauchly Computer Corporation, 
+					and was completed after the company had been acquired by Remington Rand (which later became part of Sperry, now Unisys).
+					In the years before successor models of the UNIVAC I appeared, the machine was simply known as "the UNIVAC".
+					The first Univac was accepted by the United States Census Bureau on March 31, 1951, and was dedicated on June 14 that year.
+					The fifth machine (built for the U.S. Atomic Energy Commission) was used by CBS to predict the result of the 1952 presidential election. 
+					With a sample of just 1% of the voting population it famously predicted an Eisenhower landslide while the conventional wisdom favored Stevenson.
+				</dd>
+			</dlentry>
+			<dlentry>
+				<dt>IBM 7070</dt>
+				<dd>
+					<floatfig float="none">
+						<floatfig-group float="right">
+							<image placement="break" href="image/20160406_155158.jpg"/>
+						</floatfig-group>
+						<floatfig-group float="auto">
+							<image placement="break" href="image/20160406_155208.jpg"/>
+						</floatfig-group>
+					</floatfig>
+					IBM 7070 was a decimal architecture intermediate data processing system that was introduced by IBM in 1958. 
+					It was part of the IBM 700/7000 series, and was based on discrete transistors rather than the vacuum tubes of the 1950s. 
+					It was the company's first transistorized stored-program computer.
+					The 7070 was expected to be a "common successor to at least the 650 and the 705". 
+					The 7070 was not designed to be instruction set compatible with the 650, as the latter had a second, 
+					jump address in every instruction to allow optimal use of the drum, something unnecessary and wasteful in a computer with random access core memory. 
+					As a result a simulator was needed to run old programs. The 7070 was also marketed as an IBM 705 upgrade, but failed miserably due to its incompatibilities, 
+					including an inability to fully represent the 705 character set; forcing IBM to quickly introduce the IBM 7080 as a "transistorized IBM 705" that was fully compatible.
+					The 7070 series stored data in a 10 decimal digit plus sign word. Digits were encoded using a two-out-of-five code. Characters were represented by a two-digit code. 
+					The machine shipped with 5,000 to 9,990 words of core and the CPU speed was about 27KIPS. 
+					A typical system was leased for $17,400 per month or could be purchased for $813,000.
+					Later systems in this series were the faster IBM 7074 introduced in July 1960 and the IBM 7072 (1961). 
+					They were eventually replaced by the System/360, announced in 1964.
+				</dd>
+			</dlentry>
+			<dlentry>
+				<dt>IBM System/360</dt>
+				<dd>
+					<floatfig float="right">
+						<image placement="break" href="image/20160406_154551.jpg"/>
+					</floatfig>
+					The IBM System/360 (S/360) was a mainframe computer system family announced by IBM on April 7, 1964, and delivered between 1965 and 1978. 
+					It was the first family of computers designed to cover the complete range of applications, from small to large, both commercial and scientific. 
+					The design made a clear distinction between architecture and implementation, allowing IBM to release a suite of compatible designs at different prices. 
+					All but the incompatible model 44 and the most expensive systems used microcode to implement the instruction set, which featured 8-bit byte addressing and binary, 
+					decimal and (hexadecimal) floating-point calculations.
+				</dd>
+			</dlentry>
+		</dl>
+	</conbody>
+</concept>

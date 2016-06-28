@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE bookmap PUBLIC "-//OASIS//DTD DITA BookMap//EN" "bookmap.dtd">
+<bookmap id = "bookmap_26F29B320CC448C6BDEE032B001C3627" xml:lang="en-US">
+        <booktitle>
+                <booklibrary>Antenna House DITA Open Toolkit Testcase</booklibrary>
+                <mainbooktitle>Float figure testing</mainbooktitle>
+                <booktitlealt>Unit test cases</booktitlealt>
+        </booktitle>
+        <bookmeta>
+                <source href="http://www.antennahouse.com">Antenna House Home page</source>
+                <publisherinformation>
+                    <organization>Antenna House, Inc.</organization>
+                    <printlocation>Japan</printlocation>
+                    <published>
+                        <completed>
+                            <day>06</day>
+                            <month>25</month>
+                            <year>2016</year>
+                        </completed>
+                    </published>
+                </publisherinformation>
+                <category>Testcase Report</category>
+                <keywords>
+                        <keyword>installing</keyword>
+                        <keyword>uninstalling</keyword>
+                        <keyword>prerequisites</keyword>
+                        <keyword>helps</keyword>
+                        <keyword>wizards</keyword>
+                </keywords>
+                <prodinfo>
+                        <prodname>Anttena House Testcase</prodname>
+                        <vrmlist>
+                                <vrm version = "1" release = ".01"/>
+                                <vrm version = "2" release = ".02"/>
+                        </vrmlist>
+                </prodinfo>
+                <bookid>
+                        <bookpartno>UD2013-001</bookpartno>
+                        <edition>1</edition>
+                </bookid>
+                <bookrights>
+                        <copyrfirst>
+                                <year>2006</year>
+                        </copyrfirst>
+                        <copyrlast>
+                                <year>2013</year>
+                        </copyrlast>
+                        <bookowner>
+                                <organization>Antenna House, Inc.</organization>
+                        </bookowner>
+                </bookrights>
+        </bookmeta>
+        <chapter href="topics-en/c_floatfig_chapter.xml" type="concept">
+                <topicref href="topics-en/c_floatfig.xml" type="concept"/>
+                <topicref href="topics-en/c_floatfig_right.xml" type="concept"/>
+                <topicref href="topics-en/c_floatfig_dl.xml" type="concept"/>
+        </chapter>
+</bookmap>
