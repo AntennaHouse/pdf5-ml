@@ -1737,6 +1737,7 @@ URL : http://www.antennahouse.com/
                 <attribute name="end-indent">0mm</attribute>
                 <attribute name="clear">both</attribute>
                 <attribute name="axf:float-margin-x">$Fig_Float_Margin_X</attribute>
+                <attribute name="axf:float-move">auto-next</attribute>
             </attribute-set>
 
             <attribute-set name="atsFloatFigGroupLeft" use-attribute-sets="atsFloatFigLeft">
@@ -1748,6 +1749,7 @@ URL : http://www.antennahouse.com/
                 <attribute name="end-indent">0mm</attribute>
                 <attribute name="clear">both</attribute>
                 <attribute name="axf:float-margin-x">$Fig_Float_Margin_X</attribute>
+                <attribute name="axf:float-move">auto-next</attribute>
             </attribute-set>
 
             <attribute-set name="atsFloatFigGroupRight" use-attribute-sets="atsFloatFigRight">
