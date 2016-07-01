@@ -72,6 +72,7 @@ E-mail : info@antennahouse.com
     <xsl:template match="*[contains(@class, ' floatfig-d/floatfig ')][string(@float) = ('left','right')]" priority="2">
         <fo:float>
             <xsl:call-template name="getAttributeSetWithLang"/>
+            <xsl:call-template name="ahf:getUnivAtts"/>
             <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
             <fo:block-container>
                 <xsl:call-template name="getAttributeSet">
@@ -105,7 +106,7 @@ E-mail : info@antennahouse.com
             <xsl:when test="$float eq 'right'">
                 <xsl:sequence select="'atsFloatFigGroupRight'"/>
             </xsl:when>
-            <!-- @float='auto" inherits preceding-sibling floatfig-group/@float and @clear must be 'none'-->
+            <!-- @float='auto" inherits preceding-sibling floatfig-group/@float and @clear is set to 'none'-->
             <xsl:when test="$float eq 'auto'">
                 <xsl:apply-templates select="(preceding-sibling::*[contains(@class, ' floatfig-d/floatfig-group ')][string(@float) ne 'none'])[1]" mode="MODE_GET_STYLE"/>
                 <xsl:sequence select="'atsFloatFigGroupAuto'"/>
@@ -119,6 +120,7 @@ E-mail : info@antennahouse.com
     <xsl:template match="*[contains(@class, ' floatfig-d/floatfig-group ')]" priority="2">
         <fo:float>
             <xsl:call-template name="getAttributeSetWithLang"/>
+            <xsl:call-template name="ahf:getUnivAtts"/>
             <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
             <fo:block-container>
                 <xsl:call-template name="getAttributeSet">

@@ -1756,7 +1756,7 @@ URL : http://www.antennahouse.com/
             </attribute-set>
 
             <attribute-set name="atsFloatFigBc">
-                <attribute name="width">50%</attribute>
+                <attribute name="width">50% - $Fig_Float_Margin_X</attribute>
                 <attribute name="text-align">center</attribute>
                 <attribute name="space-after">2mm</attribute>
                 <attribute name="space-after.conditionality">retain</attribute>
