@@ -54,7 +54,7 @@ E-mail : info@antennahouse.com
      return:    fo:float or fo:wrapper
      note:      This function is still experimental.
      -->
-    <xsl:template match="*[contains(@class, ' floatfig-d/floatfig ')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
+    <xsl:template match="*[contains(@class, ' floatfig-d/floatfig ')][parent::*[contains(@class, ' topic/li ')]]" mode="MODE_GET_STYLE" as="xs:string*" priority="4">
         <xsl:variable name="float" as="xs:string" select="string(@float)"/>
         <xsl:choose>
             <xsl:when test="$float eq 'left'">
@@ -62,6 +62,27 @@ E-mail : info@antennahouse.com
             </xsl:when>
             <xsl:when test="$float eq 'right'">
                 <xsl:sequence select="'atsFloatFigRight'"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:sequence select="()"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+
+    <xsl:template match="*[contains(@class, ' floatfig-d/floatfig ')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
+        <xsl:variable name="float" as="xs:string" select="string(@float)"/>
+        <xsl:choose>
+            <xsl:when test="$float eq 'left'">
+                <xsl:sequence select="'atsFloatFigLeft'"/>
+                <xsl:if test="preceding-sibling::*[contains(@class, ' floatfig-d/floatfig ')][string(@float) eq 'left']">
+                    <xsl:sequence select="'atsFloatMoveAutoNext'"/>
+                </xsl:if>
+            </xsl:when>
+            <xsl:when test="$float eq 'right'">
+                <xsl:sequence select="'atsFloatFigRight'"/>
+                <xsl:if test="preceding-sibling::*[contains(@class, ' floatfig-d/floatfig ')][string(@float) eq 'right']">
+                    <xsl:sequence select="'atsFloatMoveAutoNext'"/>
+                </xsl:if>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:sequence select="()"/>
@@ -102,9 +123,15 @@ E-mail : info@antennahouse.com
         <xsl:choose>
             <xsl:when test="$float eq 'left'">
                 <xsl:sequence select="'atsFloatFigGroupLeft'"/>
+                <xsl:if test="preceding-sibling::*[contains(@class, ' floatfig-d/floatfig-group ')][string(@float) eq 'left']">
+                    <xsl:sequence select="'atsFloatMoveAutoNext'"/>
+                </xsl:if>
             </xsl:when>
             <xsl:when test="$float eq 'right'">
                 <xsl:sequence select="'atsFloatFigGroupRight'"/>
+                <xsl:if test="preceding-sibling::*[contains(@class, ' floatfig-d/floatfig-group ')][string(@float) eq 'right']">
+                    <xsl:sequence select="'atsFloatMoveAutoNext'"/>
+                </xsl:if>
             </xsl:when>
             <!-- @float='auto" inherits preceding-sibling floatfig-group/@float and @clear is set to 'none'-->
             <xsl:when test="$float eq 'auto'">

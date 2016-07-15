@@ -659,6 +659,18 @@ URL : http://www.antennahouse.com/
                 <attribute name="font-size">11pt</attribute>
                 <!--attribute name="font-weight">bold</attribute-->
             </attribute-set>
+
+            <attribute-set name="atsClearBoth">
+                <attribute name="clear">both</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsFloatMoveKeep">
+                <attribute name="axf:float-move">keep</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsFloatMoveAutoNext">
+                <attribute name="axf:float-move">auto-next</attribute>
+            </attribute-set>
         </common-attribute>
 
         <cover-attribute>
@@ -1292,7 +1304,7 @@ URL : http://www.antennahouse.com/
             </attribute-set>
 
             <!-- Frontmatter -->
-            <attribute-set name="atsFmHeader1" use-attribute-sets="atsBTitle">
+            <attribute-set name="atsFmHeader1" use-attribute-sets="atsBTitle atsClearBoth">
                 <attribute name="start-indent">0mm</attribute>
                 <attribute name="font-size">24pt</attribute>
                 <attribute name="font-family">$General_Title_Font</attribute>
@@ -1300,7 +1312,7 @@ URL : http://www.antennahouse.com/
                 <attribute name="keep-with-next.within-page">always</attribute>
             </attribute-set>
 
-            <attribute-set name="atsFmHeader2" use-attribute-sets="atsBTitle">
+            <attribute-set name="atsFmHeader2" use-attribute-sets="atsBTitle atsClearBoth">
                 <attribute name="start-indent">0mm</attribute>
                 <attribute name="font-size">20pt</attribute>
                 <attribute name="font-family">$General_Title_Font</attribute>
@@ -1309,7 +1321,7 @@ URL : http://www.antennahouse.com/
                 <attribute name="keep-with-next.within-page">always</attribute>
             </attribute-set>
 
-            <attribute-set name="atsFmHeader3" use-attribute-sets="atsBTitle">
+            <attribute-set name="atsFmHeader3" use-attribute-sets="atsBTitle atsClearBoth">
                 <attribute name="start-indent">0mm</attribute>
                 <attribute name="font-size">16pt</attribute>
                 <attribute name="font-family">$General_Title_Font</attribute>
@@ -1320,7 +1332,7 @@ URL : http://www.antennahouse.com/
 
             <!-- Part/Chapter Heading -->
             <!-- level 1 -->
-            <attribute-set name="atsChapterHead1" use-attribute-sets="atsBTitle">
+            <attribute-set name="atsChapterHead1" use-attribute-sets="atsBTitle atsClearBoth">
                 <attribute name="start-indent">0mm</attribute>
                 <attribute name="space-after">4mm</attribute>
                 <attribute name="font-size">24pt</attribute>
@@ -1330,7 +1342,7 @@ URL : http://www.antennahouse.com/
             </attribute-set>
 
             <!-- level 2 -->
-            <attribute-set name="atsChapterHead2" use-attribute-sets="atsBTitle">
+            <attribute-set name="atsChapterHead2" use-attribute-sets="atsBTitle atsClearBoth">
                 <attribute name="start-indent">0mm</attribute>
                 <attribute name="space-before">6mm</attribute>
                 <attribute name="space-after">2mm</attribute>
@@ -1341,7 +1353,7 @@ URL : http://www.antennahouse.com/
             </attribute-set>
 
             <!-- level 3 -->
-            <attribute-set name="atsChapterHead3" use-attribute-sets="atsBTitle">
+            <attribute-set name="atsChapterHead3" use-attribute-sets="atsBTitle atsClearBoth">
                 <attribute name="start-indent">0mm</attribute>
                 <attribute name="space-before">4mm</attribute>
                 <attribute name="space-after">2mm</attribute>
@@ -1353,7 +1365,7 @@ URL : http://www.antennahouse.com/
 
             <!-- Appendix Heading -->
             <!-- level 1 -->
-            <attribute-set name="atsAppendixHead1" use-attribute-sets="atsBTitle">
+            <attribute-set name="atsAppendixHead1" use-attribute-sets="atsBTitle atsClearBoth">
                 <attribute name="start-indent">0mm</attribute>
                 <attribute name="space-after">4mm</attribute>
                 <attribute name="font-size">24pt</attribute>
@@ -1363,7 +1375,7 @@ URL : http://www.antennahouse.com/
             </attribute-set>
 
             <!-- level 2 -->
-            <attribute-set name="atsAppendixHead2" use-attribute-sets="atsBTitle">
+            <attribute-set name="atsAppendixHead2" use-attribute-sets="atsBTitle atsClearBoth">
                 <attribute name="start-indent">0mm</attribute>
                 <attribute name="space-before">6mm</attribute>
                 <attribute name="space-after">2mm</attribute>
@@ -1374,7 +1386,7 @@ URL : http://www.antennahouse.com/
             </attribute-set>
 
             <!-- level 3 -->
-            <attribute-set name="atsAppendixHead3" use-attribute-sets="atsBTitle">
+            <attribute-set name="atsAppendixHead3" use-attribute-sets="atsBTitle atsClearBoth">
                 <attribute name="start-indent">0mm</attribute>
                 <attribute name="space-before">4mm</attribute>
                 <attribute name="space-after">2mm</attribute>
@@ -1385,7 +1397,7 @@ URL : http://www.antennahouse.com/
             </attribute-set>
 
             <!-- Header 4: Square Bullet Title -->
-            <attribute-set name="atsHeader4List">
+            <attribute-set name="atsHeader4List" use-attribute-sets="atsClearBoth">
                 <attribute name="start-indent">0mm</attribute>
                 <attribute name="provisional-distance-between-starts">6mm</attribute>
                 <attribute name="provisional-label-separation">1mm</attribute>
@@ -1416,7 +1428,7 @@ URL : http://www.antennahouse.com/
             </attribute-set>
 
             <!-- Header 5: Round Bullet Title -->
-            <attribute-set name="atsHeader5List">
+            <attribute-set name="atsHeader5List" use-attribute-sets="atsClearBoth">
                 <attribute name="start-indent">0mm</attribute>
                 <attribute name="provisional-distance-between-starts">6mm</attribute>
                 <attribute name="provisional-label-separation">1mm</attribute>
@@ -1734,24 +1746,24 @@ URL : http://www.antennahouse.com/
             <variable name="Fig_Float_Margin_X">1mm</variable>
             
             <attribute-set name="atsFloatFigLeft">
-                <attribute name="float">start</attribute>
+                <attribute name="axf:float">start</attribute>
                 <attribute name="start-indent">0mm</attribute>
                 <attribute name="end-indent">0mm</attribute>
                 <attribute name="clear">both</attribute>
                 <attribute name="axf:float-margin-x">$Fig_Float_Margin_X</attribute>
-                <attribute name="axf:float-move">auto-next</attribute>
+                <attribute name="axf:float-move">keep</attribute>
             </attribute-set>
 
             <attribute-set name="atsFloatFigGroupLeft" use-attribute-sets="atsFloatFigLeft">
             </attribute-set>
 
             <attribute-set name="atsFloatFigRight">
-                <attribute name="float">end</attribute>
+                <attribute name="axf:float">end</attribute>
                 <attribute name="start-indent">0mm</attribute>
                 <attribute name="end-indent">0mm</attribute>
                 <attribute name="clear">both</attribute>
                 <attribute name="axf:float-margin-x">$Fig_Float_Margin_X</attribute>
-                <attribute name="axf:float-move">auto-next</attribute>
+                <attribute name="axf:float-move">keep</attribute>
             </attribute-set>
 
             <attribute-set name="atsFloatFigGroupRight" use-attribute-sets="atsFloatFigRight">
