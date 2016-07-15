@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<?xml-model href="urn:x-antennahouse:dita:rng:concept.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="urn:x-antennahouse:dita:rng:concept.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<concept id="concept__floatfig_test_ul" xml:lang="en-US">
+	<title>Munich landscape</title>
+	<conbody>
+		<p xmlns:format="http://www.w3.org/1999/XSL/Format" format:prop="clear:both;">
+			<floatfig float="right">
+				<image placement="break" href="image/20141117_141540.jpg"/>
+			</floatfig>
+			Entrance of Deutsches Museum
+		</p>
+		<p>The Deutsches Museum (German Museum) in Munich, Germany is the world's largest museum of science and technology, 
+			with approximately 1.5 million visitors per year and about 28,000 exhibited objects from 50 fields of science and technology.</p>
+		<p xmlns:format="http://www.w3.org/1999/XSL/Format" format:prop="clear:both;">
+			<floatfig float="right">
+				<image placement="break" href="image/20141117_141624.jpg"/>
+			</floatfig>
+			Clock Tower of Deutsches Museum
+		</p>
+		<p xmlns:format="http://www.w3.org/1999/XSL/Format" format:prop="clear:both;">
+			<floatfig float="right">
+				<image placement="break" href="image/20141117_140928.jpg"/>
+			</floatfig>
+			Isar River
+		</p>
+		<p>The main site of the Deutsches Museum is a small island in the Isar river.</p>
+		<p xmlns:format="http://www.w3.org/1999/XSL/Format" format:prop="clear:both;">
+			<floatfig float="right">
+				<image placement="break" href="image/20141117_144901.jpg"/>
+			</floatfig>
+			Sculpture near the Rosenheimer Platz
+		</p>
+		<!--p>
+			<floatfig float="right">
+				<image placement="break" href="image/2014-11-17-15.02.09.jpg"/>
+			</floatfig>
+			Doner kebab
+		</p>
+		<p>There is Doner kebab shop in subway aisle.</p-->
+	</conbody>
+</concept>
