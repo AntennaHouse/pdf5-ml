@@ -59,5 +59,6 @@
                 <topicref href="topics-en/c_floatfig_munich_ol.xml" type="concept"/>
                 <topicref href="topics-en/c_floatfig_munich_ul.xml" type="concept"/>
                 <topicref href="topics-en/c_floatfig_munich_p.xml" type="concept"/>
+                <topicref href="topics-en/c_floatfig_munich_dl.xml" type="concept"/>
         </chapter>
 </bookmap>

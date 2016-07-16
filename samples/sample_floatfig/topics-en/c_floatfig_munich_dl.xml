@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<?xml-model href="urn:x-antennahouse:dita:rng:concept.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="urn:x-antennahouse:dita:rng:concept.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<concept id="concept__floatfig_test_ul" xml:lang="en-US">
+	<title>Munich landscape</title>
+	<conbody>
+		<dl>
+			<dlentry>
+				<dt>Entrance of Deutsches Museum</dt>
+				<dd>
+					<floatfig float="right">
+						<image placement="break" href="image/20141117_141540.jpg"/>
+					</floatfig>
+					<p>The Deutsches Museum (German Museum) in Munich, Germany is the world's largest museum of science and technology, 
+						with approximately 1.5 million visitors per year and about 28,000 exhibited objects from 50 fields of science and technology.</p>
+				</dd>
+			</dlentry>
+			<dlentry>
+				<dt>Clock Tower of Deutsches Museum</dt>
+				<dd>
+					<floatfig float="right">
+						<image placement="break" href="image/20141117_141624.jpg"/>
+					</floatfig>
+					<p>Clock tower is located at the east side of Deutsches Museum.</p>
+				</dd>
+			</dlentry>
+			<dlentry>
+				<dt>Isar River and Ludwigs bridge</dt>
+				<dd>
+					<floatfig float="right">
+						<image placement="break" href="image/20141117_140928.jpg"/>
+					</floatfig>
+					<floatfig float="right">
+						<image placement="break" href="image/2014-11-17-14.09.36.jpg"/>
+					</floatfig>
+					<p>The main site of the Deutsches Museum is a small island in the Isar river.</p>
+				</dd>
+			</dlentry>
+			<dlentry>
+				<dt>Sculpture near the Rosenheimer Platz</dt>
+				<dd>
+					<floatfig float="right">
+						<image placement="break" href="image/20141117_144901.jpg"/>
+					</floatfig>
+					<p>There are many sculptures in Munich.</p>
+				</dd>
+			</dlentry>
+			<!--dlentry>
+				<dt>Doner kebab</dt>
+				<dd>
+					<floatfig float="right">
+						<image placement="break" href="image/2014-11-17-15.02.09.jpg"/>
+					</floatfig>
+					<p>There is Doner kebab shop in subway aisle.</p>
+				</dd>
+			</dlentry-->
+		</dl>
+	</conbody>
+</concept>
