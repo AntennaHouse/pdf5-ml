@@ -1682,8 +1682,12 @@ URL : http://www.antennahouse.com/
                 <attribute name="start-indent">$Dl_Dd_Indent_Value</attribute>
             </attribute-set>
 
-            <attribute-set name="atsDlentry"> </attribute-set>
-
+            <attribute-set name="atsDlentry"></attribute-set>
+            
+            <attribute-set name="atsDlentryBlock">
+                <attribute name="clear">both</attribute>
+            </attribute-set>
+            
             <attribute-set name="atsDt" use-attribute-sets="atsB">
                 <attribute name="padding-before">$Para_Space_Before</attribute>
                 <!--attribute name="font-weight">bold</attribute-->

@@ -552,6 +552,7 @@ E-mail : info@antennahouse.com
     </xsl:template>
 
     <xsl:template match="*[contains(@class, ' topic/dlentry ')][$pFormatDlAsBlock]" mode="MODE_GET_STYLE" as="xs:string*">
+        <xsl:sequence select="'atsDlentryBlock'"/>
     </xsl:template>
     
     <xsl:template match="*[contains(@class, ' topic/dlentry ')][not($pFormatDlAsBlock)]" mode="MODE_GET_STYLE" as="xs:string*">

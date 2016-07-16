@@ -22,7 +22,8 @@ E-mail : info@antennahouse.com
      function:	Process %univ-atts; attribute
      param:		prmElement, prmTopicRef,prmNeedId
      return:	attribute node
-     note:		
+     note:		Added @clear attribute processing.
+                2016/07/17 t.makita
      -->
     <xsl:function name="ahf:getUnivAtts" as="attribute()*">
         <xsl:param name="prmElement" as="element()"/>
@@ -53,6 +54,9 @@ E-mail : info@antennahouse.com
             <xsl:with-param name="prmTopicRef" tunnel="yes" select="$prmTopicRef"/>
             <xsl:with-param name="prmNeedId" tunnel="yes" select="$prmNeedId"/>
         </xsl:call-template>
+        
+        <!-- Clear attribute -->
+        <xsl:copy-of select="$prmElement/@clear"/>
         
     </xsl:template>
     
