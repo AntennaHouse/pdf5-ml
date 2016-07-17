@@ -32,6 +32,9 @@ URL : http://www.antennahouse.com/
 
         <variable name="General_Region_Before_Font">$General_Serif_Font</variable>
         <variable name="General_Region_After_Font">$General_Serif_Font</variable>
+        
+        <variable name="General_Cmd_Font">$General_Sans_Serif_Font</variable>
+        <variable name="General_Step_Label_Font">Arial</variable>
 
         <!--Color-->
         <variable name="Color_RGB_Black">black</variable>
@@ -323,7 +326,10 @@ URL : http://www.antennahouse.com/
 
         <!-- Number format of ol (Format string separate by space!) -->
         <variable name="Ol_Number_Formats" delim="[,\s]+">1. a. i.</variable>
-
+        
+        <!-- Number format of step/substep (Format string separate by space!) -->
+        <variable name="Step_Number_Formats" delim="[,\s]+">1. a.</variable>
+        
         <!-- Syntaxdiagram -->
         <variable name="Sd_Or"> | </variable>
         <variable name="Sd_Choice_Prefix"> {</variable>
@@ -1516,13 +1522,36 @@ URL : http://www.antennahouse.com/
         </reference-elements-attribute>
 
         <task-elements-attribute>
+            <!-- steps/step -->
+            <attribute-set name="atsSteps">
+                <attribute name="space-before">$Para_Space_Before</attribute>
+                <attribute name="provisional-distance-between-starts">$General_Indent_Value</attribute>
+                <attribute name="provisional-label-separation">0.2mm</attribute>
+            </attribute-set>
+            
+            <attribute-set name="atsStepItem">
+                <attribute name="space-before">$Para_Space_Before</attribute>
+                <attribute name="relative-align">baseline</attribute>
+                <attribute name="clear">both</attribute>
+            </attribute-set>
+            
+            <attribute-set name="atsStepLabel">
+                <attribute name="font-family">$General_Step_Label_Font</attribute>
+                <attribute name="font-style">italic</attribute>
+                <attribute name="font-weight">bold</attribute>
+                <attribute name="text-align">center</attribute>
+            </attribute-set>
+            <attribute-set name="atsStepBody"></attribute-set>
+            
             <!-- stepsection -->
             <attribute-set name="atsStepSection">
                 <attribute name="space-before">$Para_Space_Before</attribute>
             </attribute-set>
 
             <!-- cmd -->
-            <attribute-set name="atsCmd"></attribute-set>
+            <attribute-set name="atsCmd">
+                <attribute name="font-family">$General_Cmd_Font</attribute>
+            </attribute-set>
 
             <!-- info -->
             <attribute-set name="atsInfo" use-attribute-sets="atsP"></attribute-set>
