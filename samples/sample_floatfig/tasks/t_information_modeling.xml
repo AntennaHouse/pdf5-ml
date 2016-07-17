@@ -1,0 +1,88 @@
+<?xml version="1.0"?>
+<?xml-model href="urn:x-antennahouse:dita:rng:task.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="urn:x-antennahouse:dita:rng:task.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<task id="task__floatfig_test" xml:lang="en-US">
+	<title>How to practice your information modeling</title>
+	<taskbody>
+		<steps>
+			<step>
+				<cmd>Gather existing contents from user and start your analysis.</cmd>
+				<info>
+					<floatfig float="right">
+						<image placement="break" href="image/businessman-swimming-in-documents.svg"/>
+					</floatfig>
+					The contents may be unstructured or unsorted. 
+					But do not be disappointed. It is usual status in reality.
+				</info>
+			</step>
+			<step>
+				<cmd>Divide them into small peaces of topic.</cmd>
+				<info>
+					<floatfig float="right">
+						<image placement="break" href="image/colorful-folders-pack.svg"/>
+					</floatfig>
+					You should select appropriate topic size, not too small and not too big.
+				</info>
+			</step>
+			<step>
+				<cmd>Determine the appropriate information type.</cmd>
+				<info>
+					<floatfig float="right">
+						<image placement="break" href="image/info-model.svg"/>
+					</floatfig>
+					<ul>
+						<li clear="none">Topic type will become task, reference, concept, glossary or troubleshooting.</li>
+						<li clear="none">You can create your own topic types if necessary.</li>
+					</ul>
+				</info>
+			</step>
+			<step>
+				<cmd>Make templates for authoring based on information type.</cmd>
+				<info>
+					<floatfig float="right">
+						<image placement="break" href="image/template.svg"/>
+					</floatfig>
+					Current authoring tool supports making your own templates for inexperienced users.
+				</info>
+			</step>
+			<step>
+				<cmd>Submit your decisions to information architecture team.</cmd>
+				<info>
+					<floatfig float="right">
+						<image placement="break" href="image/decision.svg"/>
+					</floatfig>
+					It is important to explain how DITA and DITA-OT architecture differs from legacy publishing one.
+				</info>
+			</step>
+			<step>
+				<cmd>Discuss with team until approved.</cmd>
+				<info>
+					<floatfig float="right">
+						<image placement="break" href="image/top-view-of-business-meeting.svg"/>
+					</floatfig>
+					There may be heated discussions because users does not practice DITA architecture at this moment.
+				</info>
+			</step>
+			<step>
+				<cmd>Pilot your decisions.</cmd>
+				<info>
+					<floatfig float="right">
+						<image placement="break" href="image/office-work.svg"/>
+					</floatfig>
+					<ul>
+						<li clear="none">It is important to collaborate with authors to understand the information model and apply it properly.</li>
+						<li clear="none">Also it is important to publish the new contents with stylesheet work to show the results to the manager.</li>
+					</ul>
+				</info>
+			</step>
+			<step>
+				<cmd>Evaluate the modeling work and go ahead if it is succeeded.</cmd>
+				<info>
+					<floatfig float="right">
+						<image placement="break" href="image/businessman-being-throwing-up-by-his-teamwork.svg"/>
+					</floatfig>
+				</info>
+			</step>
+		</steps>
+	</taskbody>
+</task>

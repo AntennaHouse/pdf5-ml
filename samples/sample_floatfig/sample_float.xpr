@@ -24,7 +24,9 @@
         </options>
     </meta>
     <projectTree name="sample_float.xpr">
+        <folder path="tasks/"/>
         <folder path="topics-en/"/>
         <file name="sample_en.ditamap"/>
+        <file name="sample_task.ditamap"/>
     </projectTree>
 </project>

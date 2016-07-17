@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<?xml-model href="urn:x-antennahouse:dita:rng:concept.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="urn:x-antennahouse:dita:rng:concept.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<concept id="concept__notice" xml:lang="en-US">
+	<title>Used graphics</title>
+	<conbody>
+		<section>
+			<title>Special thanks to freepik.com</title>
+			<p> This sample uses graphics from <xref href="http://www.freepik.com" format="html"
+					scope="external">http://www.freepik.com</xref>. According to the licensing
+				terms, the graphic files are not included in sample folder. See <xref
+					href="https://profile.freepik.com/license/free" format="html" scope="external"
+					>https://profile.freepik.com/license/free</xref> for details. </p>
+		</section>
+		<section>
+			<title>Original file location</title>
+			<p>If you want to test this sample by yourself, refer to the following links. All of the .ai files are converted into .svg file by Inkscape version 0.9.</p>
+			<simpletable>
+				<sthead>
+					<stentry>File name</stentry>
+					<stentry>URL</stentry>
+				</sthead>
+				<strow>
+					<stentry>businessman-being-throwing-up-by-his-teamwork.svg</stentry>
+					<stentry><xref href="http://www.freepik.com/free-vector/businessman-being-throwing-up-by-his-teamwork_764394.htm" format="html" scope="external">http://www.freepik.com/free-vector/businessman-being-throwing-up-by-his-teamwork_764394.htm</xref></stentry>
+				</strow>
+				<strow>
+					<stentry>businessman-swimming-in-documents.svg</stentry>
+					<stentry><xref href="http://www.freepik.com/free-vector/businessman-swimming-in-documents_764464.htm" format="html" scope="external">http://www.freepik.com/free-vector/businessman-swimming-in-documents_764464.htm</xref></stentry>
+				</strow>
+				<strow>
+					<stentry>colorful-folders-pack.svg</stentry>
+					<stentry><xref href="http://www.freepik.com/free-vector/colorful-folders-pack_757810.htm" format="html" scope="external">http://www.freepik.com/free-vector/colorful-folders-pack_757810.htm</xref></stentry>
+				</strow>
+				<strow>
+					<stentry>decision.svg</stentry>
+					<stentry><xref href="http://www.freepik.com/free-vector/teamwork-management_766612.htm" format="html" scope="external">http://www.freepik.com/free-vector/teamwork-management_766612.htm</xref></stentry>
+				</strow>
+				<strow>
+					<stentry>office-work.svg</stentry>
+					<stentry><xref href="http://www.freepik.com/free-vector/office-work_762989.htm" format="html" scope="external">http://www.freepik.com/free-vector/office-work_762989.htm</xref></stentry>
+				</strow>
+				<strow>
+					<stentry>template.svg</stentry>
+					<stentry><xref href="http://www.freepik.com/free-vector/sketches-team-work-with-pieces-of-puzzle_829650.htm" format="html" scope="external">http://www.freepik.com/free-vector/sketches-team-work-with-pieces-of-puzzle_829650.htm</xref></stentry>
+				</strow>				
+				<strow>
+					<stentry>top-view-of-business-meeting.svg</stentry>
+					<stentry><xref href="http://www.freepik.com/free-vector/top-view-of-business-meeting_771820.htm" format="html" scope="external">http://www.freepik.com/free-vector/top-view-of-business-meeting_771820.htm</xref></stentry>
+				</strow>				
+			</simpletable>
+		</section>
+	</conbody>
+</concept>

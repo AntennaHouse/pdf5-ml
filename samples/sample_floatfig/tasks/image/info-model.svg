@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Microsoft Visio、SVG Export により生成 info-model.svg ページ - 1 -->
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ev="http://www.w3.org/2001/xml-events"
+		xmlns:v="http://schemas.microsoft.com/visio/2003/SVGExtensions/" width="6.56206in" height="4.66639in"
+		viewBox="0 0 472.469 335.98" xml:space="preserve" color-interpolation-filters="sRGB" class="st15">
+	<v:documentProperties v:langID="1041" v:metric="true" v:viewMarkup="false"/>
+
+	<style type="text/css">
+	<![CDATA[
+		.st1 {fill:#d6e6ee;stroke:#ffffff;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.5}
+		.st2 {fill:#5b9bd5;stroke:#ffffff;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.5}
+		.st3 {fill:#ffffff}
+		.st4 {stroke:#ffffff;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.5;visibility:hidden}
+		.st5 {fill:#4271c6;stroke:#ffffff;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.5}
+		.st6 {fill:none;stroke:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.5}
+		.st7 {fill:#5b9bd5;font-family:Calibri;font-size:4.00001em}
+		.st8 {fill:#ffffff;stroke:none;stroke-linecap:butt;stroke-width:0.75}
+		.st9 {fill:url(#grad10-36);stroke:none;stroke-linecap:butt;stroke-width:0.75}
+		.st10 {fill:#2c5e9a;stroke:none;stroke-linecap:butt;stroke-width:0.75}
+		.st11 {fill:url(#grad0-51);stroke:none;stroke-linecap:butt;stroke-width:0.75}
+		.st12 {fill:none;stroke:#2c5e9a;stroke-linecap:butt;stroke-width:0.5}
+		.st13 {fill:none;stroke:#5b9bd5;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.5}
+		.st14 {stroke:#2c5e9a;stroke-linecap:butt;stroke-width:0.5}
+		.st15 {fill:none;fill-rule:evenodd;font-size:12px;overflow:visible;stroke-linecap:square;stroke-miterlimit:3}
+	]]>
+	</style>
+
+	<defs id="Patterns_And_Gradients">
+		<pattern id="grad10-36" x="0" y="0" width="1" height="1" patternContentUnits="objectBoundingBox">
+			<path d="M 0.5 0.5 L 0 0 L 0 1 z" style="fill:url(#grad0-37)"/>
+			<path d="M 0.5 0.5 L 1 0 L 1 1 z" style="fill:url(#grad0-38)"/>
+			<path d="M 0.5 0.5 L 0 0 L 1 0 z" style="fill:url(#grad0-39)"/>
+			<path d="M 0.5 0.5 L 0 1 L 1 1 z" style="fill:url(#grad0-40)"/>
+		</pattern>
+		<linearGradient id="grad0-37" x1="0" y1="0" x2="1" y2="0" gradientTransform="rotate(180 0.5 0.5)">
+			<stop offset="0" stop-color="#ffffff" stop-opacity="1"/>
+			<stop offset="1" stop-color="#89b8eb" stop-opacity="1"/>
+		</linearGradient>
+		<linearGradient id="grad0-38" x1="0" y1="0" x2="1" y2="0" gradientTransform="rotate(360 0.5 0.5)">
+			<stop offset="0" stop-color="#ffffff" stop-opacity="1"/>
+			<stop offset="1" stop-color="#89b8eb" stop-opacity="1"/>
+		</linearGradient>
+		<linearGradient id="grad0-39" x1="0" y1="0" x2="1" y2="0" gradientTransform="rotate(270 0.5 0.5)">
+			<stop offset="0" stop-color="#ffffff" stop-opacity="1"/>
+			<stop offset="1" stop-color="#89b8eb" stop-opacity="1"/>
+		</linearGradient>
+		<linearGradient id="grad0-40" x1="0" y1="0" x2="1" y2="0" gradientTransform="rotate(90 0.5 0.5)">
+			<stop offset="0" stop-color="#ffffff" stop-opacity="1"/>
+			<stop offset="1" stop-color="#89b8eb" stop-opacity="1"/>
+		</linearGradient>
+		<linearGradient id="grad0-51" x1="0" y1="0" x2="1" y2="0" gradientTransform="rotate(270 0.5 0.5)">
+			<stop offset="0" stop-color="#2c5e9a" stop-opacity="1"/>
+			<stop offset="1" stop-color="#acd5f0" stop-opacity="1"/>
+		</linearGradient>
+	</defs>
+	<g v:mID="0" v:index="1" v:groupContext="foregroundPage">
+		<title>ページ - 1</title>
+		<v:pageProperties v:drawingScale="0.0393701" v:pageScale="0.0393701" v:drawingUnits="24" v:shadowOffsetX="4.25197"
+				v:shadowOffsetY="-4.25197"/>
+		<v:layer v:name="フローチャート" v:index="0"/>
+		<g id="shape7-1" v:mID="7" v:groupContext="shape" transform="translate(0.25,-0.25)">
+			<title>長方形</title>
+			<v:userDefs>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<rect x="0" y="0.499986" width="471.969" height="335.48" class="st1"/>
+		</g>
+		<g id="group1-3" transform="translate(31.4311,-205.699)" v:mID="1" v:groupContext="group" v:layerMember="0">
+			<v:userDefs>
+				<v:ud v:nameU="visVersion" v:prompt="" v:val="VT0(15):26"/>
+				<v:ud v:nameU="ConnGap" v:prompt="" v:val="VT0(0.00012908222537757):24"/>
+			</v:userDefs>
+			<title>タスク</title>
+			<g id="shape2-4" v:mID="2" v:groupContext="shape" v:layerMember="0">
+				<title>シート.2</title>
+				<path d="M70.86 243.87 L0 243.87 L0 335.98 L70.87 335.98 L70.86 243.87 Z" class="st2"/>
+			</g>
+			<g id="shape3-6" v:mID="3" v:groupContext="shape" v:layerMember="0" transform="translate(8.21468,-9.06958)">
+				<title>シート.3</title>
+				<v:userDefs>
+					<v:ud v:nameU="SurroundingRegionColor" v:prompt="" v:val="VT5(1)"/>
+					<v:ud v:nameU="SurroundingRegionColor" v:prompt="" v:val="VT5(#5b9bd5)"/>
+				</v:userDefs>
+				<path d="M55.65 262.01 L0 262.01 L0 335.98 L55.65 335.98 L55.65 262.01 Z" class="st3"/>
+			</g>
+			<g id="shape4-9" v:mID="4" v:groupContext="shape" v:layerMember="0" transform="translate(13.4378,-78.3392)">
+				<title>シート.4</title>
+				<path d="M30.4 321.47 L27.93 321.47 L27.92 315.89 L17.28 315.89 L17.28 321.47 L14.8 321.47 C10.37 321.47 0 321.47
+							 0 334.7 L0 335.98 L45.2 335.98 L45.2 334.7 C45.2 323.04 37.72 321.47 30.4 321.47 Z" class="st2"/>
+			</g>
+			<g id="shape5-11" v:mID="5" v:groupContext="shape" v:layerMember="0" transform="translate(33.8769,-83.9801)">
+				<title>シート.5</title>
+				<v:userDefs>
+					<v:ud v:nameU="SurroundingRegionColor" v:prompt="" v:val="VT5(1)"/>
+					<v:ud v:nameU="SurroundingRegionColor" v:prompt="" v:val="VT5(#5b9bd5)"/>
+				</v:userDefs>
+				<ellipse cx="2.16293" cy="333.781" rx="2.16293" ry="2.19955" class="st3"/>
+				<ellipse cx="2.16293" cy="333.781" rx="2.16293" ry="2.19955" class="st4"/>
+			</g>
+			<g id="shape6-14" v:mID="6" v:groupContext="shape" v:layerMember="0" transform="translate(16.2505,-28.4929)">
+				<title>シート.6</title>
+				<path d="M0 321.44 L6.74 314.58 L14.47 322.45 L34.15 302.45 L40.71 309.12 L14.31 335.98 L0 321.44 Z" class="st5"/>
+			</g>
+		</g>
+		<g id="shape8-16" v:mID="8" v:groupContext="shape" transform="translate(110.801,-222.77)">
+			<title>シート.8</title>
+			<desc>task</desc>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="164.537" cy="305.933" width="329.08" height="60.0945"/>
+			<rect x="0" y="275.886" width="329.074" height="60.0945" class="st6"/>
+			<text x="4" y="320.33" class="st7" v:langID="1041"><v:paragraph/><v:tabList/>task</text>		</g>
+		<g id="group10-19" transform="translate(31.4311,-126.959)" v:mID="10" v:groupContext="group" v:layerMember="0">
+			<v:userDefs>
+				<v:ud v:nameU="visVersion" v:prompt="" v:val="VT0(15):26"/>
+				<v:ud v:nameU="ConnGap" v:prompt="" v:val="VT0(0.00012908222537757):24"/>
+			</v:userDefs>
+			<title>承認</title>
+			<g id="shape11-20" v:mID="11" v:groupContext="shape" v:layerMember="0" transform="translate(-7.99361E-015,-0.927482)">
+				<title>シート.11</title>
+				<path d="M51.28 279.36 L38.53 266.04 L0 266.04 L0 335.98 L51.28 335.98 L51.28 279.36 Z" class="st2"/>
+			</g>
+			<g id="shape12-22" v:mID="12" v:groupContext="shape" v:layerMember="0" transform="translate(9.06101,-14.3683)">
+				<title>シート.12</title>
+				<v:userDefs>
+					<v:ud v:nameU="SurroundingRegionColor" v:prompt="" v:val="VT5(1)"/>
+					<v:ud v:nameU="SurroundingRegionColor" v:prompt="" v:val="VT5(#5b9bd5)"/>
+				</v:userDefs>
+				<path d="M19.54 335.98 L32.84 335.98 L32.84 334.18 L19.54 334.18 L19.54 335.98 ZM0 327.54 L32.84 327.54 L32.84 325.74
+							 L0 325.74 L0 327.54 ZM0 319.09 L32.84 319.09 L32.84 317.29 L0 317.29 L0 319.09 ZM0 310.65 L32.84 310.65
+							 L32.84 308.85 L0 308.85 L0 310.65 ZM0 302.21 L13.3 302.21 L13.3 300.41 L0 300.41 L0 302.21 ZM0 293.77
+							 L13.3 293.77 L13.3 291.97 L0 291.97 L0 293.77 ZM29.28 279.84 L29.28 292.91 L41.82 292.91 L29.28 279.84
+							 Z" class="st3"/>
+			</g>
+			<g id="shape13-25" v:mID="13" v:groupContext="shape" v:layerMember="0" transform="translate(17.7059,5.68434E-014)">
+				<title>シート.13</title>
+				<path d="M0 316.88 L8.8 307.88 L18.9 318.22 L44.59 291.94 L53.16 300.71 L18.68 335.98 L0 316.88 Z" class="st5"/>
+			</g>
+		</g>
+		<g id="shape14-27" v:mID="14" v:groupContext="shape" transform="translate(110.546,-126.959)">
+			<title>シート.14</title>
+			<desc>concept</desc>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="164.537" cy="305.933" width="329.08" height="60.0945"/>
+			<rect x="0" y="275.886" width="329.074" height="60.0945" class="st6"/>
+			<text x="4" y="320.33" class="st7" v:langID="1041"><v:paragraph/><v:tabList/>concept</text>		</g>
+		<g id="group80-30" transform="translate(28.5965,-24.2028)" v:mID="80" v:groupContext="group">
+			<v:userDefs>
+				<v:ud v:nameU="visVersion" v:prompt="" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<title>スプレッドシート</title>
+			<g id="shape81-31" v:mID="81" v:groupContext="shape" transform="translate(4.53963,-7.66634)">
+				<title>シート.81</title>
+				<path d="M61.79 278.19 L46 262.71 L0 262.73 L0 335.98 L61.76 335.98 L61.76 280.47 L61.79 280.47 L61.79 278.19 Z"
+						class="st8"/>
+			</g>
+			<g id="shape82-33" v:mID="82" v:groupContext="shape" transform="translate(4.60151,-7.64024)">
+				<title>シート.82</title>
+				<path d="M45.94 262.76 L0 262.76 L0 335.98 L61.64 335.98 L61.64 278.16 L45.94 262.76 ZM50.91 287.77 L50.91 291.17
+							 L50.91 320.3 L10.3 320.3 L10.3 291.17 L10.3 287.77 L10.3 286.18 L50.91 286.18 L50.91 287.77 L50.91 287.77
+							 Z" class="st9"/>
+			</g>
+			<g id="shape83-41" v:mID="83" v:groupContext="shape" transform="translate(49.489,-64.9637)">
+				<title>シート.83</title>
+				<path d="M16.76 335.48 L1.05 320.08 L0 320.08 L0 335.98 L16.76 335.97 L16.76 335.48 Z" class="st10"/>
+			</g>
+			<g id="shape84-43" v:mID="84" v:groupContext="shape" transform="translate(50.3796,-65.8543)">
+				<title>シート.84</title>
+				<path d="M0 335.98 L14.93 335.97 L0 321.49 L0 335.98 Z" class="st8"/>
+			</g>
+			<g id="shape85-45" v:mID="85" v:groupContext="shape" transform="translate(14.9018,-23.3199)">
+				<title>シート.85</title>
+				<rect x="0" y="306.852" width="40.6078" height="29.1281" class="st9"/>
+			</g>
+			<g id="shape86-48" v:mID="86" v:groupContext="shape" transform="translate(14.9018,-52.449)">
+				<title>シート.86</title>
+				<rect x="0" y="330.988" width="40.6078" height="4.99219" class="st11"/>
+			</g>
+			<g id="shape87-52" v:mID="87" v:groupContext="shape" transform="translate(14.9018,-22.9459)">
+				<title>シート.87</title>
+				<rect x="0" y="301.485" width="40.6078" height="34.4953" class="st12"/>
+			</g>
+			<g id="shape88-54" v:mID="88" v:groupContext="shape" transform="translate(4.53963,-7.67118)">
+				<title>シート.88</title>
+				<path d="M61.79 278.19 L46 262.71 L0 262.73 L0 335.98 L61.76 335.98 L61.76 280.47 L61.79 280.47 L61.79 278.19 Z"
+						class="st13"/>
+			</g>
+			<g id="shape89-56" v:mID="89" v:groupContext="shape" transform="translate(15.2543,-23.1418)">
+				<title>シート.89</title>
+				<path d="M40.43 306.67 L0 306.67" class="st14"/>
+				<path d="M40.43 326.41 L0 326.41" class="st14"/>
+				<path d="M26.69 306 L26.69 335.98" class="st14"/>
+				<path d="M13.08 306 L13.08 335.98" class="st14"/>
+				<path d="M40.43 316.6 L0 316.6" class="st14"/>
+			</g>
+		</g>
+		<g id="shape90-63" v:mID="90" v:groupContext="shape" transform="translate(113.636,-38.4469)">
+			<title>シート.90</title>
+			<desc>reference</desc>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="170.079" cy="305.933" width="340.16" height="60.0945"/>
+			<rect x="0" y="275.886" width="340.157" height="60.0945" class="st6"/>
+			<text x="4" y="320.33" class="st7" v:langID="1041"><v:paragraph/><v:tabList/>reference</text>		</g>
+	</g>
+</svg>
