@@ -3,7 +3,7 @@
 <bookmap id = "bookmap_26F29B320CC448C6BDEE032B001C3627" xml:lang="en-US">
         <booktitle>
                 <booklibrary>Antenna House DITA Open Toolkit Testcase</booklibrary>
-                <mainbooktitle>Float figure testing with task</mainbooktitle>
+                <mainbooktitle>Float figure testing (2)</mainbooktitle>
                 <booktitlealt>Unit test cases</booktitlealt>
         </booktitle>
         <bookmeta>
@@ -35,7 +35,7 @@
                         </vrmlist>
                 </prodinfo>
                 <bookid>
-                        <bookpartno>UD2013-001</bookpartno>
+                        <bookpartno>UD2016-003</bookpartno>
                         <edition>1</edition>
                 </bookid>
                 <bookrights>
@@ -43,7 +43,7 @@
                                 <year>2006</year>
                         </copyrfirst>
                         <copyrlast>
-                                <year>2013</year>
+                                <year>2016</year>
                         </copyrlast>
                         <bookowner>
                                 <organization>Antenna House, Inc.</organization>
@@ -52,10 +52,11 @@
         </bookmeta>
         <frontmatter>
                 <notices>
-                        <topicref href="tasks/c_notice.xml" type="concept"/>
+                        <topicref href="topics-2/c_notice.xml" type="concept"/>
                 </notices>
         </frontmatter>
-        <chapter href="tasks/c_floatfig_chapter.xml" type="concept">
-                <topicref href="tasks/t_information_modeling.xml" type="task"/>
+        <chapter href="topics-2/c_floatfig_chapter.xml" type="concept">
+                <topicref href="topics-2/t_information_modeling.xml" type="task"/>
+                <topicref href="topics-2/c_shortdesc.xml" type="concept"/>
         </chapter>
 </bookmap>

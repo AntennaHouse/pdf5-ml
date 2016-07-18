@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Microsoft Visio、SVG Export により生成 reference.svg ページ - 1 -->
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ev="http://www.w3.org/2001/xml-events"
+		xmlns:v="http://schemas.microsoft.com/visio/2003/SVGExtensions/" width="5.05616in" height="5.26928in"
+		viewBox="0 0 364.043 379.388" xml:space="preserve" color-interpolation-filters="sRGB" class="st9">
+	<v:documentProperties v:langID="1041" v:metric="true" v:viewMarkup="false"/>
+
+	<style type="text/css">
+	<![CDATA[
+		.st1 {fill:#d6e6ee;stroke:#ffffff;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.5}
+		.st2 {fill:#ffffff;stroke:none;stroke-linecap:butt;stroke-width:0.75}
+		.st3 {fill:url(#grad10-9);stroke:none;stroke-linecap:butt;stroke-width:0.75}
+		.st4 {fill:#2c5e9a;stroke:none;stroke-linecap:butt;stroke-width:0.75}
+		.st5 {fill:url(#grad0-24);stroke:none;stroke-linecap:butt;stroke-width:0.75}
+		.st6 {fill:none;stroke:#2c5e9a;stroke-linecap:butt;stroke-width:0.5}
+		.st7 {fill:none;stroke:#5b9bd5;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.5}
+		.st8 {stroke:#2c5e9a;stroke-linecap:butt;stroke-width:0.5}
+		.st9 {fill:none;fill-rule:evenodd;font-size:12px;overflow:visible;stroke-linecap:square;stroke-miterlimit:3}
+	]]>
+	</style>
+
+	<defs id="Patterns_And_Gradients">
+		<pattern id="grad10-9" x="0" y="0" width="1" height="1" patternContentUnits="objectBoundingBox">
+			<path d="M 0.5 0.5 L 0 0 L 0 1 z" style="fill:url(#grad0-10)"/>
+			<path d="M 0.5 0.5 L 1 0 L 1 1 z" style="fill:url(#grad0-11)"/>
+			<path d="M 0.5 0.5 L 0 0 L 1 0 z" style="fill:url(#grad0-12)"/>
+			<path d="M 0.5 0.5 L 0 1 L 1 1 z" style="fill:url(#grad0-13)"/>
+		</pattern>
+		<linearGradient id="grad0-10" x1="0" y1="0" x2="1" y2="0" gradientTransform="rotate(180 0.5 0.5)">
+			<stop offset="0" stop-color="#ffffff" stop-opacity="1"/>
+			<stop offset="1" stop-color="#89b8eb" stop-opacity="1"/>
+		</linearGradient>
+		<linearGradient id="grad0-11" x1="0" y1="0" x2="1" y2="0" gradientTransform="rotate(360 0.5 0.5)">
+			<stop offset="0" stop-color="#ffffff" stop-opacity="1"/>
+			<stop offset="1" stop-color="#89b8eb" stop-opacity="1"/>
+		</linearGradient>
+		<linearGradient id="grad0-12" x1="0" y1="0" x2="1" y2="0" gradientTransform="rotate(270 0.5 0.5)">
+			<stop offset="0" stop-color="#ffffff" stop-opacity="1"/>
+			<stop offset="1" stop-color="#89b8eb" stop-opacity="1"/>
+		</linearGradient>
+		<linearGradient id="grad0-13" x1="0" y1="0" x2="1" y2="0" gradientTransform="rotate(90 0.5 0.5)">
+			<stop offset="0" stop-color="#ffffff" stop-opacity="1"/>
+			<stop offset="1" stop-color="#89b8eb" stop-opacity="1"/>
+		</linearGradient>
+		<linearGradient id="grad0-24" x1="0" y1="0" x2="1" y2="0" gradientTransform="rotate(270 0.5 0.5)">
+			<stop offset="0" stop-color="#2c5e9a" stop-opacity="1"/>
+			<stop offset="1" stop-color="#acd5f0" stop-opacity="1"/>
+		</linearGradient>
+	</defs>
+	<g v:mID="0" v:index="1" v:groupContext="foregroundPage">
+		<title>ページ - 1</title>
+		<v:pageProperties v:drawingScale="0.0393701" v:pageScale="0.0393701" v:drawingUnits="24" v:shadowOffsetX="4.25197"
+				v:shadowOffsetY="-4.25197"/>
+		<g id="shape1-1" v:mID="1" v:groupContext="shape" transform="translate(0.25,-31.7012)">
+			<title>長方形.25</title>
+			<v:userDefs>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<rect x="0" y="43.9079" width="363.543" height="335.48" class="st1"/>
+		</g>
+		<g id="group2-3" transform="translate(36.8169,-22.4)" v:mID="2" v:groupContext="group">
+			<v:userDefs>
+				<v:ud v:nameU="visVersion" v:prompt="" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<title>スプレッドシート</title>
+			<g id="shape3-4" v:mID="3" v:groupContext="shape" transform="translate(18.2947,-30.8954)">
+				<title>シート.3</title>
+				<path d="M249 146.48 L185.38 84.11 L0 84.2 L0 379.39 L248.91 379.39 L248.91 155.68 L249 155.68 L249 146.48 Z"
+						class="st2"/>
+			</g>
+			<g id="shape4-6" v:mID="4" v:groupContext="shape" transform="translate(18.5441,-30.7902)">
+				<title>シート.4</title>
+				<path d="M185.13 84.31 L0 84.31 L0 379.39 L248.43 379.39 L248.43 146.36 L185.13 84.31 ZM205.16 185.1 L205.16 198.81
+							 L205.16 316.2 L41.51 316.2 L41.51 198.81 L41.51 185.1 L41.51 178.69 L205.16 178.69 L205.16 185.1 L205.16
+							 185.1 Z" class="st3"/>
+			</g>
+			<g id="shape5-14" v:mID="5" v:groupContext="shape" transform="translate(199.441,-261.804)">
+				<title>シート.5</title>
+				<path d="M67.53 377.37 L4.23 315.32 L0 315.32 L0 379.39 L67.53 379.35 L67.53 377.37 Z" class="st4"/>
+			</g>
+			<g id="shape6-16" v:mID="6" v:groupContext="shape" transform="translate(203.03,-265.393)">
+				<title>シート.6</title>
+				<path d="M0 379.39 L60.18 379.35 L0 320.97 L0 379.39 Z" class="st2"/>
+			</g>
+			<g id="shape7-18" v:mID="7" v:groupContext="shape" transform="translate(60.0543,-93.9793)">
+				<title>シート.7</title>
+				<rect x="0" y="262.002" width="163.649" height="117.386" class="st3"/>
+			</g>
+			<g id="shape8-21" v:mID="8" v:groupContext="shape" transform="translate(60.0543,-211.369)">
+				<title>シート.8</title>
+				<rect x="0" y="359.27" width="163.649" height="20.1185" class="st5"/>
+			</g>
+			<g id="shape9-25" v:mID="9" v:groupContext="shape" transform="translate(60.0543,-92.4719)">
+				<title>シート.9</title>
+				<rect x="0" y="240.372" width="163.649" height="139.016" class="st6"/>
+			</g>
+			<g id="shape10-27" v:mID="10" v:groupContext="shape" transform="translate(18.2947,-30.9149)">
+				<title>シート.10</title>
+				<path d="M249 146.48 L185.38 84.11 L0 84.2 L0 379.39 L248.91 379.39 L248.91 155.68 L249 155.68 L249 146.48 Z"
+						class="st7"/>
+			</g>
+			<g id="shape11-29" v:mID="11" v:groupContext="shape" transform="translate(61.4749,-93.2615)">
+				<title>シート.11</title>
+				<path d="M162.94 261.26 L0 261.26" class="st8"/>
+				<path d="M162.94 340.81 L0 340.81" class="st8"/>
+				<path d="M107.56 258.55 L107.56 379.39" class="st8"/>
+				<path d="M52.73 258.55 L52.73 379.39" class="st8"/>
+				<path d="M162.94 301.28 L0 301.28" class="st8"/>
+			</g>
+		</g>
+	</g>
+</svg>

@@ -50,15 +50,15 @@
                         </bookowner>
                 </bookrights>
         </bookmeta>
-        <chapter href="topics-en/c_floatfig_chapter.xml" type="concept">
-                <topicref href="topics-en/c_floatfig.xml" type="concept"/>
-                <topicref href="topics-en/c_floatfig_right.xml" type="concept"/>
-                <topicref href="topics-en/c_floatfig_dl.xml" type="concept"/>
+        <chapter href="topics/c_floatfig_chapter.xml" type="concept">
+                <topicref href="topics/c_floatfig.xml" type="concept"/>
+                <topicref href="topics/c_floatfig_right.xml" type="concept"/>
+                <topicref href="topics/c_floatfig_dl.xml" type="concept"/>
         </chapter>
-        <chapter href="topics-en/c_floatfig_chapter_2.xml" type="concept">
-                <topicref href="topics-en/c_floatfig_munich_ol.xml" type="concept"/>
-                <topicref href="topics-en/c_floatfig_munich_ul.xml" type="concept"/>
-                <topicref href="topics-en/c_floatfig_munich_p.xml" type="concept"/>
-                <topicref href="topics-en/c_floatfig_munich_dl.xml" type="concept"/>
+        <chapter href="topics/c_floatfig_chapter_2.xml" type="concept">
+                <topicref href="topics/c_floatfig_munich_ol.xml" type="concept"/>
+                <topicref href="topics/c_floatfig_munich_ul.xml" type="concept"/>
+                <topicref href="topics/c_floatfig_munich_p.xml" type="concept"/>
+                <topicref href="topics/c_floatfig_munich_dl.xml" type="concept"/>
         </chapter>
 </bookmap>

@@ -32,7 +32,7 @@
         </fo:block></fo:block-container></fo:flow></fo:page-sequence><fo:page-sequence reference-orientation="from-page-master-region()" writing-mode="from-page-master-region()" initial-page-number="1" force-page-count="no-force" master-reference="pmsPageSeqChapter"><fo:static-content flow-name="rgnChapterBeforeLeft"><fo:block font-size="8pt" font-weight="normal" font-family="serif" padding-after="1mm" border-after-width="2pt" border-after-style="solid" border-after-color="rgb(85,107,217)" space-after="3mm" space-after.conditionality="retain" text-align="right"/></fo:static-content><fo:static-content flow-name="rgnChapterBeforeRight"><fo:block font-size="8pt" font-weight="normal" font-family="serif" padding-after="1mm" border-after-width="2pt" border-after-style="solid" border-after-color="rgb(85,107,217)" space-after="3mm" space-after.conditionality="retain" text-align="right"/></fo:static-content><fo:static-content flow-name="rgnChapterAfterLeft"><fo:block space-before="2mm" space-before.conditionality="retain" padding-before="2mm" font-family="serif" font-size="8pt" font-weight="normal" color="black" border-before-width="2pt" border-before-style="solid" border-before-color="rgb(85,107,217)" text-align="right"><fo:inline font-weight="bold" font-size="11pt"><fo:page-number/></fo:inline><fo:inline-container width="5mm"/><fo:retrieve-marker retrieve-class-name="TITLE_PREFIX"/> <fo:retrieve-marker retrieve-class-name="TITLE_BODY"/></fo:block></fo:static-content><fo:static-content flow-name="rgnChapterAfterRight"><fo:block space-before="2mm" space-before.conditionality="retain" padding-before="2mm" font-family="serif" font-size="8pt" font-weight="normal" color="black" border-before-width="2pt" border-before-style="solid" border-before-color="rgb(85,107,217)" text-align="right"><fo:retrieve-marker retrieve-class-name="TITLE_PREFIX"/> <fo:retrieve-marker retrieve-class-name="TITLE_BODY"/><fo:inline-container width="5mm"/><fo:inline font-weight="bold" font-size="11pt"><fo:page-number/></fo:inline></fo:block></fo:static-content><fo:static-content flow-name="rgnChapterEndRight"><fo:block line-stacking-strategy="max-height"><fo:inline-container width="25mm"/><fo:inline-container width="0mm"/><fo:inline-container width="10mm" height="13mm"><fo:block-container width="100%" height="100%" reference-orientation="90" font-size="14pt" text-align="center" display-align="center" background-color="black"><fo:block color="white">1</fo:block></fo:block-container></fo:inline-container><fo:inline-container width="2mm"/><fo:inline-container><fo:block font-size="9pt"><fo:inline baseline-shift="16pt"><fo:inline><fo:inline>Floating figure examples</fo:inline></fo:inline></fo:inline></fo:block></fo:inline-container></fo:block></fo:static-content><fo:static-content flow-name="rgnChapterEndLeft"><fo:block line-stacking-strategy="max-height"><fo:inline-container width="25mm"/><fo:inline-container width="0mm"/><fo:inline-container width="10mm" height="13mm"><fo:block-container width="100%" height="100%" reference-orientation="90" font-size="14pt" text-align="center" display-align="center" background-color="black"><fo:block color="white">1</fo:block></fo:block-container></fo:inline-container><fo:inline-container width="2mm"/><fo:inline-container><fo:block font-size="9pt"><fo:inline baseline-shift="16pt"><fo:inline><fo:inline>Floating figure examples</fo:inline></fo:inline></fo:inline></fo:block></fo:inline-container></fo:block></fo:static-content><fo:static-content flow-name="rgnChapterBlankBody"><fo:block font-family="sans-serif" font-size="14pt" text-align="justify" text-align-last="justify"><fo:inline-container width="40%"><fo:block border-before-width="3pt" border-before-style="solid" border-before-color="rgb(85,107,217)" space-before="2pt"/></fo:inline-container><fo:inline baseline-shift="-1 * 3pt"> Blank Page </fo:inline><fo:inline-container width="40%"><fo:block border-before-width="3pt" border-before-style="solid" border-before-color="rgb(85,107,217)" space-before="2pt"/></fo:inline-container></fo:block></fo:static-content><fo:flow flow-name="xsl-region-body"><fo:block start-indent="0mm" font-size="11pt" line-height="normal" id="unique_1" xml:lang="en-US" break-before="page"><fo:block font-weight="bold" clear="both" start-indent="0mm" space-after="4mm" font-size="24pt" font-family="sans-serif" text-align="start" keep-with-next.within-page="always"><fo:marker marker-class-name="TITLE_PREFIX"><fo:inline>Chapter 1</fo:inline></fo:marker><fo:marker marker-class-name="TITLE_BODY"><fo:inline font-family="serif"><fo:inline>Floating figure examples</fo:inline></fo:inline></fo:marker>Chapter 1 Floating figure examples</fo:block></fo:block><fo:block start-indent="0mm" font-size="11pt" line-height="normal" id="unique_2" xml:lang="en-US" break-before="auto"><fo:block font-weight="bold" clear="both" start-indent="0mm" space-before="6mm" space-after="2mm" font-size="20pt" font-family="sans-serif" text-align="start" keep-with-next.within-page="always"><fo:marker marker-class-name="TITLE_PREFIX"><fo:inline>1.1</fo:inline></fo:marker><fo:marker marker-class-name="TITLE_BODY"><fo:inline font-family="serif"><fo:inline>Old days computer in German Museum</fo:inline></fo:inline></fo:marker>1.1 Old days computer in German Museum</fo:block><fo:wrapper>
 		<fo:block space-before="1.5122em - 3.8673mm">
 			<fo:float axf:float="end" start-indent="0mm" end-indent="0mm" clear="both" axf:float-margin-x="1mm" axf:float-move="keep"><fo:block-container width="50% - 1mm" text-align="center" space-after="2mm" space-after.conditionality="retain">
-				<fo:block-container><fo:block start-indent="0mm" line-height="1" font-size="0mm"><fo:external-graphic src="url(file:/D:/SVN/pdf5/testdata/20160625-floatfig/topics-en/image/20160406_153149.jpg)" scaling="uniform" content-width="scale-down-to-fit" max-width="100%" content-height="scale-down-to-fit" max-height="100vh"/></fo:block></fo:block-container>
+				<fo:block-container><fo:block start-indent="0mm" line-height="1" font-size="0mm"><fo:external-graphic src="url(file:/D:/SVN/pdf5/testdata/20160625-floatfig/topics/image/20160406_153149.jpg)" scaling="uniform" content-width="scale-down-to-fit" max-width="100%" content-height="scale-down-to-fit" max-height="100vh"/></fo:block></fo:block-container>
 			</fo:block-container></fo:float>
 			A punched card or punch card is a piece of stiff paper that contains digital information represented by the presence or absence of holes in predefined positions. The information might be data for data processing applications or, in earlier examples, used to directly controlling automated machinery. The terms IBM card, or Hollerith card specifically refer to punched cards used in semiautomatic data processing.
 			Punched cards were widely used through much of the 20th century in what became known as the data processing industry, where specialized and increasingly complex unit record machines, organized into data processing systems, used punched cards for data input, output, and storage. Many early digital computers used punched cards, often prepared using keypunch machines, as the primary medium for input of both computer programs and data.
@@ -40,7 +40,7 @@
 		</fo:block>
 		<fo:block space-before="1.5122em - 3.8673mm">
 			<fo:float axf:float="start" start-indent="0mm" end-indent="0mm" clear="both" axf:float-margin-x="1mm" axf:float-move="keep"><fo:block-container width="50% - 1mm" text-align="center" space-after="2mm" space-after.conditionality="retain">
-				<fo:block-container><fo:block start-indent="0mm" line-height="1" font-size="0mm"><fo:external-graphic src="url(file:/D:/SVN/pdf5/testdata/20160625-floatfig/topics-en/image/20160406_153525.jpg)" scaling="uniform" content-width="scale-down-to-fit" max-width="100%" content-height="scale-down-to-fit" max-height="100vh"/></fo:block></fo:block-container>
+				<fo:block-container><fo:block start-indent="0mm" line-height="1" font-size="0mm"><fo:external-graphic src="url(file:/D:/SVN/pdf5/testdata/20160625-floatfig/topics/image/20160406_153525.jpg)" scaling="uniform" content-width="scale-down-to-fit" max-width="100%" content-height="scale-down-to-fit" max-height="100vh"/></fo:block></fo:block-container>
 			</fo:block-container></fo:float>
 			The UNIVAC I (UNIVersal Automatic Computer I) was the first commercial computer produced in the United States.
 			It was designed principally by J. Presper Eckert and John Mauchly, the inventors of the ENIAC. 
@@ -53,12 +53,12 @@
 		</fo:block>
 		<fo:block space-before="1.5122em - 3.8673mm">
 			<fo:wrapper>
-				<fo:float axf:float="end" start-indent="0mm" end-indent="0mm" clear="both" axf:float-margin-x="1mm" axf:float-move="keep"><fo:block-container width="50% - 1mm" text-align="center" space-after="2mm" space-after.conditionality="retain">
-					<fo:block-container><fo:block start-indent="0mm" line-height="1" font-size="0mm"><fo:external-graphic src="url(file:/D:/SVN/pdf5/testdata/20160625-floatfig/topics-en/image/20160406_155158.jpg)" scaling="uniform" content-width="scale-down-to-fit" max-width="100%" content-height="scale-down-to-fit" max-height="100vh"/></fo:block></fo:block-container>
-				</fo:block-container></fo:float>
-				<fo:float axf:float="end" start-indent="0mm" end-indent="0mm" clear="both" axf:float-margin-x="1mm" axf:float-move="auto-next"><fo:block-container width="50% - 1mm" text-align="center" space-after="2mm" space-after.conditionality="retain">
-					<fo:block-container><fo:block start-indent="0mm" line-height="1" font-size="0mm"><fo:external-graphic src="url(file:/D:/SVN/pdf5/testdata/20160625-floatfig/topics-en/image/20160406_155208.jpg)" scaling="uniform" content-width="scale-down-to-fit" max-width="100%" content-height="scale-down-to-fit" max-height="100vh"/></fo:block></fo:block-container>
-				</fo:block-container></fo:float>
+				<fo:float axf:float="end" start-indent="0mm" end-indent="0mm" clear="both" axf:float-margin-x="1mm" axf:float-move="keep"><fo:block-container width="50% - 1mm" text-align="center" space-after="2mm" space-after.conditionality="retain"><fo:block>
+					<fo:block-container><fo:block start-indent="0mm" line-height="1" font-size="0mm"><fo:external-graphic src="url(file:/D:/SVN/pdf5/testdata/20160625-floatfig/topics/image/20160406_155158.jpg)" scaling="uniform" content-width="scale-down-to-fit" max-width="100%" content-height="scale-down-to-fit" max-height="100vh"/></fo:block></fo:block-container>
+				</fo:block></fo:block-container></fo:float>
+				<fo:float axf:float="end" start-indent="0mm" end-indent="0mm" clear="both" axf:float-margin-x="1mm" axf:float-move="auto-next"><fo:block-container width="50% - 1mm" text-align="center" space-after="2mm" space-after.conditionality="retain"><fo:block>
+					<fo:block-container><fo:block start-indent="0mm" line-height="1" font-size="0mm"><fo:external-graphic src="url(file:/D:/SVN/pdf5/testdata/20160625-floatfig/topics/image/20160406_155208.jpg)" scaling="uniform" content-width="scale-down-to-fit" max-width="100%" content-height="scale-down-to-fit" max-height="100vh"/></fo:block></fo:block-container>
+				</fo:block></fo:block-container></fo:float>
 			</fo:wrapper>
 			IBM 7070 was a decimal architecture intermediate data processing system that was introduced by IBM in 1958. 
 			It was part of the IBM 700/7000 series, and was based on discrete transistors rather than the vacuum tubes of the 1950s. 
@@ -76,7 +76,7 @@
 		</fo:block>
 		<fo:block space-before="1.5122em - 3.8673mm">
 			<fo:float axf:float="start" start-indent="0mm" end-indent="0mm" clear="both" axf:float-margin-x="1mm" axf:float-move="keep"><fo:block-container width="50% - 1mm" text-align="center" space-after="2mm" space-after.conditionality="retain">
-				<fo:block-container><fo:block start-indent="0mm" line-height="1" font-size="0mm"><fo:external-graphic src="url(file:/D:/SVN/pdf5/testdata/20160625-floatfig/topics-en/image/20160406_154551.jpg)" scaling="uniform" content-width="scale-down-to-fit" max-width="100%" content-height="scale-down-to-fit" max-height="100vh"/></fo:block></fo:block-container>
+				<fo:block-container><fo:block start-indent="0mm" line-height="1" font-size="0mm"><fo:external-graphic src="url(file:/D:/SVN/pdf5/testdata/20160625-floatfig/topics/image/20160406_154551.jpg)" scaling="uniform" content-width="scale-down-to-fit" max-width="100%" content-height="scale-down-to-fit" max-height="100vh"/></fo:block></fo:block-container>
 			</fo:block-container></fo:float>
 			The IBM System/360 (S/360) was a mainframe computer system family announced by IBM on April 7, 1964, and delivered between 1965 and 1978. 
 			It was the first family of computers designed to cover the complete range of applications, from small to large, both commercial and scientific. 
@@ -87,7 +87,7 @@
 	</fo:wrapper></fo:block><fo:block start-indent="0mm" font-size="11pt" line-height="normal" id="unique_3" xml:lang="en-US" break-before="auto" end-indent="50%"><fo:block font-weight="bold" clear="both" start-indent="0mm" space-before="6mm" space-after="2mm" font-size="20pt" font-family="sans-serif" text-align="start" keep-with-next.within-page="always" end-indent="0mm"><fo:marker marker-class-name="TITLE_PREFIX"><fo:inline>1.2</fo:inline></fo:marker><fo:marker marker-class-name="TITLE_BODY"><fo:inline font-family="serif"><fo:inline>Old days computer in German Museum</fo:inline></fo:inline></fo:marker>1.2 Old days computer in German Museum</fo:block><fo:block start-indent="inherited-property-value(start-indent)" end-indent="inherited-property-value(end-indent)" font-size="inherited-property-value(font-size)" space-before="1.5122em - 3.8673mm">The body text is positioned left by setting end-indent="50%".</fo:block><fo:wrapper>
 		<fo:block space-before="1.5122em - 3.8673mm">
 			<fo:float axf:float="end" start-indent="0mm" end-indent="0mm" clear="both" axf:float-margin-x="1mm" axf:float-move="keep"><fo:block-container width="50% - 1mm" text-align="center" space-after="2mm" space-after.conditionality="retain">
-				<fo:block-container><fo:block start-indent="0mm" line-height="1" font-size="0mm"><fo:external-graphic src="url(file:/D:/SVN/pdf5/testdata/20160625-floatfig/topics-en/image/20160406_153149.jpg)" scaling="uniform" content-width="scale-down-to-fit" max-width="100%" content-height="scale-down-to-fit" max-height="100vh"/></fo:block></fo:block-container>
+				<fo:block-container><fo:block start-indent="0mm" line-height="1" font-size="0mm"><fo:external-graphic src="url(file:/D:/SVN/pdf5/testdata/20160625-floatfig/topics/image/20160406_153149.jpg)" scaling="uniform" content-width="scale-down-to-fit" max-width="100%" content-height="scale-down-to-fit" max-height="100vh"/></fo:block></fo:block-container>
 			</fo:block-container></fo:float>
 			A punched card or punch card is a piece of stiff paper that contains digital information represented by the presence or absence of holes in predefined positions. The information might be data for data processing applications or, in earlier examples, used to directly controlling automated machinery. The terms IBM card, or Hollerith card specifically refer to punched cards used in semiautomatic data processing.
 			Punched cards were widely used through much of the 20th century in what became known as the data processing industry, where specialized and increasingly complex unit record machines, organized into data processing systems, used punched cards for data input, output, and storage. Many early digital computers used punched cards, often prepared using keypunch machines, as the primary medium for input of both computer programs and data.
@@ -95,7 +95,7 @@
 		</fo:block>
 		<fo:block space-before="1.5122em - 3.8673mm">
 			<fo:float axf:float="end" start-indent="0mm" end-indent="0mm" clear="both" axf:float-margin-x="1mm" axf:float-move="keep"><fo:block-container width="50% - 1mm" text-align="center" space-after="2mm" space-after.conditionality="retain">
-				<fo:block-container><fo:block start-indent="0mm" line-height="1" font-size="0mm"><fo:external-graphic src="url(file:/D:/SVN/pdf5/testdata/20160625-floatfig/topics-en/image/20160406_153525.jpg)" scaling="uniform" content-width="scale-down-to-fit" max-width="100%" content-height="scale-down-to-fit" max-height="100vh"/></fo:block></fo:block-container>
+				<fo:block-container><fo:block start-indent="0mm" line-height="1" font-size="0mm"><fo:external-graphic src="url(file:/D:/SVN/pdf5/testdata/20160625-floatfig/topics/image/20160406_153525.jpg)" scaling="uniform" content-width="scale-down-to-fit" max-width="100%" content-height="scale-down-to-fit" max-height="100vh"/></fo:block></fo:block-container>
 			</fo:block-container></fo:float>
 			The UNIVAC I (UNIVersal Automatic Computer I) was the first commercial computer produced in the United States.
 			It was designed principally by J. Presper Eckert and John Mauchly, the inventors of the ENIAC. 
@@ -108,12 +108,12 @@
 		</fo:block>
 		<fo:block space-before="1.5122em - 3.8673mm">
 			<fo:wrapper>
-				<fo:float axf:float="end" start-indent="0mm" end-indent="0mm" clear="both" axf:float-margin-x="1mm" axf:float-move="keep"><fo:block-container width="50% - 1mm" text-align="center" space-after="2mm" space-after.conditionality="retain">
-					<fo:block-container><fo:block start-indent="0mm" line-height="1" font-size="0mm"><fo:external-graphic src="url(file:/D:/SVN/pdf5/testdata/20160625-floatfig/topics-en/image/20160406_155158.jpg)" scaling="uniform" content-width="scale-down-to-fit" max-width="100%" content-height="scale-down-to-fit" max-height="100vh"/></fo:block></fo:block-container>
-				</fo:block-container></fo:float>
-				<fo:float axf:float="end" start-indent="0mm" end-indent="0mm" clear="both" axf:float-margin-x="1mm" axf:float-move="auto-next"><fo:block-container width="50% - 1mm" text-align="center" space-after="2mm" space-after.conditionality="retain">
-					<fo:block-container><fo:block start-indent="0mm" line-height="1" font-size="0mm"><fo:external-graphic src="url(file:/D:/SVN/pdf5/testdata/20160625-floatfig/topics-en/image/20160406_155208.jpg)" scaling="uniform" content-width="scale-down-to-fit" max-width="100%" content-height="scale-down-to-fit" max-height="100vh"/></fo:block></fo:block-container>
-				</fo:block-container></fo:float>
+				<fo:float axf:float="end" start-indent="0mm" end-indent="0mm" clear="both" axf:float-margin-x="1mm" axf:float-move="keep"><fo:block-container width="50% - 1mm" text-align="center" space-after="2mm" space-after.conditionality="retain"><fo:block>
+					<fo:block-container><fo:block start-indent="0mm" line-height="1" font-size="0mm"><fo:external-graphic src="url(file:/D:/SVN/pdf5/testdata/20160625-floatfig/topics/image/20160406_155158.jpg)" scaling="uniform" content-width="scale-down-to-fit" max-width="100%" content-height="scale-down-to-fit" max-height="100vh"/></fo:block></fo:block-container>
+				</fo:block></fo:block-container></fo:float>
+				<fo:float axf:float="end" start-indent="0mm" end-indent="0mm" clear="both" axf:float-margin-x="1mm" axf:float-move="auto-next"><fo:block-container width="50% - 1mm" text-align="center" space-after="2mm" space-after.conditionality="retain"><fo:block>
+					<fo:block-container><fo:block start-indent="0mm" line-height="1" font-size="0mm"><fo:external-graphic src="url(file:/D:/SVN/pdf5/testdata/20160625-floatfig/topics/image/20160406_155208.jpg)" scaling="uniform" content-width="scale-down-to-fit" max-width="100%" content-height="scale-down-to-fit" max-height="100vh"/></fo:block></fo:block-container>
+				</fo:block></fo:block-container></fo:float>
 			</fo:wrapper>
 			IBM 7070 was a decimal architecture intermediate data processing system that was introduced by IBM in 1958. 
 			It was part of the IBM 700/7000 series, and was based on discrete transistors rather than the vacuum tubes of the 1950s. 
@@ -131,7 +131,7 @@
 		</fo:block>
 		<fo:block space-before="1.5122em - 3.8673mm">
 			<fo:float axf:float="end" start-indent="0mm" end-indent="0mm" clear="both" axf:float-margin-x="1mm" axf:float-move="keep"><fo:block-container width="50% - 1mm" text-align="center" space-after="2mm" space-after.conditionality="retain">
-				<fo:block-container><fo:block start-indent="0mm" line-height="1" font-size="0mm"><fo:external-graphic src="url(file:/D:/SVN/pdf5/testdata/20160625-floatfig/topics-en/image/20160406_154551.jpg)" scaling="uniform" content-width="scale-down-to-fit" max-width="100%" content-height="scale-down-to-fit" max-height="100vh"/></fo:block></fo:block-container>
+				<fo:block-container><fo:block start-indent="0mm" line-height="1" font-size="0mm"><fo:external-graphic src="url(file:/D:/SVN/pdf5/testdata/20160625-floatfig/topics/image/20160406_154551.jpg)" scaling="uniform" content-width="scale-down-to-fit" max-width="100%" content-height="scale-down-to-fit" max-height="100vh"/></fo:block></fo:block-container>
 			</fo:block-container></fo:float>
 			The IBM System/360 (S/360) was a mainframe computer system family announced by IBM on April 7, 1964, and delivered between 1965 and 1978. 
 			It was the first family of computers designed to cover the complete range of applications, from small to large, both commercial and scientific. 
@@ -144,7 +144,7 @@
 				<fo:block font-weight="bold" space-before="5.6693em - 16.9997mm" font-family="sans-serif" keep-with-next="always">The punched card system</fo:block>
 				<fo:block space-before="1.5122em - 3.8673mm" start-indent="inherited-property-value(start-indent) + 7.5614em - 22.338mm">
 					<fo:float axf:float="end" start-indent="0mm" end-indent="0mm" clear="both" axf:float-margin-x="1mm" axf:float-move="keep"><fo:block-container width="50% - 1mm" text-align="center" space-after="2mm" space-after.conditionality="retain">
-						<fo:block-container><fo:block start-indent="0mm" line-height="1" font-size="0mm"><fo:external-graphic src="url(file:/D:/SVN/pdf5/testdata/20160625-floatfig/topics-en/image/20160406_153149.jpg)" scaling="uniform" content-width="scale-down-to-fit" max-width="100%" content-height="scale-down-to-fit" max-height="100vh"/></fo:block></fo:block-container>
+						<fo:block-container><fo:block start-indent="0mm" line-height="1" font-size="0mm"><fo:external-graphic src="url(file:/D:/SVN/pdf5/testdata/20160625-floatfig/topics/image/20160406_153149.jpg)" scaling="uniform" content-width="scale-down-to-fit" max-width="100%" content-height="scale-down-to-fit" max-height="100vh"/></fo:block></fo:block-container>
 					</fo:block-container></fo:float>
 					A punched card or punch card is a piece of stiff paper that contains digital information represented by the presence or absence of holes in predefined positions. The information might be data for data processing applications or, in earlier examples, used to directly controlling automated machinery. The terms IBM card, or Hollerith card specifically refer to punched cards used in semiautomatic data processing.
 					Punched cards were widely used through much of the 20th century in what became known as the data processing industry, where specialized and increasingly complex unit record machines, organized into data processing systems, used punched cards for data input, output, and storage. Many early digital computers used punched cards, often prepared using keypunch machines, as the primary medium for input of both computer programs and data.
@@ -154,7 +154,7 @@
 				<fo:block font-weight="bold" space-before="5.6693em - 16.9997mm" font-family="sans-serif" keep-with-next="always">UNIVAC I</fo:block>
 				<fo:block space-before="1.5122em - 3.8673mm" start-indent="inherited-property-value(start-indent) + 7.5614em - 22.338mm">
 					<fo:float axf:float="end" start-indent="0mm" end-indent="0mm" clear="both" axf:float-margin-x="1mm" axf:float-move="keep"><fo:block-container width="50% - 1mm" text-align="center" space-after="2mm" space-after.conditionality="retain">
-						<fo:block-container><fo:block start-indent="0mm" line-height="1" font-size="0mm"><fo:external-graphic src="url(file:/D:/SVN/pdf5/testdata/20160625-floatfig/topics-en/image/20160406_153525.jpg)" scaling="uniform" content-width="scale-down-to-fit" max-width="100%" content-height="scale-down-to-fit" max-height="100vh"/></fo:block></fo:block-container>
+						<fo:block-container><fo:block start-indent="0mm" line-height="1" font-size="0mm"><fo:external-graphic src="url(file:/D:/SVN/pdf5/testdata/20160625-floatfig/topics/image/20160406_153525.jpg)" scaling="uniform" content-width="scale-down-to-fit" max-width="100%" content-height="scale-down-to-fit" max-height="100vh"/></fo:block></fo:block-container>
 					</fo:block-container></fo:float>
 					The UNIVAC I (UNIVersal Automatic Computer I) was the first commercial computer produced in the United States.
 					It was designed principally by J. Presper Eckert and John Mauchly, the inventors of the ENIAC. 
@@ -169,12 +169,12 @@
 				<fo:block font-weight="bold" space-before="5.6693em - 16.9997mm" font-family="sans-serif" keep-with-next="always">IBM 7070</fo:block>
 				<fo:block space-before="1.5122em - 3.8673mm" start-indent="inherited-property-value(start-indent) + 7.5614em - 22.338mm">
 					<fo:wrapper>
-						<fo:float axf:float="end" start-indent="0mm" end-indent="0mm" clear="both" axf:float-margin-x="1mm" axf:float-move="keep"><fo:block-container width="50% - 1mm" text-align="center" space-after="2mm" space-after.conditionality="retain">
-							<fo:block-container><fo:block start-indent="0mm" line-height="1" font-size="0mm"><fo:external-graphic src="url(file:/D:/SVN/pdf5/testdata/20160625-floatfig/topics-en/image/20160406_155158.jpg)" scaling="uniform" content-width="scale-down-to-fit" max-width="100%" content-height="scale-down-to-fit" max-height="100vh"/></fo:block></fo:block-container>
-						</fo:block-container></fo:float>
-						<fo:float axf:float="end" start-indent="0mm" end-indent="0mm" clear="both" axf:float-margin-x="1mm" axf:float-move="auto-next"><fo:block-container width="50% - 1mm" text-align="center" space-after="2mm" space-after.conditionality="retain">
-							<fo:block-container><fo:block start-indent="0mm" line-height="1" font-size="0mm"><fo:external-graphic src="url(file:/D:/SVN/pdf5/testdata/20160625-floatfig/topics-en/image/20160406_155208.jpg)" scaling="uniform" content-width="scale-down-to-fit" max-width="100%" content-height="scale-down-to-fit" max-height="100vh"/></fo:block></fo:block-container>
-						</fo:block-container></fo:float>
+						<fo:float axf:float="end" start-indent="0mm" end-indent="0mm" clear="both" axf:float-margin-x="1mm" axf:float-move="keep"><fo:block-container width="50% - 1mm" text-align="center" space-after="2mm" space-after.conditionality="retain"><fo:block>
+							<fo:block-container><fo:block start-indent="0mm" line-height="1" font-size="0mm"><fo:external-graphic src="url(file:/D:/SVN/pdf5/testdata/20160625-floatfig/topics/image/20160406_155158.jpg)" scaling="uniform" content-width="scale-down-to-fit" max-width="100%" content-height="scale-down-to-fit" max-height="100vh"/></fo:block></fo:block-container>
+						</fo:block></fo:block-container></fo:float>
+						<fo:float axf:float="end" start-indent="0mm" end-indent="0mm" clear="both" axf:float-margin-x="1mm" axf:float-move="auto-next"><fo:block-container width="50% - 1mm" text-align="center" space-after="2mm" space-after.conditionality="retain"><fo:block>
+							<fo:block-container><fo:block start-indent="0mm" line-height="1" font-size="0mm"><fo:external-graphic src="url(file:/D:/SVN/pdf5/testdata/20160625-floatfig/topics/image/20160406_155208.jpg)" scaling="uniform" content-width="scale-down-to-fit" max-width="100%" content-height="scale-down-to-fit" max-height="100vh"/></fo:block></fo:block-container>
+						</fo:block></fo:block-container></fo:float>
 					</fo:wrapper>
 					IBM 7070 was a decimal architecture intermediate data processing system that was introduced by IBM in 1958. 
 					It was part of the IBM 700/7000 series, and was based on discrete transistors rather than the vacuum tubes of the 1950s. 
@@ -194,7 +194,7 @@
 				<fo:block font-weight="bold" space-before="5.6693em - 16.9997mm" font-family="sans-serif" keep-with-next="always">IBM System/360</fo:block>
 				<fo:block space-before="1.5122em - 3.8673mm" start-indent="inherited-property-value(start-indent) + 7.5614em - 22.338mm">
 					<fo:float axf:float="end" start-indent="0mm" end-indent="0mm" clear="both" axf:float-margin-x="1mm" axf:float-move="keep"><fo:block-container width="50% - 1mm" text-align="center" space-after="2mm" space-after.conditionality="retain">
-						<fo:block-container><fo:block start-indent="0mm" line-height="1" font-size="0mm"><fo:external-graphic src="url(file:/D:/SVN/pdf5/testdata/20160625-floatfig/topics-en/image/20160406_154551.jpg)" scaling="uniform" content-width="scale-down-to-fit" max-width="100%" content-height="scale-down-to-fit" max-height="100vh"/></fo:block></fo:block-container>
+						<fo:block-container><fo:block start-indent="0mm" line-height="1" font-size="0mm"><fo:external-graphic src="url(file:/D:/SVN/pdf5/testdata/20160625-floatfig/topics/image/20160406_154551.jpg)" scaling="uniform" content-width="scale-down-to-fit" max-width="100%" content-height="scale-down-to-fit" max-height="100vh"/></fo:block></fo:block-container>
 					</fo:block-container></fo:float>
 					The IBM System/360 (S/360) was a mainframe computer system family announced by IBM on April 7, 1964, and delivered between 1965 and 1978. 
 					It was the first family of computers designed to cover the complete range of applications, from small to large, both commercial and scientific. 
@@ -207,7 +207,7 @@
 		<fo:list-block space-before="1.5122em - 3.8673mm" provisional-distance-between-starts="3.7807em - 7.669mm" provisional-label-separation="0.5mm">
 			<fo:list-item space-before="1.5122em - 3.8673mm" relative-align="baseline" clear="both"><fo:list-item-label end-indent="label-end()"><fo:block text-align="end">1.</fo:block></fo:list-item-label><fo:list-item-body start-indent="body-start()"><fo:block space-before="1.5122em - 3.8673mm">
 				<fo:float axf:float="end" start-indent="0mm" end-indent="0mm" clear="both" axf:float-margin-x="1mm" axf:float-move="keep"><fo:block-container width="50% - 1mm" text-align="center" space-after="2mm" space-after.conditionality="retain">
-					<fo:block-container><fo:block start-indent="0mm" line-height="1" font-size="0mm"><fo:external-graphic src="url(file:/D:/SVN/pdf5/testdata/20160625-floatfig/topics-en/image/20141117_141540.jpg)" scaling="uniform" content-width="scale-down-to-fit" max-width="100%" content-height="scale-down-to-fit" max-height="100vh"/></fo:block></fo:block-container>
+					<fo:block-container><fo:block start-indent="0mm" line-height="1" font-size="0mm"><fo:external-graphic src="url(file:/D:/SVN/pdf5/testdata/20160625-floatfig/topics/image/20141117_141540.jpg)" scaling="uniform" content-width="scale-down-to-fit" max-width="100%" content-height="scale-down-to-fit" max-height="100vh"/></fo:block></fo:block-container>
 				</fo:block-container></fo:float>
 				<fo:block space-before="1.5122em - 3.8673mm">Entrance of Deutsches Museum</fo:block>
 				<fo:block space-before="1.5122em - 3.8673mm">The Deutsches Museum (German Museum) in Munich, Germany is the world's largest museum of science and technology, 
@@ -215,23 +215,23 @@
 			</fo:block></fo:list-item-body></fo:list-item>
 			<fo:list-item space-before="1.5122em - 3.8673mm" relative-align="baseline" clear="both"><fo:list-item-label end-indent="label-end()"><fo:block text-align="end">2.</fo:block></fo:list-item-label><fo:list-item-body start-indent="body-start()"><fo:block space-before="1.5122em - 3.8673mm">
 				<fo:float axf:float="end" start-indent="0mm" end-indent="0mm" clear="both" axf:float-margin-x="1mm" axf:float-move="keep"><fo:block-container width="50% - 1mm" text-align="center" space-after="2mm" space-after.conditionality="retain">
-					<fo:block-container><fo:block start-indent="0mm" line-height="1" font-size="0mm"><fo:external-graphic src="url(file:/D:/SVN/pdf5/testdata/20160625-floatfig/topics-en/image/20141117_141624.jpg)" scaling="uniform" content-width="scale-down-to-fit" max-width="100%" content-height="scale-down-to-fit" max-height="100vh"/></fo:block></fo:block-container>
+					<fo:block-container><fo:block start-indent="0mm" line-height="1" font-size="0mm"><fo:external-graphic src="url(file:/D:/SVN/pdf5/testdata/20160625-floatfig/topics/image/20141117_141624.jpg)" scaling="uniform" content-width="scale-down-to-fit" max-width="100%" content-height="scale-down-to-fit" max-height="100vh"/></fo:block></fo:block-container>
 				</fo:block-container></fo:float>
 				<fo:block space-before="1.5122em - 3.8673mm">Clock Tower of Deutsches Museum</fo:block>
 			</fo:block></fo:list-item-body></fo:list-item>
 			<fo:list-item space-before="1.5122em - 3.8673mm" relative-align="baseline" clear="both"><fo:list-item-label end-indent="label-end()"><fo:block text-align="end">3.</fo:block></fo:list-item-label><fo:list-item-body start-indent="body-start()"><fo:block space-before="1.5122em - 3.8673mm">
 				<fo:float axf:float="end" start-indent="0mm" end-indent="0mm" clear="both" axf:float-margin-x="1mm" axf:float-move="keep"><fo:block-container width="50% - 1mm" text-align="center" space-after="2mm" space-after.conditionality="retain">
-					<fo:block-container><fo:block start-indent="0mm" line-height="1" font-size="0mm"><fo:external-graphic src="url(file:/D:/SVN/pdf5/testdata/20160625-floatfig/topics-en/image/20141117_140928.jpg)" scaling="uniform" content-width="scale-down-to-fit" max-width="100%" content-height="scale-down-to-fit" max-height="100vh"/></fo:block></fo:block-container>
+					<fo:block-container><fo:block start-indent="0mm" line-height="1" font-size="0mm"><fo:external-graphic src="url(file:/D:/SVN/pdf5/testdata/20160625-floatfig/topics/image/20141117_140928.jpg)" scaling="uniform" content-width="scale-down-to-fit" max-width="100%" content-height="scale-down-to-fit" max-height="100vh"/></fo:block></fo:block-container>
 				</fo:block-container></fo:float>
 				<fo:float axf:float="end" start-indent="0mm" end-indent="0mm" clear="both" axf:float-margin-x="1mm" axf:float-move="auto-next"><fo:block-container width="50% - 1mm" text-align="center" space-after="2mm" space-after.conditionality="retain">
-					<fo:block-container><fo:block start-indent="0mm" line-height="1" font-size="0mm"><fo:external-graphic src="url(file:/D:/SVN/pdf5/testdata/20160625-floatfig/topics-en/image/2014-11-17-14.09.36.jpg)" scaling="uniform" content-width="scale-down-to-fit" max-width="100%" content-height="scale-down-to-fit" max-height="100vh"/></fo:block></fo:block-container>
+					<fo:block-container><fo:block start-indent="0mm" line-height="1" font-size="0mm"><fo:external-graphic src="url(file:/D:/SVN/pdf5/testdata/20160625-floatfig/topics/image/2014-11-17-14.09.36.jpg)" scaling="uniform" content-width="scale-down-to-fit" max-width="100%" content-height="scale-down-to-fit" max-height="100vh"/></fo:block></fo:block-container>
 				</fo:block-container></fo:float>
 				<fo:block space-before="1.5122em - 3.8673mm">Isar River and Ludwigs bridge</fo:block>
 				<fo:block space-before="1.5122em - 3.8673mm">The main site of the Deutsches Museum is a small island in the Isar river.</fo:block>
 			</fo:block></fo:list-item-body></fo:list-item>
 			<fo:list-item space-before="1.5122em - 3.8673mm" relative-align="baseline" clear="both"><fo:list-item-label end-indent="label-end()"><fo:block text-align="end">4.</fo:block></fo:list-item-label><fo:list-item-body start-indent="body-start()"><fo:block space-before="1.5122em - 3.8673mm">
 				<fo:float axf:float="end" start-indent="0mm" end-indent="0mm" clear="both" axf:float-margin-x="1mm" axf:float-move="keep"><fo:block-container width="50% - 1mm" text-align="center" space-after="2mm" space-after.conditionality="retain">
-					<fo:block-container><fo:block start-indent="0mm" line-height="1" font-size="0mm"><fo:external-graphic src="url(file:/D:/SVN/pdf5/testdata/20160625-floatfig/topics-en/image/20141117_144901.jpg)" scaling="uniform" content-width="scale-down-to-fit" max-width="100%" content-height="scale-down-to-fit" max-height="100vh"/></fo:block></fo:block-container>
+					<fo:block-container><fo:block start-indent="0mm" line-height="1" font-size="0mm"><fo:external-graphic src="url(file:/D:/SVN/pdf5/testdata/20160625-floatfig/topics/image/20141117_144901.jpg)" scaling="uniform" content-width="scale-down-to-fit" max-width="100%" content-height="scale-down-to-fit" max-height="100vh"/></fo:block></fo:block-container>
 				</fo:block-container></fo:float>
 				<fo:block space-before="1.5122em - 3.8673mm">Sculpture near the Rosenheimer Platz</fo:block>
 			</fo:block></fo:list-item-body></fo:list-item>
@@ -241,7 +241,7 @@
 		<fo:list-block space-before="1.5122em - 3.8673mm" provisional-distance-between-starts="3.7807em - 7.669mm" provisional-label-separation="1mm">
 			<fo:list-item space-before="1.5122em - 3.8673mm" relative-align="baseline" clear="both"><fo:list-item-label end-indent="label-end()"><fo:block font-family="Arial" text-align="center">•</fo:block></fo:list-item-label><fo:list-item-body start-indent="body-start()"><fo:block space-before="1.5122em - 3.8673mm">
 				<fo:float axf:float="end" start-indent="0mm" end-indent="0mm" clear="both" axf:float-margin-x="1mm" axf:float-move="keep"><fo:block-container width="50% - 1mm" text-align="center" space-after="2mm" space-after.conditionality="retain">
-					<fo:block-container><fo:block start-indent="0mm" line-height="1" font-size="0mm"><fo:external-graphic src="url(file:/D:/SVN/pdf5/testdata/20160625-floatfig/topics-en/image/20141117_141540.jpg)" scaling="uniform" content-width="scale-down-to-fit" max-width="100%" content-height="scale-down-to-fit" max-height="100vh"/></fo:block></fo:block-container>
+					<fo:block-container><fo:block start-indent="0mm" line-height="1" font-size="0mm"><fo:external-graphic src="url(file:/D:/SVN/pdf5/testdata/20160625-floatfig/topics/image/20141117_141540.jpg)" scaling="uniform" content-width="scale-down-to-fit" max-width="100%" content-height="scale-down-to-fit" max-height="100vh"/></fo:block></fo:block-container>
 				</fo:block-container></fo:float>
 				<fo:block space-before="1.5122em - 3.8673mm">Entrance of Deutsches Museum</fo:block>
 				<fo:block space-before="1.5122em - 3.8673mm">The Deutsches Museum (German Museum) in Munich, Germany is the world's largest museum of science and technology, 
@@ -249,23 +249,23 @@
 			</fo:block></fo:list-item-body></fo:list-item>
 			<fo:list-item space-before="1.5122em - 3.8673mm" relative-align="baseline" clear="both"><fo:list-item-label end-indent="label-end()"><fo:block font-family="Arial" text-align="center">•</fo:block></fo:list-item-label><fo:list-item-body start-indent="body-start()"><fo:block space-before="1.5122em - 3.8673mm">
 				<fo:float axf:float="end" start-indent="0mm" end-indent="0mm" clear="both" axf:float-margin-x="1mm" axf:float-move="keep"><fo:block-container width="50% - 1mm" text-align="center" space-after="2mm" space-after.conditionality="retain">
-					<fo:block-container><fo:block start-indent="0mm" line-height="1" font-size="0mm"><fo:external-graphic src="url(file:/D:/SVN/pdf5/testdata/20160625-floatfig/topics-en/image/20141117_141624.jpg)" scaling="uniform" content-width="scale-down-to-fit" max-width="100%" content-height="scale-down-to-fit" max-height="100vh"/></fo:block></fo:block-container>
+					<fo:block-container><fo:block start-indent="0mm" line-height="1" font-size="0mm"><fo:external-graphic src="url(file:/D:/SVN/pdf5/testdata/20160625-floatfig/topics/image/20141117_141624.jpg)" scaling="uniform" content-width="scale-down-to-fit" max-width="100%" content-height="scale-down-to-fit" max-height="100vh"/></fo:block></fo:block-container>
 				</fo:block-container></fo:float>
 				<fo:block space-before="1.5122em - 3.8673mm">Clock Tower of Deutsches Museum</fo:block>
 			</fo:block></fo:list-item-body></fo:list-item>
 			<fo:list-item space-before="1.5122em - 3.8673mm" relative-align="baseline" clear="both"><fo:list-item-label end-indent="label-end()"><fo:block font-family="Arial" text-align="center">•</fo:block></fo:list-item-label><fo:list-item-body start-indent="body-start()"><fo:block space-before="1.5122em - 3.8673mm">
 				<fo:float axf:float="end" start-indent="0mm" end-indent="0mm" clear="both" axf:float-margin-x="1mm" axf:float-move="keep"><fo:block-container width="50% - 1mm" text-align="center" space-after="2mm" space-after.conditionality="retain">
-					<fo:block-container><fo:block start-indent="0mm" line-height="1" font-size="0mm"><fo:external-graphic src="url(file:/D:/SVN/pdf5/testdata/20160625-floatfig/topics-en/image/20141117_140928.jpg)" scaling="uniform" content-width="scale-down-to-fit" max-width="100%" content-height="scale-down-to-fit" max-height="100vh"/></fo:block></fo:block-container>
+					<fo:block-container><fo:block start-indent="0mm" line-height="1" font-size="0mm"><fo:external-graphic src="url(file:/D:/SVN/pdf5/testdata/20160625-floatfig/topics/image/20141117_140928.jpg)" scaling="uniform" content-width="scale-down-to-fit" max-width="100%" content-height="scale-down-to-fit" max-height="100vh"/></fo:block></fo:block-container>
 				</fo:block-container></fo:float>
 				<fo:float axf:float="end" start-indent="0mm" end-indent="0mm" clear="both" axf:float-margin-x="1mm" axf:float-move="auto-next"><fo:block-container width="50% - 1mm" text-align="center" space-after="2mm" space-after.conditionality="retain">
-					<fo:block-container><fo:block start-indent="0mm" line-height="1" font-size="0mm"><fo:external-graphic src="url(file:/D:/SVN/pdf5/testdata/20160625-floatfig/topics-en/image/2014-11-17-14.09.36.jpg)" scaling="uniform" content-width="scale-down-to-fit" max-width="100%" content-height="scale-down-to-fit" max-height="100vh"/></fo:block></fo:block-container>
+					<fo:block-container><fo:block start-indent="0mm" line-height="1" font-size="0mm"><fo:external-graphic src="url(file:/D:/SVN/pdf5/testdata/20160625-floatfig/topics/image/2014-11-17-14.09.36.jpg)" scaling="uniform" content-width="scale-down-to-fit" max-width="100%" content-height="scale-down-to-fit" max-height="100vh"/></fo:block></fo:block-container>
 				</fo:block-container></fo:float>
 				<fo:block space-before="1.5122em - 3.8673mm">Isar River and Ludwigs bridge</fo:block>
 				<fo:block space-before="1.5122em - 3.8673mm">The main site of the Deutsches Museum is a small island in the Isar river.</fo:block>
 			</fo:block></fo:list-item-body></fo:list-item>
 			<fo:list-item space-before="1.5122em - 3.8673mm" relative-align="baseline" clear="both"><fo:list-item-label end-indent="label-end()"><fo:block font-family="Arial" text-align="center">•</fo:block></fo:list-item-label><fo:list-item-body start-indent="body-start()"><fo:block space-before="1.5122em - 3.8673mm">
 				<fo:float axf:float="end" start-indent="0mm" end-indent="0mm" clear="both" axf:float-margin-x="1mm" axf:float-move="keep"><fo:block-container width="50% - 1mm" text-align="center" space-after="2mm" space-after.conditionality="retain">
-					<fo:block-container><fo:block start-indent="0mm" line-height="1" font-size="0mm"><fo:external-graphic src="url(file:/D:/SVN/pdf5/testdata/20160625-floatfig/topics-en/image/20141117_144901.jpg)" scaling="uniform" content-width="scale-down-to-fit" max-width="100%" content-height="scale-down-to-fit" max-height="100vh"/></fo:block></fo:block-container>
+					<fo:block-container><fo:block start-indent="0mm" line-height="1" font-size="0mm"><fo:external-graphic src="url(file:/D:/SVN/pdf5/testdata/20160625-floatfig/topics/image/20141117_144901.jpg)" scaling="uniform" content-width="scale-down-to-fit" max-width="100%" content-height="scale-down-to-fit" max-height="100vh"/></fo:block></fo:block-container>
 				</fo:block-container></fo:float>
 				<fo:block space-before="1.5122em - 3.8673mm">Sculpture near the Rosenheimer Platz</fo:block>
 			</fo:block></fo:list-item-body></fo:list-item>
@@ -274,7 +274,7 @@
 	</fo:wrapper></fo:block><fo:block start-indent="0mm" font-size="11pt" line-height="normal" id="unique_8" xml:lang="en-US" break-before="auto"><fo:block font-weight="bold" clear="both" start-indent="0mm" space-before="6mm" space-after="2mm" font-size="20pt" font-family="sans-serif" text-align="start" keep-with-next.within-page="always"><fo:marker marker-class-name="TITLE_PREFIX"><fo:inline>2.3</fo:inline></fo:marker><fo:marker marker-class-name="TITLE_BODY"><fo:inline font-family="serif"><fo:inline>Munich landscape</fo:inline></fo:inline></fo:marker>2.3 Munich landscape</fo:block><fo:wrapper>
 		<fo:block space-before="1.5122em - 3.8673mm" clear="both">
 			<fo:float axf:float="end" start-indent="0mm" end-indent="0mm" clear="both" axf:float-margin-x="1mm" axf:float-move="keep"><fo:block-container width="50% - 1mm" text-align="center" space-after="2mm" space-after.conditionality="retain">
-				<fo:block-container><fo:block start-indent="0mm" line-height="1" font-size="0mm"><fo:external-graphic src="url(file:/D:/SVN/pdf5/testdata/20160625-floatfig/topics-en/image/20141117_141540.jpg)" scaling="uniform" content-width="scale-down-to-fit" max-width="100%" content-height="scale-down-to-fit" max-height="100vh"/></fo:block></fo:block-container>
+				<fo:block-container><fo:block start-indent="0mm" line-height="1" font-size="0mm"><fo:external-graphic src="url(file:/D:/SVN/pdf5/testdata/20160625-floatfig/topics/image/20141117_141540.jpg)" scaling="uniform" content-width="scale-down-to-fit" max-width="100%" content-height="scale-down-to-fit" max-height="100vh"/></fo:block></fo:block-container>
 			</fo:block-container></fo:float>
 			Entrance of Deutsches Museum
 		</fo:block>
@@ -282,23 +282,23 @@
 			with approximately 1.5 million visitors per year and about 28,000 exhibited objects from 50 fields of science and technology.</fo:block>
 		<fo:block space-before="1.5122em - 3.8673mm" clear="both">
 			<fo:float axf:float="end" start-indent="0mm" end-indent="0mm" clear="both" axf:float-margin-x="1mm" axf:float-move="keep"><fo:block-container width="50% - 1mm" text-align="center" space-after="2mm" space-after.conditionality="retain">
-				<fo:block-container><fo:block start-indent="0mm" line-height="1" font-size="0mm"><fo:external-graphic src="url(file:/D:/SVN/pdf5/testdata/20160625-floatfig/topics-en/image/20141117_141624.jpg)" scaling="uniform" content-width="scale-down-to-fit" max-width="100%" content-height="scale-down-to-fit" max-height="100vh"/></fo:block></fo:block-container>
+				<fo:block-container><fo:block start-indent="0mm" line-height="1" font-size="0mm"><fo:external-graphic src="url(file:/D:/SVN/pdf5/testdata/20160625-floatfig/topics/image/20141117_141624.jpg)" scaling="uniform" content-width="scale-down-to-fit" max-width="100%" content-height="scale-down-to-fit" max-height="100vh"/></fo:block></fo:block-container>
 			</fo:block-container></fo:float>
 			Clock Tower of Deutsches Museum
 		</fo:block>
 		<fo:block space-before="1.5122em - 3.8673mm" clear="both">
 			<fo:float axf:float="end" start-indent="0mm" end-indent="0mm" clear="both" axf:float-margin-x="1mm" axf:float-move="keep"><fo:block-container width="50% - 1mm" text-align="center" space-after="2mm" space-after.conditionality="retain">
-				<fo:block-container><fo:block start-indent="0mm" line-height="1" font-size="0mm"><fo:external-graphic src="url(file:/D:/SVN/pdf5/testdata/20160625-floatfig/topics-en/image/20141117_140928.jpg)" scaling="uniform" content-width="scale-down-to-fit" max-width="100%" content-height="scale-down-to-fit" max-height="100vh"/></fo:block></fo:block-container>
+				<fo:block-container><fo:block start-indent="0mm" line-height="1" font-size="0mm"><fo:external-graphic src="url(file:/D:/SVN/pdf5/testdata/20160625-floatfig/topics/image/20141117_140928.jpg)" scaling="uniform" content-width="scale-down-to-fit" max-width="100%" content-height="scale-down-to-fit" max-height="100vh"/></fo:block></fo:block-container>
 			</fo:block-container></fo:float>
 			<fo:float axf:float="end" start-indent="0mm" end-indent="0mm" clear="both" axf:float-margin-x="1mm" axf:float-move="auto-next"><fo:block-container width="50% - 1mm" text-align="center" space-after="2mm" space-after.conditionality="retain">
-				<fo:block-container><fo:block start-indent="0mm" line-height="1" font-size="0mm"><fo:external-graphic src="url(file:/D:/SVN/pdf5/testdata/20160625-floatfig/topics-en/image/2014-11-17-14.09.36.jpg)" scaling="uniform" content-width="scale-down-to-fit" max-width="100%" content-height="scale-down-to-fit" max-height="100vh"/></fo:block></fo:block-container>
+				<fo:block-container><fo:block start-indent="0mm" line-height="1" font-size="0mm"><fo:external-graphic src="url(file:/D:/SVN/pdf5/testdata/20160625-floatfig/topics/image/2014-11-17-14.09.36.jpg)" scaling="uniform" content-width="scale-down-to-fit" max-width="100%" content-height="scale-down-to-fit" max-height="100vh"/></fo:block></fo:block-container>
 			</fo:block-container></fo:float>
 			Isar River and Ludwigs bridge
 		</fo:block>
 		<fo:block space-before="1.5122em - 3.8673mm">The main site of the Deutsches Museum is a small island in the Isar river.</fo:block>
 		<fo:block space-before="1.5122em - 3.8673mm" clear="both">
 			<fo:float axf:float="end" start-indent="0mm" end-indent="0mm" clear="both" axf:float-margin-x="1mm" axf:float-move="keep"><fo:block-container width="50% - 1mm" text-align="center" space-after="2mm" space-after.conditionality="retain">
-				<fo:block-container><fo:block start-indent="0mm" line-height="1" font-size="0mm"><fo:external-graphic src="url(file:/D:/SVN/pdf5/testdata/20160625-floatfig/topics-en/image/20141117_144901.jpg)" scaling="uniform" content-width="scale-down-to-fit" max-width="100%" content-height="scale-down-to-fit" max-height="100vh"/></fo:block></fo:block-container>
+				<fo:block-container><fo:block start-indent="0mm" line-height="1" font-size="0mm"><fo:external-graphic src="url(file:/D:/SVN/pdf5/testdata/20160625-floatfig/topics/image/20141117_144901.jpg)" scaling="uniform" content-width="scale-down-to-fit" max-width="100%" content-height="scale-down-to-fit" max-height="100vh"/></fo:block></fo:block-container>
 			</fo:block-container></fo:float>
 			Sculpture near the Rosenheimer Platz
 		</fo:block>
@@ -308,7 +308,7 @@
 				<fo:block font-weight="bold" space-before="5.6693em - 16.9997mm" font-family="sans-serif" keep-with-next="always">Entrance of Deutsches Museum</fo:block>
 				<fo:block space-before="1.5122em - 3.8673mm" start-indent="inherited-property-value(start-indent) + 7.5614em - 22.338mm">
 					<fo:float axf:float="end" start-indent="0mm" end-indent="0mm" clear="both" axf:float-margin-x="1mm" axf:float-move="keep"><fo:block-container width="50% - 1mm" text-align="center" space-after="2mm" space-after.conditionality="retain">
-						<fo:block-container><fo:block start-indent="0mm" line-height="1" font-size="0mm"><fo:external-graphic src="url(file:/D:/SVN/pdf5/testdata/20160625-floatfig/topics-en/image/20141117_141540.jpg)" scaling="uniform" content-width="scale-down-to-fit" max-width="100%" content-height="scale-down-to-fit" max-height="100vh"/></fo:block></fo:block-container>
+						<fo:block-container><fo:block start-indent="0mm" line-height="1" font-size="0mm"><fo:external-graphic src="url(file:/D:/SVN/pdf5/testdata/20160625-floatfig/topics/image/20141117_141540.jpg)" scaling="uniform" content-width="scale-down-to-fit" max-width="100%" content-height="scale-down-to-fit" max-height="100vh"/></fo:block></fo:block-container>
 					</fo:block-container></fo:float>
 					<fo:block space-before="1.5122em - 3.8673mm">The Deutsches Museum (German Museum) in Munich, Germany is the world's largest museum of science and technology, 
 						with approximately 1.5 million visitors per year and about 28,000 exhibited objects from 50 fields of science and technology.</fo:block>
@@ -317,7 +317,7 @@
 				<fo:block font-weight="bold" space-before="5.6693em - 16.9997mm" font-family="sans-serif" keep-with-next="always">Clock Tower of Deutsches Museum</fo:block>
 				<fo:block space-before="1.5122em - 3.8673mm" start-indent="inherited-property-value(start-indent) + 7.5614em - 22.338mm">
 					<fo:float axf:float="end" start-indent="0mm" end-indent="0mm" clear="both" axf:float-margin-x="1mm" axf:float-move="keep"><fo:block-container width="50% - 1mm" text-align="center" space-after="2mm" space-after.conditionality="retain">
-						<fo:block-container><fo:block start-indent="0mm" line-height="1" font-size="0mm"><fo:external-graphic src="url(file:/D:/SVN/pdf5/testdata/20160625-floatfig/topics-en/image/20141117_141624.jpg)" scaling="uniform" content-width="scale-down-to-fit" max-width="100%" content-height="scale-down-to-fit" max-height="100vh"/></fo:block></fo:block-container>
+						<fo:block-container><fo:block start-indent="0mm" line-height="1" font-size="0mm"><fo:external-graphic src="url(file:/D:/SVN/pdf5/testdata/20160625-floatfig/topics/image/20141117_141624.jpg)" scaling="uniform" content-width="scale-down-to-fit" max-width="100%" content-height="scale-down-to-fit" max-height="100vh"/></fo:block></fo:block-container>
 					</fo:block-container></fo:float>
 					<fo:block space-before="1.5122em - 3.8673mm">Clock tower is located at the east side of Deutsches Museum.</fo:block>
 				</fo:block>
@@ -325,10 +325,10 @@
 				<fo:block font-weight="bold" space-before="5.6693em - 16.9997mm" font-family="sans-serif" keep-with-next="always">Isar River and Ludwigs bridge</fo:block>
 				<fo:block space-before="1.5122em - 3.8673mm" start-indent="inherited-property-value(start-indent) + 7.5614em - 22.338mm">
 					<fo:float axf:float="end" start-indent="0mm" end-indent="0mm" clear="both" axf:float-margin-x="1mm" axf:float-move="keep"><fo:block-container width="50% - 1mm" text-align="center" space-after="2mm" space-after.conditionality="retain">
-						<fo:block-container><fo:block start-indent="0mm" line-height="1" font-size="0mm"><fo:external-graphic src="url(file:/D:/SVN/pdf5/testdata/20160625-floatfig/topics-en/image/20141117_140928.jpg)" scaling="uniform" content-width="scale-down-to-fit" max-width="100%" content-height="scale-down-to-fit" max-height="100vh"/></fo:block></fo:block-container>
+						<fo:block-container><fo:block start-indent="0mm" line-height="1" font-size="0mm"><fo:external-graphic src="url(file:/D:/SVN/pdf5/testdata/20160625-floatfig/topics/image/20141117_140928.jpg)" scaling="uniform" content-width="scale-down-to-fit" max-width="100%" content-height="scale-down-to-fit" max-height="100vh"/></fo:block></fo:block-container>
 					</fo:block-container></fo:float>
 					<fo:float axf:float="end" start-indent="0mm" end-indent="0mm" clear="both" axf:float-margin-x="1mm" axf:float-move="auto-next"><fo:block-container width="50% - 1mm" text-align="center" space-after="2mm" space-after.conditionality="retain">
-						<fo:block-container><fo:block start-indent="0mm" line-height="1" font-size="0mm"><fo:external-graphic src="url(file:/D:/SVN/pdf5/testdata/20160625-floatfig/topics-en/image/2014-11-17-14.09.36.jpg)" scaling="uniform" content-width="scale-down-to-fit" max-width="100%" content-height="scale-down-to-fit" max-height="100vh"/></fo:block></fo:block-container>
+						<fo:block-container><fo:block start-indent="0mm" line-height="1" font-size="0mm"><fo:external-graphic src="url(file:/D:/SVN/pdf5/testdata/20160625-floatfig/topics/image/2014-11-17-14.09.36.jpg)" scaling="uniform" content-width="scale-down-to-fit" max-width="100%" content-height="scale-down-to-fit" max-height="100vh"/></fo:block></fo:block-container>
 					</fo:block-container></fo:float>
 					<fo:block space-before="1.5122em - 3.8673mm">The main site of the Deutsches Museum is a small island in the Isar river.</fo:block>
 				</fo:block>
@@ -336,7 +336,7 @@
 				<fo:block font-weight="bold" space-before="5.6693em - 16.9997mm" font-family="sans-serif" keep-with-next="always">Sculpture near the Rosenheimer Platz</fo:block>
 				<fo:block space-before="1.5122em - 3.8673mm" start-indent="inherited-property-value(start-indent) + 7.5614em - 22.338mm">
 					<fo:float axf:float="end" start-indent="0mm" end-indent="0mm" clear="both" axf:float-margin-x="1mm" axf:float-move="keep"><fo:block-container width="50% - 1mm" text-align="center" space-after="2mm" space-after.conditionality="retain">
-						<fo:block-container><fo:block start-indent="0mm" line-height="1" font-size="0mm"><fo:external-graphic src="url(file:/D:/SVN/pdf5/testdata/20160625-floatfig/topics-en/image/20141117_144901.jpg)" scaling="uniform" content-width="scale-down-to-fit" max-width="100%" content-height="scale-down-to-fit" max-height="100vh"/></fo:block></fo:block-container>
+						<fo:block-container><fo:block start-indent="0mm" line-height="1" font-size="0mm"><fo:external-graphic src="url(file:/D:/SVN/pdf5/testdata/20160625-floatfig/topics/image/20141117_144901.jpg)" scaling="uniform" content-width="scale-down-to-fit" max-width="100%" content-height="scale-down-to-fit" max-height="100vh"/></fo:block></fo:block-container>
 					</fo:block-container></fo:float>
 					<fo:block space-before="1.5122em - 3.8673mm">There are many sculptures in Munich.</fo:block>
 				</fo:block>

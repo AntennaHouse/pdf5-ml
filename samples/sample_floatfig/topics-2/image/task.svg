@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Microsoft Visio、SVG Export により生成 task.svg ページ - 1 -->
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ev="http://www.w3.org/2001/xml-events"
+		xmlns:v="http://schemas.microsoft.com/visio/2003/SVGExtensions/" width="5.05616in" height="4.66639in"
+		viewBox="0 0 364.043 335.98" xml:space="preserve" color-interpolation-filters="sRGB" class="st6">
+	<v:documentProperties v:langID="1041" v:metric="true" v:viewMarkup="false"/>
+
+	<style type="text/css">
+	<![CDATA[
+		.st1 {fill:#d6e6ee;stroke:#ffffff;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.5}
+		.st2 {fill:#5b9bd5;stroke:#ffffff;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.5}
+		.st3 {fill:#ffffff}
+		.st4 {stroke:#ffffff;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.5;visibility:hidden}
+		.st5 {fill:#4271c6;stroke:#ffffff;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.5}
+		.st6 {fill:none;fill-rule:evenodd;font-size:12px;overflow:visible;stroke-linecap:square;stroke-miterlimit:3}
+	]]>
+	</style>
+
+	<g v:mID="0" v:index="1" v:groupContext="foregroundPage">
+		<title>ページ - 1</title>
+		<v:pageProperties v:drawingScale="0.0393701" v:pageScale="0.0393701" v:drawingUnits="24" v:shadowOffsetX="4.25197"
+				v:shadowOffsetY="-4.25197"/>
+		<v:layer v:name="フローチャート" v:index="0"/>
+		<g id="shape1-1" v:mID="1" v:groupContext="shape" transform="translate(0.25,-0.25)">
+			<title>長方形</title>
+			<v:userDefs>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<rect x="0" y="0.499986" width="363.543" height="335.48" class="st1"/>
+		</g>
+		<g id="group2-3" transform="translate(51.9823,-35.6083)" v:mID="2" v:groupContext="group" v:layerMember="0">
+			<v:userDefs>
+				<v:ud v:nameU="visVersion" v:prompt="" v:val="VT0(15):26"/>
+				<v:ud v:nameU="ConnGap" v:prompt="" v:val="VT0(0.00012908222537757):24"/>
+			</v:userDefs>
+			<title>タスク</title>
+			<g id="shape3-4" v:mID="3" v:groupContext="shape" v:layerMember="0">
+				<title>シート.3</title>
+				<path d="M275.66 88.21 L0 88.21 L0 335.98 L275.67 335.98 L275.66 88.21 Z" class="st2"/>
+			</g>
+			<g id="shape4-6" v:mID="4" v:groupContext="shape" v:layerMember="0" transform="translate(31.9551,-24.3972)">
+				<title>シート.4</title>
+				<v:userDefs>
+					<v:ud v:nameU="SurroundingRegionColor" v:prompt="" v:val="VT0(1):26"/>
+					<v:ud v:nameU="SurroundingRegionColor" v:prompt="" v:val="VT5(#5b9bd5)"/>
+				</v:userDefs>
+				<path d="M216.48 137.01 L0 137.01 L0 335.98 L216.49 335.98 L216.48 137.01 Z" class="st3"/>
+			</g>
+			<g id="shape5-9" v:mID="5" v:groupContext="shape" v:layerMember="0" transform="translate(52.2731,-210.732)">
+				<title>シート.5</title>
+				<path d="M118.27 296.94 L108.63 296.94 L108.63 281.95 L67.22 281.95 L67.22 296.94 L57.57 296.94 C40.34 296.94 0 296.94
+							 0 332.54 L0 335.98 L175.84 335.98 L175.84 332.54 C175.84 301.17 146.73 296.94 118.27 296.94 Z"
+						class="st2"/>
+			</g>
+			<g id="shape6-11" v:mID="6" v:groupContext="shape" v:layerMember="0" transform="translate(131.781,-225.907)">
+				<title>シート.6</title>
+				<v:userDefs>
+					<v:ud v:nameU="SurroundingRegionColor" v:prompt="" v:val="VT0(1):26"/>
+					<v:ud v:nameU="SurroundingRegionColor" v:prompt="" v:val="VT5(#5b9bd5)"/>
+				</v:userDefs>
+				<ellipse cx="8.41379" cy="330.064" rx="8.41379" ry="5.91679" class="st3"/>
+				<ellipse cx="8.41379" cy="330.064" rx="8.41379" ry="5.91679" class="st4"/>
+			</g>
+			<g id="shape7-14" v:mID="7" v:groupContext="shape" v:layerMember="0" transform="translate(63.2144,-76.6458)">
+				<title>シート.7</title>
+				<path d="M0 296.86 L26.2 278.42 L56.29 299.6 L132.83 245.77 L158.37 263.74 L55.65 335.98 L0 296.86 Z" class="st5"/>
+			</g>
+		</g>
+	</g>
+</svg>

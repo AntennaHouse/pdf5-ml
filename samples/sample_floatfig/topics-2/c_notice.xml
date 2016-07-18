@@ -8,13 +8,13 @@
 			<title>Special thanks to freepik.com</title>
 			<p> This sample uses graphics from <xref href="http://www.freepik.com" format="html"
 					scope="external">http://www.freepik.com</xref>. According to the licensing
-				terms, the graphic files are not included in sample folder. See <xref
+				terms, the graphic files are not included in image folder. See <xref
 					href="https://profile.freepik.com/license/free" format="html" scope="external"
 					>https://profile.freepik.com/license/free</xref> for details. </p>
 		</section>
 		<section>
 			<title>Original file location</title>
-			<p>If you want to test this sample by yourself, refer to the following links. All of the .ai files are converted into .svg file by Inkscape version 0.9.</p>
+			<p>If you want to test this sample by yourself, refer to the following links. All of the .ai files are converted into .svg by Inkscape.</p>
 			<simpletable>
 				<sthead>
 					<stentry>File name</stentry>
