@@ -1814,6 +1814,7 @@ URL : http://www.antennahouse.com/
 
             <attribute-set name="atsFloatFigGroupAuto">
                 <attribute name="clear">none</attribute>
+                <attribute name="axf:float-wrap">skip</attribute>
             </attribute-set>
 
             <!-- figgroup (??) -->

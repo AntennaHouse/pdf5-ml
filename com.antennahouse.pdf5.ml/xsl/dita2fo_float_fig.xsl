@@ -93,7 +93,8 @@ E-mail : info@antennahouse.com
         <fo:wrapper>
             <xsl:call-template name="ahf:getUnivAtts"/>
             <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
-            <xsl:apply-templates/>
+            <xsl:apply-templates select="node() except *[contains(@class, ' topic/title ')]"/>
+            <xsl:apply-templates select="*[contains(@class, ' topic/title ')]"/>
         </fo:wrapper>
     </xsl:template>
 
@@ -138,7 +139,10 @@ E-mail : info@antennahouse.com
                 <xsl:call-template name="getAttributeSet">
                     <xsl:with-param name="prmAttrSetName" select="'atsFloatFigGroupBc'"/>
                 </xsl:call-template>
-                <xsl:apply-templates/>
+                <fo:block>
+                    <xsl:apply-templates select="node() except *[contains(@class, ' topic/title ')]"/>
+                    <xsl:apply-templates select="*[contains(@class, ' topic/title ')]"/>
+                </fo:block>
             </fo:block-container>
         </fo:float>
     </xsl:template>
