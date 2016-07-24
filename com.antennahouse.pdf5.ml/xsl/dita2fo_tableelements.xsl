@@ -139,7 +139,8 @@ E-mail : info@antennahouse.com
      function:	tgroup template
      param:	    prmTableAttr
      return:	fo:table
-     note:		
+     note:		Add space-before when there is no table/tite,desc.
+                2016-07-24 t.makita
      -->
     <xsl:template match="*[contains(@class, ' topic/tgroup ')][$pOutputTableTitleAfter]" mode="MODE_GET_STYLE" as="xs:string*">
         <xsl:sequence select="'atsTableWithTitleAfter'"/>
@@ -147,6 +148,9 @@ E-mail : info@antennahouse.com
 
     <xsl:template match="*[contains(@class, ' topic/tgroup ')][not($pOutputTableTitleAfter)]" mode="MODE_GET_STYLE" as="xs:string*">
         <xsl:sequence select="'atsTableWithTitleBefore'"/>
+        <xsl:if test="parent::*[empty(child::*[contains(@class,' topic/title ')])][empty(child::*[contains(@class,' topic/desc ')])]">
+            <xsl:sequence select="'atsTableWithTitleBeforeWoTitleAndDesc'"/>
+        </xsl:if>
     </xsl:template>    
 
     <xsl:template match="*[contains(@class, ' topic/tgroup ')]">

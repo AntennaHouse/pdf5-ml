@@ -1937,6 +1937,9 @@ URL : http://www.antennahouse.com/
         </body-elements-attribute>
 
         <table-elements-attribute>
+            <!-- Table befor spacing -->
+            <variable name="Table_Before_Spacing">3mm</variable>
+            
             <!-- table/desc -->
             <attribute-set name="atsTableDesc">
                 <attribute name="font-size">$Note_Text_Font_Size</attribute>
@@ -1956,10 +1959,14 @@ URL : http://www.antennahouse.com/
             </attribute-set>
 
             <attribute-set name="atsTableWithTitleAfter" use-attribute-sets="atsTable">
-                <attribute name="space-before">3mm</attribute>
+                <attribute name="space-before">$Table_Before_Spacing</attribute>
             </attribute-set>
             
             <attribute-set name="atsTableWithTitleBefore" use-attribute-sets="atsTable">
+            </attribute-set>
+
+            <attribute-set name="atsTableWithTitleBeforeWoTitleAndDesc">
+                <attribute name="space-before">$Table_Before_Spacing</attribute>
             </attribute-set>
 
             <attribute-set name="atsTableTitleAfter">
