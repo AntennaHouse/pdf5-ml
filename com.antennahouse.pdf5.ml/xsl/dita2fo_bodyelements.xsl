@@ -1110,12 +1110,12 @@ E-mail : info@antennahouse.com
             </xsl:when>
             <xsl:when test="$placement eq 'break'">
                 <xsl:choose>
-                    <xsl:when test="$pAutoScaleDownToFit">
-                        <xsl:copy-of select="ahf:getAttributeSet('atsImageAutoScallDownToFit')"/>
-                    </xsl:when>
                     <xsl:when test="string($scale)">
                         <xsl:attribute name="scaling" select="'uniform'"/>
                         <xsl:attribute name="content-width" select="concat(normalize-space($scale),'%')"/>
+                    </xsl:when>
+                    <xsl:when test="$pAutoScaleDownToFit">
+                        <xsl:copy-of select="ahf:getAttributeSet('atsImageAutoScallDownToFit')"/>
                     </xsl:when>
                 </xsl:choose>
             </xsl:when>
