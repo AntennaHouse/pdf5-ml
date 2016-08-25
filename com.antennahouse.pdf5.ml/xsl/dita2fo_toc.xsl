@@ -436,7 +436,13 @@ E-mail : info@antennahouse.com
             </xsl:when>
             <xsl:otherwise>
                 <!-- Make TOC line -->
-                <xsl:variable name="title" select="ahf:getTitleContent($topicRef,$linkContent,$prmDefaultTitle)" as="node()*"/>
+                <xsl:variable name="title" as="node()*">
+                    <xsl:call-template name="ahf:getTitleContent">
+                        <xsl:with-param name="prmTopicRef" select="$topicRef"/>
+                        <xsl:with-param name="prmLinkContent" select="$linkContent"/>
+                        <xsl:with-param name="prmDefaultTitle" select="$prmDefaultTitle"/>
+                    </xsl:call-template>
+                </xsl:variable>
                 <xsl:if test="exists($title)">
                     <xsl:call-template name="makeTocLine">
                         <xsl:with-param name="prmId" as="xs:string">
@@ -468,7 +474,7 @@ E-mail : info@antennahouse.com
      return:	title inline
      note:		
      -->
-    <xsl:function name="ahf:getTitleContent" as="node()*">
+    <xsl:template name="ahf:getTitleContent" as="node()*">
         <xsl:param name="prmTopicRef" as="element()"/>
         <xsl:param name="prmLinkContent" as="element()?"/>
         <xsl:param name="prmDefaultTitle" as="xs:string"/>
@@ -516,7 +522,7 @@ E-mail : info@antennahouse.com
                 <xsl:sequence select="()"/>
             </xsl:otherwise>
         </xsl:choose>
-    </xsl:function>
+    </xsl:template>
     
     <!-- 
      function:	Make TOC line
