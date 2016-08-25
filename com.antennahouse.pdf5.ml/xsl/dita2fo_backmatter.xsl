@@ -329,9 +329,9 @@ E-mail : info@antennahouse.com
                 <xsl:with-param name="prmAttrSetName" select="'atsBase'"/>
                 <xsl:with-param name="prmDoInherit" select="true()"/>
             </xsl:call-template>
-            <xsl:call-template name="ahf:getIdAtts"/>
-            <xsl:call-template name="ahf:getLocalizationAtts"/>
-            <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
+            <xsl:copy-of select="ahf:getIdAtts($topicRef,$topicRef,true())"/>
+            <xsl:copy-of select="ahf:getLocalizationAtts($topicRef)"/>
+            <xsl:copy-of select="ahf:getFoStyleAndProperty($topicRef)"/>
             <!-- title -->
             <xsl:choose>
                 <xsl:when test="$titleMode eq $cRoundBulletTitleMode">
