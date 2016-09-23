@@ -24,11 +24,11 @@
                         <scenarioAssociation-array>
                             <scenarioAssociation>
                                 <field name="url">
-                                    <String>../../../../My_Documents/XML2K8/YOKOGAWA/zz_diffs/diff_20150506/workset/GUID-3CF292E8-3458-4673-BDF8-ED5D3492DBE2.ditamap</String>
+                                    <String>../../../../SVN/pdf5/testdata/index-data/sample_en/sample_en.ditamap</String>
                                 </field>
                                 <field name="scenarioIds">
                                     <list>
-                                        <String>PDF5-ML Merged to PDF by DITA-OT 1.8.5 (Saxon 9) - SDL</String>
+                                        <String>PDF5-ML Map to PDF by project DITA-OT-1.8.5 (Saxon 9)</String>
                                     </list>
                                 </field>
                                 <field name="scenarioTypes">
@@ -39,11 +39,11 @@
                             </scenarioAssociation>
                             <scenarioAssociation>
                                 <field name="url">
-                                    <String>../../../../SVN/pdf5/testdata/index-data/sample_en/sample_en.ditamap</String>
+                                    <String>../../../../My_Documents/XML2K8/YOKOGAWA/zz_diffs/diff_20150506/workset/GUID-3CF292E8-3458-4673-BDF8-ED5D3492DBE2.ditamap</String>
                                 </field>
                                 <field name="scenarioIds">
                                     <list>
-                                        <String>PDF5-ML Map to PDF by project DITA-OT (Saxon 9)</String>
+                                        <String>PDF5-ML Merged to PDF by DITA-OT 1.8.5 (Saxon 9) - SDL</String>
                                     </list>
                                 </field>
                                 <field name="scenarioTypes">
@@ -3333,6 +3333,402 @@
                                                 <String>Formatter folder</String>
                                             </field>
                                             <field name="value">
+                                                <String>C:\Program Files\Antenna House\AHFormatterV63</String>
+                                            </field>
+                                            <field name="defaultValue">
+                                                <null/>
+                                            </field>
+                                            <field name="type">
+                                                <Integer>5</Integer>
+                                            </field>
+                                            <field name="possibleValues">
+                                                <null/>
+                                            </field>
+                                            <field name="possibleValuesDescriptions">
+                                                <null/>
+                                            </field>
+                                        </antParameter>
+                                        <antParameter>
+                                            <field name="name">
+                                                <String>ahf.opt</String>
+                                            </field>
+                                            <field name="description">
+                                                <String>Option setting file</String>
+                                            </field>
+                                            <field name="value">
+                                                <String>C:\Program Files\Antenna House\AHFormatterV63\ahf_setting.xml</String>
+                                            </field>
+                                            <field name="defaultValue">
+                                                <null/>
+                                            </field>
+                                            <field name="type">
+                                                <Integer>5</Integer>
+                                            </field>
+                                            <field name="possibleValues">
+                                                <null/>
+                                            </field>
+                                            <field name="possibleValuesDescriptions">
+                                                <null/>
+                                            </field>
+                                        </antParameter>
+                                        <antParameter>
+                                            <field name="name">
+                                                <String>build.temp.dir</String>
+                                            </field>
+                                            <field name="description">
+                                                <String>build temp dir</String>
+                                            </field>
+                                            <field name="value">
+                                                <String>${cfd}/temp</String>
+                                            </field>
+                                            <field name="defaultValue">
+                                                <null/>
+                                            </field>
+                                            <field name="type">
+                                                <Integer>5</Integer>
+                                            </field>
+                                            <field name="possibleValues">
+                                                <null/>
+                                            </field>
+                                            <field name="possibleValuesDescriptions">
+                                                <null/>
+                                            </field>
+                                        </antParameter>
+                                        <antParameter>
+                                            <field name="name">
+                                                <String>com.antennahouse.i18n_index.plugin.lib</String>
+                                            </field>
+                                            <field name="description">
+                                                <String>I18n Index Library folder</String>
+                                            </field>
+                                            <field name="value">
+                                                <String>${pd}/../com.antennahouse.i18n_index.2.2.1</String>
+                                            </field>
+                                            <field name="defaultValue">
+                                                <null/>
+                                            </field>
+                                            <field name="type">
+                                                <Integer>5</Integer>
+                                            </field>
+                                            <field name="possibleValues">
+                                                <null/>
+                                            </field>
+                                            <field name="possibleValuesDescriptions">
+                                                <null/>
+                                            </field>
+                                        </antParameter>
+                                        <antParameter>
+                                            <field name="name">
+                                                <String>copy.image.to.output.folder</String>
+                                            </field>
+                                            <field name="description">
+                                                <String>Not copy image to output folder</String>
+                                            </field>
+                                            <field name="value">
+                                                <String>false</String>
+                                            </field>
+                                            <field name="defaultValue">
+                                                <null/>
+                                            </field>
+                                            <field name="type">
+                                                <Integer>5</Integer>
+                                            </field>
+                                            <field name="possibleValues">
+                                                <null/>
+                                            </field>
+                                            <field name="possibleValuesDescriptions">
+                                                <null/>
+                                            </field>
+                                        </antParameter>
+                                        <antParameter>
+                                            <field name="name">
+                                                <String>dita.dir</String>
+                                            </field>
+                                            <field name="description">
+                                                <String>DITA-OT dir</String>
+                                            </field>
+                                            <field name="value">
+                                                <String>${cfd}/../..</String>
+                                            </field>
+                                            <field name="defaultValue">
+                                                <null/>
+                                            </field>
+                                            <field name="type">
+                                                <Integer>5</Integer>
+                                            </field>
+                                            <field name="possibleValues">
+                                                <null/>
+                                            </field>
+                                            <field name="possibleValuesDescriptions">
+                                                <null/>
+                                            </field>
+                                        </antParameter>
+                                        <antParameter>
+                                            <field name="name">
+                                                <String>dita.map.filename.root</String>
+                                            </field>
+                                            <field name="description">
+                                                <String>Map file name without extension.</String>
+                                            </field>
+                                            <field name="value">
+                                                <String>${cfn}</String>
+                                            </field>
+                                            <field name="defaultValue">
+                                                <null/>
+                                            </field>
+                                            <field name="type">
+                                                <Integer>5</Integer>
+                                            </field>
+                                            <field name="possibleValues">
+                                                <null/>
+                                            </field>
+                                            <field name="possibleValuesDescriptions">
+                                                <null/>
+                                            </field>
+                                        </antParameter>
+                                        <antParameter>
+                                            <field name="name">
+                                                <String>dita.map.output.dir</String>
+                                            </field>
+                                            <field name="description">
+                                                <String>Output dir.</String>
+                                            </field>
+                                            <field name="value">
+                                                <String>${cfd}/../out</String>
+                                            </field>
+                                            <field name="defaultValue">
+                                                <null/>
+                                            </field>
+                                            <field name="type">
+                                                <Integer>5</Integer>
+                                            </field>
+                                            <field name="possibleValues">
+                                                <null/>
+                                            </field>
+                                            <field name="possibleValuesDescriptions">
+                                                <null/>
+                                            </field>
+                                        </antParameter>
+                                        <antParameter>
+                                            <field name="name">
+                                                <String>dita.temp.dir</String>
+                                            </field>
+                                            <field name="description">
+                                                <String>dita-ot temporary directory</String>
+                                            </field>
+                                            <field name="value">
+                                                <String>${cfd}/temp</String>
+                                            </field>
+                                            <field name="defaultValue">
+                                                <null/>
+                                            </field>
+                                            <field name="type">
+                                                <Integer>5</Integer>
+                                            </field>
+                                            <field name="possibleValues">
+                                                <null/>
+                                            </field>
+                                            <field name="possibleValuesDescriptions">
+                                                <null/>
+                                            </field>
+                                        </antParameter>
+                                        <antParameter>
+                                            <field name="name">
+                                                <String>otversion</String>
+                                            </field>
+                                            <field name="description">
+                                                <String>DITA-OT version</String>
+                                            </field>
+                                            <field name="value">
+                                                <String>1.8.5</String>
+                                            </field>
+                                            <field name="defaultValue">
+                                                <null/>
+                                            </field>
+                                            <field name="type">
+                                                <Integer>5</Integer>
+                                            </field>
+                                            <field name="possibleValues">
+                                                <null/>
+                                            </field>
+                                            <field name="possibleValuesDescriptions">
+                                                <null/>
+                                            </field>
+                                        </antParameter>
+                                        <antParameter>
+                                            <field name="name">
+                                                <String>preprocess.copy-image.skip</String>
+                                            </field>
+                                            <field name="description">
+                                                <String>Skip copy image</String>
+                                            </field>
+                                            <field name="value">
+                                                <String>yes</String>
+                                            </field>
+                                            <field name="defaultValue">
+                                                <null/>
+                                            </field>
+                                            <field name="type">
+                                                <Integer>5</Integer>
+                                            </field>
+                                            <field name="possibleValues">
+                                                <null/>
+                                            </field>
+                                            <field name="possibleValuesDescriptions">
+                                                <null/>
+                                            </field>
+                                        </antParameter>
+                                        <antParameter>
+                                            <field name="name">
+                                                <String>user.input.dir</String>
+                                            </field>
+                                            <field name="description">
+                                                <String>User input dir</String>
+                                            </field>
+                                            <field name="value">
+                                                <String>${cfd}</String>
+                                            </field>
+                                            <field name="defaultValue">
+                                                <null/>
+                                            </field>
+                                            <field name="type">
+                                                <Integer>5</Integer>
+                                            </field>
+                                            <field name="possibleValues">
+                                                <null/>
+                                            </field>
+                                            <field name="possibleValuesDescriptions">
+                                                <null/>
+                                            </field>
+                                        </antParameter>
+                                    </list>
+                                </field>
+                                <field name="jvmArgs">
+                                    <String>-Xmx768m -Xss64m</String>
+                                </field>
+                                <field name="useCustomJavaHome">
+                                    <Boolean>true</Boolean>
+                                </field>
+                                <field name="customJavaHomeDir">
+                                    <String>C:\Program Files\Java\jre7</String>
+                                </field>
+                                <field name="useCustomANTHome">
+                                    <Boolean>true</Boolean>
+                                </field>
+                                <field name="customANTHomeDir">
+                                    <String>${pd}/../../tools/ant</String>
+                                </field>
+                                <field name="workingDir">
+                                    <String>${cfd}</String>
+                                </field>
+                                <field name="showConsoleAlways">
+                                    <Boolean>true</Boolean>
+                                </field>
+                                <field name="advancedOptionsMap">
+                                    <null/>
+                                </field>
+                                <field name="name">
+                                    <String>PDF5-ML Merged to PDF by DITA-OT 1.8.5 (Saxon 9) - SDL</String>
+                                </field>
+                                <field name="baseURL">
+                                    <null/>
+                                </field>
+                                <field name="footerURL">
+                                    <null/>
+                                </field>
+                                <field name="fOPMethod">
+                                    <null/>
+                                </field>
+                                <field name="fOProcessorName">
+                                    <null/>
+                                </field>
+                                <field name="headerURL">
+                                    <null/>
+                                </field>
+                                <field name="inputXSLURL">
+                                    <null/>
+                                </field>
+                                <field name="inputXMLURL">
+                                    <null/>
+                                </field>
+                                <field name="defaultScenario">
+                                    <Boolean>false</Boolean>
+                                </field>
+                                <field name="isFOPPerforming">
+                                    <Boolean>false</Boolean>
+                                </field>
+                                <field name="type">
+                                    <String>ANT</String>
+                                </field>
+                                <field name="saveAs">
+                                    <Boolean>true</Boolean>
+                                </field>
+                                <field name="openInBrowser">
+                                    <Boolean>true</Boolean>
+                                </field>
+                                <field name="outputFile">
+                                    <null/>
+                                </field>
+                                <field name="outputResource">
+                                    <null/>
+                                </field>
+                                <field name="openOtherLocationInBrowser">
+                                    <Boolean>true</Boolean>
+                                </field>
+                                <field name="locationToOpenInBrowserURL">
+                                    <String>${cfd}/../out/${cfn}.pdf</String>
+                                </field>
+                                <field name="openInEditor">
+                                    <Boolean>false</Boolean>
+                                </field>
+                                <field name="showInHTMLPane">
+                                    <Boolean>false</Boolean>
+                                </field>
+                                <field name="showInXMLPane">
+                                    <Boolean>false</Boolean>
+                                </field>
+                                <field name="showInSVGPane">
+                                    <Boolean>false</Boolean>
+                                </field>
+                                <field name="showInResultSetPane">
+                                    <Boolean>false</Boolean>
+                                </field>
+                                <field name="useXSLTInput">
+                                    <Boolean>false</Boolean>
+                                </field>
+                                <field name="xsltParams">
+                                    <list/>
+                                </field>
+                                <field name="cascadingStylesheets">
+                                    <String-array/>
+                                </field>
+                                <field name="xslTransformer">
+                                    <String>ANT</String>
+                                </field>
+                                <field name="extensionURLs">
+                                    <String-array/>
+                                </field>
+                            </antScenario>
+                            <antScenario>
+                                <field name="additionalAntArgs">
+                                    <String>-lib ${pd}\..\..\lib\saxon\saxon9.jar -lib ${pd}\..\..\lib\saxon\saxon9-dom.jar -lib ${pd}\..\..\lib\xercesImpl.jar -lib ${pd}\..\..\lib\xml-apis.jar</String>
+                                </field>
+                                <field name="buildTarget">
+                                    <String>merged2pdf</String>
+                                </field>
+                                <field name="buildFilePath">
+                                    <String>${pd}\build.xml</String>
+                                </field>
+                                <field name="ditaParams">
+                                    <list>
+                                        <antParameter>
+                                            <field name="name">
+                                                <String>ahf.dir</String>
+                                            </field>
+                                            <field name="description">
+                                                <String>Formatter folder</String>
+                                            </field>
+                                            <field name="value">
                                                 <String>C:\Program Files\Antenna House\AHFormatterV61</String>
                                             </field>
                                             <field name="defaultValue">
@@ -4061,13 +4457,13 @@
                             </antScenario>
                             <antScenario>
                                 <field name="additionalAntArgs">
-                                    <String>-lib ${pd}\..\..\lib\saxon\saxon9.jar -lib ${pd}\..\..\lib\saxon\saxon9-dom.jar -lib ${pd}\..\..\lib\xercesImpl.jar -lib ${pd}\..\..\lib\xml-apis.jar</String>
+                                    <String>-lib ${pd}/../../lib -lib ${pd}/../../lib/dost.jar -lib ${pd}/../../lib/resolver.jar -lib ${pd}\..\..\lib\saxon\saxon9.jar -lib ${pd}\..\..\lib\saxon\saxon9-dom.jar -lib ${pd}/../../lib/xercesImpl.jar -lib ${pd}/../../lib/xml-apis.jar</String>
                                 </field>
                                 <field name="buildTarget">
-                                    <String>merged2pdf</String>
+                                    <String></String>
                                 </field>
                                 <field name="buildFilePath">
-                                    <String>${pd}\build.xml</String>
+                                    <String>${pd}/../../build.xml</String>
                                 </field>
                                 <field name="ditaParams">
                                     <list>
@@ -4076,7 +4472,7 @@
                                                 <String>ahf.dir</String>
                                             </field>
                                             <field name="description">
-                                                <String>Formatter folder</String>
+                                                <String>AH Formatter directory</String>
                                             </field>
                                             <field name="value">
                                                 <String>C:\Program Files\Antenna House\AHFormatterV63</String>
@@ -4099,7 +4495,7 @@
                                                 <String>ahf.opt</String>
                                             </field>
                                             <field name="description">
-                                                <String>Option setting file</String>
+                                                <String>AH Formatter setting file</String>
                                             </field>
                                             <field name="value">
                                                 <String>C:\Program Files\Antenna House\AHFormatterV63\ahf_setting.xml</String>
@@ -4119,13 +4515,13 @@
                                         </antParameter>
                                         <antParameter>
                                             <field name="name">
-                                                <String>build.temp.dir</String>
+                                                <String>args.input</String>
                                             </field>
                                             <field name="description">
-                                                <String>build temp dir</String>
+                                                <String>DITA map file path.</String>
                                             </field>
                                             <field name="value">
-                                                <String>${cfd}/temp</String>
+                                                <String>${cf}</String>
                                             </field>
                                             <field name="defaultValue">
                                                 <null/>
@@ -4142,105 +4538,13 @@
                                         </antParameter>
                                         <antParameter>
                                             <field name="name">
-                                                <String>com.antennahouse.i18n_index.plugin.lib</String>
+                                                <String>clean.temp</String>
                                             </field>
                                             <field name="description">
-                                                <String>I18n Index Library folder</String>
+                                                <String>Clean temporary directory.</String>
                                             </field>
                                             <field name="value">
-                                                <String>${pd}/../com.antennahouse.i18n_index.2.2.1</String>
-                                            </field>
-                                            <field name="defaultValue">
-                                                <null/>
-                                            </field>
-                                            <field name="type">
-                                                <Integer>5</Integer>
-                                            </field>
-                                            <field name="possibleValues">
-                                                <null/>
-                                            </field>
-                                            <field name="possibleValuesDescriptions">
-                                                <null/>
-                                            </field>
-                                        </antParameter>
-                                        <antParameter>
-                                            <field name="name">
-                                                <String>copy.image.to.output.folder</String>
-                                            </field>
-                                            <field name="description">
-                                                <String>Not copy image to output folder</String>
-                                            </field>
-                                            <field name="value">
-                                                <String>false</String>
-                                            </field>
-                                            <field name="defaultValue">
-                                                <null/>
-                                            </field>
-                                            <field name="type">
-                                                <Integer>5</Integer>
-                                            </field>
-                                            <field name="possibleValues">
-                                                <null/>
-                                            </field>
-                                            <field name="possibleValuesDescriptions">
-                                                <null/>
-                                            </field>
-                                        </antParameter>
-                                        <antParameter>
-                                            <field name="name">
-                                                <String>dita.dir</String>
-                                            </field>
-                                            <field name="description">
-                                                <String>DITA-OT dir</String>
-                                            </field>
-                                            <field name="value">
-                                                <String>${cfd}/../..</String>
-                                            </field>
-                                            <field name="defaultValue">
-                                                <null/>
-                                            </field>
-                                            <field name="type">
-                                                <Integer>5</Integer>
-                                            </field>
-                                            <field name="possibleValues">
-                                                <null/>
-                                            </field>
-                                            <field name="possibleValuesDescriptions">
-                                                <null/>
-                                            </field>
-                                        </antParameter>
-                                        <antParameter>
-                                            <field name="name">
-                                                <String>dita.map.filename.root</String>
-                                            </field>
-                                            <field name="description">
-                                                <String>Map file name without extension.</String>
-                                            </field>
-                                            <field name="value">
-                                                <String>${cfn}</String>
-                                            </field>
-                                            <field name="defaultValue">
-                                                <null/>
-                                            </field>
-                                            <field name="type">
-                                                <Integer>5</Integer>
-                                            </field>
-                                            <field name="possibleValues">
-                                                <null/>
-                                            </field>
-                                            <field name="possibleValuesDescriptions">
-                                                <null/>
-                                            </field>
-                                        </antParameter>
-                                        <antParameter>
-                                            <field name="name">
-                                                <String>dita.map.output.dir</String>
-                                            </field>
-                                            <field name="description">
-                                                <String>Output dir.</String>
-                                            </field>
-                                            <field name="value">
-                                                <String>${cfd}/../out</String>
+                                                <String>no</String>
                                             </field>
                                             <field name="defaultValue">
                                                 <null/>
@@ -4280,13 +4584,13 @@
                                         </antParameter>
                                         <antParameter>
                                             <field name="name">
-                                                <String>otversion</String>
+                                                <String>output.dir</String>
                                             </field>
                                             <field name="description">
-                                                <String>DITA-OT version</String>
+                                                <String>dita-ot output directory</String>
                                             </field>
                                             <field name="value">
-                                                <String>1.8.5</String>
+                                                <String>${cfd}/out</String>
                                             </field>
                                             <field name="defaultValue">
                                                 <null/>
@@ -4303,10 +4607,10 @@
                                         </antParameter>
                                         <antParameter>
                                             <field name="name">
-                                                <String>preprocess.copy-image.skip</String>
+                                                <String>output.index</String>
                                             </field>
                                             <field name="description">
-                                                <String>Skip copy image</String>
+                                                <String>Output index</String>
                                             </field>
                                             <field name="value">
                                                 <String>yes</String>
@@ -4326,13 +4630,13 @@
                                         </antParameter>
                                         <antParameter>
                                             <field name="name">
-                                                <String>user.input.dir</String>
+                                                <String>transtype</String>
                                             </field>
                                             <field name="description">
-                                                <String>User input dir</String>
+                                                <String>Transformation type.</String>
                                             </field>
                                             <field name="value">
-                                                <String>${cfd}</String>
+                                                <String>pdf5.ml</String>
                                             </field>
                                             <field name="defaultValue">
                                                 <null/>
@@ -4347,10 +4651,82 @@
                                                 <null/>
                                             </field>
                                         </antParameter>
+                                        <antParameter>
+                                            <field name="name">
+                                                <String>use.i18n.index.lib</String>
+                                            </field>
+                                            <field name="description">
+                                                <String>Use I18n Index Library</String>
+                                            </field>
+                                            <field name="value">
+                                                <String>no</String>
+                                            </field>
+                                            <field name="defaultValue">
+                                                <null/>
+                                            </field>
+                                            <field name="type">
+                                                <Integer>5</Integer>
+                                            </field>
+                                            <field name="possibleValues">
+                                                <null/>
+                                            </field>
+                                            <field name="possibleValuesDescriptions">
+                                                <null/>
+                                            </field>
+                                        </antParameter>
+                                        <antParameter>
+                                            <field name="name">
+                                                <String>use.output.class.nohyphenate</String>
+                                            </field>
+                                            <field name="description">
+                                                <String>Control hyphenation.</String>
+                                            </field>
+                                            <field name="value">
+                                                <String>yes</String>
+                                            </field>
+                                            <field name="defaultValue">
+                                                <null/>
+                                            </field>
+                                            <field name="type">
+                                                <Integer>5</Integer>
+                                            </field>
+                                            <field name="possibleValues">
+                                                <null/>
+                                            </field>
+                                            <field name="possibleValuesDescriptions">
+                                                <null/>
+                                            </field>
+                                        </antParameter>
+                                        <antParameter>
+                                            <field name="name">
+                                                <String>webhelp.trial.license</String>
+                                            </field>
+                                            <field name="description">
+                                                <String>Set parameter for trial license</String>
+                                            </field>
+                                            <field name="value">
+                                                <String>no</String>
+                                            </field>
+                                            <field name="defaultValue">
+                                                <null/>
+                                            </field>
+                                            <field name="type">
+                                                <Integer>4</Integer>
+                                            </field>
+                                            <field name="possibleValues">
+                                                <String-array>
+                                                    <String>yes</String>
+                                                    <String>no</String>
+                                                </String-array>
+                                            </field>
+                                            <field name="possibleValuesDescriptions">
+                                                <null/>
+                                            </field>
+                                        </antParameter>
                                     </list>
                                 </field>
                                 <field name="jvmArgs">
-                                    <String>-Xmx768m -Xss64m</String>
+                                    <String>-Xmx256m -Xss64m</String>
                                 </field>
                                 <field name="useCustomJavaHome">
                                     <Boolean>true</Boolean>
@@ -4374,7 +4750,7 @@
                                     <null/>
                                 </field>
                                 <field name="name">
-                                    <String>PDF5-ML Merged to PDF by DITA-OT 1.8.5 (Saxon 9) - SDL</String>
+                                    <String>PDF5-ML Map to PDF by project DITA-OT-1.8.5 (Saxon 9)</String>
                                 </field>
                                 <field name="baseURL">
                                     <null/>
@@ -4422,7 +4798,7 @@
                                     <Boolean>true</Boolean>
                                 </field>
                                 <field name="locationToOpenInBrowserURL">
-                                    <String>${cfd}/../out/${cfn}.pdf</String>
+                                    <String>${cfd}/out/${cfn}.pdf</String>
                                 </field>
                                 <field name="openInEditor">
                                     <Boolean>false</Boolean>

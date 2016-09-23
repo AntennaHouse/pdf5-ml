@@ -126,8 +126,9 @@ E-mail : info@antennahouse.com
     <!-- 
      function:	body template
      param:	    prmTopicRef, prmNeedId
-     return:	fo:wrapper
-     note:		
+     return:	fo:block
+     note:		Generate fo:block instead of fo:wrapper because it is sometimes needed for debugging generated areas.
+                2016-09-23 t.makita
      -->
     <xsl:template match="*[contains(@class, ' topic/body ')]" mode="MODE_GET_STYLE" as="xs:string*">
         <xsl:sequence select="'atsBody'"/>
@@ -135,7 +136,7 @@ E-mail : info@antennahouse.com
     
     <xsl:template match="*[contains(@class, ' topic/body ')]">
         <xsl:variable name="body" select="."/>
-        <fo:wrapper>
+        <fo:block>
             <xsl:call-template name="getAttributeSetWithLang"/>
             <xsl:call-template name="ahf:getUnivAtts"/>
             <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
@@ -148,7 +149,7 @@ E-mail : info@antennahouse.com
                 <xsl:with-param name="prmMakeComplementEnd" tunnel="yes" select="true()"/>
                 <xsl:with-param name="prmRangeElem" tunnel="yes" select="$body"/>
             </xsl:apply-templates>
-        </fo:wrapper>
+        </fo:block>
     </xsl:template>
     
     <!-- 
