@@ -26,10 +26,27 @@ E-mail : info@antennahouse.com
      return:	fo:bloc-container
      note:		Table will be located by 90 degrees counterclockwise from the text flow.
      -->
-    <xsl:template match="*[contains(@class, ' topic/table ')][string(@orient) eq 'land']" priority="2">
+    <xsl:template match="*[contains(@class, ' topic/table ')][string(@orient) eq 'land']" priority="4">
         <fo:block-container>
             <xsl:call-template name="getAttributeSet">
                 <xsl:with-param name="prmAttrSetName" select="'atsBlockContainerForLandscapeTable'"/>
+            </xsl:call-template>
+            <xsl:next-match/>
+        </fo:block-container>
+    </xsl:template>
+
+    <!-- 
+     function:	table[@pgwide="1"] template
+     param:	    
+     return:	fo:bloc-container
+     note:		Table will be positioned from left page margin to right page margin.
+                Change implementation method to force table width to full.
+                2016-09-23 t.makita
+     -->
+    <xsl:template match="*[contains(@class, ' topic/table ')][string(@pgwide) eq '1']" priority="2">
+        <fo:block-container>
+            <xsl:call-template name="getAttributeSet">
+                <xsl:with-param name="prmAttrSetName" select="'atsBlockContainerForPgWideTable'"/>
             </xsl:call-template>
             <xsl:next-match/>
         </fo:block-container>
@@ -166,11 +183,13 @@ E-mail : info@antennahouse.com
             <xsl:call-template name="getAttributeSetWithLang"/>
         </xsl:variable>
         <fo:table-and-caption>
-            <xsl:copy-of select="ahf:getTablePgwideAttr($tgroupAttr)"/>
             <xsl:copy-of select="ahf:getFoStyleAndProperty($tgroupAttr)[name() eq 'text-align']"/>
             <fo:table>
                 <xsl:copy-of select="$tableAttr"/>
                 <xsl:call-template name="ahf:getUnivAtts"/>
+                <xsl:call-template name="ahf:getTablePgwideAttr ">
+                    <xsl:with-param name="prmTgroupAttr" select="$tgroupAttr"/>
+                </xsl:call-template>
                 <xsl:copy-of select="ahf:getScaleAtts($tgroupAttr,$tableAttr)"/>
                 <xsl:copy-of select="ahf:getFrameAtts($tgroupAttr,$tableAttr)"/>
                 <xsl:copy-of select="ahf:getFoStyleAndProperty($tgroupAttr)[name() ne 'text-align']"/>
@@ -214,12 +233,14 @@ E-mail : info@antennahouse.com
      return:	attribute()
      note:		
      -->
-    <xsl:function name="ahf:getTablePgwideAttr" as="attribute()*">
+    <xsl:template name="ahf:getTablePgwideAttr" as="attribute()*">
         <xsl:param name="prmTgroupAttr"    as="element()"/>
         <xsl:if test="string($prmTgroupAttr/@pgwide) eq '1'">
-            <xsl:attribute name="start-indent" select="'0mm'"/>
+            <xsl:call-template name="getAttributeSet">
+                <xsl:with-param name="prmAttrSetName" select="'atsPgWideTable'"/>
+            </xsl:call-template>
         </xsl:if>
-    </xsl:function>
+    </xsl:template>
 
     <!-- 
      function:	fo:table-column copy template

@@ -1951,7 +1951,17 @@ URL : http://www.antennahouse.com/
                 <attribute name="reference-orientation">90</attribute>
                 <attribute name="break-before">page</attribute>
             </attribute-set>
-            
+
+            <!-- page-wide table (table/@pgwide="1") -->
+            <attribute-set name="atsBlockContainerForPgWideTable">
+                <attribute name="start-indent">0mm</attribute>
+                <attribute name="end-indent">0mm</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsPgWideTable">
+                <attribute name="width">100%</attribute>
+            </attribute-set>
+
             <!-- table -->
             <attribute-set name="atsTable">
                 <attribute name="font-size">$Table_Font_Size</attribute>
