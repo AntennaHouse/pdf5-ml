@@ -1966,6 +1966,7 @@ URL : http://www.antennahouse.com/
             <attribute-set name="atsTable">
                 <attribute name="font-size">$Table_Font_Size</attribute>
                 <attribute name="space-after">2mm</attribute>
+                <attribute name="text-align">start</attribute>
             </attribute-set>
 
             <attribute-set name="atsTableWithTitleAfter" use-attribute-sets="atsTable">
@@ -2005,7 +2006,6 @@ URL : http://www.antennahouse.com/
             <attribute-set name="atsTbody">
                 <attribute name="start-indent">0mm</attribute>
                 <attribute name="end-indent">0mm</attribute>
-                <attribute name="text-align">inherit</attribute>
             </attribute-set>
 
             <attribute-set name="atsRow">
@@ -2041,7 +2041,7 @@ URL : http://www.antennahouse.com/
                 <!--attribute name="overflow">condense</attribute>
                 <attribute name="axf:overflow-condense">font-size</attribute-->
             </attribute-set>
-
+            
             <!-- simpletable -->
             <attribute-set name="atsSimpleTable">
                 <attribute name="space-before">3mm</attribute>
