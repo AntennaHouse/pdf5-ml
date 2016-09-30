@@ -1967,6 +1967,7 @@ URL : http://www.antennahouse.com/
                 <attribute name="font-size">$Table_Font_Size</attribute>
                 <attribute name="space-after">2mm</attribute>
                 <attribute name="text-align">start</attribute>
+                <attribute name="relative-align">before</attribute>
             </attribute-set>
 
             <attribute-set name="atsTableWithTitleAfter" use-attribute-sets="atsTable">
@@ -2047,6 +2048,8 @@ URL : http://www.antennahouse.com/
                 <attribute name="space-before">3mm</attribute>
                 <attribute name="space-after">2mm</attribute>
                 <attribute name="font-size">$Table_Font_Size</attribute>
+                <attribute name="text-align">start</attribute>
+                <attribute name="relative-align">before</attribute>
             </attribute-set>
 
             <attribute-set name="atsSimpleTableFixed">
