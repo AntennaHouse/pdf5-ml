@@ -208,6 +208,11 @@ This folder contains the sample DITA instance and formatted results.
 |sample_udhr|Contains multi-language DITA instance example.|
 |sample_dita13|Contains DITA 1.3 example.|
 
+## oxygen-integrarion folder
+
+This folder contains the HTML file that describes how to integrate PDF-ML with oXygen XML Editor.
+
+
 ## Copyright
 Copyright (C) 2009-2016 Antenna House, Inc. All rights reserved.  
 Antenna House is a trademark of [Antenna House, Inc.] [2]
