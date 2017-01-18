@@ -68,7 +68,7 @@ E-mail : info@antennahouse.com
             <xsl:when test="$isPartExist and $isChapterExist">
                 <xsl:call-template name="warningContinue">
                     <xsl:with-param name="prmMes"
-                                    select="ahf:replace($stMes503,('%xtrf'),($map/@xtrf))"/>
+                                    select="ahf:replace($stMes503,('%xtrf'),(string($map/@xtrf)))"/>
                 </xsl:call-template>
                 <xsl:sequence select="true()"/>
             </xsl:when>
@@ -94,7 +94,7 @@ E-mail : info@antennahouse.com
                         <xsl:for-each select="$map/*[contains(@class, ' bookmap/part ')][@toc='no']">
                             <xsl:call-template name="warningContinue">
                                 <xsl:with-param name="prmMes"
-                                 select="ahf:replace($stMes504,('%ohref','%xtrf'),(if (@ohref) then @ohref else ' ' ,@xtrf))"/>
+                                 select="ahf:replace($stMes504,('%ohref','%xtrf'),(if (@ohref) then @ohref else ' ' ,string(@xtrf)))"/>
                             </xsl:call-template>
                         </xsl:for-each>
                         <xsl:sequence select="true()"/>
@@ -112,7 +112,7 @@ E-mail : info@antennahouse.com
                         <xsl:for-each select="$map/*[contains(@class, ' bookmap/chapter ')][@toc='no']">
                             <xsl:call-template name="warningContinue">
                                 <xsl:with-param name="prmMes"
-                                 select="ahf:replace($stMes505,('%ohref','%xtrf'),(if (@ohref) then @ohref else ' ',@xtrf))"/>
+                                 select="ahf:replace($stMes505,('%ohref','%xtrf'),(if (@ohref) then @ohref else ' ',string(@xtrf)))"/>
                             </xsl:call-template>
                         </xsl:for-each>
                         <xsl:sequence select="true()"/>
@@ -143,28 +143,28 @@ E-mail : info@antennahouse.com
                     <xsl:when test="count($map//*[contains(@class, ' bookmap/figurelist ')][not(@href)]) &gt; 1">
                         <xsl:call-template name="warningContinue">
                             <xsl:with-param name="prmMes"
-                                            select="ahf:replace($stMes510,('%xtrf'),($map/@xtrf))"/>
+                                            select="ahf:replace($stMes510,('%xtrf'),(string($map/@xtrf)))"/>
                         </xsl:call-template>
                         <xsl:sequence select="true()"/>
                     </xsl:when>
                     <xsl:when test="count($map//*[contains(@class, ' bookmap/tablelist ')][not(@href)]) &gt; 1">
                         <xsl:call-template name="warningContinue">
                             <xsl:with-param name="prmMes"
-                                            select="ahf:replace($stMes511,('%xtrf'),($map/@xtrf))"/>
+                                            select="ahf:replace($stMes511,('%xtrf'),(string($map/@xtrf)))"/>
                         </xsl:call-template>
                         <xsl:sequence select="true()"/>
                     </xsl:when>
                     <xsl:when test="count($map//*[contains(@class, ' bookmap/toc ')][not(@href)]) &gt; 1">
                         <xsl:call-template name="warningContinue">
                             <xsl:with-param name="prmMes"
-                                            select="ahf:replace($stMes512,('%xtrf'),($map/@xtrf))"/>
+                                            select="ahf:replace($stMes512,('%xtrf'),(string($map/@xtrf)))"/>
                         </xsl:call-template>
                         <xsl:sequence select="true()"/>
                     </xsl:when>
                     <xsl:when test="count($map//*[contains(@class, ' bookmap/indexlist ')][not(@href)]) &gt; 1">
                         <xsl:call-template name="warningContinue">
                             <xsl:with-param name="prmMes"
-                                            select="ahf:replace($stMes513,('%xtrf'),($map/@xtrf))"/>
+                                            select="ahf:replace($stMes513,('%xtrf'),(string($map/@xtrf)))"/>
                         </xsl:call-template>
                         <xsl:sequence select="true()"/>
                     </xsl:when>
@@ -172,7 +172,7 @@ E-mail : info@antennahouse.com
                     <xsl:when test="exists($map/*[contains(@class, ' bookmap/frontmatter ')]//*[contains(@class, ' bookmap/indexlist ')][not(@href)])">
                         <xsl:call-template name="warningContinue">
                             <xsl:with-param name="prmMes"
-                                select="ahf:replace($stMes514,('%xtrf'),($map/@xtrf))"/>
+                                select="ahf:replace($stMes514,('%xtrf'),(string($map/@xtrf)))"/>
                         </xsl:call-template>
                         <xsl:sequence select="true()"/>
                     </xsl:when>
@@ -209,14 +209,14 @@ E-mail : info@antennahouse.com
             <xsl:when test="empty($topic)">
                 <xsl:call-template name="errorExit">
                     <xsl:with-param name="prmMes"
-                                    select="ahf:replace($stMes500,('%xtrf','%ohref'),(@xtrf,@ohref))"/>
+                                    select="ahf:replace($stMes500,('%xtrf','%ohref'),(string(@xtrf),string(@ohref)))"/>
                 </xsl:call-template>
             </xsl:when>
             <xsl:when test="$topic/preceding::*[contains(@class,' topic/topic ')][@oid=$oid]">
                 <xsl:variable name="sameXtrf" select="$topic/preceding::*[contains(@class,' topic/topic ')][@oid=$oid][1]/@xtrf"/>
                 <xsl:call-template name="errorExit">
                     <xsl:with-param name="prmMes"
-                                    select="ahf:replace($stMes501,('%id','%xtrf1','%xtrf2'),($topic/@oid,$topic/@xtrf,$sameXtrf))"/>
+                                    select="ahf:replace($stMes501,('%id','%xtrf1','%xtrf2'),(string($topic/@oid),string($topic/@xtrf),$sameXtrf))"/>
                 </xsl:call-template>
             </xsl:when>
         </xsl:choose>

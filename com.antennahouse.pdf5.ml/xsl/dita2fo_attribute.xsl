@@ -576,7 +576,7 @@ E-mail : info@antennahouse.com
             <xsl:when test="string(number($prmPercent)) eq $NaN">
                 <xsl:call-template name="warningContinue">
                     <xsl:with-param name="prmMes" 
-                     select="ahf:replace($stMes028,('%scale','%elem','%file'),($prmPercent,name($prmElement),$prmElement/@xtrf))"/>
+                     select="ahf:replace($stMes028,('%scale','%elem','%file'),($prmPercent,name($prmElement),string($prmElement/@xtrf)))"/>
                 </xsl:call-template>
                 <xsl:sequence select="1"/>
             </xsl:when>

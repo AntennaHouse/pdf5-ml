@@ -619,7 +619,7 @@ E-mail : info@antennahouse.com
                 <!-- DITA-OT already outputs DOTX032E error in topicpull -->
                 <xsl:call-template name="warningContinue">
                     <xsl:with-param name="prmMes">
-                        <xsl:value-of select="ahf:replace($stMes060,('%file','%trace','%href'),(@xtrf,@xtrc,@ohref))"/>
+                        <xsl:value-of select="ahf:replace($stMes060,('%file','%trace','%href'),(string(@xtrf),string(@xtrc),string(@ohref)))"/>
                     </xsl:with-param>
                 </xsl:call-template>
             </xsl:when>

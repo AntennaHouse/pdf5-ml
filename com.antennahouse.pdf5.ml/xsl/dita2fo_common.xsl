@@ -31,7 +31,7 @@ E-mail : info@antennahouse.com
     <xsl:template match="*" priority="-3">
         <xsl:call-template name="warningContinue">
             <xsl:with-param name="prmMes"
-             select="ahf:replace($stMes001,('%elem','%file'),(name(.),@xtrf))"/>
+             select="ahf:replace($stMes001,('%elem','%file'),(name(.),string(@xtrf)))"/>
         </xsl:call-template>
         <xsl:apply-templates/>
     </xsl:template>

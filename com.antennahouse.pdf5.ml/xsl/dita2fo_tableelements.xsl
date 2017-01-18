@@ -947,7 +947,7 @@ E-mail : info@antennahouse.com
                     <xsl:otherwise>
                         <xsl:call-template name="warningContinue">
                             <xsl:with-param name="prmMes" 
-                            select="ahf:replace($stMes050,('%file','%elem','%keycol'),($prmTable/@xtrf,name($prmTable),$prmTable/@keycol))"/>
+                            select="ahf:replace($stMes050,('%file','%elem','%keycol'),(string($prmTable/@xtrf),name($prmTable),string($prmTable/@keycol)))"/>
                         </xsl:call-template>
                         <xsl:sequence select="0"/>
                     </xsl:otherwise>
@@ -956,7 +956,7 @@ E-mail : info@antennahouse.com
             <xsl:otherwise>
                 <xsl:call-template name="warningContinue">
                     <xsl:with-param name="prmMes" 
-                    select="ahf:replace($stMes050,('%file','%elem','%keycol'),($prmTable/@xtrf,name($prmTable),$prmTable/@keycol))"/>
+                    select="ahf:replace($stMes050,('%file','%elem','%keycol'),(string($prmTable/@xtrf),name($prmTable),string($prmTable/@keycol)))"/>
                 </xsl:call-template>
                 <xsl:sequence select="0"/>
             </xsl:otherwise>

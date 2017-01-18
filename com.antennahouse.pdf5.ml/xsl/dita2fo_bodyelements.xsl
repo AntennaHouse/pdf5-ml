@@ -454,7 +454,7 @@ E-mail : info@antennahouse.com
         <xsl:param name="prmDoCompact" required="yes" as="xs:boolean"/>
         <xsl:call-template name="warningContinue">
             <xsl:with-param name="prmMes" 
-                select="ahf:replace($stMes055,('%file'),(@xtrf))"/>
+                select="ahf:replace($stMes055,('%file'),(string(@xtrf)))"/>
         </xsl:call-template>
     </xsl:template>
 
@@ -1207,7 +1207,7 @@ E-mail : info@antennahouse.com
     <xsl:template match="*[contains(@class, ' topic/object ')]">
         <xsl:call-template name="warningContinue">
             <xsl:with-param name="prmMes">
-                <xsl:value-of select="ahf:replace($stMes041,('%file','%class'),(@xtrf,@classid))"/>
+                <xsl:value-of select="ahf:replace($stMes041,('%file','%class'),(string(@xtrf),string(@classid)))"/>
             </xsl:with-param>
         </xsl:call-template>
     </xsl:template>
@@ -1861,7 +1861,7 @@ E-mail : info@antennahouse.com
                         <xsl:if test="empty($topicElement)">
                             <xsl:call-template name="errorExit">
                                 <xsl:with-param name="prmMes"
-                                                select="ahf:replace($stMes074,('%href','%file', '%element'),($prmHref,$prmElement/@xtrf, name($prmElement)))"/>
+                                                select="ahf:replace($stMes074,('%href','%file', '%element'),($prmHref,string($prmElement/@xtrf), name($prmElement)))"/>
                             </xsl:call-template>
                         </xsl:if>
                         <!-- get topic's id -->

@@ -174,7 +174,7 @@ E-mail : info@antennahouse.com
             <xsl:otherwise>
                 <xsl:call-template name="errorExit">
                     <xsl:with-param name="prmMes">
-                        <xsl:value-of select="ahf:replace($stMes100,('%class','%file'),($root/*[1]/@class,$root/*[1]/@xtrf))"/>
+                        <xsl:value-of select="ahf:replace($stMes100,('%class','%file'),(string($root/*[1]/@class),string($root/*[1]/@xtrf)))"/>
                     </xsl:with-param>
                 </xsl:call-template>
             </xsl:otherwise>
