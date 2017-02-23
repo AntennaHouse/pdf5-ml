@@ -546,7 +546,7 @@ E-mail : info@antennahouse.com
     
     <xsl:template match="*" mode="MODE_INDEX_DEBUG">
         <xsl:copy>
-            <xsl:copy-of select="@* except (@xtrf|@id)"/>
+            <xsl:copy-of select="@* except (@xtrf|@xtrc|@id)"/>
             <xsl:apply-templates mode="#current"/>
         </xsl:copy>
     </xsl:template>
@@ -1687,6 +1687,16 @@ E-mail : info@antennahouse.com
     <xsl:function name="ahf:getXtrf" as="xs:string">
         <xsl:param name="prmId" as="xs:string"/>
         <xsl:sequence select="string($indextermSorted/index-data[@id=$prmId]/@xtrf)"/>
+    </xsl:function>
+    
+    <!--    function: Get @xtrc
+            param: prmId
+            return: @xtrc
+            note:none
+    -->
+    <xsl:function name="ahf:getXtrc" as="xs:string">
+        <xsl:param name="prmId" as="xs:string"/>
+        <xsl:sequence select="string($indextermSorted/index-data[@id=$prmId]/@xtrc)"/>
     </xsl:function>
     
     <!--    function: Get @seekey
