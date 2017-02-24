@@ -290,7 +290,7 @@ E-mail : info@antennahouse.com
                     <xsl:attribute name="significance">
                         <xsl:value-of select="'normal'"/>
                     </xsl:attribute>
-                    <xsl:copy-of select="@xtrf"/>
+                    <xsl:copy-of select="@xtrf,@xtrc"/>
                     <!-- Sortkey -->
                     <xsl:for-each select="$currentIndexSortKey">
                         <xsl:element name="{$cSortKeyElementName}">
@@ -358,7 +358,7 @@ E-mail : info@antennahouse.com
                     <xsl:attribute name="significance">
                         <xsl:value-of select="'normal'"/>
                     </xsl:attribute>
-                    <xsl:copy-of select="@xtrf"/>
+                    <xsl:copy-of select="@xtrf,@xtrc"/>
                     <!-- Sortkey -->
                     <xsl:for-each select="$currentIndexSortKey">
                         <xsl:element name="{$cSortKeyElementName}">
@@ -410,7 +410,7 @@ E-mail : info@antennahouse.com
                     <xsl:attribute name="significance">
                         <xsl:value-of select="'normal'"/>
                     </xsl:attribute>
-                    <xsl:copy-of select="@xtrf"/>
+                    <xsl:copy-of select="@xtrf,@xtrc"/>
                     <!-- Sortkey -->
                     <xsl:for-each select="$currentIndexSortKey">
                         <xsl:element name="{$cSortKeyElementName}">
@@ -513,7 +513,7 @@ E-mail : info@antennahouse.com
                     <xsl:attribute name="significance">
                         <xsl:value-of select="'normal'"/>
                     </xsl:attribute>
-                    <xsl:copy-of select="@xtrf"/>
+                    <xsl:copy-of select="@xtrf,@xtrc"/>
                     <!-- Sortkey -->
                     <xsl:for-each select="$prmIndexSortKey">
                         <xsl:element name="{$cSortKeyElementName}">
@@ -625,7 +625,7 @@ E-mail : info@antennahouse.com
                     <xsl:attribute name="significance">
                         <xsl:value-of select="'normal'"/>
                     </xsl:attribute>
-                    <xsl:copy-of select="@xtrf"/>
+                    <xsl:copy-of select="@xtrf,@xtrc"/>
                     <!-- Sortkey -->
                     <xsl:for-each select="$prmIndexSortKey">
                         <xsl:element name="{$cSortKeyElementName}">

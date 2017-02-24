@@ -210,7 +210,7 @@ E-mail : info@antennahouse.com
                     <xsl:attribute name="significance">
                         <xsl:value-of select="'normal'"/>
                     </xsl:attribute>
-                    <xsl:copy-of select="@xtrf"/>
+                    <xsl:copy-of select="@xtrf,@xtrc"/>
                     <!-- indexterm data -->
                     <xsl:copy-of select="$currentIndextermElement"/>
                 </xsl:element>
@@ -255,7 +255,7 @@ E-mail : info@antennahouse.com
                     <xsl:attribute name="significance">
                         <xsl:value-of select="'normal'"/>
                     </xsl:attribute>
-                    <xsl:copy-of select="@xtrf"/>
+                    <xsl:copy-of select="@xtrf,@xtrc"/>
                     <!-- indexterm data -->
                     <xsl:copy-of select="$currentIndextermElement"/>
                 </xsl:element>
@@ -285,7 +285,7 @@ E-mail : info@antennahouse.com
                     <xsl:attribute name="significance">
                         <xsl:value-of select="'normal'"/>
                     </xsl:attribute>
-                    <xsl:copy-of select="@xtrf"/>
+                    <xsl:copy-of select="@xtrf,@xtrc"/>
                     <!-- indexterm data -->
                     <xsl:copy-of select="$currentIndextermElement"/>
                 </xsl:element>
@@ -366,7 +366,7 @@ E-mail : info@antennahouse.com
                     <xsl:attribute name="significance">
                         <xsl:value-of select="'normal'"/>
                     </xsl:attribute>
-                    <xsl:copy-of select="@xtrf"/>
+                    <xsl:copy-of select="@xtrf,@xtrc"/>
                     <!-- indexterm data -->
                     <xsl:copy-of select="$prmIndextermElem"/>
                     <!-- index-see FO data -->
@@ -454,7 +454,7 @@ E-mail : info@antennahouse.com
                     <xsl:attribute name="significance">
                         <xsl:value-of select="'normal'"/>
                     </xsl:attribute>
-                    <xsl:copy-of select="@xtrf"/>
+                    <xsl:copy-of select="@xtrf,@xtrc"/>
                     <!-- indexterm data -->
                     <xsl:copy-of select="$prmIndextermElem"/>
                     <!-- index-see-also FO -->
