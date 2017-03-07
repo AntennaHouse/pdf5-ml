@@ -99,35 +99,6 @@ E-mail : info@antennahouse.com
     </xsl:template>
 
     <!--
-     function:	topicref: @chunk contains 'to-content'
-     param:		none
-     return:	self only
-     note:		if @print="no", ignore it.
-                Skip child topicref because they are nested in topic referenced by this topicref/@href.
-                2015-09-04 t.makita
-                Add condition empty(@copy-to).
-                2015-09-10 t.makita
-     -->
-    <xsl:template match="*[contains(@class,' map/topicref ')][ahf:HasAttr(@chunk,'to-content')][empty(@copy-to)]" priority="2">
-        <xsl:choose>
-            <xsl:when test="@print='no'" >
-                <xsl:for-each select="descendant-or-self::*[contains(@class,' map/topicref ')]">
-                    <xsl:if test="exists(@href)">
-                        <xsl:message select="'[convmerged 1001I] Removing topicref. href=',string(@href),' ohref=',string(@ohref)"/>
-                    </xsl:if>
-                </xsl:for-each>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:copy>
-                    <xsl:copy-of select="@*"/>
-                    <xsl:apply-templates select="* except *[contains(@class,' map/topicref ')]"/>
-                </xsl:copy>
-            </xsl:otherwise>
-        </xsl:choose>
-    </xsl:template>
-    
-
-    <!--
      function:	topic
      param:		none
      return:	self and descendant element or none

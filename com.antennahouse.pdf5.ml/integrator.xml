@@ -22,6 +22,11 @@
     </and>
   </condition>
   
+  <!-- Set property not to process chunking -->
+  <condition property="preprocess.chunk.skip">
+    <equals arg1="${transtype}" arg2="pdf5.ml" casesensitive="false"/>
+  </condition>
+  
   <target name="dita2pdf5.ml" depends="build-init, preprocess, map2pdf5.ml, topic2pdf5.ml"/> 
   
   <target name="topic2pdf5.ml" if="noMap" depends="preprocess">
