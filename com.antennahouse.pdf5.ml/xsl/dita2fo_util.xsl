@@ -27,55 +27,9 @@ URL : http://www.antennahouse.co.jp/
      Utility Templates
     ===============================================
     -->
+    <!-- Error processing is moved to dita2fo_error_util.xsl -->
     
-    <!--
-    ===============================================
-     Error processing
-    ===============================================
-    -->
-    <!-- 
-     function:	Error Exit routine
-     param:		prmMes: message body
-     return:	none
-     note:		none
-    -->
-    <xsl:template name="errorExit">
-    	<xsl:param name="prmMes" required="yes" as="xs:string"/>
-    	<xsl:message terminate="yes"><xsl:value-of select="$prmMes"/></xsl:message>
-    </xsl:template>
-    
-    
-    <!-- 
-     function:	Warning display routine
-     param:		prmMes: message body
-     return:	none
-     note:		none
-    -->
-    <xsl:template name="warningContinue">
-    	<xsl:param name="prmMes" required="yes" as="xs:string"/>
-    	<xsl:message terminate="no"><xsl:value-of select="$prmMes"/></xsl:message>
-    </xsl:template>
-    
-    
-    <!-- 
-     function:	topicref count template
-     param:		prmTopicRef
-     return:	topicref count that have same @href
-     note:		none
-    -->
-    <xsl:function name="ahf:countTopicRef" as="xs:integer">
-        <xsl:param name="prmTopicRef" as="element()"/>
-        
-        <xsl:variable name="href" select="string($prmTopicRef/@href)" as="xs:string"/>
-        <xsl:variable name="topicRefCount" as="xs:integer">
-            <xsl:number select="$prmTopicRef"
-                        level="any"
-                        count="*[contains(@class,' map/topicref ')][string(@href)=$href]"
-                        from="*[contains(@class,' map/map ')]"
-                        format="1"/>
-        </xsl:variable>
-        <xsl:sequence select="$topicRefCount"/>
-    </xsl:function>
+    <!-- ahf:countTopicRef is moved to dita2fo_dita_util.xsl -->
     
     <!-- 
       ============================================

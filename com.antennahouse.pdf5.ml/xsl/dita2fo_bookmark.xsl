@@ -14,7 +14,8 @@ E-mail : info@antennahouse.com
  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
  xmlns:xs="http://www.w3.org/2001/XMLSchema"
  xmlns:ahf="http://www.antennahouse.com/names/XSLT/Functions/Document"
- exclude-result-prefixes="xs ahf">
+ xmlns:i18n_general_sort_saxon9="java:jp.co.antenna.ah_i18n_generalsort.GeneralSortSaxon9"
+ exclude-result-prefixes="xs ahf i18n_general_sort_saxon9">
  
     <!-- 
      function:	Generate bookmark tree
@@ -192,16 +193,11 @@ E-mail : info@antennahouse.com
      return:	glossary list contents
      note:		
     -->
-    <xsl:template match="*[contains(@class,' bookmap/glossarylist ')][exists(@href)]" mode="MAKE_BOOKMARK" priority="2">
-        <xsl:next-match/>
+    <xsl:template match="*[contains(@class,' bookmap/glossarylist ')][ahf:isToc(.)]" mode="MAKE_BOOKMARK" priority="2" >
+        <xsl:call-template name="genGlossaryListBookMark"/>
     </xsl:template>
     
-    <xsl:template match="*[contains(@class,' bookmap/glossarylist ')][empty(@href)][ahf:isToc(.)]" mode="MAKE_BOOKMARK" priority="2" >
-        <xsl:if test="child::*[contains(@class, ' map/topicref ')][exists(@href)]">
-            <xsl:call-template name="genGlossaryListBookMark"/>
-        </xsl:if>
-    </xsl:template>
-    
+
     <!-- 
      function:	Index
      param:		none
@@ -636,13 +632,29 @@ E-mail : info@antennahouse.com
     -->
     <xsl:template name="genGlossaryListBookMark">
         <xsl:variable name="topicRef" as="element()" select="."/>
-        <xsl:variable name="id" as="xs:string" select="string(ahf:getIdAtts($topicRef,$topicRef,true())[1])"/>
+        <xsl:variable name="xmlLang" as="xs:string" select="ahf:getCurrentXmlLang($topicRef)"/>
+        <xsl:variable name="topicContent" as="element()?" select="ahf:getTopicFromTopicRef($topicRef)"/>
+        <xsl:variable name="id" as="xs:string">
+            <xsl:choose>
+                <xsl:when test="empty($topicContent)">
+                    <xsl:sequence select="string(ahf:getIdAtts($topicRef,$topicRef,true())[1])"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:sequence select="string(ahf:getIdAtts($topicContent,$topicRef,true())[1])"/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
         <fo:bookmark starting-state="{$cStartingState}">
             <xsl:attribute name="internal-destination" select="$id"/>
             <fo:bookmark-title>
                 <xsl:call-template name="genBookmarkTitle">
                     <xsl:with-param name="prmTopicRef" select="."/>
-                    <xsl:with-param name="prmDefaultTitle" select="$cGlossaryListTitle"/>
+                    <xsl:with-param name="prmDefaultTitle">
+                        <xsl:call-template name="getVarValue">
+                            <xsl:with-param name="prmVarName" select="'Glossary_List_Title'"/>
+                            <xsl:with-param name="prmXmlLang" select="$xmlLang"/>
+                        </xsl:call-template>
+                    </xsl:with-param>
                 </xsl:call-template>
             </fo:bookmark-title>
             <!-- Process child topicref -->
@@ -658,11 +670,13 @@ E-mail : info@antennahouse.com
                     <!-- Sorted glossentry nodeset -->
                     <xsl:variable name="glossEntrySorted" as="document-node()">
                         <xsl:document>
-                            <xsl:for-each select="$glossEntries/*[contains(@class, ' glossentry/glossentry ')]">
-                                <xsl:sort lang="{$documentLang}" select="@sortkey"/>
+                            <xsl:copy-of select="i18n_general_sort_saxon9:generalSortSaxon9($xmlLang, $glossEntries, string($pAssumeSortasPinyin))" use-when="system-property('use.i18n.index.lib')='yes'"/>
+                            <xsl:for-each select="$glossEntries/*" use-when="not(system-property('use.i18n.index.lib')='yes')">
+                                <xsl:sort select="@sort-key" lang="{$xmlLang}" collation="{concat($cGlossarySortUri,$xmlLang)}" data-type="text"/>
                                 <xsl:element name="{name()}">
                                     <xsl:copy-of select="@*"/>
-                                    <xsl:attribute name="label" select="upper-case(substring(string(@sortkey),1,1))"/>
+                                    <xsl:attribute name="label" select="upper-case(substring(string(@glossterm),1,1))"/>
+                                    <xsl:copy-of select="child::node()"/>
                                 </xsl:element>
                             </xsl:for-each>
                         </xsl:document>
@@ -676,13 +690,13 @@ E-mail : info@antennahouse.com
                         <!--xsl:message select="'$editStatus=',$editStatus,'$topicRefId=',$topicRefId,'class=',@class"/-->
                         <xsl:choose>
                             <xsl:when test="exists($topicRef)">
-                                <xsl:variable name="oid" select="ahf:getIdAtts($glossEntry,$topicRef,true())" as="attribute()*"/>
+                                <xsl:variable name="id" select="ahf:getIdAtts($glossEntry,$topicRef,true())" as="attribute()*"/>
                                 <fo:bookmark starting-state="{$cStartingState}">
                                     <xsl:choose>
-                                        <xsl:when test="exists($oid)">
+                                        <xsl:when test="exists($id)">
                                             <xsl:attribute name="internal-destination">
                                                 <!-- id is fixed to index 1. -->
-                                                <xsl:value-of select="string($oid[1])"/>
+                                                <xsl:value-of select="string($id[1])"/>
                                             </xsl:attribute>
                                         </xsl:when>
                                         <xsl:otherwise/>
@@ -745,20 +759,18 @@ E-mail : info@antennahouse.com
     <xsl:template match="*[contains(@class,' glossentry/glossentry ')]" mode="MAKE_BOOKMARK_GLOSSENTRY_IN_TEMPORARY_TREE">
         <xsl:param name="prmTopicRef" as="element()" required="yes"/>
         
-        <xsl:variable name="glossterm" as="xs:string">
-            <xsl:variable name="tempGlossterm" as="xs:string*">
-                <xsl:apply-templates select="*[contains(@class,' glossentry/glossterm ')]" mode="TEXT_ONLY"/>
-            </xsl:variable>
-            <xsl:sequence select="string-join($tempGlossterm,'')"/>
-        </xsl:variable>
+        <xsl:variable name="sortKey" as="xs:string" select="ahf:getGlossarySortKey(.)"/>
         <xsl:copy>
             <xsl:copy-of select="@*"/>
             <xsl:attribute name="topicRefId" select="ahf:generateId($prmTopicRef,())"/>
-            <xsl:attribute name="sortkey">
-                <xsl:sequence select="$glossterm"/>
-            </xsl:attribute>
+            <xsl:attribute name="sort-key" select="$sortKey"/>
+            <xsl:variable name="sortAs" as="xs:string" select="ahf:getSortAs(.)"/>
+            <xsl:if test="string($sortAs)">
+                <xsl:attribute name="sort-as" select="$sortAs" use-when="system-property('use.i18n.index.lib')='yes'"/>
+                <xsl:attribute name="sort-key" select="$sortAs" use-when="not(system-property('use.i18n.index.lib')='yes')"/>
+            </xsl:if>
             <xsl:attribute name="glossterm">
-                <xsl:sequence select="$glossterm"/>
+                <xsl:sequence select="$sortKey"/>
             </xsl:attribute>
         </xsl:copy>
     </xsl:template>

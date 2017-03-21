@@ -239,21 +239,8 @@ E-mail : info@antennahouse.com
      return:	glossary list contents
      note:		
     -->
-    <xsl:template match="*[contains(@class,' bookmap/glossarylist ')][exists(@href)]" mode="PROCESS_FRONTMATTER" priority="2">
-        <xsl:next-match/>
-    </xsl:template>
-        
-    <xsl:template match="*[contains(@class,' bookmap/glossarylist ')][empty(@href)]" mode="PROCESS_FRONTMATTER" priority="2" >
-        <xsl:choose>
-            <xsl:when test="child::*[contains(@class, ' glossentry/glossentry ')]">
-                <xsl:call-template name="genGlossaryList"/>                
-            </xsl:when>
-            <xsl:when test="$pSortGlossEntry">
-                <xsl:call-template name="warningContinue">
-                    <xsl:with-param name="prmMes" select="ahf:replace($stMes089,('%elem','%file'),(name(.),string(@xtrf)))"/>
-                </xsl:call-template>
-            </xsl:when>
-        </xsl:choose>
+    <xsl:template match="*[contains(@class,' bookmap/glossarylist ')]" mode="PROCESS_FRONTMATTER" priority="2" >
+        <xsl:call-template name="genGlossaryList"/>
     </xsl:template>
     
     <!-- 

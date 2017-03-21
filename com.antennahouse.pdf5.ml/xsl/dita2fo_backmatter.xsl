@@ -205,11 +205,7 @@ E-mail : info@antennahouse.com
      return:	glossary list contents
      note:		
     -->
-    <xsl:template match="*[contains(@class,' bookmap/glossarylist ')][exists(@href)]" mode="PROCESS_BACKMATTER" priority="2">
-        <xsl:next-match/>
-    </xsl:template>
-    
-    <xsl:template match="*[contains(@class,' bookmap/glossarylist ')][empty(@href)]" mode="PROCESS_BACKMATTER" priority="2" >
+    <xsl:template match="*[contains(@class,' bookmap/glossarylist ')]" mode="PROCESS_BACKMATTER" priority="2" >
         <xsl:call-template name="genGlossaryList"/>
     </xsl:template>
         

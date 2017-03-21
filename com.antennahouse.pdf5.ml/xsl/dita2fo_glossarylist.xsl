@@ -10,13 +10,14 @@ E-mail : info@antennahouse.com
 ****************************************************************
 -->
 <xsl:stylesheet version="2.0" 
- xmlns:fo="http://www.w3.org/1999/XSL/Format" 
- xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
- xmlns:xs="http://www.w3.org/2001/XMLSchema"
- xmlns:axf="http://www.antennahouse.com/names/XSL/Extensions"
- xmlns:ahf="http://www.antennahouse.com/names/XSLT/Functions/Document"
- xmlns:psmi="http://www.CraneSoftwrights.com/resources/psmi"
- exclude-result-prefixes="xs ahf"
+                xmlns:fo="http://www.w3.org/1999/XSL/Format" 
+                xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+                xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                xmlns:axf="http://www.antennahouse.com/names/XSL/Extensions"
+                xmlns:ahf="http://www.antennahouse.com/names/XSLT/Functions/Document"
+                xmlns:psmi="http://www.CraneSoftwrights.com/resources/psmi"
+                xmlns:i18n_general_sort_saxon9="java:jp.co.antenna.ah_i18n_generalsort.GeneralSortSaxon9"
+                exclude-result-prefixes="xs ahf i18n_general_sort_saxon9"
 >
 
     <!-- IMPORTANT LIMITATION
@@ -24,11 +25,13 @@ E-mail : info@antennahouse.com
            glossgroup/prolog/metadata/keywords/indexterm
          This is because the target that indexterm point become ambigous when sorting glossgroup/glossentry.
      -->
+
+    <xsl:variable name="cGlossarySortUri" as="xs:string" select="'http://saxon.sf.net/collation?lang='"/>
     
     <!-- 
      function:	Generate glossary list template
      param:		none 
-     return:	(fo:page-sequence)
+     return:	fo:page-sequence
      note:      1. Current context is booklist/glossarylist
      			2. This template made by the basis of the promise 
      			that all of the topicrefs to the glossentry 
@@ -93,12 +96,16 @@ E-mail : info@antennahouse.com
      return:	fo:block
      note:		Current context is booklist/glossarylist
      -->
+    <xsl:template match="*[contains(@class, ' bookmap/glossarylist ')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
+        <xsl:sequence select="'atsBaseGlossaryListPrefixContent atsSpanAll atsFmHeader1'"/>
+    </xsl:template>
+
     <xsl:template name="genGlossaryListMain">
         <xsl:variable name="topicRef" select="."/>
         <!-- get topic from @href -->
-        <xsl:variable name="id" select="substring-after(@href, '#')" as="xs:string"/>
         <xsl:variable name="topicContent" as="element()?" select="ahf:getTopicFromTopicRef($topicRef)"/>
         <xsl:variable name="titleMode" select="ahf:getTitleMode($topicRef,())" as="xs:integer"/>
+        <xsl:variable name="xmlLang" as="xs:string" select="ahf:getCurrentXmlLang($topicRef)"/>
         
         <xsl:choose>
             <xsl:when test="exists($topicContent)">
@@ -109,49 +116,55 @@ E-mail : info@antennahouse.com
             </xsl:when>
             <xsl:otherwise>
                 <fo:block>
-                    <xsl:copy-of select="ahf:getAttributeSet('atsBaseGlossaryListPrefixContent')"/>
-                    <fo:block>
-                        <xsl:copy-of select="ahf:getAttributeSet('atsSpanAll')"/>
-                        <xsl:copy-of select="ahf:getAttributeSet('atsFmHeader1')"/>
-                        <xsl:copy-of select="ahf:getIdAtts($topicRef,$topicRef,true())"/>
-                        <!--xsl:attribute name="id" select="$cGlossaryListId"/-->
-                        <xsl:variable name="glossaryListTitleText" as="xs:string">
-                            <xsl:choose>
-                                <xsl:when test="$topicRef/*[contains(@class,' map/topicmeta ')]/*[contains(@class,' topic/navtitle ')]">
-                                    <xsl:variable name="titleTextTemp">
-                                        <xsl:apply-templates select="$topicRef/*[contains(@class,' map/topicmeta ')]/*[contains(@class,' topic/navtitle ')]" mode="TEXT_ONLY"/>
-                                    </xsl:variable>
-                                    <xsl:sequence select="string-join($titleTextTemp,'')"/>
-                                </xsl:when>
-                                <xsl:when test="$topicRef/@navtitle">
-                                    <xsl:sequence select="string($topicRef/@navtitle)"/>
-                                </xsl:when>
-                                <xsl:otherwise>
-                                    <xsl:sequence select="$cGlossaryListTitle"></xsl:sequence>
-                                </xsl:otherwise>
-                            </xsl:choose>
-                        </xsl:variable>
-                        <fo:marker marker-class-name="{$cTitleBody}">
-                            <fo:inline><xsl:copy-of select="$glossaryListTitleText"/></fo:inline>
-                        </fo:marker>
+                    <xsl:call-template name="getAttributeSetWithLang"/>
+                    <xsl:copy-of select="ahf:getIdAtts($topicRef,$topicRef,true())"/>
+                    <xsl:variable name="glossaryListTitleText" as="xs:string">
                         <xsl:choose>
                             <xsl:when test="$topicRef/*[contains(@class,' map/topicmeta ')]/*[contains(@class,' topic/navtitle ')]">
-                                <xsl:apply-templates select="$topicRef/*[contains(@class,' map/topicmeta ')]/*[contains(@class,' topic/navtitle ')]">
-                                    <xsl:with-param name="prmTopicRef" tunnel="yes" select="$topicRef"/>
-                                </xsl:apply-templates>
+                                <xsl:variable name="titleTextTemp">
+                                    <xsl:apply-templates select="$topicRef/*[contains(@class,' map/topicmeta ')]/*[contains(@class,' topic/navtitle ')]" mode="TEXT_ONLY"/>
+                                </xsl:variable>
+                                <xsl:sequence select="string-join($titleTextTemp,'')"/>
                             </xsl:when>
                             <xsl:when test="$topicRef/@navtitle">
-                                <fo:inline>
-                                    <xsl:value-of select="string($topicRef/@navtitle)"/>
-                                </fo:inline>
+                                <xsl:sequence select="string($topicRef/@navtitle)"/>
                             </xsl:when>
                             <xsl:otherwise>
-                                <fo:inline>
-                                    <xsl:value-of select="$cGlossaryListTitle"/>
-                                </fo:inline>
+                                <xsl:call-template name="getVarValueWithLang">
+                                    <xsl:with-param name="prmVarName" select="'Glossary_List_Title'"/>
+                                </xsl:call-template>
                             </xsl:otherwise>
                         </xsl:choose>
-                    </fo:block>
+                    </xsl:variable>
+                    <fo:marker marker-class-name="{$cTitleBody}">
+                        <!-- Set font-family property to get proper font for xml:lang that differs main xml:lang.
+                             This code assumes that fo:marker is retrieved from fo:region-after.
+                             2017-03-16 t.makita
+                         -->
+                        <fo:inline>
+                            <xsl:copy-of select="ahf:getFontFamlyWithLang('atsFrontmatterRegionAfterBlock',$topicRef)"/>
+                            <xsl:copy-of select="$glossaryListTitleText"/>
+                        </fo:inline>
+                    </fo:marker>
+                    <xsl:choose>
+                        <xsl:when test="$topicRef/*[contains(@class,' map/topicmeta ')]/*[contains(@class,' topic/navtitle ')]">
+                            <xsl:apply-templates select="$topicRef/*[contains(@class,' map/topicmeta ')]/*[contains(@class,' topic/navtitle ')]">
+                                <xsl:with-param name="prmTopicRef" tunnel="yes" select="$topicRef"/>
+                            </xsl:apply-templates>
+                        </xsl:when>
+                        <xsl:when test="$topicRef/@navtitle">
+                            <fo:inline>
+                                <xsl:value-of select="string($topicRef/@navtitle)"/>
+                            </fo:inline>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <fo:inline>
+                                <xsl:call-template name="getVarValueWithLangAsText">
+                                    <xsl:with-param name="prmVarName" select="'Glossary_List_Title'"/>
+                                </xsl:call-template>
+                            </fo:inline>
+                        </xsl:otherwise>
+                    </xsl:choose>
                 </fo:block>
             </xsl:otherwise>
         </xsl:choose>
@@ -165,18 +178,18 @@ E-mail : info@antennahouse.com
                 <!-- Original glossentry nodeset -->
                 <xsl:variable name="glossEntries" as="document-node()">
                     <xsl:document>
-                        <xsl:apply-templates select="child::*[contains(@class,' map/topicref ')]" mode="PROCESS_GLOSSARYLIST_TOPICREF_IN_TEMPORARY_TREE">
-                        </xsl:apply-templates>
+                        <xsl:apply-templates select="child::*[contains(@class,' map/topicref ')]" mode="PROCESS_GLOSSARYLIST_TOPICREF_IN_TEMPORARY_TREE"/>
                     </xsl:document>
                 </xsl:variable>
                 <!-- Sorted glossentry nodeset -->
                 <xsl:variable name="glossEntrySorted" as="document-node()">
                     <xsl:document>
-                        <xsl:for-each select="$glossEntries/*[contains(@class, ' glossentry/glossentry ')]">
-                            <xsl:sort lang="{$documentLang}" select="@sortkey"/>
+                        <xsl:copy-of select="i18n_general_sort_saxon9:generalSortSaxon9($xmlLang, $glossEntries, string($pAssumeSortasPinyin))" use-when="system-property('use.i18n.index.lib')='yes'"/>
+                        <xsl:for-each select="$glossEntries/*" use-when="not(system-property('use.i18n.index.lib')='yes')">
+                            <xsl:sort select="@sort-key" lang="{$xmlLang}" collation="{concat($cGlossarySortUri,$xmlLang)}" data-type="text"/>
                             <xsl:element name="{name()}">
                                 <xsl:copy-of select="@*"/>
-                                <xsl:attribute name="label" select="upper-case(substring(string(@sortkey),1,1))"/>
+                                <xsl:attribute name="label" select="upper-case(substring(string(@sort-key),1,1))"/>
                                 <xsl:copy-of select="child::node()"/>
                             </xsl:element>
                         </xsl:for-each>
@@ -318,12 +331,12 @@ E-mail : info@antennahouse.com
         <xsl:copy>
             <xsl:copy-of select="@*"/>
             <xsl:attribute name="topicRefId" select="ahf:generateId($prmTopicRef,())"/>
-            <xsl:attribute name="sortkey">
-                <xsl:variable name="tempGlossterm" as="xs:string*">
-                    <xsl:apply-templates select="*[contains(@class,' glossentry/glossterm ')]" mode="TEXT_ONLY"/>
-                </xsl:variable>
-                <xsl:sequence select="string-join($tempGlossterm,'')"/>
-            </xsl:attribute>
+            <xsl:attribute name="sort-key" select="ahf:getGlossarySortKey(.)"/>
+            <xsl:variable name="sortAs" as="xs:string" select="ahf:getSortAs(.)"/>
+            <xsl:if test="string($sortAs)">
+                <xsl:attribute name="sort-as" select="$sortAs" use-when="system-property('use.i18n.index.lib')='yes'"/>
+                <xsl:attribute name="sort-key" select="$sortAs" use-when="not(system-property('use.i18n.index.lib')='yes')"/>
+            </xsl:if>
             <xsl:copy-of select="child::node()"/>
         </xsl:copy>
     </xsl:template>
@@ -334,6 +347,19 @@ E-mail : info@antennahouse.com
         </xsl:apply-templates>
     </xsl:template>
         
+    <!--
+     function:	Get sort key
+     param:		none
+     return:	xs:string
+     note:		 
+     -->
+    <xsl:function name="ahf:getGlossarySortKey" as="xs:string">
+        <xsl:param name="prmGlossEntry" as="element()"/>
+        <xsl:variable name="glossTermText" as="xs:string*">
+            <xsl:apply-templates select="$prmGlossEntry/*[contains(@class, ' topic/title ')]" mode="TEXT_ONLY"/>
+        </xsl:variable>
+        <xsl:sequence select="normalize-space(string-join($glossTermText,''))"/>
+    </xsl:function>
     
     <!-- 
         function:	Process topicref of the glossary list
@@ -342,7 +368,6 @@ E-mail : info@antennahouse.com
         note:		none
     -->
     <xsl:template match="*[contains(@class,' map/topicref ')][@href]" mode="PROCESS_GLOSSARYLIST_TOPICREF">
-        <!--xsl:param name="prmEditStatus" tunnel="yes" required="yes"/-->
         
         <xsl:variable name="topicRef" select="."/>
         <!-- get topic from @href -->
@@ -394,7 +419,6 @@ E-mail : info@antennahouse.com
     -->
     <xsl:template match="*[contains(@class, ' glossentry/glossentry ')]" mode="PROCESS_GLOSSARYLIST_CONTENT" priority="2">
         <xsl:param name="prmTopicRef" tunnel="yes" required="yes" as="element()"/>
-        <!--xsl:param name="prmTitleMode"   required="yes" as="xs:integer"/-->
         
         <fo:block>
             <xsl:call-template name="getAttributeSetWithLang">
@@ -420,11 +444,6 @@ E-mail : info@antennahouse.com
                 <!-- glossdef -->
                 <xsl:apply-templates select="child::*[contains(@class, ' glossentry/glossdef ')]" mode="#current"/>
                 
-                <!-- glossBody -->
-                <!--xsl:apply-templates select="child::*[contains(@class, ' glossentry/glossBody ')]">
-                    <xsl:with-param name="prmTopicRef" select="$prmTopicRef"/>
-                    <xsl:with-param name="prmNeedId"   select="true()"/>
-                </xsl:apply-templates-->
             </fo:block>
             
             <!-- postnote (footnote) -->

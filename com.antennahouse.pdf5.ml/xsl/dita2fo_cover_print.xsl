@@ -19,18 +19,8 @@ E-mail : info@antennahouse.com
     xmlns:psmi="http://www.CraneSoftwrights.com/resources/psmi"
     xmlns:saxon="http://saxon.sf.net/"
     exclude-result-prefixes="xs ahf saxon">
-    
-    <!-- 
-     function:	Return topicref is for cover 
-     param:		prmTopicRef
-     return:	xs:boolean
-     note:		
-     -->
-    <xsl:function name="ahf:isCoverTopicRef" as="xs:boolean">
-        <xsl:param name="prmTopicRef" as="element()?"/>
-        <xsl:variable name="outputClass" as="xs:string" select="if (exists($prmTopicRef)) then string($prmTopicRef/@outputclass) else ''"/>
-        <xsl:sequence select="matches($outputClass,'cover[1-4]')"/>
-    </xsl:function>
+
+    <!-- ahf:isCoverTopicRef is moved to dita2fo_dita_util.xsl -->
 
     <!-- 
      function:	Return topicref is for cover3 
