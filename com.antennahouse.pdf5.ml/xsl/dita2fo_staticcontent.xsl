@@ -39,18 +39,6 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <xsl:template name="frontmatterAfterLeft">
-        <!--fo:block>
-            <xsl:copy-of select="ahf:getAttributeSet('atsFrontmatterRegionAfterLeftBlock')"/>
-            <fo:inline>
-                <xsl:copy-of select="ahf:getAttributeSet('atsPageNumber')"/>
-                <fo:page-number/>
-            </fo:inline>
-            <fo:inline-container>
-                <xsl:copy-of select="ahf:getAttributeSet('atsFrontmatterRegionAfter_InlineContainer')"/>
-            </fo:inline-container>
-            <!-\- Book title -\->
-            <xsl:copy-of select="$bookTitle"/>
-        </fo:block-->
         <fo:block>
             <xsl:copy-of select="ahf:getAttributeSet('atsFrontmatterRegionAfterLeftBlock')"/>
             <fo:inline>
@@ -99,17 +87,6 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <xsl:template name="chapterAfterLeft">
-        <!--fo:block>
-            <xsl:copy-of select="ahf:getAttributeSet('atsChapterRegionAfterLeftBlock')"/>
-            <fo:inline>
-                <xsl:copy-of select="ahf:getAttributeSet('atsPageNumber')"/>
-                <fo:page-number/>
-            </fo:inline>
-            <fo:inline-container>
-                <xsl:copy-of select="ahf:getAttributeSet('atsChapterRegionAfter_InlineContainer')"/>
-            </fo:inline-container>
-            <xsl:copy-of select="$bookTitle"/>
-        </fo:block-->
         <fo:block>
             <xsl:copy-of select="ahf:getAttributeSet('atsChapterRegionAfterLeftBlock')"/>
             <fo:inline>
@@ -201,18 +178,6 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <xsl:template name="indexAfterLeft">
-        <!--fo:block>
-            <xsl:copy-of select="ahf:getAttributeSet('atsIndexRegionAfterLeftBlock')"/>
-            <fo:inline>
-                <xsl:copy-of select="ahf:getAttributeSet('atsPageNumber')"/>
-                <fo:page-number/>
-            </fo:inline>
-            <fo:inline-container>
-                <xsl:copy-of select="ahf:getAttributeSet('atsIndexRegionAfter_InlineContainer')"/>
-            </fo:inline-container>
-            <!-\- Book title -\->
-            <xsl:copy-of select="$bookTitle"/>
-        </fo:block-->
         <fo:block>
             <xsl:copy-of select="ahf:getAttributeSet('atsIndexRegionAfterLeftBlock')"/>
             <fo:inline>
@@ -276,18 +241,6 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <xsl:template name="backmatterAfterLeft">
-        <!--fo:block>
-            <xsl:copy-of select="ahf:getAttributeSet('atsBackmatterRegionAfterLeftBlock')"/>
-            <fo:inline>
-                <xsl:copy-of select="ahf:getAttributeSet('atsPageNumber')"/>
-                <fo:page-number/>
-            </fo:inline>
-            <fo:inline-container>
-                <xsl:copy-of select="ahf:getAttributeSet('atsBackmatterRegionAfter_InlineContainer')"/>
-            </fo:inline-container>
-            <!-\- Book title -\->
-            <xsl:copy-of select="$bookTitle"/>
-        </fo:block-->
         <fo:block>
             <xsl:copy-of select="ahf:getAttributeSet('atsBackmatterRegionAfterLeftBlock')"/>
             <fo:inline>
@@ -312,6 +265,98 @@ E-mail : info@antennahouse.com
                 <xsl:copy-of select="ahf:getAttributeSet('atsPageNumber')"/>
                 <fo:page-number/>
             </fo:inline>
+        </fo:block>
+    </xsl:template>
+    
+    <!-- 
+     function:	Generate Thumb index 
+     param:		prmId, prmClass
+     return:	
+     note:		Use $map/@xml:lang to get style
+     -->
+    <xsl:template name="genThumbIndex">
+        <xsl:param name="prmId" required="yes" as="xs:string"/>
+        <xsl:param name="prmClass" required="yes" as="xs:string"/>
+        
+        <xsl:choose>
+            <xsl:when test="$prmId=''">
+                <xsl:for-each select="$thumbIndexMap/*[string(@class) eq $prmClass]">
+                    <xsl:call-template name="genThumbIndexMain"/>
+                </xsl:for-each>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:for-each select="$thumbIndexMap/*[string(@id) eq $prmId]">
+                    <xsl:call-template name="genThumbIndexMain"/>
+                </xsl:for-each>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    
+    <!-- 
+     function:	Generate Thumb index main
+     param:		prmTopicRef (Used to get style by xml:lang)
+     return:	Thumb index fo:block
+     note:		current context is $thumIndexMap/*
+     -->
+    <xsl:template name="genThumbIndexMain">
+        
+        <xsl:variable name="offset" select="concat(string((@index -1) * 10),'mm')"/>
+        <fo:block>
+            <xsl:copy-of select="ahf:getAttributeSet('atsThumbIndexBlock')"/>
+            <fo:inline-container>
+                <xsl:copy-of select="ahf:getAttributeSet('atsThumbIndexPaddingInlineContainer1')"/>
+            </fo:inline-container>
+            <fo:inline-container width="{$offset}"/>
+            <fo:inline-container>
+                <xsl:copy-of select="ahf:getAttributeSet('atsThumbIndexInlineContainer')"/>
+                <fo:block-container>
+                    <xsl:copy-of select="ahf:getAttributeSet('atsThumbIndexBlockContainer')"/>
+                    <fo:block>
+                        <xsl:copy-of select="ahf:getAttributeSet('atsThumbIndexColor')"/>
+                        <xsl:value-of select="@label"/>
+                    </fo:block>
+                </fo:block-container>
+            </fo:inline-container>
+            <fo:inline-container>
+                <xsl:copy-of select="ahf:getAttributeSet('atsThumbIndexPaddingInlineContainer2')"/>
+            </fo:inline-container>
+            <fo:inline-container>
+                <fo:block>
+                    <xsl:copy-of select="ahf:getAttributeSet('atsThumbIndexTitleBlock')"/>
+                    <fo:inline>
+                        <xsl:copy-of select="ahf:getAttributeSet('atsThumbIndexTitleInline')"/>
+                        <xsl:copy-of select="title/node()"/>
+                    </fo:inline>
+                </fo:block>
+            </fo:inline-container>
+        </fo:block>
+    </xsl:template>
+    
+    <!-- 
+     function:	Generate blank page block
+     param:		none
+     return:	blank page fo:block
+     note:		Use $map/@xml:lang to get style.
+     -->
+    <xsl:template name="makeBlankBlock">
+        <fo:block>
+            <xsl:copy-of select="ahf:getAttributeSet('atsBlankPageBlock')"/>
+            <fo:inline-container>
+                <xsl:copy-of select="ahf:getAttributeSet('atsBlankPageInlineContainerBlock')"/>
+                <fo:block>
+                    <xsl:copy-of select="ahf:getAttributeSet('atsBlankPageInlineBlock')"/>
+                </fo:block>
+            </fo:inline-container>
+            <fo:inline>
+                <xsl:copy-of select="ahf:getAttributeSet('atsBlankPageInlineTextBlock')"/>
+                <xsl:value-of select="$cBlankPageTitle"/>
+            </fo:inline>
+            <fo:inline-container>
+                <xsl:copy-of select="ahf:getAttributeSet('atsBlankPageInlineContainerBlock')"/>
+                <fo:block>
+                    <xsl:copy-of select="ahf:getAttributeSet('atsBlankPageInlineBlock')"/>
+                </fo:block>
+            </fo:inline-container>
         </fo:block>
     </xsl:template>
 

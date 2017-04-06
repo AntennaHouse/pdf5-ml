@@ -16,7 +16,7 @@ E-mail : info@antennahouse.com
  exclude-result-prefixes="xs ahf"
 >
     
-    <!-- map or bookmap -->
+    <!-- map or bookmap: Already defined in dita2fo_global.xsl -->
     <xsl:variable name="map" as="element()" select="/*[1]/*[contains(@class,' map/map ')][1]"/>
     
     <!-- All topiref-->
@@ -85,7 +85,9 @@ E-mail : info@antennahouse.com
     		<xsl:when test="@print='no'" >
     		    <xsl:for-each select="descendant-or-self::*[contains(@class,' map/topicref ')]">
     		        <xsl:if test="exists(@href)">
-    		            <xsl:message select="'[convmerged 1001I] Removing topicref. href=',string(@href),' ohref=',string(@ohref)"/>
+    		            <xsl:call-template name="warningContinue">
+    		                <xsl:with-param name="prmMes" select="ahf:replace($stMes1001,('%href','%ohref'),(string(@href),string(@ohref)))"/>
+    		            </xsl:call-template>
     		        </xsl:if>
     		    </xsl:for-each>
     		</xsl:when>
@@ -109,7 +111,9 @@ E-mail : info@antennahouse.com
         <xsl:variable name="id" as="xs:string" select="concat('#',string(@id))"/>
         <xsl:choose>
             <xsl:when test="exists(index-of($noPrintHrefs,$id)) and empty(index-of($normalHrefs,$id))">
-                <xsl:message select="'[convmerged 1002I] Removing topic. id=',string(@id),' xtrf=',string(@xtrf)"/>
+                <xsl:call-template name="warningContinue">
+                    <xsl:with-param name="prmMes" select="ahf:replace($stMes1002,('%id','%xtrf'),(string(@id),string(@xtrf)))"/>
+                </xsl:call-template>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:copy>
@@ -134,7 +138,9 @@ E-mail : info@antennahouse.com
         <xsl:variable name="href" as="xs:string" select="string(@href)"/>
         <xsl:choose>
             <xsl:when test="exists(index-of($noPrintHrefs,$href)) and empty(index-of($normalHrefs,$href))">
-                <xsl:message select="'[convmerged 1003I] Removing link. href=',$href"/>
+                <xsl:call-template name="warningContinue">
+                    <xsl:with-param name="prmMes" select="ahf:replace($stMes1003,('%href'),($href))"/>
+                </xsl:call-template>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:copy>
@@ -159,7 +165,9 @@ E-mail : info@antennahouse.com
         <xsl:variable name="href" as="xs:string" select="string(@href)"/>
         <xsl:variable name="topicHref" as="xs:string" select="if  (contains($href,'/')) then substring-before($href,'/') else $href"/>
         <xsl:if test="exists(index-of($noPrintHrefs,$topicHref)) and empty(index-of($normalHrefs,$topicHref))" >
-            <xsl:message select="'[convmerged 1004W] Warning! Xref refers to removed topic. href=',string(@href)"/>
+            <xsl:call-template name="warningContinue">
+                <xsl:with-param name="prmMes" select="ahf:replace($stMes1004,('%href'),($href))"/>
+            </xsl:call-template>
         </xsl:if>
         <xsl:copy>
             <xsl:copy-of select="@*"/>
@@ -183,7 +191,7 @@ E-mail : info@antennahouse.com
     
     <!-- 
      function:	processing-instruction template
-     param:		nome
+     param:		none
      return:	processing-instruction
      note:		
      -->

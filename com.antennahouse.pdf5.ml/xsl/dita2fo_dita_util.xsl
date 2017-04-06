@@ -147,5 +147,55 @@ URL : http://www.antennahouse.co.jp/
         <xsl:attribute name="ahd:topic-file" select="$topicFileName"/>
     </xsl:function>
 
+    <!-- 
+     function:	Return topicref is for cover 
+     param:		prmTopicRef
+     return:	xs:boolean
+     note:		
+     -->
+    <xsl:function name="ahf:isCoverTopicRef" as="xs:boolean">
+        <xsl:param name="prmTopicRef" as="element()?"/>
+        <xsl:variable name="outputClass" as="xs:string" select="if (exists($prmTopicRef)) then string($prmTopicRef/@outputclass) else ''"/>
+        <xsl:sequence select="matches($outputClass,'cover[1-4]')"/>
+    </xsl:function>
+    
+    <!-- 
+     function:	topicref count template
+     param:		prmTopicRef
+     return:	topicref count that have same @href
+     note:		none
+    -->
+    <xsl:function name="ahf:countTopicRef" as="xs:integer">
+        <xsl:param name="prmTopicRef" as="element()"/>
+        
+        <xsl:variable name="href" select="string($prmTopicRef/@href)" as="xs:string"/>
+        <xsl:variable name="topicRefCount" as="xs:integer">
+            <xsl:number select="$prmTopicRef"
+                level="any"
+                count="*[contains(@class,' map/topicref ')][string(@href) eq $href]"
+                from="*[contains(@class,' map/map ')]"
+                format="1"/>
+        </xsl:variable>
+        <xsl:sequence select="$topicRefCount"/>
+    </xsl:function>
+
+    <!-- 
+     function:	Get font-family attribute considering xml:lang
+     param:		prmAttsetName, prmElem
+     return:	attribute()*
+     note:		none
+    -->
+    <xsl:function name="ahf:getFontFamlyWithLang" as="attribute()*">
+        <xsl:param name="prmAttrsetName" as="xs:string"/>
+        <xsl:param name="prmElem" as="element()"/>
+        <xsl:call-template name="getAttributeSetWithLang">
+            <xsl:with-param name="prmAttrSetName" select="$prmAttrsetName"/>
+            <xsl:with-param name="prmElem" select="$prmElem"/>
+            <xsl:with-param name="prmRequiredProperty" tunnel="yes" select="('font-family')"/>
+            <xsl:with-param name="prmDoInherit" select="true()"/>
+        </xsl:call-template>
+    </xsl:function>
+    
+
     <!-- end of stylesheet -->
 </xsl:stylesheet>

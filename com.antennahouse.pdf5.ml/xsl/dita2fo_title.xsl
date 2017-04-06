@@ -16,7 +16,61 @@ E-mail : info@antennahouse.com
  xmlns:ahf="http://www.antennahouse.com/names/XSLT/Functions/Document"
  exclude-result-prefixes="xs ahf"
  >
-
+    
+    <!-- 
+     function:	Get topic title generation mode
+     param:		prmTopicRref,prmTopicContent
+     return:	cRoundBulletTitleMode, cSquareBulletTitleMode, cNoRestrictionTitleMode
+     note:		
+     -->
+    <xsl:function name="ahf:getTitleMode" as="xs:integer">
+        <xsl:param name="prmTopicRef"  as="element()"/>
+        <xsl:param name="prmTopicContent"  as="element()?"/>
+        
+        <!--xsl:variable name="isNoToc" select="boolean($prmTopicRef/@toc='no')"/-->
+        <xsl:variable name="isNoToc" select="ahf:isTocNo($prmTopicRef)"/>
+        <!--xsl:variable name="hasNoTocAncestor" select="boolean($prmTopicRef/ancestor::*[contains(@class,' map/topicref ')][@toc='no'])"/-->
+        <xsl:variable name="hasNoTocAncestor" select="boolean($prmTopicRef/ancestor::*[contains(@class,' map/topicref ')][ahf:isTocNo(.)])"/>
+        <xsl:variable name="isNestedTopic" as="xs:boolean">
+            <xsl:choose>
+                <xsl:when test="empty($prmTopicContent)">
+                    <xsl:sequence select="false()"/>
+                </xsl:when>
+                <xsl:when test="$prmTopicContent/ancestor::*[contains(@class, ' topic/topic ')]">
+                    <xsl:sequence select="true()"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:sequence select="false()"/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:choose>
+            <xsl:when test="$hasNoTocAncestor">
+                <xsl:value-of select="$cRoundBulletTitleMode"/>
+            </xsl:when>
+            <xsl:when test="$isNoToc">
+                <xsl:choose>
+                    <xsl:when test="$isNestedTopic">
+                        <xsl:value-of select="$cRoundBulletTitleMode"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="$cSquareBulletTitleMode"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:choose>
+                    <xsl:when test="$isNestedTopic">
+                        <xsl:value-of select="$cSquareBulletTitleMode"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="$cNoRestrictionTitleMode"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:function>
+    
     <!-- 
      function:	Heading generation template for frontmatter
      param:		prmLevel, prmTopicRef, prmTopicContent
@@ -173,15 +227,10 @@ E-mail : info@antennahouse.com
                                      So style name become temporary "atsChapterRegionAfterBlock"
                                      2015-08-22 t.makita
                                      The style of fo:marker is defined at fo:retrieve-marker.
-                                     This template call only returns font-family.
+                                     This function call only returns font-family.
                                      2015-08-22 t.makita
                                   -->
-                                <xsl:call-template name="getAttributeSetWithLang">
-                                    <xsl:with-param name="prmAttrSetName" select="'atsChapterRegionAfterBlock'"/>
-                                    <xsl:with-param name="prmElem" select="$titleElement"/>
-                                    <xsl:with-param name="prmDoInherit" select="true()"/>
-                                    <xsl:with-param name="prmRequiredProperty" tunnel="yes" select="('font-family')"/>
-                                </xsl:call-template>
+                                <xsl:copy-of select="ahf:getFontFamlyWithLang('atsChapterRegionAfterBlock',$titleElement)"/>
                                 <xsl:copy-of select="$titleForMarker"/>
                             </fo:inline>
                         </fo:marker>
