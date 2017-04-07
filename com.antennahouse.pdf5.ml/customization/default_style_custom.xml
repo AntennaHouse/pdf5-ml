@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+************************************************************
+DITA to XSL-FO Style Definition 
+************************************************************
+File Name : default_style_custom.xml
+************************************************************
+Copyright © 2009-2016 Antenna House, Inc.
+Antenna House is a trademark of Antenna House, Inc.
+URL : http://www.antennahouse.com/
+************************************************************
+-->
+<style-definition xmlns:axf="http://www.antennahouse.com/names/XSL/Extensions"
+    xmlns:fo="http://www.w3.org/1999/XSL/Format"
+    xmlns:ahp="http://www.antennahouse.com/names/XSLT/Document/PageControl"
+    xmlns="http://www.antennahouse.com/names/XSLT/Document/Layout">
+    
+    <variables>
+        <!--variable name="Step_Number_Formats" delim="[,\s]+">(a) (i)</variable-->
+    </variables>
+    
+    <attribute-sets>
+    </attribute-sets>
+    
+</style-definition>

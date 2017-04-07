@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project version="18.1">
+<project version="19.0">
     <meta>
         <filters directoryPatterns="" filePatterns="" positiveFilePatterns="" showHiddenFiles="false"/>
         <options>
-            <serialized version="18.1" xml:space="preserve">
+            <serialized version="19.0" xml:space="preserve">
                 <serializableOrderedMap>
                     <entry>
                         <String>catalogs.v5</String>
@@ -5423,6 +5423,7 @@
             <file name="xsl/dita2fo_shell.xsl"/>
         </folder>
         <folder path="config/"/>
+        <folder path="customization/"/>
         <folder path="xsl/"/>
         <file name="build.xml"/>
         <file name="build_ahf.xml"/>

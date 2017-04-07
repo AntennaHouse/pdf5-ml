@@ -1541,7 +1541,28 @@ URL : http://www.antennahouse.com/
                 <attribute name="font-weight">bold</attribute>
                 <attribute name="text-align">center</attribute>
             </attribute-set>
+            
             <attribute-set name="atsStepBody"></attribute-set>
+            
+            <!-- substeps/substep -->
+            <attribute-set name="atsSubSteps">
+                <attribute name="space-before">$Para_Space_Before</attribute>
+                <attribute name="provisional-distance-between-starts">$General_Indent_Value</attribute>
+                <attribute name="provisional-label-separation">0.2mm</attribute>
+            </attribute-set>
+            
+            <attribute-set name="atsSubStepItem">
+                <attribute name="space-before">$Para_Space_Before</attribute>
+                <attribute name="relative-align">baseline</attribute>
+                <attribute name="clear">both</attribute>
+            </attribute-set>
+            
+            <attribute-set name="atsSubStepLabel">
+                <attribute name="font-family">$General_Step_Label_Font</attribute>
+                <attribute name="text-align">center</attribute>
+            </attribute-set>
+            
+            <attribute-set name="atsSubStepBody"></attribute-set>
             
             <!-- stepsection -->
             <attribute-set name="atsStepSection">
@@ -3046,5 +3067,8 @@ URL : http://www.antennahouse.com/
         </formatting-object>
 
     </formatting-objects>
+
+    <!-- DO NOT REMOVE! Style customization inclusion -->
+    <include href="../customization/default_style_custom.xml"/>
 
 </style-definition>
