@@ -24,12 +24,8 @@ E-mail : info@antennahouse.com
     <!-- NOTE: task/taskbody is implemented in dita2fo_topic.xsl as topic/body -->
     <!-- NOTE: task/prereq is implemented in dita2fo_topic.xsl as topic/section -->
     <!-- NOTE: task/context is implemented in dita2fo_topic.xsl as topic/section -->
-    <!-- //NOTE: task/steps is implemented in dita2fo_bodyelemets.xsl as topic/ol -->
     <!-- NOTE: task/steps-informal is implemented in dita2fo_bodyelemets.xsl as topic/section -->
     <!-- NOTE: task/steps-unordered is implemented in dita2fo_bodyelemets.xsl as topic/ul -->
-    <!-- //NOTE: task/step is implemented in dita2fo_bodyelemets.xsl as topic/li -->
-    <!-- NOTE: task/substeps is implemented in dita2fo_bodyelemets.xsl as topic/ol -->
-    <!-- NOTE: task/substep is implemented in dita2fo_bodyelemets.xsl as topic/li -->
     <!-- NOTE: task/choices is implemented in dita2fo_bodyelemets.xsl as topic/ul -->
     <!-- NOTE: task/choice is implemented in dita2fo_bodyelemets.xsl as topic/li -->
     
@@ -63,16 +59,11 @@ E-mail : info@antennahouse.com
                 <xsl:with-param name="prmNumberFormat" select="$numberFormat"/>
             </xsl:apply-templates>
         </fo:list-block>
-        <!--xsl:if test="not($pDisplayFnAtEndOfTopic)">
-            <xsl:call-template name="makeFootNote">
-                <xsl:with-param name="prmElement"  select="."/>
-            </xsl:call-template>
-        </xsl:if-->
     </xsl:template>
     
     <!-- 
      function:	steps/step template
-     param:	    
+     param:	    prmNumberFormat
      return:	fo:list-item
      note:		
      -->
@@ -131,7 +122,97 @@ E-mail : info@antennahouse.com
     
     <!-- Ignore floatfig in info -->
     <xsl:template match="*[contains(@class,' task/info ')]//*[contains(@class,' floatfig-d/floatfig ')]" priority="4"/>
+
+    <!-- 
+     function:	substeps template
+     param:	    
+     return:	fo:list-block
+     note:      No fn elements supposed in the steps		
+     -->
+    <xsl:template match="*[contains(@class, ' task/substeps ')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
+        <xsl:sequence select="'atsSubSteps'"/>
+    </xsl:template>
     
+    <xsl:template match="*[contains(@class,' task/substeps ')]" priority="2">
+        <xsl:call-template name="processSubSteps"/>
+    </xsl:template>
+    
+    <xsl:template name="processSubSteps">
+        <!-- Prefix of step -->
+        <xsl:variable name="stepNumberFormat" as="xs:string+">
+            <xsl:call-template name="getVarValueWithLangAsStringSequence">
+                <xsl:with-param name="prmVarName" select="'Step_Number_Formats'"/>
+            </xsl:call-template>
+        </xsl:variable>
+        <xsl:variable name="numberFormat" select="ahf:getOlNumberFormat(.,$stepNumberFormat)" as="xs:string"/>
+        <fo:list-block>
+            <xsl:call-template name="getAttributeSetWithLang"/>
+            <xsl:call-template name="ahf:getUnivAtts"/>
+            <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
+            <xsl:apply-templates>
+                <xsl:with-param name="prmNumberFormat" select="$numberFormat"/>
+            </xsl:apply-templates>
+        </fo:list-block>
+    </xsl:template>
+    
+    <!-- 
+     function:	substeps/substep template
+     param:	    prmNumberFormat
+     return:	fo:list-item
+     note:		
+     -->
+    <xsl:template match="*[contains(@class, ' task/substeps ')]/*[contains(@class,' task/substep ')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
+        <xsl:sequence select="'atsSubStepItem'"/>
+    </xsl:template>
+    
+    <xsl:template match="*[contains(@class,' task/substeps ')]/*[contains(@class,' task/substep ')]" priority="2">
+        <xsl:param name="prmNumberFormat" required="yes" as="xs:string"/>
+        
+        <xsl:call-template name="processSubStep">
+            <xsl:with-param name="prmNumberFormat" select="$prmNumberFormat"/>
+        </xsl:call-template>
+    </xsl:template>
+    
+    <xsl:template name="processSubStep">
+        <xsl:param name="prmNumberFormat" required="yes" as="xs:string"/>
+        
+        <fo:list-item>
+            <!-- Set list-item attribute. -->
+            <xsl:call-template name="getAttributeSetWithLang"/>
+            <xsl:call-template name="ahf:getUnivAtts"/>
+            <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
+            <fo:list-item-label end-indent="label-end()"> 
+                <fo:block>
+                    <xsl:call-template name="getAttributeSetWithLang">
+                        <xsl:with-param name="prmAttrSetName" select="'atsSubStepLabel'"/>
+                    </xsl:call-template>
+                    <xsl:number format="{$prmNumberFormat}" value="count(preceding-sibling::*[contains(@class,' topic/li ')]) + 1"/>
+                </fo:block>
+            </fo:list-item-label>
+            <fo:list-item-body start-indent="body-start()">
+                <xsl:call-template name="getAttributeSetWithLang">
+                    <xsl:with-param name="prmAttrSetName" select="'atsSubStepBody'"/>
+                </xsl:call-template>
+                <!-- Pull info/floatfig -->
+                <xsl:for-each select="*[contains(@class,' task/info ')]//*[contains(@class,' floatfig-d/floatfig ')]">
+                    <xsl:choose>
+                        <xsl:when test="string(@float) = ('left','right')">
+                            <xsl:call-template name="processFloatFigLR"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:call-template name="processFloatFigNone"/>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:for-each>
+                <fo:block>
+                    <xsl:call-template name="getAttributeSetWithLang">
+                        <xsl:with-param name="prmAttrSetName" select="'atsP'"/>
+                    </xsl:call-template>
+                    <xsl:apply-templates/>
+                </fo:block>
+            </fo:list-item-body>
+        </fo:list-item>
+    </xsl:template>
     
     <!-- 
      function:	stepsection template
