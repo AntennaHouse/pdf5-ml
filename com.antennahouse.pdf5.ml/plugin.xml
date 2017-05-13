@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin id="com.antennahouse.pdf5.ml">
+  <extension-point id="com.antennahouse.pdf5.ml.param" name="PDF XSLT parameters (JAXP)"/>
+  <extension-point id="com.antennahouse.pdf5.ml.saxon.param" name="PDF XSLT parameters (SAXON)"/>
+  <extension-point id="com.antennahouse.pdf5.ml.psmi.param" name="PDF XSLT parameters (PSMI)"/>
   <feature extension="dita.conductor.transtype.check" value="pdf5.ml" type="pdf"/>
   <feature extension="dita.conductor.target.relative" value="integrator.xml" type="file"/>
   <feature extension="dita.transtype.print" value="pdf5.ml"/>
+  <template file="build_transform_template.xml"/>
 </plugin>

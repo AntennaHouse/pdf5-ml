@@ -3,11 +3,13 @@
      Revision History
      - Newly created. 
        2015-05-07 t.makita
+     - Add parameter extension
+       2017-05-13 t.makita
      [Parameter] 
      prmInputFile:  Merged middle file path
      prmOutputFile: PDF file path
   -->
-<project name="build.transform">
+<project name="build.transform" xmlns:dita="http://dita-ot.sourceforge.net">
     <import file="build_ahf.xml"/>
 
     <!-- Genarate XSL-FO & PDF from merged middle fiel.
@@ -163,7 +165,8 @@
             <param name="PRM_INPUT_MAP_NAME" expression="${dita.map.filename.root}" if="dita.map.filename.root"/>
             <param name="PRM_DEBUG_INDEX_SORT_RESULT" expression="${debug.index.sort.result}" if="debug.index.sort.result"/>
             <param name="PRM_OUTPUT_INDEX" expression="${output.index}" if="output.index"/>
-            <param name="PRM_OT_VERSION" expression="${otversion}" if="otversion"/>
+            <param name="PRM_OT_VERSION" expression="${otversion}" if="otversion"/> 
+            <dita:extension id="com.antennahouse.pdf5.ml.param" behavior="org.dita.dost.platform.InsertAction"/>
             <sysproperty key="com.innodata.i18n.home" value="${i18n.home}"/>
             <sysproperty key="use.i18n.index.lib" value="${use.i18n.index.lib}"/>
         </xslt>
@@ -221,6 +224,7 @@
             <arg line='"PRM_DEBUG_INDEX_SORT_RESULT=${debug.index.sort.result}"'/>
             <arg line='"PRM_OUTPUT_INDEX=${output.index}"'/>
             <arg line='"PRM_OT_VERSION=${otversion}"'/>
+            <dita:extension id="com.antennahouse.pdf5.ml.saxon.param" behavior="org.dita.dost.platform.InsertAction"/>
             <sysproperty key="com.innodata.i18n.home" value="${i18n.home}"/>
             <sysproperty key="use.i18n.index.lib" value="${use.i18n.index.lib}"/>
         </java>
@@ -229,8 +233,9 @@
     <!-- Make XSL-FO from XSL-FO(PSMI) -->
     <target name="transform.psmi2fo">
         <property name="stylesheet" value="${xsl.dir}${file.separator}psmi.xsl"/>
-        <xslt processor="trax" in="${prmInputFile}" out="${prmOutputFile}" style="${stylesheet}"
-        > </xslt>
+        <xslt processor="trax" in="${prmInputFile}" out="${prmOutputFile}" style="${stylesheet}">
+            <dita:extension id="com.antennahouse.pdf5.ml.psmi.param" behavior="org.dita.dost.platform.InsertAction"/>
+        </xslt>
     </target>
 
 </project>
