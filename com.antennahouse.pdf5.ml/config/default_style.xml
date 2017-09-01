@@ -305,7 +305,7 @@ URL : http://www.antennahouse.com/
         <variable name="Draft_Comment_Disposition"> Status:</variable>
         <variable name="Draft_Comment_Title_Suffix">]</variable>
 
-        <!-- Trade Mrak -->
+        <!-- Trade Mark -->
         <variable name="Tm_Symbol_Tm">&#x2122;</variable>
         <variable name="Tm_Symbol_Reg">&#x00AE;</variable>
         <variable name="Tm_Symbol_Service">SM</variable>

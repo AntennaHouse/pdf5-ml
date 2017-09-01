@@ -5428,7 +5428,7 @@
         <file name="build.xml"/>
         <file name="build_ahf.xml"/>
         <file name="build_disp_properties.xml"/>
-        <file name="build_transform.xml"/>
+        <file name="build_transform_template.xml"/>
         <file name="integrator.xml"/>
         <file name="plugin.xml"/>
         <file name="revision.txt"/>
