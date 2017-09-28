@@ -440,9 +440,13 @@ URL : http://www.antennahouse.co.jp/
         <xsl:text>[parameter 1500F] Paper size parameter is invalid. Parameter=%param Supported value=%sptval.</xsl:text>
     </xsl:variable>
 
-    <!--xsl:variable name="stMes1600">
-        <xsl:text>[hasAutoEquationNumber 1600F] $prmEquationNumber does not have @class value 'equation-d/equation-number'. @class='%class'.</xsl:text>
-    </xsl:variable-->
+    <xsl:variable name="stMes1600">
+        <xsl:text>[makeTableCount 1600F] topicref/@href target does not found. href='%href' file=%file</xsl:text>
+    </xsl:variable>
+
+    <xsl:variable name="stMes1602">
+        <xsl:text>[makeFigureCount 1602F] topicref/@href target does not found. href='%href' file=%file</xsl:text>
+    </xsl:variable>
     
 
 </xsl:stylesheet>

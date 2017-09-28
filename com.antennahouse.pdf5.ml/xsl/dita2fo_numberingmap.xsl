@@ -92,23 +92,31 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <xsl:template match="*[contains(@class, ' map/topicref ')]" mode="TABLE_COUNT">
-        <xsl:variable name="level" select="count(ancestor-or-self::*[contains(@class, ' map/topicref ')][(starts-with(@href,'#')) or (contains(@class, ' mapgroup-d/topichead '))])"/>
-        <xsl:variable name="targetId" select="substring-after(@href, '#')"/>
-        <xsl:variable name="targetTopic" select="key('topicById', $targetId)[1]"/>
-        <xsl:variable name="topicId" select="ahf:generateId($targetTopic,.)"/>
-        <xsl:variable name="tableCount" select="count($targetTopic//*[contains(@class,' topic/table ')][child::*[contains(@class, ' topic/title ')]])"/>
-        <xsl:variable name="isFrontmatter" select="string(boolean(ancestor::*[contains(@class, ' bookmap/frontmatter ')]))"/>
-        <xsl:variable name="isBackmatter" select="string(boolean(ancestor::*[contains(@class, ' bookmap/backmatter ')]))"/>
-        <!--xsl:variable name="isToc" select="string(boolean((not(@toc)) or (@toc=$cYes)))"/-->
+        <xsl:variable name="level" as="xs:integer" select="count(ancestor-or-self::*[contains(@class, ' map/topicref ')][(starts-with(@href,'#')) or (contains(@class, ' mapgroup-d/topichead '))])"/>
+        <xsl:variable name="targetId" as="xs:string" select="substring-after(@href, '#')"/>
+        <xsl:variable name="targetTopic" as="element()?" select="key('topicById', $targetId)[1]"/>
+        <xsl:variable name="topicId" as="xs:string" select="if (exists($targetTopic)) then ahf:generateId($targetTopic,.) else ''"/>
+        <xsl:variable name="tableCount" as="xs:integer" select="if (exists($targetTopic)) then count($targetTopic//*[contains(@class,' topic/table ')][child::*[contains(@class, ' topic/title ')]]) else 0"/>
+        <xsl:variable name="isFrontmatter" as="xs:string" select="string(boolean(ancestor::*[contains(@class, ' bookmap/frontmatter ')]))"/>
+        <xsl:variable name="isBackmatter" as="xs:string" select="string(boolean(ancestor::*[contains(@class, ' bookmap/backmatter ')]))"/>
         <xsl:variable name="isToc" select="string(not(ahf:isTocNo(.)))"/>
-        <xsl:element name="tablecount">
-            <xsl:attribute name="level"         select="string($level)"/>
-            <xsl:attribute name="id"            select="$topicId"/>
-            <xsl:attribute name="count"         select="string($tableCount)"/>
-            <xsl:attribute name="isfrontmatter" select="$isFrontmatter"/>
-            <xsl:attribute name="isbackmatter"  select="$isBackmatter"/>
-            <xsl:attribute name="istoc"         select="$isToc"/>
-        </xsl:element>
+        <xsl:choose>
+            <xsl:when test="exists($targetTopic)">
+                <xsl:element name="tablecount">
+                    <xsl:attribute name="level"         select="string($level)"/>
+                    <xsl:attribute name="id"            select="$topicId"/>
+                    <xsl:attribute name="count"         select="string($tableCount)"/>
+                    <xsl:attribute name="isfrontmatter" select="$isFrontmatter"/>
+                    <xsl:attribute name="isbackmatter"  select="$isBackmatter"/>
+                    <xsl:attribute name="istoc"         select="$isToc"/>
+                </xsl:element>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:call-template name="warningContinue">
+                    <xsl:with-param name="prmMes" select="ahf:replace($stMes1600,('%href','%file'),(string(@href),string(@xtrf)))"/>
+                </xsl:call-template>                
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     
     <!-- 
@@ -263,23 +271,31 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <xsl:template match="*[contains(@class, ' map/topicref ')]" mode="FIGURE_COUNT">
-        <xsl:variable name="level" select="count(ancestor-or-self::*[contains(@class, ' map/topicref ')][(starts-with(@href,'#')) or (contains(@class, ' mapgroup-d/topichead '))])"/>
-        <xsl:variable name="targetId" select="substring-after(@href, '#')"/>
-        <xsl:variable name="targetTopic" select="key('topicById', $targetId)[1]"/>
-        <xsl:variable name="topicId" select="ahf:generateId($targetTopic,.)"/>
-        <xsl:variable name="figureCount" select="count($targetTopic//*[contains(@class,' topic/fig ')][child::*[contains(@class, ' topic/title ')]])"/>
-        <xsl:variable name="isFrontmatter" select="string(boolean(ancestor::*[contains(@class, ' bookmap/frontmatter ')]))"/>
-        <xsl:variable name="isBackmatter" select="string(boolean(ancestor::*[contains(@class, ' bookmap/backmatter ')]))"/>
-        <!--xsl:variable name="isToc" select="string(boolean((not(@toc)) or (@toc=$cYes)))"/-->
+        <xsl:variable name="level" as="xs:integer" select="count(ancestor-or-self::*[contains(@class, ' map/topicref ')][(starts-with(@href,'#')) or (contains(@class, ' mapgroup-d/topichead '))])"/>
+        <xsl:variable name="targetId" as="xs:string" select="substring-after(@href, '#')"/>
+        <xsl:variable name="targetTopic" as="element()?" select="key('topicById', $targetId)[1]"/>
+        <xsl:variable name="topicId" as="xs:string" select="if (exists($targetTopic)) then ahf:generateId($targetTopic,.) else ''"/>
+        <xsl:variable name="figureCount" as="xs:integer" select="if (exists($targetTopic)) then count($targetTopic//*[contains(@class,' topic/fig ')][child::*[contains(@class, ' topic/title ')]]) else 0"/>
+        <xsl:variable name="isFrontmatter" as="xs:string" select="string(boolean(ancestor::*[contains(@class, ' bookmap/frontmatter ')]))"/>
+        <xsl:variable name="isBackmatter" as="xs:string" select="string(boolean(ancestor::*[contains(@class, ' bookmap/backmatter ')]))"/>
         <xsl:variable name="isToc" select="string(not(ahf:isTocNo(.)))"/>
-        <xsl:element name="figurecount">
-            <xsl:attribute name="level"            select="string($level)"/>
-            <xsl:attribute name="id"               select="$topicId"/>
-            <xsl:attribute name="count"            select="string($figureCount)"/>
-            <xsl:attribute name="isfrontmatter"    select="$isFrontmatter"/>
-            <xsl:attribute name="isbackmatter"     select="$isBackmatter"/>
-            <xsl:attribute name="istoc"            select="$isToc"/>
-        </xsl:element>
+        <xsl:choose>
+            <xsl:when test="exists($targetTopic)">
+                <xsl:element name="figurecount">
+                    <xsl:attribute name="level"            select="string($level)"/>
+                    <xsl:attribute name="id"               select="$topicId"/>
+                    <xsl:attribute name="count"            select="string($figureCount)"/>
+                    <xsl:attribute name="isfrontmatter"    select="$isFrontmatter"/>
+                    <xsl:attribute name="isbackmatter"     select="$isBackmatter"/>
+                    <xsl:attribute name="istoc"            select="$isToc"/>
+                </xsl:element>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:call-template name="warningContinue">
+                    <xsl:with-param name="prmMes" select="ahf:replace($stMes1602,('%href','%file'),(string(@href),string(@xtrf)))"/>
+                </xsl:call-template>                
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     
     <!-- 
