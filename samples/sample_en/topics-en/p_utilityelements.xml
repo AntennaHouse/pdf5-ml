@@ -33,7 +33,7 @@ semantic, such as image maps.</shortdesc>
                 <area>
                     <shape>circle</shape>
                     <coords>120,154,29</coords>
-                    <xref format="html" href="test.html"></xref>
+                    <xref format="html" href="test.html" scope="external"></xref>
                 </area>
                 <area>
                     <shape>poly</shape>
