@@ -12,7 +12,7 @@
 <project name="build.transform" xmlns:dita="http://dita-ot.sourceforge.net">
     <import file="build_ahf.xml"/>
 
-    <!-- Genarate XSL-FO & PDF from merged middle fiel.
+    <!-- Genarate XSL-FO & PDF from merged middle file.
          Parameter：prmInputFile⇒Path of merged middle file
                     prmOutputFile⇒Path of output PDF file
       -->
