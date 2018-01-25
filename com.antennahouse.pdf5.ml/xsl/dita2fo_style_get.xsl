@@ -1311,10 +1311,12 @@
         <xsl:variable name="attr" as="xs:string" select="string(.)"/>
         <xsl:choose>
             <xsl:when test="ahf:containsAnyOf($attr,$prmSrcStr)">
-                <xsl:attribute name="{name(.)}" select="ahf:replace($attr,$prmSrcStr,$prmDstStr)"/>
+                <xsl:copy>
+                    <xsl:value-of select="ahf:replace($attr,$prmSrcStr,$prmDstStr)"/>
+                </xsl:copy>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:attribute name="{name(.)}" select="$attr"/>
+                <xsl:copy-of select="."/>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
