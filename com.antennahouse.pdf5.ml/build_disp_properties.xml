@@ -44,6 +44,7 @@
     <echo message="ahf.dir=${ahf.dir}"/>
     <echo message="ahf.opt=${ahf.opt}"/>
     <echo message="dita.input.dir.url=${dita.input.dir.url}"/>
+    <echo message="user.input.dir.url=${user.input.dir.url}"/>
     <echo message="dita.map.filename.root=${dita.map.filename.root}"/>
     <echo message="com.innodata.i18n.home=${i18n.home}"/>
     <echo message="use.i18n.index.lib=${use.i18n.index.lib}"/>
