@@ -102,7 +102,6 @@
         <echo message="use.i18n.index.lib=${use.i18n.index.lib}"/>
         <echo message="user.input.dir=${user.input.dir}"/>
         <property name="classpath" refid="project.class.path"/>
-        <echo message="classpath=${classpath}"/>
         <xslt processor="trax" in="${prmInputFile}" out="${prmOutputFile}"
             style="${prmStylesheetFile}" classpathref="project.class.path" force="true">
             <factory name="net.sf.saxon.TransformerFactoryImpl">
@@ -180,7 +179,6 @@
         <echo message="use.i18n.index.lib=${use.i18n.index.lib}"/>
         <echo message="user.input.dir=${user.input.dir}"/>
         <property name="classpath" refid="project.class.path"/>
-        <echo message="classpath=${classpath}"/>
 
         <java classname="${transformer.classname}" classpathref="project.class.path"
             failonerror="true">
