@@ -140,10 +140,17 @@ E-mail : info@antennahouse.com
         <xsl:choose>
             <!-- external link or no destination element-->
             <xsl:when test="empty($prmDestElement)">
-                <xsl:apply-templates select="$prmXref/child::node()">
-                    <xsl:with-param name="prmTopicRef" tunnel="yes" select="$prmTopicRef"/>
-                    <xsl:with-param name="prmNeedId"  tunnel="yes" select="false()"/>
-                </xsl:apply-templates>
+                <xsl:choose>
+                    <xsl:when test="exists($prmXref/child::node())">
+                        <xsl:apply-templates select="$prmXref/child::node()">
+                            <xsl:with-param name="prmTopicRef" tunnel="yes" select="$prmTopicRef"/>
+                            <xsl:with-param name="prmNeedId"  tunnel="yes" select="false()"/>
+                        </xsl:apply-templates>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="$prmXref/@href"/>
+                    </xsl:otherwise>
+                </xsl:choose>
             </xsl:when>
             
             <!-- topic -->
