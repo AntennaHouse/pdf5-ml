@@ -179,6 +179,9 @@
     
     <!-- Make URL for output directory -->
     <makeurl property="output.dir.url" file="${dita.map.output.dir}"/>
+
+    <!-- Make URL for temporary directory -->
+    <makeurl property="temp.dir.url" file="${dita.temp.dir}"/>
     
     <!-- Main target -->
     <target name="merged2pdf">

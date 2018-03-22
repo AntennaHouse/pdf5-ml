@@ -295,5 +295,11 @@ E-mail : info@antennahouse.com
      -->
     <xsl:param name="PRM_OUTPUT_INDEX" required="no" as="xs:string" select="$cYes"/>
     <xsl:variable name="pOutputIndex" as="xs:boolean" select="$PRM_OUTPUT_INDEX eq $cYes"/>
+
+    <!-- Temporary folder URL
+         2018-03-22 t.makita
+     -->
+    <xsl:param name="PRM_TEMP_DIR_URL" required="yes" as="xs:string"/>
+    <xsl:variable name="pTempDirUrl" as="xs:string" select="$PRM_TEMP_DIR_URL"/>
     
 </xsl:stylesheet>
