@@ -411,18 +411,18 @@ E-mail : info@antennahouse.com
                 </fo:inline>
             </xsl:when>
             
-            <!-- Others -->
+            <!-- Others: Adopt the content of xref itself
+                 2018-04-05 t.makita
+             -->
             <xsl:otherwise>
                 <xsl:call-template name="warningContinue">
                     <xsl:with-param name="prmMes"
                         select="ahf:replace($stMes035,('%id','%elem','%file'),(string($prmDestElement/@id),name($prmDestElement),string($prmDestElement/@xtrf)))"/>
                 </xsl:call-template>
                 <xsl:variable name="title" as="node()*">
-                    <xsl:apply-templates select="$prmDestElement" mode="TEXT_ONLY"/>
+                    <xsl:apply-templates select="$prmXref" mode="GET_CONTENTS"/>
                 </xsl:variable>
-                <fo:inline>
-                    <xsl:copy-of select="$title"/>
-                </fo:inline>
+                <xsl:copy-of select="$title"/>
             </xsl:otherwise>
         </xsl:choose>
 
