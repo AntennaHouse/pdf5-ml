@@ -113,14 +113,15 @@ URL : http://www.antennahouse.co.jp/
      param:		prmHref: @href
                 prmElem: Relevant element 
      return:	attribute()?
-     note:		
+     note:		Add single quote to url() to recognize URI for the reader correctly.
+                2018-04-10 t.makita
     -->
     <xsl:template name="getExternalDestinationAttr" as="attribute()*">
         <xsl:param name="prmHref" as="xs:string" required="yes"/>
         <xsl:param name="prmElem" as="element()" required="yes"/>
         <xsl:variable name="isLinkToInsidePdf" as="xs:boolean" select="matches($prmHref,'(\.PDF#|\.pdf#)')"/>
         <xsl:variable name="modifiedHref" as="xs:string" select="replace($prmHref,'(\.PDF#|\.pdf#)','$1nameddest=')"/>
-        <xsl:variable name="url" as="xs:string" select="concat('url(',$modifiedHref,')')"/>
+        <xsl:variable name="url" as="xs:string" select="concat('url(''',$modifiedHref,''')')"/>
         <xsl:attribute name="external-destination" select="$url"/>
         <xsl:if test="$isLinkToInsidePdf">
             <xsl:attribute name="axf:action-type" select="'gotor'"/>
