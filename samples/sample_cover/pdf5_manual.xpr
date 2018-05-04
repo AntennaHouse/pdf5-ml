@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project version="17.0">
+<project version="20.0">
     <meta>
         <filters directoryPatterns="" filePatterns="" positiveFilePatterns="" showHiddenFiles="false"/>
         <options>
-            <serialized version="17.0" xml:space="preserve">
+            <serialized version="20.0" xml:space="preserve">
                 <serializableOrderedMap>
                     <entry>
                         <String>catalogs.v5</String>
                         <String-array>
-                            <String>file:/D:/DITA-OT/dita-ot-2.1.0/catalog-dita.xml</String>
+                            <String>file:/D:/DITA-OT/dita-ot-3.0.3/catalog-dita.xml</String>
                         </String-array>
                     </entry>
                     <entry>
@@ -28,7 +28,7 @@
                                 </field>
                                 <field name="scenarioIds">
                                     <list>
-                                        <String>DITA Map PDF - PDF5-ML - Print Color</String>
+                                        <String>DITA Map PDF - PDF5-ML - WEB</String>
                                     </list>
                                 </field>
                                 <field name="scenarioTypes">
@@ -73,7 +73,7 @@
                                             <null/>
                                         </field>
                                         <field name="ditavalFilePath">
-                                            <String></String>
+                                            <null/>
                                         </field>
                                         <field name="simpleFiltersList">
                                             <list/>
@@ -87,6 +87,12 @@
                                     <null/>
                                 </field>
                                 <field name="lastCustomSkinCssPath">
+                                    <null/>
+                                </field>
+                                <field name="webhelpResponsiveTemplate">
+                                    <null/>
+                                </field>
+                                <field name="publishingTemplateDataPO">
                                     <null/>
                                 </field>
                                 <field name="additionalAntArgs">
@@ -108,7 +114,7 @@
                                                 <String>Formatter folder</String>
                                             </field>
                                             <field name="value">
-                                                <String>C:\Program Files\Antenna House\AHFormatterV62</String>
+                                                <String>C:\Program Files\Antenna House\AHFormatterV64</String>
                                             </field>
                                             <field name="defaultValue">
                                                 <null/>
@@ -117,6 +123,9 @@
                                                 <Integer>5</Integer>
                                             </field>
                                             <field name="possibleValues">
+                                                <null/>
+                                            </field>
+                                            <field name="possibleValuesDescriptions">
                                                 <null/>
                                             </field>
                                         </ditaParameter>
@@ -128,7 +137,7 @@
                                                 <String>Formatter setting file</String>
                                             </field>
                                             <field name="value">
-                                                <String>C:\Program Files\Antenna House\AHFormatterV62\ahf_setting.xml</String>
+                                                <String>C:\Program Files\Antenna House\AHFormatterV64\ahf_setting.xml</String>
                                             </field>
                                             <field name="defaultValue">
                                                 <null/>
@@ -137,6 +146,9 @@
                                                 <Integer>5</Integer>
                                             </field>
                                             <field name="possibleValues">
+                                                <null/>
+                                            </field>
+                                            <field name="possibleValuesDescriptions">
                                                 <null/>
                                             </field>
                                         </ditaParameter>
@@ -159,6 +171,9 @@
                                             <field name="possibleValues">
                                                 <null/>
                                             </field>
+                                            <field name="possibleValuesDescriptions">
+                                                <null/>
+                                            </field>
                                         </ditaParameter>
                                         <ditaParameter>
                                             <field name="name">
@@ -168,7 +183,7 @@
                                                 <null/>
                                             </field>
                                             <field name="value">
-                                                <String>D:\DITA-OT\dita-ot-2.1.0</String>
+                                                <String>D:\DITA-OT\dita-ot-3.0.3</String>
                                             </field>
                                             <field name="defaultValue">
                                                 <null/>
@@ -177,6 +192,9 @@
                                                 <Integer>3</Integer>
                                             </field>
                                             <field name="possibleValues">
+                                                <null/>
+                                            </field>
+                                            <field name="possibleValuesDescriptions">
                                                 <null/>
                                             </field>
                                         </ditaParameter>
@@ -199,6 +217,9 @@
                                             <field name="possibleValues">
                                                 <null/>
                                             </field>
+                                            <field name="possibleValuesDescriptions">
+                                                <null/>
+                                            </field>
                                         </ditaParameter>
                                         <ditaParameter>
                                             <field name="name">
@@ -219,6 +240,9 @@
                                             <field name="possibleValues">
                                                 <null/>
                                             </field>
+                                            <field name="possibleValuesDescriptions">
+                                                <null/>
+                                            </field>
                                         </ditaParameter>
                                         <ditaParameter>
                                             <field name="name">
@@ -234,22 +258,13 @@
                                                 <null/>
                                             </field>
                                             <field name="type">
-                                                <Integer>0</Integer>
+                                                <Integer>2</Integer>
                                             </field>
                                             <field name="possibleValues">
-                                                <String-array>
-                                                    <String>xhtml</String>
-                                                    <String>html5</String>
-                                                    <String>pdf2</String>
-                                                    <String>htmlhelp</String>
-                                                    <String>javahelp</String>
-                                                    <String>eclipsehelp</String>
-                                                    <String>eclipsecontent</String>
-                                                    <String>odt</String>
-                                                    <String>rtf</String>
-                                                    <String>troff</String>
-                                                    <String>docbook</String>
-                                                </String-array>
+                                                <null/>
+                                            </field>
+                                            <field name="possibleValuesDescriptions">
+                                                <null/>
                                             </field>
                                         </ditaParameter>
                                     </list>
@@ -391,7 +406,7 @@
                                             <null/>
                                         </field>
                                         <field name="ditavalFilePath">
-                                            <String></String>
+                                            <null/>
                                         </field>
                                         <field name="simpleFiltersList">
                                             <list/>
@@ -405,6 +420,12 @@
                                     <null/>
                                 </field>
                                 <field name="lastCustomSkinCssPath">
+                                    <null/>
+                                </field>
+                                <field name="webhelpResponsiveTemplate">
+                                    <null/>
+                                </field>
+                                <field name="publishingTemplateDataPO">
                                     <null/>
                                 </field>
                                 <field name="additionalAntArgs">
@@ -426,7 +447,7 @@
                                                 <String>Formatter folder</String>
                                             </field>
                                             <field name="value">
-                                                <String>C:\Program Files\Antenna House\AHFormatterV62</String>
+                                                <String>C:\Program Files\Antenna House\AHFormatterV64</String>
                                             </field>
                                             <field name="defaultValue">
                                                 <null/>
@@ -435,6 +456,9 @@
                                                 <Integer>5</Integer>
                                             </field>
                                             <field name="possibleValues">
+                                                <null/>
+                                            </field>
+                                            <field name="possibleValuesDescriptions">
                                                 <null/>
                                             </field>
                                         </ditaParameter>
@@ -446,7 +470,7 @@
                                                 <String>Formatter setting file</String>
                                             </field>
                                             <field name="value">
-                                                <String>C:\Program Files\Antenna House\AHFormatterV62\ahf_setting.xml</String>
+                                                <String>C:\Program Files\Antenna House\AHFormatterV64\ahf_setting.xml</String>
                                             </field>
                                             <field name="defaultValue">
                                                 <null/>
@@ -455,6 +479,9 @@
                                                 <Integer>5</Integer>
                                             </field>
                                             <field name="possibleValues">
+                                                <null/>
+                                            </field>
+                                            <field name="possibleValuesDescriptions">
                                                 <null/>
                                             </field>
                                         </ditaParameter>
@@ -477,6 +504,9 @@
                                             <field name="possibleValues">
                                                 <null/>
                                             </field>
+                                            <field name="possibleValuesDescriptions">
+                                                <null/>
+                                            </field>
                                         </ditaParameter>
                                         <ditaParameter>
                                             <field name="name">
@@ -486,7 +516,7 @@
                                                 <null/>
                                             </field>
                                             <field name="value">
-                                                <String>D:\DITA-OT\dita-ot-2.1.0</String>
+                                                <String>D:\DITA-OT\dita-ot-3.0.3</String>
                                             </field>
                                             <field name="defaultValue">
                                                 <null/>
@@ -495,6 +525,9 @@
                                                 <Integer>3</Integer>
                                             </field>
                                             <field name="possibleValues">
+                                                <null/>
+                                            </field>
+                                            <field name="possibleValuesDescriptions">
                                                 <null/>
                                             </field>
                                         </ditaParameter>
@@ -517,6 +550,9 @@
                                             <field name="possibleValues">
                                                 <null/>
                                             </field>
+                                            <field name="possibleValuesDescriptions">
+                                                <null/>
+                                            </field>
                                         </ditaParameter>
                                         <ditaParameter>
                                             <field name="name">
@@ -537,6 +573,9 @@
                                             <field name="possibleValues">
                                                 <null/>
                                             </field>
+                                            <field name="possibleValuesDescriptions">
+                                                <null/>
+                                            </field>
                                         </ditaParameter>
                                         <ditaParameter>
                                             <field name="name">
@@ -552,22 +591,13 @@
                                                 <null/>
                                             </field>
                                             <field name="type">
-                                                <Integer>0</Integer>
+                                                <Integer>2</Integer>
                                             </field>
                                             <field name="possibleValues">
-                                                <String-array>
-                                                    <String>xhtml</String>
-                                                    <String>html5</String>
-                                                    <String>pdf2</String>
-                                                    <String>htmlhelp</String>
-                                                    <String>javahelp</String>
-                                                    <String>eclipsehelp</String>
-                                                    <String>eclipsecontent</String>
-                                                    <String>odt</String>
-                                                    <String>rtf</String>
-                                                    <String>troff</String>
-                                                    <String>docbook</String>
-                                                </String-array>
+                                                <null/>
+                                            </field>
+                                            <field name="possibleValuesDescriptions">
+                                                <null/>
                                             </field>
                                         </ditaParameter>
                                     </list>
@@ -709,7 +739,7 @@
                                             <null/>
                                         </field>
                                         <field name="ditavalFilePath">
-                                            <String></String>
+                                            <null/>
                                         </field>
                                         <field name="simpleFiltersList">
                                             <list/>
@@ -723,6 +753,12 @@
                                     <null/>
                                 </field>
                                 <field name="lastCustomSkinCssPath">
+                                    <null/>
+                                </field>
+                                <field name="webhelpResponsiveTemplate">
+                                    <null/>
+                                </field>
+                                <field name="publishingTemplateDataPO">
                                     <null/>
                                 </field>
                                 <field name="additionalAntArgs">
@@ -744,7 +780,7 @@
                                                 <String>Formatter folder</String>
                                             </field>
                                             <field name="value">
-                                                <String>C:\Program Files\Antenna House\AHFormatterV62</String>
+                                                <String>C:\Program Files\Antenna House\AHFormatterV64</String>
                                             </field>
                                             <field name="defaultValue">
                                                 <null/>
@@ -753,6 +789,9 @@
                                                 <Integer>5</Integer>
                                             </field>
                                             <field name="possibleValues">
+                                                <null/>
+                                            </field>
+                                            <field name="possibleValuesDescriptions">
                                                 <null/>
                                             </field>
                                         </ditaParameter>
@@ -764,7 +803,7 @@
                                                 <String>Formatter setting file</String>
                                             </field>
                                             <field name="value">
-                                                <String>C:\Program Files\Antenna House\AHFormatterV62\ahf_setting.xml</String>
+                                                <String>C:\Program Files\Antenna House\AHFormatterV64\ahf_setting.xml</String>
                                             </field>
                                             <field name="defaultValue">
                                                 <null/>
@@ -773,6 +812,9 @@
                                                 <Integer>5</Integer>
                                             </field>
                                             <field name="possibleValues">
+                                                <null/>
+                                            </field>
+                                            <field name="possibleValuesDescriptions">
                                                 <null/>
                                             </field>
                                         </ditaParameter>
@@ -795,6 +837,9 @@
                                             <field name="possibleValues">
                                                 <null/>
                                             </field>
+                                            <field name="possibleValuesDescriptions">
+                                                <null/>
+                                            </field>
                                         </ditaParameter>
                                         <ditaParameter>
                                             <field name="name">
@@ -804,7 +849,7 @@
                                                 <null/>
                                             </field>
                                             <field name="value">
-                                                <String>D:\DITA-OT\dita-ot-2.1.0</String>
+                                                <String>D:\DITA-OT\dita-ot-3.0.3</String>
                                             </field>
                                             <field name="defaultValue">
                                                 <null/>
@@ -813,6 +858,9 @@
                                                 <Integer>3</Integer>
                                             </field>
                                             <field name="possibleValues">
+                                                <null/>
+                                            </field>
+                                            <field name="possibleValuesDescriptions">
                                                 <null/>
                                             </field>
                                         </ditaParameter>
@@ -835,6 +883,9 @@
                                             <field name="possibleValues">
                                                 <null/>
                                             </field>
+                                            <field name="possibleValuesDescriptions">
+                                                <null/>
+                                            </field>
                                         </ditaParameter>
                                         <ditaParameter>
                                             <field name="name">
@@ -855,6 +906,9 @@
                                             <field name="possibleValues">
                                                 <null/>
                                             </field>
+                                            <field name="possibleValuesDescriptions">
+                                                <null/>
+                                            </field>
                                         </ditaParameter>
                                         <ditaParameter>
                                             <field name="name">
@@ -870,22 +924,13 @@
                                                 <null/>
                                             </field>
                                             <field name="type">
-                                                <Integer>0</Integer>
+                                                <Integer>2</Integer>
                                             </field>
                                             <field name="possibleValues">
-                                                <String-array>
-                                                    <String>xhtml</String>
-                                                    <String>html5</String>
-                                                    <String>pdf2</String>
-                                                    <String>htmlhelp</String>
-                                                    <String>javahelp</String>
-                                                    <String>eclipsehelp</String>
-                                                    <String>eclipsecontent</String>
-                                                    <String>odt</String>
-                                                    <String>rtf</String>
-                                                    <String>troff</String>
-                                                    <String>docbook</String>
-                                                </String-array>
+                                                <null/>
+                                            </field>
+                                            <field name="possibleValuesDescriptions">
+                                                <null/>
                                             </field>
                                         </ditaParameter>
                                     </list>

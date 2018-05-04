@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="urn:oasis:names:tc:dita:rng:subjectScheme.rng" schematypens="http://relaxng.org/ns/structure/1.0"?> 
+<?xml-model href="urn:oasis:names:tc:dita:spec:classification:rng:subjectScheme.rng" schematypens="http://relaxng.org/ns/structure/1.0"?> 
 <subjectScheme>
     <subjectdef keys="output-type" navtitle="Output Type">
         <subjectdef keys="pdf-web" navtitle="PDF For WEB"/>

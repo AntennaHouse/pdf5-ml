@@ -34,11 +34,11 @@
         <entry fo:prop="font-family:sans-serif;font-size:9pt;padding-start:2mm;padding-end:2mm;padding-after:3mm;"> 
          <p fo:prop="font-weight:bold;"><ph>User's Guide</ph> 
          </p> 
-         <p>To get the newest information, visit our website at <br/><xref href="https://github.com/AntennaHouse/pdf5-ml" scope="external" format="html">https://github.com/AntennaHouse/pdf5-ml</xref>. </p>
+         <p>To get the newest information, visit our website at <br/><xref href="https://github.com/AntennaHouse/pdf5-ml" scope="external" format="html" type="html">https://github.com/AntennaHouse/pdf5-ml</xref>. </p>
         </entry> 
         <entry> 
          <p fo:prop="text-align:start;"> 
-          <data name="qrcode" href="https://github.com/AntennaHouse/pdf5-ml" fo:prop="content-width:20mm;"/> 
+          <data name="qrcode" href="https://github.com/AntennaHouse/pdf5-ml" scope="external" format="html" type="html" fo:prop="content-width:20mm;"/> 
          </p> 
         </entry>
        </row>

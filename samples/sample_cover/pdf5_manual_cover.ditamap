@@ -7,7 +7,7 @@
         <booktitlealt>For <keyword keyref="DITA-OT"/></booktitlealt>
     </booktitle>
     <bookmeta>
-        <source href="http://www.antennahouse.com"><keyword keyref="ME-SHORT"/> Home page</source>
+        <source href="http://www.antennahouse.com" scope="external" format="html"><keyword keyref="ME-SHORT"/> Home page</source>
         <publisherinformation>
             <organization><keyword keyref="ME-LONG"/></organization>
             <printlocation>Japan</printlocation>
