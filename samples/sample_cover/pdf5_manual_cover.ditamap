@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="urn:oasis:names:tc:dita:rng:bookmap.rng" schematypens="http://relaxng.org/ns/structure/1.0"?> 
+<!DOCTYPE bookmap PUBLIC "-//OASIS//DTD DITA BookMap//EN" "map.dtd">
 <bookmap id="bookmap_26F29B320CC448C6BDEE032B001C3627" xml:lang="en">
     <booktitle>
         <booklibrary><keyword keyref="ME-SHORT"/> <keyword keyref="PLUGIN-NAME"/> plug-in</booklibrary>
