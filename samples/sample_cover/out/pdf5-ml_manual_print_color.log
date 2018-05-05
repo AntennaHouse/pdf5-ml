@@ -1,5 +1,5 @@
 Executing:
-"c:\program files\oxygen xml editor 20\jre/bin/java" -Dfile.encoding=UTF-8 -Xmx384m "-Doxygen.org.apache.xerces.xni.parser.XMLParserConfiguration=org.ditang.relaxng.defaults.RelaxDefaultsParserConfiguration" -classpath "C:\Program Files\Oxygen XML Editor 20\tools\ant/lib/ant-launcher.jar" "-Dant.home=C:\Program Files\Oxygen XML Editor 20\tools\ant" org.apache.tools.ant.launch.Launcher -lib "D:\DITA-OT\dita-ot-3.0.3\lib\commons-io-2.5.jar" -lib "D:\DITA-OT\dita-ot-3.0.3\config" -lib "C:\Program Files\Oxygen XML Editor 20\classes" -lib "C:\Program Files\Oxygen XML Editor 20\lib\oxygen.jar" -lib "C:\Program Files\Oxygen XML Editor 20\lib\oxygenAuthor.jar" -lib "C:\Program Files\Oxygen XML Editor 20\lib\oxygenDeveloper.jar" -lib "C:\Program Files\Oxygen XML Editor 20\lib\oxygenEclipse.jar" -lib "C:\Program Files\Oxygen XML Editor 20\lib\oxygenAuthorEclipse.jar" -lib "C:\Program Files\Oxygen XML Editor 20\lib\oxygenDeveloperEclipse.jar" -lib "C:\Program Files\Oxygen XML Editor 20\lib\oxygen-webhelp-indexer.jar" -lib "C:\Program Files\Oxygen XML Editor 20\lib\oxygen-publishing-template.jar" -lib "C:\Program Files\Oxygen XML Editor 20\lib\oxygen-webhelp-xslt-extensions.jar" -lib "C:\Program Files\Oxygen XML Editor 20\lib\resolver.jar" -lib "C:\Program Files\Oxygen XML Editor 20\lib\oxygen-token-markers.jar" -lib "C:\Program Files\Oxygen XML Editor 20\lib\org.eclipse.wst.xml.xpath2.processor_1.2.0.jar" -lib "C:\Program Files\Oxygen XML Editor 20\lib\xml-apis.jar" -lib "C:\Program Files\Oxygen XML Editor 20\lib\xercesImpl.jar" -lib "C:\Program Files\Oxygen XML Editor 20\lib\commons-io-1.3.1.jar" -lib "C:\Program Files\Oxygen XML Editor 20\lib\commons-logging-1.2.jar" -lib "C:\Program Files\Oxygen XML Editor 20\lib\log4j.jar" -lib "D:\DITA-OT\dita-ot-3.0.3\lib\commons-codec-1.10.jar" -lib "C:\Program Files\Oxygen XML Editor 20\lib\jing.jar" -lib "C:\Program Files\Oxygen XML Editor 20\lib\saxon9ee.jar" -lib "C:\Program Files\Oxygen XML Editor 20\lib\saxon.jar" -lib "C:\Program Files\Oxygen XML Editor 20\lib\xmlgraphics-commons-2.2.jar" -lib "C:\Program Files\Oxygen XML Editor 20\lib\fop.jar" -lib "C:\Program Files\Oxygen XML Editor 20\lib\fontbox-2.0.4.jar" -lib "C:\Program Files\Oxygen XML Editor 20\lib\pdfbox-2.0.4.jar" -lib "C:\Program Files\Oxygen XML Editor 20\lib\fop-pdf-images-2.2.jar" -lib "C:\Program Files\Oxygen XML Editor 20\lib\batik-all-1.9.jar" -lib "C:\Program Files\Oxygen XML Editor 20\lib\js.jar" -lib "C:\Program Files\Oxygen XML Editor 20\lib\poi-3.10-FINAL-20140208.jar" -lib "C:\Program Files\Oxygen XML Editor 20\lib\nekohtml.jar" -lib "C:\Program Files\Oxygen XML Editor 20\lib\xml-apis-ext.jar" -lib "C:\Program Files\Oxygen XML Editor 20\lib\avalon-framework-api-4.3.1.jar" -lib "C:\Program Files\Oxygen XML Editor 20\lib\avalon-framework-impl-4.3.1.jar" -lib "C:\Program Files\Oxygen XML Editor 20\lib\jeuclid-core.jar" -lib "C:\Program Files\Oxygen XML Editor 20\lib\jeuclid-fop.jar" -lib "C:\Program Files\Oxygen XML Editor 20\lib\oxygen-jai-tiff.jar" -lib "C:\Program Files\Oxygen XML Editor 20\lib\jh.jar" -lib "D:\DITA-OT\dita-ot-3.0.3\lib\jsearch.jar" -lib "C:\Program Files\Oxygen XML Editor 20\lib\lucene-analyzers-common-4.7.2.jar" -lib "C:\Program Files\Oxygen XML Editor 20\lib\lucene-analyzers-kuromoji-4.7.2.jar" -lib "C:\Program Files\Oxygen XML Editor 20\lib\lucene-core-4.7.2.jar" -lib "C:\Program Files\Oxygen XML Editor 20\lib\lucene-misc-4.7.2.jar" -lib "C:\Program Files\Oxygen XML Editor 20\lib\lucene-queries-4.7.2.jar" -lib "C:\Program Files\Oxygen XML Editor 20\lib\lucene-queryparser-4.7.2.jar" -lib "C:\Program Files\Oxygen XML Editor 20\lib\lucene-suggest-4.7.2.jar" -lib "D:\DITA-OT\dita-ot-3.0.3" -lib "D:\DITA-OT\dita-ot-3.0.3\target\classes" -lib "D:\DITA-OT\dita-ot-3.0.3\lib" -lib "D:\DITA-OT\dita-ot-3.0.3\lib\ant-apache-resolver-1.10.1.jar" -lib "D:\DITA-OT\dita-ot-3.0.3\lib\ant-launcher.jar" -lib "D:\DITA-OT\dita-ot-3.0.3\lib\ant.jar" -lib "D:\DITA-OT\dita-ot-3.0.3\lib\commons-codec-1.10.jar" -lib "D:\DITA-OT\dita-ot-3.0.3\lib\commons-io-2.5.jar" -lib "D:\DITA-OT\dita-ot-3.0.3\lib\dost-configuration.jar" -lib "D:\DITA-OT\dita-ot-3.0.3\lib\dost.jar" -lib "D:\DITA-OT\dita-ot-3.0.3\lib\guava-19.0.jar" -lib "D:\DITA-OT\dita-ot-3.0.3\lib\icu4j-57.1.jar" -lib "D:\DITA-OT\dita-ot-3.0.3\lib\logback-classic-1.2.1.jar" -lib "D:\DITA-OT\dita-ot-3.0.3\lib\logback-core-1.2.1.jar" -lib "D:\DITA-OT\dita-ot-3.0.3\lib\Saxon-HE-9.8.0-7.jar" -lib "D:\DITA-OT\dita-ot-3.0.3\lib\slf4j-api-1.7.23.jar" -lib "D:\DITA-OT\dita-ot-3.0.3\lib\xercesImpl-2.11.0.jar" -lib "D:\DITA-OT\dita-ot-3.0.3\lib\xml-apis-1.4.01.jar" -lib "D:\DITA-OT\dita-ot-3.0.3\lib\xml-resolver-1.2.jar" -f "D:\DITA-OT\dita-ot-3.0.3/build.xml" "-Dtranstype=pdf5.ml" "-Dbasedir=D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover" "-Doutput.dir=D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover/out" "-Ddita.temp.dir=D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover/temp/oxygen_dita_temp" "-Dpdf.formatter=ah" "-Dargs.filter=D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover/pdf5_ml_print_color.ditaval" "-Dargs.input=D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\pdf5_manual_cover.ditamap" "-Ddita.dir=D:\DITA-OT\dita-ot-3.0.3" "-Dahf.dir=C:\Program Files\Antenna House\AHFormatterV64" "-Dahf.opt=C:\Program Files\Antenna House\AHFormatterV64\ahf_setting.xml" "-Doutput.pdf=pdf5-ml_manual_print_color.pdf" "-Doutput.type=print-color" "-DbaseJVMArgLine=-Xmx384m"
+"c:\program files\oxygen xml editor 20\jre/bin/java" -Dfile.encoding=UTF-8 -Xmx384m "-Doxygen.org.apache.xerces.xni.parser.XMLParserConfiguration=org.ditang.relaxng.defaults.RelaxDefaultsParserConfiguration" -classpath "C:\Program Files\Oxygen XML Editor 20\tools\ant/lib/ant-launcher.jar" "-Dant.home=C:\Program Files\Oxygen XML Editor 20\tools\ant" org.apache.tools.ant.launch.Launcher -lib "D:\DITA-OT\dita-ot-3.0.3\lib\commons-io-2.5.jar" -lib "D:\DITA-OT\dita-ot-3.0.3\config" -lib "C:\Program Files\Oxygen XML Editor 20\classes" -lib "C:\Program Files\Oxygen XML Editor 20\lib\oxygen.jar" -lib "C:\Program Files\Oxygen XML Editor 20\lib\oxygenAuthor.jar" -lib "C:\Program Files\Oxygen XML Editor 20\lib\oxygenDeveloper.jar" -lib "C:\Program Files\Oxygen XML Editor 20\lib\oxygenEclipse.jar" -lib "C:\Program Files\Oxygen XML Editor 20\lib\oxygenAuthorEclipse.jar" -lib "C:\Program Files\Oxygen XML Editor 20\lib\oxygenDeveloperEclipse.jar" -lib "C:\Program Files\Oxygen XML Editor 20\lib\oxygen-webhelp-indexer.jar" -lib "C:\Program Files\Oxygen XML Editor 20\lib\oxygen-publishing-template.jar" -lib "C:\Program Files\Oxygen XML Editor 20\lib\oxygen-webhelp-xslt-extensions.jar" -lib "C:\Program Files\Oxygen XML Editor 20\lib\resolver.jar" -lib "C:\Program Files\Oxygen XML Editor 20\lib\oxygen-token-markers.jar" -lib "C:\Program Files\Oxygen XML Editor 20\lib\org.eclipse.wst.xml.xpath2.processor_1.2.0.jar" -lib "C:\Program Files\Oxygen XML Editor 20\lib\xml-apis.jar" -lib "C:\Program Files\Oxygen XML Editor 20\lib\xercesImpl.jar" -lib "C:\Program Files\Oxygen XML Editor 20\lib\commons-io-1.3.1.jar" -lib "C:\Program Files\Oxygen XML Editor 20\lib\commons-logging-1.2.jar" -lib "C:\Program Files\Oxygen XML Editor 20\lib\log4j.jar" -lib "D:\DITA-OT\dita-ot-3.0.3\lib\commons-codec-1.10.jar" -lib "C:\Program Files\Oxygen XML Editor 20\lib\jing.jar" -lib "C:\Program Files\Oxygen XML Editor 20\lib\saxon9ee.jar" -lib "C:\Program Files\Oxygen XML Editor 20\lib\saxon.jar" -lib "C:\Program Files\Oxygen XML Editor 20\lib\xmlgraphics-commons-2.2.jar" -lib "C:\Program Files\Oxygen XML Editor 20\lib\fop.jar" -lib "C:\Program Files\Oxygen XML Editor 20\lib\fontbox-2.0.4.jar" -lib "C:\Program Files\Oxygen XML Editor 20\lib\pdfbox-2.0.4.jar" -lib "C:\Program Files\Oxygen XML Editor 20\lib\fop-pdf-images-2.2.jar" -lib "C:\Program Files\Oxygen XML Editor 20\lib\batik-all-1.9.jar" -lib "C:\Program Files\Oxygen XML Editor 20\lib\js.jar" -lib "C:\Program Files\Oxygen XML Editor 20\lib\poi-3.10-FINAL-20140208.jar" -lib "C:\Program Files\Oxygen XML Editor 20\lib\nekohtml.jar" -lib "C:\Program Files\Oxygen XML Editor 20\lib\xml-apis-ext.jar" -lib "C:\Program Files\Oxygen XML Editor 20\lib\avalon-framework-api-4.3.1.jar" -lib "C:\Program Files\Oxygen XML Editor 20\lib\avalon-framework-impl-4.3.1.jar" -lib "C:\Program Files\Oxygen XML Editor 20\lib\jeuclid-core.jar" -lib "C:\Program Files\Oxygen XML Editor 20\lib\jeuclid-fop.jar" -lib "C:\Program Files\Oxygen XML Editor 20\lib\oxygen-jai-tiff.jar" -lib "C:\Program Files\Oxygen XML Editor 20\lib\jh.jar" -lib "D:\DITA-OT\dita-ot-3.0.3\lib\jsearch.jar" -lib "C:\Program Files\Oxygen XML Editor 20\lib\lucene-analyzers-common-4.7.2.jar" -lib "C:\Program Files\Oxygen XML Editor 20\lib\lucene-analyzers-kuromoji-4.7.2.jar" -lib "C:\Program Files\Oxygen XML Editor 20\lib\lucene-core-4.7.2.jar" -lib "C:\Program Files\Oxygen XML Editor 20\lib\lucene-misc-4.7.2.jar" -lib "C:\Program Files\Oxygen XML Editor 20\lib\lucene-queries-4.7.2.jar" -lib "C:\Program Files\Oxygen XML Editor 20\lib\lucene-queryparser-4.7.2.jar" -lib "C:\Program Files\Oxygen XML Editor 20\lib\lucene-suggest-4.7.2.jar" -lib "D:\DITA-OT\dita-ot-3.0.3" -lib "D:\DITA-OT\dita-ot-3.0.3\target\classes" -lib "D:\DITA-OT\dita-ot-3.0.3\lib" -lib "D:\DITA-OT\dita-ot-3.0.3\lib\ant-apache-resolver-1.10.1.jar" -lib "D:\DITA-OT\dita-ot-3.0.3\lib\ant-launcher.jar" -lib "D:\DITA-OT\dita-ot-3.0.3\lib\ant.jar" -lib "D:\DITA-OT\dita-ot-3.0.3\lib\commons-codec-1.10.jar" -lib "D:\DITA-OT\dita-ot-3.0.3\lib\commons-io-2.5.jar" -lib "D:\DITA-OT\dita-ot-3.0.3\lib\dost-configuration.jar" -lib "D:\DITA-OT\dita-ot-3.0.3\lib\dost.jar" -lib "D:\DITA-OT\dita-ot-3.0.3\lib\guava-19.0.jar" -lib "D:\DITA-OT\dita-ot-3.0.3\lib\icu4j-57.1.jar" -lib "D:\DITA-OT\dita-ot-3.0.3\lib\logback-classic-1.2.1.jar" -lib "D:\DITA-OT\dita-ot-3.0.3\lib\logback-core-1.2.1.jar" -lib "D:\DITA-OT\dita-ot-3.0.3\lib\Saxon-HE-9.8.0-7.jar" -lib "D:\DITA-OT\dita-ot-3.0.3\lib\slf4j-api-1.7.23.jar" -lib "D:\DITA-OT\dita-ot-3.0.3\lib\xercesImpl-2.11.0.jar" -lib "D:\DITA-OT\dita-ot-3.0.3\lib\xml-apis-1.4.01.jar" -lib "D:\DITA-OT\dita-ot-3.0.3\lib\xml-resolver-1.2.jar" -f "D:\DITA-OT\dita-ot-3.0.3/build.xml" "-Dtranstype=pdf5.ml" "-Dbasedir=D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover" "-Doutput.dir=D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover/out" "-Ddita.temp.dir=D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover/temp" "-Dpdf.formatter=ah" "-Dargs.filter=D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover/pdf5_ml_print_color.ditaval" "-Dargs.input=D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\pdf5_manual_cover.ditamap" "-Ddita.dir=D:\DITA-OT\dita-ot-3.0.3" "-Dahf.dir=C:\Program Files\Antenna House\AHFormatterV64" "-Dahf.opt=C:\Program Files\Antenna House\AHFormatterV64\ahf_setting.xml" "-Doutput.pdf=pdf5-ml_manual_print_color.pdf" "-Doutput.type=print-color" "-DbaseJVMArgLine=-Xmx384m"
 
 Buildfile: D:\DITA-OT\dita-ot-3.0.3\build.xml
 
@@ -8,14 +8,14 @@ init:
 init-properties:
 
 check-arg:
-    [mkdir] Created dir: D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\oxygen_dita_temp
+    [mkdir] Created dir: D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp
 
 log-arg:
      [echo] *****************************************************************
      [echo] * basedir = D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover
      [echo] * dita.dir = D:\DITA-OT\dita-ot-3.0.3
      [echo] * transtype = pdf5.ml
-     [echo] * tempdir = D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover/temp/oxygen_dita_temp
+     [echo] * tempdir = D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover/temp
      [echo] * outputdir = D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover/out
      [echo] * clean.temp = true
      [echo] * DITA-OT version = 3.0.3
@@ -24,7 +24,7 @@ log-arg:
      [echo] * collator = ICU
      [echo] *****************************************************************
      [echo] #Ant properties
-     [echo] #Sat May 05 00:25:45 JST 2018
+     [echo] #Sat May 05 20:37:02 JST 2018
      [echo] args.filter=D\:\\My_Documents\\GitHub\\pdf5-ml\\samples\\sample_cover/pdf5_ml_print_color.ditaval
      [echo] args.grammar.cache=yes
      [echo] args.input=D\:\\My_Documents\\GitHub\\pdf5-ml\\samples\\sample_cover\\pdf5_manual_cover.ditamap
@@ -52,7 +52,7 @@ log-arg:
      [echo] dita.plugin.org.lwdita.dir=D\:\\DITA-OT\\dita-ot-3.0.3\\plugins\\org.lwdita
      [echo] dita.plugin.org.oasis-open.dita.v1_2.dir=D\:\\DITA-OT\\dita-ot-3.0.3\\plugins\\org.oasis-open.dita.v1_2
      [echo] dita.plugin.org.oasis-open.dita.v1_3.dir=D\:\\DITA-OT\\dita-ot-3.0.3\\plugins\\org.oasis-open.dita.v1_3
-     [echo] dita.temp.dir=D\:\\My_Documents\\GitHub\\pdf5-ml\\samples\\sample_cover/temp/oxygen_dita_temp
+     [echo] dita.temp.dir=D\:\\My_Documents\\GitHub\\pdf5-ml\\samples\\sample_cover/temp
      [echo] preprocess.chunk.skip=true
      [echo] preprocess.copy-html.skip=true
      [echo] preprocess.copy-image.skip=true
@@ -82,62 +82,62 @@ gen-list:
 
 debug-filter:
    [filter] Using Xerces grammar pool for DTD and schema caching.
-   [filter] Processing file:/D:/My_Documents/GitHub/pdf5-ml/samples/sample_cover/topics-en/c_DummyCover.dita to file:/D:/My_Documents/GitHub/pdf5-ml/samples/sample_cover/temp/oxygen_dita_temp/topics-en/c_DummyCover.dita
-   [filter] Processing file:/D:/My_Documents/GitHub/pdf5-ml/samples/sample_cover/pdf5_manual_cover.ditamap to file:/D:/My_Documents/GitHub/pdf5-ml/samples/sample_cover/temp/oxygen_dita_temp/pdf5_manual_cover.ditamap
-   [filter] Processing file:/D:/My_Documents/GitHub/pdf5-ml/samples/sample_cover/delivery_type.ditamap to file:/D:/My_Documents/GitHub/pdf5-ml/samples/sample_cover/temp/oxygen_dita_temp/delivery_type.ditamap
-   [filter] Processing file:/D:/My_Documents/GitHub/pdf5-ml/samples/sample_cover/keydef_cover_image.ditamap to file:/D:/My_Documents/GitHub/pdf5-ml/samples/sample_cover/temp/oxygen_dita_temp/keydef_cover_image.ditamap
-   [filter] Processing file:/D:/My_Documents/GitHub/pdf5-ml/samples/sample_cover/keydef_pdf5.ditamap to file:/D:/My_Documents/GitHub/pdf5-ml/samples/sample_cover/temp/oxygen_dita_temp/keydef_pdf5.ditamap
-   [filter] Processing file:/D:/My_Documents/GitHub/pdf5-ml/samples/sample_cover/topics-en/c_Chapter2.dita to file:/D:/My_Documents/GitHub/pdf5-ml/samples/sample_cover/temp/oxygen_dita_temp/topics-en/c_Chapter2.dita
-   [filter] Processing file:/D:/My_Documents/GitHub/pdf5-ml/samples/sample_cover/topics-en/c_Cover1.dita to file:/D:/My_Documents/GitHub/pdf5-ml/samples/sample_cover/temp/oxygen_dita_temp/topics-en/c_Cover1.dita
-   [filter] Processing file:/D:/My_Documents/GitHub/pdf5-ml/samples/sample_cover/topics-en/c_Cover4.dita to file:/D:/My_Documents/GitHub/pdf5-ml/samples/sample_cover/temp/oxygen_dita_temp/topics-en/c_Cover4.dita
-   [filter] Processing file:/D:/My_Documents/GitHub/pdf5-ml/samples/sample_cover/topics-en/c_Chapter1.dita to file:/D:/My_Documents/GitHub/pdf5-ml/samples/sample_cover/temp/oxygen_dita_temp/topics-en/c_Chapter1.dita
-[job-helper] Processing D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\oxygen_dita_temp\.job.xml to D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\oxygen_dita_temp\canditopics.list
+   [filter] Processing file:/D:/My_Documents/GitHub/pdf5-ml/samples/sample_cover/topics-en/c_DummyCover.dita to file:/D:/My_Documents/GitHub/pdf5-ml/samples/sample_cover/temp/topics-en/c_DummyCover.dita
+   [filter] Processing file:/D:/My_Documents/GitHub/pdf5-ml/samples/sample_cover/pdf5_manual_cover.ditamap to file:/D:/My_Documents/GitHub/pdf5-ml/samples/sample_cover/temp/pdf5_manual_cover.ditamap
+   [filter] Processing file:/D:/My_Documents/GitHub/pdf5-ml/samples/sample_cover/delivery_type.ditamap to file:/D:/My_Documents/GitHub/pdf5-ml/samples/sample_cover/temp/delivery_type.ditamap
+   [filter] Processing file:/D:/My_Documents/GitHub/pdf5-ml/samples/sample_cover/keydef_cover_image.ditamap to file:/D:/My_Documents/GitHub/pdf5-ml/samples/sample_cover/temp/keydef_cover_image.ditamap
+   [filter] Processing file:/D:/My_Documents/GitHub/pdf5-ml/samples/sample_cover/keydef_pdf5.ditamap to file:/D:/My_Documents/GitHub/pdf5-ml/samples/sample_cover/temp/keydef_pdf5.ditamap
+   [filter] Processing file:/D:/My_Documents/GitHub/pdf5-ml/samples/sample_cover/topics-en/c_Chapter2.dita to file:/D:/My_Documents/GitHub/pdf5-ml/samples/sample_cover/temp/topics-en/c_Chapter2.dita
+   [filter] Processing file:/D:/My_Documents/GitHub/pdf5-ml/samples/sample_cover/topics-en/c_Cover1.dita to file:/D:/My_Documents/GitHub/pdf5-ml/samples/sample_cover/temp/topics-en/c_Cover1.dita
+   [filter] Processing file:/D:/My_Documents/GitHub/pdf5-ml/samples/sample_cover/topics-en/c_Cover4.dita to file:/D:/My_Documents/GitHub/pdf5-ml/samples/sample_cover/temp/topics-en/c_Cover4.dita
+   [filter] Processing file:/D:/My_Documents/GitHub/pdf5-ml/samples/sample_cover/topics-en/c_Chapter1.dita to file:/D:/My_Documents/GitHub/pdf5-ml/samples/sample_cover/temp/topics-en/c_Chapter1.dita
+[job-helper] Processing D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\.job.xml to D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\canditopics.list
 [job-helper] Loading stylesheet D:\DITA-OT\dita-ot-3.0.3\xsl\job-helper.xsl
-[job-helper] Processing D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\oxygen_dita_temp\.job.xml to D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\oxygen_dita_temp\conref.list
+[job-helper] Processing D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\.job.xml to D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\conref.list
 [job-helper] Loading stylesheet D:\DITA-OT\dita-ot-3.0.3\xsl\job-helper.xsl
-[job-helper] Processing D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\oxygen_dita_temp\.job.xml to D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\oxygen_dita_temp\conreftargets.list
+[job-helper] Processing D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\.job.xml to D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\conreftargets.list
 [job-helper] Loading stylesheet D:\DITA-OT\dita-ot-3.0.3\xsl\job-helper.xsl
-[job-helper] Processing D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\oxygen_dita_temp\.job.xml to D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\oxygen_dita_temp\copytosource.list
+[job-helper] Processing D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\.job.xml to D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\copytosource.list
 [job-helper] Loading stylesheet D:\DITA-OT\dita-ot-3.0.3\xsl\job-helper.xsl
-[job-helper] Processing D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\oxygen_dita_temp\.job.xml to D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\oxygen_dita_temp\fullditamap.list
+[job-helper] Processing D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\.job.xml to D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\fullditamap.list
 [job-helper] Loading stylesheet D:\DITA-OT\dita-ot-3.0.3\xsl\job-helper.xsl
-[job-helper] Processing D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\oxygen_dita_temp\.job.xml to D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\oxygen_dita_temp\fullditamapandtopic.list
+[job-helper] Processing D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\.job.xml to D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\fullditamapandtopic.list
 [job-helper] Loading stylesheet D:\DITA-OT\dita-ot-3.0.3\xsl\job-helper.xsl
-[job-helper] Processing D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\oxygen_dita_temp\.job.xml to D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\oxygen_dita_temp\fullditatopic.list
+[job-helper] Processing D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\.job.xml to D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\fullditatopic.list
 [job-helper] Loading stylesheet D:\DITA-OT\dita-ot-3.0.3\xsl\job-helper.xsl
-[job-helper] Processing D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\oxygen_dita_temp\.job.xml to D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\oxygen_dita_temp\hrefditatopic.list
+[job-helper] Processing D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\.job.xml to D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\hrefditatopic.list
 [job-helper] Loading stylesheet D:\DITA-OT\dita-ot-3.0.3\xsl\job-helper.xsl
-[job-helper] Processing D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\oxygen_dita_temp\.job.xml to D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\oxygen_dita_temp\hreftargets.list
+[job-helper] Processing D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\.job.xml to D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\hreftargets.list
 [job-helper] Loading stylesheet D:\DITA-OT\dita-ot-3.0.3\xsl\job-helper.xsl
-[job-helper] Processing D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\oxygen_dita_temp\.job.xml to D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\oxygen_dita_temp\html.list
+[job-helper] Processing D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\.job.xml to D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\html.list
 [job-helper] Loading stylesheet D:\DITA-OT\dita-ot-3.0.3\xsl\job-helper.xsl
-[job-helper] Processing D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\oxygen_dita_temp\.job.xml to D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\oxygen_dita_temp\image.list
+[job-helper] Processing D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\.job.xml to D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\image.list
 [job-helper] Loading stylesheet D:\DITA-OT\dita-ot-3.0.3\xsl\job-helper.xsl
-[job-helper] Processing D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\oxygen_dita_temp\.job.xml to D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\oxygen_dita_temp\outditafiles.list
+[job-helper] Processing D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\.job.xml to D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\outditafiles.list
 [job-helper] Loading stylesheet D:\DITA-OT\dita-ot-3.0.3\xsl\job-helper.xsl
-[job-helper] Processing D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\oxygen_dita_temp\.job.xml to D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\oxygen_dita_temp\resourceonly.list
+[job-helper] Processing D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\.job.xml to D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\resourceonly.list
 [job-helper] Loading stylesheet D:\DITA-OT\dita-ot-3.0.3\xsl\job-helper.xsl
-[job-helper] Processing D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\oxygen_dita_temp\.job.xml to D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\oxygen_dita_temp\resourceonly.list
+[job-helper] Processing D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\.job.xml to D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\resourceonly.list
 [job-helper] Loading stylesheet D:\DITA-OT\dita-ot-3.0.3\xsl\job-helper.xsl
-[job-helper] Processing D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\oxygen_dita_temp\.job.xml to D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\oxygen_dita_temp\subjectscheme.list
+[job-helper] Processing D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\.job.xml to D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\subjectscheme.list
 [job-helper] Loading stylesheet D:\DITA-OT\dita-ot-3.0.3\xsl\job-helper.xsl
-[job-helper] Processing D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\oxygen_dita_temp\.job.xml to D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\oxygen_dita_temp\subtargets.list
+[job-helper] Processing D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\.job.xml to D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\subtargets.list
 [job-helper] Loading stylesheet D:\DITA-OT\dita-ot-3.0.3\xsl\job-helper.xsl
-[job-helper] Processing D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\oxygen_dita_temp\.job.xml to D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\oxygen_dita_temp\user.input.file.list
+[job-helper] Processing D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\.job.xml to D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\user.input.file.list
 [job-helper] Loading stylesheet D:\DITA-OT\dita-ot-3.0.3\xsl\job-helper.xsl
 
 mapref-check:
 
 mapref:
-   [mapref] Transforming into D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\oxygen_dita_temp
+   [mapref] Transforming into D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp
    [mapref] Loading stylesheet D:\DITA-OT\dita-ot-3.0.3\xsl\preprocess\mapref.xsl
-   [mapref] Processing D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\oxygen_dita_temp\pdf5_manual_cover.ditamap
-   [mapref] Processing D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\oxygen_dita_temp\delivery_type.ditamap
-   [mapref] Processing D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\oxygen_dita_temp\keydef_cover_image.ditamap
-   [mapref] Processing D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\oxygen_dita_temp\keydef_pdf5.ditamap
+   [mapref] Processing D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\pdf5_manual_cover.ditamap
+   [mapref] Processing D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\delivery_type.ditamap
+   [mapref] Processing D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\keydef_cover_image.ditamap
+   [mapref] Processing D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\keydef_pdf5.ditamap
 
 branch-filter:
-[branch-filter] Processing file:/D:/My_Documents/GitHub/pdf5-ml/samples/sample_cover/temp/oxygen_dita_temp/pdf5_manual_cover.ditamap
+[branch-filter] Processing file:/D:/My_Documents/GitHub/pdf5-ml/samples/sample_cover/temp/pdf5_manual_cover.ditamap
 
 copy-image:
 
@@ -146,28 +146,28 @@ copy-html:
 copy-flag-check:
 
 copy-flag:
-[job-helper] Processing D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\oxygen_dita_temp\.job.xml to D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\oxygen_dita_temp\flagimage.list
+[job-helper] Processing D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\.job.xml to D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\flagimage.list
 [job-helper] Loading stylesheet D:\DITA-OT\dita-ot-3.0.3\xsl\job-helper.xsl
 
 copy-files:
 
 keyref:
-   [keyref] Reading file:/D:/My_Documents/GitHub/pdf5-ml/samples/sample_cover/temp/oxygen_dita_temp/pdf5_manual_cover.ditamap
-   [keyref] Processing file:/D:/My_Documents/GitHub/pdf5-ml/samples/sample_cover/temp/oxygen_dita_temp/topics-en/c_Cover1.dita
-   [keyref] Processing file:/D:/My_Documents/GitHub/pdf5-ml/samples/sample_cover/temp/oxygen_dita_temp/pdf5_manual_cover.ditamap
-   [keyref] Processing file:/D:/My_Documents/GitHub/pdf5-ml/samples/sample_cover/temp/oxygen_dita_temp/topics-en/c_Cover4.dita
-   [keyref] Processing file:/D:/My_Documents/GitHub/pdf5-ml/samples/sample_cover/temp/oxygen_dita_temp/delivery_type.ditamap
-   [mapref] Transforming into D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\oxygen_dita_temp
+   [keyref] Reading file:/D:/My_Documents/GitHub/pdf5-ml/samples/sample_cover/temp/pdf5_manual_cover.ditamap
+   [keyref] Processing file:/D:/My_Documents/GitHub/pdf5-ml/samples/sample_cover/temp/topics-en/c_Cover1.dita
+   [keyref] Processing file:/D:/My_Documents/GitHub/pdf5-ml/samples/sample_cover/temp/pdf5_manual_cover.ditamap
+   [keyref] Processing file:/D:/My_Documents/GitHub/pdf5-ml/samples/sample_cover/temp/topics-en/c_Cover4.dita
+   [keyref] Processing file:/D:/My_Documents/GitHub/pdf5-ml/samples/sample_cover/temp/delivery_type.ditamap
+   [mapref] Transforming into D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp
    [mapref] Loading stylesheet D:\DITA-OT\dita-ot-3.0.3\xsl\preprocess\mapref.xsl
-   [mapref] Processing D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\oxygen_dita_temp\pdf5_manual_cover.ditamap
-   [mapref] Processing D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\oxygen_dita_temp\delivery_type.ditamap
-   [mapref] Processing D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\oxygen_dita_temp\keydef_cover_image.ditamap
-   [mapref] Processing D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\oxygen_dita_temp\keydef_pdf5.ditamap
+   [mapref] Processing D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\pdf5_manual_cover.ditamap
+   [mapref] Processing D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\delivery_type.ditamap
+   [mapref] Processing D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\keydef_cover_image.ditamap
+   [mapref] Processing D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\keydef_pdf5.ditamap
 
 copy-to:
 
 conrefpush:
-[job-helper] Processing D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\oxygen_dita_temp\.job.xml to D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\oxygen_dita_temp\conref.list
+[job-helper] Processing D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\.job.xml to D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\conref.list
 [job-helper] Loading stylesheet D:\DITA-OT\dita-ot-3.0.3\xsl\job-helper.xsl
 
 conref-check:
@@ -179,24 +179,24 @@ profile-check:
 profile:
 
 topic-fragment:
-[topic-fragment] Processing file:/D:/My_Documents/GitHub/pdf5-ml/samples/sample_cover/temp/oxygen_dita_temp/topics-en/c_DummyCover.dita
-[topic-fragment] Processing file:/D:/My_Documents/GitHub/pdf5-ml/samples/sample_cover/temp/oxygen_dita_temp/topics-en/c_Chapter2.dita
-[topic-fragment] Processing file:/D:/My_Documents/GitHub/pdf5-ml/samples/sample_cover/temp/oxygen_dita_temp/topics-en/c_Cover1.dita
-[topic-fragment] Processing file:/D:/My_Documents/GitHub/pdf5-ml/samples/sample_cover/temp/oxygen_dita_temp/topics-en/c_Cover4.dita
-[topic-fragment] Processing file:/D:/My_Documents/GitHub/pdf5-ml/samples/sample_cover/temp/oxygen_dita_temp/topics-en/c_Chapter1.dita
+[topic-fragment] Processing file:/D:/My_Documents/GitHub/pdf5-ml/samples/sample_cover/temp/topics-en/c_DummyCover.dita
+[topic-fragment] Processing file:/D:/My_Documents/GitHub/pdf5-ml/samples/sample_cover/temp/topics-en/c_Chapter2.dita
+[topic-fragment] Processing file:/D:/My_Documents/GitHub/pdf5-ml/samples/sample_cover/temp/topics-en/c_Cover1.dita
+[topic-fragment] Processing file:/D:/My_Documents/GitHub/pdf5-ml/samples/sample_cover/temp/topics-en/c_Cover4.dita
+[topic-fragment] Processing file:/D:/My_Documents/GitHub/pdf5-ml/samples/sample_cover/temp/topics-en/c_Chapter1.dita
 
 chunk-check:
 
 chunk:
 
 move-meta-entries:
-[move-meta] Processing file:/D:/My_Documents/GitHub/pdf5-ml/samples/sample_cover/temp/oxygen_dita_temp/pdf5_manual_cover.ditamap
-[move-meta] Processing file:/D:/My_Documents/GitHub/pdf5-ml/samples/sample_cover/temp/oxygen_dita_temp/topics-en/c_DummyCover.dita
-[move-meta] Processing file:/D:/My_Documents/GitHub/pdf5-ml/samples/sample_cover/temp/oxygen_dita_temp/topics-en/c_Cover1.dita
-[move-meta] Processing file:/D:/My_Documents/GitHub/pdf5-ml/samples/sample_cover/temp/oxygen_dita_temp/topics-en/c_Cover4.dita
-[move-meta] Processing file:/D:/My_Documents/GitHub/pdf5-ml/samples/sample_cover/temp/oxygen_dita_temp/topics-en/c_Chapter1.dita
-[move-meta] Processing file:/D:/My_Documents/GitHub/pdf5-ml/samples/sample_cover/temp/oxygen_dita_temp/topics-en/c_Chapter2.dita
-[move-meta] Processing file:/D:/My_Documents/GitHub/pdf5-ml/samples/sample_cover/temp/oxygen_dita_temp/pdf5_manual_cover.ditamap
+[move-meta] Processing file:/D:/My_Documents/GitHub/pdf5-ml/samples/sample_cover/temp/pdf5_manual_cover.ditamap
+[move-meta] Processing file:/D:/My_Documents/GitHub/pdf5-ml/samples/sample_cover/temp/topics-en/c_DummyCover.dita
+[move-meta] Processing file:/D:/My_Documents/GitHub/pdf5-ml/samples/sample_cover/temp/topics-en/c_Cover1.dita
+[move-meta] Processing file:/D:/My_Documents/GitHub/pdf5-ml/samples/sample_cover/temp/topics-en/c_Cover4.dita
+[move-meta] Processing file:/D:/My_Documents/GitHub/pdf5-ml/samples/sample_cover/temp/topics-en/c_Chapter1.dita
+[move-meta] Processing file:/D:/My_Documents/GitHub/pdf5-ml/samples/sample_cover/temp/topics-en/c_Chapter2.dita
+[move-meta] Processing file:/D:/My_Documents/GitHub/pdf5-ml/samples/sample_cover/temp/pdf5_manual_cover.ditamap
 [move-meta] Loading stylesheet D:\DITA-OT\dita-ot-3.0.3\xsl\preprocess\mappull.xsl
 
 maplink-check:
@@ -206,37 +206,37 @@ maplink:
 topicpull-check:
 
 topicpull:
-[topicpull] Transforming into D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\oxygen_dita_temp
+[topicpull] Transforming into D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp
 [topicpull] Loading stylesheet D:\DITA-OT\dita-ot-3.0.3\xsl\preprocess\topicpull.xsl
-[topicpull] Processing D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\oxygen_dita_temp\topics-en\c_DummyCover.dita
-[topicpull] Processing D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\oxygen_dita_temp\topics-en\c_Chapter2.dita
-[topicpull] Processing D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\oxygen_dita_temp\topics-en\c_Cover1.dita
-[topicpull] Processing D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\oxygen_dita_temp\topics-en\c_Cover4.dita
-[topicpull] Processing D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\oxygen_dita_temp\topics-en\c_Chapter1.dita
+[topicpull] Processing D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\topics-en\c_DummyCover.dita
+[topicpull] Processing D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\topics-en\c_Chapter2.dita
+[topicpull] Processing D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\topics-en\c_Cover1.dita
+[topicpull] Processing D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\topics-en\c_Cover4.dita
+[topicpull] Processing D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\topics-en\c_Chapter1.dita
 
 clean-map-check:
 
 clean-map:
-[clean-map] Transforming into D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\oxygen_dita_temp
+[clean-map] Transforming into D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp
 [clean-map] Loading stylesheet D:\DITA-OT\dita-ot-3.0.3\xsl\preprocess\clean-map.xsl
-[clean-map] Processing D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\oxygen_dita_temp\pdf5_manual_cover.ditamap
-[clean-map] Processing D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\oxygen_dita_temp\delivery_type.ditamap
-[clean-map] Processing D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\oxygen_dita_temp\keydef_cover_image.ditamap
-[clean-map] Processing D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\oxygen_dita_temp\keydef_pdf5.ditamap
+[clean-map] Processing D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\pdf5_manual_cover.ditamap
+[clean-map] Processing D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\delivery_type.ditamap
+[clean-map] Processing D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\keydef_cover_image.ditamap
+[clean-map] Processing D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\keydef_pdf5.ditamap
 
 preprocess:
 
 map2pdf5.ml:
      [echo] Start generating merged middle file.
- [pipeline] Processing D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\oxygen_dita_temp\pdf5_manual_cover.ditamap
- [pipeline] Processing D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\oxygen_dita_temp\topics-en\c_Cover1.dita
- [pipeline] Processing D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\oxygen_dita_temp\topics-en\c_DummyCover.dita
- [pipeline] Processing D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\oxygen_dita_temp\topics-en\c_Chapter1.dita
- [pipeline] Processing D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\oxygen_dita_temp\topics-en\c_Chapter2.dita
- [pipeline] Processing D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\oxygen_dita_temp\topics-en\c_Cover4.dita
+ [pipeline] Processing D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\pdf5_manual_cover.ditamap
+ [pipeline] Processing D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\topics-en\c_Cover1.dita
+ [pipeline] Processing D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\topics-en\c_DummyCover.dita
+ [pipeline] Processing D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\topics-en\c_Chapter1.dita
+ [pipeline] Processing D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\topics-en\c_Chapter2.dita
+ [pipeline] Processing D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\topics-en\c_Cover4.dita
 
 merged2pdf:
-     [echo] dita.temp.dir=D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover/temp/oxygen_dita_temp build.temp.dir=D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover/temp/oxygen_dita_temp
+     [echo] dita.temp.dir=D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover/temp build.temp.dir=D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover/temp
      [echo] dita.dir=D:\DITA-OT\dita-ot-3.0.3
      [echo] basedir=D:\DITA-OT\dita-ot-3.0.3\plugins\com.antennahouse.pdf5.ml
      [echo] outputFile=D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\out\pdf5-ml_manual_print_color.pdf
@@ -307,11 +307,11 @@ transform.merged.common.jaxp:
      [echo] Stylesheet=D:\DITA-OT\dita-ot-3.0.3\plugins\com.antennahouse.pdf5.ml\xsl\dita2fo_convmerged_shell.xsl
      [echo] use.i18n.index.lib=no
      [echo] user.input.dir=D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover
-     [xslt] Processing D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\oxygen_dita_temp\pdf5_manual_cover_MERGED.xml to D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\oxygen_dita_temp\pdf5_manual_cover_CONVERTED.xml
+     [xslt] Processing D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\pdf5_manual_cover_MERGED.xml to D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\pdf5_manual_cover_CONVERTED.xml
      [xslt] Loading stylesheet D:\DITA-OT\dita-ot-3.0.3\plugins\com.antennahouse.pdf5.ml\xsl\dita2fo_convmerged_shell.xsl
-     [xslt] Building tree for file:/D:/My_Documents/GitHub/pdf5-ml/samples/sample_cover/temp/oxygen_dita_temp/pdf5_manual_cover_MERGED.xml using class net.sf.saxon.tree.tiny.TinyBuilder
-     [xslt] Tree built in 3.915028ms
-     [xslt] Tree size: 965 nodes, 3250 characters, 1331 attributes
+     [xslt] Building tree for file:/D:/My_Documents/GitHub/pdf5-ml/samples/sample_cover/temp/pdf5_manual_cover_MERGED.xml using class net.sf.saxon.tree.tiny.TinyBuilder
+     [xslt] Tree built in 6.184818ms
+     [xslt] Tree size: 966 nodes, 3250 characters, 1331 attributes
 
 transform.merged2psmi:
 
@@ -335,35 +335,35 @@ transform.merged.common.jaxp:
      [echo] Stylesheet=D:\DITA-OT\dita-ot-3.0.3\plugins\com.antennahouse.pdf5.ml\xsl\dita2fo_shell.xsl
      [echo] use.i18n.index.lib=no
      [echo] user.input.dir=D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover
-     [xslt] Processing D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\oxygen_dita_temp\pdf5_manual_cover_CONVERTED.xml to D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\oxygen_dita_temp\pdf5_manual_cover_psmi.fo
+     [xslt] Processing D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\pdf5_manual_cover_CONVERTED.xml to D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\pdf5_manual_cover_psmi.fo
      [xslt] Loading stylesheet D:\DITA-OT\dita-ot-3.0.3\plugins\com.antennahouse.pdf5.ml\xsl\dita2fo_shell.xsl
      [xslt] D:\DITA-OT\dita-ot-3.0.3\plugins\com.antennahouse.pdf5.ml\xsl\dita2fo_indexsort.xsl:162:3: Warning! The parent axis starting at a document node will never select anything
-     [xslt] Building tree for file:/D:/My_Documents/GitHub/pdf5-ml/samples/sample_cover/temp/oxygen_dita_temp/pdf5_manual_cover_CONVERTED.xml using class net.sf.saxon.tree.tiny.TinyBuilder
-     [xslt] Tree built in 16.21815ms
-     [xslt] Tree size: 965 nodes, 3250 characters, 1331 attributes
+     [xslt] Building tree for file:/D:/My_Documents/GitHub/pdf5-ml/samples/sample_cover/temp/pdf5_manual_cover_CONVERTED.xml using class net.sf.saxon.tree.tiny.TinyBuilder
+     [xslt] Tree built in 4.972944ms
+     [xslt] Tree size: 966 nodes, 3250 characters, 1331 attributes
      [xslt] : Warning! The source document is in no namespace, but the template rules all expect elements in a namespace (Use --suppressXsltNamespaceCheck:on to avoid this warning)
      [xslt] Antenna House PDF5-ML plug-in Version: 1.0.2
      [xslt] Building tree for file:/D:/DITA-OT/dita-ot-3.0.3/plugins/com.antennahouse.pdf5.ml/config/en_style.xml using class net.sf.saxon.tree.tiny.TinyBuilder
-     [xslt] Tree built in 0.163839ms
+     [xslt] Tree built in 0.404845ms
      [xslt] Tree size: 5 nodes, 2 characters, 0 attributes
      [xslt] Building tree for file:/D:/DITA-OT/dita-ot-3.0.3/plugins/com.antennahouse.pdf5.ml/config/default_style.xml using class net.sf.saxon.tree.tiny.TinyBuilder
-     [xslt] Tree built in 17.390491ms
+     [xslt] Tree built in 12.604182ms
      [xslt] Tree size: 5673 nodes, 15514 characters, 2276 attributes
      [xslt] Building tree for file:/D:/DITA-OT/dita-ot-3.0.3/plugins/com.antennahouse.pdf5.ml/config/default_equation_style.xml using class net.sf.saxon.tree.tiny.TinyBuilder
-     [xslt] Tree built in 0.325017ms
+     [xslt] Tree built in 0.439437ms
      [xslt] Tree size: 58 nodes, 184 characters, 17 attributes
      [xslt] Building tree for file:/D:/DITA-OT/dita-ot-3.0.3/plugins/com.antennahouse.pdf5.ml/config/default_xml_mention_style.xml using class net.sf.saxon.tree.tiny.TinyBuilder
-     [xslt] Tree built in 0.434877ms
+     [xslt] Tree built in 0.761794ms
      [xslt] Tree size: 150 nodes, 199 characters, 52 attributes
      [xslt] Building tree for file:/D:/DITA-OT/dita-ot-3.0.3/plugins/com.antennahouse.pdf5.ml/config/default_markup_style.xml using class net.sf.saxon.tree.tiny.TinyBuilder
-     [xslt] Tree built in 0.254311ms
+     [xslt] Tree built in 0.50102ms
      [xslt] Tree size: 20 nodes, 35 characters, 3 attributes
      [xslt] Building tree for file:/D:/DITA-OT/dita-ot-3.0.3/plugins/com.antennahouse.pdf5.ml/customization/default_style_custom.xml using class net.sf.saxon.tree.tiny.TinyBuilder
-     [xslt] Tree built in 1.724299ms
+     [xslt] Tree built in 1.111899ms
      [xslt] Tree size: 13 nodes, 10 characters, 0 attributes
 
 transform.psmi2fo:
-     [xslt] Processing D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\oxygen_dita_temp\pdf5_manual_cover_psmi.fo to D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\out\pdf5_manual_cover.fo
+     [xslt] Processing D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\temp\pdf5_manual_cover_psmi.fo to D:\My_Documents\GitHub\pdf5-ml\samples\sample_cover\out\pdf5_manual_cover.fo
      [xslt] Loading stylesheet D:\DITA-OT\dita-ot-3.0.3\plugins\com.antennahouse.pdf5.ml\xsl\psmi.xsl
 
 transform.fo2pdf:
@@ -396,6 +396,6 @@ dita2pdf5.ml:
 clean-temp:
 
 BUILD SUCCESSFUL
-Total time: 2 minutes 26 seconds
+Total time: 2 minutes 8 seconds
 
 The process finished with exit code: 0

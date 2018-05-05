@@ -1,6 +1,5 @@
-<?xml version="1.0"?>
-<?xml-model href="urn:x-antennahouse:dita:rng:concept.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="urn:x-antennahouse:dita:rng:concept.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//ANTENNA HOUSE//DTD DITA Concept//EN" "concept.dtd">
 <concept id="concept_b31_qjq_hr" xmlns:fo="http://www.w3.org/1999/XSL/Format">
  <title>Front cover</title>
  <conbody>
@@ -23,7 +22,7 @@
      <tgroup cols="3">
       <colspec colname="c1" colnum="1" colwidth="1.0*"/> 
       <colspec colname="c2" colnum="2" colwidth="2.5*"/> 
-      <colspec colname="c2" colnum="3" colwidth="0.8*"/> 
+      <colspec colname="c3" colnum="3" colwidth="0.8*"/> 
       <tbody> 
        <row> 
         <entry fo:prop="padding-after:3mm;"> 
