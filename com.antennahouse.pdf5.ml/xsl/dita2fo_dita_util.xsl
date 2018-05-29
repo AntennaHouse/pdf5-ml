@@ -196,6 +196,58 @@ URL : http://www.antennahouse.co.jp/
         </xsl:call-template>
     </xsl:function>
     
+    <!-- 
+     function:	Get @output class value as xs:string*
+     param:		prmElem
+     return:	xs:string*
+     note:		
+     -->
+    <xsl:function name="ahf:getOutputClass" as="xs:string*">
+        <xsl:param name="prmElem" as="element()"/>
+        <xsl:variable name="outputClass" as="xs:string" select="normalize-space(string($prmElem/@outputclass))"/>
+        <xsl:sequence select="tokenize($outputClass,' ')"/>
+    </xsl:function>
+
+    <!-- 
+     function:	Judge @outputclass has specified value
+     param:		prmElem, prmValue
+     return:	xs:boolean
+     note:		
+     -->
+    <xsl:function name="ahf:hasOutputClassValue" as="xs:boolean">
+        <xsl:param name="prmElem" as="element()"/>
+        <xsl:param name="prmValue" as="xs:string"/>
+        <xsl:sequence select="$prmValue = ahf:getOutputClass($prmElem)"/>
+    </xsl:function>
+
+    <!-- 
+     function:	Get @output class value with regex
+     param:		prmElem, prmRegx, prmReplace
+     return:	xs:string
+     note:		prmRegEx must have several parts using "(" and ")"
+                Ex: outputclass="width60" & prmRegx="(width)(\d+)" & prmReplace="$2"
+     -->
+    <xsl:function name="ahf:getOutputClassRegx" as="xs:string">
+        <xsl:param name="prmElem" as="element()"/>
+        <xsl:param name="prmRegx" as="xs:string"/>
+        <xsl:param name="prmReplace" as="xs:string"/>
+        <xsl:variable name="outputClassValues" as="xs:string*" select="ahf:getOutputClass($prmElem)"/>
+        <xsl:variable name="value" as="xs:string?">
+            <xsl:for-each select="$outputClassValues[matches(.,$prmRegx)][1]">
+                <xsl:sequence select="replace(.,$prmRegx,$prmReplace)"/>
+            </xsl:for-each>
+        </xsl:variable>
+        <xsl:sequence select="if (exists($value)) then $value else ''"/>
+    </xsl:function>
+    
+    <xsl:function name="ahf:getOutputClassRegxWithDefault" as="xs:string">
+        <xsl:param name="prmElem" as="element()"/>
+        <xsl:param name="prmRegx" as="xs:string"/>
+        <xsl:param name="prmReplace" as="xs:string"/>
+        <xsl:param name="prmDefault" as="xs:string"/>
+        <xsl:variable name="result" as="xs:string" select="ahf:getOutputClassRegx($prmElem,$prmRegx,$prmReplace)"/>
+        <xsl:sequence select="if ($result eq '') then $prmDefault else $result"/>
+    </xsl:function>
 
     <!-- end of stylesheet -->
 </xsl:stylesheet>
