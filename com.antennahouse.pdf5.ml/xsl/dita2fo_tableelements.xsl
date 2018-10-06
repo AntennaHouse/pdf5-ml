@@ -338,13 +338,9 @@ E-mail : info@antennahouse.com
             <xsl:choose>
                 <xsl:when test="$align eq 'char'">
                     <xsl:variable name="char" select="string($prmColSpec/@char)"/>
-                    <!--xsl:variable name="charoff" select="string($prmColSpec/@charoff)"/-->
                     <xsl:choose>
                         <xsl:when test="string($char)">
                             <xsl:attribute name="text-align" select="$char"/>
-                            <!--xsl:if test="string($charoff)">
-                                <xsl:attribute name="start-indent" select="concat($charoff,'%')"/>
-                            </xsl:if-->
                         </xsl:when>
                         <xsl:otherwise/>
                     </xsl:choose>
@@ -575,16 +571,14 @@ E-mail : info@antennahouse.com
         <xsl:param name="prmColSpec" required="yes" as="element()*"/>
         <xsl:param name="prmRowHeight" required="yes" as="xs:double"/>
     
-        <xsl:variable name="entryAttr" select="ahf:addEntryAttr(.,$prmRowAttr)" as="element()"/>
-        <xsl:variable name="colname" select="string($entryAttr/@colname)"/>
+        <xsl:variable name="colname" as="xs:string" select="string(@colname)"/>
         <xsl:variable name="atsName" select="if (ancestor::*[contains(@class,' topic/thead ')]) then 'atsTableHeaderCell' else 'atsTableBodyCell'"/>
         <fo:table-cell>
             <xsl:call-template name="getAttributeSetWithLang">
                 <xsl:with-param name="prmAttrSetName" select="$atsName"/>
             </xsl:call-template>
             <xsl:call-template name="ahf:getUnivAtts"/>
-            <xsl:copy-of select="ahf:getColSpecAttr($colname,$prmColSpec)"/>
-            <xsl:copy-of select="ahf:getEntryAttr(.,$entryAttr,$prmColSpec)"/>
+            <xsl:copy-of select="ahf:getEntryAttr(.,$prmRowAttr,$prmColSpec)"/>
             <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
             <xsl:choose>
                 <xsl:when test="string(@rotate) eq '1'">
@@ -608,81 +602,83 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <!-- 
-     function:	build entry attributes
-     param:		prmEntry, prmRowAttr
-     return:	element()
-     note:		
-     -->
-    <xsl:function name="ahf:addEntryAttr" as="element()">
-        <xsl:param name="prmEntry"    as="element()"/>
-        <xsl:param name="prmRowAttr"  as="element()"/>
-        <dummy>
-            <xsl:copy-of select="$prmRowAttr/@*"/>
-            <xsl:copy-of select="$prmEntry/@colname"/>
-            <xsl:copy-of select="$prmEntry/@namest"/>
-            <xsl:copy-of select="$prmEntry/@nameend"/>
-            <xsl:copy-of select="$prmEntry/@morerows"/>
-            <xsl:copy-of select="$prmEntry/@colsep"/>
-            <xsl:copy-of select="$prmEntry/@rowsep"/>
-            <xsl:copy-of select="$prmEntry/@align"/>
-            <xsl:copy-of select="$prmEntry/@char"/>
-            <xsl:copy-of select="$prmEntry/@valign"/>
-        </dummy>
-    </xsl:function>
-    
-    <!-- 
      function:	get XSL-FO property from CALS table entry attributes
-     param:		prmEntry, prmEntryAttr, prmColSpec
+     param:		prmEntry, prmRowAttr, prmColSpec
      return:	attribute()*
      note:		DITA-OT 1.5 sets correct @colname to every entry element.
                 This stylesheet use this functionality.
+                The evaluation order:
+                1. Inherit value
+                2. Colsepc value
+                3. Entry value (most honored)
      -->
     <xsl:function name="ahf:getEntryAttr" as="attribute()*">
         <xsl:param name="prmEntry"        as="element()"/>
-        <xsl:param name="prmEntryAttr"    as="element()"/>
+        <xsl:param name="prmRowAttr"    as="element()"/>
         <xsl:param name="prmColSpec"      as="element()*"/>
         
-        <xsl:variable name="colname" select="string($prmEntryAttr/@colname)"/>
+        <xsl:variable name="colName" as="xs:string" select="string($prmEntry/@colname)"/>
+        <xsl:variable name="colSpec" as="element()?" select="$prmColSpec[string(@ahf:column-name) eq $colName][1]"/>
         
         <!-- colsep -->
         <xsl:choose>
-            <xsl:when test="string($prmEntryAttr/@colsep) eq '0'">
+            <xsl:when test="string($prmRowAttr/@colsep) eq '0'">
                 <xsl:attribute name="border-end-style" select="'none'"/>
             </xsl:when>
-            <xsl:when test="string($prmEntryAttr/@colsep) eq '1'">
+            <xsl:when test="string($prmRowAttr/@colsep) eq '1'">
+                <xsl:attribute name="border-end-style" select="'solid'"/>
+            </xsl:when>
+        </xsl:choose>
+        <xsl:if test="exists($colSpec/@border-end-style)">
+            <xsl:attribute name="border-end-style" select="'from-table-column()'"/>
+        </xsl:if>
+        <xsl:choose>
+            <xsl:when test="string($prmEntry/@colsep) eq '0'">
+                <xsl:attribute name="border-end-style" select="'none'"/>
+            </xsl:when>
+            <xsl:when test="string($prmEntry/@colsep) eq '1'">
                 <xsl:attribute name="border-end-style" select="'solid'"/>
             </xsl:when>
         </xsl:choose>
         
         <!-- rowsep -->
         <xsl:choose>
-            <xsl:when test="string($prmEntryAttr/@rowsep) eq '0'">
+            <xsl:when test="string($prmRowAttr/@rowsep) eq '0'">
                 <xsl:attribute name="border-after-style" select="'none'"/>
             </xsl:when>
-            <xsl:when test="string($prmEntryAttr/@rowsep) eq '1'">
+            <xsl:when test="string($prmRowAttr/@rowsep) eq '1'">
+                <xsl:attribute name="border-after-style" select="'solid'"/>
+            </xsl:when>
+        </xsl:choose>
+        <xsl:if test="exists($colSpec/@border-after-style)">
+            <xsl:attribute name="border-after-style" select="'from-table-column()'"/>
+        </xsl:if>
+        <xsl:choose>
+            <xsl:when test="string($prmEntry/@rowsep) eq '0'">
+                <xsl:attribute name="border-after-style" select="'none'"/>
+            </xsl:when>
+            <xsl:when test="string($prmEntry/@rowsep) eq '1'">
                 <xsl:attribute name="border-after-style" select="'solid'"/>
             </xsl:when>
         </xsl:choose>
         
         <!-- rowheader -->
-        <xsl:if test="(string($prmEntryAttr/@rowheader) eq 'firstcol') and ($colname='col1')">
+        <xsl:if test="(string($prmEntry/@rowheader) eq 'firstcol') and ($colName='col1')">
             <xsl:sequence select="ahf:getAttributeSet('atsHeaderRow')"/>
         </xsl:if>
         
         <!-- align -->
-        <xsl:if test="exists($prmEntryAttr/@align)">
-            <xsl:variable name="align" as="xs:string" select="string($prmEntryAttr/@align)"/>
-            <!--xsl:message select="'align=',$align"/-->
+        <xsl:if test="exists($colSpec/@text-align)">
+            <xsl:attribute name="text-align" select="'from-table-column()'"/>
+        </xsl:if>
+        <xsl:if test="exists($prmEntry/@align)">
+            <xsl:variable name="align" as="xs:string" select="string($prmEntry/@align)"/>
             <xsl:choose>
                 <xsl:when test="$align eq 'char'">
-                    <xsl:variable name="char" select="string($prmEntryAttr/@char)"/>
-                    <!--xsl:variable name="charoff" select="string($prmEntryAttr/@charoff)"/-->
+                    <xsl:variable name="char" select="string($prmEntry/@char)"/>
                     <xsl:choose>
                         <xsl:when test="string($char)">
                             <xsl:attribute name="text-align" select="$char"/>
-                            <!--xsl:if test="string($charoff)">
-                                <xsl:attribute name="start-indent" select="concat($charoff,'%')"/>
-                            </xsl:if-->
                         </xsl:when>
                         <xsl:otherwise/>
                     </xsl:choose>
@@ -694,8 +690,22 @@ E-mail : info@antennahouse.com
         </xsl:if>
         
         <!-- valign -->
-        <xsl:if test="exists($prmEntryAttr/@valign)">
-            <xsl:variable name="valign" as="xs:string" select="string($prmEntryAttr/@valign)"/>
+        <xsl:if test="exists($prmRowAttr/@valign)">
+            <xsl:variable name="valign" as="xs:string" select="string($prmRowAttr/@valign)"/>
+            <xsl:choose>
+                <xsl:when test="$valign eq 'top'">
+                    <xsl:attribute name="display-align" select="'before'"/>
+                </xsl:when>
+                <xsl:when test="$valign eq 'bottom'">
+                    <xsl:attribute name="display-align" select="'after'"/>
+                </xsl:when>
+                <xsl:when test="$valign eq 'middle'">
+                    <xsl:attribute name="display-align" select="'center'"/>
+                </xsl:when>
+            </xsl:choose>
+        </xsl:if>
+        <xsl:if test="exists($prmEntry/@valign)">
+            <xsl:variable name="valign" as="xs:string" select="string($prmEntry/@valign)"/>
             <xsl:choose>
                 <xsl:when test="$valign eq 'top'">
                     <xsl:attribute name="display-align" select="'before'"/>
@@ -710,16 +720,16 @@ E-mail : info@antennahouse.com
         </xsl:if>
         
         <!-- namest,nameend -->
-        <xsl:if test="exists($prmEntryAttr/@namest) and exists($prmEntryAttr/@nameend)">
-            <xsl:variable name="startpos" as="xs:integer" select="xs:integer(string($prmColSpec[string(@ahf:column-name) eq string($prmEntryAttr/@namest)]/@column-number))"/>
-            <xsl:variable name="endpos"   as="xs:integer" select="xs:integer(string($prmColSpec[string(@ahf:column-name) eq string($prmEntryAttr/@nameend)]/@column-number))"/>
+        <xsl:if test="exists($prmEntry/@namest) and exists($prmEntry/@nameend)">
+            <xsl:variable name="startpos" as="xs:integer" select="xs:integer(string($prmColSpec[string(@ahf:column-name) eq string($prmEntry/@namest)]/@column-number))"/>
+            <xsl:variable name="endpos"   as="xs:integer" select="xs:integer(string($prmColSpec[string(@ahf:column-name) eq string($prmEntry/@nameend)]/@column-number))"/>
             <xsl:variable name="spancolumns" as="xs:integer" select="$endpos - $startpos + 1"/>
             <xsl:attribute name="number-columns-spanned" select="string($spancolumns)"/>
         </xsl:if>
     
         <!-- morerows -->
-        <xsl:if test="exists($prmEntryAttr/@morerows)">
-            <xsl:attribute name="number-rows-spanned" select="string(xs:integer($prmEntryAttr/@morerows) + 1)"/>
+        <xsl:if test="exists($prmEntry/@morerows)">
+            <xsl:attribute name="number-rows-spanned" select="string(xs:integer($prmEntry/@morerows) + 1)"/>
         </xsl:if>
         
     </xsl:function>
