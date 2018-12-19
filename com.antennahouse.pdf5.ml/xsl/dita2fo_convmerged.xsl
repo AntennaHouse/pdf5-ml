@@ -70,7 +70,7 @@ E-mail : info@antennahouse.com
      note:		An topicgroup is redundant for document structure.
                 It sometimes bothers counting the nesting level of topicref.
      -->
-    <xsl:template match="*[contains(@class, ' mapgroup-d/topicgroup ')]" priority="2">
+    <xsl:template match="*[contains(@class, ' mapgroup-d/topicgroup ')]" priority="5">
         <xsl:apply-templates/>
     </xsl:template>
     
