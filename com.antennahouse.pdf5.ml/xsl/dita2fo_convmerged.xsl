@@ -56,13 +56,21 @@ E-mail : info@antennahouse.com
         <xsl:param name="prmDitaValFlagStyle" tunnel="yes" required="no" select="''"/>
         <xsl:copy>
             <xsl:copy-of select="@*"/>
-            <xsl:if test="string($prmDitaValFlagStyle)">
-                <xsl:copy-of select="ahf:getMergedDitaValFlagStyleAttr(.,$prmDitaValFlagStyle)"/>
-            </xsl:if>
-            <xsl:apply-templates/>
+            <xsl:choose>
+                <xsl:when test="string($prmDitaValFlagStyle)">
+                    <xsl:copy-of select="ahf:getMergedDitaValFlagStyleAttr(.,$prmDitaValFlagStyle)"/>
+                    <xsl:apply-templates>
+                        <xsl:with-param name="prmDitaValFlagStyle" tunnel="yes" select="''"/>
+                    </xsl:apply-templates>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:apply-templates/>
+                </xsl:otherwise>
+            </xsl:choose>
         </xsl:copy>
     </xsl:template>
     
+
     <!-- 
      function:	topicgroup
      param:		none
@@ -70,7 +78,7 @@ E-mail : info@antennahouse.com
      note:		An topicgroup is redundant for document structure.
                 It sometimes bothers counting the nesting level of topicref.
      -->
-    <xsl:template match="*[contains(@class, ' mapgroup-d/topicgroup ')]" priority="5">
+    <xsl:template match="*[contains(@class, ' mapgroup-d/topicgroup ')]" priority="20">
         <xsl:apply-templates/>
     </xsl:template>
     
@@ -118,10 +126,17 @@ E-mail : info@antennahouse.com
             <xsl:otherwise>
                 <xsl:copy>
                     <xsl:copy-of select="@*"/>
-                    <xsl:if test="string($prmDitaValFlagStyle)">
-                        <xsl:copy-of select="ahf:getMergedDitaValFlagStyleAttr(.,$prmDitaValFlagStyle)"/>
-                    </xsl:if>
-                    <xsl:apply-templates/>
+                    <xsl:choose>
+                        <xsl:when test="string($prmDitaValFlagStyle)">
+                            <xsl:copy-of select="ahf:getMergedDitaValFlagStyleAttr(.,$prmDitaValFlagStyle)"/>
+                            <xsl:apply-templates>
+                                <xsl:with-param name="prmDitaValFlagStyle" tunnel="yes" select="''"/>
+                            </xsl:apply-templates>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:apply-templates/>
+                        </xsl:otherwise>
+                    </xsl:choose>
                 </xsl:copy>
             </xsl:otherwise>
         </xsl:choose>
@@ -145,10 +160,17 @@ E-mail : info@antennahouse.com
             <xsl:otherwise>
                 <xsl:copy>
                     <xsl:copy-of select="@*"/>
-                    <xsl:if test="string($prmDitaValFlagStyle)">
-                        <xsl:copy-of select="ahf:getMergedDitaValFlagStyleAttr(.,$prmDitaValFlagStyle)"/>
-                    </xsl:if>
-                    <xsl:apply-templates/>
+                    <xsl:choose>
+                        <xsl:when test="string($prmDitaValFlagStyle)">
+                            <xsl:copy-of select="ahf:getMergedDitaValFlagStyleAttr(.,$prmDitaValFlagStyle)"/>
+                            <xsl:apply-templates>
+                                <xsl:with-param name="prmDitaValFlagStyle" tunnel="yes" select="''"/>
+                            </xsl:apply-templates>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:apply-templates/>
+                        </xsl:otherwise>
+                    </xsl:choose>
                 </xsl:copy>
             </xsl:otherwise>
         </xsl:choose>
@@ -171,10 +193,17 @@ E-mail : info@antennahouse.com
         </xsl:if>
         <xsl:copy>
             <xsl:copy-of select="@*"/>
-            <xsl:if test="string($prmDitaValFlagStyle)">
-                <xsl:copy-of select="ahf:getMergedDitaValFlagStyleAttr(.,$prmDitaValFlagStyle)"/>
-            </xsl:if>
-            <xsl:apply-templates/>
+            <xsl:choose>
+                <xsl:when test="string($prmDitaValFlagStyle)">
+                    <xsl:copy-of select="ahf:getMergedDitaValFlagStyleAttr(.,$prmDitaValFlagStyle)"/>
+                    <xsl:apply-templates>
+                        <xsl:with-param name="prmDitaValFlagStyle" tunnel="yes" select="''"/>
+                    </xsl:apply-templates>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:apply-templates/>
+                </xsl:otherwise>
+            </xsl:choose>
         </xsl:copy>
     </xsl:template>
     

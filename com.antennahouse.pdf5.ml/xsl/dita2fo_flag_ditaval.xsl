@@ -87,31 +87,34 @@ E-mail : info@antennahouse.com
          typically in the order that they are encountered."
     -->
 
-    <!-- attributes for auto generate image -->
-    <xsl:attribute-set name="atsFlagInlineImage">
+    <!-- attributes for auto generate image or text -->
+    <xsl:attribute-set name="atsFlagGlobal">
+        <xsl:attribute name="xtrf" select="'.ditaval'"/>
+        <xsl:attribute name="xtrc" select="''"/>
+    </xsl:attribute-set>
+
+    <xsl:attribute-set name="atsFlagInlineImage" use-attribute-sets="atsFlagGlobal">
         <xsl:attribute name="class" select="' topic/image '"/>
         <xsl:attribute name="placement" select="'inline'"/>
         <xsl:attribute name="scope" select="'external'"/>
-        <xsl:attribute name="xtrf" select="'.ditaval'"/>
-        <xsl:attribute name="xtrc" select="''"/>
     </xsl:attribute-set>
 
     <xsl:attribute-set name="atsFlagBlockImage" use-attribute-sets="atsFlagInlineImage">
         <xsl:attribute name="placement" select="'break'"/>
     </xsl:attribute-set>
     
-    <xsl:attribute-set name="atsAlt">
+    <xsl:attribute-set name="atsAlt" use-attribute-sets="atsFlagGlobal">
         <xsl:attribute name="class" select="' topic/alt '"/>
-        <xsl:attribute name="xtrf" select="'.ditaval'"/>
-        <xsl:attribute name="xtrc" select="''"/>
     </xsl:attribute-set>
 
-    <xsl:attribute-set name="atsP">
+    <xsl:attribute-set name="atsP" use-attribute-sets="atsFlagGlobal">
         <xsl:attribute name="class" select="' topic/p '"/>
-        <xsl:attribute name="xtrf" select="'.ditaval'"/>
-        <xsl:attribute name="xtrc" select="''"/>
     </xsl:attribute-set>
-
+    
+    <xsl:attribute-set name="atsPh" use-attribute-sets="atsFlagGlobal">
+        <xsl:attribute name="class" select="' topic/ph '"/>
+    </xsl:attribute-set>
+    
     <!-- 
      function:	Template for block-level elements that has ditaval-startprop,endprop element as its child.
      param:		none
@@ -138,24 +141,34 @@ E-mail : info@antennahouse.com
      function:	Generate block level flag image or text 
      param:		prmFlagElem (startflag or endflag)
      return:	generated image or p elements
-     note:		
+     note:		Treat image as relative to map if it does not begin with "https:/", "http:/", "ftp:/", "file:/".
      -->
     <xsl:template name="genBlocLevelImageOrTextForFlagging" as="element()?">
         <xsl:param name="prmFlagElem" as="element()" required="yes"/>
         <xsl:choose>
             <xsl:when test="exists($prmFlagElem/@dita-ot:imagerefuri)">
+                <xsl:variable name="imageRefUri" as="xs:string" select="string($prmFlagElem/@dita-ot:imagerefuri)"/>
                 <image use-attribute-sets="atsFlagBlockImage">
-                    <xsl:attribute name="href" select="string($prmFlagElem/@dita-ot:imagerefuri)"/>
-                    <xsl:if test="$prmFlagElem/alt">
+                    <xsl:attribute name="href">
+                        <xsl:choose>
+                            <xsl:when test="ahf:isAbsUri($imageRefUri)">
+                                <xsl:value-of select="$imageRefUri"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:value-of select="concat($pMapDirUrl,$imageRefUri)"/>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:attribute>
+                    <xsl:if test="$prmFlagElem/alt-text">
                         <alt xsl:use-attribute-sets="atsAlt">
-                            <xsl:copy-of select="$prmFlagElem/alt/node()"/>
+                            <xsl:copy-of select="$prmFlagElem/alt-text/node()"/>
                         </alt>
                     </xsl:if>
                 </image>
             </xsl:when>
-            <xsl:when test="string(normalize-space(string($prmFlagElem/alt)))">
+            <xsl:when test="string(normalize-space(string($prmFlagElem/alt-text)))">
                 <p use-attribute-sets="atsP">
-                    <xsl:copy-of select="$prmFlagElem/alt/node()"/>
+                    <xsl:copy-of select="$prmFlagElem/alt-text/node()"/>
                 </p>
             </xsl:when>
             <xsl:otherwise>
@@ -163,6 +176,17 @@ E-mail : info@antennahouse.com
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
+
+    <!-- 
+     function:	Judge absolute URI
+     param:		prmUri
+     return:	xs:boolean
+     note:		If $prm Uri starts with "http:/" or "https:/" or "file:/" return true 
+     -->
+    <xsl:function name="ahf:isAbsUri" as="xs:boolean">
+        <xsl:param name="prmUri" as="xs:string"/>
+        <xsl:sequence select="starts-with($prmUri,'http:/') or starts-with($prmUri,'https:/') or starts-with($prmUri,'file:/') or starts-with($prmUri,'ftp:/')"/>
+    </xsl:function>
 
     <!-- 
      function:	Template for image, xref elements that has ditaval-startprop,endprop element as its child.
@@ -173,17 +197,58 @@ E-mail : info@antennahouse.com
     <xsl:template match="*[contains(@class,' topic/image ') or contains(@class,' topic/xref ')]
         [ahf:hasDitaValStartPropWithImageFlag(.) or ahf:hasDitaValEndPropWithImageFlag(.)]" 
         priority="20">
-        <xsl:if test="ahf:hasDitaValStartPropWithImageFlag(.)">
-            <image  xsl:use-attribute-sets="atsFlagInlineImage">
-                <xsl:attribute name="href" select="ahf:getFirstChildStartFlagImageRef(.)"/>
-            </image>
-        </xsl:if>
+        <xsl:for-each select="ahf:getStartFlagWithImage(.)">
+            <xsl:call-template name="genInlineLevelImageOrTextForFlagging">
+                <xsl:with-param name="prmFlagElem" select="."/>
+            </xsl:call-template>
+        </xsl:for-each>
         <xsl:next-match/>
-        <xsl:if test="ahf:hasDitaValEndPropWithImageFlag(.)">
-            <image  xsl:use-attribute-sets="atsFlagInlineImage">
-                <xsl:attribute name="href" select="ahf:getLastChildEndFlagImageRef(.)"/>
-            </image>
-        </xsl:if>
+        <xsl:for-each select="ahf:getEndFlagWithImage(.)">
+            <xsl:call-template name="genInlineLevelImageOrTextForFlagging">
+                <xsl:with-param name="prmFlagElem" select="."/>
+            </xsl:call-template>
+        </xsl:for-each>
+    </xsl:template>
+
+    <!-- 
+     function:	Generate inline level flag image or text 
+     param:		prmFlagElem (startflag or endflag)
+     return:	generated image or p elements
+     note:		Treat image as relative to map if it does not begin with "https:/", "http:/", "ftp:/", "file:/".
+     -->
+    <xsl:template name="genInlineLevelImageOrTextForFlagging" as="element()?">
+        <xsl:param name="prmFlagElem" as="element()?" required="yes"/>
+        <xsl:choose>
+            <xsl:when test="exists($prmFlagElem/@dita-ot:imagerefuri)">
+                <xsl:variable name="imageRefUri" as="xs:string" select="string($prmFlagElem/@dita-ot:imagerefuri)"/>
+                <image xsl:use-attribute-sets="atsFlagInlineImage">
+                    <xsl:attribute name="href">
+                        <xsl:choose>
+                            <xsl:when test="ahf:isAbsUri($imageRefUri)">
+                                <xsl:value-of select="$imageRefUri"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:value-of select="concat($pMapDirUrl,$imageRefUri)"/>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:attribute>
+                    <xsl:if test="$prmFlagElem/alt-text">
+                        <alt xsl:use-attribute-sets="atsAlt">
+                            <xsl:copy-of select="$prmFlagElem/alt-text/node()"/>
+                        </alt>
+                    </xsl:if>
+                </image>
+            </xsl:when>
+            <xsl:when test="string(normalize-space(string($prmFlagElem/alt-text)))">
+                <ph xsl:use-attribute-sets="atsPh">
+                    <xsl:copy-of select="$prmFlagElem/alt-text/node()"/>
+                    <xsl:text>&#x20;</xsl:text>
+                </ph>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:sequence select="()"/>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
 
     <!-- 
@@ -207,16 +272,18 @@ E-mail : info@antennahouse.com
      return:	generate inline image
      note:		This template is intended to apply inline level elements.
      -->
-    <xsl:template match="*[contains(@class, ' ditaot-d/ditaval-startprop ')][ahf:hasDitaValWithImageStartFlag(.)]" priority="10">
-        <image  xsl:use-attribute-sets="atsFlagInlineImage">
-            <xsl:attribute name="href" select="ahf:getDitaValImageStartFlag(.)"/>
-        </image>
+    <xsl:template match="*[contains(@class, ' ditaot-d/ditaval-startprop ')]" priority="10">
+        <xsl:message select="'[ditaval-startprop] Hit!'"/>
+        <xsl:call-template name="genInlineLevelImageOrTextForFlagging">
+            <xsl:with-param name="prmFlagElem" select="*[self::prop or self::revprop]/startflag"/>
+        </xsl:call-template>
     </xsl:template>
 
-    <xsl:template match="*[contains(@class, ' ditaot-d/ditaval-endprop ')][ahf:hasDitaValWithImageEndFlag(.)]" priority="10">
-        <image  xsl:use-attribute-sets="atsFlagInlineImage">
-            <xsl:attribute name="href" select="ahf:getDitaValImageEndFlag(.)"/>
-        </image>
+    <xsl:template match="*[contains(@class, ' ditaot-d/ditaval-endprop ')]" priority="10">
+        <xsl:message select="'[ditaval-endprop] Hit!'"/>
+        <xsl:call-template name="genInlineLevelImageOrTextForFlagging">
+            <xsl:with-param name="prmFlagElem" select="*[self::prop or self::revprop]/endflag"/>
+        </xsl:call-template>
     </xsl:template>
 
     <!-- 
@@ -253,34 +320,34 @@ E-mail : info@antennahouse.com
      note:		This template generates style from .ditaval prop/action="flag" element's style.
                 This style is passed as $prmDitaValFlagStyle tunnel parameter.
      -->
-    <xsl:template match="*[ahf:hasFirstChildDitaValStartProp(.)]" priority="5">
-        <xsl:variable name="ditaValProp" as="element()" select="ahf:getFirstChildDitavalProp(.)"/>
-        <xsl:variable name="ditaValFlagStyle" as="xs:string" select="ahf:getDitaValFlagStyle($ditaValProp)"/>
+    <xsl:template match="*[ahf:hasChildDitaValStartProp(.)]" priority="5">
+        <xsl:variable name="ditaValPropOrRevProp" as="element()*" select="ahf:getChildDitavalPropOrRevProp(.)"/>
+        <xsl:variable name="ditaValFlagStyle" as="xs:string" select="ahf:getDitaValFlagStyle($ditaValPropOrRevProp)"/>
         <xsl:next-match>
             <xsl:with-param name="prmDitaValFlagStyle" tunnel="yes" select="$ditaValFlagStyle"/>
         </xsl:next-match>
     </xsl:template>
 
     <!-- 
-     function:	Check first child is effective ditava-startprop element
+     function:	Check child has ditava-startprop element
      param:		prmElem
      return:	xs:boolean
-     note:		If $prmElem has first child ditaval-startprop element, return true.
+     note:		
      -->
-    <xsl:function name="ahf:hasFirstChildDitaValStartProp" as="xs:boolean">
+    <xsl:function name="ahf:hasChildDitaValStartProp" as="xs:boolean">
         <xsl:param name="prmElem" as="element()"/>
-        <xsl:sequence select="exists($prmElem/*[1][contains(@class, ' ditaot-d/ditaval-startprop ')]/prop[exists(@backcolor|@color|@style)])"/>
+        <xsl:sequence select="exists($prmElem/*[1][contains(@class, ' ditaot-d/ditaval-startprop ')]/*[self::prop or self::revprop])"/>
     </xsl:function>
     
     <!-- 
-     function:	Get first child ditava-startprop/prop element
+     function:	Get child ditava-startprop/prop element
      param:		prmElem
      return:	element()
-     note:		Return first child ditaval-startprop/prop element.
+     note:		Return child ditaval-startprop/prop, revprop element.
      -->
-    <xsl:function name="ahf:getFirstChildDitavalProp" as="element()">
+    <xsl:function name="ahf:getChildDitavalPropOrRevProp" as="element()*">
         <xsl:param name="prmElem" as="element()"/>
-        <xsl:sequence select="$prmElem/*[1][contains(@class, ' ditaot-d/ditaval-startprop ')]/prop[1]"/>
+        <xsl:sequence select="$prmElem/*[contains(@class, ' ditaot-d/ditaval-startprop ')]/*[self::prop or self::revprop]"/>
     </xsl:function>
     
     <!-- 
@@ -310,53 +377,62 @@ E-mail : info@antennahouse.com
      note:		
      -->
     <xsl:function name="ahf:getDitaValFlagStyle" as="xs:string">
-        <xsl:param name="prmDitaValProp" as="element()"/>
-        <xsl:variable name="color" as="xs:string">
-            <xsl:variable name="colorVal" as="xs:string" select="normalize-space(string($prmDitaValProp/@color))"/>
-            <xsl:choose>
-                <xsl:when test="string($colorVal)">
-                    <xsl:sequence select="concat('color:',$colorVal,';')"/>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:sequence select="''"/>
-                </xsl:otherwise>
-            </xsl:choose>
+        <xsl:param name="prmDitaValPropOrRevProps" as="element()*"/>
+        <xsl:variable name="styleProps" as="xs:string*">
+            <xsl:for-each select="$prmDitaValPropOrRevProps">
+                <xsl:variable name="ditaValPropOrRevProp" as="element()" select="."/>
+                <xsl:variable name="color" as="xs:string">
+                    <xsl:variable name="colorVal" as="xs:string" select="normalize-space(string($ditaValPropOrRevProp/@color))"/>
+                    <xsl:choose>
+                        <xsl:when test="string($colorVal)">
+                            <xsl:sequence select="concat('color:',$colorVal,';')"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:sequence select="''"/>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:variable>
+                <xsl:variable name="backColor" as="xs:string">
+                    <xsl:variable name="backColorVal" as="xs:string" select="normalize-space(string($ditaValPropOrRevProp/@backcolor))"/>
+                    <xsl:choose>
+                        <xsl:when test="string($backColorVal)">
+                            <xsl:sequence select="concat('background-color:',$backColorVal,';')"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:sequence select="''"/>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:variable>
+                <xsl:variable name="style" as="xs:string">
+                    <xsl:variable name="styleVal" as="xs:string" select="normalize-space(string($ditaValPropOrRevProp/@style))"/>
+                    <xsl:choose>
+                        <xsl:when test="$styleVal eq 'underline'">
+                            <xsl:sequence select="concat('text-decoration:',$styleVal,';')"/>
+                        </xsl:when>
+                        <xsl:when test="$styleVal eq 'double-underline'">
+                            <xsl:sequence select="concat('text-decoration:','underline',';','axf-text-line-style:','double',';')"/>
+                        </xsl:when>
+                        <xsl:when test="$styleVal eq 'italics'">
+                            <xsl:sequence select="concat('font-style:','italic',';')"/>
+                        </xsl:when>
+                        <xsl:when test="$styleVal eq 'overline'">
+                            <xsl:sequence select="concat('text-decoration:',$styleVal,';')"/>
+                        </xsl:when>
+                        <xsl:when test="$styleVal eq 'line-through'">
+                            <xsl:sequence select="concat('text-decoration:',$styleVal,';')"/>
+                        </xsl:when>
+                        <xsl:when test="$styleVal eq 'bold'">
+                            <xsl:sequence select="concat('font-weight:',$styleVal,';')"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:sequence select="''"/>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:variable>
+                <xsl:sequence select="concat($color,$backColor,$style)"/>
+            </xsl:for-each>
         </xsl:variable>
-        <xsl:variable name="backColor" as="xs:string">
-            <xsl:variable name="backColorVal" as="xs:string" select="normalize-space(string($prmDitaValProp/@backcolor))"/>
-            <xsl:choose>
-                <xsl:when test="string($backColorVal)">
-                    <xsl:sequence select="concat('background-color:',$backColorVal,';')"/>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:sequence select="''"/>
-                </xsl:otherwise>
-            </xsl:choose>
-        </xsl:variable>
-        <xsl:variable name="style" as="xs:string">
-            <xsl:variable name="styleVal" as="xs:string" select="normalize-space(string($prmDitaValProp/@style))"/>
-            <xsl:choose>
-                <xsl:when test="$styleVal eq 'underline'">
-                    <xsl:sequence select="concat('text-decoration:',$styleVal,';')"/>
-                </xsl:when>
-                <xsl:when test="$styleVal eq 'double-underline'">
-                    <xsl:sequence select="concat('text-decoration:','underline',';','axf-text-line-style:','double',';')"/>
-                </xsl:when>
-                <xsl:when test="$styleVal eq 'italics'">
-                    <xsl:sequence select="concat('font-style:','italic',';')"/>
-                </xsl:when>
-                <xsl:when test="$styleVal eq 'overline'">
-                    <xsl:sequence select="concat('text-decoration:',$styleVal,';')"/>
-                </xsl:when>
-                <xsl:when test="$styleVal eq 'bold'">
-                    <xsl:sequence select="concat('font-weight:',$styleVal,';')"/>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:sequence select="''"/>
-                </xsl:otherwise>
-            </xsl:choose>
-        </xsl:variable>
-        <xsl:sequence select="concat($color,$backColor,$style)"/>
+        <xsl:sequence select="string-join($styleProps,'')"/>
     </xsl:function>
 
     <!-- 
@@ -402,12 +478,12 @@ E-mail : info@antennahouse.com
      -->
     <xsl:function name="ahf:hasDitaValWithImageStartFlag" as="xs:boolean">
         <xsl:param name="prmElem" as="element()"/>
-        <xsl:sequence select="some $startflag in $prmElem/*[self::prop or self::revprop]/startflag satisfies (exists($startflag/@imageref) or string(normalize-space(string($startflag/alt-text))))"/>
+        <xsl:sequence select="some $startflag in $prmElem/*[contains(@class,' ditaot-d/ditaval-startprop ')]/*[self::prop or self::revprop]/startflag satisfies (exists($startflag/@imageref) or string(normalize-space(string($startflag/alt-text))))"/>
     </xsl:function>
     
     <xsl:function name="ahf:hasDitaValWithImageEndFlag" as="xs:boolean">
         <xsl:param name="prmElem" as="element()"/>
-        <xsl:sequence select="some $endflag in $prmElem/*[self::prop or self::revprop]/endflag satisfies (exists($endflag/@imageref) or string(normalize-space(string($endflag/alt-text))))"/>
+        <xsl:sequence select="some $endflag in $prmElem//*[contains(@class,' ditaot-d/ditaval-endprop ')]/*[self::prop or self::revprop]/endflag satisfies (exists($endflag/@imageref) or string(normalize-space(string($endflag/alt-text))))"/>
     </xsl:function>
 
     <!-- 
@@ -419,12 +495,12 @@ E-mail : info@antennahouse.com
      -->
     <xsl:function name="ahf:getStartFlagWithImage" as="element()*">
         <xsl:param name="prmElem" as="element()"/>
-        <xsl:sequence select="$prmElem/*[self::prop or self::revprop]/startflag"/>
+        <xsl:sequence select="$prmElem/*[contains(@class,' ditaot-d/ditaval-startprop ')]/*[self::prop or self::revprop]/startflag"/>
     </xsl:function>
     
     <xsl:function name="ahf:getEndFlagWithImage" as="element()*">
         <xsl:param name="prmElem" as="element()"/>
-        <xsl:sequence select="$prmElem/*[self::prop or self::revprop]/endflag"/>
+        <xsl:sequence select="$prmElem/*[contains(@class,' ditaot-d/ditaval-endprop ')]/*[self::prop or self::revprop]/endflag"/>
     </xsl:function>
 
     <!-- 
