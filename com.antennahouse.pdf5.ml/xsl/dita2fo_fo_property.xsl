@@ -42,8 +42,8 @@
     <xsl:function name="ahf:getFoStyle">
         <xsl:param name="prmElem" as="element()"/>
         <xsl:choose>
-            <xsl:when test="exists($prmElem/@fo:style)">
-                <xsl:sequence select="ahf:getAttributeSet(string($prmElem/@fo:style))"/>
+            <xsl:when test="exists($prmElem/@*[name() eq $pFoStyleName])">
+                <xsl:sequence select="ahf:getAttributeSet(string($prmElem/@*[name() eq $pFoStyleName]))"/>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:sequence select="()"/>
@@ -64,8 +64,8 @@
         <xsl:param name="prmElem" as="element()"/>
         
         <xsl:choose>
-            <xsl:when test="exists($prmElem/@fo:prop)">
-                <xsl:variable name="foAttr" as="xs:string" select="normalize-space(string($prmElem/@fo:prop))"/>
+            <xsl:when test="exists($prmElem/@*[name() eq $pFoPropName])">
+                <xsl:variable name="foAttr" as="xs:string" select="normalize-space(string($prmElem/@*[name() eq $pFoPropName]))"/>
                 <xsl:for-each select="tokenize($foAttr, ';')">
                     <xsl:variable name="propDesc" select="normalize-space(string(.))"/>
                     <xsl:choose>
@@ -133,8 +133,8 @@
         <xsl:param name="prmDst" as="xs:string+"/>
         
         <xsl:choose>
-            <xsl:when test="exists($prmElem/@fo:prop)">
-                <xsl:variable name="foAttr" as="xs:string" select="normalize-space(string($prmElem/@fo:prop))"/>
+            <xsl:when test="exists($prmElem/@*[name() eq $pFoPropName])">
+                <xsl:variable name="foAttr" as="xs:string" select="normalize-space(string($prmElem/@*[name() eq $pFoPropName]))"/>
                 <xsl:for-each select="tokenize($foAttr, ';')">
                     <xsl:variable name="propDesc" select="normalize-space(string(.))"/>
                     <xsl:choose>
@@ -220,8 +220,8 @@
         <xsl:param name="prmElem" as="element()"/>
         
         <xsl:choose>
-            <xsl:when test="exists($prmElem/@fo:prop)">
-                <xsl:variable name="foAttr" as="xs:string" select="normalize-space(string($prmElem/@fo:prop))"/>
+            <xsl:when test="exists($prmElem/@*[name() eq $pFoPropName])">
+                <xsl:variable name="foAttr" as="xs:string" select="normalize-space(string($prmElem/@*[name() eq $pFoPropName]))"/>
                 <xsl:message select="'$foAttr=',$foAttr"></xsl:message>
                 <xsl:for-each select="tokenize($foAttr, ';')">
                     <xsl:variable name="propDesc" select="normalize-space(string(.))"/>

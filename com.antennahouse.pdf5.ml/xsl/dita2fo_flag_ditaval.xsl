@@ -360,10 +360,10 @@ E-mail : info@antennahouse.com
     <xsl:function name="ahf:mergeDitaValFlagStyle" as="xs:string">
         <xsl:param name="prmElem" as="element()"/>
         <xsl:param name="prmDitaValFlagStyle" as="xs:string"/>
-        <xsl:variable name="fo:prop" as="xs:string" select="string($prmElem/@fo:prop)"/>
+        <xsl:variable name="foProp" as="xs:string" select="string($prmElem/@*[name() eq $pFoPropName])"/>
         <xsl:choose>
-            <xsl:when test="string($fo:prop)">
-                <xsl:sequence select="concat($fo:prop,if (ends-with($fo:prop,';')) then '' else ';',$prmDitaValFlagStyle)"/>
+            <xsl:when test="string($foProp)">
+                <xsl:sequence select="concat($foProp,if (ends-with($foProp,';')) then '' else ';',$prmDitaValFlagStyle)"/>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:sequence select="$prmDitaValFlagStyle"/>
