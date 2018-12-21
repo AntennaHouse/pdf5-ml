@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project version="19.0">
+<project version="20.1">
     <meta>
         <filters directoryPatterns="" filePatterns="" positiveFilePatterns="" showHiddenFiles="false"/>
         <options>
-            <serialized version="19.0" xml:space="preserve">
+            <serialized version="20.1" xml:space="preserve">
                 <serializableOrderedMap>
                     <entry>
                         <String>catalogs.v5</String>
@@ -227,6 +227,9 @@
                                 <field name="webhelpResponsiveTemplate">
                                     <null/>
                                 </field>
+                                <field name="publishingTemplateDataPO">
+                                    <null/>
+                                </field>
                                 <field name="additionalAntArgs">
                                     <String></String>
                                 </field>
@@ -421,6 +424,9 @@
                                     <null/>
                                 </field>
                                 <field name="webhelpResponsiveTemplate">
+                                    <null/>
+                                </field>
+                                <field name="publishingTemplateDataPO">
                                     <null/>
                                 </field>
                                 <field name="additionalAntArgs">
@@ -5210,6 +5216,51 @@
                         <scenarioAssociation-array>
                             <scenarioAssociation>
                                 <field name="url">
+                                    <String>xsl/dita2fo_change_bar.xsl</String>
+                                </field>
+                                <field name="scenarioIds">
+                                    <list>
+                                        <String>PDF5-ML</String>
+                                    </list>
+                                </field>
+                                <field name="scenarioTypes">
+                                    <list>
+                                        <String>Validation_scenario</String>
+                                    </list>
+                                </field>
+                            </scenarioAssociation>
+                            <scenarioAssociation>
+                                <field name="url">
+                                    <String>xsl/dita2fo_flag_ditaval.xsl</String>
+                                </field>
+                                <field name="scenarioIds">
+                                    <list>
+                                        <String>dita2fo_convmerged</String>
+                                    </list>
+                                </field>
+                                <field name="scenarioTypes">
+                                    <list>
+                                        <String>Validation_scenario</String>
+                                    </list>
+                                </field>
+                            </scenarioAssociation>
+                            <scenarioAssociation>
+                                <field name="url">
+                                    <String>xsl/dita2fo_convmerged.xsl</String>
+                                </field>
+                                <field name="scenarioIds">
+                                    <list>
+                                        <String>dita2fo_convmerged</String>
+                                    </list>
+                                </field>
+                                <field name="scenarioTypes">
+                                    <list>
+                                        <String>Validation_scenario</String>
+                                    </list>
+                                </field>
+                            </scenarioAssociation>
+                            <scenarioAssociation>
+                                <field name="url">
                                     <String>xsl/dita2fo_title.xsl</String>
                                 </field>
                                 <field name="scenarioIds">
@@ -5226,21 +5277,6 @@
                             <scenarioAssociation>
                                 <field name="url">
                                     <String>xsl/dita2fo_convmerged_sort_glossary.xsl</String>
-                                </field>
-                                <field name="scenarioIds">
-                                    <list>
-                                        <String>dita2fo_convmerged</String>
-                                    </list>
-                                </field>
-                                <field name="scenarioTypes">
-                                    <list>
-                                        <String>Validation_scenario</String>
-                                    </list>
-                                </field>
-                            </scenarioAssociation>
-                            <scenarioAssociation>
-                                <field name="url">
-                                    <String>xsl/dita2fo_convmerged.xsl</String>
                                 </field>
                                 <field name="scenarioIds">
                                     <list>
@@ -5290,21 +5326,6 @@
                                 <field name="scenarioIds">
                                     <list>
                                         <String>PDF5-ML</String>
-                                    </list>
-                                </field>
-                                <field name="scenarioTypes">
-                                    <list>
-                                        <String>Validation_scenario</String>
-                                    </list>
-                                </field>
-                            </scenarioAssociation>
-                            <scenarioAssociation>
-                                <field name="url">
-                                    <String>xsl/dita2fo_flag_ditaval.xsl</String>
-                                </field>
-                                <field name="scenarioIds">
-                                    <list>
-                                        <String>dita2fo_convmerged</String>
                                     </list>
                                 </field>
                                 <field name="scenarioTypes">

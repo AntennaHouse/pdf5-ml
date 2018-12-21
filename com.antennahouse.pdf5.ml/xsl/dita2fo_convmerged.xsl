@@ -50,12 +50,16 @@ E-mail : info@antennahouse.com
      function:	General template for all element
      param:		none
      return:	copied result
-     note:		
+     note:		Add @chage-bar-style if it exists.
      -->
     <xsl:template match="*">
         <xsl:param name="prmDitaValFlagStyle" tunnel="yes" required="no" select="''"/>
+        <xsl:param name="prmDitaValChangeBarStyle" tunnel="yes" required="no" select="''"/>
         <xsl:copy>
             <xsl:copy-of select="@*"/>
+            <xsl:if test="string($prmDitaValChangeBarStyle)">
+                <xsl:attribute name="change-bar-style" select="$prmDitaValChangeBarStyle"/>
+            </xsl:if>
             <xsl:choose>
                 <xsl:when test="string($prmDitaValFlagStyle)">
                     <xsl:copy-of select="ahf:getMergedDitaValFlagStyleAttr(.,$prmDitaValFlagStyle)"/>
@@ -69,7 +73,7 @@ E-mail : info@antennahouse.com
             </xsl:choose>
         </xsl:copy>
     </xsl:template>
-
+    
     <!-- 
      function:	topicgroup
      param:		none
