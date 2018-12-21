@@ -314,17 +314,18 @@ E-mail : info@antennahouse.com
     </xsl:function>
 
     <!-- 
-     function:	Template for element that has effective ditaval-startprop element as first child
+     function:	Template for element that has effective ditaval-startprop element as child
      param:		none
      return:	copied result
-     note:		This template generates style from .ditaval prop/action="flag" element's style.
+     note:		This template generates style from .ditaval prop or revprop/action="flag" element's style.
                 This style is passed as $prmDitaValFlagStyle tunnel parameter.
      -->
     <xsl:template match="*[ahf:hasChildDitaValStartProp(.)]" priority="5">
-        <xsl:variable name="ditaValPropOrRevProp" as="element()*" select="ahf:getChildDitavalPropOrRevProp(.)"/>
+        <xsl:param name="prmDitaValFlagStyle" tunnel="yes" required="no" select="''"/>
+        <xsl:variable name="ditaValPropOrRevProp" as="element()*" select="ahf:getGrandChildDitavalPropOrRevProp(.)"/>
         <xsl:variable name="ditaValFlagStyle" as="xs:string" select="ahf:getDitaValFlagStyle($ditaValPropOrRevProp)"/>
         <xsl:next-match>
-            <xsl:with-param name="prmDitaValFlagStyle" tunnel="yes" select="$ditaValFlagStyle"/>
+            <xsl:with-param name="prmDitaValFlagStyle" tunnel="yes" select="concat($prmDitaValFlagStyle,$ditaValFlagStyle)"/>
         </xsl:next-match>
     </xsl:template>
 
@@ -340,12 +341,12 @@ E-mail : info@antennahouse.com
     </xsl:function>
     
     <!-- 
-     function:	Get child ditava-startprop/prop element
+     function:	Get grand child ditava-startprop/prop or revprop element
      param:		prmElem
-     return:	element()
-     note:		Return child ditaval-startprop/prop, revprop element.
+     return:	element()*
+     note:		Return grand child ditaval-startprop/prop, revprop element.
      -->
-    <xsl:function name="ahf:getChildDitavalPropOrRevProp" as="element()*">
+    <xsl:function name="ahf:getGrandChildDitavalPropOrRevProp" as="element()*">
         <xsl:param name="prmElem" as="element()"/>
         <xsl:sequence select="$prmElem/*[contains(@class, ' ditaot-d/ditaval-startprop ')]/*[self::prop or self::revprop]"/>
     </xsl:function>
@@ -430,6 +431,61 @@ E-mail : info@antennahouse.com
                     </xsl:choose>
                 </xsl:variable>
                 <xsl:sequence select="concat($color,$backColor,$style)"/>
+            </xsl:for-each>
+        </xsl:variable>
+        <xsl:sequence select="string-join($styleProps,'')"/>
+    </xsl:function>
+
+    <!-- 
+     function:	Generate CSS style notation from ditaval-startprop/revprop/@changebar attribute
+     param:		prmDitaValRevProps (revprop elements)
+     return:	xs:string
+     note:		Invalid property for fo:change-bar-start is removed.
+     -->
+    <xsl:function name="ahf:getDitaValChangeBarStyle" as="xs:string">
+        <xsl:param name="prmDitaValRevProps" as="element()*"/>
+        <xsl:variable name="styleProps" as="xs:string*">
+            <xsl:for-each select="$prmDitaValRevProps">
+                <xsl:variable name="ditaValRevProp" as="element()" select="."/>
+                <xsl:variable name="changeBarAttVal" as="xs:string" select="normalize-space(string($ditaValRevProp/@changebar))"/>
+                <xsl:for-each select="tokenize($changeBarAttVal, ';')">
+                    <xsl:variable name="propDesc" select="normalize-space(string(.))"/>
+                    <xsl:choose>
+                        <xsl:when test="not(string($propDesc))"/>
+                        <xsl:when test="contains($propDesc,':')">
+                            <xsl:variable name="propName" as="xs:string">
+                                <xsl:variable name="tempPropName" as="xs:string" select="substring-before($propDesc,':')"/>
+                                <xsl:variable name="axfExt" as="xs:string" select="'axf-'"/>
+                                <xsl:variable name="ahsExt" as="xs:string" select="'ahs-'"/>
+                                <xsl:choose>
+                                    <xsl:when test="starts-with($tempPropName,$axfExt)">
+                                        <xsl:sequence select="concat('axf:',substring-after($tempPropName,$axfExt))"/>
+                                    </xsl:when>
+                                    <xsl:when test="starts-with($tempPropName,$ahsExt)">
+                                        <xsl:sequence select="''"/>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:sequence select="$tempPropName"/>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                            </xsl:variable>                            
+                            <xsl:variable name="propValue" as="xs:string" select="normalize-space(substring-after($propDesc,':'))"/>
+                            <xsl:choose>
+                                <xsl:when test="$propName = ('change-bar-color','change-bar-offset','change-bar-placement','change-bar-style','change-bar-width','z-index')">
+                                    <xsl:sequence select="concat($propName,':',$propValue,';')"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:sequence select="''"/>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:call-template name="warningContinue">
+                                <xsl:with-param name="prmMes" select="ahf:replace($stMes810,('%changeBarAttr'),($changeBarAttVal))"/>
+                            </xsl:call-template>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:for-each>
             </xsl:for-each>
         </xsl:variable>
         <xsl:sequence select="string-join($styleProps,'')"/>

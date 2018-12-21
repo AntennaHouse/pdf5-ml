@@ -69,7 +69,6 @@ E-mail : info@antennahouse.com
             </xsl:choose>
         </xsl:copy>
     </xsl:template>
-    
 
     <!-- 
      function:	topicgroup
