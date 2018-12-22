@@ -70,7 +70,7 @@ E-mail : info@antennahouse.com
             </xsl:if>
             <xsl:apply-templates select="*[contains(@class, ' topic/desc ')]"/>
             <xsl:apply-templates select="*[contains(@class, ' topic/tgroup ')]">
-                <xsl:with-param name="prmTableAttr" select="$tableAttr"/>
+                <xsl:with-param name="prmTableAttr" tunnel="yes" select="$tableAttr"/>
             </xsl:apply-templates>
             <xsl:if test="not($pDisplayFnAtEndOfTopic)">
                 <xsl:call-template name="makeFootNote">
@@ -171,12 +171,12 @@ E-mail : info@antennahouse.com
     </xsl:template>    
 
     <xsl:template match="*[contains(@class, ' topic/tgroup ')]">
-        <xsl:param name="prmTableAttr" required="yes" as="element()"/>
+        <xsl:param name="prmTableAttr" required="yes" tunnel="yes" as="element()"/>
     
         <xsl:variable name="tgroupAttr" select="ahf:addTgroupAttr(.,$prmTableAttr)" as="element()"/>
         <xsl:variable name="colSpec" as="element()*">
             <xsl:apply-templates select="child::*[contains(@class, ' topic/colspec ')]">
-                <xsl:with-param name="prmTgroupAttr" select="$tgroupAttr"/>
+                <xsl:with-param name="prmTgroupAttr" tunnel="yes" select="$tgroupAttr"/>
             </xsl:apply-templates>
         </xsl:variable>
         <xsl:variable name="tableAttr" as="attribute()*">
@@ -196,12 +196,12 @@ E-mail : info@antennahouse.com
                 <!-- Copy fo:table-column -->
                 <xsl:apply-templates select="$colSpec" mode="COPY_COLSPEC"/>
                 <xsl:apply-templates select="*[contains(@class, ' topic/thead ')]">
-                    <xsl:with-param name="prmTgroupAttr" select="$tgroupAttr"/>
-                    <xsl:with-param name="prmColSpec"    select="$colSpec"/>
+                    <xsl:with-param name="prmTgroupAttr" tunnel="yes" select="$tgroupAttr"/>
+                    <xsl:with-param name="prmColSpec"    tunnel="yes" select="$colSpec"/>
                 </xsl:apply-templates>
                 <xsl:apply-templates select="*[contains(@class, ' topic/tbody ')]">
-                    <xsl:with-param name="prmTgroupAttr" select="$tgroupAttr"/>
-                    <xsl:with-param name="prmColSpec"    select="$colSpec"/>
+                    <xsl:with-param name="prmTgroupAttr" tunnel="yes" select="$tgroupAttr"/>
+                    <xsl:with-param name="prmColSpec"    tunnel="yes" select="$colSpec"/>
                 </xsl:apply-templates>
             </fo:table>
         </fo:table-and-caption>
@@ -234,7 +234,7 @@ E-mail : info@antennahouse.com
      note:		
      -->
     <xsl:template name="ahf:getTablePgwideAttr" as="attribute()*">
-        <xsl:param name="prmTgroupAttr"    as="element()"/>
+        <xsl:param name="prmTgroupAttr" required="yes" as="element()"/>
         <xsl:if test="string($prmTgroupAttr/@pgwide) eq '1'">
             <xsl:call-template name="getAttributeSet">
                 <xsl:with-param name="prmAttrSetName" select="'atsPgWideTable'"/>
@@ -261,7 +261,7 @@ E-mail : info@antennahouse.com
      note:		Added border style "atsTableColumn" to set default border width. 2014-01-03 t.makita
      -->
     <xsl:template match="*[contains(@class, ' topic/colspec ')]">
-        <xsl:param name="prmTgroupAttr" required="yes" as="element()"/>
+        <xsl:param name="prmTgroupAttr" required="yes" tunnel="yes" as="element()"/>
     
         <fo:table-column>
             <xsl:copy-of select="ahf:getAttributeSet('atsTableColumn')"/>
@@ -279,7 +279,7 @@ E-mail : info@antennahouse.com
      note:		Generates XSL-FO property.
      -->
     <xsl:function name="ahf:getColSpecAttr" as="attribute()*">
-        <xsl:param name="prmColSpec"    as="element()"/>
+        <xsl:param name="prmColSpec" required="yes" as="element()"/>
     
         <!-- colname (Not defined in XSL-FO)-->
         <xsl:if test="exists($prmColSpec/@colname)">
@@ -360,8 +360,8 @@ E-mail : info@antennahouse.com
      note:		
      -->
     <xsl:template match="*[contains(@class, ' topic/thead ')]">
-        <xsl:param name="prmTgroupAttr" required="yes"  as="element()"/>
-        <xsl:param name="prmColSpec" required="yes" as="element()*"/>
+        <xsl:param name="prmTgroupAttr" required="yes" tunnel="yes" as="element()"/>
+        <xsl:param name="prmColSpec" required="yes" tunnel="yes" as="element()*"/>
     
         <xsl:variable name="theadAttr" select="ahf:addTheadAttr(.,$prmTgroupAttr)" as="element()"/>
         <fo:table-header>
@@ -371,8 +371,8 @@ E-mail : info@antennahouse.com
             <xsl:call-template name="ahf:getUnivAtts"/>
             <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
             <xsl:apply-templates select="*[contains(@class, ' topic/row ')]">
-                <xsl:with-param name="prmRowUpperAttr"   select="$theadAttr"/>
-                <xsl:with-param name="prmColSpec"    select="$prmColSpec"/>
+                <xsl:with-param name="prmRowUpperAttr" tunnel="yes" select="$theadAttr"/>
+                <xsl:with-param name="prmColSpec"      tunnel="yes" select="$prmColSpec"/>
             </xsl:apply-templates>
         </fo:table-header>
     </xsl:template>
@@ -401,8 +401,8 @@ E-mail : info@antennahouse.com
      note:		
      -->
     <xsl:template match="*[contains(@class, ' topic/tbody ')]">
-        <xsl:param name="prmTgroupAttr" required="yes" as="element()"/>
-        <xsl:param name="prmColSpec" required="yes" as="element()*"/>
+        <xsl:param name="prmTgroupAttr" required="yes" tunnel="yes" as="element()"/>
+        <xsl:param name="prmColSpec" required="yes" tunnel="yes" as="element()*"/>
     
         <xsl:variable name="tbodyAttr" select="ahf:addTbodyAttr(.,$prmTgroupAttr)" as="element()"/>
         <fo:table-body>
@@ -412,8 +412,8 @@ E-mail : info@antennahouse.com
             <xsl:call-template name="ahf:getUnivAtts"/>
             <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
             <xsl:apply-templates select="*[contains(@class, ' topic/row ')]">
-                <xsl:with-param name="prmRowUpperAttr" select="$tbodyAttr"/>
-                <xsl:with-param name="prmColSpec"    select="$prmColSpec"/>
+                <xsl:with-param name="prmRowUpperAttr" tunnel="yes" select="$tbodyAttr"/>
+                <xsl:with-param name="prmColSpec"      tunnel="yes" select="$prmColSpec"/>
             </xsl:apply-templates>
         </fo:table-body>
     </xsl:template>
@@ -426,7 +426,7 @@ E-mail : info@antennahouse.com
      note:		
      -->
     <xsl:function name="ahf:addTbodyAttr" as="element()">
-        <xsl:param name="prmTbody"    as="element()"/>
+        <xsl:param name="prmTbody"      as="element()"/>
         <xsl:param name="prmTgroupAttr" as="element()"/>
         <dummy>
             <xsl:copy-of select="$prmTgroupAttr/@* except $prmTgroupAttr/@*[name() eq $pFoPropName]"/>
@@ -442,8 +442,8 @@ E-mail : info@antennahouse.com
      note:		
      -->
     <xsl:template match="*[contains(@class, ' topic/row ')]">
-        <xsl:param name="prmRowUpperAttr" required="yes" as="element()"/>
-        <xsl:param name="prmColSpec" required="yes" as="element()*"/>
+        <xsl:param name="prmRowUpperAttr" required="yes" tunnel="yes" as="element()"/>
+        <xsl:param name="prmColSpec" required="yes" tunnel="yes" as="element()*"/>
     
         <xsl:variable name="rowAttr" select="ahf:addRowAttr(.,$prmRowUpperAttr)" as="element()"/>
         <xsl:variable name="rowHeight" as="xs:double">
@@ -462,9 +462,9 @@ E-mail : info@antennahouse.com
             </xsl:if>
             <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
             <xsl:apply-templates select="*[contains(@class, ' topic/entry ')]">
-                <xsl:with-param name="prmRowAttr"    select="$rowAttr"/>
-                <xsl:with-param name="prmColSpec"    select="$prmColSpec"/>
-                <xsl:with-param name="prmRowHeight"  select="$rowHeight"/>
+                <xsl:with-param name="prmRowAttr"    tunnel="yes" select="$rowAttr"/>
+                <xsl:with-param name="prmColSpec"    tunnel="yes" select="$prmColSpec"/>
+                <xsl:with-param name="prmRowHeight"  tunnel="yes" select="$rowHeight"/>
             </xsl:apply-templates>
         </fo:table-row>
     </xsl:template>
@@ -558,7 +558,6 @@ E-mail : info@antennahouse.com
         </xsl:choose>
     </xsl:template>
     
-    
     <!-- 
      function:	entry template
      param:		prmRowAttr, prmColSpec,prmRowHeight
@@ -567,9 +566,9 @@ E-mail : info@antennahouse.com
                 $prmRowHeight is needed for entry/@rotate="1" when specifying fo:block-container/@width
      -->
     <xsl:template match="*[contains(@class, ' topic/entry ')]">
-        <xsl:param name="prmRowAttr" required="yes" as="element()"/>
-        <xsl:param name="prmColSpec" required="yes" as="element()*"/>
-        <xsl:param name="prmRowHeight" required="yes" as="xs:double"/>
+        <xsl:param name="prmRowAttr" required="yes" tunnel="yes" as="element()"/>
+        <xsl:param name="prmColSpec" required="yes" tunnel="yes" as="element()*"/>
+        <xsl:param name="prmRowHeight" required="yes" tunnel="yes" as="xs:double"/>
     
         <xsl:variable name="colname" as="xs:string" select="string(@colname)"/>
         <xsl:variable name="atsName" select="if (ancestor::*[contains(@class,' topic/thead ')]) then 'atsTableHeaderCell' else 'atsTableBodyCell'"/>
@@ -801,14 +800,14 @@ E-mail : info@antennahouse.com
                     </xsl:call-template>
                 </xsl:if>
                 <xsl:apply-templates select="*[contains(@class,' topic/sthead ')]">
-                    <xsl:with-param name="prmKeyCol"   select="$keyCol"/>
+                    <xsl:with-param name="prmKeyCol" tunnel="yes" select="$keyCol"/>
                 </xsl:apply-templates>
                 <fo:table-body>
                     <xsl:call-template name="getAttributeSetWithLang">
                         <xsl:with-param name="prmAttrSetName" select="'atsSimpleTableBody'"/>
                     </xsl:call-template>
                     <xsl:apply-templates select="*[contains(@class,' topic/strow ')]">
-                        <xsl:with-param name="prmKeyCol"   select="$keyCol"/>
+                        <xsl:with-param name="prmKeyCol" tunnel="yes" select="$keyCol"/>
                     </xsl:apply-templates>
                 </fo:table-body>
             </fo:table>
@@ -832,7 +831,7 @@ E-mail : info@antennahouse.com
     </xsl:template>    
 
     <xsl:template match="*[contains(@class, ' topic/sthead ')]">
-        <xsl:param name="prmKeyCol"  required="yes" as="xs:integer"/>
+        <xsl:param name="prmKeyCol"  required="yes" tunnel="yes" as="xs:integer"/>
         
         <fo:table-header>
             <xsl:call-template name="getAttributeSetWithLang"/>
@@ -860,7 +859,7 @@ E-mail : info@antennahouse.com
     </xsl:template>    
 
     <xsl:template match="*[contains(@class, ' topic/sthead ')]/*[contains(@class, ' topic/stentry ')]">
-        <xsl:param name="prmKeyCol"   required="yes"  as="xs:integer"/>
+        <xsl:param name="prmKeyCol"   required="yes" tunnel="yes" as="xs:integer"/>
         <fo:table-cell>
             <xsl:call-template name="getAttributeSetWithLang"/>
             <xsl:choose>
@@ -888,7 +887,7 @@ E-mail : info@antennahouse.com
     </xsl:template>    
 
     <xsl:template match="*[contains(@class, ' topic/strow ')]/*[contains(@class, ' topic/stentry ')]">
-        <xsl:param name="prmKeyCol"   required="yes"  as="xs:integer"/>
+        <xsl:param name="prmKeyCol"   required="yes" tunnel="yes" as="xs:integer"/>
         <fo:table-cell>
             <xsl:call-template name="getAttributeSetWithLang"/>
             <xsl:choose>
@@ -923,13 +922,13 @@ E-mail : info@antennahouse.com
     </xsl:template>    
 
     <xsl:template match="*[contains(@class, ' topic/strow ')]">
-        <xsl:param name="prmKeyCol"   required="yes"  as="xs:integer"/>
+        <xsl:param name="prmKeyCol"   required="yes" tunnel="yes" as="xs:integer"/>
         <fo:table-row>
             <xsl:call-template name="getAttributeSetWithLang"/>
             <xsl:call-template name="ahf:getUnivAtts"/>
             <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
             <xsl:apply-templates>
-                <xsl:with-param name="prmKeyCol"   select="$prmKeyCol"/>
+                <xsl:with-param name="prmKeyCol" tunnel="yes" select="$prmKeyCol"/>
             </xsl:apply-templates>
         </fo:table-row>
     </xsl:template>

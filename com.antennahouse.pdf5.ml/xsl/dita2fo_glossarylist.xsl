@@ -420,6 +420,7 @@ E-mail : info@antennahouse.com
     <xsl:template match="*[contains(@class, ' glossentry/glossentry ')]" mode="PROCESS_GLOSSARYLIST_CONTENT" priority="2">
         <xsl:param name="prmTopicRef" tunnel="yes" required="yes" as="element()"/>
         
+        <xsl:copy-of select="ahf:genChangeBarBeginElem(.)"/>
         <fo:block>
             <xsl:call-template name="getAttributeSetWithLang">
                 <xsl:with-param name="prmAttrSetName" select="'atsBaseGlossaryList'"/>
@@ -467,6 +468,7 @@ E-mail : info@antennahouse.com
             <xsl:apply-templates select="child::*[contains(@class,' topic/related-links ')]"/>
             
         </fo:block>
+        <xsl:copy-of select="ahf:genChangeBarEndElem(.)"/>
     </xsl:template>
     
     <!-- 

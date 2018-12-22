@@ -56,7 +56,7 @@ E-mail : info@antennahouse.com
             <xsl:call-template name="ahf:getUnivAtts"/>
             <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
             <xsl:apply-templates>
-                <xsl:with-param name="prmNumberFormat" select="$numberFormat"/>
+                <xsl:with-param name="prmNumberFormat" tunnel="yes" select="$numberFormat"/>
             </xsl:apply-templates>
         </fo:list-block>
     </xsl:template>
@@ -72,7 +72,7 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <xsl:template match="*[contains(@class,' task/steps ')]/*[contains(@class,' task/step ')]" priority="2">
-        <xsl:param name="prmNumberFormat" required="yes" as="xs:string"/>
+        <xsl:param name="prmNumberFormat" required="yes" tunnel="yes" as="xs:string"/>
         
         <xsl:call-template name="processStep">
             <xsl:with-param name="prmNumberFormat" select="$prmNumberFormat"/>
@@ -150,7 +150,7 @@ E-mail : info@antennahouse.com
             <xsl:call-template name="ahf:getUnivAtts"/>
             <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
             <xsl:apply-templates>
-                <xsl:with-param name="prmNumberFormat" select="$numberFormat"/>
+                <xsl:with-param name="prmNumberFormat" tunnel="yes" select="$numberFormat"/>
             </xsl:apply-templates>
         </fo:list-block>
     </xsl:template>
@@ -166,7 +166,7 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <xsl:template match="*[contains(@class,' task/substeps ')]/*[contains(@class,' task/substep ')]" priority="2">
-        <xsl:param name="prmNumberFormat" required="yes" as="xs:string"/>
+        <xsl:param name="prmNumberFormat" required="yes" tunnel="yes" as="xs:string"/>
         
         <xsl:call-template name="processSubStep">
             <xsl:with-param name="prmNumberFormat" select="$prmNumberFormat"/>
@@ -335,7 +335,7 @@ E-mail : info@antennahouse.com
                 <xsl:choose>
                     <xsl:when test="*[contains(@class, ' task/chhead ')]">
                         <xsl:apply-templates select="*[contains(@class, ' task/chhead ')]">
-                            <xsl:with-param name="prmKeyCol"   select="$keyCol"/>
+                            <xsl:with-param name="prmKeyCol" tunnel="yes" select="$keyCol"/>
                         </xsl:apply-templates>
                     </xsl:when>
                     <xsl:otherwise>
@@ -383,7 +383,7 @@ E-mail : info@antennahouse.com
                 <fo:table-body>
                     <xsl:copy-of select="ahf:getAttributeSet('atsChbody')"/>
                     <xsl:apply-templates select="*[contains(@class, ' task/chrow ')]">
-                        <xsl:with-param name="prmKeyCol"   select="$keyCol"/>
+                        <xsl:with-param name="prmKeyCol" tunnel="yes"  select="$keyCol"/>
                     </xsl:apply-templates>
                 </fo:table-body>
                 
@@ -392,7 +392,7 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <xsl:template match="*[contains(@class, ' task/chhead ')]" priority="2">
-        <xsl:param name="prmKeyCol"   required="yes"  as="xs:integer"/>
+        <xsl:param name="prmKeyCol"   required="yes" tunnel="yes" as="xs:integer"/>
     
         <fo:table-header>
             <xsl:copy-of select="ahf:getAttributeSet('atsChhead')"/>
@@ -401,14 +401,14 @@ E-mail : info@antennahouse.com
             <fo:table-row>
                 <xsl:copy-of select="ahf:getAttributeSet('atsChheadRow')"/>
                 <xsl:apply-templates>
-                    <xsl:with-param name="prmKeyCol"   select="$prmKeyCol"/>
+                    <xsl:with-param name="prmKeyCol" tunnel="yes" select="$prmKeyCol"/>
                 </xsl:apply-templates>
             </fo:table-row>
         </fo:table-header>
     </xsl:template>
     
     <xsl:template match="*[contains(@class, ' task/chhead ')]/*[contains(@class, ' task/choptionhd ')]" priority="2">
-        <xsl:param name="prmKeyCol"   required="yes"  as="xs:integer"/>
+        <xsl:param name="prmKeyCol"   required="yes" tunnel="yes" as="xs:integer"/>
     
         <fo:table-cell>
             <xsl:copy-of select="ahf:getAttributeSet('atsChoptionhd')"/>
@@ -429,7 +429,7 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <xsl:template match="*[contains(@class, ' task/chhead ')]/*[contains(@class, ' task/chdeschd ')]" priority="2">
-        <xsl:param name="prmKeyCol"   required="yes"  as="xs:integer"/>
+        <xsl:param name="prmKeyCol"   required="yes" tunnel="yes" as="xs:integer"/>
     
         <fo:table-cell>
             <xsl:copy-of select="ahf:getAttributeSet('atsChdeschd')"/>
@@ -450,7 +450,7 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <xsl:template match="*[contains(@class, ' task/chrow ')]" priority="2">
-        <xsl:param name="prmKeyCol"   required="yes"  as="xs:integer"/>
+        <xsl:param name="prmKeyCol"   required="yes" tunnel="yes" as="xs:integer"/>
     
         <fo:table-row>
             <xsl:copy-of select="ahf:getAttributeSet('atsChrow')"/>
@@ -463,7 +463,7 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <xsl:template match="*[contains(@class, ' task/chrow ')]/*[contains(@class, ' task/choption ')]" priority="2">
-        <xsl:param name="prmKeyCol"   required="yes"  as="xs:integer"/>
+        <xsl:param name="prmKeyCol"   required="yes" tunnel="yes" as="xs:integer"/>
     
         <fo:table-cell>
             <xsl:copy-of select="ahf:getAttributeSet('atsChoption')"/>
@@ -484,7 +484,7 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <xsl:template match="*[contains(@class, ' task/chrow ')]/*[contains(@class, ' task/chdesc ')]" priority="2">
-        <xsl:param name="prmKeyCol"   required="yes"  as="xs:integer"/>
+        <xsl:param name="prmKeyCol"   required="yes" tunnel="yes" as="xs:integer"/>
     
         <fo:table-cell>
             <xsl:copy-of select="ahf:getAttributeSet('atsChdesc')"/>
