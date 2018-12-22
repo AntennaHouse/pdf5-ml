@@ -273,14 +273,12 @@ E-mail : info@antennahouse.com
      note:		This template is intended to apply inline level elements.
      -->
     <xsl:template match="*[contains(@class, ' ditaot-d/ditaval-startprop ')]" priority="10">
-        <xsl:message select="'[ditaval-startprop] Hit!'"/>
         <xsl:call-template name="genInlineLevelImageOrTextForFlagging">
             <xsl:with-param name="prmFlagElem" select="*[self::prop or self::revprop]/startflag"/>
         </xsl:call-template>
     </xsl:template>
 
     <xsl:template match="*[contains(@class, ' ditaot-d/ditaval-endprop ')]" priority="10">
-        <xsl:message select="'[ditaval-endprop] Hit!'"/>
         <xsl:call-template name="genInlineLevelImageOrTextForFlagging">
             <xsl:with-param name="prmFlagElem" select="*[self::prop or self::revprop]/endflag"/>
         </xsl:call-template>
@@ -457,7 +455,10 @@ E-mail : info@antennahouse.com
      function:	Generate CSS style notation from ditaval-startprop/revprop/@changebar attribute
      param:		prmDitaValRevProps (revprop elements)
      return:	xs:string
-     note:		Invalid property for fo:change-bar-start is removed.
+     note:		There is no explicit revprop/@changebar contents in DITA specification.
+                This function adopts following properties as valid:
+                'color','offset','placement','style','width'
+                'change-bar-color','change-bar-offset','change-bar-placement','change-bar-style','change-bar-width','z-index'
      -->
     <xsl:function name="ahf:getDitaValChangeBarStyle" as="xs:string">
         <xsl:param name="prmDitaValRevProps" as="element()*"/>
@@ -488,6 +489,9 @@ E-mail : info@antennahouse.com
                             </xsl:variable>                            
                             <xsl:variable name="propValue" as="xs:string" select="normalize-space(substring-after($propDesc,':'))"/>
                             <xsl:choose>
+                                <xsl:when test="$propName = ('color','offset','placement','style','width')">
+                                    <xsl:sequence select="concat('change-bar-',$propName,':',$propValue,';')"/>
+                                </xsl:when>
                                 <xsl:when test="$propName = ('change-bar-color','change-bar-offset','change-bar-placement','change-bar-style','change-bar-width','z-index')">
                                     <xsl:sequence select="concat($propName,':',$propValue,';')"/>
                                 </xsl:when>
