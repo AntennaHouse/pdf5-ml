@@ -6,8 +6,9 @@
                 <mainbooktitle><image href="topics-en/image/book.tif" height="1em"/>DITA to XSL-FO Transformation<ph><indexterm>AAA</indexterm></ph></mainbooktitle>
                 <booktitlealt>Unit test cases</booktitlealt>
         </booktitle>
-        <bookmeta>
-                <source href="http://www.antennahouse.com">Antenna House Home page</source>
+    <bookmeta>
+        <author type="contributor">toshi</author>
+                <source href="http://www.antennahouse.com" format="html" scope="external">Antenna House Home page</source>
                 <publisherinformation>
                     <organization>Antenna House, Inc.</organization>
                     <printlocation>Japan</printlocation>
@@ -19,7 +20,11 @@
                         </completed>
                     </published>
                 </publisherinformation>
-                <category>Testcase Report</category>
+        <critdates>
+            <!--toshi-->
+            <revised modified="2018/12/22"/>
+        </critdates>
+        <category>Testcase Report</category>
                 <keywords>
                         <keyword>installing</keyword>
                         <keyword>uninstalling</keyword>
