@@ -502,16 +502,16 @@ E-mail : info@antennahouse.com
                 </xsl:call-template>
                 <xsl:value-of select="$INDEX_CHECK_IGNORE_ELEMENT"/>
             </xsl:when>
-            <xsl:when test="string(@start) and string(descendant::*[contains(@class, CLASS_INSDEXTERM)][string(@end)][1]/@end)">
-                <xsl:variable name="end" select="string(descendant::*[contains(@class, CLASS_INSDEXTERM)][string(@end)][1]/@end)" as="xs:string"/>
+            <xsl:when test="string(@start) and string(descendant::*[contains(@class, $CLASS_INDEXTERM)][string(@end)][1]/@end)">
+                <xsl:variable name="end" select="string(descendant::*[contains(@class, $CLASS_INDEXTERM)][string(@end)][1]/@end)" as="xs:string"/>
                 <xsl:call-template name="warningContinue">
                     <xsl:with-param name="prmMes" 
                      select="ahf:replace($stMes651,('%start','%end','%key','%file'),(string(@start),$end,$prmCurrentIndexKey,string(@xtrf)))"/>
                 </xsl:call-template>
                 <xsl:value-of select="$INDEX_CHECK_IGNORE_ELEMENT"/>
             </xsl:when>
-            <xsl:when test="string(@end) and string(descendant::*[contains(@class, CLASS_INSDEXTERM)][string(@start)][1]/@start)">
-                <xsl:variable name="start" select="string(descendant::*[contains(@class, CLASS_INSDEXTERM)][string(@start)][1]/@start)" as="xs:string"/>
+            <xsl:when test="string(@end) and string(descendant::*[contains(@class, $CLASS_INDEXTERM)][string(@start)][1]/@start)">
+                <xsl:variable name="start" select="string(descendant::*[contains(@class, $CLASS_INDEXTERM)][string(@start)][1]/@start)" as="xs:string"/>
                 <xsl:call-template name="warningContinue">
                     <xsl:with-param name="prmMes" 
                      select="ahf:replace($stMes652,('%start','%end','%key','%file'),($start,string(@end),$prmCurrentIndexKey,string(@xtrf)))"/>
