@@ -51,6 +51,7 @@ E-mail : info@antennahouse.com
      param:		none
      return:	copied result
      note:		Add @chage-bar-style if it exists.
+                Add .ditaval flagging style as @fo:prop
      -->
     <xsl:template match="*">
         <xsl:param name="prmDitaValFlagStyle" tunnel="yes" required="no" select="''"/>
@@ -65,10 +66,13 @@ E-mail : info@antennahouse.com
                     <xsl:copy-of select="ahf:getMergedDitaValFlagStyleAttr(.,$prmDitaValFlagStyle)"/>
                     <xsl:apply-templates>
                         <xsl:with-param name="prmDitaValFlagStyle" tunnel="yes" select="''"/>
+                        <xsl:with-param name="prmDitaValChangeBarStyle" tunnel="yes" select="''"/>
                     </xsl:apply-templates>
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:apply-templates/>
+                    <xsl:apply-templates>
+                        <xsl:with-param name="prmDitaValChangeBarStyle" tunnel="yes" select="''"/>
+                    </xsl:apply-templates>
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:copy>

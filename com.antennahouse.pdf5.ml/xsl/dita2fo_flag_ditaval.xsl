@@ -116,12 +116,12 @@ E-mail : info@antennahouse.com
     </xsl:attribute-set>
     
     <!-- 
-     function:	Template for block-level elements that has ditaval-startprop,endprop element as its child.
+     function:	Template for block-level elements that has ditaval-startprop, endprop element as its child.
      param:		none
      return:	generate outer block image and call next matching template
      note:		tgroup is not supported!
      -->
-    <xsl:template match="*[ahf:isListElement(.) or contains(@class,' topic/table ') or contains(@class,' topic/simpletable ')]
+    <xsl:template match="*[ahf:isListTopElement(.) or ahf:isTableTopElement(.)]
                           [ahf:hasDitaValStartPropWithImageFlag(.) or ahf:hasDitaValEndPropWithImageFlag(.)]" 
                   priority="20">
         <xsl:for-each select="ahf:getStartFlagWithImage(.)">
@@ -140,7 +140,7 @@ E-mail : info@antennahouse.com
     <!-- 
      function:	Generate block level flag image or text 
      param:		prmFlagElem (startflag or endflag)
-     return:	generated image or p elements
+     return:	generated image or p elements with alt-text element contents
      note:		Treat image as relative to map if it does not begin with "https:/", "http:/", "ftp:/", "file:/".
      -->
     <xsl:template name="genBlocLevelImageOrTextForFlagging" as="element()?">
@@ -148,7 +148,7 @@ E-mail : info@antennahouse.com
         <xsl:choose>
             <xsl:when test="exists($prmFlagElem/@dita-ot:imagerefuri)">
                 <xsl:variable name="imageRefUri" as="xs:string" select="string($prmFlagElem/@dita-ot:imagerefuri)"/>
-                <image use-attribute-sets="atsFlagBlockImage">
+                <image xsl:use-attribute-sets="atsFlagBlockImage">
                     <xsl:attribute name="href">
                         <xsl:choose>
                             <xsl:when test="ahf:isAbsUri($imageRefUri)">
@@ -167,7 +167,7 @@ E-mail : info@antennahouse.com
                 </image>
             </xsl:when>
             <xsl:when test="string(normalize-space(string($prmFlagElem/alt-text)))">
-                <p use-attribute-sets="atsP">
+                <p xsl:use-attribute-sets="atsP">
                     <xsl:copy-of select="$prmFlagElem/alt-text/node()"/>
                 </p>
             </xsl:when>
@@ -181,18 +181,19 @@ E-mail : info@antennahouse.com
      function:	Judge absolute URI
      param:		prmUri
      return:	xs:boolean
-     note:		If $prm Uri starts with "http:/" or "https:/" or "file:/" return true 
+     note:		If $prmUri starts with "http:/" or "https:/" or "file:/", it is assumed to be absolute. 
      -->
     <xsl:function name="ahf:isAbsUri" as="xs:boolean">
         <xsl:param name="prmUri" as="xs:string"/>
-        <xsl:sequence select="starts-with($prmUri,'http:/') or starts-with($prmUri,'https:/') or starts-with($prmUri,'file:/') or starts-with($prmUri,'ftp:/')"/>
+        <xsl:variable name="absUriCandidate" as="xs:string+" select="('http:/','https:/','file:/','ftp:/')"/>
+        <xsl:sequence select="ahf:seqStartsWith($prmUri,$absUriCandidate)"/>
     </xsl:function>
 
     <!-- 
      function:	Template for image, xref elements that has ditaval-startprop,endprop element as its child.
      param:		none
-     return:	generate outer block image and call next matching template
-     note:		If the schema specialization has empty inline elements, you should append its class here! 
+     return:	generate outer inline image and call next matching template
+     note:		 
      -->
     <xsl:template match="*[contains(@class,' topic/image ') or contains(@class,' topic/xref ')]
         [ahf:hasDitaValStartPropWithImageFlag(.) or ahf:hasDitaValEndPropWithImageFlag(.)]" 
@@ -213,7 +214,7 @@ E-mail : info@antennahouse.com
     <!-- 
      function:	Generate inline level flag image or text 
      param:		prmFlagElem (startflag or endflag)
-     return:	generated image or p elements
+     return:	generated image or ph elements
      note:		Treat image as relative to map if it does not begin with "https:/", "http:/", "ftp:/", "file:/".
      -->
     <xsl:template name="genInlineLevelImageOrTextForFlagging" as="element()?">
@@ -255,14 +256,18 @@ E-mail : info@antennahouse.com
      function:	Template for ditaval-startprop,endprop element that is for the table, list, image, xref element
      param:		none
      return:	ignore
-     note:		
+     note:		Adding image to thead, tbody, row, sthead, strow is not supported.
      -->
+    <xsl:template match="*[contains(@class, ' ditaot-d/ditaval-startprop ')][parent::*[ahf:isTableTopElement(.)]]" priority="20"/>
+    <xsl:template match="*[contains(@class, ' ditaot-d/ditaval-endprop ')][parent::*[ahf:isTableTopElement(.)]]" priority="20"/>
     <xsl:template match="*[contains(@class, ' ditaot-d/ditaval-startprop ')][parent::*[ahf:isTableRelatedElement(.)]]" priority="20"/>
     <xsl:template match="*[contains(@class, ' ditaot-d/ditaval-endprop ')][parent::*[ahf:isTableRelatedElement(.)]]" priority="20"/>
-
-    <xsl:template match="*[contains(@class, ' ditaot-d/ditaval-startprop ')][parent::*[ahf:isListElement(.)]]" priority="20"/>
-    <xsl:template match="*[contains(@class, ' ditaot-d/ditaval-endprop ')][parent::*[ahf:isListElement(.)]]" priority="20"/>
-
+    
+    <xsl:template match="*[contains(@class, ' ditaot-d/ditaval-startprop ')][parent::*[ahf:isListTopElement(.)]]" priority="20"/>
+    <xsl:template match="*[contains(@class, ' ditaot-d/ditaval-endprop ')][parent::*[ahf:isListTopElement(.)]]" priority="20"/>
+    <xsl:template match="*[contains(@class, ' ditaot-d/ditaval-startprop ')][parent::*[ahf:isListRelatedElement(.)]]" priority="20"/>
+    <xsl:template match="*[contains(@class, ' ditaot-d/ditaval-endprop ')][parent::*[ahf:isListRelatedElement(.)]]" priority="20"/>
+    
     <xsl:template match="*[contains(@class, ' ditaot-d/ditaval-startprop ')][parent::*[contains(@class,' topic/image ') or contains(@class,' topic/xref ')]]" priority="20"/>
     <xsl:template match="*[contains(@class, ' ditaot-d/ditaval-endprop ')][parent::*[contains(@class,' topic/image ') or contains(@class,' topic/xref ')]]" priority="20"/>
     
@@ -270,7 +275,7 @@ E-mail : info@antennahouse.com
      function:	Template for ditaval-startprop, endprop element that has effective prop/startflag/@imageref or prop/endflag/@imageref 
      param:		none
      return:	generate inline image
-     note:		This template is intended to apply inline level elements.
+     note:		This template is intended to apply inline level elements without xref or image.
      -->
     <xsl:template match="*[contains(@class, ' ditaot-d/ditaval-startprop ')]" priority="10">
         <xsl:call-template name="genInlineLevelImageOrTextForFlagging">
@@ -290,11 +295,16 @@ E-mail : info@antennahouse.com
      return:	xs:boolean
      note:		If $prmElem is table or it's descendant element, return true.
      -->
-    <xsl:variable name="cTableRelatedClass" as="xs:string+" select="(' topic/table ',' topic/tgroup ',' topic/thead ',' topic/tbody ',' topic/row ')"/>
-    <xsl:variable name="cSimpleTableRelatedClass" as="xs:string+" select="(' topic/simpletable ',' topic/sthead ',' topic/strow ')"/>
+    <xsl:function name="ahf:isTableTopElement" as="xs:boolean">
+        <xsl:param name="prmElem" as="element()"/>
+        <xsl:variable name="cTableTopClass" as="xs:string+" select="(' topic/table ', ' topic/simpletable ')"/>
+        <xsl:sequence select="ahf:seqContains(string($prmElem/@class),($cTableTopClass))"/>
+    </xsl:function>
     
     <xsl:function name="ahf:isTableRelatedElement" as="xs:boolean">
         <xsl:param name="prmElem" as="element()"/>
+        <xsl:variable name="cTableRelatedClass" as="xs:string+" select="(' topic/tgroup ',' topic/thead ',' topic/tbody ',' topic/row ')"/>
+        <xsl:variable name="cSimpleTableRelatedClass" as="xs:string+" select="(' topic/sthead ',' topic/strow ')"/>
         <xsl:sequence select="ahf:seqContains(string($prmElem/@class),($cTableRelatedClass,$cSimpleTableRelatedClass))"/>
     </xsl:function>
     
@@ -304,13 +314,19 @@ E-mail : info@antennahouse.com
      return:	xs:boolean
      note:		If $prmElem is ol, ul, sl, dl return true.
      -->
-    <xsl:variable name="cListClass" as="xs:string+" select="(' topic/ol ',' topic/ul ',' topic/sl ',' topic/dl ')"/>
     
-    <xsl:function name="ahf:isListElement" as="xs:boolean">
+    <xsl:function name="ahf:isListTopElement" as="xs:boolean">
         <xsl:param name="prmElem" as="element()"/>
-        <xsl:sequence select="ahf:seqContains(string($prmElem/@class),$cListClass)"/>
+        <xsl:variable name="cListTopClass" as="xs:string+" select="(' topic/ol ',' topic/ul ',' topic/sl ',' topic/dl ')"/>
+        <xsl:sequence select="ahf:seqContains(string($prmElem/@class),$cListTopClass)"/>
     </xsl:function>
-
+    
+    <xsl:function name="ahf:isListRelatedElement" as="xs:boolean">
+        <xsl:param name="prmElem" as="element()"/>
+        <xsl:variable name="cListRelatedClass" as="xs:string+" select="(' topic/li ',' topic/sli ',' topic/dlhead ',' topic/dlentry ')"/>
+        <xsl:sequence select="ahf:seqContains(string($prmElem/@class),$cListRelatedClass)"/>
+    </xsl:function>
+    
     <!-- 
      function:	Template for element that has effective ditaval-startprop element as child
      param:		none
@@ -319,7 +335,7 @@ E-mail : info@antennahouse.com
                 This style is passed as $prmDitaValFlagStyle tunnel parameter.
                 This template also generates style from .ditaval revprop/action="flag" element's change-bar style.
                 This style is passed as $prmDitaValChangeBarStyle tunnel parameter.
-                The priority 20 is defined in comparison with dita2fo_convmerged.xsl default templete (match="*").
+                The priority 20 is defined in comparison with dita2fo_convmerged.xsl default template (match="*").
      -->
     <xsl:template match="*[ahf:hasChildDitaValStartProp(.)]" priority="20">
         <xsl:param name="prmDitaValFlagStyle" tunnel="yes" required="no" select="''"/>
@@ -388,14 +404,14 @@ E-mail : info@antennahouse.com
 
     <!-- 
      function:	Generate CSS style notation from ditaval-startprop/prop/@color,@backcolor,@style attribute
-     param:		prmDitaValProp
+     param:		prmDitaValPropsOrRevProps
      return:	xs:string
      note:		
      -->
     <xsl:function name="ahf:getDitaValFlagStyle" as="xs:string">
-        <xsl:param name="prmDitaValPropOrRevProps" as="element()*"/>
+        <xsl:param name="prmDitaValPropsOrRevProps" as="element()*"/>
         <xsl:variable name="styleProps" as="xs:string*">
-            <xsl:for-each select="$prmDitaValPropOrRevProps">
+            <xsl:for-each select="$prmDitaValPropsOrRevProps">
                 <xsl:variable name="ditaValPropOrRevProp" as="element()" select="."/>
                 <xsl:variable name="color" as="xs:string">
                     <xsl:variable name="colorVal" as="xs:string" select="normalize-space(string($ditaValPropOrRevProp/@color))"/>
@@ -521,46 +537,7 @@ E-mail : info@antennahouse.com
     <xsl:function name="ahf:getMergedDitaValFlagStyleAttr" as="attribute()">
         <xsl:param name="prmElem" as="element()"/>
         <xsl:param name="prmDitaValStartProp" as="xs:string"/>
-        <xsl:attribute name="fo:prop" select="ahf:mergeDitaValFlagStyle($prmElem,$prmDitaValStartProp)"/>
-    </xsl:function>
-    
-    <!-- 
-     function:	Check first precedind-sibling ditava-startprop element that have prop/startflag/@imageref
-     param:		prmElem
-     return:	xs:boolean
-     note:		
-     -->
-    <xsl:function name="ahf:hasPrecedingSiblingDitaValStartPropWithImageFlag" as="xs:boolean">
-        <xsl:param name="prmElem" as="element()"/>
-        <xsl:sequence select="exists($prmElem/preceding-sibling::*[1][contains(@class, ' ditaot-d/ditaval-startprop ')][ahf:hasDitaValWithImageStartFlag(.)])"/>
-    </xsl:function>
-    
-    <!-- 
-     function:	Get first precedind-sibling ditava-startprop/prop/startflag/@imageref
-     param:		prmElem
-     return:	xs:string
-     note:		Return first child ditaval-startprop element.
-     -->
-    <xsl:function name="ahf:getPrecedingSiblingDitaValStartPropImageRef" as="xs:string">
-        <xsl:param name="prmElem" as="element()"/>
-        <xsl:sequence select="ahf:getDitaValImageStartFlag($prmElem/preceding-sibling::*[1][contains(@class, ' ditaot-d/ditaval-startprop ')])"/>
-    </xsl:function>
-
-    <!-- 
-     function:	Check ditaval-startprop/prop or revprop/startflag/@imageref or alt-text and 
-                      ditaval-endprop/prop or revprop/endflag/@imageref or alt-text 
-     param:		prmElem
-     return:	xs:boolean
-     note:		
-     -->
-    <xsl:function name="ahf:hasDitaValWithImageStartFlag" as="xs:boolean">
-        <xsl:param name="prmElem" as="element()"/>
-        <xsl:sequence select="some $startflag in $prmElem/*[contains(@class,' ditaot-d/ditaval-startprop ')]/*[self::prop or self::revprop]/startflag satisfies (exists($startflag/@imageref) or string(normalize-space(string($startflag/alt-text))))"/>
-    </xsl:function>
-    
-    <xsl:function name="ahf:hasDitaValWithImageEndFlag" as="xs:boolean">
-        <xsl:param name="prmElem" as="element()"/>
-        <xsl:sequence select="some $endflag in $prmElem//*[contains(@class,' ditaot-d/ditaval-endprop ')]/*[self::prop or self::revprop]/endflag satisfies (exists($endflag/@imageref) or string(normalize-space(string($endflag/alt-text))))"/>
+        <xsl:attribute name="{$pFoPropName}" select="ahf:mergeDitaValFlagStyle($prmElem,$prmDitaValStartProp)"/>
     </xsl:function>
 
     <!-- 
@@ -584,7 +561,7 @@ E-mail : info@antennahouse.com
      function:	Get ditava-startprop/prop/startflag/@imageref or ditava-startprop/prop/endflag/@imageref
      param:		prmElem
      return:	xs:boolean
-     note:		
+     note:		Avoid DITA-OT image URI processing bug.
      -->
     <xsl:function name="ahf:getDitaValImageStartFlag" as="xs:string">
         <xsl:param name="prmElem" as="element()"/>
@@ -594,28 +571,6 @@ E-mail : info@antennahouse.com
     <xsl:function name="ahf:getDitaValImageEndFlag" as="xs:string">
         <xsl:param name="prmElem" as="element()"/>
         <xsl:sequence select="ahf:replace(string($prmElem/prop[1]/endflag[1]/@imageref),'../file:/','file:/')"/>
-    </xsl:function>
-
-    <!-- 
-     function:	Check first following-sibling ditaval-endprop element that has prop/endflag/@imageref
-     param:		prmElem
-     return:	xs:boolean
-     note:		
-     -->
-    <xsl:function name="ahf:hasFollowingSiblingDitaValEndPropWithImageFlag" as="xs:boolean">
-        <xsl:param name="prmElem" as="element()"/>
-        <xsl:sequence select="exists($prmElem/following-sibling::*[1][contains(@class, ' ditaot-d/ditaval-endprop ')][ahf:hasDitaValWithImageEndFlag(.)])"/>
-    </xsl:function>
-    
-    <!-- 
-     function:	Get first following-sibling ditava-endprop/prop/endflag/@imageref
-     param:		prmElem
-     return:	xs:string
-     note:		Return first child ditaval-startprop element.
-     -->
-    <xsl:function name="ahf:getFollowingSiblingEndFlagImageRef" as="xs:string">
-        <xsl:param name="prmElem" as="element()"/>
-        <xsl:sequence select="ahf:getDitaValImageEndFlag($prmElem/following-sibling::*[1][contains(@class, ' ditaot-d/ditaval-endprop ')])"/>
     </xsl:function>
 
     <!-- 
@@ -639,27 +594,23 @@ E-mail : info@antennahouse.com
         <xsl:param name="prmElem" as="element()"/>
         <xsl:sequence select="exists($prmElem/child::*[contains(@class, ' ditaot-d/ditaval-endprop ')][ahf:hasDitaValWithImageEndFlag(.)])"/>
     </xsl:function>
-    
-    <!-- 
-     function:	Get first child ditaval-stratprop/prop/startflag/@imageref
-     param:		prmElem
-     return:	xs:string
-     note:		Return first child ditaval-startprop element.
-     -->
-    <xsl:function name="ahf:getFirstChildStartFlagImageRef" as="xs:string">
-        <xsl:param name="prmElem" as="element()"/>
-        <xsl:sequence select="ahf:getDitaValImageStartFlag($prmElem/child::*[1][contains(@class, ' ditaot-d/ditaval-startprop ')])"/>
-    </xsl:function>
 
     <!-- 
-     function:	Get last child ditaval-endprop/prop/endflag/@imageref
-     param:		prmElem
-     return:	xs:string
-     note:		Return first child ditaval-startprop element.
+     function:	Check ditaval-startprop/prop or revprop/startflag/@imageref or alt-text and 
+                      ditaval-endprop/prop or revprop/endflag/@imageref or alt-text 
+     param:		prmElem (ditaval-startprop or ditaval-endprop)
+     return:	xs:boolean
+     note:		
      -->
-    <xsl:function name="ahf:getLastChildEndFlagImageRef" as="xs:string">
+    <xsl:function name="ahf:hasDitaValWithImageStartFlag" as="xs:boolean">
         <xsl:param name="prmElem" as="element()"/>
-        <xsl:sequence select="ahf:getDitaValImageEndFlag($prmElem/child::*[last()][contains(@class, ' ditaot-d/ditaval-endprop ')])"/>
+        <xsl:sequence select="some $startflag in $prmElem/*[self::prop or self::revprop]/startflag satisfies (exists($startflag/@imageref) or string(normalize-space(string($startflag/alt-text))))"/>
     </xsl:function>
+    
+    <xsl:function name="ahf:hasDitaValWithImageEndFlag" as="xs:boolean">
+        <xsl:param name="prmElem" as="element()"/>
+        <xsl:sequence select="some $endflag in $prmElem/*[self::prop or self::revprop]/endflag satisfies (exists($endflag/@imageref) or string(normalize-space(string($endflag/alt-text))))"/>
+    </xsl:function>
+    
 
 </xsl:stylesheet>
