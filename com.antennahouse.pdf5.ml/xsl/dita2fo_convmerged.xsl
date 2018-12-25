@@ -123,6 +123,7 @@ E-mail : info@antennahouse.com
      -->
     <xsl:template match="*[contains(@class,' topic/topic ')]">
         <xsl:param name="prmDitaValFlagStyle" tunnel="yes" required="no" select="''"/>
+        <xsl:param name="prmDitaValChangeBarStyle" tunnel="yes" required="no" select="''"/>
         <xsl:variable name="id" as="xs:string" select="concat('#',string(@id))"/>
         <xsl:choose>
             <xsl:when test="exists(index-of($noPrintHrefs,$id)) and empty(index-of($normalHrefs,$id))">
@@ -133,15 +134,21 @@ E-mail : info@antennahouse.com
             <xsl:otherwise>
                 <xsl:copy>
                     <xsl:copy-of select="@*"/>
+                    <xsl:if test="string($prmDitaValChangeBarStyle)">
+                        <xsl:attribute name="change-bar-style" select="$prmDitaValChangeBarStyle"/>
+                    </xsl:if>
                     <xsl:choose>
                         <xsl:when test="string($prmDitaValFlagStyle)">
                             <xsl:copy-of select="ahf:getMergedDitaValFlagStyleAttr(.,$prmDitaValFlagStyle)"/>
                             <xsl:apply-templates>
                                 <xsl:with-param name="prmDitaValFlagStyle" tunnel="yes" select="''"/>
+                                <xsl:with-param name="prmDitaValChangeBarStyle" tunnel="yes" select="''"/>
                             </xsl:apply-templates>
                         </xsl:when>
                         <xsl:otherwise>
-                            <xsl:apply-templates/>
+                            <xsl:apply-templates>
+                                <xsl:with-param name="prmDitaValChangeBarStyle" tunnel="yes" select="''"/>
+                            </xsl:apply-templates>
                         </xsl:otherwise>
                     </xsl:choose>
                 </xsl:copy>
@@ -157,6 +164,7 @@ E-mail : info@antennahouse.com
      -->
     <xsl:template match="*[contains(@class,' topic/link ')]">
         <xsl:param name="prmDitaValFlagStyle" tunnel="yes" required="no" select="''"/>
+        <xsl:param name="prmDitaValChangeBarStyle" tunnel="yes" required="no" select="''"/>
         <xsl:variable name="href" as="xs:string" select="string(@href)"/>
         <xsl:choose>
             <xsl:when test="exists(index-of($noPrintHrefs,$href)) and empty(index-of($normalHrefs,$href))">
@@ -167,15 +175,21 @@ E-mail : info@antennahouse.com
             <xsl:otherwise>
                 <xsl:copy>
                     <xsl:copy-of select="@*"/>
+                    <xsl:if test="string($prmDitaValChangeBarStyle)">
+                        <xsl:attribute name="change-bar-style" select="$prmDitaValChangeBarStyle"/>
+                    </xsl:if>
                     <xsl:choose>
                         <xsl:when test="string($prmDitaValFlagStyle)">
                             <xsl:copy-of select="ahf:getMergedDitaValFlagStyleAttr(.,$prmDitaValFlagStyle)"/>
                             <xsl:apply-templates>
                                 <xsl:with-param name="prmDitaValFlagStyle" tunnel="yes" select="''"/>
+                                <xsl:with-param name="prmDitaValChangeBarStyle" tunnel="yes" select="''"/>
                             </xsl:apply-templates>
                         </xsl:when>
                         <xsl:otherwise>
-                            <xsl:apply-templates/>
+                            <xsl:apply-templates>
+                                <xsl:with-param name="prmDitaValChangeBarStyle" tunnel="yes" select="''"/>
+                            </xsl:apply-templates>
                         </xsl:otherwise>
                     </xsl:choose>
                 </xsl:copy>
@@ -191,6 +205,7 @@ E-mail : info@antennahouse.com
      -->
     <xsl:template match="*[contains(@class,' topic/xref ')][string(@format) eq 'dita']">
         <xsl:param name="prmDitaValFlagStyle" tunnel="yes" required="no" select="''"/>
+        <xsl:param name="prmDitaValChangeBarStyle" tunnel="yes" required="no" select="''"/>
         <xsl:variable name="href" as="xs:string" select="string(@href)"/>
         <xsl:variable name="topicHref" as="xs:string" select="if  (contains($href,'/')) then substring-before($href,'/') else $href"/>
         <xsl:if test="exists(index-of($noPrintHrefs,$topicHref)) and empty(index-of($normalHrefs,$topicHref))" >
@@ -200,15 +215,21 @@ E-mail : info@antennahouse.com
         </xsl:if>
         <xsl:copy>
             <xsl:copy-of select="@*"/>
+            <xsl:if test="string($prmDitaValChangeBarStyle)">
+                <xsl:attribute name="change-bar-style" select="$prmDitaValChangeBarStyle"/>
+            </xsl:if>
             <xsl:choose>
                 <xsl:when test="string($prmDitaValFlagStyle)">
                     <xsl:copy-of select="ahf:getMergedDitaValFlagStyleAttr(.,$prmDitaValFlagStyle)"/>
                     <xsl:apply-templates>
                         <xsl:with-param name="prmDitaValFlagStyle" tunnel="yes" select="''"/>
+                        <xsl:with-param name="prmDitaValChangeBarStyle" tunnel="yes" select="''"/>
                     </xsl:apply-templates>
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:apply-templates/>
+                    <xsl:apply-templates>
+                        <xsl:with-param name="prmDitaValChangeBarStyle" tunnel="yes" select="''"/>
+                    </xsl:apply-templates>
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:copy>

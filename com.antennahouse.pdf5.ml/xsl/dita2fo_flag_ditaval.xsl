@@ -85,6 +85,13 @@ E-mail : info@antennahouse.com
          attribute value that has been set as flagged appears (for example, audience="administrator"), the
          processor should add the flag. When multiple flags apply to a single element, multiple flags should be rendered,
          typically in the order that they are encountered."
+         
+         This template precedes convmerged.xsl in following condition:
+         1. priority="30" match="*[ahf:hasChildDitaValStartProp(.)]"
+            Pass $prmDitaValFlagStyle & $prmDitaValChangeBarStyle as tunnel parameter for next template.
+         2. priority="20" match="*[ahf:isListTopElement(.) or ahf:isTableTopElement(.)] or xref or image
+            Generate flagging image for table & list top level element and xref and image element.
+            Then call next template.
     -->
 
     <!-- attributes for auto generate image or text -->
@@ -268,8 +275,11 @@ E-mail : info@antennahouse.com
     <xsl:template match="*[contains(@class, ' ditaot-d/ditaval-startprop ')][parent::*[ahf:isListRelatedElement(.)]]" priority="20"/>
     <xsl:template match="*[contains(@class, ' ditaot-d/ditaval-endprop ')][parent::*[ahf:isListRelatedElement(.)]]" priority="20"/>
     
-    <xsl:template match="*[contains(@class, ' ditaot-d/ditaval-startprop ')][parent::*[contains(@class,' topic/image ') or contains(@class,' topic/xref ')]]" priority="20"/>
-    <xsl:template match="*[contains(@class, ' ditaot-d/ditaval-endprop ')][parent::*[contains(@class,' topic/image ') or contains(@class,' topic/xref ')]]" priority="20"/>
+    <xsl:template match="*[contains(@class, ' ditaot-d/ditaval-startprop ')][parent::*[contains(@class,' topic/image ')]]" priority="20"/>
+    <xsl:template match="*[contains(@class, ' ditaot-d/ditaval-endprop ')][parent::*[contains(@class,' topic/image ')]]" priority="20"/>
+    
+    <xsl:template match="*[contains(@class, ' ditaot-d/ditaval-startprop ')][parent::*[contains(@class,' topic/xref ')]]" priority="20"/>
+    <xsl:template match="*[contains(@class, ' ditaot-d/ditaval-endprop ')][parent::*[contains(@class,' topic/xref ')]]" priority="20"/>
     
     <!-- 
      function:	Template for ditaval-startprop, endprop element that has effective prop/startflag/@imageref or prop/endflag/@imageref 
@@ -335,9 +345,9 @@ E-mail : info@antennahouse.com
                 This style is passed as $prmDitaValFlagStyle tunnel parameter.
                 This template also generates style from .ditaval revprop/action="flag" element's change-bar style.
                 This style is passed as $prmDitaValChangeBarStyle tunnel parameter.
-                The priority 20 is defined in comparison with dita2fo_convmerged.xsl default template (match="*").
+                The priority 30 is defined in comparison with dita2fo_convmerged.xsl default template (match="*").
      -->
-    <xsl:template match="*[ahf:hasChildDitaValStartProp(.)]" priority="20">
+    <xsl:template match="*[ahf:hasChildDitaValStartProp(.)]" priority="30">
         <xsl:param name="prmDitaValFlagStyle" tunnel="yes" required="no" select="''"/>
         <xsl:variable name="ditaValPropOrRevProp" as="element()*" select="ahf:getGrandChildDitavalPropOrRevProp(.)"/>
         <xsl:variable name="ditaValFlagStyle" as="xs:string" select="ahf:getDitaValFlagStyle($ditaValPropOrRevProp)"/>
