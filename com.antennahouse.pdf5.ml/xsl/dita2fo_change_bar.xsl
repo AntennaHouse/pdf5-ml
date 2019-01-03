@@ -19,9 +19,11 @@ E-mail : info@antennahouse.com
 >
     <!-- 
      function:	Generate fo:change-bar-begin, fo:change-bar-end defined in .ditaval revprop
-     param:	    None
+     param:	    prmChnageBarAlreadyProcessed
      return:	
      note:		This template precedes any other template
+                If this template is overrided by other plug-in it should set $prmChnageBarAlreadyProcessed value to true()
+                to avoid multiple fo:chage-bar-begin/end generation.
      -->
     <xsl:template match="*[exists(ancestor::*[contains(@class,' topic/topic ')])]
                           [empty(ancestor::*[contains(@class,' topic/prolog ')])]
@@ -31,9 +33,17 @@ E-mail : info@antennahouse.com
                           [empty(self::*[contains(@class,' topic/fn ')])]
                           [empty(self::*[contains(@class, ' topic/colspec ')])]
                           " priority="50">
-        <xsl:copy-of select="ahf:genChangeBarBeginElem(.)"/>
-        <xsl:next-match/>
-        <xsl:copy-of select="ahf:genChangeBarEndElem(.)"/>
+        <xsl:param name="prmChnageBarAlreadyProcessed" tunnel="yes" required="no" as="xs:boolean" select="false()"/>
+        <xsl:choose>
+            <xsl:when test="$prmChnageBarAlreadyProcessed">
+                <xsl:next-match/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:copy-of select="ahf:genChangeBarBeginElem(.)"/>
+                <xsl:next-match/>
+                <xsl:copy-of select="ahf:genChangeBarEndElem(.)"/>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     
     <!-- 
