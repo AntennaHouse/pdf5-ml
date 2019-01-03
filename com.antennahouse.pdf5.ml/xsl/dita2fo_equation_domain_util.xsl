@@ -50,9 +50,6 @@
                 </xsl:choose>
             </xsl:when>
             <xsl:otherwise>
-                <!--xsl:call-template name="errorExit">
-                    <xsl:with-param name="prmMes" select="ahf:replace($stMes1600,('%class'),(string($prmEquationNumber/@class)))"/>
-                </xsl:call-template-->
                 <xsl:sequence select="false()"/>
             </xsl:otherwise>
         </xsl:choose>
