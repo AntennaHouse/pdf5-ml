@@ -422,7 +422,10 @@ URL : http://www.antennahouse.co.jp/
     <xsl:variable name="stMes806">
         <xsl:text>[getFoPropertyReplacing 806F] Property value is invalid. Property='%propName' @xtrc='%xtrc' @xtrf='%xtrf'</xsl:text>
     </xsl:variable>
-    
+
+    <xsl:variable name="stMes810">
+        <xsl:text>[getDitaValChangeBarStyle 810F] Missing ':' in .ditaval revprop/@changebar description. @chagebar='%changeBarAttr'</xsl:text>
+    </xsl:variable>
     
     <xsl:variable name="stMes900">
         <xsl:text>[attribute-set 900F] Illegal attribute found in attribute-set element in style definition. attribute-set-name='%attribute-set-name' attribute='%attribute'.</xsl:text>

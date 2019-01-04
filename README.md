@@ -214,7 +214,7 @@ This folder contains the HTML file that describes how to integrate PDF-ML with o
 
 
 ## Copyright
-Copyright (C) 2009-2016 Antenna House, Inc. All rights reserved.  
+Copyright (C) 2009-2019 Antenna House, Inc. All rights reserved.  
 Antenna House is a trademark of [Antenna House, Inc.] [2]
 
 This plug-in uses graphics from www.vectorbackground.net under the Creative Commons Attribution license.

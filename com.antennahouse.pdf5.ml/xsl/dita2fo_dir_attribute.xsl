@@ -19,13 +19,16 @@ E-mail : info@antennahouse.com
 >
     <!-- 
      function:	@dir attribute processing
-     param:	    prmTopicRef, prmNeedId
+     param:	    prmBidiOverrideAlreadyProcessed
      return:	fo:bidi-override
      note:	    fo:bidi-override is defined as %inline. If FO processor needs %block context, this template should not work!
                 Ex: Child of fo:flow, table elements (colspec,thead,tbody,row,entry,sthead,strow,stentry) are not allowed to generate fo:bidi-override.
                 This is checked using ahf:isBidiOverrideAllowedElem() function.
+                If this template is overrided by other plug-in it should set $prmBidiOverrideAlreadyProcessed value to true()
+                to avoid multiple fo:bidi-override generation.
      -->
     <xsl:template match="*[exists(@dir)][ahf:isBidiOverrideAllowedElem(.)]" priority="30">
+        <xsl:param name="prmBidiOverrideAlreadyProcessed" tunnel="yes" required="no" as="xs:boolean" select="false()"/>
         <xsl:variable name="dir" as="xs:string" select="string(@dir)"/>
         <xsl:variable name="unicodeBidi" as="xs:string">
             <xsl:choose>
@@ -58,9 +61,18 @@ E-mail : info@antennahouse.com
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:variable>
-        <fo:bidi-override unicode-bidi="{$unicodeBidi}" direction="{$direction}">
-            <xsl:next-match/>
-        </fo:bidi-override>
+        <xsl:choose>
+            <xsl:when test="$prmBidiOverrideAlreadyProcessed">
+                <xsl:next-match/>
+            </xsl:when>
+            <xsl:otherwise>
+                <fo:bidi-override unicode-bidi="{$unicodeBidi}" direction="{$direction}">
+                    <xsl:next-match>
+                        <xsl:with-param name="prmBidiOverrideAlreadyProcessed" tunnel="yes" select="true()"/>
+                    </xsl:next-match>
+                </fo:bidi-override>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     
     <!-- 

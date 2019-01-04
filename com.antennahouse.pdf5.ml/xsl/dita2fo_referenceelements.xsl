@@ -49,12 +49,12 @@ E-mail : info@antennahouse.com
                 </xsl:call-template>
             </xsl:if>
             <xsl:apply-templates select="*[contains(@class,' reference/prophead ')]">
-                <xsl:with-param name="prmKeyCol" select="$keyCol"/>
+                <xsl:with-param name="prmKeyCol" tunnel="yes" select="$keyCol"/>
             </xsl:apply-templates>
             <fo:table-body>
                 <xsl:copy-of select="ahf:getAttributeSet('atsPropertyTableBody')"/>
                 <xsl:apply-templates select="*[contains(@class,' reference/property ')]">
-                    <xsl:with-param name="prmKeyCol" select="$keyCol"/>
+                    <xsl:with-param name="prmKeyCol" tunnel="yes" select="$keyCol"/>
                 </xsl:apply-templates>
             </fo:table-body>
         </fo:table>
@@ -69,7 +69,7 @@ E-mail : info@antennahouse.com
                 This stylesheet apply bold for prophead if properties/@keycol is not defined.
      -->
     <xsl:template match="*[contains(@class, ' reference/prophead ')]" priority="2">
-        <xsl:param name="prmKeyCol"   required="yes"  as="xs:integer"/>
+        <xsl:param name="prmKeyCol"   required="yes" tunnel="yes" as="xs:integer"/>
         
         <fo:table-header>
             <xsl:copy-of select="ahf:getAttributeSet('atsPropertyTableHeader')"/>
@@ -175,7 +175,7 @@ E-mail : info@antennahouse.com
      note:		none
      -->
     <xsl:template match="*[contains(@class, ' reference/property ')]" priority="2">
-        <xsl:param name="prmKeyCol"   required="yes"  as="xs:integer"/>
+        <xsl:param name="prmKeyCol"   required="yes" tunnel="yes" as="xs:integer"/>
         
         <fo:table-row>
             <xsl:copy-of select="ahf:getAttributeSet('atsPropertyTableRow')"/>

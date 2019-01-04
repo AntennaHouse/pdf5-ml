@@ -37,6 +37,7 @@ URL : http://www.antennahouse.co.jp/
         <xsl:text>[convmerged 1004W] Warning! Xref refers to removed topic. href=%href</xsl:text>
     </xsl:variable>
     
+    <!-- Unused -->
     <xsl:variable name="stMes1010" as="xs:string">
         <xsl:text>[convmerged 1010F] Topichead or topicgroup are ignored at child of booklists/glossarylist. xtrc=%xtrc</xsl:text>
     </xsl:variable>

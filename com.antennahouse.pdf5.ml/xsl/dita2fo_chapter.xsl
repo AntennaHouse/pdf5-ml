@@ -223,6 +223,7 @@ E-mail : info@antennahouse.com
         <xsl:param name="prmTitleMode"   required="yes" as="xs:integer"/>
         
         <xsl:variable name="isTopLevelTopic" as="xs:boolean" select="empty(ancestor::*[contains(@class,' topic/topic ')])"/>
+        <xsl:copy-of select="ahf:genChangeBarBeginElem(.)"/>
         <fo:block>
             <xsl:call-template name="getAttributeSetWithLang"/>
             <xsl:call-template name="ahf:getIdAtts"/>
@@ -302,6 +303,7 @@ E-mail : info@antennahouse.com
                 <xsl:with-param name="prmTitleMode"  select="$prmTitleMode"/>
             </xsl:apply-templates>
         </fo:block>
+        <xsl:copy-of select="ahf:genChangeBarEndElem(.)"/>
     </xsl:template>
 
     <!-- 

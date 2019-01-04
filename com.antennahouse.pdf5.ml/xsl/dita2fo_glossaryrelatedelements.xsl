@@ -125,7 +125,7 @@ E-mail : info@antennahouse.com
                         <xsl:otherwise>
                             <xsl:sequence select="$topicElement/*[contains(@class, ' glossentry/glossterm ')]"/>
                         </xsl:otherwise>
-    			                </xsl:choose>
+    			    </xsl:choose>
                 </xsl:variable>
                 <fo:basic-link>
                     <xsl:copy-of select="$destAttr"/>
