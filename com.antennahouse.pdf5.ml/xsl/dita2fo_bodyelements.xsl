@@ -142,7 +142,7 @@ E-mail : info@antennahouse.com
             <xsl:call-template name="ahf:getUnivAtts"/>
             <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
             <xsl:apply-templates>
-                <xsl:with-param name="prmNumberFormat" select="$numberFormat"/>
+                <xsl:with-param name="prmNumberFormat" tunnel="yes" select="$numberFormat"/>
             </xsl:apply-templates>
         </fo:list-block>
         <xsl:if test="not($pDisplayFnAtEndOfTopic)">
@@ -166,7 +166,7 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <xsl:template match="*[contains(@class,' topic/ol ')]/*[contains(@class,' topic/li ')]">
-        <xsl:param name="prmNumberFormat" required="yes" as="xs:string"/>
+        <xsl:param name="prmNumberFormat" required="yes" tunnel="yes" as="xs:string"/>
 
         <xsl:call-template name="processOlLi">
             <xsl:with-param name="prmNumberFormat" select="$prmNumberFormat"/>
@@ -331,7 +331,7 @@ E-mail : info@antennahouse.com
             <xsl:call-template name="ahf:getUnivAtts"/>
             <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
             <xsl:apply-templates>
-                <xsl:with-param name="prmDoCompact"   select="$doCompact"/>
+                <xsl:with-param name="prmDoCompact" tunnel="yes" select="$doCompact"/>
             </xsl:apply-templates>
         </fo:list-block>
     </xsl:template>
@@ -342,7 +342,7 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <xsl:template match="*[contains(@class,' topic/sl ')]/*[contains(@class,' topic/sli ')]">
-        <xsl:param name="prmDoCompact" required="yes" as="xs:boolean"/>
+        <xsl:param name="prmDoCompact" required="yes" tunnel="yes" as="xs:boolean"/>
         
         <fo:list-item>
             <xsl:call-template name="getAttributeSetWithLang"/>
@@ -407,10 +407,10 @@ E-mail : info@antennahouse.com
             <xsl:call-template name="ahf:getUnivAtts"/>
             <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
             <xsl:apply-templates select="*[contains(@class, ' topic/dlhead ')]">
-                <xsl:with-param name="prmDoCompact" select="$doCompact"/>
+                <xsl:with-param name="prmDoCompact" tunnel="yes" select="$doCompact"/>
             </xsl:apply-templates>
             <xsl:apply-templates select="*[contains(@class, ' topic/dlentry ')]">
-                <xsl:with-param name="prmDoCompact" select="$doCompact"/>
+                <xsl:with-param name="prmDoCompact" tunnel="yes" select="$doCompact"/>
             </xsl:apply-templates>
             <xsl:if test="not($pDisplayFnAtEndOfTopic)">
                 <xsl:call-template name="makeFootNote">
@@ -427,12 +427,12 @@ E-mail : info@antennahouse.com
             <xsl:call-template name="ahf:getUnivAtts"/>
             <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
             <xsl:apply-templates select="*[contains(@class, ' topic/dlhead ')]">
-                <xsl:with-param name="prmDoCompact" select="$doCompact"/>
+                <xsl:with-param name="prmDoCompact" tunnel="yes" select="$doCompact"/>
             </xsl:apply-templates>
             <fo:table-body>
                 <xsl:copy-of select="ahf:getAttributeSet('atsDlbody')"/>
                 <xsl:apply-templates select="*[contains(@class, ' topic/dlentry ')]">
-                    <xsl:with-param name="prmDoCompact" select="$doCompact"/>
+                    <xsl:with-param name="prmDoCompact" tunnel="yes" select="$doCompact"/>
                 </xsl:apply-templates>
             </fo:table-body>
         </fo:table>
@@ -451,7 +451,7 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <xsl:template match="*[contains(@class, ' topic/dlhead ')][$pFormatDlAsBlock]">
-        <xsl:param name="prmDoCompact" required="yes" as="xs:boolean"/>
+        <xsl:param name="prmDoCompact" required="yes" tunnel="yes" as="xs:boolean"/>
         <xsl:call-template name="warningContinue">
             <xsl:with-param name="prmMes" 
                 select="ahf:replace($stMes055,('%file'),(string(@xtrf)))"/>
@@ -459,7 +459,7 @@ E-mail : info@antennahouse.com
     </xsl:template>
 
     <xsl:template match="*[contains(@class, ' topic/dlhead ')][not($pFormatDlAsBlock)]">
-        <xsl:param name="prmDoCompact" required="yes" as="xs:boolean"/>
+        <xsl:param name="prmDoCompact" required="yes" tunnel="yes" as="xs:boolean"/>
     
         <fo:table-header>
             <xsl:call-template name="getAttributeSetWithLang"/>
@@ -478,7 +478,7 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <xsl:template match="*[contains(@class, ' topic/dthd ')]">
-        <xsl:param name="prmDoCompact" required="yes" as="xs:boolean"/>
+        <xsl:param name="prmDoCompact" required="yes" tunnel="yes" as="xs:boolean"/>
         
         <fo:table-cell>
             <fo:block>
@@ -517,7 +517,7 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <xsl:template match="*[contains(@class, ' topic/ddhd ')]">
-        <xsl:param name="prmDoCompact" required="yes" as="xs:boolean"/>
+        <xsl:param name="prmDoCompact" required="yes" tunnel="yes" as="xs:boolean"/>
         
         <fo:table-cell>
             <fo:block>
@@ -560,27 +560,27 @@ E-mail : info@antennahouse.com
     </xsl:template>
 
     <xsl:template match="*[contains(@class, ' topic/dlentry ')][$pFormatDlAsBlock]">
-        <xsl:param name="prmDoCompact" required="yes" as="xs:boolean"/>
+        <xsl:param name="prmDoCompact" required="yes" tunnel="yes" as="xs:boolean"/>
         
         <fo:block>
             <xsl:call-template name="getAttributeSetWithLang"/>
             <xsl:call-template name="ahf:getUnivAtts"/>
             <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
             <xsl:apply-templates>
-                <xsl:with-param name="prmDoCompact" select="$prmDoCompact"/>
+                <xsl:with-param name="prmDoCompact" tunnel="yes" select="$prmDoCompact"/>
             </xsl:apply-templates>
         </fo:block>
     </xsl:template>
 
     <xsl:template match="*[contains(@class, ' topic/dlentry ')][not($pFormatDlAsBlock)]">
-        <xsl:param name="prmDoCompact" required="yes" as="xs:boolean"/>
+        <xsl:param name="prmDoCompact" required="yes" tunnel="yes" as="xs:boolean"/>
         
         <fo:table-row>
             <xsl:call-template name="getAttributeSetWithLang"/>
             <xsl:call-template name="ahf:getUnivAtts"/>
             <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
             <xsl:apply-templates>
-                <xsl:with-param name="prmDoCompact" select="$prmDoCompact"/>
+                <xsl:with-param name="prmDoCompact" tunnel="yes" select="$prmDoCompact"/>
             </xsl:apply-templates>
         </fo:table-row>
     </xsl:template>
@@ -594,7 +594,7 @@ E-mail : info@antennahouse.com
     </xsl:template>
 
     <xsl:template match="*[contains(@class, ' topic/dt ')][$pFormatDlAsBlock]">
-        <xsl:param name="prmDoCompact" required="yes" as="xs:boolean"/>
+        <xsl:param name="prmDoCompact" required="yes" tunnel="yes" as="xs:boolean"/>
         
         <fo:block>
             <xsl:call-template name="getAttributeSetWithLang"/>
@@ -627,7 +627,7 @@ E-mail : info@antennahouse.com
     </xsl:template>
 
     <xsl:template match="*[contains(@class, ' topic/dt ')][not($pFormatDlAsBlock)]">
-        <xsl:param name="prmDoCompact" required="yes" as="xs:boolean"/>
+        <xsl:param name="prmDoCompact" required="yes" tunnel="yes" as="xs:boolean"/>
         
         <xsl:variable name="hasDlhead" as="xs:boolean" select="exists(ancestor::*[contains(@class,' topic/dl ')]/child::*[contains(@class,' topic/dlhead ')])"/>
         <fo:table-cell>
@@ -676,7 +676,7 @@ E-mail : info@antennahouse.com
     </xsl:template>
 
     <xsl:template match="*[contains(@class, ' topic/dd ')][$pFormatDlAsBlock]">
-        <xsl:param name="prmDoCompact" required="yes" as="xs:boolean"/>
+        <xsl:param name="prmDoCompact" required="yes" tunnel="yes" as="xs:boolean"/>
         
         <fo:block>
             <xsl:call-template name="getAttributeSetWithLang"/>
@@ -709,7 +709,7 @@ E-mail : info@antennahouse.com
     </xsl:template>
 
     <xsl:template match="*[contains(@class, ' topic/dd ')][not($pFormatDlAsBlock)]">
-        <xsl:param name="prmDoCompact" required="yes" as="xs:boolean"/>
+        <xsl:param name="prmDoCompact" required="yes" tunnel="yes" as="xs:boolean"/>
         
         <fo:table-cell>
             <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>

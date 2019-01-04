@@ -19,4 +19,5 @@ E-mail : info@antennahouse.com
   <xsl:include href="dita2fo_error_util.xsl"/>
   <xsl:include href="dita2fo_convmerged.xsl"/>
   <xsl:include href="dita2fo_convmerged_message.xsl"/>
+  <xsl:include href="dita2fo_generate_history_id.xsl"/>
 </xsl:stylesheet>

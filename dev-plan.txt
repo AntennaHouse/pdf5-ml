@@ -1,5 +1,5 @@
                    Development Plan for PDF5-ML
-                                                 Updated:2016-06-11
+                                                 Updated:2019-01-03
                                                  Antenna House, Inc.
 
 1. Move glossary sorting from topic level processing to topiref level processing. (convmerged.xsl)
@@ -11,8 +11,6 @@
 
 3. Remove print="no" processing form convmerged.xsl because it became deprecated in DITA 1.3.
 
-4. Support floating figure in conjunction with ah-dita specializtaion.
+4. Add "Continued" header to table title when it breakes into multiple pages.
 
-5. Add "Continued" header to table title when it breakes into multiple pages.
-
-6. Support automatic keep/break processing for table row.
+5. Support automatic keep/break processing for table row.

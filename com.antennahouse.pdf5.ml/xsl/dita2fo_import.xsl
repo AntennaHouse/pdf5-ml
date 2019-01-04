@@ -77,4 +77,5 @@ E-mail : info@antennahouse.com
    <xsl:include href="dita2fo_text_mode.xsl"/>
    <xsl:include href="dita2fo_error_util.xsl"/>
    <xsl:include href="dita2fo_sort_util.xsl"/>
+   <xsl:include href="dita2fo_change_bar.xsl"/>
 </xsl:stylesheet>

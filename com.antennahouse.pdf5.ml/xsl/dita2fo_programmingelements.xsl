@@ -133,7 +133,7 @@ E-mail : info@antennahouse.com
             <xsl:call-template name="ahf:getUnivAtts"/>
             <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
             <xsl:apply-templates>
-                <xsl:with-param name="prmDoCompact"  select="$doCompact"/>
+                <xsl:with-param name="prmDoCompact" tunnel="yes" select="$doCompact"/>
             </xsl:apply-templates>
         </fo:wrapper>
     </xsl:template>
@@ -149,7 +149,7 @@ E-mail : info@antennahouse.com
     </xsl:template>
 
     <xsl:template match="*[contains(@class,' pr-d/plentry ')]" priority="2">
-        <xsl:param name="prmDoCompact" required="yes" as="xs:boolean"/>
+        <xsl:param name="prmDoCompact" required="yes" tunnel="yes" as="xs:boolean"/>
         
         <fo:block>
             <xsl:call-template name="getAttributeSetWithLang"/>

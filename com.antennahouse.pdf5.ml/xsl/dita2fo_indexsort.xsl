@@ -159,7 +159,8 @@ E-mail : info@antennahouse.com
     <xsl:template name="merge" as="document-node()">
         <xsl:param name="pList1" as="element()*" required="yes"/>
         <xsl:param name="pList2" as="element()*" required="yes"/>
-        <xsl:param name="pFunGT" select="/.."/>
+        <!--xsl:param name="pFunGT" select="/.."/-->
+        <xsl:param name="pFunGT" select="()"/>
         
         <xsl:choose>
             <xsl:when test="empty($pList1) or empty($pList2)">
