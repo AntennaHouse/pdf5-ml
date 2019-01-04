@@ -20,6 +20,17 @@ E-mail : info@antennahouse.com
     <!-- **************************** 
             Table Templates
          ****************************-->
+    
+    <!-- Class name of fo:retrieve-table-marker to insert continued word to fo:table-header-->
+    <xsl:variable name="mcTableHeader" as="xs:string" select="'mcTableHeader'"/>
+    <!-- Class name of fo:retrieve-table-marker to insert continued word to fo:table-footer -->
+    <xsl:variable name="mcTableFooter" as="xs:string" select="'mcTableFooter'"/>
+    
+    <!-- @outputclass value to add "Continued" to fo:table-header-->
+    <xsl:variable name="ocTableTitleContinued" as="xs:string" select="'output-continued-in-table-title'"/>
+    <!-- @outputclass value to add "Continued" to fo:table-footer-->
+    <xsl:variable name="ocTableFooterContinued" as="xs:string" select="'output-continued-in-table-footer'"/>
+    
     <!-- 
      function:	table[@orient="land"] template
      param:	    
@@ -56,7 +67,7 @@ E-mail : info@antennahouse.com
      function:	table template
      param:	    
      return:	fo:wrapper
-     note:		
+     note:		SPEC: Output table/title outside the fo:table if not output continued word in table title
      -->
     <xsl:template match="*[contains(@class, ' topic/table ')]">
         <xsl:variable name="tableAttr" select="ahf:getTableAttr(.)" as="element()"/>
@@ -65,10 +76,12 @@ E-mail : info@antennahouse.com
             <xsl:if test="empty(@id) and child::*[contains(@class, ' topic/title ')]">
                 <xsl:call-template name="ahf:generateIdAttr"/>
             </xsl:if>
-            <xsl:if test="not($pOutputTableTitleAfter)">
+            <xsl:if test="not($pOutputTableTitleAfter) and ahf:outputContinuedWordInTableTitle(.)">
                 <xsl:apply-templates select="*[contains(@class, ' topic/title ')]"/>
             </xsl:if>
-            <xsl:apply-templates select="*[contains(@class, ' topic/desc ')]"/>
+            <xsl:if test="not(ahf:outputContinuedWordInTableTitle(.))">
+                <xsl:apply-templates select="*[contains(@class, ' topic/desc ')]"/>
+            </xsl:if>
             <xsl:apply-templates select="*[contains(@class, ' topic/tgroup ')]">
                 <xsl:with-param name="prmTableAttr" tunnel="yes" select="$tableAttr"/>
             </xsl:apply-templates>
@@ -82,7 +95,37 @@ E-mail : info@antennahouse.com
             </xsl:if>
         </fo:wrapper>
     </xsl:template>
-    
+
+    <!-- 
+     function:	generate conitinued word in fo:table-header orfo:table-footer
+     param:		prmTable
+     return:	xs:boolean
+     note:		
+     -->
+    <xsl:function name="ahf:outputContinuedWordInTableTitle" as="xs:boolean">
+        <xsl:param name="prmTable" as="element()"/>
+        <xsl:choose>
+            <xsl:when test="$pOutputTableTitleContinued or ahf:hasOutputClassValue($prmTable,$ocTableTitleContinued)">
+                <xsl:sequence select="true()"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:sequence select="false()"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:function>
+
+    <xsl:function name="ahf:outputContinuedWordInTableFooter" as="xs:boolean">
+        <xsl:param name="prmTable" as="element()"/>
+        <xsl:choose>
+            <xsl:when test="$pOutputTableFooterContinued or ahf:hasOutputClassValue($prmTable,$ocTableFooterContinued)">
+                <xsl:sequence select="true()"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:sequence select="false()"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:function>
+
     <!-- 
      function:	build table attributes
      param:		prmTable

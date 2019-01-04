@@ -311,5 +311,15 @@ E-mail : info@antennahouse.com
     <xsl:param name="PRM_FO_STYLE_NAME" required="no" as="xs:string" select="'fo:style'"/>
     <xsl:variable name="pFoStyleName" as="xs:string" select="$PRM_FO_STYLE_NAME"/>
     
-
+    <!-- Add continue word to table title or table footer-->
+    <!-- Add "Continued" to fo:table-header -->
+    <xsl:param name="PRM_OUTPUT_TABLE_TITLE_CONTINUED" as="xs:string" select="$true"/>
+    <xsl:variable name="pOutputTableTitleContinued" as="xs:boolean" select="$PRM_OUTPUT_TABLE_TITLE_CONTINUED eq $true"/>
+    <xsl:variable name="pNotOutputTableTitleContinued" as="xs:boolean" select="not($pOutputTableTitleContinued)"/>
+    
+    <!-- Add "Continues on next page" to fo:table-footer -->
+    <xsl:param name="PRM_OUTPUT_TABLE_FOOTER_CONTINUED" as="xs:string" select="$true"/>
+    <xsl:variable name="pOutputTableFooterContinued" as="xs:boolean" select="$PRM_OUTPUT_TABLE_FOOTER_CONTINUED eq $true"/>
+    <xsl:variable name="pNotOutputTableFooterContinued" as="xs:boolean" select="not($pOutputTableFooterContinued)"/>
+    
 </xsl:stylesheet>
