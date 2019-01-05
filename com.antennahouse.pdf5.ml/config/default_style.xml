@@ -1994,21 +1994,12 @@ URL : http://www.antennahouse.com/
             <attribute-set name="atsTableWithTitleAfter" use-attribute-sets="atsTable">
                 <attribute name="space-before">$Table_Before_Spacing</attribute>
             </attribute-set>
-            
-            <attribute-set name="atsTableWithTitleBefore" use-attribute-sets="atsTable">
-            </attribute-set>
 
-            <attribute-set name="atsTableWithTitleBeforeWoTitleAndDesc">
+            <attribute-set name="atsTableWoTitleAndDesc">
                 <attribute name="space-before">$Table_Before_Spacing</attribute>
             </attribute-set>
 
-            <attribute-set name="atsTableTitleAfter">
-                <attribute name="font-size">$Little_Title_Font_Size</attribute>
-                <attribute name="space-before">1.5mm</attribute>
-                <attribute name="keep-with-previous.within-column">always</attribute>
-            </attribute-set>
-
-            <attribute-set name="atsTableTitleBefore">
+            <attribute-set name="atsTableTitle">
                 <attribute name="font-size">$Little_Title_Font_Size</attribute>
                 <attribute name="space-before">3mm</attribute>
                 <attribute name="space-after">1.5mm</attribute>

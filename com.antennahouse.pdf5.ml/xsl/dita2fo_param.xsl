@@ -158,16 +158,6 @@ E-mail : info@antennahouse.com
     <xsl:variable name="pDisplayFnAtEndOfTopic"
         select="boolean($PRM_DISPLAY_FN_AT_END_OF_TOPIC eq $cYes)" as="xs:boolean"/>
 
-    <!-- Compatibility parameter.
-         Display table/title at the end of the table.
-         The new implemenatation outputs table/title before its body.
-         Not released in build.xml.
-         2012-04-04 t.makita
-    -->
-    <xsl:param name="PRM_OUTPUT_TABLE_TITLE_AFTER" required="no" as="xs:string" select="$cNo"/>
-    <xsl:variable name="pOutputTableTitleAfter"
-        select="boolean($PRM_OUTPUT_TABLE_TITLE_AFTER eq $cYes)" as="xs:boolean"/>
-
     <!-- Output plug-in start message.
          2013-09-30 t.makita
       -->

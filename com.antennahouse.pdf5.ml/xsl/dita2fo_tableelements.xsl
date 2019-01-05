@@ -3,7 +3,7 @@
 ****************************************************************
 DITA to XSL-FO Stylesheet
 Module: Table templates
-Copyright © 2009-2009 Antenna House, Inc. All rights reserved.
+Copyright © 2009-2019 Antenna House, Inc. All rights reserved.
 Antenna House is a trademark of Antenna House, Inc.
 URL    : http://www.antennahouse.com/
 E-mail : info@antennahouse.com
@@ -67,31 +67,27 @@ E-mail : info@antennahouse.com
      function:	table template
      param:	    
      return:	fo:wrapper
-     note:		SPEC: Output table/title outside the fo:table if not output continued word in table title
+     note:		SPEC: Remove deprecated table/title positioning for the end of table
+                      2018-01-05 t.makita
      -->
     <xsl:template match="*[contains(@class, ' topic/table ')]">
         <xsl:variable name="tableAttr" select="ahf:getTableAttr(.)" as="element()"/>
+        <xsl:variable name="outputContinuedWordInTableTitle" as="xs:boolean" select="ahf:outputContinuedWordInTableTitle(.)"/>
+        <xsl:variable name="outputContinuedWordInTableFooter" as="xs:boolean" select="ahf:outputContinuedWordInTableFooter(.)"/>
         <fo:wrapper>
             <xsl:call-template name="ahf:getUnivAtts"/>
             <xsl:if test="empty(@id) and child::*[contains(@class, ' topic/title ')]">
                 <xsl:call-template name="ahf:generateIdAttr"/>
             </xsl:if>
-            <xsl:if test="not($pOutputTableTitleAfter) and ahf:outputContinuedWordInTableTitle(.)">
-                <xsl:apply-templates select="*[contains(@class, ' topic/title ')]"/>
-            </xsl:if>
-            <xsl:if test="not(ahf:outputContinuedWordInTableTitle(.))">
-                <xsl:apply-templates select="*[contains(@class, ' topic/desc ')]"/>
-            </xsl:if>
             <xsl:apply-templates select="*[contains(@class, ' topic/tgroup ')]">
                 <xsl:with-param name="prmTableAttr" tunnel="yes" select="$tableAttr"/>
+                <xsl:with-param name="prmOutputContinuedWordInTableTitle" tunnel="yes" select="$outputContinuedWordInTableTitle"/>
+                <xsl:with-param name="prmOutputContinuedWordInTableFooter" tunnel="yes" select="$outputContinuedWordInTableFooter"/>
             </xsl:apply-templates>
             <xsl:if test="not($pDisplayFnAtEndOfTopic)">
                 <xsl:call-template name="makeFootNote">
                     <xsl:with-param name="prmElement"  select="."/>
                 </xsl:call-template>
-            </xsl:if>
-            <xsl:if test="$pOutputTableTitleAfter">
-                <xsl:apply-templates select="*[contains(@class, ' topic/title ')]"/>
             </xsl:if>
         </fo:wrapper>
     </xsl:template>
@@ -171,12 +167,8 @@ E-mail : info@antennahouse.com
      return:	fo:block
      note:		
      -->
-    <xsl:template match="*[contains(@class, ' topic/table ')]/*[contains(@class, ' topic/title ')][$pOutputTableTitleAfter]" mode="MODE_GET_STYLE" as="xs:string*">
-        <xsl:sequence select="'atsTableTitleAfter'"/>
-    </xsl:template>    
-
-    <xsl:template match="*[contains(@class, ' topic/table ')]/*[contains(@class, ' topic/title ')][not($pOutputTableTitleAfter)]" mode="MODE_GET_STYLE" as="xs:string*">
-        <xsl:sequence select="'atsTableTitleBefore'"/>
+    <xsl:template match="*[contains(@class, ' topic/table ')]/*[contains(@class, ' topic/title ')]" mode="MODE_GET_STYLE" as="xs:string*">
+        <xsl:sequence select="'atsTableTitle'"/>
     </xsl:template>
 
     <xsl:template match="*[contains(@class, ' topic/table ')]/*[contains(@class, ' topic/title ')]" priority="2">
@@ -201,21 +193,21 @@ E-mail : info@antennahouse.com
      return:	fo:table
      note:		Add space-before when there is no table/tite,desc.
                 2016-07-24 t.makita
+                SPEC: Output table/title & desc for the first occurrence of table/tgroup in fo:table-cation
+                      2019-01-05 t.makita
      -->
-    <xsl:template match="*[contains(@class, ' topic/tgroup ')][$pOutputTableTitleAfter]" mode="MODE_GET_STYLE" as="xs:string*">
-        <xsl:sequence select="'atsTableWithTitleAfter'"/>
-    </xsl:template>    
-
-    <xsl:template match="*[contains(@class, ' topic/tgroup ')][not($pOutputTableTitleAfter)]" mode="MODE_GET_STYLE" as="xs:string*">
-        <xsl:sequence select="'atsTableWithTitleBefore'"/>
+    <xsl:template match="*[contains(@class, ' topic/tgroup ')]" mode="MODE_GET_STYLE" as="xs:string*">
+        <xsl:sequence select="'atsTableTitle'"/>
         <xsl:if test="parent::*[empty(child::*[contains(@class,' topic/title ')])][empty(child::*[contains(@class,' topic/desc ')])]">
-            <xsl:sequence select="'atsTableWithTitleBeforeWoTitleAndDesc'"/>
+            <xsl:sequence select="'atsTableWoTitleAndDesc'"/>
         </xsl:if>
     </xsl:template>    
 
     <xsl:template match="*[contains(@class, ' topic/tgroup ')]">
         <xsl:param name="prmTableAttr" required="yes" tunnel="yes" as="element()"/>
-    
+        <xsl:param name="prmOutputContinuedWordInTableTitle" required="yes" tunnel="yes" as="xs:boolean"/>
+        <xsl:param name="prmOutputContinuedWordInTableFooter" required="yes" tunnel="yes" as="xs:boolean"/>
+        
         <xsl:variable name="tgroupAttr" select="ahf:addTgroupAttr(.,$prmTableAttr)" as="element()"/>
         <xsl:variable name="colSpec" as="element()*">
             <xsl:apply-templates select="child::*[contains(@class, ' topic/colspec ')]">
@@ -227,6 +219,12 @@ E-mail : info@antennahouse.com
         </xsl:variable>
         <fo:table-and-caption>
             <xsl:copy-of select="ahf:getFoStyleAndProperty($tgroupAttr)[name() eq 'text-align']"/>
+            <xsl:if test="(position() eq 1) and not($prmOutputContinuedWordInTableTitle)">
+                <fo:table-caption>
+                    <xsl:apply-templates select="parent::*/*[contains(@class,' topic/title ')]"/>
+                    <xsl:apply-templates select="parent::*/*[contains(@class,' topic/desc ')]"/>
+                </fo:table-caption>
+            </xsl:if>
             <fo:table>
                 <xsl:copy-of select="$tableAttr"/>
                 <xsl:call-template name="ahf:getUnivAtts"/>
