@@ -68,6 +68,7 @@ E-mail : info@antennahouse.com
      param:	    
      return:	fo:wrapper
      note:		SPEC: Remove deprecated table/title positioning for the end of table
+                      Remove footnote generation. Instead it is moved to tgroup template
                       2018-01-05 t.makita
      -->
     <xsl:template match="*[contains(@class, ' topic/table ')]">
@@ -80,15 +81,13 @@ E-mail : info@antennahouse.com
                 <xsl:call-template name="ahf:generateIdAttr"/>
             </xsl:if>
             <xsl:apply-templates select="*[contains(@class, ' topic/tgroup ')]">
+                <xsl:with-param name="prmTable" tunnel="yes" select="."/>
                 <xsl:with-param name="prmTableAttr" tunnel="yes" select="$tableAttr"/>
                 <xsl:with-param name="prmOutputContinuedWordInTableTitle" tunnel="yes" select="$outputContinuedWordInTableTitle"/>
                 <xsl:with-param name="prmOutputContinuedWordInTableFooter" tunnel="yes" select="$outputContinuedWordInTableFooter"/>
+                <xsl:with-param name="prmTableTitle" tunnel="yes" select="*[contains(@class,' topic/title ')]"/>
+                <xsl:with-param name="prmTableDesc" tunnel="yes" select="*[contains(@class,' topic/desc ')]"/>
             </xsl:apply-templates>
-            <xsl:if test="not($pDisplayFnAtEndOfTopic)">
-                <xsl:call-template name="makeFootNote">
-                    <xsl:with-param name="prmElement"  select="."/>
-                </xsl:call-template>
-            </xsl:if>
         </fo:wrapper>
     </xsl:template>
 
@@ -163,15 +162,18 @@ E-mail : info@antennahouse.com
     
     <!-- 
      function:	table/title template
-     param:	    
+     param:	    prmOutputContinuedWordInTableTitle
      return:	fo:block
-     note:		
+     note:		If table/title is called from fo:table-header generation, add fo:retrieve-table-marker to add "Continued" word.
+                If called from fo:marker generation, add "Continued" word.
      -->
     <xsl:template match="*[contains(@class, ' topic/table ')]/*[contains(@class, ' topic/title ')]" mode="MODE_GET_STYLE" as="xs:string*">
         <xsl:sequence select="'atsTableTitle'"/>
     </xsl:template>
 
     <xsl:template match="*[contains(@class, ' topic/table ')]/*[contains(@class, ' topic/title ')]" priority="2">
+        <xsl:param name="prmOutputContinuedWordInTableTitle" tunnel="yes" as="xs:boolean"/>
+        <xsl:param name="prmGenContinuedWord" as="xs:boolean" required="no" select="false()"/>
         <xsl:variable name="tableTitlePrefix" as="xs:string">
             <xsl:call-template name="ahf:getTableTitlePrefix">
                 <xsl:with-param name="prmTable" select="parent::*[1]"/>
@@ -184,16 +186,31 @@ E-mail : info@antennahouse.com
             <xsl:value-of select="$tableTitlePrefix"/>
             <xsl:text>&#x00A0;</xsl:text>
             <xsl:apply-templates/>
+            <xsl:if test="$prmOutputContinuedWordInTableTitle">
+                <fo:retrieve-table-marker retrieve-class-name="{$mcTableHeader}"/>
+            </xsl:if>
+            <xsl:if test="$prmGenContinuedWord">
+                <fo:inline>
+                    <xsl:call-template name="getAttributeSet">
+                        <xsl:with-param name="prmAttrSetName" select="'atsNormal'"/>
+                    </xsl:call-template>
+                    <xsl:call-template name="getVarValue">
+                        <xsl:with-param name="prmVarName" select="'TableCaptionContinuationWord'"/>
+                    </xsl:call-template>
+                </fo:inline>
+            </xsl:if>
         </fo:block>
     </xsl:template>
     
     <!-- 
      function:	tgroup template
-     param:	    prmTableAttr
-     return:	fo:table
+     param:	    prmTableAttr and etc
+     return:	fo:table-and-caption
      note:		Add space-before when there is no table/tite,desc.
                 2016-07-24 t.makita
                 SPEC: Output table/title & desc for the first occurrence of table/tgroup in fo:table-cation
+                      Output "Continued" word in fo:table-footer if $prmOutputContinuedWordInTableFooter is true()
+                      Generate footnote per table/tgroup
                       2019-01-05 t.makita
      -->
     <xsl:template match="*[contains(@class, ' topic/tgroup ')]" mode="MODE_GET_STYLE" as="xs:string*">
@@ -207,22 +224,41 @@ E-mail : info@antennahouse.com
         <xsl:param name="prmTableAttr" required="yes" tunnel="yes" as="element()"/>
         <xsl:param name="prmOutputContinuedWordInTableTitle" required="yes" tunnel="yes" as="xs:boolean"/>
         <xsl:param name="prmOutputContinuedWordInTableFooter" required="yes" tunnel="yes" as="xs:boolean"/>
+        <xsl:param name="prmTableTitle" required="yes" tunnel="yes" as="element()?"/>
+        <xsl:param name="prmTableDesc"  required="yes" tunnel="yes" as="element()?"/>
         
+        <xsl:variable name="tgroup" as="element()" select="."/>
+        <xsl:variable name="isFirstTgroup" as="xs:boolean" select="empty(preceding-sibling::*[contains(@class, ' topic/tgroup ')])"/>
         <xsl:variable name="tgroupAttr" select="ahf:addTgroupAttr(.,$prmTableAttr)" as="element()"/>
         <xsl:variable name="colSpec" as="element()*">
-            <xsl:apply-templates select="child::*[contains(@class, ' topic/colspec ')]">
-                <xsl:with-param name="prmTgroupAttr" tunnel="yes" select="$tgroupAttr"/>
-            </xsl:apply-templates>
+            <xsl:apply-templates select="child::*[contains(@class, ' topic/colspec ')]"/>
         </xsl:variable>
         <xsl:variable name="tableAttr" as="attribute()*">
             <xsl:call-template name="getAttributeSetWithLang"/>
         </xsl:variable>
+        <xsl:variable name="outputTableCaption" as="xs:boolean">
+            <xsl:choose>
+                <xsl:when test="not($isFirstTgroup)">
+                    <xsl:sequence select="false()"/>
+                </xsl:when>
+                <xsl:when test="exists($prmTableTitle) and $prmOutputContinuedWordInTableTitle">
+                    <xsl:sequence select="false()"/>
+                </xsl:when>
+                <xsl:when test="exists($prmTableTitle) or exists($prmTableDesc)">
+                    <xsl:sequence select="true()"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:sequence select="false()"/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:variable name="cols" as="xs:string" select="string($tgroup/@cols)"/>
         <fo:table-and-caption>
             <xsl:copy-of select="ahf:getFoStyleAndProperty($tgroupAttr)[name() eq 'text-align']"/>
-            <xsl:if test="(position() eq 1) and not($prmOutputContinuedWordInTableTitle)">
+            <xsl:if test="$outputTableCaption">
                 <fo:table-caption>
-                    <xsl:apply-templates select="parent::*/*[contains(@class,' topic/title ')]"/>
-                    <xsl:apply-templates select="parent::*/*[contains(@class,' topic/desc ')]"/>
+                    <xsl:apply-templates select="$prmTableTitle"/>
+                    <xsl:apply-templates select="$prmTableDesc"/>
                 </fo:table-caption>
             </xsl:if>
             <fo:table>
@@ -235,17 +271,39 @@ E-mail : info@antennahouse.com
                 <xsl:copy-of select="ahf:getFrameAtts($tgroupAttr,$tableAttr)"/>
                 <xsl:copy-of select="ahf:getFoStyleAndProperty($tgroupAttr)[name() ne 'text-align']"/>
                 <!-- Copy fo:table-column -->
-                <xsl:apply-templates select="$colSpec" mode="COPY_COLSPEC"/>
-                <xsl:apply-templates select="*[contains(@class, ' topic/thead ')]">
-                    <xsl:with-param name="prmTgroupAttr" tunnel="yes" select="$tgroupAttr"/>
-                    <xsl:with-param name="prmColSpec"    tunnel="yes" select="$colSpec"/>
-                </xsl:apply-templates>
+                <xsl:apply-templates select="$colSpec" mode="MODE_COPY_COLSPEC"/>
+                <xsl:choose>
+                    <xsl:when test="*[contains(@class,' topic/thead ')]">
+                        <xsl:apply-templates select="*[contains(@class, ' topic/thead ')]">
+                            <xsl:with-param name="prmTgroup"     tunnel="yes" select="$tgroup"/>
+                            <xsl:with-param name="prmTgroupAttr" tunnel="yes" select="$tgroupAttr"/>
+                            <xsl:with-param name="prmColSpec"    tunnel="yes" select="$colSpec"/>
+                            <xsl:with-param name="prmIsFirstTgroup" tunnel="yes" select="$isFirstTgroup"/>
+                        </xsl:apply-templates>
+                    </xsl:when>
+                    <xsl:when test="$prmOutputContinuedWordInTableTitle">
+                        <xsl:call-template name="genTheaderForContinuedWord">
+                            <xsl:with-param name="prmCols" select="$cols"/>
+                            <xsl:with-param name="prmIsFirstTgroup" select="$isFirstTgroup"/>
+                        </xsl:call-template>
+                    </xsl:when>
+                </xsl:choose>
+                <xsl:if test="$prmOutputContinuedWordInTableFooter">
+                    <xsl:call-template name="genTfooterForContinuedWord">
+                        <xsl:with-param name="prmCols" select="$cols"/>
+                    </xsl:call-template>
+                </xsl:if>
                 <xsl:apply-templates select="*[contains(@class, ' topic/tbody ')]">
                     <xsl:with-param name="prmTgroupAttr" tunnel="yes" select="$tgroupAttr"/>
                     <xsl:with-param name="prmColSpec"    tunnel="yes" select="$colSpec"/>
                 </xsl:apply-templates>
             </fo:table>
         </fo:table-and-caption>
+        <xsl:if test="not($pDisplayFnAtEndOfTopic)">
+            <xsl:call-template name="makeFootNote">
+                <xsl:with-param name="prmElement"  select="$tgroup"/>
+            </xsl:call-template>
+        </xsl:if>
     </xsl:template>
     
     <!-- 
@@ -260,7 +318,7 @@ E-mail : info@antennahouse.com
         <xsl:param name="prmTableAttr" as="element()"/>
         <dummy>
             <xsl:copy-of select="$prmTableAttr/@*"/>
-            <xsl:attribute name="cols" select="string($prmTgroup/@cols)"/>
+            <xsl:copy-of select="$prmTgroup/@cols"/>
             <xsl:copy-of select="$prmTgroup/@colsep"/>
             <xsl:copy-of select="$prmTgroup/@rowsep"/>
             <xsl:copy-of select="$prmTgroup/@align"/>
@@ -284,12 +342,78 @@ E-mail : info@antennahouse.com
     </xsl:template>
 
     <!-- 
+     function:	Generate fo:table-header with "Continued" word when tgroup/thead is empty
+     param:		prmTableTitle, prmTableDesc, prmCols, prmIsFirstTgroup
+     return:	fo:table-header
+     note:		
+     -->
+    <xsl:template name="genTheaderForContinuedWord">
+        <xsl:param name="prmTableTitle" as="element()?" tunnel="yes" required="yes"/>
+        <xsl:param name="prmTableDesc" as="element()?"  tunnel="yes" required="yes"/>
+        <xsl:param name="prmCols" as="xs:string" required="yes"/>
+        <xsl:param name="prmIsFirstTgroup" as="xs:boolean" required="yes"/>
+
+        <fo:table-header>
+            <xsl:call-template name="getAttributeSet">
+                <xsl:with-param name="prmAttrSetName" select="'atsTableHeaderWoThead'"/>
+            </xsl:call-template>
+            <fo:table-row>
+                <xsl:call-template name="getAttributeSet">
+                    <xsl:with-param name="prmAttrSetName" select="'atsTableRowCaption'"/>
+                </xsl:call-template>
+                <fo:table-cell>
+                    <xsl:attribute name="number-columns-spanned" select="$prmCols"/>
+                    <xsl:call-template name="getAttributeSet">
+                        <xsl:with-param name="prmAttrSetName" select="'atsTableHeaderCaptionCell'"/>
+                    </xsl:call-template>
+                    <xsl:choose>
+                        <xsl:when test="$prmIsFirstTgroup">
+                            <xsl:apply-templates select="$prmTableTitle"/>
+                            <xsl:apply-templates select="$prmTableDesc"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <fo:retrieve-table-marker retrieve-class-name="{$mcTableHeader}"/>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </fo:table-cell>
+            </fo:table-row>
+        </fo:table-header>
+    </xsl:template>
+    
+    <!-- 
+     function:	Generate fo:table-footer that includes "Continued" word
+     param:		none
+     return:	fo:table-footer
+     note:		
+     -->
+    <xsl:template name="genTfooterForContinuedWord">
+        <xsl:param name="prmCols" as="xs:string" required="yes"/>
+        <fo:table-footer>
+            <xsl:call-template name="getAttributeSet">
+                <xsl:with-param name="prmAttrSetName" select="'atsTfooter'"/>
+            </xsl:call-template>
+            <fo:table-row>
+                <xsl:call-template name="getAttributeSet">
+                    <xsl:with-param name="prmAttrSetName" select="'atsTableRowFooter'"/>
+                </xsl:call-template>
+                <fo:table-cell>
+                    <xsl:attribute name="number-columns-spanned" select="$prmCols"/>
+                    <xsl:call-template name="getAttributeSet">
+                        <xsl:with-param name="prmAttrSetName" select="'atsTableFooterCell'"/>
+                    </xsl:call-template>
+                    <fo:retrieve-table-marker retrieve-class-name="{$mcTableFooter}" retrieve-position-within-table="last-starting"/>
+                </fo:table-cell>
+            </fo:table-row>
+        </fo:table-footer>
+    </xsl:template>
+    
+    <!-- 
      function:	fo:table-column copy template
      param:		none
      return:	fo:table-column
      note:		
      -->
-    <xsl:template match="fo:table-column" mode="COPY_COLSPEC">
+    <xsl:template match="fo:table-column" mode="MODE_COPY_COLSPEC">
         <xsl:copy>
             <xsl:copy-of select="@*[name() ne 'ahf:column-name']"/>
         </xsl:copy>
@@ -297,13 +421,11 @@ E-mail : info@antennahouse.com
     
     <!-- 
      function:	colspec template
-     param:	    prmTgroupAttr
+     param:	    none
      return:	fo:table-column
      note:		Added border style "atsTableColumn" to set default border width. 2014-01-03 t.makita
      -->
     <xsl:template match="*[contains(@class, ' topic/colspec ')]">
-        <xsl:param name="prmTgroupAttr" required="yes" tunnel="yes" as="element()"/>
-    
         <fo:table-column>
             <xsl:copy-of select="ahf:getAttributeSet('atsTableColumn')"/>
             <xsl:copy-of select="ahf:getColSpecAttr(.)"/>
@@ -333,7 +455,7 @@ E-mail : info@antennahouse.com
                 <xsl:attribute name="column-number" select="string($prmColSpec/@colnum)"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:attribute name="column-number" select="string(count($prmColSpec/preceding-sibling::*[contains(@class,' topic/colspec ')])+1)"/>
+                <xsl:attribute name="column-number" select="string(count($prmColSpec | $prmColSpec/preceding-sibling::*[contains(@class,' topic/colspec ')]))"/>
             </xsl:otherwise>
         </xsl:choose>
     
@@ -391,27 +513,54 @@ E-mail : info@antennahouse.com
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:if>
-        
     </xsl:function>
     
     <!-- 
      function:	thead template
-     param:		prmTgroupAttr, prmColSpec
+     param:		prmTgroupAttr, prmColSpec, etc
      return:	fo:table-header
-     note:		
+     note:		Output table/title, desc in fo:table-heade if $prmOutputContinuedWordInTableTitle is true 
      -->
     <xsl:template match="*[contains(@class, ' topic/thead ')]">
         <xsl:param name="prmTgroupAttr" required="yes" tunnel="yes" as="element()"/>
         <xsl:param name="prmColSpec" required="yes" tunnel="yes" as="element()*"/>
-    
-        <xsl:variable name="theadAttr" select="ahf:addTheadAttr(.,$prmTgroupAttr)" as="element()"/>
+        <xsl:param name="prmOutputContinuedWordInTableTitle" required="yes" tunnel="yes" as="xs:boolean"/>
+        <xsl:param name="prmIsFirstTgroup" required="yes" tunnel="yes" as="xs:boolean"/>
+        <xsl:param name="prmTableTitle" required="yes" tunnel="yes" as="element()?"/>
+        <xsl:param name="prmTableDesc"  required="yes" tunnel="yes" as="element()?"/>
+        
+        <xsl:variable name="thead" as="element()" select="."/>
+        <xsl:variable name="theadAttr" as="element()" select="ahf:addTheadAttr($thead,$prmTgroupAttr)"/>
         <fo:table-header>
             <xsl:call-template name="getAttributeSetWithLang">
                 <xsl:with-param name="prmAttrSetName" select="'atsThead'"/>
             </xsl:call-template>
             <xsl:call-template name="ahf:getUnivAtts"/>
             <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
+            <xsl:if test="$prmOutputContinuedWordInTableTitle">
+                <fo:table-row>
+                    <xsl:call-template name="getAttributeSet">
+                        <xsl:with-param name="prmAttrSetName" select="'atsTableRowCaption'"/>
+                    </xsl:call-template>
+                    <fo:table-cell>
+                        <xsl:attribute name="number-columns-spanned" select="string($prmTgroupAttr/@cols)"/>
+                        <xsl:call-template name="getAttributeSet">
+                            <xsl:with-param name="prmAttrSetName" select="'atsTableHeaderCaptionCell'"/>
+                        </xsl:call-template>
+                        <xsl:choose>
+                            <xsl:when test="$prmIsFirstTgroup">
+                                <xsl:apply-templates select="$prmTableTitle"/>
+                                <xsl:apply-templates select="$prmTableDesc"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <fo:retrieve-table-marker retrieve-class-name="{$mcTableHeader}"/>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </fo:table-cell>
+                </fo:table-row>
+            </xsl:if>
             <xsl:apply-templates select="*[contains(@class, ' topic/row ')]">
+                <xsl:with-param name="prmThead"        tunnel="yes" select="$thead"/>
                 <xsl:with-param name="prmRowUpperAttr" tunnel="yes" select="$theadAttr"/>
                 <xsl:with-param name="prmColSpec"      tunnel="yes" select="$prmColSpec"/>
             </xsl:apply-templates>
@@ -425,7 +574,7 @@ E-mail : info@antennahouse.com
      note:		
      -->
     <xsl:function name="ahf:addTheadAttr" as="element()">
-        <xsl:param name="prmThead"    as="element()"/>
+        <xsl:param name="prmThead"      as="element()"/>
         <xsl:param name="prmTgroupAttr" as="element()"/>
         <dummy>
             <xsl:copy-of select="$prmTgroupAttr/@* except $prmTgroupAttr/@*[name() eq $pFoPropName]"/>
@@ -433,7 +582,6 @@ E-mail : info@antennahouse.com
             <xsl:copy-of select="ahf:getStylesheetProperty($prmThead)"/>"
         </dummy>
     </xsl:function>
-    
     
     <!-- 
      function:	tbody template
@@ -445,7 +593,8 @@ E-mail : info@antennahouse.com
         <xsl:param name="prmTgroupAttr" required="yes" tunnel="yes" as="element()"/>
         <xsl:param name="prmColSpec" required="yes" tunnel="yes" as="element()*"/>
     
-        <xsl:variable name="tbodyAttr" select="ahf:addTbodyAttr(.,$prmTgroupAttr)" as="element()"/>
+        <xsl:variable name="tbody" as="element()" select="."/>
+        <xsl:variable name="tbodyAttr"  as="element()" select="ahf:addTbodyAttr($tbody,$prmTgroupAttr)"/>
         <fo:table-body>
             <xsl:call-template name="getAttributeSetWithLang">
                 <xsl:with-param name="prmAttrSetName" select="'atsTbody'"/>
@@ -453,6 +602,7 @@ E-mail : info@antennahouse.com
             <xsl:call-template name="ahf:getUnivAtts"/>
             <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
             <xsl:apply-templates select="*[contains(@class, ' topic/row ')]">
+                <xsl:with-param name="prmTbody"        tunnel="yes" select="$tbody"/>
                 <xsl:with-param name="prmRowUpperAttr" tunnel="yes" select="$tbodyAttr"/>
                 <xsl:with-param name="prmColSpec"      tunnel="yes" select="$prmColSpec"/>
             </xsl:apply-templates>
@@ -486,10 +636,11 @@ E-mail : info@antennahouse.com
         <xsl:param name="prmRowUpperAttr" required="yes" tunnel="yes" as="element()"/>
         <xsl:param name="prmColSpec" required="yes" tunnel="yes" as="element()*"/>
     
-        <xsl:variable name="rowAttr" select="ahf:addRowAttr(.,$prmRowUpperAttr)" as="element()"/>
+        <xsl:variable name="row"  as="element()" select="."/>
+        <xsl:variable name="rowAttr"  as="element()" select="ahf:addRowAttr($row,$prmRowUpperAttr)"/>
         <xsl:variable name="rowHeight" as="xs:double">
             <xsl:call-template name="getRowHeight">
-                <xsl:with-param name="prmRow" select="."/>
+                <xsl:with-param name="prmRow" select="$row"/>
                 <xsl:with-param name="prmRowAttr" select="$rowAttr"/>
             </xsl:call-template>
         </xsl:variable>
@@ -503,6 +654,7 @@ E-mail : info@antennahouse.com
             </xsl:if>
             <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
             <xsl:apply-templates select="*[contains(@class, ' topic/entry ')]">
+                <xsl:with-param name="prmRow"        tunnel="yes" select="$row"/>
                 <xsl:with-param name="prmRowAttr"    tunnel="yes" select="$rowAttr"/>
                 <xsl:with-param name="prmColSpec"    tunnel="yes" select="$prmColSpec"/>
                 <xsl:with-param name="prmRowHeight"  tunnel="yes" select="$rowHeight"/>
@@ -600,22 +752,21 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <!-- 
-     function:	entry template
+     function:	table header entry template
      param:		prmRowAttr, prmColSpec,prmRowHeight
      return:	fo:table-cell
      note:		Honor the entry attribute than colspec attribute. 2011-08-29 t.makita
                 $prmRowHeight is needed for entry/@rotate="1" when specifying fo:block-container/@width
      -->
-    <xsl:template match="*[contains(@class, ' topic/entry ')]">
+    <xsl:template match="*[contains(@class,' topic/thead ')]/*[contains(@class,' topic/row ')]/*[contains(@class,' topic/entry ')]">
         <xsl:param name="prmRowAttr" required="yes" tunnel="yes" as="element()"/>
         <xsl:param name="prmColSpec" required="yes" tunnel="yes" as="element()*"/>
         <xsl:param name="prmRowHeight" required="yes" tunnel="yes" as="xs:double"/>
     
         <xsl:variable name="colname" as="xs:string" select="string(@colname)"/>
-        <xsl:variable name="atsName" select="if (ancestor::*[contains(@class,' topic/thead ')]) then 'atsTableHeaderCell' else 'atsTableBodyCell'"/>
         <fo:table-cell>
             <xsl:call-template name="getAttributeSetWithLang">
-                <xsl:with-param name="prmAttrSetName" select="$atsName"/>
+                <xsl:with-param name="prmAttrSetName" select="'atsTableHeaderCell'"/>
             </xsl:call-template>
             <xsl:call-template name="ahf:getUnivAtts"/>
             <xsl:copy-of select="ahf:getEntryAttr(.,$prmRowAttr,$prmColSpec)"/>
@@ -640,7 +791,122 @@ E-mail : info@antennahouse.com
             </xsl:choose>
         </fo:table-cell>
     </xsl:template>
-    
+
+    <!-- 
+     function:	table body entry template
+     param:		prmRowAttr, prmColSpec,prmRowHeight
+     return:	fo:table-cell
+     note:		Honor the entry attribute than colspec attribute. 2011-08-29 t.makita
+                $prmRowHeight is needed for entry/@rotate="1" when specifying fo:block-container/@width
+                SPEC: generate fo:marker if table needs "Continued" word in header or footer.
+                      2018-01-06 t.makita
+     -->
+    <xsl:template match="*[contains(@class,' topic/tbody ')]/*[contains(@class,' topic/row ')]/*[contains(@class,' topic/entry ')]">
+        <xsl:param name="prmRowAttr" required="yes" tunnel="yes" as="element()"/>
+        <xsl:param name="prmColSpec" required="yes" tunnel="yes" as="element()*"/>
+        <xsl:param name="prmRowHeight" required="yes" tunnel="yes" as="xs:double"/>
+        
+        <xsl:variable name="entry" as="element()" select="."/>
+        <xsl:variable name="colname" as="xs:string" select="string($entry/@colname)"/>
+        <fo:table-cell>
+            <xsl:call-template name="getAttributeSetWithLang">
+                <xsl:with-param name="prmAttrSetName" select="'atsTableBodyCell'"/>
+            </xsl:call-template>
+            <xsl:call-template name="ahf:getUnivAtts"/>
+            <xsl:copy-of select="ahf:getEntryAttr($entry,$prmRowAttr,$prmColSpec)"/>
+            <xsl:copy-of select="ahf:getFoStyleAndProperty($entry)"/>
+            <xsl:choose>
+                <xsl:when test="string($entry/@rotate) eq '1'">
+                    <fo:block-container>
+                        <xsl:call-template name="getAttributeSet">
+                            <xsl:with-param name="prmAttrSetName" select="'atsRotatedEntry'"/>
+                        </xsl:call-template>
+                        <xsl:attribute name="width" select="concat(string($prmRowHeight),'em')"/>
+                        <xsl:call-template name="genMarkerForContinuedWord">
+                            <xsl:with-param name="prmEntry" select="$entry"/>
+                        </xsl:call-template>
+                        <fo:block>
+                            <xsl:apply-templates/>
+                        </fo:block>
+                    </fo:block-container>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:call-template name="genMarkerForContinuedWord">
+                        <xsl:with-param name="prmEntry" select="$entry"/>
+                    </xsl:call-template>
+                    <fo:block>
+                        <xsl:apply-templates/>
+                    </fo:block>
+                </xsl:otherwise>
+            </xsl:choose>
+        </fo:table-cell>
+    </xsl:template>
+
+    <!-- 
+     function:	Generate fo:marker for generating "Continued" word in table header or footer
+     param:		prmEntry, prmOutputContinuedWordInTableTitle, prmOutputContinuedWordInTableFooter, etc 
+     return:	fo:marker*
+     note:		
+     -->
+    <xsl:template name="genMarkerForContinuedWord" as="element(fo:marker)*">
+        <xsl:param name="prmEntry" as="element()" required="yes"/>
+        <xsl:param name="prmRow"   as="element()" tunnel="yes" required="yes"/>
+        <xsl:param name="prmTbody" as="element()" tunnel="yes" required="yes"/>
+        <xsl:param name="prmTgroup" as="element()" tunnel="yes" required="yes"/>
+        <xsl:param name="prmTable" as="element()" tunnel="yes" required="yes"/>
+        <xsl:param name="prmTableTitle" as="element()" tunnel="yes" required="yes"/>
+        <xsl:param name="prmIsFirstTgroup" required="yes" tunnel="yes" as="xs:boolean"/>
+        <xsl:param name="prmOutputContinuedWordInTableTitle" required="yes" tunnel="yes" as="xs:boolean"/>
+        <xsl:param name="prmOutputContinuedWordInTableFooter" required="yes" tunnel="yes" as="xs:boolean"/>
+
+        <xsl:variable name="isFirstRow" as="xs:boolean" select="empty($prmRow/preceding-sibling::*[contains(@class,' topic/row ')])"/>
+        <xsl:variable name="isSecondRow" as="xs:boolean" select="count($prmRow/preceding-sibling::*[contains(@class,' topic/row ')]) eq 1"/>
+        <xsl:variable name="isLastRow" as="xs:boolean" select="empty($prmRow/following-sibling::*[contains(@class,' topic/row ')])"/>
+        <xsl:variable name="isFirstCell" as="xs:boolean" select="empty($prmEntry/preceding-sibling::*[contains(@class,' topic/entry ')])"/>
+        <xsl:if test="$isFirstRow and $isFirstCell and $prmOutputContinuedWordInTableTitle">
+            <fo:marker marker-class-name="{$mcTableHeader}"/>
+        </xsl:if>
+        <xsl:if test="$isFirstRow and $isFirstCell and $prmOutputContinuedWordInTableFooter">
+            <fo:marker marker-class-name="{$mcTableFooter}">
+                <fo:block>
+                    <xsl:call-template name="getAttributeSet">
+                        <xsl:with-param name="prmAttrSetName" select="'atsTableFooterCellBlock'"/>
+                    </xsl:call-template>
+                    <fo:inline>
+                        <xsl:call-template name="getVarValue">
+                            <xsl:with-param name="prmVarName" select="'TableFooterContinuationWord'"/>
+                        </xsl:call-template>
+                    </fo:inline>
+                </fo:block>
+            </fo:marker>
+        </xsl:if>
+        <xsl:if test="$isSecondRow and $isFirstCell and $prmOutputContinuedWordInTableTitle">
+            <fo:marker marker-class-name="{$mcTableHeader}">
+                <xsl:choose>
+                    <xsl:when test="$prmIsFirstTgroup">
+                        <fo:inline>
+                            <xsl:call-template name="getAttributeSet">
+                                <xsl:with-param name="prmAttrSetName" select="'atsNormal'"/>
+                            </xsl:call-template>
+                            <xsl:call-template name="getVarValue">
+                                <xsl:with-param name="prmVarName" select="'TableCaptionContinuationWord'"/>
+                            </xsl:call-template>
+                        </fo:inline>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:apply-templates select="$prmTableTitle">
+                            <xsl:with-param name="prmGenContinuedWord" select="true()"/>
+                            <xsl:with-param name="prmOutputContinuedWordInTableTitle" select="false()"/>
+                        </xsl:apply-templates>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </fo:marker>
+        </xsl:if>
+        <xsl:if test="$isLastRow and $isFirstCell and $prmOutputContinuedWordInTableFooter">
+            <fo:marker marker-class-name="{$mcTableFooter}"/>
+        </xsl:if>
+    </xsl:template>
+
     <!-- 
      function:	get XSL-FO property from CALS table entry attributes
      param:		prmEntry, prmRowAttr, prmColSpec
@@ -654,7 +920,7 @@ E-mail : info@antennahouse.com
      -->
     <xsl:function name="ahf:getEntryAttr" as="attribute()*">
         <xsl:param name="prmEntry"        as="element()"/>
-        <xsl:param name="prmRowAttr"    as="element()"/>
+        <xsl:param name="prmRowAttr"      as="element()"/>
         <xsl:param name="prmColSpec"      as="element()*"/>
         
         <xsl:variable name="colName" as="xs:string" select="string($prmEntry/@colname)"/>
