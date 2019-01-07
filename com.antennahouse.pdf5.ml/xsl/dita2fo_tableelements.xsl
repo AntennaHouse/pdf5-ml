@@ -22,9 +22,11 @@ E-mail : info@antennahouse.com
          ****************************-->
     
     <!-- Class name of fo:retrieve-table-marker to insert continued word to fo:table-header-->
-    <xsl:variable name="mcTableHeader" as="xs:string" select="'mcTableHeader'"/>
+    <xsl:variable name="mcTableHeaderContinuedWord" as="xs:string" select="'mcTableHeaderContinuedWord'"/>
+    <!-- Class name of fo:retrieve-table-marker to insert table/desc to fo:table-header-->
+    <xsl:variable name="mcTableHeaderTableDesc" as="xs:string" select="'mcTableHeaderTableDesc'"/>
     <!-- Class name of fo:retrieve-table-marker to insert continued word to fo:table-footer -->
-    <xsl:variable name="mcTableFooter" as="xs:string" select="'mcTableFooter'"/>
+    <xsl:variable name="mcTableFooterContinuedWord" as="xs:string" select="'mcTableFooterContinuedWord'"/>
     
     <!-- @outputclass value to add "Continued" to fo:table-header-->
     <xsl:variable name="ocTableTitleContinued" as="xs:string" select="'output-continued-in-table-title'"/>
@@ -92,14 +94,17 @@ E-mail : info@antennahouse.com
     </xsl:template>
 
     <!-- 
-     function:	generate conitinued word in fo:table-header orfo:table-footer
+     function:	generate continued word in fo:table-header or fo:table-footer
      param:		prmTable
      return:	xs:boolean
-     note:		
+     note:		Disable generation for nested table.
      -->
     <xsl:function name="ahf:outputContinuedWordInTableTitle" as="xs:boolean">
         <xsl:param name="prmTable" as="element()"/>
         <xsl:choose>
+            <xsl:when test="exists($prmTable/ancestor::*[ahf:seqContains(string(@class),(' topic/entry',' topic/stentry '))])">
+                <xsl:sequence select="false()"/>
+            </xsl:when>
             <xsl:when test="$pOutputTableTitleContinued or ahf:hasOutputClassValue($prmTable,$ocTableTitleContinued)">
                 <xsl:sequence select="true()"/>
             </xsl:when>
@@ -112,6 +117,9 @@ E-mail : info@antennahouse.com
     <xsl:function name="ahf:outputContinuedWordInTableFooter" as="xs:boolean">
         <xsl:param name="prmTable" as="element()"/>
         <xsl:choose>
+            <xsl:when test="exists($prmTable/ancestor::*[ahf:seqContains(string(@class),(' topic/entry',' topic/stentry '))])">
+                <xsl:sequence select="false()"/>
+            </xsl:when>
             <xsl:when test="$pOutputTableFooterContinued or ahf:hasOutputClassValue($prmTable,$ocTableFooterContinued)">
                 <xsl:sequence select="true()"/>
             </xsl:when>
@@ -187,7 +195,7 @@ E-mail : info@antennahouse.com
             <xsl:text>&#x00A0;</xsl:text>
             <xsl:apply-templates/>
             <xsl:if test="$prmOutputContinuedWordInTableTitle">
-                <fo:retrieve-table-marker retrieve-class-name="{$mcTableHeader}"/>
+                <fo:retrieve-table-marker retrieve-class-name="{$mcTableHeaderContinuedWord}"/>
             </xsl:if>
             <xsl:if test="$prmGenContinuedWord">
                 <fo:inline>
@@ -372,7 +380,7 @@ E-mail : info@antennahouse.com
                             <xsl:apply-templates select="$prmTableDesc"/>
                         </xsl:when>
                         <xsl:otherwise>
-                            <fo:retrieve-table-marker retrieve-class-name="{$mcTableHeader}"/>
+                            <fo:retrieve-table-marker retrieve-class-name="{$mcTableHeaderContinuedWord}"/>
                         </xsl:otherwise>
                     </xsl:choose>
                 </fo:table-cell>
@@ -401,7 +409,7 @@ E-mail : info@antennahouse.com
                     <xsl:call-template name="getAttributeSet">
                         <xsl:with-param name="prmAttrSetName" select="'atsTableFooterCell'"/>
                     </xsl:call-template>
-                    <fo:retrieve-table-marker retrieve-class-name="{$mcTableFooter}" retrieve-position-within-table="last-starting"/>
+                    <fo:retrieve-table-marker retrieve-class-name="{$mcTableFooterContinuedWord}" retrieve-position-within-table="last-starting"/>
                 </fo:table-cell>
             </fo:table-row>
         </fo:table-footer>
@@ -553,7 +561,7 @@ E-mail : info@antennahouse.com
                                 <xsl:apply-templates select="$prmTableDesc"/>
                             </xsl:when>
                             <xsl:otherwise>
-                                <fo:retrieve-table-marker retrieve-class-name="{$mcTableHeader}"/>
+                                <fo:retrieve-table-marker retrieve-class-name="{$mcTableHeaderContinuedWord}"/>
                             </xsl:otherwise>
                         </xsl:choose>
                     </fo:table-cell>
@@ -864,10 +872,10 @@ E-mail : info@antennahouse.com
         <xsl:variable name="isLastRow" as="xs:boolean" select="empty($prmRow/following-sibling::*[contains(@class,' topic/row ')])"/>
         <xsl:variable name="isFirstCell" as="xs:boolean" select="empty($prmEntry/preceding-sibling::*[contains(@class,' topic/entry ')])"/>
         <xsl:if test="$isFirstRow and $isFirstCell and $prmOutputContinuedWordInTableTitle">
-            <fo:marker marker-class-name="{$mcTableHeader}"/>
+            <fo:marker marker-class-name="{$mcTableHeaderContinuedWord}"/>
         </xsl:if>
         <xsl:if test="$isFirstRow and $isFirstCell and $prmOutputContinuedWordInTableFooter">
-            <fo:marker marker-class-name="{$mcTableFooter}">
+            <fo:marker marker-class-name="{$mcTableFooterContinuedWord}">
                 <fo:block>
                     <xsl:call-template name="getAttributeSet">
                         <xsl:with-param name="prmAttrSetName" select="'atsTableFooterCellBlock'"/>
@@ -881,7 +889,7 @@ E-mail : info@antennahouse.com
             </fo:marker>
         </xsl:if>
         <xsl:if test="$isSecondRow and $isFirstCell and $prmOutputContinuedWordInTableTitle">
-            <fo:marker marker-class-name="{$mcTableHeader}">
+            <fo:marker marker-class-name="{$mcTableHeaderContinuedWord}">
                 <xsl:choose>
                     <xsl:when test="$prmIsFirstTgroup">
                         <fo:inline>
@@ -903,7 +911,7 @@ E-mail : info@antennahouse.com
             </fo:marker>
         </xsl:if>
         <xsl:if test="$isLastRow and $isFirstCell and $prmOutputContinuedWordInTableFooter">
-            <fo:marker marker-class-name="{$mcTableFooter}"/>
+            <fo:marker marker-class-name="{$mcTableFooterContinuedWord}"/>
         </xsl:if>
     </xsl:template>
 
