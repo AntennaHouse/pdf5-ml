@@ -28,16 +28,47 @@ E-mail : info@antennahouse.com
     <!-- Class name of fo:retrieve-table-marker to insert continued word to fo:table-footer -->
     <xsl:variable name="mcTableFooterContinuedWord" as="xs:string" select="'mcTableFooterContinuedWord'"/>
     
-    <!-- @outputclass value to add "Continued" to fo:table-header-->
-    <xsl:variable name="ocTableTitleContinued" as="xs:string" select="'output-continued-in-table-title'"/>
-    <!-- @outputclass value to add "Continued" to fo:table-footer-->
-    <xsl:variable name="ocTableFooterContinued" as="xs:string" select="'output-continued-in-table-footer'"/>
+    <!-- @outputclass value to insert or not to insert "Continued" word to fo:table-header-->
+    <xsl:variable name="ocTableTitleContinued" as="xs:string">
+        <xsl:call-template name="getVarValue">
+            <xsl:with-param name="prmVarName" select="'OcTableTitleContinued'"/>
+        </xsl:call-template>
+    </xsl:variable>
+    <xsl:variable name="ocNoTableTitleContinued" as="xs:string">
+        <xsl:call-template name="getVarValue">
+            <xsl:with-param name="prmVarName" select="'OcNoTableTitleContinued'"/>
+        </xsl:call-template>
+    </xsl:variable>
+    <!-- @outputclass value to insert or not to insert "Continued" word to fo:table-footer-->
+    <xsl:variable name="ocTableFooterContinued" as="xs:string">
+        <xsl:call-template name="getVarValue">
+            <xsl:with-param name="prmVarName" select="'OcTableFooterContinued'"/>
+        </xsl:call-template>
+    </xsl:variable>
+    <xsl:variable name="ocNoTableFooterContinued" as="xs:string">
+        <xsl:call-template name="getVarValue">
+            <xsl:with-param name="prmVarName" select="'OcNoTableFooterContinued'"/>
+        </xsl:call-template>
+    </xsl:variable>
+
+    <!-- @outputclass regx value for table alignment -->
+    <xsl:variable name="ocTableAlignRegx" as="xs:string">
+        <xsl:call-template name="getVarValue">
+            <xsl:with-param name="prmVarName" select="'OcTableAlignRegx'"/>
+        </xsl:call-template>
+    </xsl:variable>
+    <xsl:variable name="ocTableAlignReplaceGroup" as="xs:string">
+        <xsl:call-template name="getVarValue">
+            <xsl:with-param name="prmVarName" select="'OcTableAlignReplaceGroup'"/>
+        </xsl:call-template>
+    </xsl:variable>
     
+
     <!-- 
      function:	table[@orient="land"] template
      param:	    
      return:	fo:bloc-container
-     note:		Table will be located by 90 degrees counterclockwise from the text flow.
+     note:		Table will be lotated by 90 degrees counterclockwise from the text flow.
      -->
     <xsl:template match="*[contains(@class, ' topic/table ')][string(@orient) eq 'land']" priority="4">
         <fo:block-container>
@@ -54,6 +85,7 @@ E-mail : info@antennahouse.com
      return:	fo:bloc-container
      note:		Table will be positioned from left page margin to right page margin.
                 Change implementation method to force table width to full.
+                See also ahf:getTablePgwideAttr.
                 2016-09-23 t.makita
      -->
     <xsl:template match="*[contains(@class, ' topic/table ')][string(@pgwide) eq '1']" priority="2">
@@ -105,7 +137,10 @@ E-mail : info@antennahouse.com
             <xsl:when test="exists($prmTable/ancestor::*[ahf:seqContains(string(@class),(' topic/entry',' topic/stentry '))])">
                 <xsl:sequence select="false()"/>
             </xsl:when>
-            <xsl:when test="$pOutputTableTitleContinued or ahf:hasOutputClassValue($prmTable,$ocTableTitleContinued)">
+            <xsl:when test="$pOutputTableTitleContinued and not(ahf:hasOutputClassValue($prmTable,$ocNoTableTitleContinued))">
+                <xsl:sequence select="true()"/>
+            </xsl:when>
+            <xsl:when test="not($pOutputTableTitleContinued) and ahf:hasOutputClassValue($prmTable,$ocTableTitleContinued)">
                 <xsl:sequence select="true()"/>
             </xsl:when>
             <xsl:otherwise>
@@ -120,7 +155,10 @@ E-mail : info@antennahouse.com
             <xsl:when test="exists($prmTable/ancestor::*[ahf:seqContains(string(@class),(' topic/entry',' topic/stentry '))])">
                 <xsl:sequence select="false()"/>
             </xsl:when>
-            <xsl:when test="$pOutputTableFooterContinued or ahf:hasOutputClassValue($prmTable,$ocTableFooterContinued)">
+            <xsl:when test="$pOutputTableFooterContinued and not(ahf:hasOutputClassValue($prmTable,$ocNoTableFooterContinued))">
+                <xsl:sequence select="true()"/>
+            </xsl:when>
+            <xsl:when test="not($pOutputTableFooterContinued) and ahf:hasOutputClassValue($prmTable,$ocTableFooterContinued)">
                 <xsl:sequence select="true()"/>
             </xsl:when>
             <xsl:otherwise>
@@ -203,7 +241,7 @@ E-mail : info@antennahouse.com
                         <xsl:with-param name="prmAttrSetName" select="'atsNormal'"/>
                     </xsl:call-template>
                     <xsl:call-template name="getVarValue">
-                        <xsl:with-param name="prmVarName" select="'TableCaptionContinuationWord'"/>
+                        <xsl:with-param name="prmVarName" select="'TableHeaderContinuationWord'"/>
                     </xsl:call-template>
                 </fo:inline>
             </xsl:if>
@@ -262,7 +300,9 @@ E-mail : info@antennahouse.com
         </xsl:variable>
         <xsl:variable name="cols" as="xs:string" select="string($tgroup/@cols)"/>
         <fo:table-and-caption>
-            <xsl:copy-of select="ahf:getFoStyleAndProperty($tgroupAttr)[name() eq 'text-align']"/>
+            <xsl:call-template name="getTableAlignAttr">
+                <xsl:with-param name="prmTgroupAttr" select="$tgroupAttr"/>
+            </xsl:call-template>
             <xsl:if test="$outputTableCaption">
                 <fo:table-caption>
                     <xsl:apply-templates select="$prmTableTitle"/>
@@ -330,10 +370,31 @@ E-mail : info@antennahouse.com
             <xsl:copy-of select="$prmTgroup/@colsep"/>
             <xsl:copy-of select="$prmTgroup/@rowsep"/>
             <xsl:copy-of select="$prmTgroup/@align"/>
-            <xsl:copy-of select="$prmTgroup/@*[name() eq $pFoPropName]"/>"
+            <xsl:copy-of select="$prmTgroup/@*[name() eq $pFoPropName]"/>
         </dummy>
     </xsl:function>
 
+    <!-- 
+     function:	Get table align attribute
+     param:		prmTable
+     return:	attribute()
+     note:		This template controls table alignment (text-align of fo:table-and-caption) not defined in DITA.
+     -->
+    <xsl:template name="getTableAlignAttr" as="attribute()?">
+        <xsl:param name="prmTgroupAttr" required="yes" as="element()"/>
+        <xsl:param name="prmTable" required="yes" tunnel="yes" as="element()"/>
+        
+        <xsl:variable name="outputClassTableAlign" as="xs:string" select="ahf:getOutputClassRegx($prmTable,$ocTableAlignRegx,$ocTableAlignReplaceGroup)"/>
+        <xsl:choose>
+            <xsl:when test="string($outputClassTableAlign)">
+                <xsl:attribute name="text-align" select="$outputClassTableAlign"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:copy-of select="ahf:getFoStyleAndProperty($prmTgroupAttr)[name() eq 'text-align']"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    
     <!-- 
      function:	Get pgwide attributes
      param:		prmTgroupAttr
@@ -353,7 +414,7 @@ E-mail : info@antennahouse.com
      function:	Generate fo:table-header with "Continued" word when tgroup/thead is empty
      param:		prmTableTitle, prmTableDesc, prmCols, prmIsFirstTgroup
      return:	fo:table-header
-     note:		
+     note:		table/desc is controled by fo:retrive-table-marker because it is needed in only first table header.
      -->
     <xsl:template name="genTheaderForContinuedWord">
         <xsl:param name="prmTableTitle" as="element()?" tunnel="yes" required="yes"/>
@@ -377,7 +438,9 @@ E-mail : info@antennahouse.com
                     <xsl:choose>
                         <xsl:when test="$prmIsFirstTgroup">
                             <xsl:apply-templates select="$prmTableTitle"/>
-                            <xsl:apply-templates select="$prmTableDesc"/>
+                            <xsl:if test="exists($prmTableDesc)">
+                                <fo:retrieve-table-marker retrieve-class-name="{$mcTableHeaderTableDesc}"/>
+                            </xsl:if>
                         </xsl:when>
                         <xsl:otherwise>
                             <fo:retrieve-table-marker retrieve-class-name="{$mcTableHeaderContinuedWord}"/>
@@ -558,7 +621,9 @@ E-mail : info@antennahouse.com
                         <xsl:choose>
                             <xsl:when test="$prmIsFirstTgroup">
                                 <xsl:apply-templates select="$prmTableTitle"/>
-                                <xsl:apply-templates select="$prmTableDesc"/>
+                                <xsl:if test="exists($prmTableDesc)">
+                                    <fo:retrieve-table-marker retrieve-class-name="{$mcTableHeaderTableDesc}"/>
+                                </xsl:if>
                             </xsl:when>
                             <xsl:otherwise>
                                 <fo:retrieve-table-marker retrieve-class-name="{$mcTableHeaderContinuedWord}"/>
@@ -851,10 +916,18 @@ E-mail : info@antennahouse.com
     </xsl:template>
 
     <!-- 
-     function:	Generate fo:marker for generating "Continued" word in table header or footer
+     function:	Generate fo:marker for controlling output "Continued" word in table header or footer
      param:		prmEntry, prmOutputContinuedWordInTableTitle, prmOutputContinuedWordInTableFooter, etc 
      return:	fo:marker*
-     note:		
+     note:      First Row/First Cell
+                - Not output "Continued" in table header.
+                - Output table/desc after table caption.
+                - Output "Continued" to table footer.
+                Second Row/First Cell
+                - Output "Continued" in table header.
+                - Not output table/desc after table caption.
+                Last Row/First Cell
+                - Not output "Continued" to table footer.
      -->
     <xsl:template name="genMarkerForContinuedWord" as="element(fo:marker)*">
         <xsl:param name="prmEntry" as="element()" required="yes"/>
@@ -863,6 +936,7 @@ E-mail : info@antennahouse.com
         <xsl:param name="prmTgroup" as="element()" tunnel="yes" required="yes"/>
         <xsl:param name="prmTable" as="element()" tunnel="yes" required="yes"/>
         <xsl:param name="prmTableTitle" as="element()" tunnel="yes" required="yes"/>
+        <xsl:param name="prmTableDesc" as="element()" tunnel="yes" required="yes"/>
         <xsl:param name="prmIsFirstTgroup" required="yes" tunnel="yes" as="xs:boolean"/>
         <xsl:param name="prmOutputContinuedWordInTableTitle" required="yes" tunnel="yes" as="xs:boolean"/>
         <xsl:param name="prmOutputContinuedWordInTableFooter" required="yes" tunnel="yes" as="xs:boolean"/>
@@ -873,6 +947,11 @@ E-mail : info@antennahouse.com
         <xsl:variable name="isFirstCell" as="xs:boolean" select="empty($prmEntry/preceding-sibling::*[contains(@class,' topic/entry ')])"/>
         <xsl:if test="$isFirstRow and $isFirstCell and $prmOutputContinuedWordInTableTitle">
             <fo:marker marker-class-name="{$mcTableHeaderContinuedWord}"/>
+            <xsl:if test="exists($prmTableDesc)">
+                <fo:marker marker-class-name="{$mcTableHeaderTableDesc}">
+                    <xsl:apply-templates select="$prmTableDesc"/>
+                </fo:marker>
+            </xsl:if>
         </xsl:if>
         <xsl:if test="$isFirstRow and $isFirstCell and $prmOutputContinuedWordInTableFooter">
             <fo:marker marker-class-name="{$mcTableFooterContinuedWord}">
@@ -897,7 +976,7 @@ E-mail : info@antennahouse.com
                                 <xsl:with-param name="prmAttrSetName" select="'atsNormal'"/>
                             </xsl:call-template>
                             <xsl:call-template name="getVarValue">
-                                <xsl:with-param name="prmVarName" select="'TableCaptionContinuationWord'"/>
+                                <xsl:with-param name="prmVarName" select="'TableHeaderContinuationWord'"/>
                             </xsl:call-template>
                         </fo:inline>
                     </xsl:when>
@@ -909,6 +988,7 @@ E-mail : info@antennahouse.com
                     </xsl:otherwise>
                 </xsl:choose>
             </fo:marker>
+            <fo:marker marker-class-name="{$mcTableHeaderTableDesc}"/>
         </xsl:if>
         <xsl:if test="$isLastRow and $isFirstCell and $prmOutputContinuedWordInTableFooter">
             <fo:marker marker-class-name="{$mcTableFooterContinuedWord}"/>
@@ -1054,12 +1134,13 @@ E-mail : info@antennahouse.com
      return:	attribute()*
      note:		DITA-OT 1.5 sets correct @colname to every entry element.
                 This stylesheet use this functionality.
+                $prmColspec contains fo:table-column obuject with properties.
      -->
     <xsl:function name="ahf:getColSpecAttr" as="attribute()*">
         <xsl:param name="prmColName"  as="xs:string"/>
         <xsl:param name="prmColSpec"  as="element()*"/>
     
-        <xsl:variable name="colSpec" select="$prmColSpec[@ahf:column-name=$prmColName][1]"/>
+        <xsl:variable name="colSpec" as="element()?" select="$prmColSpec[string(@ahf:column-name) eq $prmColName][1]"/>
         
         <xsl:if test="exists($colSpec)">
             <xsl:if test="exists($colSpec/@border-end-style)">

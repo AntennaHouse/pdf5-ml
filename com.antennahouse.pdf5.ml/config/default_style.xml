@@ -240,12 +240,24 @@ URL : http://www.antennahouse.com/
         <variable name="Table_Title">Table </variable>
         <variable name="Figure_Title">Figure </variable>
 
-        <!-- Table caption cotinuation word -->
-        <variable name="TableCaptionContinuationWord"> (Table continued)</variable>
+        <!-- Table header (caption) cotinuation word -->
+        <variable name="TableHeaderContinuationWord"> (Table continued)</variable>
         
         <!-- Table footer cotinuation word -->
         <variable name="TableFooterContinuationWord">Continues on the next page</variable>
 
+        <!-- @outputclass value to insert or not to insert continuation word in table header -->
+        <variable name="OcTableTitleContinued">output-continued-in-table-title</variable>
+        <variable name="OcNoTableTitleContinued">output-no-continued-in-table-title</variable>
+        
+        <!-- @outputclass value to insert or not to insert continuation word in table footer -->
+        <variable name="OcTableFooterContinued">output-continued-in-table-footer</variable>
+        <variable name="OcNoTableFooterContinued">output-no-continued-in-table-footer</variable>
+
+        <!-- @outputclass regx value for table alignment -->
+        <variable name="OcTableAlignRegx">(align-)(.+)</variable>
+        <variable name="OcTableAlignReplaceGroup">2</variable>
+        
         <!-- Literals for thumbnail -->
         <variable name="Toc_Thumbnail_Label">TOC</variable>
         <variable name="Appendix_Thumbnail_Label">App.</variable>
