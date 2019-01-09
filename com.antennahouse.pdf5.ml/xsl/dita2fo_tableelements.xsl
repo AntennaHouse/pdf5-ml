@@ -254,16 +254,14 @@ E-mail : info@antennahouse.com
      return:	fo:table-and-caption
      note:		Add space-before when there is no table/tite,desc.
                 2016-07-24 t.makita
-                SPEC: Output table/title & desc for the first occurrence of table/tgroup in fo:table-cation
-                      Output "Continued" word in fo:table-footer if $prmOutputContinuedWordInTableFooter is true()
+                SPEC: Output table/title & desc for the first occurrence of table/tgroup in fo:table-cation.
+                      Output "Continued" word in fo:table-header if $prmOutputContinuedWordInTableTitle is true().
+                      Output "Continued" word in fo:table-footer if $prmOutputContinuedWordInTableFooter is true().
                       Generate footnote per table/tgroup
                       2019-01-05 t.makita
      -->
     <xsl:template match="*[contains(@class, ' topic/tgroup ')]" mode="MODE_GET_STYLE" as="xs:string*">
-        <xsl:sequence select="'atsTableTitle'"/>
-        <xsl:if test="parent::*[empty(child::*[contains(@class,' topic/title ')])][empty(child::*[contains(@class,' topic/desc ')])]">
-            <xsl:sequence select="'atsTableWoTitleAndDesc'"/>
-        </xsl:if>
+        <xsl:sequence select="'atsTable'"/>
     </xsl:template>    
 
     <xsl:template match="*[contains(@class, ' topic/tgroup ')]">
@@ -342,8 +340,10 @@ E-mail : info@antennahouse.com
                     </xsl:call-template>
                 </xsl:if>
                 <xsl:apply-templates select="*[contains(@class, ' topic/tbody ')]">
+                    <xsl:with-param name="prmTgroup"     tunnel="yes" select="$tgroup"/>
                     <xsl:with-param name="prmTgroupAttr" tunnel="yes" select="$tgroupAttr"/>
                     <xsl:with-param name="prmColSpec"    tunnel="yes" select="$colSpec"/>
+                    <xsl:with-param name="prmIsFirstTgroup" tunnel="yes" select="$isFirstTgroup"/>
                 </xsl:apply-templates>
             </fo:table>
         </fo:table-and-caption>
@@ -590,7 +590,8 @@ E-mail : info@antennahouse.com
      function:	thead template
      param:		prmTgroupAttr, prmColSpec, etc
      return:	fo:table-header
-     note:		Output table/title, desc in fo:table-heade if $prmOutputContinuedWordInTableTitle is true 
+     note:		Output table/title, desc in fo:table-heade if $prmOutputContinuedWordInTableTitle is true
+                SPEC: If output "Continued" word in table title, make @background-color="transparent"
      -->
     <xsl:template match="*[contains(@class, ' topic/thead ')]">
         <xsl:param name="prmTgroupAttr" required="yes" tunnel="yes" as="element()"/>
@@ -606,6 +607,11 @@ E-mail : info@antennahouse.com
             <xsl:call-template name="getAttributeSetWithLang">
                 <xsl:with-param name="prmAttrSetName" select="'atsThead'"/>
             </xsl:call-template>
+            <xsl:if test="$prmOutputContinuedWordInTableTitle">
+                <xsl:call-template name="getAttributeSetWithLang">
+                    <xsl:with-param name="prmAttrSetName" select="'atsBgTransparent'"/>
+                </xsl:call-template>
+            </xsl:if>
             <xsl:call-template name="ahf:getUnivAtts"/>
             <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
             <xsl:if test="$prmOutputContinuedWordInTableTitle">
@@ -703,12 +709,14 @@ E-mail : info@antennahouse.com
      function:	row template
      param:		prmRowUpperAttr, prmColSpec
      return:	fo:table-row
-     note:		
+     note:		SPEC: If row belongs thead and output "Continued" word in table title, set thead background color to row.
      -->
     <xsl:template match="*[contains(@class, ' topic/row ')]">
         <xsl:param name="prmRowUpperAttr" required="yes" tunnel="yes" as="element()"/>
         <xsl:param name="prmColSpec" required="yes" tunnel="yes" as="element()*"/>
-    
+        <xsl:param name="prmOutputContinuedWordInTableTitle" required="yes" tunnel="yes" as="xs:boolean"/>
+        <xsl:param name="prmThead" required="no" tunnel="yes" as="element()?" select="()"/>
+        
         <xsl:variable name="row"  as="element()" select="."/>
         <xsl:variable name="rowAttr"  as="element()" select="ahf:addRowAttr($row,$prmRowUpperAttr)"/>
         <xsl:variable name="rowHeight" as="xs:double">
@@ -721,6 +729,11 @@ E-mail : info@antennahouse.com
             <xsl:call-template name="getAttributeSetWithLang">
                 <xsl:with-param name="prmAttrSetName" select="'atsRow'"/>
             </xsl:call-template>
+            <xsl:if test="exists($prmThead) and $prmOutputContinuedWordInTableTitle">
+                <xsl:call-template name="getAttributeSetWithLang">
+                    <xsl:with-param name="prmAttrSetName" select="'atsBgThead'"/>
+                </xsl:call-template>
+            </xsl:if>
             <xsl:call-template name="ahf:getUnivAtts"/>
             <xsl:if test="$rowHeight gt 0.0">
                 <xsl:attribute name="height" select="concat(string($rowHeight),'em')"/>
