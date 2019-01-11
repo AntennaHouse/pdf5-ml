@@ -55,14 +55,7 @@ E-mail : info@antennahouse.com
                         </fo:flow>
                     </xsl:when>
                     <xsl:otherwise>
-                        <xsl:choose>
-                            <xsl:when test="$pIsWebOutput">
-                                <xsl:copy-of select="ahf:getAttributeSet('atsPageSeqBackmatterOnline')"/>
-                            </xsl:when>
-                            <xsl:otherwise>
-                                <xsl:copy-of select="ahf:getAttributeSet('atsPageSeqBackmatter')"/>
-                            </xsl:otherwise>
-                        </xsl:choose>
+                        <xsl:copy-of select="ahf:getAttributeSet('atsPageSeqBackmatter')"/>
                         <fo:static-content flow-name="rgnFrontmatterBeforeLeft">
                             <xsl:call-template name="frontmatterBeforeLeft"/>
                         </fo:static-content>
