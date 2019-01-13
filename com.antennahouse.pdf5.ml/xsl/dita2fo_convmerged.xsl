@@ -127,10 +127,10 @@ E-mail : info@antennahouse.com
      return:	self and descendant element or none
      note:		if @print="no", ignore it.
      -->
-    <xsl:template match="*[contains(@class,' map/topicref ')]">
+    <xsl:template match="*[contains(@class,' map/topicref ')]" as="element()?">
         <xsl:variable name="topicRef" as="element()" select="."/>
         <xsl:choose>
-    		<xsl:when test="@print='no'" >
+    		<xsl:when test="string(@print) eq 'no'" >
     		    <xsl:for-each select="descendant-or-self::*[contains(@class,' map/topicref ')]">
     		        <xsl:if test="exists(@href)">
     		            <xsl:call-template name="warningContinue">
@@ -142,12 +142,12 @@ E-mail : info@antennahouse.com
     	    <xsl:when test="empty(ancestor::*[contains(@class,' map/reltable ')]) and $duplicateTopicRefs[. is $topicRef]">
     	        <xsl:variable name="href" as="xs:string" select="string(@href)"/>
     	        <xsl:variable name="duplicateCount" as="xs:integer" select="count($topicRef|$allTopicRefs[. &lt;&lt; $topicRef][string(@href) eq $href])"/>
-    	        <xsl:copy>
-    	            <xsl:apply-templates select="@*">
-    	                <xsl:with-param name="prmTopicRefNo" select="$duplicateCount"/>
-    	            </xsl:apply-templates>
-    	            <xsl:apply-templates/>
-    	        </xsl:copy>
+                <xsl:copy>
+                    <xsl:apply-templates select="@*">
+                        <xsl:with-param name="prmTopicRefNo" select="$duplicateCount"/>
+                    </xsl:apply-templates>
+                    <xsl:apply-templates/>
+                </xsl:copy>
     	    </xsl:when>
     	    <xsl:otherwise>
                 <xsl:copy>
@@ -159,7 +159,7 @@ E-mail : info@antennahouse.com
     </xsl:template>
 
     <!-- template for topicref/@href is limited for create new value -->
-    <xsl:template match="*[contains(@class,' map/topicref ')]/@href" priority="5">
+    <xsl:template match="*[contains(@class,' map/topicref ')]/@href" priority="5" as="attribute()">
         <xsl:param name="prmTopicRefNo" required="no" as="xs:integer" select="0"/>
         <xsl:variable name="href" as="xs:string" select="string(.)"/>
         <xsl:attribute name="href" select="if ($prmTopicRefNo gt 0) then concat($href,'_',string($prmTopicRefNo)) else $href"/>

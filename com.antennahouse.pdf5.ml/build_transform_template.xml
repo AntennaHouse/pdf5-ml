@@ -106,6 +106,12 @@
             style="${prmStylesheetFile}" classpathref="project.class.path" force="true">
             <factory name="net.sf.saxon.TransformerFactoryImpl">
                 <attribute name="http://saxon.sf.net/feature/timing" value="true"/>
+                <!-- Suppress namespace warning -->
+                <attribute name="http://saxon.sf.net/feature/suppressXsltNamespaceCheck" value="true"/>
+                <!--Assert-->
+                <!--attribute name="http://saxon.sf.net/feature/enableAssertions" value="true"/-->
+                <!-- Trace -->
+                <!--attribute name="http://saxon.sf.net/feature/traceListenerClass" value="net.sf.saxon.trace.XSLTTraceListener"/-->
             </factory>
             <param name="PRM_STYLE_DEF_FILE" expression="${style.def.file}" if="style.def.file"/>
             <param name="PRM_INCLUDE_FRONTMATTER_TO_TOC" expression="${include.frontmatter.to.toc}"
