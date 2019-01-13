@@ -143,9 +143,8 @@ E-mail : info@antennahouse.com
     	        <xsl:variable name="href" as="xs:string" select="string(@href)"/>
     	        <xsl:variable name="duplicateCount" as="xs:integer" select="count($topicRef|$allTopicRefs[. &lt;&lt; $topicRef][string(@href) eq $href])"/>
                 <xsl:copy>
-                    <xsl:apply-templates select="@*">
-                        <xsl:with-param name="prmTopicRefNo" select="$duplicateCount"/>
-                    </xsl:apply-templates>
+                    <xsl:attribute name="href" select="if ($duplicateCount gt 0) then concat($href,'_',string($duplicateCount)) else $href"/>
+                    <xsl:copy-of select="@* except @href"/>
                     <xsl:apply-templates/>
                 </xsl:copy>
     	    </xsl:when>
@@ -159,11 +158,11 @@ E-mail : info@antennahouse.com
     </xsl:template>
 
     <!-- template for topicref/@href is limited for create new value -->
-    <xsl:template match="*[contains(@class,' map/topicref ')]/@href" priority="5" as="attribute()">
+    <!--xsl:template match="*[contains(@class,' map/topicref ')]/@href" priority="5" as="attribute()">
         <xsl:param name="prmTopicRefNo" required="no" as="xs:integer" select="0"/>
         <xsl:variable name="href" as="xs:string" select="string(.)"/>
         <xsl:attribute name="href" select="if ($prmTopicRefNo gt 0) then concat($href,'_',string($prmTopicRefNo)) else $href"/>
-    </xsl:template>
+    </xsl:template-->
 
     <!--
      function:	output duplicate topic changing topic/@id
@@ -227,9 +226,11 @@ E-mail : info@antennahouse.com
             </xsl:when>
             <xsl:otherwise>
                 <xsl:copy>
-                    <xsl:apply-templates select="@*">
-                        <xsl:with-param name="prmTopicRefNo" select="$prmTopicRefNo"/>
-                    </xsl:apply-templates>
+                    <xsl:attribute name="id" select="if ($prmTopicRefNo gt 0) then concat(string(@id),'_',string($prmTopicRefNo)) else string(@id)"/>
+                    <xsl:if test="exists(@oid)">
+                        <xsl:attribute name="oid" select="if ($prmTopicRefNo gt 0) then concat(string(@oid),'_',string($prmTopicRefNo)) else string(@oid)"/>
+                    </xsl:if>
+                    <xsl:copy-of select="@* except (@id | @oid)"/>
                     <xsl:if test="string($prmDitaValChangeBarStyle)">
                         <xsl:attribute name="change-bar-style" select="$prmDitaValChangeBarStyle"/>
                     </xsl:if>
@@ -298,7 +299,7 @@ E-mail : info@antennahouse.com
      return:	self and descendant element or none
      note:		if xref@href points to the topic that has print="no", output warning message.
      -->
-    <xsl:template match="*[contains(@class,' topic/xref ')][string(@format) eq 'dita']">
+    <xsl:template match="*[contains(@class,' topic/xref ')][string(@format) eq 'dita'][starts-with(string(@href),'#')]">
         <xsl:param name="prmDitaValFlagStyle" tunnel="yes" required="no" select="''"/>
         <xsl:param name="prmDitaValChangeBarStyle" tunnel="yes" required="no" select="''"/>
         <xsl:param name="prmTopicRefNo" required="no" tunnel="yes" as="xs:integer" select="0"/>
@@ -322,6 +323,7 @@ E-mail : info@antennahouse.com
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:variable>
+        
         <xsl:if test="string($refTopicHref) and exists(index-of($noPrintHrefs,$refTopicHref)) and empty(index-of($normalHrefs,$refTopicHref))" >
             <xsl:call-template name="warningContinue">
                 <xsl:with-param name="prmMes" select="ahf:replace($stMes1004,('%href'),($href))"/>
@@ -335,23 +337,22 @@ E-mail : info@antennahouse.com
         <xsl:copy>
             <xsl:choose>
                 <xsl:when test="exists($topIds[. eq $refTopicId])">
-                    <xsl:apply-templates select="@*">
-                        <xsl:with-param name="prmNewXrefHref">
-                            <xsl:choose>
-                                <xsl:when test="string($refElemId)">
-                                    <xsl:sequence select="concat($refTopicHref,'_',string($prmTopicRefNo),'/',$refElemId)"/>        
-                                </xsl:when>
-                                <xsl:otherwise>
-                                    <xsl:sequence select="concat($refTopicHref,'_',string($prmTopicRefNo))"/>
-                                </xsl:otherwise>
-                            </xsl:choose>
-                        </xsl:with-param>
-                    </xsl:apply-templates>
+                    <xsl:attribute name="href">
+                        <xsl:choose>
+                            <xsl:when test="string($refElemId)">
+                                <xsl:value-of select="concat($refTopicHref,'_',string($prmTopicRefNo),'/',$refElemId)"/>        
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:value-of select="concat($refTopicHref,'_',string($prmTopicRefNo))"/>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:attribute>
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:apply-templates select="@*"/>
+                    <xsl:copy-of select="@href"/>
                 </xsl:otherwise>
             </xsl:choose>
+            <xsl:copy-of select="@* except @href"/>
             <xsl:if test="string($prmDitaValChangeBarStyle)">
                 <xsl:attribute name="change-bar-style" select="$prmDitaValChangeBarStyle"/>
             </xsl:if>
