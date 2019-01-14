@@ -340,10 +340,24 @@ E-mail : info@antennahouse.com
                     <xsl:attribute name="href">
                         <xsl:choose>
                             <xsl:when test="string($refElemId)">
-                                <xsl:value-of select="concat($refTopicHref,'_',string($prmTopicRefNo),'/',$refElemId)"/>        
+                                <xsl:choose>
+                                    <xsl:when test="$prmTopicRefNo gt 0">
+                                        <xsl:sequence select="concat($refTopicHref,'_',string($prmTopicRefNo),'/',$refElemId)"/>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:sequence select="concat($refTopicHref,'/',$refElemId)"/>
+                                    </xsl:otherwise>
+                                </xsl:choose>
                             </xsl:when>
                             <xsl:otherwise>
-                                <xsl:value-of select="concat($refTopicHref,'_',string($prmTopicRefNo))"/>
+                                <xsl:choose>
+                                    <xsl:when test="$prmTopicRefNo gt 0">
+                                        <xsl:sequence select="concat($refTopicHref,'_',string($prmTopicRefNo))"/>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:sequence select="$refTopicHref"/>
+                                    </xsl:otherwise>
+                                </xsl:choose>
                             </xsl:otherwise>
                         </xsl:choose>
                     </xsl:attribute>

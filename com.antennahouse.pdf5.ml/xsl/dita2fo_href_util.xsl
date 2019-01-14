@@ -84,7 +84,7 @@ URL : http://www.antennahouse.co.jp/
             <xsl:when test="empty($topicRef)">
                 <xsl:call-template name="warningContinue">
                     <xsl:with-param name="prmMes" 
-                        select="ahf:replace($stMes072,('%href','%file'),(string($prmElem/@ohref),string($prmElem/@xtrf)))"/>
+                        select="ahf:replace($stMes072,('%href','%ohref','%file'),(string($prmElem/@href),string($prmElem/@ohref),string($prmElem/@xtrf)))"/>
                 </xsl:call-template>
                 <xsl:sequence select="()"/>
             </xsl:when>
@@ -101,7 +101,7 @@ URL : http://www.antennahouse.co.jp/
             <xsl:otherwise>
                 <xsl:call-template name="warningContinue">
                     <xsl:with-param name="prmMes"
-                        select="ahf:replace($stMes030,('%h','%file'),(string($prmElem/@ohref),string($prmElem/@xtrf)))"/>
+                        select="ahf:replace($stMes030,('%href','%ohref','%file'),(string($prmElem/@href),string($prmElem/@ohref),string($prmElem/@xtrf)))"/>
                 </xsl:call-template>
                 <xsl:sequence select="()"/>
             </xsl:otherwise>
@@ -152,7 +152,7 @@ URL : http://www.antennahouse.co.jp/
             <xsl:when test="empty($topicRef)">
                 <xsl:call-template name="warningContinue">
                     <xsl:with-param name="prmMes" 
-                        select="ahf:replace($stMes072,('%href','%file'),(string($prmElem/@ohref),string($prmElem/@xtrf)))"/>
+                        select="ahf:replace($stMes072,('%href','%ohref','%file'),(string($prmElem/@href),string($prmElem/@ohref),string($prmElem/@xtrf)))"/>
                 </xsl:call-template>
                 <xsl:sequence select="()"/>
             </xsl:when>
@@ -167,7 +167,7 @@ URL : http://www.antennahouse.co.jp/
             <xsl:otherwise>
                 <xsl:call-template name="warningContinue">
                     <xsl:with-param name="prmMes"
-                        select="ahf:replace($stMes030,('%h','%file'),(string($prmElem/@ohref),string($prmElem/@xtrf)))"/>
+                        select="ahf:replace($stMes030,('%href','%ohref','%file'),(string($prmElem/@href),string($prmElem/@ohref),string($prmElem/@xtrf)))"/>
                 </xsl:call-template>
                 <xsl:sequence select="()"/>
             </xsl:otherwise>
