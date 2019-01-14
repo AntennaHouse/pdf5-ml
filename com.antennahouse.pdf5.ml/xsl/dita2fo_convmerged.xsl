@@ -299,7 +299,7 @@ E-mail : info@antennahouse.com
      return:	self and descendant element or none
      note:		if xref@href points to the topic that has print="no", output warning message.
      -->
-    <xsl:template match="*[contains(@class,' topic/xref ')][string(@format) eq 'dita'][starts-with(string(@href),'#')]">
+    <xsl:template match="*[contains(@class,' topic/xref ')][starts-with(string(@href),'#')]">
         <xsl:param name="prmDitaValFlagStyle" tunnel="yes" required="no" select="''"/>
         <xsl:param name="prmDitaValChangeBarStyle" tunnel="yes" required="no" select="''"/>
         <xsl:param name="prmTopicRefNo" required="no" tunnel="yes" as="xs:integer" select="0"/>
