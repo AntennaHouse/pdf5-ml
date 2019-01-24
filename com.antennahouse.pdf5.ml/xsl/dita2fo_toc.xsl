@@ -393,7 +393,18 @@ E-mail : info@antennahouse.com
     <xsl:template match="*[contains(@class,' map/topicref ')][ahf:isToc(.)]" mode="MAKE_TOC">
         <xsl:param name="prmDefaultTitle" as="xs:string" required="no" select="''"/>
         <xsl:param name="prmProcessChild" as="xs:boolean" required="no" select="true()"/>
+        <xsl:call-template name="makeTocDetailLine">
+            <xsl:with-param name="prmDefaultTitle" select="$prmDefaultTitle"/>
+            <xsl:with-param name="prmProcessChild" select="$prmProcessChild"/>
+        </xsl:call-template>
+    </xsl:template>
         
+    <!-- Named template for override
+         Current context is topicref
+      -->
+    <xsl:template name="makeTocDetailLine">
+        <xsl:param name="prmDefaultTitle" as="xs:string" required="no" select="''"/>
+        <xsl:param name="prmProcessChild" as="xs:boolean" required="no" select="true()"/>
         <xsl:variable name="topicRef" select="."/>
         <xsl:variable name="linkContent"  as="element()?" select="ahf:getTopicFromTopicRef($topicRef)"/>
         <xsl:variable name="contentId" select="if (empty($linkContent)) then () else ahf:getIdAtts($linkContent,$topicRef,true())" as="attribute()*"/>
