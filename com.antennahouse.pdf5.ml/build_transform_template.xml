@@ -138,7 +138,7 @@
             <!--param name="PRM_APPLY_TOC_ATTR" expression="${apply.toc.attr}" if="apply.toc.attr"/-->
             <!--param name="PRM_ONLINE_PDF" expression="${online.pdf}" if="online.pdf"/-->
             <param name="PRM_SORT_GLOSSENTRY" expression="${sort.glossentry}"
-                if="output.start.message"/>
+                if="sort.glossentry"/>
             <param name="PRM_OUTPUT_START_MESSAGE" expression="${output.start.message}"
                 if="output.start.message"/>
             <param name="PRM_AUTO_SCALE_DOWN_TO_FIT" expression="${auto.scale.down.to.fit}"
