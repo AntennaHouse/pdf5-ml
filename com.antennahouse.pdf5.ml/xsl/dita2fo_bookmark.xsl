@@ -396,11 +396,29 @@ E-mail : info@antennahouse.com
     
     <xsl:template match="*[contains(@class,' map/topicref ')][ahf:isToc(.)]" mode="MAKE_BOOKMARK">
         <xsl:param name="prmDefaultTitle" as="xs:string" required="no" select="''"/>
-        
         <xsl:variable name="topicRef" select="."/>
-        <xsl:variable name="linkContent" as="element()?" select="ahf:getTopicFromTopicRef($topicRef)"/>
-        <xsl:variable name="oid" select="if (empty($linkContent)) then () else ahf:getIdAtts($linkContent,$topicRef,true())" as="attribute()*"/>
-        <xsl:variable name="topicRefId" select="ahf:getIdAtts($topicRef,$topicRef,true())" as="attribute()*"/>
+        <xsl:call-template name="genBookMark">
+            <xsl:with-param name="prmDefaultTitle" select="$prmDefaultTitle"/>
+            <xsl:with-param name="prmTopicRef" select="$topicRef"/>
+        </xsl:call-template>
+    </xsl:template>
+    
+    <!-- General Bookmark template for easy overriding -->
+    <xsl:template name="genBookMark">
+        <xsl:param name="prmDefaultTitle" as="xs:string" required="no" select="''"/>
+        <xsl:param name="prmTopicRef" as="element()" required="yes"/>
+        
+        <xsl:variable name="topicContent" as="element()?" select="ahf:getTopicFromTopicRef($prmTopicRef)"/>
+        <xsl:variable name="id" as="xs:string">
+            <xsl:choose>
+                <xsl:when test="empty($topicContent)">
+                    <xsl:sequence select="string(ahf:getIdAtts($prmTopicRef,$prmTopicRef,true())[1])"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:sequence select="string(ahf:getIdAtts($topicContent,$prmTopicRef,true())[1])"/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
         <xsl:variable name="nestedTopicCount" as="xs:integer">
             <xsl:sequence select="count(ancestor-or-self::*[contains(@class, ' map/topicref ')]
                                                            [not(contains(@class, ' bookmap/frontmatter '))]
@@ -427,23 +445,10 @@ E-mail : info@antennahouse.com
             </xsl:when>
             <xsl:otherwise>
                 <fo:bookmark starting-state="{$cStartingState}">
-                	<xsl:choose>
-    	                <xsl:when test="exists($oid)">
-    	                    <xsl:attribute name="internal-destination">
-    	                        <!-- id is fixed to index 1. -->
-    	                        <xsl:value-of select="string($oid[1])"/>
-    	                    </xsl:attribute>
-    	                </xsl:when>
-    	                <xsl:otherwise>
-    	                    <xsl:attribute name="internal-destination">
-    	                        <!-- id is fixed to index 1. -->
-    	                        <xsl:value-of select="string($topicRefId[1])"/>
-    	                    </xsl:attribute>
-    	                </xsl:otherwise>
-                    </xsl:choose>
+                    <xsl:attribute name="internal-destination" select="$id"/>
                     <fo:bookmark-title>
                         <xsl:call-template name="genTitle">
-                            <xsl:with-param name="prmTopicRef" select="$topicRef"/>
+                            <xsl:with-param name="prmTopicRef" select="$prmTopicRef"/>
                             <xsl:with-param name="prmDefaultTitle" select="$prmDefaultTitle"/>
                         </xsl:call-template>
                     </fo:bookmark-title>
