@@ -15,6 +15,7 @@ E-mail : info@antennahouse.com
    <xsl:include href="dita2fo_constants.xsl"/>
    <xsl:include href="dita2fo_global.xsl"/>
    <xsl:include href="dita2fo_param.xsl"/>
+   <xsl:include href="dita2fo_param_convmerged.xsl"/>
    <xsl:include href="dita2fo_param_papersize.xsl"/>
    <xsl:include href="dita2fo_documentcheck.xsl"/>
    <xsl:include href="dita2fo_bookmark.xsl"/>
