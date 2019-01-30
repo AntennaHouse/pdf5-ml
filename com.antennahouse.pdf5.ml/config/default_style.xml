@@ -1692,7 +1692,7 @@ URL : http://www.antennahouse.com/
                 <attribute name="clear">both</attribute>
             </attribute-set>
             <attribute-set name="atsOlLabel">
-                <attribute name="text-align">end</attribute>
+                <attribute name="text-align">center</attribute>
             </attribute-set>
             <attribute-set name="atsOlBody"> </attribute-set>
 
