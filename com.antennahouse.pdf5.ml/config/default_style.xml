@@ -5,7 +5,7 @@ DITA to XSL-FO Style Definition
 ************************************************************
 File Name : default_style.xml
 ************************************************************
-Copyright © 2009-2016 Antenna House, Inc.
+Copyright © 2009-2019 Antenna House, Inc.
 Antenna House is a trademark of Antenna House, Inc.
 URL : http://www.antennahouse.com/
 ************************************************************
@@ -240,6 +240,24 @@ URL : http://www.antennahouse.com/
         <variable name="Table_Title">Table </variable>
         <variable name="Figure_Title">Figure </variable>
 
+        <!-- Table header (caption) cotinuation word -->
+        <variable name="TableHeaderContinuationWord"> (Table continued)</variable>
+        
+        <!-- Table footer cotinuation word -->
+        <variable name="TableFooterContinuationWord">Continues on the next page</variable>
+
+        <!-- @outputclass value to insert or not to insert continuation word in table header -->
+        <variable name="OcTableTitleContinued">output-continued-in-table-title</variable>
+        <variable name="OcNoTableTitleContinued">output-no-continued-in-table-title</variable>
+        
+        <!-- @outputclass value to insert or not to insert continuation word in table footer -->
+        <variable name="OcTableFooterContinued">output-continued-in-table-footer</variable>
+        <variable name="OcNoTableFooterContinued">output-no-continued-in-table-footer</variable>
+
+        <!-- @outputclass regx value for table alignment -->
+        <variable name="OcTableAlignRegx">(align-)(.+)</variable>
+        <variable name="OcTableAlignReplaceGroup">2</variable>
+        
         <!-- Literals for thumbnail -->
         <variable name="Toc_Thumbnail_Label">TOC</variable>
         <variable name="Appendix_Thumbnail_Label">App.</variable>
@@ -1642,6 +1660,9 @@ URL : http://www.antennahouse.com/
                 <attribute name="hyphenate">false</attribute>
             </attribute-set>
 
+            <attribute-set name="atsNormal">
+                <attribute name="font-weight">normal</attribute>
+            </attribute-set>
 
             <!-- Notes Icon: CSS style -->
 
@@ -1986,31 +2007,15 @@ URL : http://www.antennahouse.com/
             <!-- table -->
             <attribute-set name="atsTable">
                 <attribute name="font-size">$Table_Font_Size</attribute>
+                <attribute name="space-before">$Table_Before_Spacing</attribute>
                 <attribute name="space-after">2mm</attribute>
                 <attribute name="text-align">start</attribute>
                 <attribute name="relative-align">before</attribute>
             </attribute-set>
 
-            <attribute-set name="atsTableWithTitleAfter" use-attribute-sets="atsTable">
-                <attribute name="space-before">$Table_Before_Spacing</attribute>
-            </attribute-set>
-            
-            <attribute-set name="atsTableWithTitleBefore" use-attribute-sets="atsTable">
-            </attribute-set>
-
-            <attribute-set name="atsTableWithTitleBeforeWoTitleAndDesc">
-                <attribute name="space-before">$Table_Before_Spacing</attribute>
-            </attribute-set>
-
-            <attribute-set name="atsTableTitleAfter">
+            <attribute-set name="atsTableTitle">
                 <attribute name="font-size">$Little_Title_Font_Size</attribute>
-                <attribute name="space-before">1.5mm</attribute>
-                <attribute name="keep-with-previous.within-column">always</attribute>
-            </attribute-set>
-
-            <attribute-set name="atsTableTitleBefore">
-                <attribute name="font-size">$Little_Title_Font_Size</attribute>
-                <attribute name="space-before">3mm</attribute>
+                <attribute name="space-before">$Para_Space_Before</attribute>
                 <attribute name="space-after">1.5mm</attribute>
                 <attribute name="keep-with-next.within-column">always</attribute>
             </attribute-set>
@@ -2019,12 +2024,25 @@ URL : http://www.antennahouse.com/
                 <attribute name="border">$General_Table_Border_Width none $General_Table_Border_Color</attribute>
             </attribute-set>
 
-            <attribute-set name="atsThead" use-attribute-sets="atsB">
+            <attribute-set name="atsThead" use-attribute-sets="atsB atsBgThead">
                 <attribute name="start-indent">0mm</attribute>
                 <attribute name="end-indent">0mm</attribute>
+            </attribute-set>
+            
+            <attribute-set name="atsBgThead">
                 <attribute name="background-color">$General_Table_Header_Background_Color</attribute>
             </attribute-set>
+            
+            <attribute-set name="atsBgTransparent">
+                <attribute name="background-color">transparent</attribute>
+            </attribute-set>
 
+            <attribute-set name="atsTfooter">
+                <attribute name="start-indent">0mm</attribute>
+                <attribute name="end-indent">0mm</attribute>
+                <attribute name="font-size">$Table_Font_Size</attribute>
+            </attribute-set>
+            
             <attribute-set name="atsTbody">
                 <attribute name="start-indent">0mm</attribute>
                 <attribute name="end-indent">0mm</attribute>
@@ -2038,15 +2056,49 @@ URL : http://www.antennahouse.com/
             <attribute-set name="atsHeaderRow" use-attribute-sets="atsB">
                 <attribute name="background-color">$General_Table_Header_Background_Color</attribute>
             </attribute-set>
-
+            
+            <attribute-set name="atsTableRowCaption">
+                <attribute name="start-indent">0mm</attribute>
+                <attribute name="end-indent">0mm</attribute>
+                <attribute name="border-style">hidden</attribute>
+                <attribute name="border-after-color">$General_Table_Border_Color</attribute>
+                <attribute name="border-after-style">solid</attribute>
+                <attribute name="border-after-width">$General_Table_Border_Width</attribute>
+            </attribute-set>
+            
             <attribute-set name="atsTableHeaderCell">
                 <attribute name="border">$General_Table_Border_Width none $General_Table_Border_Color</attribute>
                 <attribute name="padding">$General_Table_Cell_Padding</attribute>
                 <attribute name="border-after-width">$Table_Header_Border_After_Width</attribute>
             </attribute-set>
+            
+            <attribute-set name="atsTableHeaderCaptionCell">
+                <attribute name="text-align">start</attribute>
+                <attribute name="padding-after">3mm</attribute>
+            </attribute-set>
+            
+            <attribute-set name="atsTableRowFooter">
+                <attribute name="start-indent">0mm</attribute>
+                <attribute name="end-indent">0mm</attribute>
+            </attribute-set>
+            
+            <attribute-set name="atsTableFooterCell">
+                <attribute name="border-before-color">$General_Table_Border_Color</attribute>
+                <attribute name="border-before-style">solid</attribute>
+                <attribute name="border-before-width">$General_Table_Border_Width</attribute>
+                <attribute name="border-after-style">hidden</attribute>
+                <attribute name="border-start-style">hidden</attribute>
+                <attribute name="border-end-style">hidden</attribute>
+            </attribute-set>
 
+            <attribute-set name="atsTableFooterCellBlock">
+                <attribute name="text-align">end</attribute>
+                <attribute name="text-align-last">end</attribute>
+                <attribute name="padding-before">0.5mm</attribute>
+            </attribute-set>
+            
             <!-- Added border-after-width.conditionality="retain"
-		     2011-07-14 t.makita
+    		     2011-07-14 t.makita
     		 -->
             <attribute-set name="atsTableBodyCell">
                 <attribute name="border">$General_Table_Border_Width none $General_Table_Border_Color</attribute>
@@ -2060,10 +2112,8 @@ URL : http://www.antennahouse.com/
             <attribute-set name="atsRotatedEntry">
                 <attribute name="reference-orientation">90</attribute>
                 <attribute name="overflow">error-if-overflow</attribute>
-                <!--attribute name="overflow">condense</attribute>
-                <attribute name="axf:overflow-condense">font-size</attribute-->
             </attribute-set>
-            
+
             <!-- simpletable -->
             <attribute-set name="atsSimpleTable">
                 <attribute name="space-before">3mm</attribute>

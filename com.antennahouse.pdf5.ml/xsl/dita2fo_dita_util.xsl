@@ -249,5 +249,31 @@ URL : http://www.antennahouse.co.jp/
         <xsl:sequence select="if ($result eq '') then $prmDefault else $result"/>
     </xsl:function>
 
+    <!-- 
+     function:	Get @base and specialized attribute value as xs:string*
+     param:		prmElem, prmAttName
+     return:	xs:string*
+     note:		
+     -->
+    <xsl:function name="ahf:getBaseOrSpecializedAttr" as="xs:string*">
+        <xsl:param name="prmElem" as="element()"/>
+        <xsl:param name="prmAttName" as="xs:string"/>
+        <xsl:variable name="baseOrSpecializedValue" as="xs:string" select="normalize-space(string($prmElem/@*[name() eq $prmAttName]))"/>
+        <xsl:sequence select="tokenize($baseOrSpecializedValue,' ')"/>
+    </xsl:function>
+    
+    <!-- 
+     function:	Judge @base or specialized attribute has specified value
+     param:		prmElem, prmAttName, prmValue
+     return:	xs:boolean
+     note:		
+     -->
+    <xsl:function name="ahf:hasBaseOrSpecializedAttrValue" as="xs:boolean">
+        <xsl:param name="prmElem" as="element()"/>
+        <xsl:param name="prmAttName" as="xs:string"/>
+        <xsl:param name="prmValue" as="xs:string"/>
+        <xsl:sequence select="$prmValue = ahf:getBaseOrSpecializedAttr($prmElem,$prmAttName)"/>
+    </xsl:function>
+
     <!-- end of stylesheet -->
 </xsl:stylesheet>

@@ -5,7 +5,7 @@ DITA to XSL-FO Style Definition
 ************************************************************
 File Name : ja_style.xml
 ************************************************************
-Copyright © 2009 2009 Antenna House, Inc.
+Copyright © 2009-2019 Antenna House, Inc.
 Antenna House is a trademark of Antenna House, Inc.
 URL : http://www.antennahouse.com/
 ************************************************************
@@ -53,6 +53,11 @@ URL : http://www.antennahouse.com/
         <variable name="Table_Title">表 </variable>
         <variable name="Figure_Title">図 </variable>
 
+        <!-- Table caption cotinuation word -->
+        <variable name="TableHeaderContinuationWord">（前から続く）</variable>
+         
+        <!-- Table footer cotinuation word -->
+        <variable name="TableFooterContinuationWord">次に続く</variable>
 
         <!-- Literals for thumbnail -->
         <variable name="Toc_Thumbnail_Label">目次</variable>

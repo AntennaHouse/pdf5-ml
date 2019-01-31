@@ -164,16 +164,6 @@ E-mail : info@antennahouse.com
     <xsl:variable name="pDisplayFnAtEndOfTopic"
         select="boolean($PRM_DISPLAY_FN_AT_END_OF_TOPIC eq $cYes)" as="xs:boolean"/>
 
-    <!-- Compatibility parameter.
-         Display table/title at the end of the table.
-         The new implemenatation outputs table/title before its body.
-         Not released in build.xml.
-         2012-04-04 t.makita
-    -->
-    <xsl:param name="PRM_OUTPUT_TABLE_TITLE_AFTER" required="no" as="xs:string" select="$cNo"/>
-    <xsl:variable name="pOutputTableTitleAfter"
-        select="boolean($PRM_OUTPUT_TABLE_TITLE_AFTER eq $cYes)" as="xs:boolean"/>
-
     <!-- Output plug-in start message.
          2013-09-30 t.makita
       -->
@@ -301,4 +291,24 @@ E-mail : info@antennahouse.com
     <xsl:param name="PRM_TEMP_DIR_URL" required="yes" as="xs:string"/>
     <xsl:variable name="pTempDirUrl" as="xs:string" select="$PRM_TEMP_DIR_URL"/>
 
+    <!-- FO property name now defined as parameter!
+         2019-12-21 t.makita
+     -->
+    <xsl:param name="PRM_FO_PROP_NAME" required="no" as="xs:string" select="'fo:prop'"/>
+    <xsl:variable name="pFoPropName" as="xs:string" select="$PRM_FO_PROP_NAME"/>
+
+    <xsl:param name="PRM_FO_STYLE_NAME" required="no" as="xs:string" select="'fo:style'"/>
+    <xsl:variable name="pFoStyleName" as="xs:string" select="$PRM_FO_STYLE_NAME"/>
+    
+    <!-- Add continue word to table title or table footer-->
+    <!-- Add "Continued" to fo:table-header -->
+    <xsl:param name="PRM_OUTPUT_TABLE_TITLE_CONTINUED" as="xs:string" select="$cNo"/>
+    <xsl:variable name="pOutputTableTitleContinued" as="xs:boolean" select="$PRM_OUTPUT_TABLE_TITLE_CONTINUED eq $cYes"/>
+    <xsl:variable name="pNotOutputTableTitleContinued" as="xs:boolean" select="not($pOutputTableTitleContinued)"/>
+    
+    <!-- Add "Continues on next page" to fo:table-footer -->
+    <xsl:param name="PRM_OUTPUT_TABLE_FOOTER_CONTINUED" as="xs:string" select="$cNo"/>
+    <xsl:variable name="pOutputTableFooterContinued" as="xs:boolean" select="$PRM_OUTPUT_TABLE_FOOTER_CONTINUED eq $cYes"/>
+    <xsl:variable name="pNotOutputTableFooterContinued" as="xs:boolean" select="not($pOutputTableFooterContinued)"/>
+    
 </xsl:stylesheet>
