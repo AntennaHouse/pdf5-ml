@@ -290,15 +290,6 @@ E-mail : info@antennahouse.com
      -->
     <xsl:param name="PRM_TEMP_DIR_URL" required="yes" as="xs:string"/>
     <xsl:variable name="pTempDirUrl" as="xs:string" select="$PRM_TEMP_DIR_URL"/>
-
-    <!-- FO property name now defined as parameter!
-         2019-12-21 t.makita
-     -->
-    <xsl:param name="PRM_FO_PROP_NAME" required="no" as="xs:string" select="'fo:prop'"/>
-    <xsl:variable name="pFoPropName" as="xs:string" select="$PRM_FO_PROP_NAME"/>
-
-    <xsl:param name="PRM_FO_STYLE_NAME" required="no" as="xs:string" select="'fo:style'"/>
-    <xsl:variable name="pFoStyleName" as="xs:string" select="$PRM_FO_STYLE_NAME"/>
     
     <!-- Add continue word to table title or table footer-->
     <!-- Add "Continued" to fo:table-header -->
