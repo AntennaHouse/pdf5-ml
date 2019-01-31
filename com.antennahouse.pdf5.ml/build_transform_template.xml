@@ -106,6 +106,12 @@
             style="${prmStylesheetFile}" classpathref="project.class.path" force="true">
             <factory name="net.sf.saxon.TransformerFactoryImpl">
                 <attribute name="http://saxon.sf.net/feature/timing" value="true"/>
+                <!-- Suppress namespace warning -->
+                <attribute name="http://saxon.sf.net/feature/suppressXsltNamespaceCheck" value="true"/>
+                <!--Assert-->
+                <!--attribute name="http://saxon.sf.net/feature/enableAssertions" value="true"/-->
+                <!-- Trace -->
+                <!--attribute name="http://saxon.sf.net/feature/traceListenerClass" value="net.sf.saxon.trace.XSLTTraceListener"/-->
             </factory>
             <param name="PRM_STYLE_DEF_FILE" expression="${style.def.file}" if="style.def.file"/>
             <param name="PRM_INCLUDE_FRONTMATTER_TO_TOC" expression="${include.frontmatter.to.toc}"
@@ -132,7 +138,7 @@
             <!--param name="PRM_APPLY_TOC_ATTR" expression="${apply.toc.attr}" if="apply.toc.attr"/-->
             <!--param name="PRM_ONLINE_PDF" expression="${online.pdf}" if="online.pdf"/-->
             <param name="PRM_SORT_GLOSSENTRY" expression="${sort.glossentry}"
-                if="output.start.message"/>
+                if="sort.glossentry"/>
             <param name="PRM_OUTPUT_START_MESSAGE" expression="${output.start.message}"
                 if="output.start.message"/>
             <param name="PRM_AUTO_SCALE_DOWN_TO_FIT" expression="${auto.scale.down.to.fit}"

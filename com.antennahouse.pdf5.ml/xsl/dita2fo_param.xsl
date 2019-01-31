@@ -32,9 +32,25 @@ E-mail : info@antennahouse.com
 
     <!-- Make link for index-see or index-see-also
          (CAUTION: It sometimes make invalid FO.)
+         Disable if language is Japanese or Simplified Chinese with $pAssumeSortAsPinyin
+         The key of <indexterm> is generated from indexterm and index-sort-as.
+         So <see> or <see-also> cannot generate correct link to <indexterm> if <index-sort-as> is used.
+         2019-01-26 t.makita
       -->
     <xsl:param name="PRM_MAKE_SEE_LINK" required="no" as="xs:string" select="$cYes"/>
-    <xsl:variable name="pMakeSeeLink" select="boolean($PRM_MAKE_SEE_LINK eq $cYes)" as="xs:boolean"/>
+    <xsl:variable name="pMakeSeeLink" as="xs:boolean">
+        <xsl:choose>
+            <xsl:when test="$documentLang = ('ja','ja-JP')">
+                <xsl:sequence select="false()"/>
+            </xsl:when>
+            <xsl:when test="($documentLang eq 'zh-CN') and $pAssumeSortasPinyin">
+                <xsl:sequence select="false()"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:sequence select="$PRM_MAKE_SEE_LINK eq $cYes"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:variable>
 
     <!-- Include frontmatter to toc
       -->
@@ -62,16 +78,6 @@ E-mail : info@antennahouse.com
 
     <!-- Document language -->
     <xsl:param name="PRM_LANG" select="$doubleApos"/>
-
-    <!-- Output draft-comment -->
-    <xsl:param name="PRM_OUTPUT_DRAFT_COMMENT" required="no" as="xs:string" select="$cNo"/>
-    <xsl:variable name="pOutputDraftComment" select="boolean($PRM_OUTPUT_DRAFT_COMMENT eq $cYes)"
-        as="xs:boolean"/>
-
-    <!-- Output required-cleanup -->
-    <xsl:param name="PRM_OUTPUT_REQUIRED_CLEANUP" required="no" as="xs:string" select="$cNo"/>
-    <xsl:variable name="pOutputRequiredCleanup" select="boolean($PRM_OUTPUT_REQUIRED_CLEANUP eq $cYes)"
-        as="xs:boolean"/>
 
     <!-- Generate unique id in XSL-FO: Deprecated. -->
     <!--xsl:param name="PRM_GEN_UNIQUE_ID" select="$cYes"/>
@@ -164,13 +170,6 @@ E-mail : info@antennahouse.com
     <xsl:param name="PRM_OUTPUT_START_MESSAGE" required="no" as="xs:string" select="$cYes"/>
     <xsl:variable name="pOutputStartMessage" select="boolean($PRM_OUTPUT_START_MESSAGE eq $cYes)"
         as="xs:boolean"/>
-
-
-    <!-- Map directory
-         2012-11-11 t.makita
-     -->
-    <xsl:param name="PRM_MAP_DIR_URL" required="yes" as="xs:string"/>
-    <xsl:variable name="pMapDirUrl" as="xs:string" select="$PRM_MAP_DIR_URL"/>
 
     <!-- DITA-OT version
          2014-11-02 t.makita

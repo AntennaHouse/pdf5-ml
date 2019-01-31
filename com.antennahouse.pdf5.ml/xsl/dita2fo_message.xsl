@@ -75,7 +75,7 @@ URL : http://www.antennahouse.co.jp/
     </xsl:variable>
     
     <xsl:variable name="stMes030">
-        <xsl:text>[processLocalXref 030F] Xref/@href destination topic does not found. Probably href format is illegal. href=%h file=%file.</xsl:text>
+        <xsl:text>[processLocalXref 030F] Xref/@href destination topic does not found. Probably href format is illegal. href=%href  ohref=%ohref file=%file.</xsl:text>
     </xsl:variable>
     
     <xsl:variable name="stMes031">
@@ -136,7 +136,7 @@ URL : http://www.antennahouse.co.jp/
     </xsl:variable>
     
     <xsl:variable name="stMes072">
-        <xsl:text>[processLocalXref 072F] Xref target is not contained in map. href='%href' file=%file</xsl:text>
+        <xsl:text>[processLocalXref 072F] Xref target is not contained in map. href='%href' ohref='%ohref' file=%file</xsl:text>
     </xsl:variable>
     
     <xsl:variable name="stMes074">
