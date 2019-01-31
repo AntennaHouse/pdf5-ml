@@ -948,8 +948,8 @@ E-mail : info@antennahouse.com
         <xsl:param name="prmTbody" as="element()" tunnel="yes" required="yes"/>
         <xsl:param name="prmTgroup" as="element()" tunnel="yes" required="yes"/>
         <xsl:param name="prmTable" as="element()" tunnel="yes" required="yes"/>
-        <xsl:param name="prmTableTitle" as="element()" tunnel="yes" required="yes"/>
-        <xsl:param name="prmTableDesc" as="element()" tunnel="yes" required="yes"/>
+        <xsl:param name="prmTableTitle" as="element()?" tunnel="yes" required="yes"/>
+        <xsl:param name="prmTableDesc" as="element()?" tunnel="yes" required="yes"/>
         <xsl:param name="prmIsFirstTgroup" required="yes" tunnel="yes" as="xs:boolean"/>
         <xsl:param name="prmOutputContinuedWordInTableTitle" required="yes" tunnel="yes" as="xs:boolean"/>
         <xsl:param name="prmOutputContinuedWordInTableFooter" required="yes" tunnel="yes" as="xs:boolean"/>
