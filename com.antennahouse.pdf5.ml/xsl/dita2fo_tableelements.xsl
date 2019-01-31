@@ -303,6 +303,9 @@ E-mail : info@antennahouse.com
             </xsl:call-template>
             <xsl:if test="$outputTableCaption">
                 <fo:table-caption>
+                    <xsl:call-template name="getAttributeSet">
+                        <xsl:with-param name="prmAttrSetName" select="'atsTableCaption'"/>
+                    </xsl:call-template>
                     <xsl:apply-templates select="$prmTableTitle"/>
                     <xsl:apply-templates select="$prmTableDesc"/>
                 </fo:table-caption>

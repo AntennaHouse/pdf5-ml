@@ -2013,13 +2013,17 @@ URL : http://www.antennahouse.com/
                 <attribute name="relative-align">before</attribute>
             </attribute-set>
 
+            <attribute-set name="atsTableCaption">
+                <attribute name="start-indent">0mm</attribute>
+            </attribute-set>
+            
             <attribute-set name="atsTableTitle">
                 <attribute name="font-size">$Little_Title_Font_Size</attribute>
                 <attribute name="space-before">$Para_Space_Before</attribute>
                 <attribute name="space-after">1.5mm</attribute>
                 <attribute name="keep-with-next.within-column">always</attribute>
             </attribute-set>
-
+            
             <attribute-set name="atsTableColumn">
                 <attribute name="border">$General_Table_Border_Width none $General_Table_Border_Color</attribute>
             </attribute-set>
