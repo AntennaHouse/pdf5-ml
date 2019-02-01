@@ -2005,6 +2005,14 @@ URL : http://www.antennahouse.com/
             </attribute-set>
 
             <!-- table -->
+            
+            <!-- table caption
+                 space-before is needed because fo:table-caption/fo:block/@space-before does not work for reference area fo:table-caption
+              -->
+            <attribute-set name="atsTableAndCaption">
+                <attribute name="space-before">$Table_Before_Spacing</attribute>
+            </attribute-set>
+
             <attribute-set name="atsTable">
                 <attribute name="font-size">$Table_Font_Size</attribute>
                 <attribute name="space-before">$Table_Before_Spacing</attribute>
@@ -2012,7 +2020,10 @@ URL : http://www.antennahouse.com/
                 <attribute name="text-align">start</attribute>
                 <attribute name="relative-align">before</attribute>
             </attribute-set>
-
+            
+            <!-- table caption
+                 reset start-indent otherwise it is inherited.
+             -->
             <attribute-set name="atsTableCaption">
                 <attribute name="start-indent">0mm</attribute>
             </attribute-set>

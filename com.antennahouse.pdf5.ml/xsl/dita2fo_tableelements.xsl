@@ -298,6 +298,9 @@ E-mail : info@antennahouse.com
         </xsl:variable>
         <xsl:variable name="cols" as="xs:string" select="string($tgroup/@cols)"/>
         <fo:table-and-caption>
+            <xsl:call-template name="getAttributeSetWithLang">
+                <xsl:with-param name="prmAttrSetName" select="'atsTableAndCaption'"/>
+            </xsl:call-template>
             <xsl:call-template name="getTableAlignAttr">
                 <xsl:with-param name="prmTgroupAttr" select="$tgroupAttr"/>
             </xsl:call-template>
