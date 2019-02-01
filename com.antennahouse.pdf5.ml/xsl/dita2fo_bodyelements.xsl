@@ -226,10 +226,13 @@ E-mail : info@antennahouse.com
     
         <xsl:variable name="count" select="if ($prmElement[contains(@class, ' topic/ol ')]) then ($prmCount+1) else $prmCount"/>
         <xsl:choose>
-            <xsl:when test="$prmElement[contains(@class, ' topic/entry ')]">
+            <xsl:when test="$prmElement[ahf:seqContains(@class, (' topic/entry ',' topic/stentry '))]">
                 <xsl:sequence select="$count"/>
             </xsl:when>
             <xsl:when test="$prmElement[contains(@class, ' topic/note ')]">
+                <xsl:sequence select="$count"/>
+            </xsl:when>
+            <xsl:when test="$prmElement[contains(@class, ' topic/topic ')]">
                 <xsl:sequence select="$count"/>
             </xsl:when>
             <xsl:when test="$prmElement/parent::*">
