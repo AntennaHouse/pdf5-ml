@@ -201,7 +201,9 @@ URL : http://www.antennahouse.com/
         <variable name="Gloss_Entry_Space_Before">5mm</variable>
 
         <!-- Bullets -->
-        <variable name="Ul_Label_Char">&#x2022;</variable>
+        <!--variable name="Ul_Label_Char">&#x2022;</variable-->
+        <variable name="Ul_Label_Chars" delim="[,\s]+">&#x2022; &#x2022; &#x2022;</variable>
+        
         <!-- Bullet -->
         <variable name="Level4_Label_Char">&#x25A0;</variable>
         <!-- Should be &#x25A0; 6E-->
