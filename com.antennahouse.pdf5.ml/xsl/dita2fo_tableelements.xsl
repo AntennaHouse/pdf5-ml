@@ -519,7 +519,7 @@ E-mail : info@antennahouse.com
      note:		Generates XSL-FO property.
      -->
     <xsl:function name="ahf:getColSpecAttr" as="attribute()*">
-        <xsl:param name="prmColSpec" required="yes" as="element()"/>
+        <xsl:param name="prmColSpec" as="element()"/>
     
         <!-- colname (Not defined in XSL-FO)-->
         <xsl:if test="exists($prmColSpec/@colname)">
