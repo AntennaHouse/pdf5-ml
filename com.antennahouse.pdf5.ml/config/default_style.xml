@@ -493,6 +493,7 @@ URL : http://www.antennahouse.com/
             <attribute-set name="atsRoot" use-attribute-sets="atsBaseFontSize atsBaseLineHeight">
                 <!--attribute name="xml:lang">en</attribute-->
                 <attribute name="font-family">$General_Text_Font</attribute>
+                <attribute name="font-weight">normal</attribute>
                 <attribute name="line-stacking-strategy">line-height</attribute>
                 <attribute name="text-align">start</attribute>
                 <attribute name="axf:line-break">normal</attribute>

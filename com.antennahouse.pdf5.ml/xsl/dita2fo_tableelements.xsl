@@ -191,7 +191,8 @@ E-mail : info@antennahouse.com
      function:	table/desc template
      param:	    
      return:	fo:block
-     note:		
+     note:		Set $prmDoInherit=true() for getAttributeSetWithLang to avoid thead style inheritance when adding "Continued" word in table title.
+                2019-02-13 t.makita
      -->
     <xsl:template match="*[contains(@class, ' topic/table ')]/*[contains(@class, ' topic/desc ')]" mode="MODE_GET_STYLE" as="xs:string*">
         <xsl:sequence select="'atsTableDesc'"/>
@@ -199,7 +200,9 @@ E-mail : info@antennahouse.com
 
     <xsl:template match="*[contains(@class, ' topic/table ')]/*[contains(@class, ' topic/desc ')]">
         <fo:block>
-            <xsl:call-template name="getAttributeSetWithLang"/>
+            <xsl:call-template name="getAttributeSetWithLang">
+                <xsl:with-param name="prmDoInherit" select="true()"/>
+            </xsl:call-template>
             <xsl:call-template name="ahf:getUnivAtts"/>
             <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
             <xsl:apply-templates/>
@@ -212,6 +215,8 @@ E-mail : info@antennahouse.com
      return:	fo:block
      note:		If table/title is called from fo:table-header generation, add fo:retrieve-table-marker to add "Continued" word.
                 If called from fo:marker generation, add "Continued" word.
+                Set $prmDoInherit=true() for getAttributeSetWithLang to avoid thead style inheritance when adding "Continued" word in table title.
+                2019-02-13 t.makita
      -->
     <xsl:template match="*[contains(@class, ' topic/table ')]/*[contains(@class, ' topic/title ')]" mode="MODE_GET_STYLE" as="xs:string*">
         <xsl:sequence select="'atsTableTitle'"/>
@@ -226,7 +231,9 @@ E-mail : info@antennahouse.com
             </xsl:call-template>
         </xsl:variable>
         <fo:block>
-            <xsl:call-template name="getAttributeSetWithLang"/>
+            <xsl:call-template name="getAttributeSetWithLang">
+                <xsl:with-param name="prmDoInherit" select="true()"/>
+            </xsl:call-template>
             <xsl:call-template name="ahf:getUnivAtts"/>
             <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
             <xsl:value-of select="$tableTitlePrefix"/>

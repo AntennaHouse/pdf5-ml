@@ -189,7 +189,7 @@
         <!-- Inherited style sequence -->
         <xsl:variable name="inheritedStyles" as="xs:string*">
             <xsl:choose>
-                <xsl:when test="ahf:isXmlLangChanged($prmElem) and (empty($prmAttrSetName) or (exists($prmAttrSetName) and $prmDoInherit))">
+                <xsl:when test="(ahf:isXmlLangChanged($prmElem) and (empty($prmAttrSetName) or (exists($prmAttrSetName) and $prmDoInherit))) or $prmDoInherit">
                     <xsl:call-template name="ahf:getAncestorStyleNames">
                         <xsl:with-param name="prmElem" select="$prmElem"/>
                     </xsl:call-template>
