@@ -36,6 +36,10 @@ URL : http://www.antennahouse.co.jp/
     <xsl:variable name="stMes1004" as="xs:string">
         <xsl:text>[convmerged 1004W] Warning! Xref refers to removed topic. href=%href</xsl:text>
     </xsl:variable>
+
+    <xsl:variable name="stMes1009" as="xs:string">
+        <xsl:text>[convmerged 1009F] Cannot find topic from topic/@href=%href. xtrc=%xtrc</xsl:text>
+    </xsl:variable>
     
     <!-- Unused -->
     <xsl:variable name="stMes1010" as="xs:string">

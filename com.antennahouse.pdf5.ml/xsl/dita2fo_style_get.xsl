@@ -189,7 +189,7 @@
         <!-- Inherited style sequence -->
         <xsl:variable name="inheritedStyles" as="xs:string*">
             <xsl:choose>
-                <xsl:when test="ahf:isXmlLangChanged($prmElem) and (empty($prmAttrSetName) or (exists($prmAttrSetName) and $prmDoInherit))">
+                <xsl:when test="(ahf:isXmlLangChanged($prmElem) and (empty($prmAttrSetName) or (exists($prmAttrSetName) and $prmDoInherit))) or $prmDoInherit">
                     <xsl:call-template name="ahf:getAncestorStyleNames">
                         <xsl:with-param name="prmElem" select="$prmElem"/>
                     </xsl:call-template>
@@ -1115,8 +1115,8 @@
             </xsl:call-template>
         </xsl:variable>
         <xsl:variable name="stringValue" as="xs:string" select="$stringAndDelim[1]"/>
-        <xsl:variable name="delim" as="xs:string?" select="$stringAndDelim[2]"/>
-        <xsl:variable name="tempDelim" as="xs:string" select="if (exists($delim)) then $delim else $prmDelim"/>
+        <xsl:variable name="delim" as="xs:string" select="$stringAndDelim[2]"/>
+        <xsl:variable name="tempDelim" as="xs:string" select="if (string(normalize-space($delim))) then $delim else $prmDelim"/>
         <xsl:for-each select="tokenize($stringValue,$tempDelim)">
             <xsl:variable name="token" as="xs:string" select="."/>
             <xsl:choose>

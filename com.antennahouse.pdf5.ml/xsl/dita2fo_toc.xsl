@@ -393,7 +393,18 @@ E-mail : info@antennahouse.com
     <xsl:template match="*[contains(@class,' map/topicref ')][ahf:isToc(.)]" mode="MAKE_TOC">
         <xsl:param name="prmDefaultTitle" as="xs:string" required="no" select="''"/>
         <xsl:param name="prmProcessChild" as="xs:boolean" required="no" select="true()"/>
+        <xsl:call-template name="makeTocDetailLine">
+            <xsl:with-param name="prmDefaultTitle" select="$prmDefaultTitle"/>
+            <xsl:with-param name="prmProcessChild" select="$prmProcessChild"/>
+        </xsl:call-template>
+    </xsl:template>
         
+    <!-- Named template for override
+         Current context is topicref
+      -->
+    <xsl:template name="makeTocDetailLine">
+        <xsl:param name="prmDefaultTitle" as="xs:string" required="no" select="''"/>
+        <xsl:param name="prmProcessChild" as="xs:boolean" required="no" select="true()"/>
         <xsl:variable name="topicRef" select="."/>
         <xsl:variable name="linkContent"  as="element()?" select="ahf:getTopicFromTopicRef($topicRef)"/>
         <xsl:variable name="contentId" select="if (empty($linkContent)) then () else ahf:getIdAtts($linkContent,$topicRef,true())" as="attribute()*"/>
@@ -521,13 +532,41 @@ E-mail : info@antennahouse.com
      function:	Make TOC line
      param:		prmId, prmLevel, prmTitle
      return:	TOC line
-     note:		
+     note:		The style "atsTocLevelN" (N is $prmLevel) must be defined in style definition file!
      -->
     <xsl:template name="makeTocLine">
         <xsl:param name="prmId"    required="yes" as="xs:string"/>
         <xsl:param name="prmLevel" required="yes" as="xs:integer"/>
         <xsl:param name="prmTitle" required="yes" as="node()*"/>
     
+        <fo:block>
+            <xsl:copy-of select="ahf:getAttributeSet(concat('atsTocLevel',string($prmLevel)))"/>
+            <xsl:choose>
+                <xsl:when test="string($prmId)">
+                    <fo:basic-link internal-destination="{$prmId}">
+                        <xsl:copy-of select="$prmTitle"/>
+                    </fo:basic-link>
+                    <fo:leader leader-length.optimum="0pt">
+                        <xsl:copy-of select="ahf:getAttributeSet('atsTocLeader')"/>
+                    </fo:leader>
+                    <fo:inline keep-with-next="always">
+                        <fo:leader>
+                            <xsl:copy-of select="ahf:getAttributeSet('atsTocLeader')"/>
+                        </fo:leader>
+                    </fo:inline>
+                    <fo:basic-link internal-destination="{$prmId}">
+                        <fo:page-number-citation ref-id="{$prmId}" />
+                    </fo:basic-link>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:copy-of select="ahf:getAttributeSet('atsTocTitleOnly')"/>
+                    <fo:inline>
+                        <xsl:copy-of select="$prmTitle"/>
+                    </fo:inline>
+                </xsl:otherwise>
+            </xsl:choose>
+        </fo:block>
+        <!--
         <xsl:choose>
             <xsl:when test="$prmLevel eq 1">
                 <fo:block>
@@ -646,6 +685,7 @@ E-mail : info@antennahouse.com
                 </fo:block>
             </xsl:otherwise>
         </xsl:choose>
+        -->
     </xsl:template>
 
 </xsl:stylesheet>

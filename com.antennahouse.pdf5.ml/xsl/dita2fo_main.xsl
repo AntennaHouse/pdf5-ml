@@ -19,10 +19,25 @@ E-mail : info@antennahouse.com
  exclude-result-prefixes="ahf" 
 >
     
-    <!-- Plug-in name and version -->
-    <xsl:variable name="pluginAuthor" as="xs:string" select="'Antenna House'"/>
-    <xsl:variable name="pluginName" as="xs:string" select="'PDF5-ML'"/>
-    <xsl:variable name="pluginVersion" as="xs:string" select="'1.0.3'"/>
+    <!-- 
+     function:	Output plug-in & XSLT processor information
+     param:		none
+     return:	
+     note:		
+     -->
+    <xsl:template name="outputPluginInfo">
+        <!-- Plug-in name and version -->
+        <xsl:variable name="pluginAuthor" as="xs:string" select="'Antenna House'"/>
+        <xsl:variable name="pluginName" as="xs:string" select="'PDF5-ML'"/>
+        <xsl:variable name="pluginVersion" as="xs:string" select="'1.0.3'"/>
+        <xsl:message select="concat($pluginAuthor,' ',$pluginName,' plug-in Version: ',$pluginVersion)"/>
+        <!-- XSLT processor information -->
+        <xsl:variable name="vendor" as="xs:string" select="system-property('xsl:vendor')"/>
+        <xsl:variable name="vendorUrl" as="xs:string" select="system-property('xsl:vendor-url')"/>
+        <xsl:variable name="productName" as="xs:string" select="system-property('xsl:product-name')"/>
+        <xsl:variable name="productVersion" as="xs:string" select="system-property('xsl:product-version')"/>
+        <xsl:message select="concat('Running on: ',$productName,' (',$vendorUrl,') Version: ',$productVersion)"/>
+    </xsl:template>
     
     <!-- 
      function:	root matching template
@@ -41,14 +56,12 @@ E-mail : info@antennahouse.com
         <!--xsl:call-template name="dumpFootnoteMap"/-->
         <!--xsl:call-template name="outputEquationCountMap"/-->
     <xsl:template match="/">
-        <!--xsl:message select="'$lastTopicRef=',name($lastTopicRef),' class=',string($lastTopicRef/@class),' ohref=',string($lastTopicRef/@ohref)"/>
-        -->
-        <xsl:message select="concat($pluginAuthor,' ',$pluginName,' plug-in Version: ',$pluginVersion)"/>
         <xsl:if test="$pDebugStyle">
             <xsl:call-template name="stlyeDump"/>
         </xsl:if>
+        <xsl:call-template name="outputPluginInfo"/>
         <xsl:call-template name="documentCheck"/>
-    	<fo:root>
+        <fo:root>
             <xsl:copy-of select="ahf:getAttributeSet('atsRoot')"/>
             
             <!-- Complement xml:lang -->

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE reference PUBLIC "-//OASIS//DTD DITA Reference//EN" "reference.dtd">
+<reference id="rContinuedWordInHeader">
+    <title>Continued Word in table title</title>
+    <shortdesc>Adding continued word into table/title when breaking page.</shortdesc>
+    <prolog>
+        <author type="contributor">toshi</author>
+        <critdates>
+            <!--toshi-->
+            <revised modified="2019/02/27"/>
+        </critdates>
+    </prolog>
+    <refbody>
+        <table conref="rWorldWetherData20190108.dita#rWorldWetherData20190108/tblWorldWetherData20190108" outputclass="output-continued-in-table-title">
+            <tgroup cols="9">
+                <tbody>
+                    <row>
+                        <entry></entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
+    </refbody>
+</reference>

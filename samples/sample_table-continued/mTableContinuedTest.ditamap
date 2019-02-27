@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE map PUBLIC "-//OASIS//DTD DITA Map//EN" "map.dtd">
+<map xml:lang="en-US">
+    <title>Adding "Continued" word to table title</title>
+    <topicmeta>
+        <author type="contributor">toshi</author>
+        <critdates>
+            <!--toshi-->
+            <revised modified="2019/02/27"/>
+        </critdates>
+    </topicmeta>
+    <topicref href="rNoContinuedWord.dita" format="dita"/>
+    <topicref href="rContinuedWordInHeader.dita" format="dita"/>
+    <topicref href="rContinuedWordInFooter.dita" format="dita"/>
+    <topicref href="rContinuedWordInHeaderAndFooter.dita" format="dita"/>
+</map>

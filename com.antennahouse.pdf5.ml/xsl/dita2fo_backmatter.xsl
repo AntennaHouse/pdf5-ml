@@ -317,7 +317,9 @@ E-mail : info@antennahouse.com
         <xsl:variable name="level" 
             as="xs:integer"
             select="count($topicRef/ancestor-or-self::*[contains(@class, ' map/topicref ')]
-            [not(contains(@class, ' bookmap/backmatter '))])"/>
+                                                        [not(contains(@class, ' bookmap/backmatter '))]
+                                                        [not(contains(@class, ' bookmap/booklists '))]
+                                                        )"/>
         <xsl:variable name="titleMode" select="ahf:getTitleMode($topicRef,())" as="xs:integer"/>
         
         <fo:block>
