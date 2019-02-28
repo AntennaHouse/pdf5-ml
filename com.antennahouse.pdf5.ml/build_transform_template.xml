@@ -107,7 +107,7 @@
             <factory name="net.sf.saxon.TransformerFactoryImpl">
                 <attribute name="http://saxon.sf.net/feature/timing" value="true"/>
                 <!-- Suppress namespace warning -->
-                <attribute name="http://saxon.sf.net/feature/suppressXsltNamespaceCheck" value="true"/>
+                <!--attribute name="http://saxon.sf.net/feature/suppressXsltNamespaceCheck" value="true"/-->
                 <!--Assert-->
                 <!--attribute name="http://saxon.sf.net/feature/enableAssertions" value="true"/-->
                 <!-- Trace -->
