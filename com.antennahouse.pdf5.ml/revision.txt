@@ -5,6 +5,14 @@
       Copyright (C) 2009-2019 Antenna House, Inc. All rights reserved.
              Antenna House is a trademark of Antenna House, Inc.
 _______________________________________________________________________________
+
+Feb 2019
+V1.0.4
+- Adding "Continued" word to table title or footer in a page break by specifying outputclass attribute.(See samples/sample_table-continued)
+- Disable making link for index-see or index-see-also when xml:lang is ja-JP or zh-CN with index-sort-as.
+- Implement multiple referenced topic cloning.
+- Fix several bugs since previous release.
+
 Jan 2019
 V1.0.3
 - Refine flagging template
