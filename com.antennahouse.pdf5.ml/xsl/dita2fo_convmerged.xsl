@@ -67,7 +67,7 @@ E-mail : info@antennahouse.com
     <xsl:variable name="hasDupicateTopicRefs" as="xs:boolean" select="exists($duplicateTopicRefs)"/>
 
     <!-- topic access key -->
-    <xsl:key name="topicById"  match="/*/descendant-or-self::*[contains(@class, ' topic/topic')]" use="@id"/>
+    <xsl:key name="topicById"  match="/*//*[contains(@class, ' topic/topic')]" use="@id"/>
 
     <!-- 
      function:	root element template
