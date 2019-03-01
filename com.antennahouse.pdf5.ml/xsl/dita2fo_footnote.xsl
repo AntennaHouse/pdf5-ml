@@ -138,11 +138,13 @@ E-mail : info@antennahouse.com
      return:    footnote list
      note:      $prmElement is any element.
                 This template outputs footnote that is descendant of $prmElement. 2012-04-03 t.makita
+                BUG-FIX: Change topic/table to topic/tgroup for table.
+                         2019-03-01 t.makita
      -->
     <xsl:template name="makeFootNote">
         <xsl:param name="prmElement"  required="yes" as="element()"/>
         
-        <xsl:variable name="upperElements"  select="$prmElement/ancestor::*[contains(@class, ' topic/table ')] | 
+        <xsl:variable name="upperElements"  select="$prmElement/ancestor::*[contains(@class, ' topic/tgroup ')] | 
                                                     $prmElement/ancestor::*[contains(@class, ' topic/simpletable ')] | 
                                                     $prmElement/ancestor::*[contains(@class, ' topic/ul ')] | 
                                                     $prmElement/ancestor::*[contains(@class, ' topic/ol ')] |
