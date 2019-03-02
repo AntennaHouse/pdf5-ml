@@ -975,8 +975,8 @@ E-mail : info@antennahouse.com
                         <xsl:when test="$isGlossEntry">
                             <xsl:sequence select="xs:integer(0)"/>
                         </xsl:when>
-                        <xsl:when test="exists($footnoteNumberingMap/*[string(@id) eq $topicId]/@count)">
-                            <xsl:sequence select="xs:integer($footnoteNumberingMap/*[string(@id) eq $topicId]/@count)"/>        
+                        <xsl:when test="exists($footnoteNumberingMap/descendant::*[string(@id) eq $topicId]/@count)">
+                            <xsl:sequence select="xs:integer($footnoteNumberingMap/descendant::*[string(@id) eq $topicId]/@prev-count)"/>        
                         </xsl:when>
                         <xsl:otherwise>
                             <xsl:sequence select="xs:integer(0)"/>
@@ -1275,7 +1275,7 @@ E-mail : info@antennahouse.com
         
         <xsl:variable name="figPreviousAmount" as="xs:integer">
             <xsl:variable name="topicId" as="xs:string" select="ahf:generateId($topic,$prmTopicRef)"/>
-            <xsl:sequence select="$figureNumberingMap/*[string(@id) eq $topicId]/@count"/>
+            <xsl:sequence select="$figureNumberingMap/descendant::*[string(@id) eq $topicId]/@prev-count"/>
         </xsl:variable>
         
         <xsl:variable name="figCurrentAmount" as="xs:integer">
