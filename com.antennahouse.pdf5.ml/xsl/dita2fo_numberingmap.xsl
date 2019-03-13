@@ -16,7 +16,6 @@ E-mail : info@antennahouse.com
  xmlns:ahf="http://www.antennahouse.com/names/XSLT/Functions/Document"
  exclude-result-prefixes="xs ahf"
 >
-
     <xsl:variable name="cTableGroupingLevelMax" as="xs:integer">
         <xsl:choose>
             <xsl:when test="$pAddNumberingTitlePrefix">
@@ -45,617 +44,347 @@ E-mail : info@antennahouse.com
         <xsl:sequence select="xs:integer(ahf:getVarValue('Footnote_Grouping_Level_Max'))"/>
     </xsl:variable>
     
-    
     <!-- Table Numbering Map -->
-    <xsl:variable name="tableCountMap">
-        <xsl:call-template name="makeTableCount"/>
+    <xsl:variable name="tableCountMap" as="document-node()">
+        <xsl:document>
+            <xsl:call-template name="makeTableCount"/>
+        </xsl:document>
     </xsl:variable>
     
-    <xsl:variable name="tableNumberingMap">
-        <xsl:call-template name="makeTableStartCount"/>
+    <xsl:variable name="tableNumberingMap" as="document-node()">
+        <xsl:document>
+            <xsl:call-template name="makeTableStartCount"/>
+        </xsl:document>
     </xsl:variable>
     
-    <xsl:variable name="tableExists" as="xs:boolean" select="exists($tableCountMap/tablecount[xs:integer(@count) gt 0])"/>
-        
+    <xsl:variable name="tableExists" as="xs:boolean" select="exists($tableCountMap/descendant::table-count[xs:integer(@count) gt 0])"/>
     
     <!-- Figure Numbering Map -->
-    <xsl:variable name="figureCountMap">
-        <xsl:call-template name="makeFigureCount"/>
+    <xsl:variable name="figureCountMap" as="document-node()">
+        <xsl:document>
+            <xsl:call-template name="makeFigureCount"/>
+        </xsl:document>
     </xsl:variable>
     
-    <xsl:variable name="figureNumberingMap">
-        <xsl:call-template name="makeFigureStartCount"/>
+    <xsl:variable name="figureNumberingMap" as="document-node()">
+        <xsl:document>
+            <xsl:call-template name="makeFigureStartCount"/>
+        </xsl:document>
     </xsl:variable>
     
-    <xsl:variable name="figureExists" as="xs:boolean" select="exists($figureCountMap/figurecount[xs:integer(@count) gt 0])"/>
+    <xsl:variable name="figureExists" as="xs:boolean" select="exists($figureCountMap/descendant::figure-count[xs:integer(@count) gt 0])"/>
     
     <!-- Footnote Numbering Map -->
-    <xsl:variable name="footnoteCountMap">
-        <xsl:call-template name="makeFootnoteCount"/>
+    <xsl:variable name="footnoteCountMap" as="document-node()">
+        <xsl:document>
+            <xsl:call-template name="makeFootnoteCount"/>
+        </xsl:document>
     </xsl:variable>
     
-    <xsl:variable name="footnoteNumberingMap">
-        <xsl:call-template name="makeFootnoteStartCount"/>
+    <xsl:variable name="footnoteNumberingMap" as="document-node()">
+        <xsl:document>
+            <xsl:call-template name="makeFootnoteStartCount"/>
+        </xsl:document>
     </xsl:variable>
     
-    
-    
     <!-- 
-     function:	make table count map template
-     param:		none
-     return:	table cout node
-     note:		count only titled table
+     function:    make table count map template
+     param:       none
+     return:      table count node
+     note:        count only titled table
      -->
-    <xsl:template name="makeTableCount">
-        <xsl:apply-templates select="$map//*[contains(@class, ' map/topicref ')][starts-with(@href,'#')][not(ancestor::*[contains(@class,' map/reltable ')])]" mode="TABLE_COUNT">
-        </xsl:apply-templates>
+    <xsl:template name="makeTableCount" as="element()*">
+        <xsl:apply-templates select="$map/*[contains(@class, ' map/topicref ')]" mode="MODE_TABLE_COUNT"/>
     </xsl:template>
     
-    <xsl:template match="*[contains(@class, ' map/topicref ')]" mode="TABLE_COUNT">
-        <xsl:variable name="level" as="xs:integer" select="count(ancestor-or-self::*[contains(@class, ' map/topicref ')][(starts-with(@href,'#')) or (contains(@class, ' mapgroup-d/topichead '))])"/>
-        <xsl:variable name="targetId" as="xs:string" select="substring-after(@href, '#')"/>
-        <xsl:variable name="targetTopic" as="element()?" select="key('topicById', $targetId)[1]"/>
-        <xsl:variable name="topicId" as="xs:string" select="if (exists($targetTopic)) then ahf:generateId($targetTopic,.) else ''"/>
-        <xsl:variable name="tableCount" as="xs:integer" select="if (exists($targetTopic)) then count($targetTopic//*[contains(@class,' topic/table ')][child::*[contains(@class, ' topic/title ')]]) else 0"/>
-        <xsl:variable name="isFrontmatter" as="xs:string" select="string(boolean(ancestor::*[contains(@class, ' bookmap/frontmatter ')]))"/>
-        <xsl:variable name="isBackmatter" as="xs:string" select="string(boolean(ancestor::*[contains(@class, ' bookmap/backmatter ')]))"/>
-        <xsl:variable name="isToc" select="string(not(ahf:isTocNo(.)))"/>
-        <xsl:choose>
-            <xsl:when test="exists($targetTopic)">
-                <xsl:element name="tablecount">
-                    <xsl:attribute name="level"         select="string($level)"/>
-                    <xsl:attribute name="id"            select="$topicId"/>
-                    <xsl:attribute name="count"         select="string($tableCount)"/>
-                    <xsl:attribute name="isfrontmatter" select="$isFrontmatter"/>
-                    <xsl:attribute name="isbackmatter"  select="$isBackmatter"/>
-                    <xsl:attribute name="istoc"         select="$isToc"/>
-                </xsl:element>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:call-template name="warningContinue">
-                    <xsl:with-param name="prmMes" select="ahf:replace($stMes1600,('%href','%file'),(string(@href),string(@xtrf)))"/>
-                </xsl:call-template>                
-            </xsl:otherwise>
-        </xsl:choose>
-    </xsl:template>
-    
-    <!-- 
-     function:	make table numbering map template
-     param:		none
-     return:	table start count node
-     note:		none
-     -->
-    <xsl:template name="makeTableStartCount">
-        <xsl:apply-templates select="$tableCountMap/*[1]" mode="TABLE_START_COUNT">
-            <xsl:with-param name="prmPreviousAmount" select="0"/>
-        </xsl:apply-templates>
-    </xsl:template>
-    
-    <xsl:template match="tablecount" mode="TABLE_START_COUNT">
-        <xsl:param name="prmPreviousAmount" select="0"/>
-    
-        <xsl:variable name="previousLevel" select="preceding-sibling::*[1]/@level"/>
-        <!--xsl:variable name="previousId" select="preceeding-sibiling::*[1]/@id"/-->
-        <xsl:variable name="previousCount" select="preceding-sibling::*[1]/@count"/>
-        <xsl:variable name="previousIsFrontmatter" select="preceding-sibling::*[1]/@isfrontmatter"/>
-        <xsl:variable name="previousIsBackmatter" select="preceding-sibling::*[1]/@isbackmatter"/>
-    
-        <xsl:variable name="currentLevel" select="@level"/>
-        <xsl:variable name="currentId" select="@id"/>
-        <xsl:variable name="currentCount" select="@count"/>
-        <xsl:variable name="currentIsFrontmatter" select="@isfrontmatter"/>
-        <xsl:variable name="currentIsBackmatter" select="@isbackmatter"/>
-        <xsl:variable name="currentIsToc" select="@istoc"/>
-    
-        <xsl:choose>
-            <xsl:when test="not(preceding-sibling::*)">
-                <!-- First element -->
-                <xsl:element name="tablestartcount">
-                    <xsl:attribute name="level"><xsl:value-of select="$currentLevel"/></xsl:attribute>
-                    <xsl:attribute name="id"><xsl:value-of select="$currentId"/></xsl:attribute>
-                    <xsl:attribute name="count"><xsl:value-of select="0"/></xsl:attribute>
-                </xsl:element>
-                <xsl:if test="following-sibling::*">
-                    <xsl:apply-templates select="following-sibling::*[1]" mode="TABLE_START_COUNT">
-                        <xsl:with-param name="prmPreviousAmount" select="$currentCount"/>
-                    </xsl:apply-templates>
-                </xsl:if>
-            </xsl:when>
-            <xsl:when test="($previousIsFrontmatter=$true) and ($currentIsFrontmatter=$true)">
-                <!-- element in the frontmatter-->
-                <xsl:element name="tablestartcount">
-                    <xsl:attribute name="level"><xsl:value-of select="$currentLevel"/></xsl:attribute>
-                    <xsl:attribute name="id"><xsl:value-of select="$currentId"/></xsl:attribute>
-                    <xsl:attribute name="count"><xsl:value-of select="$prmPreviousAmount"/></xsl:attribute>
-                </xsl:element>
-                <xsl:if test="following-sibling::*">
-                    <xsl:apply-templates select="following-sibling::*[1]" mode="TABLE_START_COUNT">
-                        <xsl:with-param name="prmPreviousAmount" select="$prmPreviousAmount+$currentCount"/>
-                    </xsl:apply-templates>
-                </xsl:if>
-            </xsl:when>
-            <xsl:when test="($previousIsFrontmatter=$true) and ($currentIsFrontmatter=$false)">
-                <!-- element after the frontmatter-->
-                <xsl:element name="tablestartcount">
-                    <xsl:attribute name="level"><xsl:value-of select="$currentLevel"/></xsl:attribute>
-                    <xsl:attribute name="id"><xsl:value-of select="$currentId"/></xsl:attribute>
-                    <xsl:attribute name="count"><xsl:value-of select="0"/></xsl:attribute>
-                </xsl:element>
-                <xsl:if test="following-sibling::*">
-                    <xsl:apply-templates select="following-sibling::*[1]" mode="TABLE_START_COUNT">
-                        <xsl:with-param name="prmPreviousAmount" select="$currentCount"/>
-                    </xsl:apply-templates>
-                </xsl:if>
-            </xsl:when>
-            <xsl:when test="($previousIsBackmatter=$false) and ($currentIsBackmatter=$true)">
-                <!-- first element of the backmatter-->
-                <xsl:element name="tablestartcount">
-                    <xsl:attribute name="level"><xsl:value-of select="$currentLevel"/></xsl:attribute>
-                    <xsl:attribute name="id"><xsl:value-of select="$currentId"/></xsl:attribute>
-                    <xsl:attribute name="count"><xsl:value-of select="0"/></xsl:attribute>
-                </xsl:element>
-                <xsl:if test="following-sibling::*">
-                    <xsl:apply-templates select="following-sibling::*[1]" mode="TABLE_START_COUNT">
-                        <xsl:with-param name="prmPreviousAmount" select="$currentCount"/>
-                    </xsl:apply-templates>
-                </xsl:if>
-            </xsl:when>
-            <xsl:when test="($previousIsBackmatter=$true) and ($currentIsBackmatter=$true)">
-                <!-- element in the backmatter-->
-                <xsl:element name="tablestartcount">
-                    <xsl:attribute name="level"><xsl:value-of select="$currentLevel"/></xsl:attribute>
-                    <xsl:attribute name="id"><xsl:value-of select="$currentId"/></xsl:attribute>
-                    <xsl:attribute name="count"><xsl:value-of select="$prmPreviousAmount"/></xsl:attribute>
-                </xsl:element>
-                <xsl:if test="following-sibling::*">
-                    <xsl:apply-templates select="following-sibling::*[1]" mode="TABLE_START_COUNT">
-                        <xsl:with-param name="prmPreviousAmount" select="$prmPreviousAmount+$currentCount"/>
-                    </xsl:apply-templates>
-                </xsl:if>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:choose>
-                    <xsl:when test="$currentLevel &gt; $cTableGroupingLevelMax">
-                        <xsl:element name="tablestartcount">
-                            <xsl:attribute name="level"><xsl:value-of select="$currentLevel"/></xsl:attribute>
-                            <xsl:attribute name="id"><xsl:value-of select="$currentId"/></xsl:attribute>
-                            <xsl:attribute name="count"><xsl:value-of select="$prmPreviousAmount"/></xsl:attribute>
-                        </xsl:element>
-                        <xsl:if test="following-sibling::*">
-                            <xsl:apply-templates select="following-sibling::*[1]" mode="TABLE_START_COUNT">
-                                <xsl:with-param name="prmPreviousAmount" select="$prmPreviousAmount+$currentCount"/>
-                            </xsl:apply-templates>
-                        </xsl:if>
-                    </xsl:when>
-                    <xsl:when test="$currentIsToc = $false">
-                        <!--xsl:message>hit toc="no" table previousAmount=<xsl:value-of select="$prmPreviousAmount"/></xsl:message-->
-                        <xsl:element name="tablestartcount">
-                            <xsl:attribute name="level"><xsl:value-of select="$currentLevel"/></xsl:attribute>
-                            <xsl:attribute name="id"><xsl:value-of select="$currentId"/></xsl:attribute>
-                            <xsl:attribute name="count"><xsl:value-of select="$prmPreviousAmount"/></xsl:attribute>
-                        </xsl:element>
-                        <xsl:if test="following-sibling::*">
-                            <xsl:apply-templates select="following-sibling::*[1]" mode="TABLE_START_COUNT">
-                                <xsl:with-param name="prmPreviousAmount" select="$prmPreviousAmount+$currentCount"/>
-                            </xsl:apply-templates>
-                        </xsl:if>
-                    </xsl:when>
-                    <xsl:otherwise><!--xsl:when test="$currentLevel &lt;= $cTableGroupingLevelMax"-->
-                        <xsl:element name="tablestartcount">
-                            <xsl:attribute name="level"><xsl:value-of select="$currentLevel"/></xsl:attribute>
-                            <xsl:attribute name="id"><xsl:value-of select="$currentId"/></xsl:attribute>
-                            <xsl:attribute name="count"><xsl:value-of select="0"/></xsl:attribute>
-                        </xsl:element>
-                        <xsl:if test="following-sibling::*">
-                            <xsl:apply-templates select="following-sibling::*[1]" mode="TABLE_START_COUNT">
-                                <xsl:with-param name="prmPreviousAmount" select="$currentCount"/>
-                            </xsl:apply-templates>
-                        </xsl:if>
-                    </xsl:otherwise>
-                </xsl:choose>
-            </xsl:otherwise>
-        </xsl:choose>
-    
-    </xsl:template>
-    
-    
-    <!-- 
-     function:	make figure count map template
-     param:		none
-     return:	figure cout node
-     note:		count only titled <fig>
-     -->
-    <xsl:template name="makeFigureCount">
-        <xsl:apply-templates select="$map//*[contains(@class, ' map/topicref ')][starts-with(@href,'#')][not(ancestor::*[contains(@class,' map/reltable ')])]" mode="FIGURE_COUNT">
-        </xsl:apply-templates>
-    </xsl:template>
-    
-    <xsl:template match="*[contains(@class, ' map/topicref ')]" mode="FIGURE_COUNT">
-        <xsl:variable name="level" as="xs:integer" select="count(ancestor-or-self::*[contains(@class, ' map/topicref ')][(starts-with(@href,'#')) or (contains(@class, ' mapgroup-d/topichead '))])"/>
-        <xsl:variable name="targetId" as="xs:string" select="substring-after(@href, '#')"/>
-        <xsl:variable name="targetTopic" as="element()?" select="key('topicById', $targetId)[1]"/>
-        <xsl:variable name="topicId" as="xs:string" select="if (exists($targetTopic)) then ahf:generateId($targetTopic,.) else ''"/>
-        <xsl:variable name="figureCount" as="xs:integer" select="if (exists($targetTopic)) then count($targetTopic//*[contains(@class,' topic/fig ')][child::*[contains(@class, ' topic/title ')]]) else 0"/>
-        <xsl:variable name="isFrontmatter" as="xs:string" select="string(boolean(ancestor::*[contains(@class, ' bookmap/frontmatter ')]))"/>
-        <xsl:variable name="isBackmatter" as="xs:string" select="string(boolean(ancestor::*[contains(@class, ' bookmap/backmatter ')]))"/>
-        <xsl:variable name="isToc" select="string(not(ahf:isTocNo(.)))"/>
-        <xsl:choose>
-            <xsl:when test="exists($targetTopic)">
-                <xsl:element name="figurecount">
-                    <xsl:attribute name="level"            select="string($level)"/>
-                    <xsl:attribute name="id"               select="$topicId"/>
-                    <xsl:attribute name="count"            select="string($figureCount)"/>
-                    <xsl:attribute name="isfrontmatter"    select="$isFrontmatter"/>
-                    <xsl:attribute name="isbackmatter"     select="$isBackmatter"/>
-                    <xsl:attribute name="istoc"            select="$isToc"/>
-                </xsl:element>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:call-template name="warningContinue">
-                    <xsl:with-param name="prmMes" select="ahf:replace($stMes1602,('%href','%file'),(string(@href),string(@xtrf)))"/>
-                </xsl:call-template>                
-            </xsl:otherwise>
-        </xsl:choose>
-    </xsl:template>
-    
-    <!-- 
-     function:	make figure numbering map template
-     param:		none
-     return:	figure start count node
-     note:		none
-     -->
-    <xsl:template name="makeFigureStartCount">
-        <xsl:apply-templates select="$figureCountMap/*[1]" mode="FIGURE_START_COUNT">
-            <xsl:with-param name="prmPreviousAmount" select="0"/>
-        </xsl:apply-templates>
-    </xsl:template>
-    
-    <xsl:template match="figurecount" mode="FIGURE_START_COUNT">
-        <xsl:param name="prmPreviousAmount" select="0"/>
-    
-        <xsl:variable name="previousLevel" select="preceding-sibling::*[1]/@level"/>
-        <!--xsl:variable name="previousId" select="preceeding-sibiling::*[1]/@id"/-->
-        <xsl:variable name="previousCount" select="preceding-sibling::*[1]/@count"/>
-        <xsl:variable name="previousIsFrontmatter" select="preceding-sibling::*[1]/@isfrontmatter"/>
-        <xsl:variable name="previousIsBackmatter" select="preceding-sibling::*[1]/@isbackmatter"/>
-    
-        <xsl:variable name="currentLevel" select="@level"/>
-        <xsl:variable name="currentId" select="@id"/>
-        <xsl:variable name="currentCount" select="@count"/>
-        <xsl:variable name="currentIsFrontmatter" select="@isfrontmatter"/>
-        <xsl:variable name="currentIsBackmatter" select="@isbackmatter"/>
-        <xsl:variable name="currentIsToc" select="@istoc"/>
-    
-        <xsl:choose>
-            <xsl:when test="not(preceding-sibling::*)">
-                <!-- First element -->
-                <xsl:element name="figurestartcount">
-                    <xsl:attribute name="level"><xsl:value-of select="$currentLevel"/></xsl:attribute>
-                    <xsl:attribute name="id"><xsl:value-of select="$currentId"/></xsl:attribute>
-                    <xsl:attribute name="count"><xsl:value-of select="0"/></xsl:attribute>
-                </xsl:element>
-                <xsl:if test="following-sibling::*">
-                    <xsl:apply-templates select="following-sibling::*[1]" mode="FIGURE_START_COUNT">
-                        <xsl:with-param name="prmPreviousAmount" select="$currentCount"/>
-                    </xsl:apply-templates>
-                </xsl:if>
-            </xsl:when>
-            <xsl:when test="($previousIsFrontmatter=$true) and ($currentIsFrontmatter=$true)">
-                <!-- element in the frontmatter-->
-                <xsl:element name="figurestartcount">
-                    <xsl:attribute name="level"><xsl:value-of select="$currentLevel"/></xsl:attribute>
-                    <xsl:attribute name="id"><xsl:value-of select="$currentId"/></xsl:attribute>
-                    <xsl:attribute name="count"><xsl:value-of select="$prmPreviousAmount"/></xsl:attribute>
-                </xsl:element>
-                <xsl:if test="following-sibling::*">
-                    <xsl:apply-templates select="following-sibling::*[1]" mode="FIGURE_START_COUNT">
-                        <xsl:with-param name="prmPreviousAmount" select="$prmPreviousAmount+$currentCount"/>
-                    </xsl:apply-templates>
-                </xsl:if>
-            </xsl:when>
-            <xsl:when test="($previousIsFrontmatter=$true) and ($currentIsFrontmatter=$false)">
-                <!-- element after the frontmatter-->
-                <xsl:element name="figurestartcount">
-                    <xsl:attribute name="level"><xsl:value-of select="$currentLevel"/></xsl:attribute>
-                    <xsl:attribute name="id"><xsl:value-of select="$currentId"/></xsl:attribute>
-                    <xsl:attribute name="count"><xsl:value-of select="0"/></xsl:attribute>
-                </xsl:element>
-                <xsl:if test="following-sibling::*">
-                    <xsl:apply-templates select="following-sibling::*[1]" mode="FIGURE_START_COUNT">
-                        <xsl:with-param name="prmPreviousAmount" select="$currentCount"/>
-                    </xsl:apply-templates>
-                </xsl:if>
-            </xsl:when>
-            <xsl:when test="($previousIsBackmatter=$false) and ($currentIsBackmatter=$true)">
-                <!-- first element of the backmatter-->
-                <xsl:element name="figurestartcount">
-                    <xsl:attribute name="level"><xsl:value-of select="$currentLevel"/></xsl:attribute>
-                    <xsl:attribute name="id"><xsl:value-of select="$currentId"/></xsl:attribute>
-                    <xsl:attribute name="count"><xsl:value-of select="0"/></xsl:attribute>
-                </xsl:element>
-                <xsl:if test="following-sibling::*">
-                    <xsl:apply-templates select="following-sibling::*[1]" mode="FIGURE_START_COUNT">
-                        <xsl:with-param name="prmPreviousAmount" select="$currentCount"/>
-                    </xsl:apply-templates>
-                </xsl:if>
-            </xsl:when>
-            <xsl:when test="($previousIsBackmatter=$true) and ($currentIsBackmatter=$true)">
-                <!-- element in the backmatter-->
-                <xsl:element name="figurestartcount">
-                    <xsl:attribute name="level"><xsl:value-of select="$currentLevel"/></xsl:attribute>
-                    <xsl:attribute name="id"><xsl:value-of select="$currentId"/></xsl:attribute>
-                    <xsl:attribute name="count"><xsl:value-of select="$prmPreviousAmount"/></xsl:attribute>
-                </xsl:element>
-                <xsl:if test="following-sibling::*">
-                    <xsl:apply-templates select="following-sibling::*[1]" mode="FIGURE_START_COUNT">
-                        <xsl:with-param name="prmPreviousAmount" select="$prmPreviousAmount+$currentCount"/>
-                    </xsl:apply-templates>
-                </xsl:if>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:choose>
-                    <xsl:when test="$currentLevel &gt; $cFigureGroupingLevelMax">
-                        <xsl:element name="figurestartcount">
-                            <xsl:attribute name="level"><xsl:value-of select="$currentLevel"/></xsl:attribute>
-                            <xsl:attribute name="id"><xsl:value-of select="$currentId"/></xsl:attribute>
-                            <xsl:attribute name="count"><xsl:value-of select="$prmPreviousAmount"/></xsl:attribute>
-                        </xsl:element>
-                        <xsl:if test="following-sibling::*">
-                            <xsl:apply-templates select="following-sibling::*[1]" mode="FIGURE_START_COUNT">
-                                <xsl:with-param name="prmPreviousAmount" select="$prmPreviousAmount+$currentCount"/>
-                            </xsl:apply-templates>
-                        </xsl:if>
-                    </xsl:when>
-                    <xsl:when test="$currentIsToc = $false">
-                        <!--xsl:message>hit toc="no" figure previousAmount=<xsl:value-of select="$prmPreviousAmount"/></xsl:message-->
-                        <xsl:element name="figurestartcount">
-                            <xsl:attribute name="level"><xsl:value-of select="$currentLevel"/></xsl:attribute>
-                            <xsl:attribute name="id"><xsl:value-of select="$currentId"/></xsl:attribute>
-                            <xsl:attribute name="count"><xsl:value-of select="$prmPreviousAmount"/></xsl:attribute>
-                        </xsl:element>
-                        <xsl:if test="following-sibling::*">
-                            <xsl:apply-templates select="following-sibling::*[1]" mode="FIGURE_START_COUNT">
-                                <xsl:with-param name="prmPreviousAmount" select="$prmPreviousAmount+$currentCount"/>
-                            </xsl:apply-templates>
-                        </xsl:if>
-                    </xsl:when>
-                    <xsl:otherwise><!--xsl:when test="$currentLevel &lt; $cFigureGroupingLevelMax"-->
-                        <xsl:element name="figurestartcount">
-                            <xsl:attribute name="level"><xsl:value-of select="$currentLevel"/></xsl:attribute>
-                            <xsl:attribute name="id"><xsl:value-of select="$currentId"/></xsl:attribute>
-                            <xsl:attribute name="count"><xsl:value-of select="0"/></xsl:attribute>
-                        </xsl:element>
-                        <xsl:if test="following-sibling::*">
-                            <xsl:apply-templates select="following-sibling::*[1]" mode="FIGURE_START_COUNT">
-                                <xsl:with-param name="prmPreviousAmount" select="$currentCount"/>
-                            </xsl:apply-templates>
-                        </xsl:if>
-                    </xsl:otherwise>
-                </xsl:choose>
-            </xsl:otherwise>
-        </xsl:choose>
-    
-    </xsl:template>
-    
-    <!-- 
-     function:	make footnote count map template
-     param:		none
-     return:	footnote count node
-     note:		
-     -->
-    <xsl:template name="makeFootnoteCount">
-        <xsl:apply-templates select="$map//*[contains(@class, ' map/topicref ')][starts-with(@href,'#')][not(ancestor::*[contains(@class,' map/reltable ')])]" mode="FOOTNOTE_COUNT">
-        </xsl:apply-templates>
-    </xsl:template>
-    
-    <xsl:template match="*[contains(@class, ' map/topicref ')]" mode="FOOTNOTE_COUNT">
-        <xsl:variable name="level" select="count(ancestor-or-self::*[contains(@class, ' map/topicref ')][(starts-with(@href,'#')) or (contains(@class, ' mapgroup-d/topichead '))])"/>
-        <xsl:variable name="targetId" select="substring-after(@href, '#')"/>
-        <xsl:variable name="targetTopic" select="key('topicById', $targetId)[1]"/>
-        <xsl:variable name="topicId" select="ahf:generateId($targetTopic,.)"/>
-        <xsl:variable name="footnoteCount" select="count($targetTopic//*[contains(@class,' topic/fn ')][not(contains(@class,' pr-d/synnote '))][not(@callout)])"/>
-        <xsl:variable name="isFrontmatter" select="string(boolean(ancestor::*[contains(@class, ' bookmap/frontmatter ')]))"/>
-        <xsl:variable name="isBackmatter" select="string(boolean(ancestor::*[contains(@class, ' bookmap/backmatter ')]))"/>
-        <!--xsl:variable name="isToc" select="string(boolean((not(@toc)) or (@toc=$cYes)))"/-->
-        <xsl:variable name="isToc" select="string(not(ahf:isTocNo(.)))"/>
-        <xsl:element name="footnotecount">
-            <xsl:attribute name="level"            select="string($level)"/>
-            <xsl:attribute name="id"               select="$topicId"/>
-            <xsl:attribute name="count"            select="string($footnoteCount)"/>
-            <xsl:attribute name="isfrontmatter"    select="$isFrontmatter"/>
-            <xsl:attribute name="isbackmatter"     select="$isBackmatter"/>
-            <xsl:attribute name="istoc"            select="$isToc"/>
+    <xsl:template match="*[contains(@class, ' map/topicref ')]" mode="MODE_TABLE_COUNT" as="element()">
+        <xsl:variable name="topicRef" as="element()" select="."/>
+        <xsl:variable name="targetTopic" as="element()?" select="ahf:getTopicFromTopicRef($topicRef)"/>
+        <xsl:variable name="tableCount" as="xs:integer">
+            <xsl:choose>
+                <xsl:when test="exists($targetTopic)">
+                    <xsl:variable name="tables" as="element()*" select="$targetTopic/descendant::*[contains(@class,' topic/table ')][exists(*[contains(@class,' topic/title ')])]"/>
+                    <xsl:sequence select="count($tables)"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:sequence select="0"/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:variable name="topicId" as="xs:string">
+            <xsl:choose>
+                <xsl:when test="exists($targetTopic)">
+                    <xsl:call-template name="ahf:generateId">
+                        <xsl:with-param name="prmElement" select="$targetTopic"/>
+                        <xsl:with-param name="prmTopicRef" tunnel="yes" select="$topicRef"/>
+                    </xsl:call-template>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:call-template name="ahf:generateId">
+                        <xsl:with-param name="prmElement" select="$topicRef"/>
+                        <xsl:with-param name="prmTopicRef" tunnel="yes" select="$topicRef"/>
+                    </xsl:call-template>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:element name="table-count">
+            <xsl:attribute name="id" select="$topicId"/>
+            <xsl:attribute name="count" select="$tableCount"/>
+            <xsl:copy-of select="@class"/>
+            <xsl:apply-templates select="*[contains(@class, ' map/topicref ')]" mode="#current"/>
         </xsl:element>
     </xsl:template>
     
     <!-- 
-     function:	make footnote numbering map template
-     param:		none
-     return:	footnote start count nodes
-     note:		none
+     function:    make table numbering map template
+     param:       none
+     return:      table start count node
+     note:        none
      -->
-    <xsl:template name="makeFootnoteStartCount">
-        <xsl:apply-templates select="$footnoteCountMap/*[1]" mode="FOOTNOTE_START_COUNT">
-            <xsl:with-param name="prmPreviousAmount" select="0"/>
-        </xsl:apply-templates>
+    <xsl:template name="makeTableStartCount" as="element()*">
+        <xsl:apply-templates select="$tableCountMap/*" mode="MODE_TABLE_START_COUNT"/>
     </xsl:template>
     
-    <xsl:template match="footnotecount" mode="FOOTNOTE_START_COUNT">
-        <xsl:param name="prmPreviousAmount" select="0"/>
-    
-        <xsl:variable name="previousLevel" select="preceding-sibling::*[1]/@level"/>
-        <!--xsl:variable name="previousId" select="preceeding-sibiling::*[1]/@id"/-->
-        <xsl:variable name="previousCount" select="preceding-sibling::*[1]/@count"/>
-        <xsl:variable name="previousIsFrontmatter" select="preceding-sibling::*[1]/@isfrontmatter"/>
-        <xsl:variable name="previousIsBackmatter" select="preceding-sibling::*[1]/@isbackmatter"/>
-    
-        <xsl:variable name="currentLevel" select="@level"/>
-        <xsl:variable name="currentId" select="@id"/>
-        <xsl:variable name="currentCount" select="@count"/>
-        <xsl:variable name="currentIsFrontmatter" select="@isfrontmatter"/>
-        <xsl:variable name="currentIsBackmatter" select="@isbackmatter"/>
-        <xsl:variable name="currentIsToc" select="@istoc"/>
-    
-        <xsl:choose>
-            <xsl:when test="not(preceding-sibling::*)">
-                <!-- First element -->
-                <xsl:element name="footnotestartcount">
-                    <xsl:attribute name="level"><xsl:value-of select="$currentLevel"/></xsl:attribute>
-                    <xsl:attribute name="id"><xsl:value-of select="$currentId"/></xsl:attribute>
-                    <xsl:attribute name="count"><xsl:value-of select="0"/></xsl:attribute>
-                </xsl:element>
-                <xsl:if test="following-sibling::*">
-                    <xsl:apply-templates select="following-sibling::*[1]" mode="FOOTNOTE_START_COUNT">
-                        <xsl:with-param name="prmPreviousAmount" select="$currentCount"/>
-                    </xsl:apply-templates>
-                </xsl:if>
-            </xsl:when>
-            <xsl:when test="($previousIsFrontmatter=$true) and ($currentIsFrontmatter=$true)">
-                <!-- element in the frontmatter-->
-                <xsl:element name="footnotestartcount">
-                    <xsl:attribute name="level"><xsl:value-of select="$currentLevel"/></xsl:attribute>
-                    <xsl:attribute name="id"><xsl:value-of select="$currentId"/></xsl:attribute>
-                    <xsl:attribute name="count"><xsl:value-of select="$prmPreviousAmount"/></xsl:attribute>
-                </xsl:element>
-                <xsl:if test="following-sibling::*">
-                    <xsl:apply-templates select="following-sibling::*[1]" mode="FOOTNOTE_START_COUNT">
-                        <xsl:with-param name="prmPreviousAmount" select="$prmPreviousAmount+$currentCount"/>
-                    </xsl:apply-templates>
-                </xsl:if>
-            </xsl:when>
-            <xsl:when test="($previousIsFrontmatter=$true) and ($currentIsFrontmatter=$false)">
-                <!-- element after the frontmatter-->
-                <xsl:element name="footnotestartcount">
-                    <xsl:attribute name="level"><xsl:value-of select="$currentLevel"/></xsl:attribute>
-                    <xsl:attribute name="id"><xsl:value-of select="$currentId"/></xsl:attribute>
-                    <xsl:attribute name="count"><xsl:value-of select="0"/></xsl:attribute>
-                </xsl:element>
-                <xsl:if test="following-sibling::*">
-                    <xsl:apply-templates select="following-sibling::*[1]" mode="FOOTNOTE_START_COUNT">
-                        <xsl:with-param name="prmPreviousAmount" select="$currentCount"/>
-                    </xsl:apply-templates>
-                </xsl:if>
-            </xsl:when>
-            <xsl:when test="($previousIsBackmatter=$false) and ($currentIsBackmatter=$true)">
-                <!-- first element of the backmatter-->
-                <xsl:element name="footnotestartcount">
-                    <xsl:attribute name="level"><xsl:value-of select="$currentLevel"/></xsl:attribute>
-                    <xsl:attribute name="id"><xsl:value-of select="$currentId"/></xsl:attribute>
-                    <xsl:attribute name="count"><xsl:value-of select="0"/></xsl:attribute>
-                </xsl:element>
-                <xsl:if test="following-sibling::*">
-                    <xsl:apply-templates select="following-sibling::*[1]" mode="FOOTNOTE_START_COUNT">
-                        <xsl:with-param name="prmPreviousAmount" select="$currentCount"/>
-                    </xsl:apply-templates>
-                </xsl:if>
-            </xsl:when>
-            <xsl:when test="($previousIsBackmatter=$true) and ($currentIsBackmatter=$true)">
-                <!-- element in the backmatter-->
-                <xsl:element name="footnotestartcount">
-                    <xsl:attribute name="level"><xsl:value-of select="$currentLevel"/></xsl:attribute>
-                    <xsl:attribute name="id"><xsl:value-of select="$currentId"/></xsl:attribute>
-                    <xsl:attribute name="count"><xsl:value-of select="$prmPreviousAmount"/></xsl:attribute>
-                </xsl:element>
-                <xsl:if test="following-sibling::*">
-                    <xsl:apply-templates select="following-sibling::*[1]" mode="FOOTNOTE_START_COUNT">
-                        <xsl:with-param name="prmPreviousAmount" select="$prmPreviousAmount+$currentCount"/>
-                    </xsl:apply-templates>
-                </xsl:if>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:choose>
-                    <xsl:when test="$currentLevel &gt; $cFootnoteGroupingLevelMax">
-                        <xsl:element name="footnotestartcount">
-                            <xsl:attribute name="level"><xsl:value-of select="$currentLevel"/></xsl:attribute>
-                            <xsl:attribute name="id"><xsl:value-of select="$currentId"/></xsl:attribute>
-                            <xsl:attribute name="count"><xsl:value-of select="$prmPreviousAmount"/></xsl:attribute>
-                        </xsl:element>
-                        <xsl:if test="following-sibling::*">
-                            <xsl:apply-templates select="following-sibling::*[1]" mode="FOOTNOTE_START_COUNT">
-                                <xsl:with-param name="prmPreviousAmount" select="$prmPreviousAmount+$currentCount"/>
-                            </xsl:apply-templates>
-                        </xsl:if>
-                    </xsl:when>
-                    <xsl:when test="$currentIsToc = $false">
-                        <!--xsl:message>hit toc="no" figure previousAmount=<xsl:value-of select="$prmPreviousAmount"/></xsl:message-->
-                        <xsl:element name="footnotestartcount">
-                            <xsl:attribute name="level"><xsl:value-of select="$currentLevel"/></xsl:attribute>
-                            <xsl:attribute name="id"><xsl:value-of select="$currentId"/></xsl:attribute>
-                            <xsl:attribute name="count"><xsl:value-of select="$prmPreviousAmount"/></xsl:attribute>
-                        </xsl:element>
-                        <xsl:if test="following-sibling::*">
-                            <xsl:apply-templates select="following-sibling::*[1]" mode="FOOTNOTE_START_COUNT">
-                                <xsl:with-param name="prmPreviousAmount" select="$prmPreviousAmount+$currentCount"/>
-                            </xsl:apply-templates>
-                        </xsl:if>
-                    </xsl:when>
-                    <xsl:otherwise><!--xsl:when test="$currentLevel &lt; $cFigureGroupingLevelMax"-->
-                        <xsl:element name="footnotestartcount">
-                            <xsl:attribute name="level"><xsl:value-of select="$currentLevel"/></xsl:attribute>
-                            <xsl:attribute name="id"><xsl:value-of select="$currentId"/></xsl:attribute>
-                            <xsl:attribute name="count"><xsl:value-of select="0"/></xsl:attribute>
-                        </xsl:element>
-                        <xsl:if test="following-sibling::*">
-                            <xsl:apply-templates select="following-sibling::*[1]" mode="FOOTNOTE_START_COUNT">
-                                <xsl:with-param name="prmPreviousAmount" select="$currentCount"/>
-                            </xsl:apply-templates>
-                        </xsl:if>
-                    </xsl:otherwise>
-                </xsl:choose>
-            </xsl:otherwise>
-        </xsl:choose>
-    
+    <xsl:template match="table-count" mode="MODE_TABLE_START_COUNT" as="element()">
+        <xsl:variable name="level" as="xs:integer" select="count(ancestor-or-self::*)"/>
+        <xsl:variable name="countTopElem" as="element()?" select="(ancestor-or-self::*)[position() eq $cTableGroupingLevelMax]"/>
+        <xsl:variable name="prevCount" as="xs:integer">
+            <xsl:choose>
+                <xsl:when test="$cTableGroupingLevelMax eq 0">
+                    <!-- Table number is not grouped. -->
+                    <xsl:sequence select="xs:integer(sum(root(current())//*[. &lt;&lt; current()]/@count))"/>
+                </xsl:when>
+                <xsl:when test="$level le $cTableGroupingLevelMax">
+                    <!-- Table number always starts from 1. -->
+                    <xsl:sequence select="0"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <!-- Count table number with grouping topicref considering $cTableGroupingLevelMax -->
+                    <xsl:variable name="countTragetElem" as="element()*" select="root(current())//*[. &lt;&lt; current()] except root(current())//*[. &lt;&lt; $countTopElem]"/>
+                    <xsl:sequence select="xs:integer(sum($countTragetElem/@count))"/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:copy>
+            <xsl:copy-of select="@*"/>
+            <xsl:attribute name="prev-count" select="string($prevCount)"/>
+            <xsl:apply-templates select="*" mode="#current"/>
+        </xsl:copy>
     </xsl:template>
-    
-    
-    
     
     <!-- 
-     function:	dump tableCountMap, tableNumberingMap template
-     param:		none
-     return:	dump result
-     note:		none
+     function:    make figure count map template
+     param:       none
+     return:      figure cout node
+     note:        count only titled <fig>
+     -->
+    <xsl:template name="makeFigureCount" as="element()*">
+        <xsl:apply-templates select="$map/*[contains(@class, ' map/topicref ')]" mode="MODE_FIGURE_COUNT"/>
+    </xsl:template>
+    
+    <xsl:template match="*[contains(@class, ' map/topicref ')]" mode="MODE_FIGURE_COUNT" as="element()">
+        <xsl:variable name="topicRef" as="element()" select="."/>
+        <xsl:variable name="targetTopic" as="element()?" select="ahf:getTopicFromTopicRef($topicRef)"/>
+        <xsl:variable name="figureCount" as="xs:integer">
+            <xsl:choose>
+                <xsl:when test="exists($targetTopic)">
+                    <xsl:variable name="figures" as="element()*" select="$targetTopic/descendant::*[contains(@class,' topic/fig ')][exists(*[contains(@class,' topic/title ')])]"/>
+                    <xsl:sequence select="count($figures)"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:sequence select="0"/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:variable name="topicId" as="xs:string">
+            <xsl:choose>
+                <xsl:when test="exists($targetTopic)">
+                    <xsl:call-template name="ahf:generateId">
+                        <xsl:with-param name="prmElement" select="$targetTopic"/>
+                        <xsl:with-param name="prmTopicRef" tunnel="yes" select="$topicRef"/>
+                    </xsl:call-template>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:call-template name="ahf:generateId">
+                        <xsl:with-param name="prmElement" select="$topicRef"/>
+                        <xsl:with-param name="prmTopicRef" tunnel="yes" select="$topicRef"/>
+                    </xsl:call-template>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:element name="figure-count">
+            <xsl:attribute name="id" select="$topicId"/>
+            <xsl:attribute name="count" select="$figureCount"/>
+            <xsl:copy-of select="@class"/>
+            <xsl:apply-templates select="*[contains(@class, ' map/topicref ')]" mode="#current"/>
+        </xsl:element>
+    </xsl:template>
+    
+    <!-- 
+     function:    make figure numbering map template
+     param:       none
+     return:      figure start count node
+     note:        none
+     -->
+    <xsl:template name="makeFigureStartCount" as="element()*">
+        <xsl:apply-templates select="$figureCountMap/*" mode="MODE_FIGURE_START_COUNT"/>
+    </xsl:template>
+    
+    <xsl:template match="figure-count" mode="MODE_FIGURE_START_COUNT" as="element()">
+        <xsl:variable name="level" as="xs:integer" select="count(ancestor-or-self::*)"/>
+        <xsl:variable name="countTopElem" as="element()?" select="(ancestor-or-self::*)[position() eq $cFigureGroupingLevelMax]"/>
+        <xsl:variable name="prevCount" as="xs:integer">
+            <xsl:choose>
+                <xsl:when test="$cFigureGroupingLevelMax eq 0">
+                    <!-- Figure number is not grouped. -->
+                    <xsl:sequence select="xs:integer(sum(root(current())//*[. &lt;&lt; current()]/@count))"/>
+                </xsl:when>
+                <xsl:when test="$level le $cFigureGroupingLevelMax">
+                    <!-- Figure number always starts from 1. -->
+                    <xsl:sequence select="0"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <!-- Count figure number with grouping topicref considering $cFigureGroupingLevelMax -->
+                    <xsl:variable name="countTragetElem" as="element()*" select="root(current())//*[. &lt;&lt; current()] except root(current())//*[. &lt;&lt; $countTopElem]"/>
+                    <xsl:sequence select="xs:integer(sum($countTragetElem/@count))"/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:copy>
+            <xsl:copy-of select="@*"/>
+            <xsl:attribute name="prev-count" select="string($prevCount)"/>
+            <xsl:apply-templates select="*" mode="#current"/>
+        </xsl:copy>
+    </xsl:template>
+    
+    <!-- 
+     function:    make footnote count map template
+     param:       none
+     return:      footnote count node
+     note:		
+     -->
+    <xsl:template name="makeFootnoteCount" as="element()*">
+        <xsl:apply-templates select="$map/*[contains(@class, ' map/topicref ')]" mode="MODE_FOOTNOTE_COUNT"/>
+    </xsl:template>
+    
+    <xsl:template match="*[contains(@class, ' map/topicref ')]" mode="MODE_FOOTNOTE_COUNT" as="element()*">
+        <xsl:variable name="topicRef" as="element()" select="."/>
+        <xsl:variable name="targetTopic" as="element()?" select="ahf:getTopicFromTopicRef($topicRef)"/>
+        <xsl:variable name="figureCount" as="xs:integer">
+            <xsl:choose>
+                <xsl:when test="exists($targetTopic)">
+                    <xsl:variable name="footnotes" as="element()*" select="$targetTopic//*[contains(@class,' topic/fn ')][not(contains(@class,' pr-d/synnote '))][not(@callout)]"/>
+                    <xsl:sequence select="count($footnotes)"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:sequence select="0"/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:variable name="topicId" as="xs:string">
+            <xsl:choose>
+                <xsl:when test="exists($targetTopic)">
+                    <xsl:call-template name="ahf:generateId">
+                        <xsl:with-param name="prmElement" select="$targetTopic"/>
+                        <xsl:with-param name="prmTopicRef" tunnel="yes" select="$topicRef"/>
+                    </xsl:call-template>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:call-template name="ahf:generateId">
+                        <xsl:with-param name="prmElement" select="$topicRef"/>
+                        <xsl:with-param name="prmTopicRef" tunnel="yes" select="$topicRef"/>
+                    </xsl:call-template>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:element name="footnote-count">
+            <xsl:attribute name="id" select="$topicId"/>
+            <xsl:attribute name="count" select="$figureCount"/>
+            <xsl:copy-of select="@class"/>
+            <xsl:apply-templates select="*[contains(@class, ' map/topicref ')]" mode="#current"/>
+        </xsl:element>
+    </xsl:template>
+    
+    <!-- 
+     function:    make footnote numbering map template
+     param:       none
+     return:      footnote start count nodes
+     note:        none
+     -->
+    <xsl:template name="makeFootnoteStartCount" as="element()*">
+        <xsl:apply-templates select="$footnoteCountMap/*" mode="MODE_FOOTNOTE_START_COUNT"/>
+    </xsl:template>
+    
+    <xsl:template match="footnote-count" mode="MODE_FOOTNOTE_START_COUNT" as="element()">
+        <xsl:variable name="level" as="xs:integer" select="count(ancestor-or-self::*)"/>
+        <xsl:variable name="countTopElem" as="element()?" select="(ancestor-or-self::*)[position() eq $cFootnoteGroupingLevelMax]"/>
+        <xsl:variable name="prevCount" as="xs:integer">
+            <xsl:choose>
+                <xsl:when test="$cFootnoteGroupingLevelMax eq 0">
+                    <!-- Figure number is not grouped. -->
+                    <xsl:sequence select="xs:integer(sum(root(current())//*[. &lt;&lt; current()]/@count))"/>
+                </xsl:when>
+                <xsl:when test="$level le $cFootnoteGroupingLevelMax">
+                    <!-- Figure number always starts from 1. -->
+                    <xsl:sequence select="0"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <!-- Count figure number with grouping topicref considering $cFigureGroupingLevelMax -->
+                    <xsl:variable name="countTragetElem" as="element()*" select="root(current())//*[. &lt;&lt; current()] except root(current())//*[. &lt;&lt; $countTopElem]"/>
+                    <xsl:sequence select="xs:integer(sum($countTragetElem/@count))"/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:copy>
+            <xsl:copy-of select="@*"/>
+            <xsl:attribute name="prev-count" select="string($prevCount)"/>
+            <xsl:apply-templates select="*" mode="#current"/>
+        </xsl:copy>
+    </xsl:template>
+    
+    <!-- 
+     function:    dump tableCountMap, tableNumberingMap template
+     param:       none
+     return:      dump result
+     note:        none
      -->
     <xsl:template name="dumpTableMap">
-        <xsl:for-each select="$tableCountMap/*">
-            <xsl:message>[dumpTableMap] no=<xsl:value-of select="position()"/> level=<xsl:value-of select="@level"/> id=<xsl:value-of select="@id"/> count=<xsl:value-of select="@count"/> isfronmatter=<xsl:value-of select="@isfrontmatter"/> isbackmatter=<xsl:value-of select="@isbackmatter"/> istoc=<xsl:value-of select="@istoc"/></xsl:message>
-        </xsl:for-each>
-        <xsl:message>********************************************************************************</xsl:message>
-        <xsl:for-each select="$tableNumberingMap/*">
-            <xsl:message>[dumpTableMap] no=<xsl:value-of select="position()"/> level=<xsl:value-of select="@level"/> id=<xsl:value-of select="@id"/> count=<xsl:value-of select="@count"/></xsl:message>
-        </xsl:for-each>
+        <xsl:result-document href="tableCountMap.xml" method="xml" encoding="UTF-8" indent="yes">
+            <xsl:copy-of select="$tableCountMap"/>
+        </xsl:result-document>
+        <xsl:result-document href="tableNumberingMap.xml" method="xml" encoding="UTF-8" indent="yes">
+            <xsl:copy-of select="$tableNumberingMap"/>
+        </xsl:result-document>
     </xsl:template>
     
     <!-- 
-     function:	dump figureCountMap, figureNumberingMap template
-     param:		none
-     return:	dump result
-     note:		none
+     function:     dump figureCountMap, figureNumberingMap template
+     param:        none
+     return:       dump result
+     note:         none
      -->
     <xsl:template name="dumpFigureMap">
-        <xsl:for-each select="$figureCountMap/*">
-            <xsl:message>[dumpFigureMap] no=<xsl:value-of select="position()"/> level=<xsl:value-of select="@level"/> id=<xsl:value-of select="@id"/> count=<xsl:value-of select="@count"/> isfronmatter=<xsl:value-of select="@isfrontmatter"/> isbackmatter=<xsl:value-of select="@isbackmatter"/> istoc=<xsl:value-of select="@istoc"/></xsl:message>
-        </xsl:for-each>
-        <xsl:message>********************************************************************************</xsl:message>
-        <xsl:for-each select="$figureNumberingMap/*">
-            <xsl:message>[dumpFigureMap] no=<xsl:value-of select="position()"/> level=<xsl:value-of select="@level"/> id=<xsl:value-of select="@id"/> count=<xsl:value-of select="@count"/></xsl:message>
-        </xsl:for-each>
+        <xsl:result-document href="figureCountMap.xml" method="xml" encoding="UTF-8" indent="yes">
+            <xsl:copy-of select="$figureCountMap"/>
+        </xsl:result-document>
+        <xsl:result-document href="figureNumberingMap.xml" method="xml" encoding="UTF-8" indent="yes">
+            <xsl:copy-of select="$figureNumberingMap"/>
+        </xsl:result-document>
     </xsl:template>
     
     <!-- 
-     function:	dump footnoteCountMap, footnoteNumberingMap template
-     param:		none
-     return:	dump result
-     note:		none
+     function:    dump footnoteCountMap, footnoteNumberingMap template
+     param:       none
+     return:      dump result
+     note:        none
      -->
     <xsl:template name="dumpFootnoteMap">
-        <xsl:for-each select="$footnoteCountMap/*">
-            <xsl:message>[dumpFootnoteMap] no=<xsl:value-of select="position()"/> level=<xsl:value-of select="@level"/> id=<xsl:value-of select="@id"/> count=<xsl:value-of select="@count"/> isfronmatter=<xsl:value-of select="@isfrontmatter"/> isbackmatter=<xsl:value-of select="@isbackmatter"/> istoc=<xsl:value-of select="@istoc"/></xsl:message>
-        </xsl:for-each>
-        <xsl:message>********************************************************************************</xsl:message>
-        <xsl:for-each select="$footnoteNumberingMap/*">
-            <xsl:message>[dumpFootnoteMap] no=<xsl:value-of select="position()"/> level=<xsl:value-of select="@level"/> id=<xsl:value-of select="@id"/> count=<xsl:value-of select="@count"/></xsl:message>
-        </xsl:for-each>
+        <xsl:result-document href="footnoteCountMap.xml" method="xml" encoding="UTF-8" indent="yes">
+            <xsl:copy-of select="$footnoteCountMap"/>
+        </xsl:result-document>
+        <xsl:result-document href="footnoteNumberingMap.xml" method="xml" encoding="UTF-8" indent="yes">
+            <xsl:copy-of select="$footnoteNumberingMap"/>
+        </xsl:result-document>
     </xsl:template>
     
 </xsl:stylesheet>
