@@ -35,21 +35,35 @@ E-mail : info@antennahouse.com
     <!-- Normal topicref -->
     <xsl:variable name="normalTopicRefs" as="element()*" select="$allTopicRefs except $noPrintTopicRefs"/>
     
+    <!-- @href of noraml topicref -->
+    <xsl:variable name="normalHrefs" as="xs:string*">
+        <xsl:for-each select="$normalTopicRefs">
+            <xsl:sequence select="string(@href)"/>
+        </xsl:for-each>
+    </xsl:variable>
+
     <!-- @href of topicref that has @print="no"-->
     <xsl:variable name="noPrintHrefs" as="xs:string*">
         <xsl:for-each select="$noPrintTopicRefs">
-            <xsl:if test="exists(@href)">
-                <xsl:sequence select="string(@href)"/>
+            <xsl:variable name="noPrintTopicRef" as="element()" select="."/>
+            <xsl:variable name="href" as="xs:string" select="string($noPrintTopicRef/@href)"/>
+            <xsl:if test="exists($href) and empty($normalHrefs[. eq $href])">
+                <xsl:sequence select="$href"/>
             </xsl:if>
         </xsl:for-each>
     </xsl:variable>
     
-    <!-- @href of noraml topicref -->
-    <xsl:variable name="normalHrefs" as="xs:string*">
-        <xsl:for-each select="$normalTopicRefs">
-            <xsl:if test="exists(@href)">
-                <xsl:sequence select="string(@href)"/>
-            </xsl:if>
+    <!-- topic/@id that is pointed from topicref that has @print="no"-->
+    <xsl:variable name="noPrintTopicIds" as="xs:string*">
+        <xsl:for-each select="$noPrintHrefs">
+            <xsl:sequence select="substring-after(.,'#')"/>
+        </xsl:for-each>
+    </xsl:variable>
+    
+    <!-- Normal topic/@id -->
+    <xsl:variable name="normalTopicIds" as="xs:string*">
+        <xsl:for-each select="$normalHrefs">
+            <xsl:sequence select="substring-after(.,'#')"/>
         </xsl:for-each>
     </xsl:variable>
 
@@ -64,33 +78,69 @@ E-mail : info@antennahouse.com
         </xsl:for-each>
     </xsl:variable>
     
-    <xsl:variable name="hasDupicateTopicRefs" as="xs:boolean" select="exists($duplicateTopicRefs)"/>
+    <!-- Duplicate topic/@id -->
+    <xsl:variable name="duplicateTopicIds" as="xs:string*">
+        <xsl:for-each select="$duplicateTopicRefs">
+            <xsl:variable name="href" as="xs:string" select="substring-after(./@href,'#')"/>
+            <xsl:sequence select="$href"/>
+        </xsl:for-each>
+    </xsl:variable>
 
     <!-- topic access key -->
     <xsl:key name="topicById"  match="/*//*[contains(@class, ' topic/topic')]" use="@id"/>
 
     <!-- 
-     function:	root element template
-     param:		none
-     return:	copied result
-     note:      Clone multiplly referenced topic using another topic/@id
+     function:    root element template
+     param:       none
+     return:      copied result
+     note:        Clone multiplly referenced topic using another topic/@id
      -->
     <xsl:template match="dita-merge">
         <xsl:copy>
             <xsl:copy-of select="@*"/>
-            <xsl:apply-templates/>
-            <xsl:if test="$hasDupicateTopicRefs">
-                <xsl:call-template name="outputDuplicateTopic"/>
-            </xsl:if>
+            <xsl:apply-templates select="$map"/>
+            <xsl:call-template name="outputTopic"/>
         </xsl:copy>
     </xsl:template>
     
     <!-- 
-     function:	General template for all element
-     param:		none
-     return:	copied result
-     note:		Add @chage-bar-style if it exists.
-                Add .ditaval flagging style as @fo:prop
+     function:    topic output template
+     param:       none
+     return:      copied result
+     note:        Clone multiply referenced topic using another topic/@id
+     -->
+    <xsl:template name="outputTopic">
+        <xsl:for-each select="$normalTopicIds">
+            <xsl:variable name="topicId" as="xs:string" select="."/>
+            <xsl:if test="string($topicId)">
+                <xsl:variable name="position" as="xs:integer" select="position()"/>
+                <xsl:variable name="topicref" as="element()" select="$normalTopicRefs[$position]"/>
+                <xsl:variable name="prevTopicIds" as="xs:string*" select="subsequence($normalTopicIds,1,$position - 1)"/>
+                <xsl:variable name="duplicateCount" as="xs:integer" select="count($prevTopicIds[. eq $topicId])"/>
+                <xsl:variable name="topic" as="element()?" select="key('topicById',$topicId,$root)"/>
+                <xsl:choose>
+                    <xsl:when test="exists($topic)">
+                        <xsl:message select="'$duplicateCount=',$duplicateCount"/>
+                        <xsl:apply-templates select="$topic">
+                            <xsl:with-param name="prmTopicRefNo" tunnel="yes" select="$duplicateCount"/>
+                        </xsl:apply-templates>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:call-template name="warningContinue">
+                            <xsl:with-param name="prmMes" select="ahf:replace($stMes1009,('%href','%xtrc'),(concat('#',$topicId),string($topicref/@xtrc)))"/>
+                        </xsl:call-template>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:if>
+        </xsl:for-each>
+    </xsl:template>
+    
+    <!-- 
+     function:    General template for all element
+     param:       none
+     return:      copied result
+     note:        Add @chage-bar-style if it exists.
+                  Add .ditaval flagging style as @fo:prop
      -->
     <xsl:template match="*">
         <xsl:param name="prmDitaValFlagStyle" tunnel="yes" required="no" select="''"/>
@@ -111,44 +161,44 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <!-- 
-     function:	topicgroup
-     param:		none
-     return:	descendant element
-     note:		An topicgroup is redundant for document structure.
-                It sometimes bothers counting the nesting level of topicref.
+     function:    topicgroup
+     param:       none
+     return:      descendant element
+     note:        An topicgroup is redundant for document structure.
+                  It sometimes bothers counting the nesting level of topicref.
      -->
     <xsl:template match="*[contains(@class, ' mapgroup-d/topicgroup ')]" priority="5">
         <xsl:apply-templates/>
     </xsl:template>
     
     <!--
-     function:	topicref
-     param:		none
-     return:	self and descendant element or none
-     note:		if @print="no", ignore it.
+     function:    topicref
+     param:       none
+     return:      self and descendant element or none
+     note:        if @print="no", ignore it.
      -->
     <xsl:template match="*[contains(@class,' map/topicref ')]" as="element()?">
         <xsl:variable name="topicRef" as="element()" select="."/>
         <xsl:choose>
-    		<xsl:when test="string(@print) eq 'no'" >
-    		    <xsl:for-each select="descendant-or-self::*[contains(@class,' map/topicref ')]">
-    		        <xsl:if test="exists(@href)">
-    		            <xsl:call-template name="warningContinue">
-    		                <xsl:with-param name="prmMes" select="ahf:replace($stMes1001,('%href','%ohref'),(string(@href),string(@ohref)))"/>
-    		            </xsl:call-template>
-    		        </xsl:if>
-    		    </xsl:for-each>
-    		</xsl:when>
-    	    <xsl:when test="empty(ancestor::*[contains(@class,' map/reltable ')]) and $duplicateTopicRefs[. is $topicRef]">
-    	        <xsl:variable name="href" as="xs:string" select="string(@href)"/>
-    	        <xsl:variable name="duplicateCount" as="xs:integer" select="count($topicRef|$allTopicRefs[. &lt;&lt; $topicRef][string(@href) eq $href])"/>
+            <xsl:when test="string(@print) eq 'no'" >
+                <xsl:for-each select="descendant-or-self::*[contains(@class,' map/topicref ')]">
+                    <xsl:if test="exists(@href)">
+                        <xsl:call-template name="warningContinue">
+                            <xsl:with-param name="prmMes" select="ahf:replace($stMes1001,('%href','%ohref'),(string(@href),string(@ohref)))"/>
+                        </xsl:call-template>
+                    </xsl:if>
+                </xsl:for-each>
+            </xsl:when>
+            <xsl:when test="empty(ancestor::*[contains(@class,' map/reltable ')]) and $duplicateTopicRefs[. is $topicRef]">
+                <xsl:variable name="href" as="xs:string" select="string(@href)"/>
+                <xsl:variable name="duplicateCount" as="xs:integer" select="count($allTopicRefs[. &lt;&lt; $topicRef][string(@href) eq $href])"/>
                 <xsl:copy>
                     <xsl:attribute name="href" select="if ($duplicateCount gt 0) then concat($href,'_',string($duplicateCount)) else $href"/>
                     <xsl:copy-of select="@* except @href"/>
                     <xsl:apply-templates/>
                 </xsl:copy>
-    	    </xsl:when>
-    	    <xsl:otherwise>
+            </xsl:when>
+            <xsl:otherwise>
                 <xsl:copy>
                     <xsl:copy-of select="@*"/>
                     <xsl:apply-templates/>
@@ -156,46 +206,12 @@ E-mail : info@antennahouse.com
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
-
-    <!-- template for topicref/@href is limited for create new value -->
-    <!--xsl:template match="*[contains(@class,' map/topicref ')]/@href" priority="5" as="attribute()">
-        <xsl:param name="prmTopicRefNo" required="no" as="xs:integer" select="0"/>
-        <xsl:variable name="href" as="xs:string" select="string(.)"/>
-        <xsl:attribute name="href" select="if ($prmTopicRefNo gt 0) then concat($href,'_',string($prmTopicRefNo)) else $href"/>
-    </xsl:template-->
-
-    <!--
-     function:	output duplicate topic changing topic/@id
-     param:		none
-     return:	self and descendant element 
-     note:		
-     -->
-    <xsl:template name="outputDuplicateTopic">
-        <xsl:for-each select="$duplicateTopicRefs">
-            <xsl:variable name="topicRef" as="element()" select="."/>
-            <xsl:variable name="href" as="xs:string" select="string(@href)"/>
-            <xsl:variable name="duplicateCount" as="xs:integer" select="count($topicRef|$allTopicRefs[. &lt;&lt; $topicRef][string(@href) eq $href])"/>
-            <xsl:variable name="topicContent" as="element()?" select="ahf:getTopicFromTopicRef($topicRef)"/>
-            <xsl:choose>
-                <xsl:when test="empty($topicContent)">
-                    <xsl:call-template name="warningContinue">
-                        <xsl:with-param name="prmMes" select="ahf:replace($stMes1009,('%href','%xtrf'),(string(@href),string(@xtrf)))"/>
-                    </xsl:call-template>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:apply-templates select="$topicContent">
-                        <xsl:with-param name="prmTopicRefNo" tunnel="yes" select="$duplicateCount"/>
-                    </xsl:apply-templates>
-                </xsl:otherwise>
-            </xsl:choose>
-        </xsl:for-each>
-    </xsl:template>
     
     <!-- 
-     function:	Get topic from topicref 
-     param:		prmTopicRef
-     return:	xs:element?
-     note:		
+     function:    Get topic from topicref 
+     param:       prmTopicRef
+     return:      element()?
+     note:        
      -->
     <xsl:function name="ahf:getTopicFromTopicRef" as="element()?">
         <xsl:param name="prmTopicRef" as="element()"/>
@@ -205,45 +221,36 @@ E-mail : info@antennahouse.com
     </xsl:function>
 
     <!--
-     function:	topic
-     param:		prmDitaValFlagStyle, prmDitaValChangeBarStyle
-     return:	self and descendant element or none
-     note:		if @id is pointed from the topicref that has print="no", ignore it.
-                SPEC: If this template is called from outputDuplicateTopic ($prmTopicRefNo > 0),
-                      change topic/@id according to referenced number.
-                      2019-01-13 t.makita
+     function:    topic
+     param:       prmDitaValFlagStyle, prmDitaValChangeBarStyle
+     return:      self and descendant element or none
+     note:        if @id is pointed from the topicref that has print="no", ignore it.
+                  SPEC: If $prmTopicRefNo > 0,
+                        change topic/@id according to referenced number.
+                        2019-01-13 t.makita
      -->
     <xsl:template match="*[contains(@class,' topic/topic ')]">
-        <xsl:param name="prmTopicRefNo" tunnel="yes" required="no" as="xs:integer" select="0"/>
+        <xsl:param name="prmTopicRefNo" tunnel="yes" required="yes" as="xs:integer"/>
         <xsl:param name="prmDitaValFlagStyle" tunnel="yes" required="no" select="''"/>
         <xsl:param name="prmDitaValChangeBarStyle" tunnel="yes" required="no" select="''"/>
-        <xsl:variable name="id" as="xs:string" select="concat('#',string(@id))"/>
-        <xsl:choose>
-            <xsl:when test="exists(index-of($noPrintHrefs,$id)) and empty(index-of($normalHrefs,$id))">
-                <xsl:call-template name="warningContinue">
-                    <xsl:with-param name="prmMes" select="ahf:replace($stMes1002,('%id','%xtrf'),(string(@id),string(@xtrf)))"/>
-                </xsl:call-template>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:copy>
-                    <xsl:attribute name="id" select="if ($prmTopicRefNo gt 0) then concat(string(@id),'_',string($prmTopicRefNo)) else string(@id)"/>
-                    <xsl:if test="exists(@oid)">
-                        <xsl:attribute name="oid" select="if ($prmTopicRefNo gt 0) then concat(string(@oid),'_',string($prmTopicRefNo)) else string(@oid)"/>
-                    </xsl:if>
-                    <xsl:copy-of select="@* except (@id | @oid)"/>
-                    <xsl:if test="string($prmDitaValChangeBarStyle)">
-                        <xsl:attribute name="change-bar-style" select="$prmDitaValChangeBarStyle"/>
-                    </xsl:if>
-                    <xsl:if test="string($prmDitaValFlagStyle)">
-                        <xsl:copy-of select="ahf:getMergedDitaValFlagStyleAttr(.,$prmDitaValFlagStyle)"/>
-                    </xsl:if>
-                    <xsl:apply-templates>
-                        <xsl:with-param name="prmDitaValFlagStyle" tunnel="yes" select="''"/>
-                        <xsl:with-param name="prmDitaValChangeBarStyle" tunnel="yes" select="''"/>
-                    </xsl:apply-templates>
-                </xsl:copy>
-            </xsl:otherwise>
-        </xsl:choose>
+        <xsl:variable name="id" as="xs:string" select="string(@id)"/>
+        <xsl:copy>
+            <xsl:attribute name="id" select="if ($prmTopicRefNo gt 0) then concat(string(@id),'_',string($prmTopicRefNo)) else string(@id)"/>
+            <xsl:if test="exists(@oid)">
+                <xsl:attribute name="oid" select="if ($prmTopicRefNo gt 0) then concat(string(@oid),'_',string($prmTopicRefNo)) else string(@oid)"/>
+            </xsl:if>
+            <xsl:copy-of select="@* except (@id | @oid)"/>
+            <xsl:if test="string($prmDitaValChangeBarStyle)">
+                <xsl:attribute name="change-bar-style" select="$prmDitaValChangeBarStyle"/>
+            </xsl:if>
+            <xsl:if test="string($prmDitaValFlagStyle)">
+                <xsl:copy-of select="ahf:getMergedDitaValFlagStyleAttr(.,$prmDitaValFlagStyle)"/>
+            </xsl:if>
+            <xsl:apply-templates>
+                <xsl:with-param name="prmDitaValFlagStyle" tunnel="yes" select="''"/>
+                <xsl:with-param name="prmDitaValChangeBarStyle" tunnel="yes" select="''"/>
+            </xsl:apply-templates>
+        </xsl:copy>
     </xsl:template>
 
     <!-- template for topic/@id,@oid -->
@@ -260,10 +267,10 @@ E-mail : info@antennahouse.com
     </xsl:template>
 
     <!--
-     function:	link
-     param:		none
-     return:	self and descendant element or none
-     note:		if link@href points to the topicref that has print="no", ignore it.
+     function:    link
+     param:       none
+     return:      self and descendant element or none
+     note:        if link@href points to the topicref that has print="no", ignore it.
      -->
     <xsl:template match="*[contains(@class,' topic/link ')]">
         <xsl:param name="prmDitaValFlagStyle" tunnel="yes" required="no" select="''"/>
@@ -294,10 +301,10 @@ E-mail : info@antennahouse.com
     </xsl:template>
 
     <!--
-     function:	xref
-     param:		none
-     return:	self and descendant element or none
-     note:		if xref@href points to the topic that has print="no", output warning message.
+     function:     xref
+     param:        none
+     return:       self and descendant element or none
+     note:         if xref@href points to the topic that has print="no", output warning message.
      -->
     <xsl:template match="*[contains(@class,' topic/xref ')][starts-with(string(@href),'#')]">
         <xsl:param name="prmDitaValFlagStyle" tunnel="yes" required="no" select="''"/>
@@ -393,54 +400,54 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <!-- 
-     function:	empty strow template
-     param:		none
-     return:	empty
-     note:		DITA DTD allows empty strow, but it is redundant.
+     function:     empty strow template
+     param:        none
+     return:       empty
+     note:         DITA DTD allows empty strow, but it is redundant.
      -->
     <xsl:template match="*[contains(@class,' topic/strow ')][empty(*[contains(@class,' topic/stentry ')])]"/>
     
     <!-- 
-     function:	comment template
-     param:		none
-     return:	comment 
-     note:		none
+     function:     comment template
+     param:        none
+     return:       comment 
+     note:         none
      -->
     <xsl:template match="comment()">
         <xsl:copy/>
     </xsl:template>
     
     <!-- 
-     function:	processing-instruction template
-     param:		none
-     return:	processing-instruction
-     note:		
+     function:     processing-instruction template
+     param:        none
+     return:       processing-instruction
+     note:        
      -->
     <xsl:template match="processing-instruction()">
         <xsl:copy/>
     </xsl:template>
 
     <!-- 
-     function:	required-cleanup template
-     param:		none
-     return:	none or itself 
-     note:		If not output required-cleanup, remove it at this template.
+     function:    required-cleanup template
+     param:       none
+     return:      none or itself 
+     note:        If not output required-cleanup, remove it at this template.
      -->
     <xsl:template match="*[contains(@class,' topic/required-cleanup ')][not($pOutputRequiredCleanup)]"/>
     
     <!-- 
-     function:	draft-comment template
-     param:		none
-     return:	none or itself 
-     note:		If not output draft-comment, remove it at this template.
+     function:    draft-comment template
+     param:       none
+     return:      none or itself 
+     note:        If not output draft-comment, remove it at this template.
      -->
     <xsl:template match="*[contains(@class,' topic/draft-comment ')][not($pOutputDraftComment)]"/>
 
     <!-- 
-     function:	Check $prmAttr has $prmValue
-     param:		prmAttr, prmValue
-     return:	xs:boolean 
-     note:		Return true() if $prmAttr attribute has $prmValue
+     function:    Check $prmAttr has $prmValue
+     param:       prmAttr, prmValue
+     return:      xs:boolean 
+     note:        Return true() if $prmAttr attribute has $prmValue
      -->
     <xsl:function name="ahf:HasAttr" as="xs:boolean">
         <xsl:param name="prmAttr" as="attribute()?"/>
