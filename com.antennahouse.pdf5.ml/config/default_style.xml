@@ -2707,7 +2707,7 @@ URL : http://www.antennahouse.com/
                 <attribute name="white-space-collapse">false</attribute>
                 <attribute name="wrap-option">wrap</attribute>
                 <attribute name="background-color">rgb(217,217,217)</attribute>
-                <attribute name="keep-together">always</attribute>
+                <attribute name="keep-together.within-column">always</attribute>
             </attribute-set>
 
         </userinterface-elements-attribute>
