@@ -120,7 +120,6 @@ E-mail : info@antennahouse.com
                 <xsl:variable name="topic" as="element()?" select="key('topicById',$topicId,$root)"/>
                 <xsl:choose>
                     <xsl:when test="exists($topic)">
-                        <xsl:message select="'$duplicateCount=',$duplicateCount"/>
                         <xsl:apply-templates select="$topic">
                             <xsl:with-param name="prmTopicRefNo" tunnel="yes" select="$duplicateCount"/>
                         </xsl:apply-templates>
