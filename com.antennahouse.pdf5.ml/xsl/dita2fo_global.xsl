@@ -115,8 +115,8 @@ E-mail : info@antennahouse.com
     <!-- Top level element -->
     <xsl:variable name="root" select="/*[1]" as="element()"/>
     <xsl:variable name="map" select="$root/*[contains(@class,' map/map ')][1]" as="element()"/>
-    <xsl:variable name="indexList" as="element()?" select="$map//*[contains(@class,' bookmap/indexlist ')][empty(@href)][1]"/>
-    <xsl:variable name="glossaryList" as="element()?" select="$map//*[contains(@class,' bookmap/glossarylist ')][empty(@href)][child::*[contains(@class, ' glossentry/glossentry ')]][$pSortGlossEntry][1]"/>
+    <xsl:variable name="indexList" as="element()?" select="($map//*[contains(@class,' bookmap/indexlist ')][empty(@href)])[last()]"/>
+    <xsl:variable name="glossaryList" as="element()?" select="($map//*[contains(@class,' bookmap/glossarylist ')][empty(@href)][child::*[contains(@class, ' glossentry/glossentry ')]][$pSortGlossEntry])[last()]"/>
     <!-- $lastTopicRef is used to generate fo:index-range-begin,fo:index-range-end, @index-key from topicref/topicmeta/keywords/indexterm
          Fixed the bug that $lastTopicRef is assigned to backmatter.
          2014-11-10 t.makita
