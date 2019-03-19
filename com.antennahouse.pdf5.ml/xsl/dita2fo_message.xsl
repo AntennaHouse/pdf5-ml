@@ -450,6 +450,14 @@ URL : http://www.antennahouse.co.jp/
     <xsl:variable name="stMes1602">
         <xsl:text>[makeFigureCount 1602F] topicref/@href target does not found. href='%href' file=%file</xsl:text>
     </xsl:variable>
+
+    <xsl:variable name="stMes1604">
+        <xsl:text>[getTablePreviousAmount 1604F] topic target does not found in $tableNumberingMap. id='%id'</xsl:text>
+    </xsl:variable>
+
+    <xsl:variable name="stMes1606">
+        <xsl:text>[getFigPreviousAmount 1606F] topic target does not found in $figureNumberingMap. id='%id'</xsl:text>
+    </xsl:variable>
     
 
 </xsl:stylesheet>
