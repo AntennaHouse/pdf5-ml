@@ -1514,15 +1514,13 @@ E-mail : info@antennahouse.com
             </xsl:choose>
         </xsl:variable>
         
-        <xsl:variable name="topicNode" select="$prmTable/ancestor::*[contains(@class, ' topic/topic ')][position() eq last()]"/>
+        <xsl:variable name="topic" select="$prmTable/ancestor::*[contains(@class, ' topic/topic ')][position() eq last()]"/>
         
         <xsl:variable name="tablePreviousAmount" as="xs:integer">
-            <xsl:variable name="topicNodeId" select="ahf:generateId($topicNode,$prmTopicRef)"/>
-            <xsl:sequence select="$tableNumberingMap/descendant::*[string(@id) eq $topicNodeId]/@prev-count"/>
+            <xsl:sequence select="ahf:getTablePreviousAmount($topic,$prmTopicRef)"/>
         </xsl:variable>
         
         <xsl:variable name="tableCurrentAmount"  as="xs:integer">
-            <xsl:variable name="topic" as="element()" select="$prmTable/ancestor::*[contains(@class,' topic/topic ')][last()]"/>
             <xsl:sequence select="count($topic//*[contains(@class,' topic/table ')][child::*[contains(@class, ' topic/title ')]][. &lt;&lt; $prmTable]|$prmTable)"/>
         </xsl:variable>
         

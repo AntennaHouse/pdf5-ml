@@ -1274,8 +1274,7 @@ E-mail : info@antennahouse.com
         <xsl:variable name="topic" as="element()" select="$prmFig/ancestor::*[contains(@class, ' topic/topic ')][position()=last()]"/>
         
         <xsl:variable name="figPreviousAmount" as="xs:integer">
-            <xsl:variable name="topicId" as="xs:string" select="ahf:generateId($topic,$prmTopicRef)"/>
-            <xsl:sequence select="$figureNumberingMap/descendant::*[string(@id) eq $topicId]/@prev-count"/>
+            <xsl:sequence select="ahf:getFigPreviousAmount($topic,$prmTopicRef)"/>
         </xsl:variable>
         
         <xsl:variable name="figCurrentAmount" as="xs:integer">

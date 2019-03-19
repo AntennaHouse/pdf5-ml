@@ -386,5 +386,53 @@ E-mail : info@antennahouse.com
             <xsl:copy-of select="$footnoteNumberingMap"/>
         </xsl:result-document>
     </xsl:template>
+
+    <!-- 
+     function:    get table previous amount
+     param:       prmTopicRef
+     return:      previous amount of table
+     note:        none
+     -->
+    <xsl:function name="ahf:getTablePreviousAmount" as="xs:integer">
+        <xsl:param name="prmTopic" as="element()"/>
+        <xsl:param name="prmTopicRef" as="element()"/>
+        <xsl:variable name="topicId" as="xs:string" select="ahf:generateId($prmTopic,$prmTopicRef)"/>
+        <xsl:variable name="prevAmount" as="xs:string" select="string($tableNumberingMap//*[string(@id) eq $topicId]/@prev-count)"/>
+        <xsl:choose>
+            <xsl:when test="string($prevAmount)">
+                <xsl:sequence select="xs:integer($prevAmount)"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:call-template name="warningContinue">
+                    <xsl:with-param name="prmMes" select="ahf:replace($stMes1604,('%id'),($topicId))"/>
+                </xsl:call-template>
+                <xsl:sequence select="0"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:function>
+
+    <!-- 
+     function:    get figure previous amount
+     param:       prmTopicRef
+     return:      previous amount of fig
+     note:        none
+     -->
+    <xsl:function name="ahf:getFigPreviousAmount" as="xs:integer">
+        <xsl:param name="prmTopic" as="element()"/>
+        <xsl:param name="prmTopicRef" as="element()"/>
+        <xsl:variable name="topicId" as="xs:string" select="ahf:generateId($prmTopic,$prmTopicRef)"/>
+        <xsl:variable name="prevAmount" as="xs:string" select="string($figureNumberingMap//*[string(@id) eq $topicId]/@prev-count)"/>
+        <xsl:choose>
+            <xsl:when test="string($prevAmount)">
+                <xsl:sequence select="xs:integer($prevAmount)"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:call-template name="warningContinue">
+                    <xsl:with-param name="prmMes" select="ahf:replace($stMes1606,('%id'),($topicId))"/>
+                </xsl:call-template>
+                <xsl:sequence select="0"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:function>
     
 </xsl:stylesheet>
