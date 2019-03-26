@@ -362,7 +362,12 @@ E-mail : info@antennahouse.com
         </fo:table-and-caption>
         <xsl:if test="not($pDisplayFnAtEndOfTopic)">
             <xsl:call-template name="makeFootNote">
-                <xsl:with-param name="prmElement"  select="$tgroup"/>
+                <xsl:with-param name="prmElement" as="element()+">
+                    <xsl:if test="$tgroup is $tgroup/parent::*[contains(@class,' topic/table ')]/*[contains(@class,' topic/tgroup ')][1]">
+                        <xsl:sequence select="$tgroup/parent::*[contains(@class,' topic/table ')]/*[contains(@class,' topic/desc ')]"/>
+                    </xsl:if>
+                    <xsl:sequence select="$tgroup"/>
+                </xsl:with-param>
             </xsl:call-template>
         </xsl:if>
     </xsl:template>
