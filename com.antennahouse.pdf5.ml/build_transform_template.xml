@@ -163,6 +163,8 @@
                 if="exclude.auto.numbering.from.equation.figure"/>
             <param name="PRM_ASSUME_EQUATION_NUMBER_AS_AUTO" expression="${assume.equation.number.as.auto}"
                 if="assume.equation.number.as.auto"/>
+            <param name="PRM_DISPLAY_FN_AT_END_OF_TOPIC" expression="${display.fn.at.end.of.topic}"
+                if="display.fn.at.end.of.topic"/>
             <param name="PRM_USE_I18N_INDEX_LIB" expression="${use.i18n.index.lib}"
                 if="use.i18n.index.lib"/>
             <param name="PRM_MAP_DIR_URL" expression="${user.input.dir.url}" if="user.input.dir.url"/>
@@ -222,6 +224,7 @@
             <arg line="'PRM_NUMBER_EQUATION_BLOCK_UNCONDITIONALLY=${number.equation.block.unconditionally}'"/>
             <arg line="'PRM_EXCLUDE_AUTO_NUMBERING_FROM_EQUATION_FIGURE=${exclude.auto.numbering.from.equation.figure}'"/>
             <arg line="'PRM_ASSUME_EQUATION_NUMBER_AS_AUTO=${assume.equation.number.as.auto}'"/>
+            <arg line="'PRM_DISPLAY_FN_AT_END_OF_TOPIC=${display.fn.at.end.of.topic}'"/>
             <arg line='"PRM_USE_I18N_INDEX_LIB=${use.i18n.index.lib}"'/>
             <arg line='"PRM_MAP_DIR_URL=${user.input.dir.url}"'/>
             <arg line='"PRM_OUTPUT_DIR_URL=${output.dir.url}"'/>
