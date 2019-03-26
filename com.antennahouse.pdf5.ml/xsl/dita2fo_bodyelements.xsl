@@ -997,15 +997,42 @@ E-mail : info@antennahouse.com
                 <xsl:variable name="fnNumber" select="$fnPreviousAmount + $fnCurrentAmount" as="xs:integer"/>
                 <xsl:sequence select="concat($footnoteTagPrefix,string($fnNumber),$footnoteTagSuffix)"/>
             </xsl:when>
-            <xsl:otherwise><!-- New implementation 2012-04-04 t.makita -->
+            <xsl:otherwise>
+                <!-- THe order to get parent of footnote:
+                     1. glossdef
+                     2. table (tgroup, desc)
+                     3. simpletable
+                     4. lists (ol, ul, dl)
+                 -->
                 <xsl:variable name="ancestorTopic"  select="$prmFn/ancestor::*[contains(@class, ' topic/topic ')][1]" as="element()"/>
-                <xsl:variable name="parentElements" select="$prmFn/ancestor::*[contains(@class, ' topic/table ')][. &gt;&gt; $ancestorTopic][position()=last()] | 
-                    $prmFn/ancestor::*[contains(@class, ' topic/simpletable ')][. &gt;&gt; $ancestorTopic][position()=last()] | 
-                    $prmFn/ancestor::*[contains(@class, ' topic/ul ')][. &gt;&gt; $ancestorTopic][position()=last()] | 
-                    $prmFn/ancestor::*[contains(@class, ' topic/ol ')][. &gt;&gt; $ancestorTopic][position()=last()] |
-                    $prmFn/ancestor::*[contains(@class, ' topic/dl ')][. &gt;&gt; $ancestorTopic][position()=last()] |
-                    $prmFn/ancestor::*[contains(@class, ' glossentry/glossdef ')]"
-                    as="element()*"/>
+                <xsl:variable name="parentElements" as="element()*">
+                    <xsl:choose>
+                        <xsl:when test="$prmFn/ancestor::*[contains(@class, ' glossentry/glossdef ')]">
+                            <xsl:sequence select="$prmFn/ancestor::*[contains(@class, ' glossentry/glossdef ')][1]"/>
+                        </xsl:when>
+                        <xsl:when test="$prmFn/ancestor::*[contains(@class, ' topic/tgroup ')][. &gt;&gt; $ancestorTopic][position() eq last()]">
+                            <xsl:variable name="tgroup" as="element()" select="$prmFn/ancestor::*[contains(@class, ' topic/tgroup ')][. &gt;&gt; $ancestorTopic][position() eq last()]"/>
+                            <xsl:if test="$tgroup is $tgroup/parent::*[contains(@class,' topic/table ')]/*[contains(@class, ' topic/tgroup ')][1]">
+                                <xsl:sequence select="$tgroup/parent::*[contains(@class,' topic/table ')]/*[contains(@class, ' topic/desc ')]"/>
+                            </xsl:if>
+                            <xsl:sequence select="$tgroup"/>
+                        </xsl:when>
+                        <xsl:when test="$prmFn/ancestor::*[contains(@class, ' topic/desc ')][parent::*[contains(@class,' topic/table ')]][. &gt;&gt; $ancestorTopic][position() eq last()]">
+                            <xsl:variable name="desc" as="element()" select="$prmFn/ancestor::*[contains(@class, ' topic/desc ')][parent::*[contains(@class,' topic/table ')]][. &gt;&gt; $ancestorTopic][position() eq last()]"/>
+                            <xsl:sequence select="$desc"/>
+                            <xsl:sequence select="$desc/parent::*[contains(@class,' topic/table ')]/*[contains(@class,' topic/tgroup ')][1]"/>
+                        </xsl:when>
+                        <xsl:when test="$prmFn/ancestor::*[contains(@class, ' topic/simpletable ')][. &gt;&gt; $ancestorTopic][position() eq last()]">
+                            <xsl:sequence select="$prmFn/ancestor::*[contains(@class, ' topic/simpletable ')][. &gt;&gt; $ancestorTopic][position() eq last()]"/>
+                        </xsl:when>
+                        <xsl:when test="$prmFn/ancestor::*[ahf:seqContains(@class, (' topic/ul ',' topic/ol ',' topic/dl '))][. &gt;&gt; $ancestorTopic][position() eq last()]">
+                            <xsl:sequence select="$prmFn/ancestor::*[ahf:seqContains(@class, (' topic/ul ',' topic/ol ',' topic/dl '))][. &gt;&gt; $ancestorTopic][position() eq last()]"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:sequence select="()"/>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:variable>
                 <xsl:choose>
                     <xsl:when test="empty($parentElements)">
                         <!-- This case is error because <fn> does not have relevant parent element. -->
@@ -1016,13 +1043,7 @@ E-mail : info@antennahouse.com
                         <xsl:sequence select="''"/>
                     </xsl:when>
                     <xsl:otherwise>
-                        <xsl:variable name="parentElement" select="$parentElements[1]" as="element()"/>
-                        <xsl:variable name="fnNumber" as="xs:integer">
-                            <xsl:number select="$prmFn"
-                                level="any"
-                                count="*[contains(@class,' topic/fn ')][not(contains(@class,' pr-d/synnote '))][not(@callout)]"
-                                from="*[. is $parentElement]"/>
-                        </xsl:variable>
+                        <xsl:variable name="fnNumber" as="xs:integer" select="ahf:getFootnoteNumber($prmFn,$parentElements)"/>
                         <xsl:sequence select="concat($footnoteTagPrefix,string($fnNumber),$footnoteTagSuffix)"/>
                     </xsl:otherwise>
                 </xsl:choose>
@@ -1040,21 +1061,22 @@ E-mail : info@antennahouse.com
         </xsl:call-template>
     </xsl:function>
     
+    <!-- 
+        function:    Generate footnote prefix from given parent element
+        param:       prmFn, prmParentElem
+        return:      Footnote title prefix
+        note:        Used to generate prefix when outputting footonote.
+    -->
     <xsl:function name="ahf:getFootnotePrefix2" as="xs:string">
         <xsl:param name="prmFn" as="element()"/>
-        <xsl:param name="prmParentElem" as="element()"/>
+        <xsl:param name="prmParentElem" as="element()+"/>
     
         <xsl:choose>
             <xsl:when test="$prmFn/@callout">
                 <xsl:sequence select="string($prmFn/@callout)"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:variable name="fnNumber" as="xs:string">
-                    <xsl:number select="$prmFn"
-                        level="any"
-                        count="*[contains(@class,' topic/fn ')][not(contains(@class,' pr-d/synnote '))][not(@callout)]"
-                        from="*[. is $prmParentElem]"/>
-                </xsl:variable>
+                <xsl:variable name="fnNumber" as="xs:string" select="string(ahf:getFootnoteNumber($prmFn, $prmParentElem))"/>
                 <xsl:variable name="footnoteTagPrefix" as="xs:string">
                     <xsl:call-template name="getVarValueWithLang">
                         <xsl:with-param name="prmVarName" select="'Footnote_Tag_Prefix'"/>
@@ -1072,7 +1094,25 @@ E-mail : info@antennahouse.com
         </xsl:choose>
     </xsl:function>
         
-    
+    <!-- 
+        function:    Get footonote number from parent element
+        param:       prmFn, prmParentElem
+        return:      footnote number
+        note:        Sometimes $prmParentElement is composed of <desc>, <tgroup>
+    -->
+    <xsl:function name="ahf:getFootnoteNumber" as="xs:integer">
+        <xsl:param name="prmFn" as="element()"/>
+        <xsl:param name="prmParentElem" as="element()+"/>
+        <xsl:variable name="fnNumbers" as="xs:integer+">
+            <xsl:for-each select="$prmParentElem">
+                <xsl:variable name="parent" as="element()" select="."/>
+                <xsl:sequence select="count((if ($prmFn/ancestor::*[. is $parent]) then $prmFn else (),$parent//*[contains(@class,' topic/fn ')][not(contains(@class,' pr-d/synnote '))][not(@callout)][. &lt;&lt; $prmFn]))"/>
+            </xsl:for-each>
+        </xsl:variable>
+        <xsl:variable name="fnNumber" as="xs:integer" select="sum($fnNumbers)"/>
+        <xsl:sequence select="$fnNumber"/>
+    </xsl:function>
+
     <!-- 
         function:	term template
         param:	    
