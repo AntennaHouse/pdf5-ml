@@ -40,7 +40,8 @@
     <echo message="debug.index.sort.result=${debug.index.sort.result}"/>
     <echo message="skip.pdf.generation=${skip.pdf.generation}"/>
     <echo message="output.index=${output.index}"/>
-    
+    <echo message="display.fn.at.end.of.topic=${display.fn.at.end.of.topic}"/>
+      
     <echo message="ahf.dir=${ahf.dir}"/>
     <echo message="ahf.opt=${ahf.opt}"/>
     <echo message="user.input.dir.url=${user.input.dir.url}"/>

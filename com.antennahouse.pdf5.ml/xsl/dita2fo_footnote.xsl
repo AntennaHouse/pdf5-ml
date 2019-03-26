@@ -54,9 +54,9 @@ E-mail : info@antennahouse.com
                 <xsl:copy-of select="ahf:getAttributeSet('atsPostnoteLeader1')"/>
             </fo:leader>
             <fo:inline>
-                <xsl:value-of select="ahf:getVarValue('Postnote_Title')"/>
+                <xsl:copy-of select="ahf:getAttributeSet('atsPostnoteInline')"/>
                 <xsl:call-template name="getVarValueWithLangAsText">
-                    <xsl:with-param name="prmVarName" select="'atsPostnoteInline'"/>
+                    <xsl:with-param name="prmVarName" select="'Postnote_Title'"/>
                     <xsl:with-param name="prmElem" select="$prmTopicContent"/>
                 </xsl:call-template>
             </fo:inline>
