@@ -140,17 +140,25 @@ E-mail : info@antennahouse.com
                 This template outputs footnote that is descendant of $prmElement. 2012-04-03 t.makita
                 BUG-FIX: Change topic/table to topic/tgroup for table.
                          2019-03-01 t.makita
+                BUG-FIX: Change $prmElement type from element() to element()+ to include footnotes in table/desc.
+                         2019-03-26 t.makita
      -->
     <xsl:template name="makeFootNote">
-        <xsl:param name="prmElement"  required="yes" as="element()"/>
+        <xsl:param name="prmElement"  required="yes" as="element()+"/>
         
-        <xsl:variable name="upperElements"  select="$prmElement/ancestor::*[contains(@class, ' topic/tgroup ')] | 
-                                                    $prmElement/ancestor::*[contains(@class, ' topic/simpletable ')] | 
-                                                    $prmElement/ancestor::*[contains(@class, ' topic/ul ')] | 
-                                                    $prmElement/ancestor::*[contains(@class, ' topic/ol ')] |
-                                                    $prmElement/ancestor::*[contains(@class, ' topic/dl ')] |
-                                                    $prmElement/ancestor::*[contains(@class, ' glossentry/glossdef ')]"
-                                                    as="element()*"/>
+        <xsl:variable name="desc" as="element()?" select="$prmElement[contains(@class,' topic/desc ')]"/>
+        <xsl:variable name="elemExceptDesc" as="element()+" select="$prmElement except $desc"/>
+        <xsl:variable name="upperElements" as="element()*">
+            <xsl:sequence select="$desc/parent::*[contains(@class,' topic/table ')]/ancestor::*[contains(@class, ' topic/tgroup ')]"/>
+            <xsl:for-each select="$elemExceptDesc">
+                <xsl:sequence select="$elemExceptDesc/ancestor::*[contains(@class, ' topic/tgroup ')] | 
+                    $elemExceptDesc/ancestor::*[contains(@class, ' topic/simpletable ')] | 
+                    $elemExceptDesc/ancestor::*[contains(@class, ' topic/ul ')] | 
+                    $elemExceptDesc/ancestor::*[contains(@class, ' topic/ol ')] |
+                    $elemExceptDesc/ancestor::*[contains(@class, ' topic/dl ')] |
+                    $elemExceptDesc/ancestor::*[contains(@class, ' glossentry/glossdef ')]"/>
+            </xsl:for-each>
+        </xsl:variable>
         <xsl:variable name="fnCount" select="count($prmElement/descendant::*[contains(@class,' topic/fn ')][not(contains(@class,' pr-d/synnote '))])"/>
         <xsl:if test="empty($upperElements) and $fnCount gt 0">
             <xsl:call-template name="makeFootNoteSub">
@@ -166,7 +174,7 @@ E-mail : info@antennahouse.com
      note:        
      -->
     <xsl:template name="makeFootNoteSub">
-        <xsl:param name="prmElement"  required="yes" as="element()"/>
+        <xsl:param name="prmElement"  required="yes" as="element()+"/>
         
         <!-- Make related-link title block -->
         <fo:block>
@@ -194,7 +202,7 @@ E-mail : info@antennahouse.com
                 2015-04-08 t.makita
      -->
     <xsl:template name="processFootNote">
-        <xsl:param name="prmElement" required="yes" as="element()"/>
+        <xsl:param name="prmElement" required="yes" as="element()+"/>
         
         <fo:list-block>
             <xsl:copy-of select="ahf:getAttributeSet('atsPostnoteListBlock')"/>
