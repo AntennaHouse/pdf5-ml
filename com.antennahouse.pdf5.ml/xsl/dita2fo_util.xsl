@@ -388,9 +388,12 @@ URL : http://www.antennahouse.co.jp/
         note:		
     -->
     <xsl:function name="ahf:seqContains" as="xs:boolean">
-        <xsl:param name="prmStr" as="xs:string"/>
+        <xsl:param name="prmStr" as="xs:string?"/>
         <xsl:param name="prmDstStrSeq" as="xs:string*"/>
         <xsl:choose>
+            <xsl:when test="empty($prmStr)">
+                <xsl:sequence select="false()"/>
+            </xsl:when>
             <xsl:when test="count($prmDstStrSeq) ge 1">
                 <xsl:variable name="dstStr" as="xs:string" select="$prmDstStrSeq[1]"/>
                 <xsl:choose>
@@ -415,9 +418,12 @@ URL : http://www.antennahouse.co.jp/
         note:		
     -->
     <xsl:function name="ahf:seqStartsWith" as="xs:boolean">
-        <xsl:param name="prmStr" as="xs:string"/>
+        <xsl:param name="prmStr" as="xs:string?"/>
         <xsl:param name="prmDstStrSeq" as="xs:string*"/>
         <xsl:choose>
+            <xsl:when test="empty($prmStr)">
+                <xsl:sequence select="false()"/>
+            </xsl:when>
             <xsl:when test="count($prmDstStrSeq) ge 1">
                 <xsl:variable name="dstStr" as="xs:string" select="$prmDstStrSeq[1]"/>
                 <xsl:choose>
