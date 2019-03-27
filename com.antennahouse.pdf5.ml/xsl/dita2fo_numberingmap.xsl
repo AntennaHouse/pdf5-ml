@@ -16,33 +16,10 @@ E-mail : info@antennahouse.com
  xmlns:ahf="http://www.antennahouse.com/names/XSLT/Functions/Document"
  exclude-result-prefixes="xs ahf"
 >
-    <xsl:variable name="cTableGroupingLevelMax" as="xs:integer">
-        <xsl:choose>
-            <xsl:when test="$pAddNumberingTitlePrefix">
-                <xsl:sequence select="xs:integer(ahf:getVarValue('Table_Grouping_Level_Max'))"/>
-            </xsl:when>
-            <xsl:otherwise>
-                <!-- if user selects not to add title prefix, the table number will not be grouped. -->
-                <xsl:sequence select="0"/>
-            </xsl:otherwise>
-        </xsl:choose>
-     </xsl:variable>
-    
-    <xsl:variable name="cFigureGroupingLevelMax" as="xs:integer">
-        <xsl:choose>
-            <xsl:when test="$pAddNumberingTitlePrefix">
-                <xsl:sequence select="xs:integer(ahf:getVarValue('Figure_Grouping_Level_Max'))"/>
-            </xsl:when>
-            <xsl:otherwise>
-                <!-- if user selects not to add title prefix, the figure number will not be grouped. -->
-                <xsl:sequence select="0"/>
-            </xsl:otherwise>
-        </xsl:choose>
-     </xsl:variable>
-    
-    <xsl:variable name="cFootnoteGroupingLevelMax" as="xs:integer">
-        <xsl:sequence select="xs:integer(ahf:getVarValue('Footnote_Grouping_Level_Max'))"/>
-    </xsl:variable>
+    <!-- This module defines table/fig/fn numbering map.
+         Ususally numbering depends on bookmap hierarchy.
+         The ahf:getNumberingGroupLevel function enables customization for many situations.
+     -->
     
     <!-- Table Numbering Map -->
     <xsl:variable name="tableCountMap" as="document-node()">
@@ -86,7 +63,60 @@ E-mail : info@antennahouse.com
             <xsl:call-template name="makeFootnoteStartCount"/>
         </xsl:document>
     </xsl:variable>
+
+    <!-- 
+     function:    Define the grouping level accoring to the map hierarchy.
+     param:       prmElem（table-count, figure-count, footnote-count)
+     return:      Grouping level
+     note:        To customize the grouping, override this function.
+     -->
     
+    <xsl:function name="ahf:getFigureNumberingGroupLevel">
+        <xsl:param name="prmElem" as="element()"/>
+        <xsl:sequence select="ahf:getNumberingGroupLevel($prmElem)"/>        
+    </xsl:function>
+
+    <xsl:function name="ahf:getTableNumberingGroupLevel">
+        <xsl:param name="prmElem" as="element()"/>
+        <xsl:sequence select="ahf:getNumberingGroupLevel($prmElem)"/>        
+    </xsl:function>
+
+    <xsl:function name="ahf:getFootnoteNumberingGroupLevel">
+        <xsl:param name="prmElem" as="element()"/>
+        <xsl:sequence select="ahf:getNumberingGroupLevel($prmElem)"/>        
+    </xsl:function>
+    
+    <xsl:function name="ahf:getNumberingGroupLevel" as="xs:integer">
+        <xsl:param name="prmElem" as="element()"/>
+        <xsl:variable name="topElem" as="element()" select="$prmElem/ancestor-or-self::*[position() eq last()]"/>
+        <xsl:choose>
+            <xsl:when test="not($pAddNumberingTitlePrefix)">
+                <xsl:sequence select="0"/>
+            </xsl:when>
+            <xsl:when test="$isMap">
+                <xsl:sequence select="1"/>
+            </xsl:when>
+            <xsl:when test="$topElem[contains(@class,' bookmap/part ')]">
+                <xsl:sequence select="2"/>
+            </xsl:when>
+            <xsl:when test="$topElem[contains(@class,' bookmap/chapter ')]">
+                <xsl:sequence select="1"/>
+            </xsl:when>
+            <xsl:when test="$topElem[contains(@class,' bookmap/appendix ')]">
+                <xsl:sequence select="1"/>
+            </xsl:when>
+            <xsl:when test="$topElem[contains(@class,' bookmap/appendices ')]">
+                <xsl:sequence select="2"/>
+            </xsl:when>
+            <xsl:when test="$topElem[contains(@class,' bookmap/frontmatter ')]">
+                <xsl:sequence select="0"/>
+            </xsl:when>
+            <xsl:when test="$topElem[contains(@class,' bookmap/backmatter ')]">
+                <xsl:sequence select="0"/>
+            </xsl:when>
+        </xsl:choose>
+    </xsl:function>
+
     <!-- 
      function:    make table count map template
      param:       none
@@ -147,14 +177,15 @@ E-mail : info@antennahouse.com
     
     <xsl:template match="table-count" mode="MODE_TABLE_START_COUNT" as="element()">
         <xsl:variable name="level" as="xs:integer" select="count(ancestor-or-self::*)"/>
-        <xsl:variable name="countTopElem" as="element()?" select="(ancestor-or-self::*)[position() eq $cTableGroupingLevelMax]"/>
+        <xsl:variable name="tableGroupingLevelMax" as="xs:integer" select="ahf:getTableNumberingGroupLevel(.)"/>
+        <xsl:variable name="countTopElem" as="element()?" select="(ancestor-or-self::*)[position() eq $tableGroupingLevelMax]"/>
         <xsl:variable name="prevCount" as="xs:integer">
             <xsl:choose>
-                <xsl:when test="$cTableGroupingLevelMax eq 0">
+                <xsl:when test="$tableGroupingLevelMax eq 0">
                     <!-- Table number is not grouped. -->
                     <xsl:sequence select="xs:integer(sum(root(current())//*[. &lt;&lt; current()]/@count))"/>
                 </xsl:when>
-                <xsl:when test="$level le $cTableGroupingLevelMax">
+                <xsl:when test="$level le $tableGroupingLevelMax">
                     <!-- Table number always starts from 1. -->
                     <xsl:sequence select="0"/>
                 </xsl:when>
@@ -232,14 +263,15 @@ E-mail : info@antennahouse.com
     
     <xsl:template match="figure-count" mode="MODE_FIGURE_START_COUNT" as="element()">
         <xsl:variable name="level" as="xs:integer" select="count(ancestor-or-self::*)"/>
-        <xsl:variable name="countTopElem" as="element()?" select="(ancestor-or-self::*)[position() eq $cFigureGroupingLevelMax]"/>
+        <xsl:variable name="figureGroupingLevelMax" as="xs:integer" select="ahf:getFigureNumberingGroupLevel(.)"/>
+        <xsl:variable name="countTopElem" as="element()?" select="(ancestor-or-self::*)[position() eq $figureGroupingLevelMax]"/>
         <xsl:variable name="prevCount" as="xs:integer">
             <xsl:choose>
-                <xsl:when test="$cFigureGroupingLevelMax eq 0">
+                <xsl:when test="$figureGroupingLevelMax eq 0">
                     <!-- Figure number is not grouped. -->
                     <xsl:sequence select="xs:integer(sum(root(current())//*[. &lt;&lt; current()]/@count))"/>
                 </xsl:when>
-                <xsl:when test="$level le $cFigureGroupingLevelMax">
+                <xsl:when test="$level le $figureGroupingLevelMax">
                     <!-- Figure number always starts from 1. -->
                     <xsl:sequence select="0"/>
                 </xsl:when>
@@ -317,14 +349,15 @@ E-mail : info@antennahouse.com
     
     <xsl:template match="footnote-count" mode="MODE_FOOTNOTE_START_COUNT" as="element()">
         <xsl:variable name="level" as="xs:integer" select="count(ancestor-or-self::*)"/>
-        <xsl:variable name="countTopElem" as="element()?" select="(ancestor-or-self::*)[position() eq $cFootnoteGroupingLevelMax]"/>
+        <xsl:variable name="footnoteGroupingLevelMax" as="xs:integer" select="ahf:getFootnoteNumberingGroupLevel(.)"/>
+        <xsl:variable name="countTopElem" as="element()?" select="(ancestor-or-self::*)[position() eq $footnoteGroupingLevelMax]"/>
         <xsl:variable name="prevCount" as="xs:integer">
             <xsl:choose>
-                <xsl:when test="$cFootnoteGroupingLevelMax eq 0">
+                <xsl:when test="$footnoteGroupingLevelMax eq 0">
                     <!-- Figure number is not grouped. -->
                     <xsl:sequence select="xs:integer(sum(root(current())//*[. &lt;&lt; current()]/@count))"/>
                 </xsl:when>
-                <xsl:when test="$level le $cFootnoteGroupingLevelMax">
+                <xsl:when test="$level le $footnoteGroupingLevelMax">
                     <!-- Figure number always starts from 1. -->
                     <xsl:sequence select="0"/>
                 </xsl:when>
