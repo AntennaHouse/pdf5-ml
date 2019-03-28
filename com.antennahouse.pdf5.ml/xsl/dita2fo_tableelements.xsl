@@ -605,12 +605,23 @@ E-mail : info@antennahouse.com
     </xsl:function>
     
     <!-- 
-     function:	thead template
-     param:		prmTgroupAttr, prmColSpec, etc
-     return:	fo:table-header
-     note:		Output table/title, desc in fo:table-heade if $prmOutputContinuedWordInTableTitle is true
-                SPEC: If output "Continued" word in table title, make @background-color="transparent"
+     function:   thead template
+     param:      prmTgroupAttr, prmColSpec, etc
+     return:     fo:table-header
+     note:       Output table/title, desc in fo:table-heade if $prmOutputContinuedWordInTableTitle is true
+                 SPEC: If output "Continued" word in table title, make @background-color="transparent"
+                 
+                 The tunnel parameter $prmOutputContinuedWordInTableTitle does not exist if mode="MODE_GET_STYLE" template
+                 is called from multiple language support in dita2fo_style_get.xsl.
      -->
+    <xsl:template match="*[contains(@class, ' topic/thead ')]" mode="MODE_GET_STYLE" as="xs:string*">
+        <xsl:sequence select="'atsThead'"/>
+        <xsl:variable name="outputContinuedWordInTableTitle" as="xs:boolean" select="ahf:outputContinuedWordInTableTitle(ancestor::*[contains(@class, ' topic/table ')][1])"/>
+        <xsl:if test="$outputContinuedWordInTableTitle">
+            <xsl:sequence select="'atsBgTransparent'"/>
+        </xsl:if>
+    </xsl:template>    
+
     <xsl:template match="*[contains(@class, ' topic/thead ')]">
         <xsl:param name="prmTgroupAttr" required="yes" tunnel="yes" as="element()"/>
         <xsl:param name="prmColSpec" required="yes" tunnel="yes" as="element()*"/>
@@ -622,14 +633,7 @@ E-mail : info@antennahouse.com
         <xsl:variable name="thead" as="element()" select="."/>
         <xsl:variable name="theadAttr" as="element()" select="ahf:addTheadAttr($thead,$prmTgroupAttr)"/>
         <fo:table-header>
-            <xsl:call-template name="getAttributeSetWithLang">
-                <xsl:with-param name="prmAttrSetName" select="'atsThead'"/>
-            </xsl:call-template>
-            <xsl:if test="$prmOutputContinuedWordInTableTitle">
-                <xsl:call-template name="getAttributeSetWithLang">
-                    <xsl:with-param name="prmAttrSetName" select="'atsBgTransparent'"/>
-                </xsl:call-template>
-            </xsl:if>
+            <xsl:call-template name="getAttributeSetWithLang"/>
             <xsl:call-template name="ahf:getUnivAtts"/>
             <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
             <xsl:if test="$prmOutputContinuedWordInTableTitle">
@@ -686,6 +690,10 @@ E-mail : info@antennahouse.com
      return:	fo:table-body
      note:		
      -->
+    <xsl:template match="*[contains(@class, ' topic/tbody ')]" mode="MODE_GET_STYLE" as="xs:string*">
+        <xsl:sequence select="'atsTbody'"/>
+    </xsl:template>    
+
     <xsl:template match="*[contains(@class, ' topic/tbody ')]">
         <xsl:param name="prmTgroupAttr" required="yes" tunnel="yes" as="element()"/>
         <xsl:param name="prmColSpec" required="yes" tunnel="yes" as="element()*"/>
@@ -693,9 +701,7 @@ E-mail : info@antennahouse.com
         <xsl:variable name="tbody" as="element()" select="."/>
         <xsl:variable name="tbodyAttr"  as="element()" select="ahf:addTbodyAttr($tbody,$prmTgroupAttr)"/>
         <fo:table-body>
-            <xsl:call-template name="getAttributeSetWithLang">
-                <xsl:with-param name="prmAttrSetName" select="'atsTbody'"/>
-            </xsl:call-template>
+            <xsl:call-template name="getAttributeSetWithLang"/>
             <xsl:call-template name="ahf:getUnivAtts"/>
             <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
             <xsl:apply-templates select="*[contains(@class, ' topic/row ')]">
@@ -705,7 +711,6 @@ E-mail : info@antennahouse.com
             </xsl:apply-templates>
         </fo:table-body>
     </xsl:template>
-
 
     <!-- 
      function:	build tbody attributes
@@ -729,6 +734,18 @@ E-mail : info@antennahouse.com
      return:	fo:table-row
      note:		SPEC: If row belongs thead and output "Continued" word in table title, set thead background color to row.
      -->
+    <xsl:template match="*[contains(@class, ' topic/row ')]" mode="MODE_GET_STYLE" as="xs:string*">
+        <xsl:sequence select="'atsRow'"/>
+        <xsl:variable name="isInThead" as="xs:boolean" select="exists(ancestor::*[contains(@class, ' topic/thead ')])"/>
+        <xsl:variable name="outputContinuedWordInTableTitle" as="xs:boolean" select="ahf:outputContinuedWordInTableTitle(ancestor::*[contains(@class, ' topic/table ')][1])"/>
+        <xsl:if test="$outputContinuedWordInTableTitle">
+            <xsl:sequence select="'atsBgTransparent'"/>
+        </xsl:if>
+        <xsl:if test="$isInThead and $outputContinuedWordInTableTitle">
+            <xsl:sequence select="'atsBgThead'"/>
+        </xsl:if>
+    </xsl:template>    
+
     <xsl:template match="*[contains(@class, ' topic/row ')]">
         <xsl:param name="prmRowUpperAttr" required="yes" tunnel="yes" as="element()"/>
         <xsl:param name="prmColSpec" required="yes" tunnel="yes" as="element()*"/>
@@ -744,14 +761,7 @@ E-mail : info@antennahouse.com
             </xsl:call-template>
         </xsl:variable>
         <fo:table-row>
-            <xsl:call-template name="getAttributeSetWithLang">
-                <xsl:with-param name="prmAttrSetName" select="'atsRow'"/>
-            </xsl:call-template>
-            <xsl:if test="exists($prmThead) and $prmOutputContinuedWordInTableTitle">
-                <xsl:call-template name="getAttributeSetWithLang">
-                    <xsl:with-param name="prmAttrSetName" select="'atsBgThead'"/>
-                </xsl:call-template>
-            </xsl:if>
+            <xsl:call-template name="getAttributeSetWithLang"/>
             <xsl:call-template name="ahf:getUnivAtts"/>
             <xsl:if test="$rowHeight gt 0.0">
                 <xsl:attribute name="height" select="concat(string($rowHeight),'em')"/>
@@ -862,6 +872,10 @@ E-mail : info@antennahouse.com
      note:		Honor the entry attribute than colspec attribute. 2011-08-29 t.makita
                 $prmRowHeight is needed for entry/@rotate="1" when specifying fo:block-container/@width
      -->
+    <xsl:template match="*[contains(@class,' topic/thead ')]/*[contains(@class,' topic/row ')]/*[contains(@class,' topic/entry ')]" mode="MODE_GET_STYLE" as="xs:string*">
+        <xsl:sequence select="'atsTableHeaderCell'"/>
+    </xsl:template>    
+    
     <xsl:template match="*[contains(@class,' topic/thead ')]/*[contains(@class,' topic/row ')]/*[contains(@class,' topic/entry ')]">
         <xsl:param name="prmRowAttr" required="yes" tunnel="yes" as="element()"/>
         <xsl:param name="prmColSpec" required="yes" tunnel="yes" as="element()*"/>
@@ -869,9 +883,7 @@ E-mail : info@antennahouse.com
     
         <xsl:variable name="colname" as="xs:string" select="string(@colname)"/>
         <fo:table-cell>
-            <xsl:call-template name="getAttributeSetWithLang">
-                <xsl:with-param name="prmAttrSetName" select="'atsTableHeaderCell'"/>
-            </xsl:call-template>
+            <xsl:call-template name="getAttributeSetWithLang"/>
             <xsl:call-template name="ahf:getUnivAtts"/>
             <xsl:copy-of select="ahf:getEntryAttr(.,$prmRowAttr,$prmColSpec)"/>
             <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
@@ -905,6 +917,10 @@ E-mail : info@antennahouse.com
                 SPEC: generate fo:marker if table needs "Continued" word in header or footer.
                       2018-01-06 t.makita
      -->
+    <xsl:template match="*[contains(@class,' topic/tbody ')]/*[contains(@class,' topic/row ')]/*[contains(@class,' topic/entry ')]" mode="MODE_GET_STYLE" as="xs:string*">
+        <xsl:sequence select="'atsTableBodyCell'"/>
+    </xsl:template>    
+
     <xsl:template match="*[contains(@class,' topic/tbody ')]/*[contains(@class,' topic/row ')]/*[contains(@class,' topic/entry ')]">
         <xsl:param name="prmRowAttr" required="yes" tunnel="yes" as="element()"/>
         <xsl:param name="prmColSpec" required="yes" tunnel="yes" as="element()*"/>
@@ -913,9 +929,7 @@ E-mail : info@antennahouse.com
         <xsl:variable name="entry" as="element()" select="."/>
         <xsl:variable name="colname" as="xs:string" select="string($entry/@colname)"/>
         <fo:table-cell>
-            <xsl:call-template name="getAttributeSetWithLang">
-                <xsl:with-param name="prmAttrSetName" select="'atsTableBodyCell'"/>
-            </xsl:call-template>
+            <xsl:call-template name="getAttributeSetWithLang"/>
             <xsl:call-template name="ahf:getUnivAtts"/>
             <xsl:copy-of select="ahf:getEntryAttr($entry,$prmRowAttr,$prmColSpec)"/>
             <xsl:copy-of select="ahf:getFoStyleAndProperty($entry)"/>
