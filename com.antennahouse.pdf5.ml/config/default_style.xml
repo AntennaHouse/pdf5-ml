@@ -934,6 +934,7 @@ URL : http://www.antennahouse.com/
 
             <attribute-set name="atsFigListBlock">
                 <attribute name="font-family">$General_Text_Font</attribute>
+                <attribute name="line-height">normal</attribute>
                 <attribute name="font-weight">normal</attribute>
                 <attribute name="space-before">0.5mm</attribute>
                 <attribute name="provisional-distance-between-starts">26mm</attribute>
@@ -967,6 +968,7 @@ URL : http://www.antennahouse.com/
 
             <attribute-set name="atsTableListBlock">
                 <attribute name="font-family">$General_Text_Font</attribute>
+                <attribute name="line-height">normal</attribute>
                 <attribute name="font-weight">normal</attribute>
                 <attribute name="space-before">0.5mm</attribute>
                 <attribute name="provisional-distance-between-starts">26mm</attribute>
