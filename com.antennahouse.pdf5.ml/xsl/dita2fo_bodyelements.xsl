@@ -66,7 +66,7 @@ E-mail : info@antennahouse.com
      function:	ph template
      param:	    
      return:	fo:inline
-     note:		no special formatting
+     note:      no special formatting
                 Call "processPh" for overriding from other plug-ins.
                 2015-08-25 t.makita
      -->
@@ -79,10 +79,18 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <xsl:template name="processPh">
+        <xsl:param name="prmGetContent" required="no" tunnel="yes" as="xs:boolean" select="false()"/>
         <fo:inline>
-            <xsl:call-template name="getAttributeSetWithLang"/>
-            <xsl:call-template name="ahf:getUnivAtts"/>
-            <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
+            <xsl:choose>
+                <xsl:when test="$prmGetContent">
+                    <xsl:copy-of select="ahf:getUnivAtts(.,(),false())"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:call-template name="getAttributeSetWithLang"/>
+                    <xsl:call-template name="ahf:getUnivAtts"/>
+                    <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
+                </xsl:otherwise>
+            </xsl:choose>
             <xsl:apply-templates/>
         </fo:inline>
     </xsl:template>
