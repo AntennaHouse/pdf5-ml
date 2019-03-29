@@ -28,10 +28,21 @@ E-mail : info@antennahouse.com
     </xsl:template>    
 
     <xsl:template match="*[contains(@class,' hi-d/b ')]" priority="2">
+        <xsl:param name="prmGetContent" required="no" tunnel="yes" as="xs:boolean" select="false()"/>
         <fo:inline>
-            <xsl:call-template name="getAttributeSetWithLang"/>
-            <xsl:call-template name="ahf:getUnivAtts"/>
-            <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
+            <xsl:choose>
+                <xsl:when test="$prmGetContent">
+                    <xsl:call-template name="getAttributeSetWithLang">
+                        <xsl:with-param name="prmAttrSetName" select="'atsB'"/>
+                    </xsl:call-template>
+                    <xsl:copy-of select="ahf:getUnivAtts(.,(),false())"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:call-template name="getAttributeSetWithLang"/>
+                    <xsl:call-template name="ahf:getUnivAtts"/>
+                    <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
+                </xsl:otherwise>
+            </xsl:choose>
             <xsl:apply-templates/>
         </fo:inline>
     </xsl:template>
@@ -47,10 +58,21 @@ E-mail : info@antennahouse.com
     </xsl:template>    
 
     <xsl:template match="*[contains(@class,' hi-d/i ')]" priority="2">
+        <xsl:param name="prmGetContent" required="no" tunnel="yes" as="xs:boolean" select="false()"/>
         <fo:inline>
-            <xsl:call-template name="getAttributeSetWithLang"/>
-            <xsl:call-template name="ahf:getUnivAtts"/>
-            <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
+            <xsl:choose>
+                <xsl:when test="$prmGetContent">
+                    <xsl:call-template name="getAttributeSetWithLang">
+                        <xsl:with-param name="prmAttrSetName" select="'atsI'"/>
+                    </xsl:call-template>
+                    <xsl:copy-of select="ahf:getUnivAtts(.,(),false())"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:call-template name="getAttributeSetWithLang"/>
+                    <xsl:call-template name="ahf:getUnivAtts"/>
+                    <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
+                </xsl:otherwise>
+            </xsl:choose>
             <xsl:apply-templates/>
         </fo:inline>
     </xsl:template>
@@ -66,10 +88,21 @@ E-mail : info@antennahouse.com
     </xsl:template>    
 
     <xsl:template match="*[contains(@class,' hi-d/u ')]" priority="2">
+        <xsl:param name="prmGetContent" required="no" tunnel="yes" as="xs:boolean" select="false()"/>
         <fo:inline>
-            <xsl:call-template name="getAttributeSetWithLang"/>
-            <xsl:call-template name="ahf:getUnivAtts"/>
-            <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
+            <xsl:choose>
+                <xsl:when test="$prmGetContent">
+                    <xsl:call-template name="getAttributeSetWithLang">
+                        <xsl:with-param name="prmAttrSetName" select="'atsU'"/>
+                    </xsl:call-template>
+                    <xsl:copy-of select="ahf:getUnivAtts(.,(),false())"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:call-template name="getAttributeSetWithLang"/>
+                    <xsl:call-template name="ahf:getUnivAtts"/>
+                    <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
+                </xsl:otherwise>
+            </xsl:choose>
             <xsl:apply-templates/>
         </fo:inline>
     </xsl:template>
@@ -85,10 +118,21 @@ E-mail : info@antennahouse.com
     </xsl:template>    
 
     <xsl:template match="*[contains(@class,' hi-d/tt ')]" priority="2">
+        <xsl:param name="prmGetContent" required="no" tunnel="yes" as="xs:boolean" select="false()"/>
         <fo:inline>
-            <xsl:call-template name="getAttributeSetWithLang"/>
-            <xsl:call-template name="ahf:getUnivAtts"/>
-            <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
+            <xsl:choose>
+                <xsl:when test="$prmGetContent">
+                    <xsl:call-template name="getAttributeSetWithLang">
+                        <xsl:with-param name="prmAttrSetName" select="'atsTt'"/>
+                    </xsl:call-template>
+                    <xsl:copy-of select="ahf:getUnivAtts(.,(),false())"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:call-template name="getAttributeSetWithLang"/>
+                    <xsl:call-template name="ahf:getUnivAtts"/>
+                    <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
+                </xsl:otherwise>
+            </xsl:choose>
             <xsl:apply-templates/>
         </fo:inline>
     </xsl:template>
@@ -104,10 +148,21 @@ E-mail : info@antennahouse.com
     </xsl:template>    
     
     <xsl:template match="*[contains(@class,' hi-d/sup ')]" priority="2">
+        <xsl:param name="prmGetContent" required="no" tunnel="yes" as="xs:boolean" select="false()"/>
         <fo:inline>
-            <xsl:call-template name="getAttributeSetWithLang"/>
-            <xsl:call-template name="ahf:getUnivAtts"/>
-            <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
+            <xsl:choose>
+                <xsl:when test="$prmGetContent">
+                    <xsl:call-template name="getAttributeSetWithLang">
+                        <xsl:with-param name="prmAttrSetName" select="'atsSup'"/>
+                    </xsl:call-template>
+                    <xsl:copy-of select="ahf:getUnivAtts(.,(),false())"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:call-template name="getAttributeSetWithLang"/>
+                    <xsl:call-template name="ahf:getUnivAtts"/>
+                    <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
+                </xsl:otherwise>
+            </xsl:choose>
             <xsl:apply-templates/>
         </fo:inline>
     </xsl:template>
@@ -123,10 +178,21 @@ E-mail : info@antennahouse.com
     </xsl:template>    
     
     <xsl:template match="*[contains(@class,' hi-d/sub ')]" priority="2">
+        <xsl:param name="prmGetContent" required="no" tunnel="yes" as="xs:boolean" select="false()"/>
         <fo:inline>
-            <xsl:call-template name="getAttributeSetWithLang"/>
-            <xsl:call-template name="ahf:getUnivAtts"/>
-            <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
+            <xsl:choose>
+                <xsl:when test="$prmGetContent">
+                    <xsl:call-template name="getAttributeSetWithLang">
+                        <xsl:with-param name="prmAttrSetName" select="'atsSub'"/>
+                    </xsl:call-template>
+                    <xsl:copy-of select="ahf:getUnivAtts(.,(),false())"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:call-template name="getAttributeSetWithLang"/>
+                    <xsl:call-template name="ahf:getUnivAtts"/>
+                    <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
+                </xsl:otherwise>
+            </xsl:choose>
             <xsl:apply-templates/>
         </fo:inline>
     </xsl:template>
@@ -142,10 +208,21 @@ E-mail : info@antennahouse.com
     </xsl:template>    
     
     <xsl:template match="*[contains(@class,' hi-d/line-through ')]" priority="2">
+        <xsl:param name="prmGetContent" required="no" tunnel="yes" as="xs:boolean" select="false()"/>
         <fo:inline>
-            <xsl:call-template name="getAttributeSetWithLang"/>
-            <xsl:call-template name="ahf:getUnivAtts"/>
-            <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
+            <xsl:choose>
+                <xsl:when test="$prmGetContent">
+                    <xsl:call-template name="getAttributeSetWithLang">
+                        <xsl:with-param name="prmAttrSetName" select="'atsLineThrough'"/>
+                    </xsl:call-template>
+                    <xsl:copy-of select="ahf:getUnivAtts(.,(),false())"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:call-template name="getAttributeSetWithLang"/>
+                    <xsl:call-template name="ahf:getUnivAtts"/>
+                    <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
+                </xsl:otherwise>
+            </xsl:choose>
             <xsl:apply-templates/>
         </fo:inline>
     </xsl:template>
@@ -161,10 +238,21 @@ E-mail : info@antennahouse.com
     </xsl:template>    
     
     <xsl:template match="*[contains(@class,' hi-d/hi-d/overline ')]" priority="2">
+        <xsl:param name="prmGetContent" required="no" tunnel="yes" as="xs:boolean" select="false()"/>
         <fo:inline>
-            <xsl:call-template name="getAttributeSetWithLang"/>
-            <xsl:call-template name="ahf:getUnivAtts"/>
-            <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
+            <xsl:choose>
+                <xsl:when test="$prmGetContent">
+                    <xsl:call-template name="getAttributeSetWithLang">
+                        <xsl:with-param name="prmAttrSetName" select="'atsOverLine'"/>
+                    </xsl:call-template>
+                    <xsl:copy-of select="ahf:getUnivAtts(.,(),false())"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:call-template name="getAttributeSetWithLang"/>
+                    <xsl:call-template name="ahf:getUnivAtts"/>
+                    <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
+                </xsl:otherwise>
+            </xsl:choose>
             <xsl:apply-templates/>
         </fo:inline>
     </xsl:template>
