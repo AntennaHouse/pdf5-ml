@@ -210,18 +210,55 @@
                 <xsl:with-param name="prmOutputType" select="$prmOutputType"/>
             </xsl:call-template>
         </xsl:variable>
+        
+        <!-- attribute for $prmElem has "font-size" ? -->
+        <xsl:variable name="hasFontSizeInAttsForElem" as="xs:boolean" select="exists($attsForElem[ahf:isFontSizeAttr(.)])"/>
 
-        <!-- Inherited attributes -->
+        <!-- Inherited attributes
+             If $attsForElem does not have @font-size then remove all relative font-size attribute from inherited attributes
+             because reletive font-size is mulitiplly applied for the target element.
+             ex) <ph> elements in <codeblock> element
+                 <ph> element has no special formatting properties.
+                 <codeblock> has font-size="0.9em" property.
+                 In this case, generated <ph font-size="0.9em"> is not expected result.
+         -->
         <xsl:variable name="attsInherited" as="attribute()*">
             <xsl:choose>
                 <xsl:when test="exists($inheritedStyles)">
-                    <xsl:call-template name="getAttributeSet">
-                        <xsl:with-param name="prmAttrSetName" select="string-join($inheritedStyles,' ')"/>
-                        <xsl:with-param name="prmXmlLang" select="$curXmlLang"/>
-                        <xsl:with-param name="prmDocType" select="$prmDocType"/>
-                        <xsl:with-param name="prmPaperSize" select="$prmPaperSize"/>
-                        <xsl:with-param name="prmOutputType" select="$prmOutputType"/>
-                    </xsl:call-template>
+                    <xsl:variable name="attsInheritedOrg" as="attribute()*">
+                        <xsl:call-template name="getAttributeSet">
+                            <xsl:with-param name="prmAttrSetName" select="string-join($inheritedStyles,' ')"/>
+                            <xsl:with-param name="prmXmlLang" select="$curXmlLang"/>
+                            <xsl:with-param name="prmDocType" select="$prmDocType"/>
+                            <xsl:with-param name="prmPaperSize" select="$prmPaperSize"/>
+                            <xsl:with-param name="prmOutputType" select="$prmOutputType"/>
+                        </xsl:call-template>
+                    </xsl:variable>
+                    <xsl:variable name="fontSizeAttrCount" as="xs:integer" select="count($attsInheritedOrg[ahf:isFontSizeAttr(.)])"/>
+                    <xsl:variable name="relativeFontSizeAttrCount" as="xs:integer" select="count($attsInheritedOrg[ahf:isRelativeFontSizeAttr(.)])"/>
+                    <xsl:variable name="absoluteFontSizeAttrCount" as="xs:integer" select="count($attsInheritedOrg[ahf:isAbsoluteFontSizeAttr(.)])"/>
+                    <xsl:variable name="relativeFontSizeAttrSeq" as="xs:boolean*">
+                        <xsl:for-each select="$attsInheritedOrg[ahf:isFontSizeAttr(.)]">
+                            <xsl:sequence select="ahf:isRelativeFontSizeAttr(.)"/>
+                        </xsl:for-each>
+                    </xsl:variable>
+                    <xsl:choose>
+                        <xsl:when test="$hasFontSizeInAttsForElem">
+                            <xsl:sequence select="$attsInheritedOrg"/>
+                        </xsl:when>
+                        <xsl:when test="$fontSizeAttrCount eq 0">
+                            <xsl:sequence select="$attsInheritedOrg"/>
+                        </xsl:when>
+                        <xsl:when test="($fontSizeAttrCount eq 1) and ($relativeFontSizeAttrCount eq 1)">
+                            <xsl:sequence select="$attsInheritedOrg"/>
+                        </xsl:when>
+                        <xsl:when test="($fontSizeAttrCount eq 1) and ($absoluteFontSizeAttrCount eq 1)">
+                            <xsl:sequence select="$attsInheritedOrg"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:sequence select="$attsInheritedOrg[not(ahf:isFontSizeAttr(.))]"/>
+                        </xsl:otherwise>
+                    </xsl:choose>
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:sequence select="()"/>
@@ -336,6 +373,56 @@
             <xsl:message select="'ahf:getAncestorStyleNames()=',$style"/>
         </xsl:if>
     </xsl:template>
+
+    <!-- 
+         ahf:isFontSizeAttr
+         function:  Judge the given attribute is font-size
+         parameter: prmAttr: attribute()?
+         notes:     
+      -->
+    <xsl:function name="ahf:isFontSizeAttr" as="xs:boolean">
+        <xsl:param name="prmAttr" as="attribute()?"/>
+        <xsl:choose>
+            <xsl:when test="empty($prmAttr)">
+                <xsl:sequence select="false()"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:sequence select="name($prmAttr) eq 'font-size'"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:function>
+    
+    <!-- 
+         ahf:isRelativeFontSizeAttr
+         function:  Judge the given attribute is relative font-size
+         parameter: prmAttr: attribute()?
+         notes:     See font-size definition on XSL1.1
+                    https://www.w3.org/TR/xsl11/#font-size
+      -->
+    <xsl:function name="ahf:isRelativeFontSizeAttr" as="xs:boolean">
+        <xsl:param name="prmAttr" as="attribute()?"/>
+        <xsl:variable name="attVal" as="xs:string" select="string($prmAttr)"/>
+        <xsl:choose>
+            <xsl:when test="empty($prmAttr)">
+                <xsl:sequence select="false()"/>
+            </xsl:when>
+            <xsl:when test="name($prmAttr) ne 'font-size'">
+                <xsl:sequence select="false()"/>
+            </xsl:when>
+            <xsl:when test="matches($attVal,'larger|smaller|\d+(?:\.\d+)?em|\d+(?:\.\d+)?%')">
+                <xsl:sequence select="true()"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:sequence select="false()"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:function>
+
+    <xsl:function name="ahf:isAbsoluteFontSizeAttr" as="xs:boolean">
+        <xsl:param name="prmAttr" as="attribute()?"/>
+        <xsl:sequence select="ahf:isRelativeFontSizeAttr($prmAttr)"/>
+    </xsl:function>
+        
 
     <!-- 
          ahf:filterAttrs function
