@@ -420,9 +420,15 @@
 
     <xsl:function name="ahf:isAbsoluteFontSizeAttr" as="xs:boolean">
         <xsl:param name="prmAttr" as="attribute()?"/>
-        <xsl:sequence select="ahf:isRelativeFontSizeAttr($prmAttr)"/>
+        <xsl:choose>
+            <xsl:when test="empty($prmAttr)">
+                <xsl:sequence select="false()"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:sequence select="not(ahf:isRelativeFontSizeAttr($prmAttr))"/>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:function>
-        
 
     <!-- 
          ahf:filterAttrs function
