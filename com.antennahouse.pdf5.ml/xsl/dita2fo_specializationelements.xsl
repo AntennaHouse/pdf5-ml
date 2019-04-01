@@ -107,7 +107,7 @@ E-mail : info@antennahouse.com
     <!-- 
      function:	state template
      param:	    
-     return:	fo:inline
+     return:      fo:inline
      note:		return @name=@value inline.
      -->
     <xsl:template match="*[contains(@class, ' topic/state ')]" mode="MODE_GET_STYLE" as="xs:string*">
@@ -115,10 +115,22 @@ E-mail : info@antennahouse.com
     </xsl:template>    
     
     <xsl:template match="*[contains(@class,' topic/state ')]">
+        <xsl:param name="prmGetContent" required="no" tunnel="yes" as="xs:boolean" select="false()"/>
+
         <fo:inline>
-            <xsl:call-template name="getAttributeSetWithLang"/>
-            <xsl:call-template name="ahf:getUnivAtts"/>
-            <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
+            <xsl:choose>
+                <xsl:when test="$prmGetContent">
+                    <xsl:call-template name="getAttributeSetWithLang">
+                        <xsl:with-param name="prmAttrSetName" select="'atsState'"/>
+                    </xsl:call-template>
+                    <xsl:copy-of select="ahf:getUnivAtts(.,(),false())"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:call-template name="getAttributeSetWithLang"/>
+                    <xsl:call-template name="ahf:getUnivAtts"/>
+                    <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
+                </xsl:otherwise>
+            </xsl:choose>
             <xsl:value-of select="@name"/>
             <xsl:text>=</xsl:text>
             <xsl:value-of select="@value"/>
@@ -126,9 +138,9 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <!-- 
-     function:	boolean template
-     param:	    
-     return:	fo:inline
+     function:    boolean template
+     param:
+     return:      fo:inline
      note:		
      -->
     <xsl:template match="*[contains(@class, ' topic/boolean ')]" mode="MODE_GET_STYLE" as="xs:string*">
@@ -136,10 +148,22 @@ E-mail : info@antennahouse.com
     </xsl:template>    
 
     <xsl:template match="*[contains(@class,' topic/boolean ')]">
+        <xsl:param name="prmGetContent" required="no" tunnel="yes" as="xs:boolean" select="false()"/>
+
         <fo:inline>
-            <xsl:call-template name="getAttributeSetWithLang"/>
-            <xsl:call-template name="ahf:getUnivAtts"/>
-            <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
+            <xsl:choose>
+                <xsl:when test="$prmGetContent">
+                    <xsl:call-template name="getAttributeSetWithLang">
+                        <xsl:with-param name="prmAttrSetName" select="'atsBoolean'"/>
+                    </xsl:call-template>
+                    <xsl:copy-of select="ahf:getUnivAtts(.,(),false())"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:call-template name="getAttributeSetWithLang"/>
+                    <xsl:call-template name="ahf:getUnivAtts"/>
+                    <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
+                </xsl:otherwise>
+            </xsl:choose>
             <xsl:value-of select="@state"/>
         </fo:inline>
     </xsl:template>
