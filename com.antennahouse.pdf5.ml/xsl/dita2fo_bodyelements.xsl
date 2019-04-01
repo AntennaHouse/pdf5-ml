@@ -83,6 +83,9 @@ E-mail : info@antennahouse.com
         <fo:inline>
             <xsl:choose>
                 <xsl:when test="$prmGetContent">
+                    <xsl:call-template name="getAttributeSetWithLang">
+                        <xsl:with-param name="prmAttrSetName" select="'atsPh'"/>
+                    </xsl:call-template>
                     <xsl:copy-of select="ahf:getUnivAtts(.,(),false())"/>
                 </xsl:when>
                 <xsl:otherwise>
