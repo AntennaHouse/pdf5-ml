@@ -188,7 +188,7 @@ URL : http://www.antennahouse.co.jp/
     </xsl:variable>
         
     <xsl:variable name="stMes092">
-        <xsl:text>[abbreviated-form 092W] Referenced glossentry not found. @keyref=%keyref @heref=%href file=%file</xsl:text>
+        <xsl:text>[abbreviated-form 092W] Referenced glossentry not found. @keyref=%keyref @href=%href file=%file</xsl:text>
     </xsl:variable>
     
     <xsl:variable name="stMes100">
