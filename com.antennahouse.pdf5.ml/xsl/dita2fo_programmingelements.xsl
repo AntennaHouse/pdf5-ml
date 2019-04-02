@@ -28,10 +28,21 @@ E-mail : info@antennahouse.com
     </xsl:template>    
 
     <xsl:template match="*[contains(@class,' pr-d/apiname ')]" priority="2">
+        <xsl:param name="prmGetContent" required="no" tunnel="yes" as="xs:boolean" select="false()"/>
         <fo:inline>
-            <xsl:call-template name="getAttributeSetWithLang"/>
-            <xsl:call-template name="ahf:getUnivAtts"/>
-            <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
+            <xsl:choose>
+                <xsl:when test="$prmGetContent">
+                    <xsl:call-template name="getAttributeSetWithLang">
+                        <xsl:with-param name="prmAttrSetName" select="'atsApiName'"/>
+                    </xsl:call-template>
+                    <xsl:copy-of select="ahf:getUnivAtts(.,(),false())"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:call-template name="getAttributeSetWithLang"/>
+                    <xsl:call-template name="ahf:getUnivAtts"/>
+                    <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
+                </xsl:otherwise>
+            </xsl:choose>
             <xsl:apply-templates/>
         </fo:inline>
     </xsl:template>
@@ -70,10 +81,21 @@ E-mail : info@antennahouse.com
     </xsl:template>    
     
     <xsl:template match="*[contains(@class,' pr-d/codeph ')]" priority="2">
+        <xsl:param name="prmGetContent" required="no" tunnel="yes" as="xs:boolean" select="false()"/>
         <fo:inline>
-            <xsl:call-template name="getAttributeSetWithLang"/>
-            <xsl:call-template name="ahf:getUnivAtts"/>
-            <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
+            <xsl:choose>
+                <xsl:when test="$prmGetContent">
+                    <xsl:call-template name="getAttributeSetWithLang">
+                        <xsl:with-param name="prmAttrSetName" select="'atsCodePh'"/>
+                    </xsl:call-template>
+                    <xsl:copy-of select="ahf:getUnivAtts(.,(),false())"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:call-template name="getAttributeSetWithLang"/>
+                    <xsl:call-template name="ahf:getUnivAtts"/>
+                    <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
+                </xsl:otherwise>
+            </xsl:choose>
             <xsl:apply-templates/>
         </fo:inline>
     </xsl:template>
@@ -89,10 +111,21 @@ E-mail : info@antennahouse.com
     </xsl:template>    
 
     <xsl:template match="*[contains(@class,' pr-d/option ')]" priority="2">
+        <xsl:param name="prmGetContent" required="no" tunnel="yes" as="xs:boolean" select="false()"/>
         <fo:inline>
-            <xsl:call-template name="getAttributeSetWithLang"/>
-            <xsl:call-template name="ahf:getUnivAtts"/>
-            <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
+            <xsl:choose>
+                <xsl:when test="$prmGetContent">
+                    <xsl:call-template name="getAttributeSetWithLang">
+                        <xsl:with-param name="prmAttrSetName" select="'atsOption'"/>
+                    </xsl:call-template>
+                    <xsl:copy-of select="ahf:getUnivAtts(.,(),false())"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:call-template name="getAttributeSetWithLang"/>
+                    <xsl:call-template name="ahf:getUnivAtts"/>
+                    <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
+                </xsl:otherwise>
+            </xsl:choose>
             <xsl:apply-templates/>
         </fo:inline>
     </xsl:template>
@@ -108,10 +141,22 @@ E-mail : info@antennahouse.com
     </xsl:template>    
     
     <xsl:template match="*[contains(@class,' pr-d/parmname ')]" priority="2">
+        <xsl:param name="prmGetContent" required="no" tunnel="yes" as="xs:boolean" select="false()"/>
+
         <fo:inline>
-            <xsl:call-template name="getAttributeSetWithLang"/>
-            <xsl:call-template name="ahf:getUnivAtts"/>
-            <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
+            <xsl:choose>
+                <xsl:when test="$prmGetContent">
+                    <xsl:call-template name="getAttributeSetWithLang">
+                        <xsl:with-param name="prmAttrSetName" select="'atsParamName'"/>
+                    </xsl:call-template>
+                    <xsl:copy-of select="ahf:getUnivAtts(.,(),false())"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:call-template name="getAttributeSetWithLang"/>
+                    <xsl:call-template name="ahf:getUnivAtts"/>
+                    <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
+                </xsl:otherwise>
+            </xsl:choose>
             <xsl:apply-templates/>
         </fo:inline>
     </xsl:template>
@@ -664,6 +709,8 @@ E-mail : info@antennahouse.com
     </xsl:template>
 
     <xsl:template match="*[contains(@class,' pr-d/kwd ')]" priority="2">
+        <xsl:param name="prmGetContent" required="no" tunnel="yes" as="xs:boolean" select="false()"/>
+
         <xsl:variable name="isOptional"  as="xs:boolean" select="string(@importance) eq 'optional'"/>
         <xsl:variable name="needOr"      as="xs:boolean" select="ahf:sdNeedOr(.)"/>
     
@@ -678,10 +725,20 @@ E-mail : info@antennahouse.com
             </xsl:call-template>
         </xsl:if>
         <fo:inline>
-            <xsl:call-template name="getAttributeSetWithLang"/>
-            <xsl:call-template name="ahf:getLocalizationAtts"/>
-            <xsl:call-template name="ahf:getIdAtts"/>
-            <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
+            <xsl:choose>
+                <xsl:when test="$prmGetContent">
+                    <xsl:call-template name="getAttributeSetWithLang">
+                        <xsl:with-param name="prmAttrSetName" select="if (string(@importance) eq 'default') then 'atsKwdDefault' else 'atsKwd'"/>
+                    </xsl:call-template>
+                    <xsl:copy-of select="ahf:getLocalizationAtts(.)"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:call-template name="getAttributeSetWithLang"/>
+                    <xsl:copy-of select="ahf:getLocalizationAtts(.)"/>
+                    <xsl:call-template name="ahf:getIdAtts"/>
+                    <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
+                </xsl:otherwise>
+            </xsl:choose>
             <xsl:apply-templates/>
         </fo:inline>
         <xsl:if test="$isOptional">
@@ -702,6 +759,8 @@ E-mail : info@antennahouse.com
     </xsl:template>
 
     <xsl:template match="*[contains(@class,' pr-d/var ')]" priority="2">
+        <xsl:param name="prmGetContent" required="no" tunnel="yes" as="xs:boolean" select="false()"/>
+
         <xsl:variable name="isOptional"  as="xs:boolean" select="string(@importance) eq 'optional'"/>
         <xsl:variable name="needOr"      as="xs:boolean" select="ahf:sdNeedOr(.)"/>
     
@@ -717,10 +776,20 @@ E-mail : info@antennahouse.com
             </xsl:call-template>
         </xsl:if>
         <fo:inline>
-            <xsl:call-template name="getAttributeSetWithLang"/>
-            <xsl:call-template name="ahf:getLocalizationAtts"/>
-            <xsl:call-template name="ahf:getIdAtts"/>
-            <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
+            <xsl:choose>
+                <xsl:when test="$prmGetContent">
+                    <xsl:call-template name="getAttributeSetWithLang">
+                        <xsl:with-param name="prmAttrSetName" select="if (string(@importance) eq 'default') then 'atsVarDefault' else 'atsVar'"/>
+                    </xsl:call-template>
+                    <xsl:copy-of select="ahf:getLocalizationAtts(.)"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:call-template name="getAttributeSetWithLang"/>
+                    <xsl:copy-of select="ahf:getLocalizationAtts(.)"/>
+                    <xsl:call-template name="ahf:getIdAtts"/>
+                    <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
+                </xsl:otherwise>
+            </xsl:choose>
             <xsl:apply-templates/>
         </fo:inline>
         <xsl:if test="$isOptional">
@@ -741,6 +810,8 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <xsl:template match="*[contains(@class,' pr-d/oper ')]" priority="2">
+        <xsl:param name="prmGetContent" required="no" tunnel="yes" as="xs:boolean" select="false()"/>
+
         <xsl:variable name="isOptional"  as="xs:boolean" select="string(@importance) eq 'optional'"/>
         <xsl:variable name="needOr"      as="xs:boolean" select="ahf:sdNeedOr(.)"/>
     
@@ -755,10 +826,20 @@ E-mail : info@antennahouse.com
             </xsl:call-template>
         </xsl:if>
         <fo:inline>
-            <xsl:call-template name="getAttributeSetWithLang"/>
-            <xsl:call-template name="ahf:getLocalizationAtts"/>
-            <xsl:call-template name="ahf:getIdAtts"/>
-            <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
+            <xsl:choose>
+                <xsl:when test="$prmGetContent">
+                    <xsl:call-template name="getAttributeSetWithLang">
+                        <xsl:with-param name="prmAttrSetName" select="if (string(@importance) eq 'default') then 'atsOperDefault' else 'atsOper'"/>
+                    </xsl:call-template>
+                    <xsl:call-template name="ahf:getLocalizationAtts"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:call-template name="getAttributeSetWithLang"/>
+                    <xsl:call-template name="ahf:getLocalizationAtts"/>
+                    <xsl:call-template name="ahf:getIdAtts"/>
+                    <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
+                </xsl:otherwise>
+            </xsl:choose>
             <xsl:apply-templates/>
         </fo:inline>
         <xsl:if test="$isOptional">
@@ -779,6 +860,8 @@ E-mail : info@antennahouse.com
     </xsl:template>
 
     <xsl:template match="*[contains(@class,' pr-d/delim ')]" priority="2">
+        <xsl:param name="prmGetContent" required="no" tunnel="yes" as="xs:boolean" select="false()"/>
+
         <xsl:variable name="isOptional"  as="xs:boolean" select="string(@importance) eq 'optional'"/>
         <xsl:variable name="needOr"      as="xs:boolean" select="ahf:sdNeedOr(.)"/>
     
@@ -793,10 +876,20 @@ E-mail : info@antennahouse.com
             </xsl:call-template>
         </xsl:if>
         <fo:inline>
-            <xsl:call-template name="getAttributeSetWithLang"/>
-            <xsl:copy-of select="ahf:getLocalizationAtts(.)"/>
-            <xsl:call-template name="ahf:getIdAtts"/>
-            <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
+            <xsl:choose>
+                <xsl:when test="$prmGetContent">
+                    <xsl:call-template name="getAttributeSetWithLang">
+                        <xsl:with-param name="prmAttrSetName" select="if (string(@importance) eq 'default') then 'atsDelimDefault' else 'atsDelim'"/>
+                    </xsl:call-template>
+                    <xsl:copy-of select="ahf:getLocalizationAtts(.)"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:call-template name="getAttributeSetWithLang"/>
+                    <xsl:copy-of select="ahf:getLocalizationAtts(.)"/>
+                    <xsl:call-template name="ahf:getIdAtts"/>
+                    <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
+                </xsl:otherwise>
+            </xsl:choose>
             <xsl:apply-templates/>
         </fo:inline>
         <xsl:if test="$isOptional">
@@ -817,6 +910,8 @@ E-mail : info@antennahouse.com
     </xsl:template>
 
     <xsl:template match="*[contains(@class,' pr-d/sep ')]" priority="2">
+        <xsl:param name="prmGetContent" required="no" tunnel="yes" as="xs:boolean" select="false()"/>
+
         <xsl:variable name="isOptional"  as="xs:boolean" select="string(@importance) eq 'optional'"/>
         <xsl:variable name="needOr"      as="xs:boolean" select="ahf:sdNeedOr(.)"/>
         
@@ -831,10 +926,20 @@ E-mail : info@antennahouse.com
             </xsl:call-template>
         </xsl:if>
         <fo:inline>
-            <xsl:call-template name="getAttributeSetWithLang"/>
-            <xsl:call-template name="ahf:getLocalizationAtts"/>
-            <xsl:call-template name="ahf:getIdAtts"/>
-            <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
+            <xsl:choose>
+                <xsl:when test="$prmGetContent">
+                    <xsl:call-template name="getAttributeSetWithLang">
+                        <xsl:with-param name="prmAttrSetName" select="if (string(@importance) eq 'default') then 'atsSepDefault' else 'atsSep'"/>
+                    </xsl:call-template>
+                    <xsl:copy-of select="ahf:getLocalizationAtts(.)"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:call-template name="getAttributeSetWithLang"/>
+                    <xsl:copy-of select="ahf:getLocalizationAtts(.)"/>
+                    <xsl:call-template name="ahf:getIdAtts"/>
+                    <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
+                </xsl:otherwise>
+            </xsl:choose>
             <xsl:apply-templates/>
         </fo:inline>
         <xsl:if test="$isOptional">
@@ -851,10 +956,14 @@ E-mail : info@antennahouse.com
      note:		@importance is processed in processGroup template.
      -->
     <xsl:template match="*[contains(@class,' pr-d/repsep ')]" priority="2">
+        <xsl:param name="prmGetContent" required="no" tunnel="yes" as="xs:boolean" select="false()"/>
+        
         <fo:inline>
             <xsl:call-template name="ahf:getLocalizationAtts"/>
             <xsl:call-template name="ahf:getIdAtts"/>
-            <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
+            <xsl:if test="not($prmGetContent)">
+                <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
+            </xsl:if>
             <xsl:apply-templates/>
             <xsl:text> </xsl:text>
         </fo:inline>

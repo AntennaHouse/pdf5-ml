@@ -83,6 +83,9 @@ E-mail : info@antennahouse.com
         <fo:inline>
             <xsl:choose>
                 <xsl:when test="$prmGetContent">
+                    <xsl:call-template name="getAttributeSetWithLang">
+                        <xsl:with-param name="prmAttrSetName" select="'atsPh'"/>
+                    </xsl:call-template>
                     <xsl:copy-of select="ahf:getUnivAtts(.,(),false())"/>
                 </xsl:when>
                 <xsl:otherwise>
@@ -96,12 +99,12 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <!-- 
-     function:	keyword template
-     param:	    
-     return:	fo:inline
-     note:		no special formatting
-                Call "processKeyword" for easy override from other plug-ins.
-                2015-08-25 t.makita
+     function:    keyword template
+     param:
+     return:      fo:inline
+     note:        no special formatting
+                  Call "processKeyword" for easy override from other plug-ins.
+                  2015-08-25 t.makita
      -->
     <xsl:template match="*[contains(@class, ' topic/keyword ')]" mode="MODE_GET_STYLE" as="xs:string*">
         <xsl:sequence select="'atsKeyword'"/>
@@ -112,10 +115,22 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <xsl:template name="processKeyword">
+        <xsl:param name="prmGetContent" required="no" tunnel="yes" as="xs:boolean" select="false()"/>
+
         <fo:inline>
-            <xsl:call-template name="getAttributeSetWithLang"/>
-            <xsl:call-template name="ahf:getUnivAtts"/>
-            <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
+            <xsl:choose>
+                <xsl:when test="$prmGetContent">
+                    <xsl:call-template name="getAttributeSetWithLang">
+                        <xsl:with-param name="prmAttrSetName" select="'atsKeyword'"/>
+                    </xsl:call-template>
+                    <xsl:copy-of select="ahf:getUnivAtts(.,(),false())"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:call-template name="getAttributeSetWithLang"/>
+                    <xsl:call-template name="ahf:getUnivAtts"/>
+                    <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
+                </xsl:otherwise>
+            </xsl:choose>
             <xsl:apply-templates/>
         </fo:inline>
     </xsl:template>
@@ -661,6 +676,8 @@ E-mail : info@antennahouse.com
     </xsl:template>    
 
     <xsl:template match="*[contains(@class, ' topic/cite ')]">
+        <xsl:param name="prmGetContent" required="no" tunnel="yes" as="xs:boolean" select="false()"/>
+ 
         <xsl:variable name="citePrefix" as="xs:string">
             <xsl:call-template name="getVarValueWithLang">
                 <xsl:with-param name="prmVarName" select="'Cite_Prefix'"/>
@@ -672,9 +689,19 @@ E-mail : info@antennahouse.com
             </xsl:call-template>
         </xsl:variable>
         <fo:inline>
-            <xsl:call-template name="getAttributeSetWithLang"/>
-            <xsl:call-template name="ahf:getUnivAtts"/>
-            <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
+            <xsl:choose>
+                <xsl:when test="$prmGetContent">
+                    <xsl:call-template name="getAttributeSetWithLang">
+                        <xsl:with-param name="prmAttrSetName" select="'atsCite'"/>
+                    </xsl:call-template>
+                    <xsl:copy-of select="ahf:getUnivAtts(.,(),false())"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:call-template name="getAttributeSetWithLang"/>
+                    <xsl:call-template name="ahf:getUnivAtts"/>
+                    <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
+                </xsl:otherwise>
+            </xsl:choose>
             <xsl:value-of select="$citePrefix"/>
             <xsl:apply-templates/>
             <xsl:value-of select="$citeSuffix"/>
@@ -803,9 +830,9 @@ E-mail : info@antennahouse.com
         
     
     <!-- 
-     function:	q template
-     param:	    none
-     return:	fo:inline
+     function:    q template
+     param:       none
+     return:      fo:inline
      note:		
      -->
     <xsl:template match="*[contains(@class, ' topic/q ')]" mode="MODE_GET_STYLE" as="xs:string*">
@@ -813,6 +840,8 @@ E-mail : info@antennahouse.com
     </xsl:template>    
 
     <xsl:template match="*[contains(@class, ' topic/q ')]">
+        <xsl:param name="prmGetContent" required="no" tunnel="yes" as="xs:boolean" select="false()"/>
+
         <xsl:variable name="qPrefix" as="xs:string">
             <xsl:call-template name="getVarValueWithLang">
                 <xsl:with-param name="prmVarName" select="'Q_Prefix'"/>
@@ -824,9 +853,19 @@ E-mail : info@antennahouse.com
             </xsl:call-template>
         </xsl:variable>
         <fo:inline>
-            <xsl:call-template name="getAttributeSetWithLang"/>
-            <xsl:call-template name="ahf:getUnivAtts"/>
-            <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
+            <xsl:choose>
+                <xsl:when test="$prmGetContent">
+                    <xsl:call-template name="getAttributeSetWithLang">
+                        <xsl:with-param name="prmAttrSetName" select="'atsQ'"/>
+                    </xsl:call-template>
+                    <xsl:copy-of select="ahf:getUnivAtts(.,(),false())"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:call-template name="getAttributeSetWithLang"/>
+                    <xsl:call-template name="ahf:getUnivAtts"/>
+                    <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
+                </xsl:otherwise>
+            </xsl:choose>
             <xsl:value-of select="$qPrefix"/>
             <xsl:apply-templates/>
             <xsl:value-of select="$qSuffix"/>
@@ -843,10 +882,10 @@ E-mail : info@antennahouse.com
     </xsl:template>
         
     <!-- 
-        function:	draft-comment template
+        function:   draft-comment template
         param:      none
-        return:	    fo:block
-        note:		none
+        return:     fo:block
+        note:       This template does not support multi-language.
     -->
     <xsl:template match="*[contains(@class, ' topic/draft-comment ')]" mode="MODE_GET_STYLE" as="xs:string*">
         <xsl:sequence select="'atsDraftComment'"/>
@@ -1122,11 +1161,11 @@ E-mail : info@antennahouse.com
     </xsl:function>
 
     <!-- 
-        function:	term template
+        function:    term template
         param:	    
-        return:	fo:inline
-        note:   Call "processTerm" for overriding from other plug-ins.
-                2015-08-25 t.makita
+        return:      fo:inline
+        note:        Call "processTerm" for overriding from other plug-ins.
+                     2015-08-25 t.makita
     -->
     <xsl:template match="*[contains(@class, ' topic/term ')]" mode="MODE_GET_STYLE" as="xs:string*">
         <xsl:sequence select="'atsTerm'"/>
@@ -1137,25 +1176,39 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <xsl:template name="processTerm">
+        <xsl:param name="prmGetContent" required="no" tunnel="yes" as="xs:boolean" select="false()"/>
         <fo:inline>
-            <xsl:call-template name="getAttributeSetWithLang"/>
-            <xsl:call-template name="ahf:getUnivAtts"/>
-            <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
+            <xsl:choose>
+                <xsl:when test="$prmGetContent">
+                    <xsl:call-template name="getAttributeSetWithLang">
+                        <xsl:with-param name="prmAttrSetName" select="'atsTerm'"/>
+                    </xsl:call-template>
+                    <xsl:copy-of select="ahf:getUnivAtts(.,(),false())"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:call-template name="getAttributeSetWithLang"/>
+                    <xsl:call-template name="ahf:getUnivAtts"/>
+                    <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
+                </xsl:otherwise>
+            </xsl:choose>
             <xsl:apply-templates/>
         </fo:inline>
     </xsl:template>
     
     <!-- 
-        function:	text template
+        function:    text template
         param:	    
-        return:	    fo:wrapper
-        note:		Text is only a container for text.
-        Generate a fo:wrapper. (2011-10-27 t.makita)
+        return:      fo:wrapper
+        note:        Text is only a container for text.
+                     Generate a fo:wrapper. (2011-10-27 t.makita)
     -->
     <xsl:template match="*[contains(@class,' topic/text ')]">
+        <xsl:param name="prmGetContent" required="no" tunnel="yes" as="xs:boolean" select="false()"/>
         <fo:wrapper>
             <xsl:call-template name="ahf:getUnivAtts"/>
-            <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
+            <xsl:if test="not($prmGetContent)">
+                <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
+            </xsl:if>
             <xsl:apply-templates/>
         </fo:wrapper>
     </xsl:template>
@@ -1163,7 +1216,7 @@ E-mail : info@antennahouse.com
     <!-- 
         function:	tm
         param:      
-        return:	    fo:inline
+        return:	  fo:inline
         note:		none
     -->
     <xsl:template match="*[contains(@class, ' topic/tm ')]" mode="MODE_GET_STYLE" as="xs:string*">
@@ -1171,10 +1224,22 @@ E-mail : info@antennahouse.com
     </xsl:template>    
     
     <xsl:template match="*[contains(@class,' topic/tm ')]">
+        <xsl:param name="prmGetContent" required="no" tunnel="yes" as="xs:boolean" select="false()"/>
+
         <fo:inline>
-            <xsl:call-template name="getAttributeSetWithLang"/>
-            <xsl:call-template name="ahf:getUnivAtts"/>
-            <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
+            <xsl:choose>
+                <xsl:when test="$prmGetContent">
+                    <xsl:call-template name="getAttributeSetWithLang">
+                        <xsl:with-param name="prmAttrSetName" select="'atsTm'"/>
+                    </xsl:call-template>
+                    <xsl:copy-of select="ahf:getUnivAtts(.,(),false())"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:call-template name="getAttributeSetWithLang"/>
+                    <xsl:call-template name="ahf:getUnivAtts"/>
+                    <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
+                </xsl:otherwise>
+            </xsl:choose>
             
             <xsl:apply-templates/>
             

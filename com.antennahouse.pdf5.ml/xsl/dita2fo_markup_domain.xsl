@@ -20,9 +20,9 @@
 >
 
     <!-- 
-        function:	markupname
-        param:	    
-        return:	    fo:inline
+        function:    markupname
+        param: 
+        return:      fo:inline
         note:		
     -->
     <xsl:template match="*[contains(@class, ' markup-d/markupname ')]" mode="MODE_GET_STYLE" as="xs:string*" priority="4">
@@ -34,10 +34,22 @@
     </xsl:template>
     
     <xsl:template name="processMarkupName">
+        <xsl:param name="prmGetContent" required="no" tunnel="yes" as="xs:boolean" select="false()"/>
+
         <fo:inline>
-            <xsl:call-template name="getAttributeSetWithLang"/>
-            <xsl:call-template name="ahf:getUnivAtts"/>
-            <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
+            <xsl:choose>
+                <xsl:when test="$prmGetContent">
+                    <xsl:call-template name="getAttributeSetWithLang">
+                        <xsl:with-param name="prmAttrSetName" select="'atsMarkupName'"/>
+                    </xsl:call-template>
+                    <xsl:copy-of select="ahf:getUnivAtts(.,(),false())"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:call-template name="getAttributeSetWithLang"/>
+                    <xsl:call-template name="ahf:getUnivAtts"/>
+                    <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
+                </xsl:otherwise>
+            </xsl:choose>
             <xsl:apply-templates/>
         </fo:inline>
     </xsl:template>
