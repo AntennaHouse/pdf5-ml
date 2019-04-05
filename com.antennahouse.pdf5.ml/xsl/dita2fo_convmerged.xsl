@@ -338,7 +338,23 @@ E-mail : info@antennahouse.com
 
         <xsl:variable name="refTopicId" as="xs:string" select="substring-after($refTopicHref,'#')"/>
         <xsl:variable name="refElemId" as="xs:string" select="if (contains($href,'/')) then substring-after($href,'/') else ''"/>
-        <xsl:variable name="topIds" as="xs:string+" select="for $id in $xref/ancestor::*[contains(@class,' topic/topic ')][last()]/descendant-or-self::*[contains(@class,' topic/topic ')]/@id return string($id)"/>
+        <xsl:variable name="topIds" as="xs:string*" select="for $id in $xref/ancestor::*[contains(@class,' topic/topic ')][last()]/descendant-or-self::*[contains(@class,' topic/topic ')]/@id return string($id)"/>
+        <xsl:variable name="topicIdsExperimental">
+            <xsl:choose>
+                <!-- xref exists inside topic -->
+                <xsl:when test="$xref/ancestor::*[contains(@class,' topic/topic ')]">
+                    <xsl:sequence select="for $id in $xref/ancestor::*[contains(@class,' topic/topic ')][last()]/descendant-or-self::*[contains(@class,' topic/topic ')]/@id return string($id)"/>
+                </xsl:when>
+                <!-- xref exists inside topicref/topicmeta/navtitle
+                     In this case DITA-OT 3.3 does not maintain the topic destination portion of xref/@href
+                 -->
+                <xsl:when test="$xref/ancestor::*[contains(@class,' map/topicmeta ')]/ancestor::*[contains(@class,' map/topicref ')][@href]">
+                    <xsl:variable name="href" as="xs:string" select="$xref/ancestor::*[contains(@class,' map/topicmeta ')]/ancestor::*[contains(@class,' map/topicref ')]/@href/string(.)"/>
+                    <xsl:variable name="topicId" as="xs:string" select="substring-after($href,'#')"/>
+                    <xsl:sequence select="$topicId"/>
+                </xsl:when>
+            </xsl:choose>
+        </xsl:variable> 
 
         <xsl:copy>
             <xsl:choose>
