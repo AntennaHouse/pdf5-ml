@@ -936,7 +936,7 @@ E-mail : info@antennahouse.com
         <xsl:param name="prmTopicRef" as="element()"/>
         <xsl:param name="prmCutLimit" as="xs:integer"/>
         <xsl:variable name="ancestorOrSelfTopicRef" as="element()*" select="($prmTopicRef/ancestor-or-self::*[contains(@class,' map/topicref ')])[position() le $prmCutLimit]"/>
-        <xsl:variable name="levelString" as="xs:string*" select="ahf:getSibilingTopicrefCount($ancestorOrSelfTopicRef)"/>
+        <xsl:variable name="levelString" as="xs:string*" select="ahf:getSibilingTopicrefCount($ancestorOrSelfTopicRef[not(ahf:seqContains(@class,(' bookmap/appendices ',' bookmap/frontmatter ',' bookmap/backmatter ')))])"/>
         <xsl:sequence select="string-join($levelString,'')"/>
     </xsl:function>
 
