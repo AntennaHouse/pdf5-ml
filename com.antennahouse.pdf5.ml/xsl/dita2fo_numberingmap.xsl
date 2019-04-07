@@ -109,10 +109,10 @@ E-mail : info@antennahouse.com
                 <xsl:sequence select="2"/>
             </xsl:when>
             <xsl:when test="$topElem[contains(@class,' bookmap/frontmatter ')]">
-                <xsl:sequence select="0"/>
+                <xsl:sequence select="1"/>
             </xsl:when>
             <xsl:when test="$topElem[contains(@class,' bookmap/backmatter ')]">
-                <xsl:sequence select="0"/>
+                <xsl:sequence select="1"/>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:sequence select="0"/>
@@ -278,6 +278,10 @@ E-mail : info@antennahouse.com
                     <!-- Figure number always starts from 1. -->
                     <xsl:sequence select="0"/>
                 </xsl:when>
+                <xsl:when test="$level eq 1">
+                    <!-- Top level always starts from 1. -->
+                    <xsl:sequence select="0"/>
+                </xsl:when>
                 <xsl:otherwise>
                     <!-- Count figure number with grouping topicref considering $cFigureGroupingLevelMax -->
                     <xsl:variable name="countTragetElem" as="element()*" select="root(current())//*[. &lt;&lt; current()] except root(current())//*[. &lt;&lt; $countTopElem]"/>
@@ -362,6 +366,10 @@ E-mail : info@antennahouse.com
                 </xsl:when>
                 <xsl:when test="$level le $footnoteGroupingLevelMax">
                     <!-- Figure number always starts from 1. -->
+                    <xsl:sequence select="0"/>
+                </xsl:when>
+                <xsl:when test="$level eq 1">
+                    <!-- Top level always starts from 1. -->
                     <xsl:sequence select="0"/>
                 </xsl:when>
                 <xsl:otherwise>
