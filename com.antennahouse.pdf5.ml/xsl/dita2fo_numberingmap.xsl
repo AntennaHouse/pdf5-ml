@@ -114,6 +114,9 @@ E-mail : info@antennahouse.com
             <xsl:when test="$topElem[contains(@class,' bookmap/backmatter ')]">
                 <xsl:sequence select="0"/>
             </xsl:when>
+            <xsl:otherwise>
+                <xsl:sequence select="0"/>
+            </xsl:otherwise>
         </xsl:choose>
     </xsl:function>
 
