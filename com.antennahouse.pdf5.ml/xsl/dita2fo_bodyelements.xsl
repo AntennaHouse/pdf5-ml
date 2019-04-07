@@ -1369,7 +1369,7 @@ E-mail : info@antennahouse.com
             <xsl:choose>
                 <xsl:when test="$pAddNumberingTitlePrefix">
                     <xsl:variable name="figureGroupingLevelMax" as="xs:integer" select="ahf:getFigureNumberingGroupLevel($prmTopicRef)"/>
-                    <xsl:variable name="titlePrefixPart" select="ahf:genLevelTitlePrefixByCount($prmTopicRef,$figureGroupingLevelMax)"/>
+                    <xsl:variable name="titlePrefixPart" as="xs:string" select="ahf:genLevelTitlePrefixByCount($prmTopicRef,$figureGroupingLevelMax)"/>
                     <xsl:choose>
                         <xsl:when test="string($titlePrefixPart)">
                             <xsl:sequence select="concat($titlePrefixPart,$cTitleSeparator)"/>        

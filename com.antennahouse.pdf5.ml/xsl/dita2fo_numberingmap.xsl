@@ -69,26 +69,29 @@ E-mail : info@antennahouse.com
      param:       prmElem（table-count, figure-count, footnote-count)
      return:      Grouping level
      note:        To customize the grouping, override this function.
+                  $prmElem varies by caller:
+                  - table-count and figure-count in numbering temporary tree
+                  - topicref of map
      -->
     
-    <xsl:function name="ahf:getFigureNumberingGroupLevel">
+    <xsl:function name="ahf:getFigureNumberingGroupLevel" as="xs:integer">
         <xsl:param name="prmElem" as="element()"/>
         <xsl:sequence select="ahf:getNumberingGroupLevel($prmElem)"/>        
     </xsl:function>
 
-    <xsl:function name="ahf:getTableNumberingGroupLevel">
+    <xsl:function name="ahf:getTableNumberingGroupLevel" as="xs:integer">
         <xsl:param name="prmElem" as="element()"/>
         <xsl:sequence select="ahf:getNumberingGroupLevel($prmElem)"/>        
     </xsl:function>
 
-    <xsl:function name="ahf:getFootnoteNumberingGroupLevel">
+    <xsl:function name="ahf:getFootnoteNumberingGroupLevel" as="xs:integer">
         <xsl:param name="prmElem" as="element()"/>
         <xsl:sequence select="ahf:getNumberingGroupLevel($prmElem)"/>        
     </xsl:function>
     
     <xsl:function name="ahf:getNumberingGroupLevel" as="xs:integer">
         <xsl:param name="prmElem" as="element()"/>
-        <xsl:variable name="topElem" as="element()" select="$prmElem/ancestor-or-self::*[position() eq last()]"/>
+        <xsl:variable name="topElem" as="element()" select="if (root($prmElem)/*[1] is $root) then ($prmElem/ancestor-or-self::* except ($root|$map))[1]  else $prmElem/ancestor-or-self::*[position() eq last()]"/>
         <xsl:choose>
             <xsl:when test="not($pAddNumberingTitlePrefix)">
                 <xsl:sequence select="0"/>

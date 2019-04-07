@@ -935,7 +935,7 @@ E-mail : info@antennahouse.com
     <xsl:function name="ahf:genLevelTitlePrefixByCount" as="xs:string">
         <xsl:param name="prmTopicRef" as="element()"/>
         <xsl:param name="prmCutLimit" as="xs:integer"/>
-        <xsl:variable name="ancestorOrSelfTopicRef" as="element()*" select="($prmTopicRef/ancestor-or-self::*[contains(@class,' map/topicref ')][not(contains(@class,' bookmap/appendices '))])[position() le $prmCutLimit]"/>
+        <xsl:variable name="ancestorOrSelfTopicRef" as="element()*" select="($prmTopicRef/ancestor-or-self::*[contains(@class,' map/topicref ')])[position() le $prmCutLimit]"/>
         <xsl:variable name="levelString" as="xs:string*" select="ahf:getSibilingTopicrefCount($ancestorOrSelfTopicRef)"/>
         <xsl:sequence select="string-join($levelString,'')"/>
     </xsl:function>
@@ -960,7 +960,7 @@ E-mail : info@antennahouse.com
                             <xsl:variable name="partCountFormat" as="xs:string" select="ahf:getVarValue('Part_Count_Format')"/>
                             <xsl:number format="{$partCountFormat}" value="$partCount"/>
                         </xsl:when>
-                        <xsl:when test="$topicRef[contains(@class, ' bookmap/chapter ')][empty(parent::*[contains(@class, ' bookmap/part ')])]">
+                        <xsl:when test="$topicRef[contains(@class, ' bookmap/chapter ')]">
                             <xsl:variable name="chapterCount" as="xs:integer" select="count($topicRef/preceding-sibling::*[contains(@class, ' map/topicref ')][contains(@class, ' bookmap/chapter ')][ahf:isToc(.)]|$topicRef)"/>
                             <xsl:variable name="chapterCountFormat" as="xs:string" select="ahf:getVarValue('Chapter_Count_Format')"/>
                             <xsl:number format="{$chapterCountFormat}" value="$chapterCount"/>
