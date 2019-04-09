@@ -398,6 +398,7 @@
          parameter: prmAttr: attribute()?
          notes:     See font-size definition on XSL1.1
                     https://www.w3.org/TR/xsl11/#font-size
+                    Support DITA-OT 2.x and 3.x both.
       -->
     <xsl:function name="ahf:isRelativeFontSizeAttr" as="xs:boolean">
         <xsl:param name="prmAttr" as="attribute()?"/>
@@ -409,7 +410,10 @@
             <xsl:when test="name($prmAttr) ne 'font-size'">
                 <xsl:sequence select="false()"/>
             </xsl:when>
-            <xsl:when test="matches($attVal,'larger|smaller|\d+(?:\.\d+)?em|\d+(?:\.\d+)?%')">
+            <xsl:when test="matches($attVal,'larger|smaller|\d+(\.\d+)?em|\d+(\.\d+)?%')" use-when="starts-with(system-property('ot.version'),'2') or starts-with(system-property('ot.version'),'1')">
+                <xsl:sequence select="true()"/>
+            </xsl:when>
+            <xsl:when test="matches($attVal,'larger|smaller|\d+(?:\.\d+)?em|\d+(?:\.\d+)?%')" use-when="not(starts-with(system-property('ot.version'),'2') or starts-with(system-property('ot.version'),'1'))">
                 <xsl:sequence select="true()"/>
             </xsl:when>
             <xsl:otherwise>

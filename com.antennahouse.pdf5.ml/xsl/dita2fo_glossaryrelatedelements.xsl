@@ -52,7 +52,11 @@ E-mail : info@antennahouse.com
             <xsl:number select="."
                 level="any"
                 count="*[contains(@class,' abbrev-d/abbreviated-form ')][string(@href) eq $href]"
-                from="$root"/>
+                from="/*"  use-when="starts-with(system-property('ot.version'),'2') or starts-with(system-property('ot.version'),'1')"/>
+            <xsl:number select="."
+                level="any"
+                count="*[contains(@class,' abbrev-d/abbreviated-form ')][string(@href) eq $href]"
+                from="$root"  use-when="not(starts-with(system-property('ot.version'),'2') or starts-with(system-property('ot.version'),'1'))"/>
         </xsl:variable>
         <xsl:variable name="topicElement" as="element()?" select="ahf:getTopicFromHref(substring-after($href, '#'))"/>
 
