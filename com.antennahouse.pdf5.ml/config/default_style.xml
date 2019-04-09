@@ -291,13 +291,6 @@ URL : http://www.antennahouse.com/
         <!-- Right page thumbnail max count -->
         <variable name="Thumbnail_Index_Max">10</variable>
 
-        <!-- Table/Figure/Footnote numbering level 
-             Changed from 3 ⇒ 2 except footnote. 2011-09-09 t.makita
-          -->
-        <variable name="Table_Grouping_Level_Max">2</variable>
-        <variable name="Figure_Grouping_Level_Max">2</variable>
-        <variable name="Footnote_Grouping_Level_Max">3</variable>
-
         <!-- Publish date format string -->
         <variable name="Publish_Date_Picture">[MNn].[D1],[Y1,4]</variable>
 
