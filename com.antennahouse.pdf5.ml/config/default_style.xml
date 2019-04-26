@@ -291,13 +291,6 @@ URL : http://www.antennahouse.com/
         <!-- Right page thumbnail max count -->
         <variable name="Thumbnail_Index_Max">10</variable>
 
-        <!-- Table/Figure/Footnote numbering level 
-             Changed from 3 ⇒ 2 except footnote. 2011-09-09 t.makita
-          -->
-        <variable name="Table_Grouping_Level_Max">2</variable>
-        <variable name="Figure_Grouping_Level_Max">2</variable>
-        <variable name="Footnote_Grouping_Level_Max">3</variable>
-
         <!-- Publish date format string -->
         <variable name="Publish_Date_Picture">[MNn].[D1],[Y1,4]</variable>
 
@@ -1815,7 +1808,7 @@ URL : http://www.antennahouse.com/
                 <attribute name="keep-with-next.within-page">always</attribute>
             </attribute-set>
 
-            <attribute-set name="atsFigTitle">
+            <attribute-set name="atsFigTitle" use-attribute-sets="atsTitle">
                 <attribute name="font-size">$Little_Title_Font_Size</attribute>
                 <attribute name="start-indent">inherited-property-value(start-indent)</attribute>
                 <attribute name="space-before">1.5mm</attribute>
@@ -2029,7 +2022,7 @@ URL : http://www.antennahouse.com/
                 <attribute name="start-indent">0mm</attribute>
             </attribute-set>
             
-            <attribute-set name="atsTableTitle">
+            <attribute-set name="atsTableTitle" use-attribute-sets="atsTitle">
                 <attribute name="font-size">$Little_Title_Font_Size</attribute>
                 <attribute name="space-before">$Para_Space_Before</attribute>
                 <attribute name="space-after">1.5mm</attribute>

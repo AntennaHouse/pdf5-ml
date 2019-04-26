@@ -1,10 +1,17 @@
 ﻿_______________________________________________________________________________
 
-                 Antenna House PDF5-ML Plugin Revision Notes
+                 Antenna House PDF5-ML Plug-in Revision Notes
 
       Copyright (C) 2009-2019 Antenna House, Inc. All rights reserved.
              Antenna House is a trademark of Antenna House, Inc.
 _______________________________________________________________________________
+
+Apr. 2019
+V1.0.5
+- Change fig & table numbering algorithms.
+  You can customize it by changing ahf:getNumberingGroupLevel in dita2fo_numberingmap.xsl.
+- Apply sans-serif font for table & fig title.
+- Fix bugs: #89, #86, #83, #78, #75, #72, #69, #58, #57, #47, #46, #33.
 
 Feb 2019
 V1.0.4
