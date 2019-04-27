@@ -39,6 +39,7 @@
     <xsl:variable name="defaultDocType" as="xs:string?" select="()"/>
     <xsl:variable name="defaultPaperSize" as="xs:string?" select="$pPaperSize"/>
     <xsl:variable name="defaultOutputType" as="xs:string?" select="$pOutputType"/>
+    <xsl:variable name="defaultBrandType" as="xs:string?" select="$pBrandType"/>
     
     <!-- root variables -->
     <xsl:variable name="rootXmlLang" as="xs:string" select="$defaultXmlLang"/>
@@ -146,6 +147,7 @@
                     prmDocType: Document type.
                     prmPaperSize: Paper size.
                     prmOutputType: Output type.
+                    prmBrandType: Brand type.
                     prmDoInherit: Inherit style even when $prmAttrSetName is specified
                     prmRequiredProperty: Required property from caller side
          notes: This template will be called in the following manner:
@@ -169,6 +171,7 @@
         <xsl:param name="prmDocType" as="xs:string?" required="no" select="$defaultDocType"/>
         <xsl:param name="prmPaperSize" as="xs:string?" required="no" select="$defaultPaperSize"/>
         <xsl:param name="prmOutputType" as="xs:string?" required="no" select="$defaultOutputType"/>
+        <xsl:param name="prmBrandType" as="xs:string?" required="no" select="$defaultBrandType"/>
         <xsl:param name="prmDoInherit" as="xs:boolean" required="no" select="false()"/>
         <xsl:param name="prmRequiredProperty" tunnel="yes" as="xs:string*" required="no" select="()"/>
         
@@ -208,6 +211,7 @@
                 <xsl:with-param name="prmDocType" select="$prmDocType"/>
                 <xsl:with-param name="prmPaperSize" select="$prmPaperSize"/>
                 <xsl:with-param name="prmOutputType" select="$prmOutputType"/>
+                <xsl:with-param name="prmBrandType" select="$prmBrandType"/>
             </xsl:call-template>
         </xsl:variable>
         
@@ -232,6 +236,7 @@
                             <xsl:with-param name="prmDocType" select="$prmDocType"/>
                             <xsl:with-param name="prmPaperSize" select="$prmPaperSize"/>
                             <xsl:with-param name="prmOutputType" select="$prmOutputType"/>
+                            <xsl:with-param name="prmBrandType" select="$prmBrandType"/>
                         </xsl:call-template>
                     </xsl:variable>
                     <xsl:variable name="fontSizeAttrCount" as="xs:integer" select="count($attsInheritedOrg[ahf:isFontSizeAttr(.)])"/>
@@ -476,6 +481,7 @@
         <xsl:param name="prmDocType" as="xs:string?" required="no" select="$defaultDocType"/>
         <xsl:param name="prmPaperSize" as="xs:string?" required="no" select="$defaultPaperSize"/>
         <xsl:param name="prmOutputType" as="xs:string?" required="no" select="$defaultOutputType"/>
+        <xsl:param name="prmBrandType" as="xs:string?" required="no" select="$defaultBrandType"/>
         
         <xsl:variable name="normalizedAtrSetName" select="normalize-space($prmAttrSetName)"/>
         <xsl:for-each select="tokenize($normalizedAtrSetName, '[\s]+')">
@@ -498,7 +504,8 @@
                                 select="$attrSetElements[empty(@doc-type)]
                                                            [empty(@paper-size)]
                                                            [empty(@output-type)]
-                                                            "/>
+                                                           [empty(@brand-type)]
+                                                           "/>
             </xsl:call-template>
             <!-- Matches only doc-type -->
             <xsl:call-template name="getAttributeInner">
@@ -507,6 +514,7 @@
                                                            [exists(@doc-type)]
                                                            [empty(@paper-size)]
                                                            [empty(@output-type)]
+                                                           [empty(@brand-type)]
                                                            "/>
             </xsl:call-template>
             <!-- Matches only paper-size -->
@@ -516,6 +524,7 @@
                     			                           [ahf:strEqualAsSeq(string(@paper-size),string($prmPaperSize))]
 									                       [exists(@paper-size)]
 									                       [empty(@output-type)]
+									                       [empty(@brand-type)]
 									                       "/>
             </xsl:call-template>
             <!-- Matches only output-type -->
@@ -525,7 +534,18 @@
                                                            [empty(@paper-size)]
                                                            [ahf:strEqualAsSeq(string(@output-type),string($prmOutputType))]
                                                            [exists(@output-type)]
+                                                           [empty(@brand-type)]
                                                            "/>
+            </xsl:call-template>
+            <!-- Matches only brand-type -->
+            <xsl:call-template name="getAttributeInner">
+                <xsl:with-param name="prmAttrSetElement" 
+                                select="$attrSetElements[empty(@doc-type)]
+                                                            [empty(@paper-size)]
+                                                            [empty(@output-type)]
+                                                            [ahf:strEqualAsSeq(string(@brand-type),string($prmBrandType))]
+                                                            [exists(@brand-type)]
+                                                            "/>
             </xsl:call-template>
             <!-- Matches doc-type and paper-size -->
             <xsl:call-template name="getAttributeInner">
@@ -535,6 +555,7 @@
                                                            [ahf:strEqualAsSeq(string(@paper-size),string($prmPaperSize))]
                                                            [exists(@paper-size)]
                                                            [empty(@output-type)]
+                                                           [empty(@brand-type)]
                                                            "/>
             </xsl:call-template>
             <!-- Matches doc-type and output-type -->
@@ -545,7 +566,19 @@
                                                            [empty(@paper-size)]
                                                            [ahf:strEqualAsSeq(string(@output-type),string($prmOutputType))]
                                                            [exists(@output-type)]
+                                                           [empty(@brand-type)]
                                                            "/>
+            </xsl:call-template>
+            <!-- Matches doc-type and brand-type -->
+            <xsl:call-template name="getAttributeInner">
+                <xsl:with-param name="prmAttrSetElement" 
+                                select="$attrSetElements[ahf:strEqualAsSeq(string(@doc-type),string($prmDocType))]
+                                                            [exists(@doc-type)]
+                                                            [empty(@paper-size)]
+                                                            [empty(@output-type)]
+                                                            [ahf:strEqualAsSeq(string(@brand-type),string($prmBrandType))]
+                                                            [exists(@brand-type)]
+                                                            "/>
             </xsl:call-template>
             <!-- Matches paper-size and output-type -->
             <xsl:call-template name="getAttributeInner">
@@ -555,7 +588,30 @@
                                                            [exists(@paper-size)]
                                                            [ahf:strEqualAsSeq(string(@output-type),string($prmOutputType))]
                                                            [exists(@output-type)]
+                                                           [empty(@brand-type)]
                                                            "/>
+            </xsl:call-template>
+            <!-- Matches paper-size and brand-type -->
+            <xsl:call-template name="getAttributeInner">
+                <xsl:with-param name="prmAttrSetElement" 
+                                select="$attrSetElements[empty(@doc-type)]
+                                                            [ahf:strEqualAsSeq(string(@paper-size),string($prmPaperSize))]
+                                                            [exists(@paper-size)]
+                                                            [empty(@output-type)]
+                                                            [ahf:strEqualAsSeq(string(@brand-type),string($prmBrandType))]
+                                                            [exists(@brand-type)]
+                                                            "/>
+            </xsl:call-template>
+            <!-- Matches output-type and brand-type -->
+            <xsl:call-template name="getAttributeInner">
+                <xsl:with-param name="prmAttrSetElement" 
+                                select="$attrSetElements[empty(@doc-type)]
+                                                            [empty(@paper-size)]
+                                                            [ahf:strEqualAsSeq(string(@output-type),string($prmOutputType))]
+                                                            [exists(@output-type)]
+                                                            [ahf:strEqualAsSeq(string(@brand-type),string($prmBrandType))]
+                                                            [exists(@brand-type)]
+                                                            "/>
             </xsl:call-template>
             <!-- Matches doc-type, paper-size and output-type -->
             <xsl:call-template name="getAttributeInner">
@@ -566,7 +622,57 @@
                                                            [exists(@paper-size)]
                                                            [ahf:strEqualAsSeq(string(@output-type),string($prmOutputType))]
                                                            [exists(@output-type)]
+                                                           [empty(@brand-type)]
                                                            "/>
+            </xsl:call-template>
+            <!-- Matches doc-type, paper-size and brand-type -->
+            <xsl:call-template name="getAttributeInner">
+                   <xsl:with-param name="prmAttrSetElement" 
+                                   select="$attrSetElements[ahf:strEqualAsSeq(string(@doc-type),string($prmDocType))]
+                                                           [exists(@doc-type)]
+                                                           [ahf:strEqualAsSeq(string(@paper-size),string($prmPaperSize))]
+                                                           [exists(@paper-size)]
+                                                           [empty(@output-type)]
+                                                           [ahf:strEqualAsSeq(string(@brand-type),string($prmBrandType))]
+                                                           [exists(@brand-type)]
+                                                           "/>
+            </xsl:call-template>
+            <!-- Matches doc-type, output-type and brand-type -->
+            <xsl:call-template name="getAttributeInner">
+                <xsl:with-param name="prmAttrSetElement" 
+                                select="$attrSetElements[ahf:strEqualAsSeq(string(@doc-type),string($prmDocType))]
+                                                            [exists(@doc-type)]
+                                                            [empty(@paper-size)]
+                                                            [ahf:strEqualAsSeq(string(@output-type),string($prmOutputType))]
+                                                            [exists(@output-type)]
+                                                            [ahf:strEqualAsSeq(string(@brand-type),string($prmBrandType))]
+                                                            [exists(@brand-type)]
+                                                            "/>
+            </xsl:call-template>
+            <!-- Matches paper-size, output-type and brand-type -->
+            <xsl:call-template name="getAttributeInner">
+                <xsl:with-param name="prmAttrSetElement" 
+                                select="$attrSetElements[empty(@doc-type)]
+                                                            [ahf:strEqualAsSeq(string(@paper-size),string($prmPaperSize))]
+                                                            [exists(@paper-size)]
+                                                            [ahf:strEqualAsSeq(string(@output-type),string($prmOutputType))]
+                                                            [exists(@output-type)]
+                                                            [ahf:strEqualAsSeq(string(@brand-type),string($prmBrandType))]
+                                                            [exists(@brand-type)]
+                                                            "/>
+            </xsl:call-template>
+            <!-- Matches doc-type, paper-size, output-type and brand-type -->
+            <xsl:call-template name="getAttributeInner">
+                <xsl:with-param name="prmAttrSetElement" 
+                                    select="$attrSetElements[ahf:strEqualAsSeq(string(@doc-type),string($prmDocType))]
+                                                            [exists(@doc-type)]
+                                                            [ahf:strEqualAsSeq(string(@paper-size),string($prmPaperSize))]
+                                                            [exists(@paper-size)]
+                                                            [ahf:strEqualAsSeq(string(@output-type),string($prmOutputType))]
+                                                            [exists(@output-type)]
+                                                            [ahf:strEqualAsSeq(string(@brand-type),string($prmBrandType))]
+                                                            [exists(@brand-type)]
+                                                            "/>
             </xsl:call-template>
         </xsl:for-each>
     </xsl:template>
@@ -601,6 +707,7 @@
         <xsl:param name="prmDocType" as="xs:string?" required="no" select="$defaultDocType"/>
         <xsl:param name="prmPaperSize" as="xs:string?" required="no" select="$defaultPaperSize"/>
         <xsl:param name="prmOutputType" as="xs:string?" required="no" select="$defaultOutputType"/>
+        <xsl:param name="prmBrandType" as="xs:string?" required="no" select="$defaultBrandType"/>
         
         <xsl:variable name="attrs" as="attribute()*">
             <xsl:call-template name="getAttributeSetWithLang">
@@ -608,6 +715,7 @@
                 <xsl:with-param name="prmDocType" select="$prmDocType"/>
                 <xsl:with-param name="prmPaperSize" select="$prmPaperSize"/>
                 <xsl:with-param name="prmOutputType" select="$prmOutputType"/>
+                <xsl:with-param name="prmBrandType" select="$prmBrandType"/>
             </xsl:call-template>
         </xsl:variable>
         <xsl:variable name="attrsResult">
@@ -713,6 +821,7 @@
         <xsl:param name="prmDocType" as="xs:string?" required="no" select="$defaultDocType"/>
         <xsl:param name="prmPaperSize" as="xs:string?" required="no" select="$defaultPaperSize"/>
         <xsl:param name="prmOutputType" as="xs:string?" required="no" select="$defaultOutputType"/>
+        <xsl:param name="prmBrandType" as="xs:string?" required="no" select="$defaultBrandType"/>
         <xsl:param name="prmSrc" as="xs:string+" required="yes"/>
         <xsl:param name="prmDst" as="xs:string+" required="yes"/>
         
@@ -723,6 +832,7 @@
                 <xsl:with-param name="prmDocType" select="$prmDocType"/>
                 <xsl:with-param name="prmPaperSize" select="$prmPaperSize"/>
                 <xsl:with-param name="prmOutputType" select="$prmOutputType"/>
+                <xsl:with-param name="prmBrandType" select="$prmBrandType"/>
             </xsl:call-template>
         </xsl:variable>
         
@@ -759,6 +869,7 @@
         <xsl:param name="prmDocType" as="xs:string?" required="no" select="$defaultDocType"/>
         <xsl:param name="prmPaperSize" as="xs:string?" required="no" select="$defaultPaperSize"/>
         <xsl:param name="prmOutputType" as="xs:string?" required="no" select="$defaultOutputType"/>
+        <xsl:param name="prmBrandType" as="xs:string?" required="no" select="$defaultBrandType"/>
         
         <xsl:variable name="attrs" as="attribute()*">
             <xsl:call-template name="getAttributeSet">
@@ -767,6 +878,7 @@
                 <xsl:with-param name="prmDocType" select="$prmDocType"/>
                 <xsl:with-param name="prmPaperSize" select="$prmPaperSize"/>
                 <xsl:with-param name="prmOutputType" select="$prmOutputType"/>
+                <xsl:with-param name="prmBrandType" select="$prmBrandType"/>
             </xsl:call-template>
         </xsl:variable>
 
@@ -805,6 +917,7 @@
         <xsl:param name="prmDocType" as="xs:string?" required="no" select="$defaultDocType"/>
         <xsl:param name="prmPaperSize" as="xs:string?" required="no" select="$defaultPaperSize"/>
         <xsl:param name="prmOutputType" as="xs:string?" required="no" select="$defaultOutputType"/>
+        <xsl:param name="prmBrandType" as="xs:string?" required="no" select="$defaultBrandType"/>
         
         <xsl:variable name="attrs" as="attribute()*">
             <xsl:call-template name="getAttributeSet">
@@ -813,6 +926,7 @@
                 <xsl:with-param name="prmDocType" select="$prmDocType"/>
                 <xsl:with-param name="prmPaperSize" select="$prmPaperSize"/>
                 <xsl:with-param name="prmOutputType" select="$prmOutputType"/>
+                <xsl:with-param name="prmBrandType" select="$prmBrandType"/>
             </xsl:call-template>
         </xsl:variable>
         <xsl:if test="empty($attrs[name() eq $prmAttrName])">
@@ -838,6 +952,7 @@
                     prmDocType: Document type
                     prmPaperSize: Paper size
                     prmOutputType: Output type.
+                    prmBrandType: Brand type.
          notes: 
       -->
     <xsl:function name="ahf:getAttributeValue" as="xs:string">
@@ -856,6 +971,7 @@
         <xsl:param name="prmDocType" as="xs:string?" required="no" select="$defaultDocType"/>
         <xsl:param name="prmPaperSize" as="xs:string?" required="no" select="$defaultPaperSize"/>
         <xsl:param name="prmOutputType" as="xs:string?" required="no" select="$defaultOutputType"/>
+        <xsl:param name="prmBrandType" as="xs:string?" required="no" select="$defaultBrandType"/>
         
         <xsl:variable name="attrs" as="attribute()*">
             <xsl:call-template name="getAttributeSet">
@@ -864,6 +980,7 @@
                 <xsl:with-param name="prmDocType" select="$prmDocType"/>
                 <xsl:with-param name="prmPaperSize" select="$prmPaperSize"/>
                 <xsl:with-param name="prmOutputType" select="$prmOutputType"/>
+                <xsl:with-param name="prmBrandType" select="$prmBrandType"/>
             </xsl:call-template>
         </xsl:variable>
         <xsl:if test="empty($attrs[name() eq $prmAttrName])">
@@ -887,6 +1004,7 @@
         <xsl:param name="prmDocType" as="xs:string?" required="no" select="$defaultDocType"/>
         <xsl:param name="prmPaperSize" as="xs:string?" required="no" select="$defaultPaperSize"/>
         <xsl:param name="prmOutputType" as="xs:string?" required="no" select="$defaultOutputType"/>
+        <xsl:param name="prmBrandType" as="xs:string?" required="no" select="$defaultBrandType"/>
         
         <xsl:variable name="attrs" as="attribute()*">
             <xsl:call-template name="getAttributeSetWithLang">
@@ -895,6 +1013,7 @@
                 <xsl:with-param name="prmDocType" select="$prmDocType"/>
                 <xsl:with-param name="prmPaperSize" select="$prmPaperSize"/>
                 <xsl:with-param name="prmOutputType" select="$prmOutputType"/>
+                <xsl:with-param name="prmBrandType" select="$prmBrandType"/>
             </xsl:call-template>
         </xsl:variable>
         
@@ -919,6 +1038,8 @@
                     prmElem: The relevant element
                     prmDocType: Document type
                     prmPaperSize: Paper size
+                    prmOutputType: Output type
+                    prmBrandType: Brand type
          note: This template get @xml:lang from $prmElem/ancestor-or-self::* and 
                return the specific variable value associated with @xml:lang.
       -->
@@ -928,6 +1049,7 @@
         <xsl:param name="prmDocType" as="xs:string?" required="no" select="$defaultDocType"/>
         <xsl:param name="prmPaperSize" as="xs:string?" required="no" select="$defaultPaperSize"/>
         <xsl:param name="prmOutputType" as="xs:string?" required="no" select="$defaultOutputType"/>
+        <xsl:param name="prmBrandType" as="xs:string?" required="no" select="$defaultBrandType"/>
         
         <xsl:variable name="curXmlLang" as="xs:string" select="ahf:getCurrentXmlLang($prmElem)"/>
         <xsl:call-template name="getVarValue">
@@ -936,6 +1058,7 @@
             <xsl:with-param name="prmDocType" select="$prmDocType"/>
             <xsl:with-param name="prmPaperSize" select="$prmPaperSize"/>
             <xsl:with-param name="prmOutputType" select="$prmOutputType"/>
+            <xsl:with-param name="prmBrandType" select="$prmBrandType"/>
         </xsl:call-template>
     </xsl:template>    
 
@@ -952,10 +1075,6 @@
         <xsl:param name="prmVarName" as="xs:string"/>
         <xsl:call-template name="getVarValue">
             <xsl:with-param name="prmVarName" select="$prmVarName"/>
-            <xsl:with-param name="prmXmlLang" select="$defaultXmlLang"/>
-            <xsl:with-param name="prmDocType" select="$defaultDocType"/>
-            <xsl:with-param name="prmPaperSize" select="$defaultPaperSize"/>
-            <xsl:with-param name="prmOutputType" select="$defaultOutputType"/>
         </xsl:call-template>
     </xsl:function>
 
@@ -965,6 +1084,7 @@
         <xsl:param name="prmDocType" as="xs:string?" required="no" select="$defaultDocType"/>
         <xsl:param name="prmPaperSize" as="xs:string?" required="no" select="$defaultPaperSize"/>
         <xsl:param name="prmOutputType" as="xs:string?" required="no" select="$defaultOutputType"/>
+        <xsl:param name="prmBrandType" as="xs:string?" required="no" select="$defaultBrandType"/>
         
         <!--xsl:message select="'[getVarValue] $prmVarName=',$prmVarName"/>
         <xsl:message select="'[getVarValue] $prmXmlLang=',$prmXmlLang"/-->
@@ -983,6 +1103,7 @@
                 <xsl:with-param name="prmDocType" select="$prmDocType"/>
                 <xsl:with-param name="prmPaperSize" select="$prmPaperSize"/>
                 <xsl:with-param name="prmOutputType" select="$prmOutputType"/>
+                <xsl:with-param name="prmBrandType" select="$prmBrandType"/>
             </xsl:call-template>
         </xsl:variable>
         <xsl:sequence select="string($filteredVars[last()])"/>
@@ -1006,6 +1127,7 @@
         <xsl:param name="prmDocType" as="xs:string?" required="no" select="$defaultDocType"/>
         <xsl:param name="prmPaperSize" as="xs:string?" required="no" select="$defaultPaperSize"/>
         <xsl:param name="prmOutputType" as="xs:string?" required="no" select="$defaultOutputType"/>
+        <xsl:param name="prmBrandType" as="xs:string?" required="no" select="$defaultBrandType"/>
         
         <xsl:variable name="varValue" as="xs:string">
             <xsl:call-template name="getVarValue">
@@ -1014,6 +1136,7 @@
                 <xsl:with-param name="prmDocType" select="$prmDocType"/>
                 <xsl:with-param name="prmPaperSize" select="$prmPaperSize"/>
                 <xsl:with-param name="prmOutputType" select="$prmOutputType"/>
+                <xsl:with-param name="prmBrandType" select="$prmBrandType"/>
             </xsl:call-template>
         </xsl:variable>
         
@@ -1027,6 +1150,8 @@
                     prmElem: The relevant element
                     prmDocType: Document type
                     prmPaperSize: Paper size
+                    prmOutputType: Output type
+                    prmBrandType: Brand type
          note: 
       -->
     <xsl:template name="getVarValueWithLangAsText" as="text()">
@@ -1035,6 +1160,7 @@
         <xsl:param name="prmDocType" as="xs:string?" required="no" select="$defaultDocType"/>
         <xsl:param name="prmPaperSize" as="xs:string?" required="no" select="$defaultPaperSize"/>
         <xsl:param name="prmOutputType" as="xs:string?" required="no" select="$defaultOutputType"/>
+        <xsl:param name="prmBrandType" as="xs:string?" required="no" select="$defaultBrandType"/>
         
         <xsl:variable name="curXmlLang" as="xs:string" select="ahf:getCurrentXmlLang($prmElem)"/>
         <xsl:variable name="varValue" as="xs:string">
@@ -1044,6 +1170,7 @@
                 <xsl:with-param name="prmDocType" select="$prmDocType"/>
                 <xsl:with-param name="prmPaperSize" select="$prmPaperSize"/>
                 <xsl:with-param name="prmOutputType" select="$prmOutputType"/>
+                <xsl:with-param name="prmBrandType" select="$prmBrandType"/>
             </xsl:call-template>
         </xsl:variable>
         <xsl:value-of select="$varValue"/>
@@ -1056,6 +1183,8 @@
                     prmXmlLang: Target xml:lang
                     prmDocType: Document type
                     prmPaperSize: Paper size
+                    prmOutputType: Output type
+                    prmBrandType: Brand type
          note: 
       -->
     <xsl:template name="getVarValueAsDouble" as="xs:double">
@@ -1064,6 +1193,7 @@
         <xsl:param name="prmDocType" as="xs:string?" required="no" select="$defaultDocType"/>
         <xsl:param name="prmPaperSize" as="xs:string?" required="no" select="$defaultPaperSize"/>
         <xsl:param name="prmOutputType" as="xs:string?" required="no" select="$defaultOutputType"/>
+        <xsl:param name="prmBrandType" as="xs:string?" required="no" select="$defaultBrandType"/>
         
         <xsl:variable name="varValue" as="xs:string">
             <xsl:call-template name="getVarValue">
@@ -1072,6 +1202,7 @@
                 <xsl:with-param name="prmDocType" select="$prmDocType"/>
                 <xsl:with-param name="prmPaperSize" select="$prmPaperSize"/>
                 <xsl:with-param name="prmOutputType" select="$prmOutputType"/>
+                <xsl:with-param name="prmBrandType" select="$prmBrandType"/>
             </xsl:call-template>
         </xsl:variable>
         
@@ -1094,6 +1225,7 @@
         <xsl:param name="prmDocType" as="xs:string?" required="no" select="$defaultDocType"/>
         <xsl:param name="prmPaperSize" as="xs:string?" required="no" select="$defaultPaperSize"/>
         <xsl:param name="prmOutputType" as="xs:string?" required="no" select="$defaultOutputType"/>
+        <xsl:param name="prmBrandType" as="xs:string?" required="no" select="$defaultBrandType"/>
         
         <xsl:variable name="curXmlLang" as="xs:string" select="ahf:getCurrentXmlLang($prmElem)"/>
         <xsl:variable name="varValueAsDouble" as="xs:double">
@@ -1103,6 +1235,7 @@
                 <xsl:with-param name="prmDocType" select="$prmDocType"/>
                 <xsl:with-param name="prmPaperSize" select="$prmPaperSize"/>
                 <xsl:with-param name="prmOutputType" select="$prmOutputType"/>
+                <xsl:with-param name="prmBrandType" select="$prmBrandType"/>
             </xsl:call-template>
         </xsl:variable>
         <xsl:sequence select="$varValueAsDouble"/>
@@ -1116,16 +1249,14 @@
                     prmXmlLang: Target xml:lang
                     prmDocType: Document type
                     prmPaperSize: Paper size
+                    prmOutputType: Output type
+                    prmBrandType: Brand type
          note: 
       -->
     <xsl:function name="ahf:getVarValueAsInteger" as="xs:integer">
         <xsl:param name="prmVarName" as="xs:string"/>
         <xsl:call-template name="getVarValueAsInteger">
             <xsl:with-param name="prmVarName" select="$prmVarName"/>
-            <xsl:with-param name="prmXmlLang" select="$defaultXmlLang"/>
-            <xsl:with-param name="prmDocType" select="$defaultDocType"/>
-            <xsl:with-param name="prmPaperSize" select="$defaultPaperSize"/>
-            <xsl:with-param name="prmOutputType" select="$defaultOutputType"/>
         </xsl:call-template>
     </xsl:function>
 
@@ -1135,6 +1266,7 @@
         <xsl:param name="prmDocType" as="xs:string?" required="no" select="$defaultDocType"/>
         <xsl:param name="prmPaperSize" as="xs:string?" required="no" select="$defaultPaperSize"/>
         <xsl:param name="prmOutputType" as="xs:string?" required="no" select="$defaultOutputType"/>
+        <xsl:param name="prmBrandType" as="xs:string?" required="no" select="$defaultBrandType"/>
         
         <xsl:variable name="varValue" as="xs:string">
             <xsl:call-template name="getVarValue">
@@ -1143,6 +1275,7 @@
                 <xsl:with-param name="prmDocType" select="$prmDocType"/>
                 <xsl:with-param name="prmPaperSize" select="$prmPaperSize"/>
                 <xsl:with-param name="prmOutputType" select="$prmOutputType"/>
+                <xsl:with-param name="prmBrandType" select="$defaultBrandType"/>
             </xsl:call-template>
         </xsl:variable>
         
@@ -1166,6 +1299,8 @@
                     prmXmlLang: Target xml:lang
                     prmDocType: Document type
                     prmPaperSize: Paper size
+                    prmOutputType: Output type
+                    prmBrandType: Brand type
                     prmDelim: Delimiter character
          note: 
     -->
@@ -1183,6 +1318,7 @@
         <xsl:param name="prmDocType" as="xs:string?" required="no" select="$defaultDocType"/>
         <xsl:param name="prmPaperSize" as="xs:string?" required="no" select="$defaultPaperSize"/>
         <xsl:param name="prmOutputType" as="xs:string?" required="no" select="$defaultOutputType"/>
+        <xsl:param name="prmBrandType" as="xs:string?" required="no" select="$defaultBrandType"/>
         
         <xsl:variable name="curXmlLang" as="xs:string" select="ahf:getCurrentXmlLang($prmElem)"/>
         <xsl:call-template name="getVarValueAsStringSequence">
@@ -1191,6 +1327,7 @@
             <xsl:with-param name="prmDocType" select="$prmDocType"/>
             <xsl:with-param name="prmPaperSize" select="$prmPaperSize"/>
             <xsl:with-param name="prmOutputType" select="$prmOutputType"/>
+            <xsl:with-param name="prmBrandType" select="$prmBrandType"/>
         </xsl:call-template>
     </xsl:template>
 
@@ -1200,6 +1337,7 @@
         <xsl:param name="prmDocType" as="xs:string?" required="no" select="$defaultDocType"/>
         <xsl:param name="prmPaperSize" as="xs:string?" required="no" select="$defaultPaperSize"/>
         <xsl:param name="prmOutputType" as="xs:string?" required="no" select="$defaultOutputType"/>
+        <xsl:param name="prmBrandType" as="xs:string?" required="no" select="$defaultBrandType"/>
         <xsl:param name="prmDelim" as="xs:string" required="no" select="','"/>
 
         <xsl:variable name="stringAndDelim" as="xs:string+">
@@ -1209,6 +1347,7 @@
                 <xsl:with-param name="prmDocType" select="$prmDocType"/>
                 <xsl:with-param name="prmPaperSize" select="$prmPaperSize"/>
                 <xsl:with-param name="prmOutputType" select="$prmOutputType"/>
+                <xsl:with-param name="prmBrandType" select="$prmBrandType"/>
             </xsl:call-template>
         </xsl:variable>
         <xsl:variable name="stringValue" as="xs:string" select="$stringAndDelim[1]"/>
@@ -1231,6 +1370,7 @@
         <xsl:param name="prmDocType" as="xs:string?" required="no" select="$defaultDocType"/>
         <xsl:param name="prmPaperSize" as="xs:string?" required="no" select="$defaultPaperSize"/>
         <xsl:param name="prmOutputType" as="xs:string?" required="no" select="$defaultOutputType"/>
+        <xsl:param name="prmBrandType" as="xs:string?" required="no" select="$defaultBrandType"/>
         
         <xsl:variable name="vars" as="element()*" select="$glVarDefs/*[string(@name) eq $prmVarName]"/>
         <xsl:if test="empty($vars)">
@@ -1247,6 +1387,7 @@
                 <xsl:with-param name="prmDocType" select="$prmDocType"/>
                 <xsl:with-param name="prmPaperSize" select="$prmPaperSize"/>
                 <xsl:with-param name="prmOutputType" select="$prmOutputType"/>
+                <xsl:with-param name="prmBrandType" select="$prmBrandType"/>
             </xsl:call-template>
         </xsl:variable>
         <xsl:sequence select="string($filteredVars[last()])"/>
@@ -1260,16 +1401,14 @@
                     prmXmlLang: Target xml:lang
                     prmDocType: Document type
                     prmPaperSize: Paper size
+                    prmOutputType: Output type
+                    prmBrandType: Brand type
          note: 
       -->
     <xsl:function name="ahf:getInstreamObject" as="node()*">
         <xsl:param name="prmObjName" as="xs:string"/>
         <xsl:call-template name="getInstreamObject">
             <xsl:with-param name="prmObjName" select="$prmObjName"/>
-            <xsl:with-param name="prmXmlLang"  select="$defaultXmlLang"/>
-            <xsl:with-param name="prmDocType"  select="$defaultDocType"/>
-            <xsl:with-param name="prmPaperSize"  select="$defaultPaperSize"/>
-            <xsl:with-param name="prmOutputType" select="$defaultOutputType"/>
         </xsl:call-template>        
     </xsl:function>
 
@@ -1279,6 +1418,7 @@
         <xsl:param name="prmDocType" as="xs:string?" required="no" select="$defaultDocType"/>
         <xsl:param name="prmPaperSize" as="xs:string?" required="no" select="$defaultPaperSize"/>
         <xsl:param name="prmOutputType" as="xs:string?" required="no" select="$defaultOutputType"/>
+        <xsl:param name="prmBrandType" as="xs:string?" required="no" select="$defaultBrandType"/>
         
         <xsl:variable name="objects" as="element()*" select="$glInstreamObjects/*[string(@name) eq $prmObjName]"/>
         <xsl:if test="empty($objects)">
@@ -1295,6 +1435,7 @@
                 <xsl:with-param name="prmDocType" select="$prmDocType"/>
                 <xsl:with-param name="prmPaperSize" select="$prmPaperSize"/>
                 <xsl:with-param name="prmOutputType" select="$prmOutputType"/>
+                <xsl:with-param name="prmBrandType" select="$prmBrandType"/>
             </xsl:call-template>
         </xsl:variable>
         <xsl:sequence select="$filteredObjects[last()]/*[1]"/>
@@ -1308,6 +1449,8 @@
                     prmXmlLang: Target xml:lang
                     prmDocType: Document type
                     prmPaperSize: Paper size
+                    prmOutputType: Output type
+                    prmBrandType: Brand type
                     prmSrcStr: Source string
                     prmDstStr: Destination string
          note: 
@@ -1319,9 +1462,6 @@
         
         <xsl:call-template name="getInstreamObjectReplacing">
             <xsl:with-param name="prmObjName" as="xs:string" select="$prmObjName"/>
-            <xsl:with-param name="prmXmlLang" as="xs:string?" select="$defaultXmlLang"/>
-            <xsl:with-param name="prmDocType" as="xs:string?" select="$defaultDocType"/>
-            <xsl:with-param name="prmPaperSize" as="xs:string?" select="$defaultPaperSize"/>
             <xsl:with-param name="prmSrcStr" select="$prmSrcStr"/>
             <xsl:with-param name="prmDstStr" select="$prmDstStr"/>
         </xsl:call-template> 
@@ -1333,6 +1473,7 @@
         <xsl:param name="prmDocType" as="xs:string?" required="no" select="$defaultDocType"/>
         <xsl:param name="prmPaperSize" as="xs:string?" required="no" select="$defaultPaperSize"/>
         <xsl:param name="prmOutputType" as="xs:string?" required="no" select="$defaultOutputType"/>
+        <xsl:param name="prmBrandType" as="xs:string?" required="no" select="$defaultBrandType"/>
         <xsl:param name="prmSrcStr" as="xs:string+" required="yes"/>
         <xsl:param name="prmDstStr" as="xs:string+" required="yes"/>
 
@@ -1343,6 +1484,7 @@
                 <xsl:with-param name="prmDocType" select="$prmDocType"/>
                 <xsl:with-param name="prmPaperSize" select="$prmPaperSize"/>
                 <xsl:with-param name="prmOutputType" select="$prmOutputType"/>
+                <xsl:with-param name="prmBrandType" select="$prmBrandType"/>
             </xsl:call-template>
         </xsl:variable>
         <xsl:variable name="replacedInstreamObject" as="node()*">
@@ -1425,16 +1567,14 @@
                     prmXmlLang: Target xml:lang
                     prmDocType: Document type
                     prmPaperSize: Paper size
+                    prmOutputType: Output type
+                    prmBrandType: Brand type
          note: 
       -->
     <xsl:function name="ahf:getFormattingObject" as="node()*">
         <xsl:param name="prmObjName" as="xs:string"/>
         <xsl:call-template name="getFormattingObject">
             <xsl:with-param name="prmObjName" select="$prmObjName"/>
-            <xsl:with-param name="prmXmlLang"  select="$defaultXmlLang"/>
-            <xsl:with-param name="prmDocType"  select="$defaultDocType"/>
-            <xsl:with-param name="prmPaperSize"  select="$defaultPaperSize"/>
-            <xsl:with-param name="prmOutputType" select="$defaultOutputType"/>
         </xsl:call-template>        
     </xsl:function>
     
@@ -1444,6 +1584,7 @@
         <xsl:param name="prmDocType" as="xs:string?" required="no" select="$defaultDocType"/>
         <xsl:param name="prmPaperSize" as="xs:string?" required="no" select="$defaultPaperSize"/>
         <xsl:param name="prmOutputType" as="xs:string?" required="no" select="$defaultOutputType"/>
+        <xsl:param name="prmBrandType" as="xs:string?" required="no" select="$defaultBrandType"/>
         
         <xsl:variable name="objects" as="element()*" select="$glFormattingObjects/*[string(@name) eq $prmObjName]"/>
         <xsl:if test="empty($objects)">
@@ -1460,6 +1601,7 @@
                 <xsl:with-param name="prmDocType" select="$prmDocType"/>
                 <xsl:with-param name="prmPaperSize" select="$prmPaperSize"/>
                 <xsl:with-param name="prmOutputType" select="$prmOutputType"/>
+                <xsl:with-param name="prmBrandType" select="$prmBrandType"/>
             </xsl:call-template>
         </xsl:variable>
         <xsl:sequence select="$filteredObjects[last()]/node()"/>
@@ -1473,6 +1615,8 @@
                     prmXmlLang: Target xml:lang
                     prmDocType: Document type
                     prmPaperSize: Paper size
+                    prmOutputType: Output type
+                    prmBrandType: Brand type
                     prmSrcStr: Source string
                     prmDstStr: Destination string
          note: 
@@ -1484,9 +1628,6 @@
         
         <xsl:call-template name="getFormattingObjectReplacing">
             <xsl:with-param name="prmObjName" as="xs:string" select="$prmObjName"/>
-            <xsl:with-param name="prmXmlLang" as="xs:string?" select="$defaultXmlLang"/>
-            <xsl:with-param name="prmDocType" as="xs:string?" select="$defaultDocType"/>
-            <xsl:with-param name="prmPaperSize" as="xs:string?" select="$defaultPaperSize"/>
             <xsl:with-param name="prmSrcStr" select="$prmSrcStr"/>
             <xsl:with-param name="prmDstStr" select="$prmDstStr"/>
         </xsl:call-template> 
@@ -1498,6 +1639,7 @@
         <xsl:param name="prmDocType" as="xs:string?" required="no" select="$defaultDocType"/>
         <xsl:param name="prmPaperSize" as="xs:string?" required="no" select="$defaultPaperSize"/>
         <xsl:param name="prmOutputType" as="xs:string?" required="no" select="$defaultOutputType"/>
+        <xsl:param name="prmBrandType" as="xs:string?" required="no" select="$defaultBrandType"/>
         <xsl:param name="prmSrcStr" as="xs:string+" required="yes"/>
         <xsl:param name="prmDstStr" as="xs:string+" required="yes"/>
         
@@ -1508,6 +1650,7 @@
                 <xsl:with-param name="prmDocType" select="$prmDocType"/>
                 <xsl:with-param name="prmPaperSize" select="$prmPaperSize"/>
                 <xsl:with-param name="prmOutputType" select="$prmOutputType"/>
+                <xsl:with-param name="prmBrandType" select="$prmBrandType"/>
             </xsl:call-template>
         </xsl:variable>
         <xsl:variable name="replacedFormattingObject" as="node()*">
@@ -1585,6 +1728,8 @@
                     prmXmlLang: Target xml:lang
                     prmDocType: Document type
                     prmPaperSize: Paper size
+                    prmOutputType: Output type
+                    prmBrandType: Brand type
                     prmSrcStr: Source string
                     prmDstNode: Destination node stored under the each element
          note: 
@@ -1596,9 +1741,6 @@
         
         <xsl:call-template name="getFormattingObjectReplacingNode">
             <xsl:with-param name="prmObjName" as="xs:string" select="$prmObjName"/>
-            <xsl:with-param name="prmXmlLang" as="xs:string?" select="$defaultXmlLang"/>
-            <xsl:with-param name="prmDocType" as="xs:string?" select="$defaultDocType"/>
-            <xsl:with-param name="prmPaperSize" as="xs:string?" select="$defaultPaperSize"/>
             <xsl:with-param name="prmSrcStr" select="$prmSrcStr"/>
             <xsl:with-param name="prmDstNode" select="$prmDstNode"/>
         </xsl:call-template> 
@@ -1610,6 +1752,7 @@
         <xsl:param name="prmDocType" as="xs:string?" required="no" select="$defaultDocType"/>
         <xsl:param name="prmPaperSize" as="xs:string?" required="no" select="$defaultPaperSize"/>
         <xsl:param name="prmOutputType" as="xs:string?" required="no" select="$defaultOutputType"/>
+        <xsl:param name="prmBrandType" as="xs:string?" required="no" select="$defaultBrandType"/>
         <xsl:param name="prmSrcStr" as="xs:string+" required="yes"/>
         <xsl:param name="prmDstNode" as="element()+" required="yes"/>
         
@@ -1620,6 +1763,7 @@
                 <xsl:with-param name="prmDocType" select="$prmDocType"/>
                 <xsl:with-param name="prmPaperSize" select="$prmPaperSize"/>
                 <xsl:with-param name="prmOutputType" select="$prmOutputType"/>
+                <xsl:with-param name="prmBrandType" select="$prmBrandType"/>
             </xsl:call-template>
         </xsl:variable>
         <xsl:variable name="replacedFormattingObject" as="node()*">
@@ -1699,6 +1843,8 @@
                     prmXmlLang: Target xml:lang
                     prmDocType: Document type
                     prmPaperSize: Paper size
+                    prmOutputType: Output type
+                    prmBrandType: Brand type
          note: 
       -->
     <xsl:template name="filterElements" as="element()*">
@@ -1707,6 +1853,7 @@
         <xsl:param name="prmDocType" as="xs:string?" required="no" select="$defaultDocType"/>
         <xsl:param name="prmPaperSize" as="xs:string?" required="no" select="$defaultPaperSize"/>
         <xsl:param name="prmOutputType" as="xs:string?" required="no" select="$defaultOutputType"/>
+        <xsl:param name="prmBrandType" as="xs:string?" required="no" select="$defaultBrandType"/>
         
         <!-- Get variable value from tight condition. 
              If there is N'th conditions, there are 2**N th patterns are needed.

@@ -236,6 +236,12 @@ E-mail : info@antennahouse.com
     <xsl:variable name="pOutputType" as="xs:string" select="$PRM_OUTPUT_TYPE"/>
     <xsl:variable name="pIsWebOutput" as="xs:boolean" select="$pOutputType eq 'web'"/>
     <xsl:variable name="pIsPrintOutput" as="xs:boolean" select="not($pIsWebOutput)"/>
+
+    <!-- Brand type
+         Possible value: none
+     -->
+    <xsl:param name="PRM_BRAND_TYPE" as="xs:string?" required="no" select="()"/>
+    <xsl:variable name="pBrandType" as="xs:string" select="$PRM_BRAND_TYPE"/>
     
     <!-- Support floating fig
          This function is experimental
