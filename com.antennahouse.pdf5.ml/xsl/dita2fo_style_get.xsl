@@ -1859,7 +1859,7 @@
              If there is N'th conditions, there are 2**N th patterns are needed.
          -->
         <xsl:choose>
-            <!-- Matches xml:lang, doc-type, paper-size and output-type (4) -->
+            <!-- Matches xml:lang, doc-type, paper-size ,output-type and brand-type (5) -->
             <xsl:when test="$prmTargetElem[ahf:strEqualAsSeq(string(@xml:lang),string($prmXmlLang))]
                 [exists(@xml:lang)]
                 [ahf:strEqualAsSeq(string(@doc-type),string($prmDocType))]
@@ -1868,6 +1868,8 @@
                 [exists(@paper-size)]
                 [ahf:strEqualAsSeq(string(@output-type),string($prmOutputType))]
                 [exists(@output-type)]
+                [ahf:strEqualAsSeq(string(@brand-type),string($prmBrandType))]
+                [exists(@brand-type)]
                 ">
                 <xsl:sequence select="$prmTargetElem[ahf:strEqualAsSeq(string(@xml:lang),string($prmXmlLang))]
                     [exists(@xml:lang)]
@@ -1877,6 +1879,118 @@
                     [exists(@paper-size)]
                     [ahf:strEqualAsSeq(string(@output-type),string($prmOutputType))]
                     [exists(@output-type)]
+                    [ahf:strEqualAsSeq(string(@brand-type),string($prmBrandType))]
+                    [exists(@brand-type)]
+                    "/>
+            </xsl:when>
+            <!-- Matches xml:lang, doc-type, paper-size and output-type (4) -->
+            <xsl:when test="$prmTargetElem[ahf:strEqualAsSeq(string(@xml:lang),string($prmXmlLang))]
+                [exists(@xml:lang)]
+                [ahf:strEqualAsSeq(string(@doc-type),string($prmDocType))]
+                [exists(@doc-type)]
+                [ahf:strEqualAsSeq(string(@paper-size),string($prmPaperSize))]
+                [exists(@paper-size)]
+                [ahf:strEqualAsSeq(string(@output-type),string($prmOutputType))]
+                [exists(@output-type)]
+                [empty(@brand-type)]
+                ">
+                <xsl:sequence select="$prmTargetElem[ahf:strEqualAsSeq(string(@xml:lang),string($prmXmlLang))]
+                    [exists(@xml:lang)]
+                    [ahf:strEqualAsSeq(string(@doc-type),string($prmDocType))]
+                    [exists(@doc-type)]
+                    [ahf:strEqualAsSeq(string(@paper-size),string($prmPaperSize))]
+                    [exists(@paper-size)]
+                    [ahf:strEqualAsSeq(string(@output-type),string($prmOutputType))]
+                    [exists(@output-type)]
+                    [empty(@brand-type)]
+                    "/>
+            </xsl:when>
+            <!-- Matches xml:lang, doc-type, paper-size and brand-type (4) -->
+            <xsl:when test="$prmTargetElem[ahf:strEqualAsSeq(string(@xml:lang),string($prmXmlLang))]
+                [exists(@xml:lang)]
+                [ahf:strEqualAsSeq(string(@doc-type),string($prmDocType))]
+                [exists(@doc-type)]
+                [ahf:strEqualAsSeq(string(@paper-size),string($prmPaperSize))]
+                [exists(@paper-size)]
+                [empty(@output-type)]
+                [ahf:strEqualAsSeq(string(@brand-type),string($prmBrandType))]
+                [exists(@brand-type)]
+                ">
+                <xsl:sequence select="$prmTargetElem[ahf:strEqualAsSeq(string(@xml:lang),string($prmXmlLang))]
+                    [exists(@xml:lang)]
+                    [ahf:strEqualAsSeq(string(@doc-type),string($prmDocType))]
+                    [exists(@doc-type)]
+                    [ahf:strEqualAsSeq(string(@paper-size),string($prmPaperSize))]
+                    [exists(@paper-size)]
+                    [empty(@output-type)]
+                    [ahf:strEqualAsSeq(string(@brand-type),string($prmBrandType))]
+                    [exists(@brand-type)]
+                    "/>
+            </xsl:when>
+            <!-- Matches xml:lang, doc-type, output-type and brand-type (4) -->
+            <xsl:when test="$prmTargetElem[ahf:strEqualAsSeq(string(@xml:lang),string($prmXmlLang))]
+                [exists(@xml:lang)]
+                [ahf:strEqualAsSeq(string(@doc-type),string($prmDocType))]
+                [exists(@doc-type)]
+                [empty(@paper-size)]
+                [ahf:strEqualAsSeq(string(@output-type),string($prmOutputType))]
+                [exists(@output-type)]
+                [ahf:strEqualAsSeq(string(@brand-type),string($prmBrandType))]
+                [exists(@brand-type)]
+                ">
+                <xsl:sequence select="$prmTargetElem[ahf:strEqualAsSeq(string(@xml:lang),string($prmXmlLang))]
+                    [exists(@xml:lang)]
+                    [ahf:strEqualAsSeq(string(@doc-type),string($prmDocType))]
+                    [exists(@doc-type)]
+                    [empty(@paper-size)]
+                    [ahf:strEqualAsSeq(string(@output-type),string($prmOutputType))]
+                    [exists(@output-type)]
+                    [ahf:strEqualAsSeq(string(@brand-type),string($prmBrandType))]
+                    [exists(@brand-type)]
+                    "/>
+            </xsl:when>
+            <!-- Matches xml:lang, paper-size, output-type and brand-type (4) -->
+            <xsl:when test="$prmTargetElem[ahf:strEqualAsSeq(string(@xml:lang),string($prmXmlLang))]
+                [exists(@xml:lang)]
+                [empty(@doc-type)]
+                [ahf:strEqualAsSeq(string(@paper-size),string($prmPaperSize))]
+                [exists(@paper-size)]
+                [ahf:strEqualAsSeq(string(@output-type),string($prmOutputType))]
+                [exists(@output-type)]
+                [ahf:strEqualAsSeq(string(@brand-type),string($prmBrandType))]
+                [exists(@brand-type)]
+                ">
+                <xsl:sequence select="$prmTargetElem[ahf:strEqualAsSeq(string(@xml:lang),string($prmXmlLang))]
+                    [exists(@xml:lang)]
+                    [empty(@doc-type)]
+                    [ahf:strEqualAsSeq(string(@paper-size),string($prmPaperSize))]
+                    [exists(@paper-size)]
+                    [ahf:strEqualAsSeq(string(@output-type),string($prmOutputType))]
+                    [exists(@output-type)]
+                    [ahf:strEqualAsSeq(string(@brand-type),string($prmBrandType))]
+                    [exists(@brand-type)]
+                    "/>
+            </xsl:when>
+            <!-- Matches doc-type, paper-size, output-type and brand-type (4) -->
+            <xsl:when test="$prmTargetElem[empty(@xml:lang)]
+                [ahf:strEqualAsSeq(string(@doc-type),string($prmDocType))]
+                [exists(@doc-type)]
+                [ahf:strEqualAsSeq(string(@paper-size),string($prmPaperSize))]
+                [exists(@paper-size)]
+                [ahf:strEqualAsSeq(string(@output-type),string($prmOutputType))]
+                [exists(@output-type)]
+                [ahf:strEqualAsSeq(string(@brand-type),string($prmBrandType))]
+                [exists(@brand-type)]
+                ">
+                <xsl:sequence select="$prmTargetElem[empty(@xml:lang)]
+                    [ahf:strEqualAsSeq(string(@doc-type),string($prmDocType))]
+                    [exists(@doc-type)]
+                    [ahf:strEqualAsSeq(string(@paper-size),string($prmPaperSize))]
+                    [exists(@paper-size)]
+                    [ahf:strEqualAsSeq(string(@output-type),string($prmOutputType))]
+                    [exists(@output-type)]
+                    [ahf:strEqualAsSeq(string(@brand-type),string($prmBrandType))]
+                    [exists(@brand-type)]
                     "/>
             </xsl:when>
             <!-- Matches xml:lang, doc-type and paper-size (3) -->
@@ -1887,6 +2001,7 @@
                 [ahf:strEqualAsSeq(string(@paper-size),string($prmPaperSize))]
                 [exists(@paper-size)]
                 [empty(@output-type)]
+                [empty(@brand-type)]
                 ">
                 <xsl:sequence select="$prmTargetElem[ahf:strEqualAsSeq(string(@xml:lang),string($prmXmlLang))]
                     [exists(@xml:lang)]
@@ -1895,6 +2010,7 @@
                     [ahf:strEqualAsSeq(string(@paper-size),string($prmPaperSize))]
                     [exists(@paper-size)]
                     [empty(@output-type)]
+                    [empty(@brand-type)]
                     "/>
             </xsl:when>
             <!-- Matches xml:lang, doc-type and output-type (3) -->
@@ -1905,6 +2021,7 @@
                 [empty(@paper-size)]
                 [ahf:strEqualAsSeq(string(@output-type),string($prmOutputType))]
                 [exists(@output-type)]
+                [empty(@brand-type)]
                 ">
                 <xsl:sequence select="$prmTargetElem[ahf:strEqualAsSeq(string(@xml:lang),string($prmXmlLang))]
                     [exists(@xml:lang)]
@@ -1913,6 +2030,27 @@
                     [empty(@paper-size)]
                     [ahf:strEqualAsSeq(string(@output-type),string($prmOutputType))]
                     [exists(@output-type)]
+                    [empty(@brand-type)]
+                    "/>
+            </xsl:when>
+            <!-- Matches xml:lang, doc-type and brand-type (3) -->
+            <xsl:when test="$prmTargetElem[ahf:strEqualAsSeq(string(@xml:lang),string($prmXmlLang))]
+                [exists(@xml:lang)]
+                [ahf:strEqualAsSeq(string(@doc-type),string($prmDocType))]
+                [exists(@doc-type)]
+                [empty(@paper-size)]
+                [empty(@output-type)]
+                [ahf:strEqualAsSeq(string(@brand-type),string($prmBrandType))]
+                [exists(@brand-type)]
+                ">
+                <xsl:sequence select="$prmTargetElem[ahf:strEqualAsSeq(string(@xml:lang),string($prmXmlLang))]
+                    [exists(@xml:lang)]
+                    [ahf:strEqualAsSeq(string(@doc-type),string($prmDocType))]
+                    [exists(@doc-type)]
+                    [empty(@paper-size)]
+                    [empty(@output-type)]
+                    [ahf:strEqualAsSeq(string(@brand-type),string($prmBrandType))]
+                    [exists(@brand-type)]
                     "/>
             </xsl:when>
             <!-- Matches xml:lang, paper-size and output-type (3) -->
@@ -1923,6 +2061,7 @@
                 [exists(@paper-size)]
                 [ahf:strEqualAsSeq(string(@output-type),string($prmOutputType))]
                 [exists(@output-type)]
+                [empty(@brand-type)]
                 ">
                 <xsl:sequence select="$prmTargetElem[ahf:strEqualAsSeq(string(@xml:lang),string($prmXmlLang))]
                     [exists(@xml:lang)]
@@ -1931,6 +2070,47 @@
                     [exists(@paper-size)]
                     [ahf:strEqualAsSeq(string(@output-type),string($prmOutputType))]
                     [exists(@output-type)]
+                    [empty(@brand-type)]
+                    "/>
+            </xsl:when>
+            <!-- Matches xml:lang, paper-size and brand-type (3) -->
+            <xsl:when test="$prmTargetElem[ahf:strEqualAsSeq(string(@xml:lang),string($prmXmlLang))]
+                [exists(@xml:lang)]
+                [empty(@doc-type)]
+                [ahf:strEqualAsSeq(string(@paper-size),string($prmPaperSize))]
+                [exists(@paper-size)]
+                [empty(@output-type)]
+                [ahf:strEqualAsSeq(string(@brand-type),string($prmBrandType))]
+                [exists(@brand-type)]
+                ">
+                <xsl:sequence select="$prmTargetElem[ahf:strEqualAsSeq(string(@xml:lang),string($prmXmlLang))]
+                    [exists(@xml:lang)]
+                    [empty(@doc-type)]
+                    [ahf:strEqualAsSeq(string(@paper-size),string($prmPaperSize))]
+                    [exists(@paper-size)]
+                    [empty(@output-type)]
+                    [ahf:strEqualAsSeq(string(@brand-type),string($prmBrandType))]
+                    [exists(@brand-type)]
+                    "/>
+            </xsl:when>
+            <!-- Matches xml:lang, output-type and brand-type (3) -->
+            <xsl:when test="$prmTargetElem[ahf:strEqualAsSeq(string(@xml:lang),string($prmXmlLang))]
+                [exists(@xml:lang)]
+                [empty(@doc-type)]
+                [empty(@paper-size)]
+                [ahf:strEqualAsSeq(string(@output-type),string($prmOutputType))]
+                [exists(@output-type)]
+                [ahf:strEqualAsSeq(string(@brand-type),string($prmBrandType))]
+                [exists(@brand-type)]
+                ">
+                <xsl:sequence select="$prmTargetElem[ahf:strEqualAsSeq(string(@xml:lang),string($prmXmlLang))]
+                    [exists(@xml:lang)]
+                    [empty(@doc-type)]
+                    [empty(@paper-size)]
+                    [ahf:strEqualAsSeq(string(@output-type),string($prmOutputType))]
+                    [exists(@output-type)]
+                    [ahf:strEqualAsSeq(string(@brand-type),string($prmBrandType))]
+                    [exists(@brand-type)]
                     "/>
             </xsl:when>
             <!-- Matches doc-type, paper-size and output-type (3) -->
@@ -1941,6 +2121,7 @@
                 [exists(@paper-size)]
                 [ahf:strEqualAsSeq(string(@output-type),string($prmOutputType))]
                 [exists(@output-type)]
+                [empty(@brand-type)]
                 ">
                 <xsl:sequence select="$prmTargetElem[empty(@xml:lang)]
                     [ahf:strEqualAsSeq(string(@doc-type),string($prmDocType))]
@@ -1949,6 +2130,47 @@
                     [exists(@paper-size)]
                     [ahf:strEqualAsSeq(string(@output-type),string($prmOutputType))]
                     [exists(@output-type)]
+                    [empty(@brand-type)]
+                    "/>
+            </xsl:when>
+            <!-- Matches doc-type, paper-size and brand-type (3) -->
+            <xsl:when test="$prmTargetElem[empty(@xml:lang)]
+                [ahf:strEqualAsSeq(string(@doc-type),string($prmDocType))]
+                [exists(@doc-type)]
+                [ahf:strEqualAsSeq(string(@paper-size),string($prmPaperSize))]
+                [exists(@paper-size)]
+                [empty(@output-type)]
+                [ahf:strEqualAsSeq(string(@brand-type),string($prmBrandType))]
+                [exists(@brand-type)]
+                ">
+                <xsl:sequence select="$prmTargetElem[empty(@xml:lang)]
+                    [ahf:strEqualAsSeq(string(@doc-type),string($prmDocType))]
+                    [exists(@doc-type)]
+                    [ahf:strEqualAsSeq(string(@paper-size),string($prmPaperSize))]
+                    [exists(@paper-size)]
+                    [empty(@output-type)]
+                    [ahf:strEqualAsSeq(string(@brand-type),string($prmBrandType))]
+                    [exists(@brand-type)]
+                    "/>
+            </xsl:when>
+            <!-- Matches paper-size, output-type and brand-type (3) -->
+            <xsl:when test="$prmTargetElem[empty(@xml:lang)]
+                [empty(@doc-type)]
+                [ahf:strEqualAsSeq(string(@paper-size),string($prmPaperSize))]
+                [exists(@paper-size)]
+                [ahf:strEqualAsSeq(string(@output-type),string($prmOutputType))]
+                [exists(@output-type)]
+                [ahf:strEqualAsSeq(string(@brand-type),string($prmBrandType))]
+                [exists(@brand-type)]
+                ">
+                <xsl:sequence select="$prmTargetElem[empty(@xml:lang)]
+                    [empty(@doc-type)]
+                    [ahf:strEqualAsSeq(string(@paper-size),string($prmPaperSize))]
+                    [exists(@paper-size)]
+                    [ahf:strEqualAsSeq(string(@output-type),string($prmOutputType))]
+                    [exists(@output-type)]
+                    [ahf:strEqualAsSeq(string(@brand-type),string($prmBrandType))]
+                    [exists(@brand-type)]
                     "/>
             </xsl:when>
             <!-- Matches xml:lang and doc-type (2) -->
@@ -1958,6 +2180,7 @@
                 [exists(@doc-type)]
                 [empty(@paper-size)]
                 [empty(@output-type)]
+                [empty(@brand-type)]
                 ">
                 <xsl:sequence select="$prmTargetElem[ahf:strEqualAsSeq(string(@xml:lang),string($prmXmlLang))]
                     [exists(@xml:lang)]
@@ -1965,6 +2188,7 @@
                     [exists(@doc-type)]
                     [empty(@paper-size)]
                     [empty(@output-type)]
+                    [empty(@brand-type)]
                     "/>
             </xsl:when>
             <!-- Matches xml:lang and paper-size (2) -->
@@ -1974,6 +2198,7 @@
                 [ahf:strEqualAsSeq(string(@paper-size),string($prmPaperSize))]
                 [exists(@paper-size)]
                 [empty(@output-type)]
+                [empty(@brand-type)]
                 ">
                 <xsl:sequence select="$prmTargetElem[ahf:strEqualAsSeq(string(@xml:lang),string($prmXmlLang))]
                     [exists(@xml:lang)]
@@ -1981,6 +2206,7 @@
                     [ahf:strEqualAsSeq(string(@paper-size),string($prmPaperSize))]
                     [exists(@paper-size)]
                     [empty(@output-type)]
+                    [empty(@brand-type)]
                     "/>
             </xsl:when>
             <!-- Matches xml:lang and output-type (2) -->
@@ -1990,6 +2216,7 @@
                 [empty(@paper-size)]
                 [ahf:strEqualAsSeq(string(@output-type),string($prmOutputType))]
                 [exists(@output-type)]
+                [empty(@brand-type)]
                 ">
                 <xsl:sequence select="$prmTargetElem[ahf:strEqualAsSeq(string(@xml:lang),string($prmXmlLang))]
                     [exists(@xml:lang)]
@@ -1997,6 +2224,25 @@
                     [empty(@paper-size)]
                     [ahf:strEqualAsSeq(string(@output-type),string($prmOutputType))]
                     [exists(@output-type)]
+                    [empty(@brand-type)]
+                    "/>
+            </xsl:when>
+            <!-- Matches xml:lang and brand-type (2) -->
+            <xsl:when test="$prmTargetElem[ahf:strEqualAsSeq(string(@xml:lang),string($prmXmlLang))]
+                [exists(@xml:lang)]
+                [empty(@doc-type)]
+                [empty(@paper-size)]
+                [empty(@output-type)]
+                [ahf:strEqualAsSeq(string(@brand-type),string($prmBrandType))]
+                [exists(@brand-type)]
+                ">
+                <xsl:sequence select="$prmTargetElem[ahf:strEqualAsSeq(string(@xml:lang),string($prmXmlLang))]
+                    [exists(@xml:lang)]
+                    [empty(@doc-type)]
+                    [empty(@paper-size)]
+                    [empty(@output-type)]
+                    [ahf:strEqualAsSeq(string(@brand-type),string($prmBrandType))]
+                    [exists(@brand-type)]
                     "/>
             </xsl:when>
             <!-- Matches doc-type and paper-size (2)-->
@@ -2006,6 +2252,7 @@
                 [ahf:strEqualAsSeq(string(@paper-size),string($prmPaperSize))]
                 [exists(@paper-size)]
                 [empty(@output-type)]
+                [empty(@brand-type)]
                 ">
                 <xsl:sequence select="$prmTargetElem[empty(@xml:lang)]
                     [ahf:strEqualAsSeq(string(@doc-type),string($prmDocType))]
@@ -2013,6 +2260,7 @@
                     [ahf:strEqualAsSeq(string(@paper-size),string($prmPaperSize))]
                     [exists(@paper-size)]
                     [empty(@output-type)]
+                    [empty(@brand-type)]
                     "/>
             </xsl:when>
             <!-- Matches doc-type and output-type (2)-->
@@ -2022,6 +2270,7 @@
                 [empty(@paper-size)]
                 [ahf:strEqualAsSeq(string(@output-type),string($prmOutputType))]
                 [exists(@output-type)]
+                [empty(@brand-type)]
                 ">
                 <xsl:sequence select="$prmTargetElem[empty(@xml:lang)]
                     [ahf:strEqualAsSeq(string(@doc-type),string($prmDocType))]
@@ -2029,6 +2278,25 @@
                     [empty(@paper-size)]
                     [ahf:strEqualAsSeq(string(@output-type),string($prmOutputType))]
                     [exists(@output-type)]
+                    [empty(@brand-type)]
+                    "/>
+            </xsl:when>
+            <!-- Matches doc-type and brand-type (2)-->
+            <xsl:when test="$prmTargetElem[empty(@xml:lang)]
+                [ahf:strEqualAsSeq(string(@doc-type),string($prmDocType))]
+                [exists(@doc-type)]
+                [empty(@paper-size)]
+                [empty(@output-type)]
+                [ahf:strEqualAsSeq(string(@brand-type),string($prmBrandType))]
+                [exists(@brand-type)]
+                ">
+                <xsl:sequence select="$prmTargetElem[empty(@xml:lang)]
+                    [ahf:strEqualAsSeq(string(@doc-type),string($prmDocType))]
+                    [exists(@doc-type)]
+                    [empty(@paper-size)]
+                    [empty(@output-type)]
+                    [ahf:strEqualAsSeq(string(@brand-type),string($prmBrandType))]
+                    [exists(@brand-type)]
                     "/>
             </xsl:when>
             <!-- Matches paper-size and output-type (2)-->
@@ -2038,6 +2306,7 @@
                 [exists(@paper-size)]
                 [ahf:strEqualAsSeq(string(@output-type),string($prmOutputType))]
                 [exists(@output-type)]
+                [empty(@brand-type)]
                 ">
                 <xsl:sequence select="$prmTargetElem[empty(@xml:lang)]
                     [empty(@doc-type)]
@@ -2045,6 +2314,43 @@
                     [exists(@paper-size)]
                     [ahf:strEqualAsSeq(string(@output-type),string($prmOutputType))]
                     [exists(@output-type)]
+                    [empty(@brand-type)]
+                    "/>
+            </xsl:when>
+            <!-- Matches paper-size and brand-type (2)-->
+            <xsl:when test="$prmTargetElem[empty(@xml:lang)]
+                [empty(@doc-type)]
+                [ahf:strEqualAsSeq(string(@paper-size),string($prmPaperSize))]
+                [exists(@paper-size)]
+                [empty(@output-type)]
+                [ahf:strEqualAsSeq(string(@brand-type),string($prmOutputType))]
+                [exists(@brand-type)]
+                ">
+                <xsl:sequence select="$prmTargetElem[empty(@xml:lang)]
+                    [empty(@doc-type)]
+                    [ahf:strEqualAsSeq(string(@paper-size),string($prmPaperSize))]
+                    [exists(@paper-size)]
+                    [empty(@output-type)]
+                    [ahf:strEqualAsSeq(string(@brand-type),string($prmOutputType))]
+                    [exists(@brand-type)]
+                    "/>
+            </xsl:when>
+            <!-- Matches output-type and brand-type (2)-->
+            <xsl:when test="$prmTargetElem[empty(@xml:lang)]
+                [empty(@doc-type)]
+                [empty(@paper-size)]
+                [ahf:strEqualAsSeq(string(@output-type),string($prmOutputType))]
+                [exists(@output-type)]
+                [ahf:strEqualAsSeq(string(@brand-type),string($prmOutputType))]
+                [exists(@brand-type)]
+                ">
+                <xsl:sequence select="$prmTargetElem[empty(@xml:lang)]
+                    [empty(@doc-type)]
+                    [empty(@paper-size)]
+                    [ahf:strEqualAsSeq(string(@output-type),string($prmOutputType))]
+                    [exists(@output-type)]
+                    [ahf:strEqualAsSeq(string(@brand-type),string($prmOutputType))]
+                    [exists(@brand-type)]
                     "/>
             </xsl:when>
             <!-- Matches doc-type -->
@@ -2053,12 +2359,14 @@
                 [exists(@doc-type)]
                 [empty(@paper-size)]
                 [empty(@output-type)]
+                [empty(@brand-type)]
                 ">
                 <xsl:sequence select="$prmTargetElem[empty(@xml:lang)]
                     [ahf:strEqualAsSeq(string(@doc-type),string($prmDocType))]
                     [exists(@doc-type)]
                     [empty(@paper-size)]
                     [empty(@output-type)]
+                    [empty(@brand-type)]
                     "/>
             </xsl:when>
             <!-- Matches paper-size -->
@@ -2067,12 +2375,14 @@
                 [ahf:strEqualAsSeq(string(@paper-size),string($prmPaperSize))]
                 [exists(@paper-size)]
                 [empty(@output-type)]
+                [empty(@brand-type)]
                 ">
                 <xsl:sequence select="$prmTargetElem[empty(@xml:lang)]
                     [empty(@doc-type)]
                     [ahf:strEqualAsSeq(string(@paper-size),string($prmPaperSize))]
                     [exists(@paper-size)]
                     [empty(@output-type)]
+                    [empty(@brand-type)]
                     "/>
             </xsl:when>
             <!-- Matches output-type -->
@@ -2081,12 +2391,30 @@
                 [empty(@paper-size)]
                 [ahf:strEqualAsSeq(string(@output-type),string($prmOutputType))]
                 [exists(@output-type)]
+                [empty(@brand-type)]
                 ">
                 <xsl:sequence select="$prmTargetElem[empty(@xml:lang)]
                     [empty(@doc-type)]
                     [empty(@paper-size)]
                     [ahf:strEqualAsSeq(string(@output-type),string($prmOutputType))]
                     [exists(@output-type)]
+                    [empty(@brand-type)]
+                    "/>
+            </xsl:when>
+            <!-- Matches brand-type -->
+            <xsl:when test="$prmTargetElem[empty(@xml:lang)]
+                [empty(@doc-type)]
+                [empty(@paper-size)]
+                [empty(@output-type)]
+                [ahf:strEqualAsSeq(string(@brand-type),string($prmBrandType))]
+                [exists(@brand-type)]
+                ">
+                <xsl:sequence select="$prmTargetElem[empty(@xml:lang)]
+                    [empty(@doc-type)]
+                    [empty(@paper-size)]
+                    [empty(@output-type)]
+                    [ahf:strEqualAsSeq(string(@brand-type),string($prmBrandType))]
+                    [exists(@brand-type)]
                     "/>
             </xsl:when>
             <!-- Matches xml:lang -->
@@ -2095,12 +2423,14 @@
                 [empty(@doc-type)]
                 [empty(@paper-size)]
                 [empty(@output-type)]
+                [empty(@brand-type)]
                 ">
                 <xsl:sequence select="$prmTargetElem[ahf:strEqualAsSeq(string(@xml:lang),string($prmXmlLang))]
                     [exists(@xml:lang)]
                     [empty(@doc-type)]
                     [empty(@paper-size)]
                     [empty(@output-type)]
+                    [empty(@brand-type)]
                     "/>
             </xsl:when>
             <!-- reference to language neutral resource -->
@@ -2109,12 +2439,14 @@
                 [empty(@doc-type)]
                 [empty(@paper-size)]
                 [empty(@output-type)]
+                [empty(@brand-type)]
                 ">
                 <xsl:sequence select="$prmTargetElem
                     [empty(@xml:lang)]
                     [empty(@doc-type)]
                     [empty(@paper-size)]
                     [empty(@output-type)]
+                    [empty(@brand-type)]
                     "/>
             </xsl:when>
             <!-- matches only variable name -->
