@@ -241,7 +241,7 @@ E-mail : info@antennahouse.com
          Possible value: none
      -->
     <xsl:param name="PRM_BRAND_TYPE" as="xs:string?" required="no" select="()"/>
-    <xsl:variable name="pBrandType" as="xs:string" select="$PRM_BRAND_TYPE"/>
+    <xsl:variable name="pBrandType" as="xs:string?" select="$PRM_BRAND_TYPE"/>
     
     <!-- Support floating fig
          This function is experimental
