@@ -452,11 +452,38 @@ E-mail : info@antennahouse.com
             
             <!-- topic -->
             <xsl:when test="$prmDestElement[contains(@class, ' topic/topic ')]">
+                <xsl:variable name="opt" as="xs:string" select="ahf:getXrefToTopicOption($prmXref)"/>
                 <xsl:copy-of select="ahf:getAttributeSet('atsXref')"/>
                 <xsl:copy-of select="ahf:getUnivAtts($prmXref,$prmTopicRef,$prmNeedId)"/>
                 <xsl:copy-of select="ahf:getFoStyleAndProperty($prmXref)"/>
                 <fo:inline>
+                    <xsl:if test="($opt = ($optXrefToTopicTitleAndPage,$optXrefToTopicTitleOnly)) or empty($opt)">
+                        <xsl:copy-of  select="$prmXrefTitle"/>
+                    </xsl:if>
+                    <xsl:if test="($opt = ($optXrefToTopicTitleAndPage,$optXrefToTopicPageOnly)) or empty($opt)">
+                        <xsl:call-template name="getVarValueWithLangAsText">
+                            <xsl:with-param name="prmVarName" select="'Xref_Prefix'"/>
+                            <xsl:with-param name="prmElem" select="$prmXref"/>
+                        </xsl:call-template>
+                        <fo:page-number-citation ref-id="{$prmDestId}"/>
+                        <xsl:call-template name="getVarValueWithLangAsText">
+                            <xsl:with-param name="prmVarName" select="'Xref_Suffix'"/>
+                            <xsl:with-param name="prmElem" select="$prmXref"/>
+                        </xsl:call-template>
+                    </xsl:if>    
+                </fo:inline>
+            </xsl:when>
+            
+            <!-- section -->
+            <xsl:when test="$prmDestElement[contains(@class, ' topic/section ')]">
+                <xsl:variable name="opt" as="xs:string" select="ahf:getXrefToSectionOption($prmXref)"/>
+                <xsl:copy-of select="ahf:getAttributeSet('atsXref')"/>
+                <xsl:copy-of select="ahf:getUnivAtts($prmXref,$prmTopicRef,$prmNeedId)"/>
+                <xsl:copy-of select="ahf:getFoStyleAndProperty($prmXref)"/>
+                <xsl:if test="($opt = ($optXrefToSectionTitleAndPage,$optXrefToSectionTitleOnly)) or empty($opt)">
                     <xsl:copy-of  select="$prmXrefTitle"/>
+                </xsl:if>
+                <xsl:if test="($opt = ($optXrefToSectionTitleAndPage,$optXrefToSectionPageOnly)) or empty($opt)">
                     <xsl:call-template name="getVarValueWithLangAsText">
                         <xsl:with-param name="prmVarName" select="'Xref_Prefix'"/>
                         <xsl:with-param name="prmElem" select="$prmXref"/>
@@ -466,51 +493,96 @@ E-mail : info@antennahouse.com
                         <xsl:with-param name="prmVarName" select="'Xref_Suffix'"/>
                         <xsl:with-param name="prmElem" select="$prmXref"/>
                     </xsl:call-template>
-                </fo:inline>
+                </xsl:if>
             </xsl:when>
-            
-            <!-- section/example -->
-            <xsl:when test="$prmDestElement[contains(@class, ' topic/section ') or contains(@class, ' topic/example ')]">
+
+            <!-- example -->
+            <xsl:when test="$prmDestElement[contains(@class, ' topic/example ')]">
+                <xsl:variable name="opt" as="xs:string" select="ahf:getXrefToExampleOption($prmXref)"/>
                 <xsl:copy-of select="ahf:getAttributeSet('atsXref')"/>
                 <xsl:copy-of select="ahf:getUnivAtts($prmXref,$prmTopicRef,$prmNeedId)"/>
                 <xsl:copy-of select="ahf:getFoStyleAndProperty($prmXref)"/>
-                <xsl:copy-of  select="$prmXrefTitle"/>
-                <xsl:call-template name="getVarValueWithLangAsText">
-                    <xsl:with-param name="prmVarName" select="'Xref_Prefix'"/>
-                    <xsl:with-param name="prmElem" select="$prmXref"/>
-                </xsl:call-template>
-                <fo:page-number-citation ref-id="{$prmDestId}"/>
-                <xsl:call-template name="getVarValueWithLangAsText">
-                    <xsl:with-param name="prmVarName" select="'Xref_Suffix'"/>
-                    <xsl:with-param name="prmElem" select="$prmXref"/>
-                </xsl:call-template>
+                <xsl:if test="($opt = ($optXrefToExampleTitleAndPage,$optXrefToExampleTitleOnly)) or empty($opt)">
+                    <xsl:copy-of  select="$prmXrefTitle"/>
+                </xsl:if>
+                <xsl:if test="($opt = ($optXrefToExampleTitleAndPage,$optXrefToExamplePageOnly)) or empty($opt)">
+                    <xsl:call-template name="getVarValueWithLangAsText">
+                        <xsl:with-param name="prmVarName" select="'Xref_Prefix'"/>
+                        <xsl:with-param name="prmElem" select="$prmXref"/>
+                    </xsl:call-template>
+                    <fo:page-number-citation ref-id="{$prmDestId}"/>
+                    <xsl:call-template name="getVarValueWithLangAsText">
+                        <xsl:with-param name="prmVarName" select="'Xref_Suffix'"/>
+                        <xsl:with-param name="prmElem" select="$prmXref"/>
+                    </xsl:call-template>
+                </xsl:if>
             </xsl:when>
-            
-            <!-- ol/li: Xref link color does not apply for ol/li and does not use fo:pagenumber-citation. -->
-            <xsl:when test="$prmDestElement[contains(@class, ' topic/li ')][parent::*[contains(@class,' topic/ol ')]]">
+
+            <!-- steps/step, substep: Xref link color does not apply. -->
+            <xsl:when test="$prmDestElement[contains(@class, ' task/step ')][parent::*[contains(@class,' task/substep ')]]">
+                <xsl:variable name="opt" as="xs:string" select="ahf:getXrefToStepOption($prmXref)"/>
                 <xsl:copy-of select="ahf:getUnivAtts($prmXref,$prmTopicRef,$prmNeedId)"/>
                 <xsl:copy-of select="ahf:getFoStyleAndProperty($prmXref)"/>
-                <xsl:copy-of select="$prmXrefTitle"/>
+                <xsl:if test="($opt = ($optXrefToStepNumberAndPage,$optXrefToStepNumberOnly)) or empty($opt)">
+                    <xsl:copy-of  select="$prmXrefTitle"/>
+                </xsl:if>
+                <xsl:if test="($opt = ($optXrefToStepNumberAndPage))">
+                    <xsl:call-template name="getVarValueWithLangAsText">
+                        <xsl:with-param name="prmVarName" select="'Xref_Prefix'"/>
+                        <xsl:with-param name="prmElem" select="$prmXref"/>
+                    </xsl:call-template>
+                    <fo:page-number-citation ref-id="{$prmDestId}"/>
+                    <xsl:call-template name="getVarValueWithLangAsText">
+                        <xsl:with-param name="prmVarName" select="'Xref_Suffix'"/>
+                        <xsl:with-param name="prmElem" select="$prmXref"/>
+                    </xsl:call-template>
+                </xsl:if>
+            </xsl:when>
+
+            <!-- ol/li: Xref link color does not apply for ol/li. -->
+            <xsl:when test="$prmDestElement[contains(@class, ' topic/li ')][parent::*[contains(@class,' topic/ol ')]]">
+                <xsl:variable name="opt" as="xs:string" select="ahf:getXrefToLiOption($prmXref)"/>
+                <xsl:copy-of select="ahf:getUnivAtts($prmXref,$prmTopicRef,$prmNeedId)"/>
+                <xsl:copy-of select="ahf:getFoStyleAndProperty($prmXref)"/>
+                <xsl:if test="($opt = ($optXrefToLiNumberAndPage,$optXrefToLiNumberOnly)) or empty($opt)">
+                    <xsl:copy-of  select="$prmXrefTitle"/>
+                </xsl:if>
+                <xsl:if test="($opt = ($optXrefToLiNumberAndPage))">
+                    <xsl:call-template name="getVarValueWithLangAsText">
+                        <xsl:with-param name="prmVarName" select="'Xref_Prefix'"/>
+                        <xsl:with-param name="prmElem" select="$prmXref"/>
+                    </xsl:call-template>
+                    <fo:page-number-citation ref-id="{$prmDestId}"/>
+                    <xsl:call-template name="getVarValueWithLangAsText">
+                        <xsl:with-param name="prmVarName" select="'Xref_Suffix'"/>
+                        <xsl:with-param name="prmElem" select="$prmXref"/>
+                    </xsl:call-template>
+                </xsl:if>
             </xsl:when>
             
             <!-- table/fig: Same as section -->
             <xsl:when test="$prmDestElement[contains(@class, ' topic/table ') or contains(@class, ' topic/fig ')]">
+                <xsl:variable name="opt" as="xs:string" select="ahf:getXrefToTableOption($prmXref)"/>
                 <xsl:copy-of select="ahf:getAttributeSet('atsXref')"/>
                 <xsl:copy-of select="ahf:getUnivAtts($prmXref,$prmTopicRef,$prmNeedId)"/>
                 <xsl:copy-of select="ahf:getFoStyleAndProperty($prmXref)"/>
-                <xsl:copy-of  select="$prmXrefTitle"/>
-                <xsl:call-template name="getVarValueWithLangAsText">
-                    <xsl:with-param name="prmVarName" select="'Xref_Prefix'"/>
-                    <xsl:with-param name="prmElem" select="$prmXref"/>
-                </xsl:call-template>
-                <fo:page-number-citation ref-id="{$prmDestId}"/>
-                <xsl:call-template name="getVarValueWithLangAsText">
-                    <xsl:with-param name="prmVarName" select="'Xref_Suffix'"/>
-                    <xsl:with-param name="prmElem" select="$prmXref"/>
-                </xsl:call-template>
+                <xsl:if test="$opt = ($optXrefToTableTitleAndPage,$optXrefToTableTitleOnly) or empty($opt)">
+                    <xsl:copy-of  select="$prmXrefTitle"/>
+                </xsl:if>
+                <xsl:if test="$opt = ($optXrefToTableTitleAndPage,$optXrefToTablePageOnly) or empty($opt)">
+                    <xsl:call-template name="getVarValueWithLangAsText">
+                        <xsl:with-param name="prmVarName" select="'Xref_Prefix'"/>
+                        <xsl:with-param name="prmElem" select="$prmXref"/>
+                    </xsl:call-template>
+                    <fo:page-number-citation ref-id="{$prmDestId}"/>
+                    <xsl:call-template name="getVarValueWithLangAsText">
+                        <xsl:with-param name="prmVarName" select="'Xref_Suffix'"/>
+                        <xsl:with-param name="prmElem" select="$prmXref"/>
+                    </xsl:call-template>
+                </xsl:if>
             </xsl:when>
             
-            <!-- fn: Apply fn style -->
+            <!-- fn: Apply fn style. No output options. -->
             <xsl:when test="$prmDestElement[contains(@class, ' topic/fn ')]">
                 <xsl:copy-of select="ahf:getUnivAtts($prmXref,$prmTopicRef,$prmNeedId)"/>
                 <xsl:copy-of select="ahf:getFoStyleAndProperty($prmXref)"/>
@@ -520,26 +592,46 @@ E-mail : info@antennahouse.com
             
             <!-- Other elements that have title: same as section -->
             <xsl:when test="$prmDestElement[child::*[contains(@class, ' topic/title ')]]">
+                <xsl:variable name="opt" as="xs:string" select="ahf:getXrefToOtherOption($prmXref)"/>
                 <xsl:copy-of select="ahf:getAttributeSet('atsXref')"/>
                 <xsl:copy-of select="ahf:getUnivAtts($prmXref,$prmTopicRef,$prmNeedId)"/>
                 <xsl:copy-of select="ahf:getFoStyleAndProperty($prmXref)"/>
-                <xsl:copy-of  select="$prmXrefTitle"/>
-                <xsl:call-template name="getVarValueWithLangAsText">
-                    <xsl:with-param name="prmVarName" select="'Xref_Prefix'"/>
-                    <xsl:with-param name="prmElem" select="$prmXref"/>
-                </xsl:call-template>
-                <fo:page-number-citation ref-id="{$prmDestId}"/>
-                <xsl:call-template name="getVarValueWithLangAsText">
-                    <xsl:with-param name="prmVarName" select="'Xref_Suffix'"/>
-                    <xsl:with-param name="prmElem" select="$prmXref"/>
-                </xsl:call-template>
+                <xsl:if test="$opt = ($optXrefToOtherTitleAndPage,$optXrefToOtherTitleOnly) or empty($opt)">
+                    <xsl:copy-of  select="$prmXrefTitle"/>
+                </xsl:if>
+                <xsl:if test="$opt = ($optXrefToOtherTitleAndPage,$optXrefToOtherPageOnly) or empty($opt)">
+                    <xsl:call-template name="getVarValueWithLangAsText">
+                        <xsl:with-param name="prmVarName" select="'Xref_Prefix'"/>
+                        <xsl:with-param name="prmElem" select="$prmXref"/>
+                    </xsl:call-template>
+                    <fo:page-number-citation ref-id="{$prmDestId}"/>
+                    <xsl:call-template name="getVarValueWithLangAsText">
+                        <xsl:with-param name="prmVarName" select="'Xref_Suffix'"/>
+                        <xsl:with-param name="prmElem" select="$prmXref"/>
+                    </xsl:call-template>
+                </xsl:if>
             </xsl:when>
             
             <!-- Others -->
             <xsl:otherwise>
+                <xsl:variable name="opt" as="xs:string" select="ahf:getXrefToOtherOption($prmXref)"/>
+                <xsl:copy-of select="ahf:getAttributeSet('atsXref')"/>
                 <xsl:copy-of select="ahf:getUnivAtts($prmXref,$prmTopicRef,$prmNeedId)"/>
                 <xsl:copy-of select="ahf:getFoStyleAndProperty($prmXref)"/>
-                <xsl:copy-of select="$prmXrefTitle"/>
+                <xsl:if test="$opt = ($optXrefToOtherTitleAndPage,$optXrefToOtherTitleOnly) or empty($opt)">
+                    <xsl:copy-of  select="$prmXrefTitle"/>
+                </xsl:if>
+                <xsl:if test="$opt = ($optXrefToOtherTitleAndPage,$optXrefToOtherPageOnly) or empty($opt)">
+                    <xsl:call-template name="getVarValueWithLangAsText">
+                        <xsl:with-param name="prmVarName" select="'Xref_Prefix'"/>
+                        <xsl:with-param name="prmElem" select="$prmXref"/>
+                    </xsl:call-template>
+                    <fo:page-number-citation ref-id="{$prmDestId}"/>
+                    <xsl:call-template name="getVarValueWithLangAsText">
+                        <xsl:with-param name="prmVarName" select="'Xref_Suffix'"/>
+                        <xsl:with-param name="prmElem" select="$prmXref"/>
+                    </xsl:call-template>
+                </xsl:if>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
@@ -548,7 +640,7 @@ E-mail : info@antennahouse.com
         function:	desc template
         param:	    
         return:	    only call descendant template
-        note:		This template is obsolute. (It will be never called)
+        note:		This template is obsolete. (It will be never called)
         [Other descs]
         fig/desc:     dita2fo_bodyelements.xsl
         object/desc:  Ignored.
@@ -560,5 +652,188 @@ E-mail : info@antennahouse.com
         <xsl:apply-templates>
         </xsl:apply-templates>
     </xsl:template>
+
+
+    <!-- 
+        function:	get xref to topic output option
+        param:	   prmXref 
+        return:	  xs:string
+        note:		Customizing this function make it possible to specify your own xref output option values.
+    -->
+    <xsl:variable name="optXrefToTopicTitleAndPage" as="xs:string" select="'title-page'"/>
+    <xsl:variable name="optXrefToTopicTitleOnly" as="xs:string" select="'title-only'"/>
+    <xsl:variable name="optXrefToTopicPageOnly" as="xs:string" select="'page-only'"/>
+    <xsl:function name="ahf:getXrefToTopicOption" as="xs:string*">
+        <xsl:param name="prmXref" as="element()"/>
+        <xsl:choose>
+            <xsl:when test="ahf:hasOutputClassValue($prmXref,$optXrefToTopicTitleAndPage)">
+                <xsl:sequence select="$optXrefToTopicTitleAndPage"/>
+            </xsl:when>
+            <xsl:when test="ahf:hasOutputClassValue($prmXref,$optXrefToTopicTitleOnly)">
+                <xsl:sequence select="$optXrefToTopicTitleOnly"/>
+            </xsl:when>
+            <xsl:when test="ahf:hasOutputClassValue($prmXref,$optXrefToTopicPageOnly)">
+                <xsl:sequence select="$optXrefToTopicPageOnly"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:sequence select="()"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:function>
+    
+    <!-- 
+        function:	get xref to section output option
+        param:	   prmXref 
+        return:	  xs:string
+        note:		Customizing this function make it possible to specify your own xref output option values.
+    -->
+    <xsl:variable name="optXrefToSectionTitleAndPage" as="xs:string" select="'title-page'"/>
+    <xsl:variable name="optXrefToSectionTitleOnly" as="xs:string" select="'title-only'"/>
+    <xsl:variable name="optXrefToSectionPageOnly" as="xs:string" select="'page-only'"/>
+    <xsl:function name="ahf:getXrefToSectionOption" as="xs:string*">
+        <xsl:param name="prmXref" as="element()"/>
+        <xsl:choose>
+            <xsl:when test="ahf:hasOutputClassValue($prmXref,$optXrefToSectionTitleAndPage)">
+                <xsl:sequence select="$optXrefToSectionTitleAndPage"/>
+            </xsl:when>
+            <xsl:when test="ahf:hasOutputClassValue($prmXref,$optXrefToSectionTitleOnly)">
+                <xsl:sequence select="$optXrefToSectionTitleOnly"/>
+            </xsl:when>
+            <xsl:when test="ahf:hasOutputClassValue($prmXref,$optXrefToSectionPageOnly)">
+                <xsl:sequence select="$optXrefToSectionPageOnly"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:sequence select="()"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:function>
+    
+    <!-- 
+        function:	get xref to example output option
+        param:	   prmXref 
+        return:	  xs:string
+        note:		Customizing this function make it possible to specify your own xref output option values.
+    -->
+    <xsl:variable name="optXrefToExampleTitleAndPage" as="xs:string" select="'title-page'"/>
+    <xsl:variable name="optXrefToExampleTitleOnly" as="xs:string" select="'title-only'"/>
+    <xsl:variable name="optXrefToExamplePageOnly" as="xs:string" select="'page-only'"/>
+    <xsl:function name="ahf:getXrefToExampleOption" as="xs:string*">
+        <xsl:param name="prmXref" as="element()"/>
+        <xsl:choose>
+            <xsl:when test="ahf:hasOutputClassValue($prmXref,$optXrefToExampleTitleAndPage)">
+                <xsl:sequence select="$optXrefToExampleTitleAndPage"/>
+            </xsl:when>
+            <xsl:when test="ahf:hasOutputClassValue($prmXref,$optXrefToExampleTitleOnly)">
+                <xsl:sequence select="$optXrefToExampleTitleOnly"/>
+            </xsl:when>
+            <xsl:when test="ahf:hasOutputClassValue($prmXref,$optXrefToExamplePageOnly)">
+                <xsl:sequence select="$optXrefToExamplePageOnly"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:sequence select="()"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:function>
+    
+    <!-- 
+        function:	get xref to step/substep output option
+        param:	   prmXref 
+        return:	  xs:string
+        note:		Customizing this function make it possible to specify your own xref output option values.
+    -->
+    <xsl:variable name="optXrefToStepNumberAndPage" as="xs:string" select="'number-page'"/>
+    <xsl:variable name="optXrefToStepNumberOnly" as="xs:string" select="'number-only'"/>
+    <xsl:function name="ahf:getXrefToStepOption" as="xs:string*">
+        <xsl:param name="prmXref" as="element()"/>
+        <xsl:choose>
+            <xsl:when test="ahf:hasOutputClassValue($prmXref,$optXrefToStepNumberAndPage)">
+                <xsl:sequence select="$optXrefToStepNumberAndPage"/>
+            </xsl:when>
+            <xsl:when test="ahf:hasOutputClassValue($prmXref,$optXrefToStepNumberOnly)">
+                <xsl:sequence select="$optXrefToStepNumberOnly"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:sequence select="()"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:function>
+
+    <!-- 
+        function:	get xref to li output option
+        param:	   prmXref 
+        return:	  xs:string
+        note:		Customizing this function make it possible to specify your own xref output option values.
+    -->
+    <xsl:variable name="optXrefToLiNumberAndPage" as="xs:string" select="'number-page'"/>
+    <xsl:variable name="optXrefToLiNumberOnly" as="xs:string" select="'number-only'"/>
+    <xsl:function name="ahf:getXrefToLiOption" as="xs:string*">
+        <xsl:param name="prmXref" as="element()"/>
+        <xsl:choose>
+            <xsl:when test="ahf:hasOutputClassValue($prmXref,$optXrefToLiNumberAndPage)">
+                <xsl:sequence select="$optXrefToLiNumberAndPage"/>
+            </xsl:when>
+            <xsl:when test="ahf:hasOutputClassValue($prmXref,$optXrefToLiNumberOnly)">
+                <xsl:sequence select="$optXrefToLiNumberOnly"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:sequence select="()"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:function>
+
+    <!-- 
+        function:	get xref to fig/table output option
+        param:	   prmXref 
+        return:	  xs:string
+        note:		Customizing this function make it possible to specify your own xref output option values.
+    -->
+    <xsl:variable name="optXrefToTableTitleAndPage" as="xs:string" select="'title-page'"/>
+    <xsl:variable name="optXrefToTableTitleOnly" as="xs:string" select="'title-only'"/>
+    <xsl:variable name="optXrefToTablePageOnly" as="xs:string" select="'page-only'"/>
+    <xsl:function name="ahf:getXrefToTableOption" as="xs:string*">
+        <xsl:param name="prmXref" as="element()"/>
+        <xsl:choose>
+            <xsl:when test="ahf:hasOutputClassValue($prmXref,$optXrefToTableTitleAndPage)">
+                <xsl:sequence select="$optXrefToTableTitleAndPage"/>
+            </xsl:when>
+            <xsl:when test="ahf:hasOutputClassValue($prmXref,$optXrefToTableTitleOnly)">
+                <xsl:sequence select="$optXrefToTableTitleOnly"/>
+            </xsl:when>
+            <xsl:when test="ahf:hasOutputClassValue($prmXref,$optXrefToTablePageOnly)">
+                <xsl:sequence select="$optXrefToTablePageOnly"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:sequence select="()"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:function>
+
+    <!-- 
+        function:	get xref to other elements output option
+        param:	   prmXref 
+        return:	  xs:string
+        note:		Customizing this function make it possible to specify your own xref output option values.
+    -->
+    <xsl:variable name="optXrefToOtherTitleAndPage" as="xs:string" select="'title-page'"/>
+    <xsl:variable name="optXrefToOtherTitleOnly" as="xs:string" select="'title-only'"/>
+    <xsl:variable name="optXrefToOtherPageOnly" as="xs:string" select="'page-only'"/>
+    <xsl:function name="ahf:getXrefToOtherOption" as="xs:string*">
+        <xsl:param name="prmXref" as="element()"/>
+        <xsl:choose>
+            <xsl:when test="ahf:hasOutputClassValue($prmXref,$optXrefToOtherTitleAndPage)">
+                <xsl:sequence select="$optXrefToOtherTitleAndPage"/>
+            </xsl:when>
+            <xsl:when test="ahf:hasOutputClassValue($prmXref,$optXrefToOtherTitleOnly)">
+                <xsl:sequence select="$optXrefToOtherTitleOnly"/>
+            </xsl:when>
+            <xsl:when test="ahf:hasOutputClassValue($prmXref,$optXrefToOtherPageOnly)">
+                <xsl:sequence select="$optXrefToOtherPageOnly"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:sequence select="()"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:function>
+    
 
 </xsl:stylesheet>
