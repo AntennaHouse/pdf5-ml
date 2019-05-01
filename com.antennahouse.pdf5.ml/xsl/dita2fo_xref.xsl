@@ -632,20 +632,34 @@ E-mail : info@antennahouse.com
                 <xsl:copy-of select="ahf:getUnivAtts($prmXref,$prmTopicRef,$prmNeedId)"/>
                 <xsl:copy-of select="ahf:getFoStyleAndProperty($prmXref)"/>
                 <fo:inline>
-                    <xsl:if test="($opt = ($optXrefToTopicTitleAndPage,$optXrefToTopicTitleOnly)) or empty($opt)">
-                        <xsl:copy-of  select="$prmXrefTitle"/>
-                    </xsl:if>
-                    <xsl:if test="($opt = ($optXrefToTopicTitleAndPage,$optXrefToTopicPageOnly)) or empty($opt)">
-                        <xsl:call-template name="getVarValueWithLangAsText">
-                            <xsl:with-param name="prmVarName" select="'Xref_Prefix'"/>
-                            <xsl:with-param name="prmElem" select="$prmXref"/>
-                        </xsl:call-template>
-                        <fo:page-number-citation ref-id="{$prmDestId}"/>
-                        <xsl:call-template name="getVarValueWithLangAsText">
-                            <xsl:with-param name="prmVarName" select="'Xref_Suffix'"/>
-                            <xsl:with-param name="prmElem" select="$prmXref"/>
-                        </xsl:call-template>
-                    </xsl:if>    
+                    <xsl:choose>
+                        <xsl:when test="($opt = $optXrefToTopicTitleAndPage) or empty($opt)">
+                            <xsl:copy-of  select="$prmXrefTitle"/>
+                            <xsl:call-template name="getVarValueWithLangAsText">
+                                <xsl:with-param name="prmVarName" select="'Xref_Prefix_Title_Page'"/>
+                                <xsl:with-param name="prmElem" select="$prmXref"/>
+                            </xsl:call-template>
+                            <fo:page-number-citation ref-id="{$prmDestId}"/>
+                            <xsl:call-template name="getVarValueWithLangAsText">
+                                <xsl:with-param name="prmVarName" select="'Xref_Suffix_Title_Page'"/>
+                                <xsl:with-param name="prmElem" select="$prmXref"/>
+                            </xsl:call-template>
+                        </xsl:when>
+                        <xsl:when test="$opt = $optXrefToTopicTitleOnly">
+                            <xsl:copy-of  select="$prmXrefTitle"/>
+                        </xsl:when>
+                        <xsl:when test="$opt = $optXrefToTopicPageOnly">
+                            <xsl:call-template name="getVarValueWithLangAsText">
+                                <xsl:with-param name="prmVarName" select="'Xref_Prefix_Page_Only'"/>
+                                <xsl:with-param name="prmElem" select="$prmXref"/>
+                            </xsl:call-template>
+                            <fo:page-number-citation ref-id="{$prmDestId}"/>
+                            <xsl:call-template name="getVarValueWithLangAsText">
+                                <xsl:with-param name="prmVarName" select="'Xref_Suffix_Page_Only'"/>
+                                <xsl:with-param name="prmElem" select="$prmXref"/>
+                            </xsl:call-template>
+                        </xsl:when>    
+                    </xsl:choose>
                 </fo:inline>
             </xsl:when>
             

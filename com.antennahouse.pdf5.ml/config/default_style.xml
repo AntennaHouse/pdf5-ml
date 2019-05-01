@@ -311,6 +311,12 @@ URL : http://www.antennahouse.com/
         <variable name="Xref_Prefix"> on page </variable>
         <variable name="Xref_Suffix"/>
 
+        <variable name="Xref_Prefix_Title_Page"> on page </variable>
+        <variable name="Xref_Suffix_Title_Page"/>
+        
+        <variable name="Xref_Prefix_Page_Only"> page </variable>
+        <variable name="Xref_Suffix_Page_Only"/>
+        
         <variable name="Xref_Topic_Title_Prefix"></variable>
         <variable name="Xref_Topic_Title_Suffix"></variable>
 
