@@ -79,6 +79,7 @@ E-mail : info@antennahouse.com
         </xsl:call-template>
     </xsl:template>
     
+    
     <xsl:template name="processStep">
         <xsl:param name="prmNumberFormat" required="yes" as="xs:string"/>
         
@@ -92,7 +93,7 @@ E-mail : info@antennahouse.com
                     <xsl:call-template name="getAttributeSetWithLang">
                         <xsl:with-param name="prmAttrSetName" select="'atsStepLabel'"/>
                     </xsl:call-template>
-                    <xsl:number format="{$prmNumberFormat}" value="count(preceding-sibling::*[contains(@class,' topic/li ')][not(contains(@class,' task/stepsection '))]) + 1"/>
+                    <xsl:number format="{$prmNumberFormat}" value="ahf:getStepNumber(.)"/>
                 </fo:block>
             </fo:list-item-label>
             <fo:list-item-body start-indent="body-start()">
@@ -119,7 +120,18 @@ E-mail : info@antennahouse.com
             </fo:list-item-body>
         </fo:list-item>
     </xsl:template>
-    
+
+    <!-- 
+     function:    get step number
+     param:       prmStep 
+     return:      xs:integer
+     note:        Skip stepsection		
+     -->
+    <xsl:function name="ahf:getStepNumber" as="xs:integer">
+        <xsl:param name="prmStep" as="element()"/>
+        <xsl:sequence select="count($prmStep| $prmStep/preceding-sibling::*[contains(@class,' topic/li ')][not(contains(@class,' task/stepsection '))])"/>
+    </xsl:function>
+
     <!-- Ignore floatfig in info -->
     <xsl:template match="*[contains(@class,' task/info ')]//*[contains(@class,' floatfig-d/floatfig ')]" priority="4"/>
 

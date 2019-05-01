@@ -95,6 +95,8 @@ URL : http://www.antennahouse.com/
         <variable name="Xref_Prefix"> (</variable>
         <variable name="Xref_Suffix">ページ)</variable>
 
+     <variable name="Xref_Step_Prefix">手順&#xA0;</variable>
+     
         <!-- Index related -->
         <!-- Index See prefix and suffix -->
         <variable name="Index_Symbol_Label">記号・数字</variable>

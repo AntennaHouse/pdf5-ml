@@ -311,6 +311,24 @@ URL : http://www.antennahouse.com/
         <variable name="Xref_Prefix"> on page </variable>
         <variable name="Xref_Suffix"/>
 
+        <variable name="Xref_Topic_Title_Prefix"></variable>
+        <variable name="Xref_Topic_Title_Suffix"></variable>
+
+        <variable name="Xref_Section_Title_Prefix"></variable>
+        <variable name="Xref_Section_Title_Suffix"></variable>
+
+        <variable name="Xref_Example_Title_Prefix"></variable>
+        <variable name="Xref_Example_Title_Suffix"></variable>
+
+        <variable name="Xref_Table_Title_Prefix"></variable>
+        <variable name="Xref_Table_Title_Suffix"></variable>
+
+        <variable name="Xref_Fig_Title_Prefix"></variable>
+        <variable name="Xref_Fig_Title_Suffix"></variable>
+
+        <variable name="Xref_Step_Prefix">step&#xA0;</variable>
+        <variable name="Xref_Step_Substep_Separator">-</variable>
+        
         <!-- Draft-comment -->
         <variable name="Draft_Comment_Title_Prefix">[DRAFT-COMMENT </variable>
         <variable name="Draft_Comment_Author"> Author:</variable>
