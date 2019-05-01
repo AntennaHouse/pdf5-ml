@@ -141,7 +141,7 @@ E-mail : info@antennahouse.com
         <xsl:param name="prmXref"          required="yes" as="element()"/>
         <xsl:param name="prmDestElement"   required="yes" as="element()?"/>
         
-        <xsl:variable name="hasUserText" as="xs:boolean" select="exists($prmXref/node()[1][self::processing-instruction(ditaot)][string(.) eq 'user-text'])"/>
+        <xsl:variable name="hasUserText" as="xs:boolean" select="exists($prmXref/node()[1][self::processing-instruction(ditaot)][string(.) eq 'usertext'])"/>
         
         <xsl:choose>
             <!-- external link or no destination element
@@ -206,7 +206,7 @@ E-mail : info@antennahouse.com
                 </xsl:variable>
                 <xsl:choose>
                     <xsl:when test="$hasUserText">
-                        <xsl:apply-templates select="$prmXref" mode="GET_CONTENTS"/>
+                        <xsl:apply-templates select="$prmXref/node() except *[contains(@class,' topic/desc ')]" mode="GET_CONTENTS"/>
                     </xsl:when>
                     <xsl:when test="string($topicTitleHeading)">
                         <fo:inline>
@@ -231,7 +231,7 @@ E-mail : info@antennahouse.com
             <xsl:when test="$prmDestElement[contains(@class, ' topic/section ')]">
                 <xsl:choose>
                     <xsl:when test="$hasUserText">
-                        <xsl:apply-templates select="$prmXref" mode="GET_CONTENTS"/>
+                        <xsl:apply-templates select="$prmXref/node() except *[contains(@class,' topic/desc ')]" mode="GET_CONTENTS"/>
                     </xsl:when>
                     <xsl:when test="$prmDestElement/*[contains(@class, ' topic/title ')]">
                         <xsl:variable name="sectionTitle" as="node()*">
@@ -274,7 +274,7 @@ E-mail : info@antennahouse.com
             <xsl:when test="$prmDestElement[contains(@class, ' topic/example ')]">
                 <xsl:choose>
                     <xsl:when test="$hasUserText">
-                        <xsl:apply-templates select="$prmXref" mode="GET_CONTENTS"/>
+                        <xsl:apply-templates select="$prmXref/node() except *[contains(@class,' topic/desc ')]" mode="GET_CONTENTS"/>
                     </xsl:when>
                     <xsl:when test="$prmDestElement/*[contains(@class, ' topic/title ')]">
                         <xsl:variable name="exampleTitle" as="node()*">
@@ -317,7 +317,7 @@ E-mail : info@antennahouse.com
             <xsl:when test="$prmDestElement[ahf:seqContains(@class, (' task/step ',' task/substep '))]">
                 <xsl:choose>
                     <xsl:when test="$hasUserText">
-                        <xsl:apply-templates select="$prmXref" mode="GET_CONTENTS"/>
+                        <xsl:apply-templates select="$prmXref/node() except *[contains(@class,' topic/desc ')]" mode="GET_CONTENTS"/>
                     </xsl:when>
                     <xsl:otherwise>
                         <!-- Prefix of step: "step" -->
@@ -365,7 +365,7 @@ E-mail : info@antennahouse.com
             <xsl:when test="$prmDestElement[contains(@class, ' topic/li ')][parent::*[contains(@class,' topic/ol ')]]">
                 <xsl:choose>
                     <xsl:when test="$hasUserText">
-                        <xsl:apply-templates select="$prmXref" mode="GET_CONTENTS"/>
+                        <xsl:apply-templates select="$prmXref/node() except *[contains(@class,' topic/desc ')]" mode="GET_CONTENTS"/>
                     </xsl:when>
                     <xsl:otherwise>
                         <!-- Prefix of ol -->
@@ -393,7 +393,7 @@ E-mail : info@antennahouse.com
             <xsl:when test="$prmDestElement[contains(@class, ' topic/table ')]">
                 <xsl:choose>
                     <xsl:when test="$hasUserText">
-                        <xsl:apply-templates select="$prmXref" mode="GET_CONTENTS"/>
+                        <xsl:apply-templates select="$prmXref/node() except *[contains(@class,' topic/desc ')]" mode="GET_CONTENTS"/>
                     </xsl:when>
                     <xsl:when test="$prmDestElement/*[contains(@class, ' topic/title ')]">
                         <xsl:variable name="tableTitle" as="node()*">
@@ -436,7 +436,7 @@ E-mail : info@antennahouse.com
             <xsl:when test="$prmDestElement[contains(@class, ' topic/fig ')]">
                 <xsl:choose>
                     <xsl:when test="$hasUserText">
-                        <xsl:apply-templates select="$prmXref" mode="GET_CONTENTS"/>
+                        <xsl:apply-templates select="$prmXref/node() except *[contains(@class,' topic/desc ')]" mode="GET_CONTENTS"/>
                     </xsl:when>
                     <xsl:when test="$prmDestElement/*[contains(@class, ' topic/title ')]">
                         <xsl:variable name="figTitle" as="node()*">
@@ -482,7 +482,7 @@ E-mail : info@antennahouse.com
                 <xsl:variable name="equtionNumberResult" as="node()*">
                     <xsl:choose>
                         <xsl:when test="$hasUserText">
-                            <xsl:apply-templates select="$prmXref" mode="GET_CONTENTS"/>
+                            <xsl:apply-templates select="$prmXref/node() except *[contains(@class,' topic/desc ')]" mode="GET_CONTENTS"/>
                         </xsl:when>
                         <xsl:when test="$pNumberEquationBlockUnconditionally and empty($equationNumber)">
                             <xsl:variable name="autoEquationNumber" as="xs:string">
@@ -556,7 +556,7 @@ E-mail : info@antennahouse.com
             <xsl:when test="$prmDestElement[child::*[contains(@class, ' topic/title ')]]">
                 <xsl:choose>
                     <xsl:when test="$hasUserText">
-                        <xsl:apply-templates select="$prmXref" mode="GET_CONTENTS"/>
+                        <xsl:apply-templates select="$prmXref/node() except *[contains(@class,' topic/desc ')]" mode="GET_CONTENTS"/>
                     </xsl:when>
                     <xsl:otherwise>
                         <xsl:variable name="title" as="node()*">
@@ -588,7 +588,7 @@ E-mail : info@antennahouse.com
             <xsl:otherwise>
                 <xsl:choose>
                     <xsl:when test="$hasUserText">
-                        <xsl:apply-templates select="$prmXref" mode="GET_CONTENTS"/>
+                        <xsl:apply-templates select="$prmXref/node() except *[contains(@class,' topic/desc ')]" mode="GET_CONTENTS"/>
                     </xsl:when>
                     <xsl:otherwise>
                         <xsl:call-template name="warningContinue">
