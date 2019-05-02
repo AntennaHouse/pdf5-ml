@@ -333,7 +333,7 @@ URL : http://www.antennahouse.com/
         <variable name="Xref_Fig_Title_Suffix"></variable>
 
         <variable name="Xref_Step_Prefix">step&#xA0;</variable>
-        <variable name="Xref_Step_Substep_Separator">-</variable>
+        <variable name="Xref_Step_Substep_Separator">.</variable>
         
         <!-- Draft-comment -->
         <variable name="Draft_Comment_Title_Prefix">[DRAFT-COMMENT </variable>
@@ -363,9 +363,11 @@ URL : http://www.antennahouse.com/
 
         <!-- Number format of ol (Format string separate by space!) -->
         <variable name="Ol_Number_Formats" delim="[,\s]+">1. a. i.</variable>
+        <variable name="Ol_Number_Formats_For_Xref" delim="[,\s]+">1 a i</variable>
         
         <!-- Number format of step/substep (Format string separate by space!) -->
         <variable name="Step_Number_Formats" delim="[,\s]+">1. a.</variable>
+        <variable name="Step_Number_Formats_For_Xref" delim="[,\s]+">1 a</variable>
         
         <!-- Syntaxdiagram -->
         <variable name="Sd_Or"> | </variable>

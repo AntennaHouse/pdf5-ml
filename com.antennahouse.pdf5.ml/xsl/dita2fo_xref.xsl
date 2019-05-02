@@ -310,7 +310,7 @@ E-mail : info@antennahouse.com
             </xsl:when>
             
             <!-- step/substep -->
-            <xsl:when test="$prmDestElement[ahf:seqContains(@class, (' task/step ',' task/substep '))]">
+            <xsl:when test="$prmDestElement[ahf:seqContains(@class, (' task/step ',' task/substep '))][ancestor::*[contains(@class,' task/steps ')]]">
                 <xsl:choose>
                     <xsl:when test="$hasUserText">
                         <xsl:apply-templates select="$prmXref/node() except *[contains(@class,' topic/desc ')]" mode="GET_CONTENTS"/>
@@ -323,22 +323,22 @@ E-mail : info@antennahouse.com
                                 <xsl:with-param name="prmElem" select="$prmDestElement"/>
                             </xsl:call-template>
                         </xsl:variable>
-                        <xsl:variable name="stepNumberFormat" as="xs:string+">
+                        <xsl:variable name="stepsNumberFormat" as="xs:string+">
                             <xsl:call-template name="getVarValueWithLangAsStringSequence">
-                                <xsl:with-param name="prmVarName" select="'Step_Number_Formats'"/>
+                                <xsl:with-param name="prmVarName" select="'Step_Number_Formats_For_Xref'"/>
                             </xsl:call-template>
                         </xsl:variable>
                         <xsl:choose>
                             <xsl:when test="$prmDestElement[contains(@class, ' task/step ')]">
-                                <xsl:variable name="numberFormat" select="ahf:getOlNumberFormat($prmDestElement,$stepNumberFormat)" as="xs:string"/>
+                                <xsl:variable name="numberFormat" select="ahf:getOlNumberFormat($prmDestElement/parent::*,$stepsNumberFormat)" as="xs:string"/>
                                 <fo:inline>
                                     <xsl:copy-of select="$stepHeading"/>
                                     <xsl:number format="{$numberFormat}" value="ahf:getStepNumber($prmDestElement)"/>
                                 </fo:inline>
                             </xsl:when>
                             <xsl:otherwise>
-                                <xsl:variable name="stepNumberFormat" select="ahf:getOlNumberFormat($prmDestElement/parent::*,$stepNumberFormat)" as="xs:string"/>
-                                <xsl:variable name="subStepNumberFormat" select="ahf:getOlNumberFormat($prmDestElement,$stepNumberFormat)" as="xs:string"/>
+                                <xsl:variable name="thisStepsNumberFormat" select="ahf:getOlNumberFormat($prmDestElement/parent::*/parent::*/parent::*,$stepsNumberFormat)" as="xs:string"/>
+                                <xsl:variable name="thisSubStepsNumberFormat" select="ahf:getOlNumberFormat($prmDestElement/parent::*,$stepsNumberFormat)" as="xs:string"/>
                                 <xsl:variable name="stepSubstepSeparator" as="text()?">
                                     <xsl:call-template name="getVarValueWithLangAsText">
                                         <xsl:with-param name="prmVarName" select="'Xref_Step_Substep_Separator'"/>
@@ -347,9 +347,9 @@ E-mail : info@antennahouse.com
                                 </xsl:variable>
                                 <fo:inline>
                                     <xsl:copy-of select="$stepHeading"/>
-                                    <xsl:number format="{$stepNumberFormat}" value="ahf:getStepNumber($prmDestElement/parent::*)"/>
+                                    <xsl:number format="{$thisStepsNumberFormat}" value="ahf:getStepNumber($prmDestElement/parent::*/parent::*)"/>
                                     <xsl:copy-of select="$stepSubstepSeparator"/>
-                                    <xsl:number format="{$subStepNumberFormat}" value="ahf:getStepNumber($prmDestElement)"/>
+                                    <xsl:number format="{$thisSubStepsNumberFormat}" value="ahf:getStepNumber($prmDestElement)"/>
                                 </fo:inline>
                             </xsl:otherwise>
                         </xsl:choose>
@@ -368,7 +368,7 @@ E-mail : info@antennahouse.com
                         <xsl:variable name="olNumberFormat" as="xs:string*">
                             <xsl:variable name="olNumberFormats" as="xs:string">
                                 <xsl:call-template name="getVarValueWithLang">
-                                    <xsl:with-param name="prmVarName" select="'Ol_Number_Formats'"/>
+                                    <xsl:with-param name="prmVarName" select="'Ol_Number_Formats_For_Xref'"/>
                                     <xsl:with-param name="prmElem" select="$prmDestElement"/>
                                 </xsl:call-template>
                             </xsl:variable>
@@ -736,7 +736,7 @@ E-mail : info@antennahouse.com
             </xsl:when>
 
             <!-- steps/step, substep: Xref link color does not apply. -->
-            <xsl:when test="$prmDestElement[contains(@class, ' task/step ')][parent::*[contains(@class,' task/substep ')]]">
+            <xsl:when test="$prmDestElement[contains(@class, ' task/step ')][parent::*[contains(@class,' task/substep ')]][ancestor::*[contains(@class,' task/steps ')]]">
   No        <xsl:variable name="opt" as="xs:string*" select="ahf:getXrefToStepOption($prmXref)"/>
                 <xsl:copy-of select="ahf:getUnivAtts($prmXref,$prmTopicRef,$prmNeedId)"/>
                 <xsl:copy-of select="ahf:getFoStyleAndProperty($prmXref)"/>
