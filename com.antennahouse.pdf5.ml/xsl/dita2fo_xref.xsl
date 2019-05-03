@@ -190,19 +190,23 @@ E-mail : info@antennahouse.com
                 </xsl:variable>
                 <xsl:variable name="topicTitlePrefix" as="text()?">
                     <xsl:call-template name="getVarValueWithLangAsText">
-                        <xsl:with-param name="prmVarName" select="'Xref_Topic_Title_Prefix'"/>
+                        <xsl:with-param name="prmVarName" select="'Xref_Title_Prefix'"/>
                         <xsl:with-param name="prmElem" select="$prmXref"/>
                     </xsl:call-template>
                 </xsl:variable>
                 <xsl:variable name="topicTitleSuffix" as="text()?">
                     <xsl:call-template name="getVarValueWithLangAsText">
-                        <xsl:with-param name="prmVarName" select="'Xref_Topic_Title_Suffix'"/>
+                        <xsl:with-param name="prmVarName" select="'Xref_Title_Suffix'"/>
                         <xsl:with-param name="prmElem" select="$prmXref"/>
                     </xsl:call-template>
                 </xsl:variable>
                 <xsl:choose>
                     <xsl:when test="$hasUserText">
-                        <xsl:apply-templates select="$prmXref/node() except *[contains(@class,' topic/desc ')]" mode="GET_CONTENTS"/>
+                        <fo:inline>
+                            <xsl:copy-of select="$topicTitlePrefix"/>
+                            <xsl:apply-templates select="$prmXref/node() except *[contains(@class,' topic/desc ')]" mode="GET_CONTENTS"/>
+                            <xsl:copy-of select="$topicTitleSuffix"/>
+                        </fo:inline>
                     </xsl:when>
                     <xsl:when test="string($topicTitleHeading)">
                         <fo:inline>
@@ -225,25 +229,29 @@ E-mail : info@antennahouse.com
             
             <!-- section -->
             <xsl:when test="$prmDestElement[contains(@class, ' topic/section ')]">
+                <xsl:variable name="sectionTitlePrefix" as="text()?">
+                    <xsl:call-template name="getVarValueWithLangAsText">
+                        <xsl:with-param name="prmVarName" select="'Xref_Title_Prefix'"/>
+                        <xsl:with-param name="prmElem" select="$prmXref"/>
+                    </xsl:call-template>
+                </xsl:variable>
+                <xsl:variable name="sectionTitleSuffix" as="text()?">
+                    <xsl:call-template name="getVarValueWithLangAsText">
+                        <xsl:with-param name="prmVarName" select="'Xref_Title_Suffix'"/>
+                        <xsl:with-param name="prmElem" select="$prmXref"/>
+                    </xsl:call-template>
+                </xsl:variable>
                 <xsl:choose>
                     <xsl:when test="$hasUserText">
-                        <xsl:apply-templates select="$prmXref/node() except *[contains(@class,' topic/desc ')]" mode="GET_CONTENTS"/>
+                        <fo:inline>
+                            <xsl:copy-of select="$sectionTitlePrefix"/>
+                            <xsl:apply-templates select="$prmXref/node() except *[contains(@class,' topic/desc ')]" mode="GET_CONTENTS"/>
+                            <xsl:copy-of select="$sectionTitleSuffix"/>
+                        </fo:inline>
                     </xsl:when>
                     <xsl:when test="$prmDestElement/*[contains(@class, ' topic/title ')]">
                         <xsl:variable name="sectionTitle" as="node()*">
                             <xsl:apply-templates select="$prmDestElement/*[contains(@class, ' topic/title ')]" mode="GET_CONTENTS"/>
-                        </xsl:variable>
-                        <xsl:variable name="sectionTitlePrefix" as="text()?">
-                            <xsl:call-template name="getVarValueWithLangAsText">
-                                <xsl:with-param name="prmVarName" select="'Xref_Section_Title_Prefix'"/>
-                                <xsl:with-param name="prmElem" select="$prmXref"/>
-                            </xsl:call-template>
-                        </xsl:variable>
-                        <xsl:variable name="sectionTitleSuffix" as="text()?">
-                            <xsl:call-template name="getVarValueWithLangAsText">
-                                <xsl:with-param name="prmVarName" select="'Xref_Section_Title_Suffix'"/>
-                                <xsl:with-param name="prmElem" select="$prmXref"/>
-                            </xsl:call-template>
                         </xsl:variable>
                         <fo:inline>
                             <xsl:copy-of select="$sectionTitlePrefix"/>
@@ -268,25 +276,29 @@ E-mail : info@antennahouse.com
             
             <!-- example -->
             <xsl:when test="$prmDestElement[contains(@class, ' topic/example ')]">
+                <xsl:variable name="exampleTitlePrefix" as="text()?">
+                    <xsl:call-template name="getVarValueWithLangAsText">
+                        <xsl:with-param name="prmVarName" select="'Xref_Title_Prefix'"/>
+                        <xsl:with-param name="prmElem" select="$prmXref"/>
+                    </xsl:call-template>
+                </xsl:variable>
+                <xsl:variable name="exampleTitleSuffix" as="text()?">
+                    <xsl:call-template name="getVarValueWithLangAsText">
+                        <xsl:with-param name="prmVarName" select="'Xref_Title_Suffix'"/>
+                        <xsl:with-param name="prmElem" select="$prmXref"/>
+                    </xsl:call-template>
+                </xsl:variable>
                 <xsl:choose>
                     <xsl:when test="$hasUserText">
-                        <xsl:apply-templates select="$prmXref/node() except *[contains(@class,' topic/desc ')]" mode="GET_CONTENTS"/>
+                        <fo:inline>
+                            <xsl:copy-of select="$exampleTitlePrefix"/>
+                            <xsl:apply-templates select="$prmXref/node() except *[contains(@class,' topic/desc ')]" mode="GET_CONTENTS"/>
+                            <xsl:copy-of select="$exampleTitleSuffix"/>
+                        </fo:inline>
                     </xsl:when>
                     <xsl:when test="$prmDestElement/*[contains(@class, ' topic/title ')]">
                         <xsl:variable name="exampleTitle" as="node()*">
                             <xsl:apply-templates select="$prmDestElement/*[contains(@class, ' topic/title ')]" mode="GET_CONTENTS"/>
-                        </xsl:variable>
-                        <xsl:variable name="exampleTitlePrefix" as="text()?">
-                            <xsl:call-template name="getVarValueWithLangAsText">
-                                <xsl:with-param name="prmVarName" select="'Xref_Example_Title_Prefix'"/>
-                                <xsl:with-param name="prmElem" select="$prmXref"/>
-                            </xsl:call-template>
-                        </xsl:variable>
-                        <xsl:variable name="exampleTitleSuffix" as="text()?">
-                            <xsl:call-template name="getVarValueWithLangAsText">
-                                <xsl:with-param name="prmVarName" select="'Xref_Example_Title_Suffix'"/>
-                                <xsl:with-param name="prmElem" select="$prmXref"/>
-                            </xsl:call-template>
                         </xsl:variable>
                         <fo:inline>
                             <xsl:copy-of select="$exampleTitlePrefix"/>
@@ -379,7 +391,7 @@ E-mail : info@antennahouse.com
                         <xsl:variable name="olFormat" as="xs:string" select="ahf:getOlNumberFormat($prmDestElement,$olNumberFormat)"/>
                         <fo:inline>
                             <xsl:number format="{$olFormat}" 
-                                value="count($prmDestElement/preceding-sibling::*[contains(@class, ' topic/li ')][not(contains(@class,' task/stepsection '))]) + 1"/>
+                                value="count($prmDestElement | $prmDestElement/preceding-sibling::*[contains(@class, ' topic/li ')])"/>
                         </fo:inline>
                     </xsl:otherwise>
                 </xsl:choose>
@@ -387,9 +399,25 @@ E-mail : info@antennahouse.com
             
             <!-- table -->
             <xsl:when test="$prmDestElement[contains(@class, ' topic/table ')]">
+                <xsl:variable name="tableTitlePrefix" as="text()?">
+                    <xsl:call-template name="getVarValueWithLangAsText">
+                        <xsl:with-param name="prmVarName" select="'Xref_Title_Prefix'"/>
+                        <xsl:with-param name="prmElem" select="$prmXref"/>
+                    </xsl:call-template>
+                </xsl:variable>
+                <xsl:variable name="tableTitleSuffix" as="text()?">
+                    <xsl:call-template name="getVarValueWithLangAsText">
+                        <xsl:with-param name="prmVarName" select="'Xref_Title_Suffix'"/>
+                        <xsl:with-param name="prmElem" select="$prmXref"/>
+                    </xsl:call-template>
+                </xsl:variable>
                 <xsl:choose>
                     <xsl:when test="$hasUserText">
-                        <xsl:apply-templates select="$prmXref/node() except *[contains(@class,' topic/desc ')]" mode="GET_CONTENTS"/>
+                        <fo:inline>
+                            <xsl:copy-of select="$tableTitlePrefix"/>
+                            <xsl:apply-templates select="$prmXref/node() except *[contains(@class,' topic/desc ')]" mode="GET_CONTENTS"/>
+                            <xsl:copy-of select="$tableTitleSuffix"/>
+                        </fo:inline>
                     </xsl:when>
                     <xsl:when test="$prmDestElement/*[contains(@class, ' topic/title ')]">
                         <xsl:variable name="tableTitle" as="node()*">
@@ -398,18 +426,6 @@ E-mail : info@antennahouse.com
                         <xsl:variable name="tableTitleHeading"
                             select="ahf:getTableTitlePrefix($prmTitleTopicRef,$prmDestElement)" 
                             as="xs:string"/>
-                        <xsl:variable name="tableTitlePrefix" as="text()?">
-                            <xsl:call-template name="getVarValueWithLangAsText">
-                                <xsl:with-param name="prmVarName" select="'Xref_Table_Title_Prefix'"/>
-                                <xsl:with-param name="prmElem" select="$prmXref"/>
-                            </xsl:call-template>
-                        </xsl:variable>
-                        <xsl:variable name="tableTitleSuffix" as="text()?">
-                            <xsl:call-template name="getVarValueWithLangAsText">
-                                <xsl:with-param name="prmVarName" select="'Xref_Table_Title_Suffix'"/>
-                                <xsl:with-param name="prmElem" select="$prmXref"/>
-                            </xsl:call-template>
-                        </xsl:variable>
                         <fo:inline>
                             <xsl:copy-of select="$tableTitlePrefix"/>
                             <xsl:value-of select="$tableTitleHeading"/>
@@ -430,9 +446,25 @@ E-mail : info@antennahouse.com
             
             <!-- fig -->
             <xsl:when test="$prmDestElement[contains(@class, ' topic/fig ')]">
+                <xsl:variable name="figTitlePrefix" as="text()?">
+                    <xsl:call-template name="getVarValueWithLangAsText">
+                        <xsl:with-param name="prmVarName" select="'Xref_Title_Prefix'"/>
+                        <xsl:with-param name="prmElem" select="$prmXref"/>
+                    </xsl:call-template>
+                </xsl:variable>
+                <xsl:variable name="figTitleSuffix" as="text()?">
+                    <xsl:call-template name="getVarValueWithLangAsText">
+                        <xsl:with-param name="prmVarName" select="'Xref_Title_Suffix'"/>
+                        <xsl:with-param name="prmElem" select="$prmXref"/>
+                    </xsl:call-template>
+                </xsl:variable>
                 <xsl:choose>
                     <xsl:when test="$hasUserText">
-                        <xsl:apply-templates select="$prmXref/node() except *[contains(@class,' topic/desc ')]" mode="GET_CONTENTS"/>
+                        <fo:inline>
+                            <xsl:copy-of select="$figTitlePrefix"/>
+                            <xsl:apply-templates select="$prmXref/node() except *[contains(@class,' topic/desc ')]" mode="GET_CONTENTS"/>
+                            <xsl:copy-of select="$figTitleSuffix"/>
+                        </fo:inline>
                     </xsl:when>
                     <xsl:when test="$prmDestElement/*[contains(@class, ' topic/title ')]">
                         <xsl:variable name="figTitle" as="node()*">
@@ -442,18 +474,6 @@ E-mail : info@antennahouse.com
                         <xsl:variable name="figTitleHeading"
                             select="ahf:getFigTitlePrefix($prmTitleTopicRef,$prmDestElement)" 
                             as="xs:string"/>
-                        <xsl:variable name="figTitlePrefix" as="text()?">
-                            <xsl:call-template name="getVarValueWithLangAsText">
-                                <xsl:with-param name="prmVarName" select="'Xref_Fig_Title_Prefix'"/>
-                                <xsl:with-param name="prmElem" select="$prmXref"/>
-                            </xsl:call-template>
-                        </xsl:variable>
-                        <xsl:variable name="figTitleSuffix" as="text()?">
-                            <xsl:call-template name="getVarValueWithLangAsText">
-                                <xsl:with-param name="prmVarName" select="'Xref_Fig_Title_Suffix'"/>
-                                <xsl:with-param name="prmElem" select="$prmXref"/>
-                            </xsl:call-template>
-                        </xsl:variable>
                         <fo:inline>
                             <xsl:copy-of select="$figTitlePrefix"/>
                             <xsl:value-of select="$figTitleHeading"/>
@@ -550,25 +570,27 @@ E-mail : info@antennahouse.com
             
             <!-- Other elements that have title -->
             <xsl:when test="$prmDestElement[child::*[contains(@class, ' topic/title ')]]">
+                <xsl:variable name="otherTitlePrefix" as="text()?">
+                    <xsl:call-template name="getVarValueWithLangAsText">
+                        <xsl:with-param name="prmVarName" select="'Xref_Title_Prefix'"/>
+                        <xsl:with-param name="prmElem" select="$prmXref"/>
+                    </xsl:call-template>
+                </xsl:variable>
+                <xsl:variable name="otherTitleSuffix" as="text()?">
+                    <xsl:call-template name="getVarValueWithLangAsText">
+                        <xsl:with-param name="prmVarName" select="'Xref_Title_Suffix'"/>
+                        <xsl:with-param name="prmElem" select="$prmXref"/>
+                    </xsl:call-template>
+                </xsl:variable>
                 <xsl:choose>
                     <xsl:when test="$hasUserText">
+                        <xsl:copy-of select="$otherTitlePrefix"/>
                         <xsl:apply-templates select="$prmXref/node() except *[contains(@class,' topic/desc ')]" mode="GET_CONTENTS"/>
+                        <xsl:copy-of select="$otherTitleSuffix"/>
                     </xsl:when>
                     <xsl:otherwise>
                         <xsl:variable name="title" as="node()*">
                             <xsl:apply-templates select="$prmDestElement/*[contains(@class, ' topic/title ')]" mode="GET_CONTENTS"/>
-                        </xsl:variable>
-                        <xsl:variable name="otherTitlePrefix" as="text()?">
-                            <xsl:call-template name="getVarValueWithLangAsText">
-                                <xsl:with-param name="prmVarName" select="'Xref_Other_Title_Prefix'"/>
-                                <xsl:with-param name="prmElem" select="$prmXref"/>
-                            </xsl:call-template>
-                        </xsl:variable>
-                        <xsl:variable name="otherTitleSuffix" as="text()?">
-                            <xsl:call-template name="getVarValueWithLangAsText">
-                                <xsl:with-param name="prmVarName" select="'Xref_Other_Title_Suffix'"/>
-                                <xsl:with-param name="prmElem" select="$prmXref"/>
-                            </xsl:call-template>
                         </xsl:variable>
                          <fo:inline>
                             <xsl:copy-of select="$otherTitlePrefix"/>
@@ -582,9 +604,23 @@ E-mail : info@antennahouse.com
             <!-- Others: Adopt the content of xref itself if user supplied text exists.
              -->
             <xsl:otherwise>
+                <xsl:variable name="otherTitlePrefix" as="text()?">
+                    <xsl:call-template name="getVarValueWithLangAsText">
+                        <xsl:with-param name="prmVarName" select="'Xref_Title_Prefix'"/>
+                        <xsl:with-param name="prmElem" select="$prmXref"/>
+                    </xsl:call-template>
+                </xsl:variable>
+                <xsl:variable name="otherTitleSuffix" as="text()?">
+                    <xsl:call-template name="getVarValueWithLangAsText">
+                        <xsl:with-param name="prmVarName" select="'Xref_Title_Suffix'"/>
+                        <xsl:with-param name="prmElem" select="$prmXref"/>
+                    </xsl:call-template>
+                </xsl:variable>
                 <xsl:choose>
                     <xsl:when test="$hasUserText">
+                        <xsl:copy-of select="$otherTitlePrefix"/>
                         <xsl:apply-templates select="$prmXref/node() except *[contains(@class,' topic/desc ')]" mode="GET_CONTENTS"/>
+                        <xsl:copy-of select="$otherTitleSuffix"/>
                     </xsl:when>
                     <xsl:otherwise>
                         <xsl:call-template name="warningContinue">

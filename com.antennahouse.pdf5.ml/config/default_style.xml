@@ -308,29 +308,21 @@ URL : http://www.antennahouse.com/
         <variable name="Q_Suffix">”</variable>
 
         <!-- Xref -->
+        <!-- Obsolete: remained only for old stylesheet compatibility only
+             2019-05-03 t.makita
+          -->
         <variable name="Xref_Prefix"> on page </variable>
         <variable name="Xref_Suffix"/>
 
+        
         <variable name="Xref_Prefix_Title_Page"> on page </variable>
         <variable name="Xref_Suffix_Title_Page"/>
         
         <variable name="Xref_Prefix_Page_Only"> page </variable>
         <variable name="Xref_Suffix_Page_Only"/>
         
-        <variable name="Xref_Topic_Title_Prefix"></variable>
-        <variable name="Xref_Topic_Title_Suffix"></variable>
-
-        <variable name="Xref_Section_Title_Prefix"></variable>
-        <variable name="Xref_Section_Title_Suffix"></variable>
-
-        <variable name="Xref_Example_Title_Prefix"></variable>
-        <variable name="Xref_Example_Title_Suffix"></variable>
-
-        <variable name="Xref_Table_Title_Prefix"></variable>
-        <variable name="Xref_Table_Title_Suffix"></variable>
-
-        <variable name="Xref_Fig_Title_Prefix"></variable>
-        <variable name="Xref_Fig_Title_Suffix"></variable>
+        <variable name="Xref_Title_Prefix"></variable>
+        <variable name="Xref_Title_Suffix"></variable>
 
         <variable name="Xref_Step_Prefix">step&#xA0;</variable>
         <variable name="Xref_Step_Substep_Separator">.</variable>
