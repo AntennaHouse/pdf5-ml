@@ -101,7 +101,7 @@ E-mail : info@antennahouse.com
      -->
     <xsl:function name="ahf:isFloatFigureGroup" as="xs:boolean">
         <xsl:param name="prmElement" as="element()"/>
-        <xsl:sequence select="exists($prmElement[contains(@class, ' floatfig-d/floatfig-group ')]) or exists($prmElement[contains(@class, ' topic/figgroup ')][ahf:getOutputClass($prmElement) = $ocFloatFigure])"/>
+        <xsl:sequence select="exists($prmElement[contains(@class, ' floatfig-d/floatfig-group ')]) or exists($prmElement[contains(@class, ' topic/figgroup ')][ahf:getOutputClass($prmElement) = $ocFloatFigGroup])"/>
     </xsl:function>
 
     <!-- 
@@ -231,7 +231,7 @@ E-mail : info@antennahouse.com
      return:    fo:float
      note:      This function is experimental.
      -->
-    <xsl:template match="*[ahf:isFloatFigureGroup(.)]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
+    <xsl:template match="*[ahf:isFloatFigureGroup(.)]" mode="MODE_GET_STYLE" as="xs:string*" priority="4">
         <xsl:variable name="float" as="xs:string?" select="ahf:getFloatFigGroupSpec(.)"/>
         <xsl:choose>
             <xsl:when test="$float eq 'left'">
@@ -248,7 +248,7 @@ E-mail : info@antennahouse.com
             </xsl:when>
             <!-- @float='auto" inherits preceding-sibling floatfig-group/@float and @clear is set to 'none'-->
             <xsl:when test="$float eq 'auto'">
-                <xsl:apply-templates select="(preceding-sibling::*[ahf:isFloatFigureGroup(.)][ahf:getFloatFigGroupSpec(.) ne 'auto'])[1]" mode="MODE_GET_STYLE"/>
+                <xsl:apply-templates select="preceding-sibling::*[ahf:isFloatFigureGroup(.)][ahf:getFloatFigGroupSpec(.) ne 'auto'][1]" mode="MODE_GET_STYLE"/>
                 <xsl:sequence select="'atsFloatFigGroupAuto'"/>
             </xsl:when>
             <xsl:otherwise>
@@ -257,7 +257,7 @@ E-mail : info@antennahouse.com
         </xsl:choose>
     </xsl:template>
     
-    <xsl:template match="*[ahf:isFloatFigureGroup(.)]" priority="2">
+    <xsl:template match="*[ahf:isFloatFigureGroup(.)]" priority="4">
         <fo:float>
             <xsl:call-template name="getAttributeSetWithLang"/>
             <xsl:call-template name="ahf:getUnivAtts"/>
@@ -272,6 +272,10 @@ E-mail : info@antennahouse.com
                 </fo:block>
             </fo:block-container>
         </fo:float>
+    </xsl:template>
+
+    <xsl:template match="*[ahf:isFloatFigureGroup(.)]/*[contains(@class, ' topic/title ')]" priority="4">
+        <xsl:apply-templates/>
     </xsl:template>
 
 </xsl:stylesheet>
