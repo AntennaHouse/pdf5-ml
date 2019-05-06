@@ -79,7 +79,8 @@ E-mail : info@antennahouse.com
      note:      
      -->
     <xsl:variable name="ocFloatFigure" as="xs:string+" select="ahf:getVarValueAsStringSequence('ocFloatFigure')"/>
-
+    <xsl:variable name="ocFloatFigGroup" as="xs:string+" select="ahf:getVarValueAsStringSequence('ocFloatFigGroup')"/>
+    
     <xsl:function name="ahf:isFloatFigure" as="xs:boolean">
         <xsl:param name="prmElement" as="element()"/>
         <xsl:sequence select="exists($prmElement[contains(@class, ' floatfig-d/floatfig ')]) or exists($prmElement[contains(@class, ' topic/fig ')][ahf:getOutputClass($prmElement) = $ocFloatFigure])"/>
@@ -88,6 +89,9 @@ E-mail : info@antennahouse.com
     <xsl:variable name="floatSpecNone" as="xs:string" select="ahf:getVarValue('ocFloatNone')"/>
     <xsl:variable name="floatSpecLeft" as="xs:string" select="ahf:getVarValue('ocFloatLeft')"/>
     <xsl:variable name="floatSpecRight" as="xs:string" select="ahf:getVarValue('ocFloatRight')"/>
+
+    <xsl:variable name="floatSpecAuto" as="xs:string" select="ahf:getVarValue('ocFloatAuto')"/>
+    
 
     <!-- 
      function:  Judge float figure group
@@ -101,7 +105,7 @@ E-mail : info@antennahouse.com
     </xsl:function>
 
     <!-- 
-     function:  Get float atrribute
+     function:  Get float attribute
      param:     prmELem
      return:    float specification (none, left, right)
      note:      
@@ -112,16 +116,16 @@ E-mail : info@antennahouse.com
             <xsl:when test="$prmElement[contains(@class, ' floatfig-d/floatfig ')]">
                 <xsl:sequence select="$prmElement/@float"/>
             </xsl:when>
-            <xsl:when test="($prmElement[contains(@class, ' topic/fig ')] and (ahf:getOutputClass($prmElement) = $ocFloatFigure))">
+            <xsl:when test="$prmElement[contains(@class, ' topic/fig ')][ahf:getOutputClass($prmElement) = $ocFloatFigure]">
                 <xsl:variable name="outputClass" as="xs:string+" select="ahf:getOutputClass($prmElement)"/>
                 <xsl:choose>
-                    <xsl:when test="$outputClass eq $floatSpecNone">
+                    <xsl:when test="$outputClass = $floatSpecNone">
                         <xsl:sequence select="'none'"/>
                     </xsl:when>
-                    <xsl:when test="$outputClass eq $floatSpecLeft">
+                    <xsl:when test="$outputClass = $floatSpecLeft">
                         <xsl:sequence select="'left'"/>
                     </xsl:when>
-                    <xsl:when test="$outputClass eq $floatSpecRight">
+                    <xsl:when test="$outputClass = $floatSpecRight">
                         <xsl:sequence select="'right'"/>
                     </xsl:when>
                     <xsl:otherwise>
@@ -134,6 +138,42 @@ E-mail : info@antennahouse.com
             </xsl:otherwise>
         </xsl:choose>
     </xsl:function>
+
+    <!-- 
+     function:  Get float attribute for flost-figgroup
+     param:     prmELem
+     return:    float specification (none, left, right)
+     note:      
+     -->
+    <xsl:function name="ahf:getFloatFigGroupSpec" as="xs:string?">
+        <xsl:param name="prmElement" as="element()"/>
+        <xsl:choose>
+            <xsl:when test="$prmElement[contains(@class, ' floatfig-d/floatfig ')]">
+                <xsl:sequence select="$prmElement/@float"/>
+            </xsl:when>
+            <xsl:when test="$prmElement[contains(@class, ' topic/figgroup ')][ahf:getOutputClass($prmElement) = $ocFloatFigGroup]">
+                <xsl:variable name="outputClass" as="xs:string+" select="ahf:getOutputClass($prmElement)"/>
+                <xsl:choose>
+                    <xsl:when test="$outputClass = $floatSpecAuto">
+                        <xsl:sequence select="'auto'"/>
+                    </xsl:when>
+                    <xsl:when test="$outputClass = $floatSpecLeft">
+                        <xsl:sequence select="'left'"/>
+                    </xsl:when>
+                    <xsl:when test="$outputClass = $floatSpecRight">
+                        <xsl:sequence select="'right'"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:sequence select="()"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:sequence select="()"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:function>
+    
 
     <!-- 
      function:  floating figure
@@ -192,23 +232,23 @@ E-mail : info@antennahouse.com
      note:      This function is experimental.
      -->
     <xsl:template match="*[ahf:isFloatFigureGroup(.)]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
-        <xsl:variable name="float" as="xs:string?" select="ahf:getFloatSpec(.)"/>
+        <xsl:variable name="float" as="xs:string?" select="ahf:getFloatFigGroupSpec(.)"/>
         <xsl:choose>
             <xsl:when test="$float eq 'left'">
                 <xsl:sequence select="'atsFloatFigGroupLeft'"/>
-                <xsl:if test="preceding-sibling::*[ahf:isFloatFigureGroup(.)][ahf:getFloatSpec(.) eq 'left']">
+                <xsl:if test="preceding-sibling::*[ahf:isFloatFigureGroup(.)][ahf:getFloatFigGroupSpec(.) eq 'left']">
                     <xsl:sequence select="'atsFloatMoveAutoNext'"/>
                 </xsl:if>
             </xsl:when>
             <xsl:when test="$float eq 'right'">
                 <xsl:sequence select="'atsFloatFigGroupRight'"/>
-                <xsl:if test="preceding-sibling::*[ahf:isFloatFigureGroup(.)][ahf:getFloatSpec(.) eq 'right']">
+                <xsl:if test="preceding-sibling::*[ahf:isFloatFigureGroup(.)][ahf:getFloatFigGroupSpec(.) eq 'right']">
                     <xsl:sequence select="'atsFloatMoveAutoNext'"/>
                 </xsl:if>
             </xsl:when>
             <!-- @float='auto" inherits preceding-sibling floatfig-group/@float and @clear is set to 'none'-->
             <xsl:when test="$float eq 'auto'">
-                <xsl:apply-templates select="(preceding-sibling::*[ahf:isFloatFigureGroup(.)][ahf:getFloatSpec(.) ne 'none'])[1]" mode="MODE_GET_STYLE"/>
+                <xsl:apply-templates select="(preceding-sibling::*[ahf:isFloatFigureGroup(.)][ahf:getFloatFigGroupSpec(.) ne 'auto'])[1]" mode="MODE_GET_STYLE"/>
                 <xsl:sequence select="'atsFloatFigGroupAuto'"/>
             </xsl:when>
             <xsl:otherwise>

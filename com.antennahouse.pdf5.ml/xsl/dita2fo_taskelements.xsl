@@ -103,7 +103,7 @@ E-mail : info@antennahouse.com
                 <!-- Pull info/floatfig -->
                 <xsl:for-each select="*[contains(@class,' task/info ')]//*[ahf:isFloatFigure(.)]">
                     <xsl:choose>
-                        <xsl:when test="string(@float) = ('left','right')">
+                        <xsl:when test="ahf:getFloatSpec(.) = ('left','right')">
                             <xsl:call-template name="processFloatFigLR"/>
                         </xsl:when>
                         <xsl:otherwise>

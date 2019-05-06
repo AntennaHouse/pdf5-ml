@@ -399,8 +399,17 @@ URL : http://www.antennahouse.com/
         <variable name="ocFloatNone">float-none</variable>
         <variable name="ocFloatLeft">float-left</variable>
         <variable name="ocFloatRight">float-right</variable>
-        <variable name="ocFloatFigure" delm="[,\s]+">$ocFloatNone $ocFloatLeft $ocFloatRight</variable>
+        <variable name="ocFloatFigure" delim="[,\s]+">$ocFloatNone $ocFloatLeft $ocFloatRight</variable>
 
+        <variable name="ocFloatAuto">float-auto</variable>
+        <variable name="ocFloatFigGroup" delim="[,\s]+">$ocFloatAuto $ocFloatLeft $ocFloatRight</variable>
+        
+        <!-- Clear -->
+        <variable name="ocClearBoth">clear-both</variable>
+        <variable name="ocClearLeft">clear-left</variable>
+        <variable name="ocClearRight">clear-right</variable>
+        <variable name="ocClearNone">clear-none</variable>
+        
         <!-- Review PDF color and style -->
         <variable name="cInsertColor">blue</variable>
         <variable name="cRemoveColor">magenta</variable>
