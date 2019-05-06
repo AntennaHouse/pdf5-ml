@@ -395,6 +395,12 @@ URL : http://www.antennahouse.com/
         <variable name="Dead_Link_PDF">deadlink.pdf</variable>
         <variable name="Dead_Link_Color">$General_Text_Color</variable>
 
+        <!-- floating figure outputclass -->
+        <variable name="ocFloatNone">float-none</variable>
+        <variable name="ocFloatLeft">float-left</variable>
+        <variable name="ocFloatRight">float-right</variable>
+        <variable name="ocFloatFigure" delm="[,\s]+">$ocFloatNone $ocFloatLeft $ocFloatRight</variable>
+
         <!-- Review PDF color and style -->
         <variable name="cInsertColor">blue</variable>
         <variable name="cRemoveColor">magenta</variable>

@@ -101,7 +101,7 @@ E-mail : info@antennahouse.com
                     <xsl:with-param name="prmAttrSetName" select="'atsStepBody'"/>
                 </xsl:call-template>
                 <!-- Pull info/floatfig -->
-                <xsl:for-each select="*[contains(@class,' task/info ')]//*[contains(@class,' floatfig-d/floatfig ')]">
+                <xsl:for-each select="*[contains(@class,' task/info ')]//*[ahf:isFloatFigure(.)]">
                     <xsl:choose>
                         <xsl:when test="string(@float) = ('left','right')">
                             <xsl:call-template name="processFloatFigLR"/>
@@ -133,7 +133,7 @@ E-mail : info@antennahouse.com
     </xsl:function>
 
     <!-- Ignore floatfig in info -->
-    <xsl:template match="*[contains(@class,' task/info ')]//*[contains(@class,' floatfig-d/floatfig ')]" priority="4"/>
+    <xsl:template match="*[contains(@class,' task/info ')]//*[ahf:isFloatFigure(.)]" priority="4"/>
 
     <!-- 
      function:	substeps template
@@ -206,7 +206,7 @@ E-mail : info@antennahouse.com
                     <xsl:with-param name="prmAttrSetName" select="'atsSubStepBody'"/>
                 </xsl:call-template>
                 <!-- Pull info/floatfig -->
-                <xsl:for-each select="*[contains(@class,' task/info ')]//*[contains(@class,' floatfig-d/floatfig ')]">
+                <xsl:for-each select="*[contains(@class,' task/info ')]//*[ahf:isFloatFigure(.)]">
                     <xsl:choose>
                         <xsl:when test="string(@float) = ('left','right')">
                             <xsl:call-template name="processFloatFigLR"/>
