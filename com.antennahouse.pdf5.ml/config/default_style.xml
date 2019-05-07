@@ -1893,6 +1893,10 @@ URL : http://www.antennahouse.com/
             <attribute-set name="atsFloatFigTitle" use-attribute-sets="atsTitle">
                 <attribute name="space-before">1pt</attribute>
             </attribute-set>
+
+            <attribute-set name="atsFloatFigDesc">
+                <attribute name="text-align">start</attribute>
+            </attribute-set>
             
             <!-- figgroup (??) -->
             <attribute-set name="atsFiggroup">

@@ -211,8 +211,9 @@ E-mail : info@antennahouse.com
                 <xsl:call-template name="getAttributeSet">
                     <xsl:with-param name="prmAttrSetName" select="'atsFloatFigBc'"/>
                 </xsl:call-template>
-                <xsl:apply-templates select="node() except *[contains(@class, ' topic/title ')]"/>
+                <xsl:apply-templates select="node() except *[ahf:seqContains(@class, (' topic/title ',' topic/desc '))]"/>
                 <xsl:apply-templates select="*[contains(@class, ' topic/title ')]"/>
+                <xsl:apply-templates select="*[contains(@class, ' topic/desc ')]"/>
             </fo:block-container>
         </fo:float>
     </xsl:template>
@@ -230,6 +231,19 @@ E-mail : info@antennahouse.com
         </fo:block>
     </xsl:template>
 
+    <xsl:template match="*[ahf:isFloatFigure(.) or ahf:isFloatFigureGroup(.)]/*[contains(@class, ' topic/desc ')]" mode="MODE_GET_STYLE" as="xs:string*" priority="6">
+        <xsl:sequence select="'atsFloatFigDesc'"/>
+    </xsl:template>
+    
+    <xsl:template match="*[ahf:isFloatFigure(.)]/*[contains(@class, ' topic/desc ')]" priority="6" name="processFloatFigDesc">
+        <fo:block>
+            <xsl:call-template name="getAttributeSetWithLang"/>
+            <xsl:call-template name="ahf:getUnivAtts"/>
+            <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
+            <xsl:apply-templates/>
+        </fo:block>
+    </xsl:template>
+    
     <xsl:template match="*[ahf:isFloatFigure(.)][ahf:getFloatSpec(.) = $floatSpecNone]" priority="2" name="processFloatFigNone">
         <fo:wrapper>
             <xsl:call-template name="ahf:getUnivAtts"/>
@@ -281,8 +295,9 @@ E-mail : info@antennahouse.com
                     <xsl:with-param name="prmAttrSetName" select="'atsFloatFigGroupBc'"/>
                 </xsl:call-template>
                 <fo:block>
-                    <xsl:apply-templates select="node() except *[contains(@class, ' topic/title ')]"/>
+                    <xsl:apply-templates select="node() except *[ahf:seqContains(@class, (' topic/title ',' topic/desc '))]"/>
                     <xsl:apply-templates select="*[contains(@class, ' topic/title ')]"/>
+                    <xsl:apply-templates select="*[contains(@class, ' topic/desc ')]"/>
                 </fo:block>
             </fo:block-container>
         </fo:float>
