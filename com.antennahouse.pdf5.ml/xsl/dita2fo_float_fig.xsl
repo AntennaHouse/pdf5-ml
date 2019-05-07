@@ -211,9 +211,23 @@ E-mail : info@antennahouse.com
                 <xsl:call-template name="getAttributeSet">
                     <xsl:with-param name="prmAttrSetName" select="'atsFloatFigBc'"/>
                 </xsl:call-template>
-                <xsl:apply-templates/>
+                <xsl:apply-templates select="node() except *[contains(@class, ' topic/title ')]"/>
+                <xsl:apply-templates select="*[contains(@class, ' topic/title ')]"/>
             </fo:block-container>
         </fo:float>
+    </xsl:template>
+
+    <xsl:template match="*[ahf:isFloatFigure(.) or ahf:isFloatFigureGroup(.)]/*[contains(@class, ' topic/title ')]" mode="MODE_GET_STYLE" as="xs:string*" priority="6">
+        <xsl:sequence select="'atsFloatFigTitle'"/>
+    </xsl:template>
+    
+    <xsl:template match="*[ahf:isFloatFigure(.)]/*[contains(@class, ' topic/title ')]" priority="6" name="processFloatFigTitle">
+        <fo:block>
+            <xsl:call-template name="getAttributeSetWithLang"/>
+            <xsl:call-template name="ahf:getUnivAtts"/>
+            <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
+            <xsl:apply-templates/>
+        </fo:block>
     </xsl:template>
 
     <xsl:template match="*[ahf:isFloatFigure(.)][ahf:getFloatSpec(.) = $floatSpecNone]" priority="2" name="processFloatFigNone">
@@ -224,7 +238,7 @@ E-mail : info@antennahouse.com
             <xsl:apply-templates select="*[contains(@class, ' topic/title ')]"/>
         </fo:wrapper>
     </xsl:template>
-
+    
     <!-- 
      function:  floating figure group
      param:     
@@ -272,10 +286,6 @@ E-mail : info@antennahouse.com
                 </fo:block>
             </fo:block-container>
         </fo:float>
-    </xsl:template>
-
-    <xsl:template match="*[ahf:isFloatFigureGroup(.)]/*[contains(@class, ' topic/title ')]" priority="4">
-        <xsl:apply-templates/>
     </xsl:template>
 
 </xsl:stylesheet>
