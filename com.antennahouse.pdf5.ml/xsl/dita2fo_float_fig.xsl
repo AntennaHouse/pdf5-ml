@@ -148,7 +148,7 @@ E-mail : info@antennahouse.com
     <xsl:function name="ahf:getFloatFigGroupSpec" as="xs:string?">
         <xsl:param name="prmElement" as="element()"/>
         <xsl:choose>
-            <xsl:when test="$prmElement[contains(@class, ' floatfig-d/floatfig ')]">
+            <xsl:when test="$prmElement[contains(@class, ' floatfig-d/floatfig-group ')]">
                 <xsl:sequence select="$prmElement/@float"/>
             </xsl:when>
             <xsl:when test="$prmElement[contains(@class, ' topic/figgroup ')][ahf:getOutputClass($prmElement) = $ocFloatFigGroup]">

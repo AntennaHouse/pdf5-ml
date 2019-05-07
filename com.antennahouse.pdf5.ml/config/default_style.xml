@@ -1577,10 +1577,30 @@ URL : http://www.antennahouse.com/
                 <attribute name="provisional-distance-between-starts">$General_Indent_Value</attribute>
                 <attribute name="provisional-label-separation">0.2mm</attribute>
             </attribute-set>
+
+            <attribute-set name="atsStepsSpaceBeforeZero">
+                <attribute name="space-before">0mm</attribute>
+            </attribute-set>
             
             <attribute-set name="atsStepItem">
                 <attribute name="space-before">$Para_Space_Before</attribute>
                 <attribute name="relative-align">baseline</attribute>
+                <attribute name="clear">both</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsStepItemSpaceBefore">
+                <attribute name="space-before">$Para_Space_Before</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsStepItemSpaceBeforeZero">
+                <attribute name="space-before">0mm</attribute>
+            </attribute-set>
+            
+            <attribute-set name="atsStepItemClearNone">
+                <attribute name="clear">none</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsStepItemClearBoth">
                 <attribute name="clear">both</attribute>
             </attribute-set>
             

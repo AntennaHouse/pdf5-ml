@@ -66,6 +66,20 @@ E-mail : info@antennahouse.com
         </xsl:call-template>
         
         <!-- Clear attribute -->
+        <xsl:call-template name="ahf:getClearAtts">
+            <xsl:with-param name="prmElement" select="$prmElement"/>
+        </xsl:call-template>
+    </xsl:template>
+
+    <!-- 
+     function:  Process @clear attribute
+     param:     prmElement
+     return:	attribute node
+     note:      
+     -->
+    <xsl:template name="ahf:getClearAtts" as="attribute()?">
+        <xsl:param name="prmElement" as="element()" required="no" select="."/>
+
         <xsl:choose>
             <xsl:when test="$prmElement/@clear">
                 <xsl:copy-of select="$prmElement/@clear"/>
@@ -83,9 +97,7 @@ E-mail : info@antennahouse.com
                 <xsl:attribute name="clear" select="'none'"/>
             </xsl:when>
         </xsl:choose>
-        
     </xsl:template>
-    
 
     <!-- 
      function:	Process %id-atts; attribute
