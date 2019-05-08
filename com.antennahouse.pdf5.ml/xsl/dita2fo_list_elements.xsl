@@ -3,7 +3,7 @@
 ****************************************************************
 DITA to XSL-FO Stylesheet 
 Module: List related elements stylesheet
-Copyright © 2009-2009 Antenna House, Inc. All rights reserved.
+Copyright © 2009-2019 Antenna House, Inc. All rights reserved.
 Antenna House is a trademark of Antenna House, Inc.
 URL    : http://www.antennahouse.com/
 E-mail : info@antennahouse.com
@@ -19,11 +19,14 @@ E-mail : info@antennahouse.com
 >
     
     <!-- 
-     function:	ol template
+     function:  ol template
      param:	    
-     return:	Numbered list (fo:list-block)
-     note:		Call "processOl" for overriding from other plug-ins.
+     return:    Numbered list (fo:list-block)
+     note:      Call "processOl" for overriding from other plug-ins.
                 2015-08-25 t.makita
+                Add support for floating left figure.
+                Generate fo:list-blck per li.
+                2019-05-08 t.makita
      -->
     <xsl:template match="*[contains(@class, ' topic/ol ')]" mode="MODE_GET_STYLE" as="xs:string*">
         <xsl:sequence select="'atsOl'"/>
@@ -34,6 +37,7 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <xsl:template name="processOl">
+        <xsl:variable name="hasFloatFigLeft" as="xs:boolean" select="exists(*[contains(@class,' topic/li ')]//*[ahf:isFloatFigure(.)][ahf:getFloatSpec(.) = 'left'])"/>
         <!-- Prefix of ol -->
         <xsl:variable name="olNumberFormat" as="xs:string+">
             <xsl:call-template name="getVarValueWithLangAsStringSequence">
@@ -41,14 +45,30 @@ E-mail : info@antennahouse.com
             </xsl:call-template>
         </xsl:variable>
         <xsl:variable name="numberFormat" select="ahf:getOlNumberFormat(.,$olNumberFormat)" as="xs:string"/>
-        <fo:list-block>
-            <xsl:call-template name="getAttributeSetWithLang"/>
-            <xsl:call-template name="ahf:getUnivAtts"/>
-            <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
-            <xsl:apply-templates>
-                <xsl:with-param name="prmNumberFormat" tunnel="yes" select="$numberFormat"/>
-            </xsl:apply-templates>
-        </fo:list-block>
+        <xsl:choose>
+            <xsl:when test="$hasFloatFigLeft">
+                <fo:wrapper>
+                    <xsl:call-template name="ahf:getIdAtts">
+                        <xsl:with-param name="prmElement" select="."/>
+                    </xsl:call-template>
+                    <xsl:apply-templates>
+                        <xsl:with-param name="prmNumberFormat" tunnel="yes" select="$numberFormat"/>
+                        <xsl:with-param name="prmHasFloatFigLeft" tunnel="yes" select="$hasFloatFigLeft"/>
+                    </xsl:apply-templates>
+                </fo:wrapper>
+            </xsl:when>
+            <xsl:otherwise>
+                <fo:list-block>
+                    <xsl:call-template name="getAttributeSetWithLang"/>
+                    <xsl:call-template name="ahf:getUnivAtts"/>
+                    <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
+                    <xsl:apply-templates>
+                        <xsl:with-param name="prmNumberFormat" tunnel="yes" select="$numberFormat"/>
+                        <xsl:with-param name="prmHasFloatFigLeft" tunnel="yes" select="$hasFloatFigLeft"/>
+                    </xsl:apply-templates>
+                </fo:list-block>
+            </xsl:otherwise>
+        </xsl:choose>
         <xsl:if test="not($pDisplayFnAtEndOfTopic)">
             <xsl:call-template name="makeFootNote">
                 <xsl:with-param name="prmElement"  select="."/>
@@ -57,58 +77,134 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <!-- 
-     function:	ol/li template
+     function:  ol/li template
      param:	    
-     return:	Numbered list (fo:list-item)
-     note:		Add consideration for stepsection.
+     return:    Numbered list (fo:list-item)
+     note:      Add consideration for stepsection.
                 (2011-10-24 t.makita)
                 Call "processOlLi" for overriding from other plug-ins.
                 2015-08-25 t.makita
      -->
     <xsl:template match="*[contains(@class, ' topic/ol ')]/*[contains(@class,' topic/li ')]" mode="MODE_GET_STYLE" as="xs:string*">
+        <xsl:variable name="hasFloatFigLeft" as="xs:boolean" select="exists(parent::*/*[contains(@class,' topic/li ')]//*[ahf:isFloatFigure(.)][ahf:getFloatSpec(.) = 'left'])"/>
         <xsl:sequence select="'atsOlItem'"/>
+        <xsl:if test="$hasFloatFigLeft">
+            <xsl:sequence select="'atsOlItemClearNone'"/>
+            <xsl:sequence select="'atsOlItemSpaceBeforeZero'"/>
+        </xsl:if>
     </xsl:template>
     
     <xsl:template match="*[contains(@class,' topic/ol ')]/*[contains(@class,' topic/li ')]">
-        <xsl:param name="prmNumberFormat" required="yes" tunnel="yes" as="xs:string"/>
-
-        <xsl:call-template name="processOlLi">
-            <xsl:with-param name="prmNumberFormat" select="$prmNumberFormat"/>
-        </xsl:call-template>
+        <xsl:call-template name="processOlLi"/>
     </xsl:template>
     
     <xsl:template name="processOlLi">
-        <xsl:param name="prmNumberFormat" required="yes" as="xs:string"/>
+        <xsl:param name="prmNumberFormat" tunnel="yes" required="yes" as="xs:string"/>
+        <xsl:param name="prmHasFloatFigLeft" tunnel="yes" required="yes" as="xs:boolean"/>
 
-        <fo:list-item>
-            <!-- Set list-item attribute. -->
-            <xsl:call-template name="getAttributeSetWithLang"/>
-            <xsl:call-template name="ahf:getUnivAtts"/>
-            <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
-            <fo:list-item-label end-indent="label-end()"> 
+        <xsl:variable name="li" as="element()" select="."/>
+        <xsl:variable name="ol" as="element()" select="$li/parent::*"/>
+        <xsl:choose>
+            <xsl:when test="$prmHasFloatFigLeft">
+                <xsl:variable name="hasFloatFig" as="xs:boolean" select="exists(descendant::*[ahf:isFloatFigure(.)])"/>
+                <!-- Gnerate fo:list-block for each step -->
                 <fo:block>
-                    <xsl:call-template name="getAttributeSetWithLang">
-                        <xsl:with-param name="prmAttrSetName" select="'atsOlLabel'"/>
+                    <!-- Defaults clear='both' -->
+                    <xsl:call-template name="getAttributeSet">
+                        <xsl:with-param name="prmAttrSetName" select="'atsOlItemClearBoth atsOlItemSpaceBefore'"/>
                     </xsl:call-template>
-                    <xsl:number format="{$prmNumberFormat}" value="count(preceding-sibling::*[contains(@class,' topic/li ')][not(contains(@class,' task/stepsection '))]) + 1"/>
+                    <!-- Get clear attribute -->
+                    <xsl:call-template name="ahf:getClearAtts"/>
+                    <!-- Pull info/floatfig -->
+                    <xsl:for-each select="descendant::*[ahf:isFloatFigure(.)]">
+                        <xsl:choose>
+                            <xsl:when test="ahf:getFloatSpec(.) = ('left','right')">
+                                <xsl:call-template name="processFloatFigLR"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:call-template name="processFloatFigNone"/>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:for-each>
+                    <fo:list-block>
+                        <xsl:call-template name="getAttributeSetWithLang">
+                            <xsl:with-param name="prmElem" select="$ol"/>
+                        </xsl:call-template>
+                        <xsl:call-template name="ahf:getLocalizationAtts">
+                            <xsl:with-param name="prmElement" select="$ol"/>
+                        </xsl:call-template>
+                        <xsl:call-template name="ahf:getClearAtts">
+                            <xsl:with-param name="prmElement" select="$ol"/>
+                        </xsl:call-template>
+                        <xsl:copy-of select="ahf:getFoStyleAndProperty($ol)"/>
+                        <fo:list-item>
+                            <!-- Set list-item attribute. -->
+                            <xsl:call-template name="getAttributeSetWithLang"/>
+                            <xsl:call-template name="ahf:getUnivAtts"/>
+                            <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
+                            <fo:list-item-label end-indent="label-end()"> 
+                                <fo:block>
+                                    <xsl:call-template name="getAttributeSetWithLang">
+                                        <xsl:with-param name="prmAttrSetName" select="'atsOlLabel'"/>
+                                    </xsl:call-template>
+                                    <xsl:number format="{$prmNumberFormat}" value="count(preceding-sibling::*[contains(@class,' topic/li ')][not(contains(@class,' task/stepsection '))]) + 1"/>
+                                </fo:block>
+                            </fo:list-item-label>
+                            <fo:list-item-body start-indent="body-start()">
+                                <xsl:call-template name="getAttributeSetWithLang">
+                                    <xsl:with-param name="prmAttrSetName" select="'atsOlBody'"/>
+                                </xsl:call-template>
+                                <fo:block>
+                                    <xsl:call-template name="getAttributeSetWithLang">
+                                        <xsl:with-param name="prmAttrSetName" select="'atsP'"/>
+                                    </xsl:call-template>
+                                    <xsl:apply-templates/>
+                                </fo:block>
+                            </fo:list-item-body>
+                        </fo:list-item>
+                    </fo:list-block>
                 </fo:block>
-            </fo:list-item-label>
-            <fo:list-item-body start-indent="body-start()">
-                <fo:block>
-                    <xsl:call-template name="getAttributeSetWithLang">
-                        <xsl:with-param name="prmAttrSetName" select="'atsP'"/>
-                    </xsl:call-template>
-                    <xsl:apply-templates/>
-                </fo:block>
-            </fo:list-item-body>
-        </fo:list-item>
+            </xsl:when>
+            <xsl:otherwise>
+                <fo:list-item>
+                    <!-- Set list-item attribute. -->
+                    <xsl:call-template name="getAttributeSetWithLang"/>
+                    <xsl:call-template name="ahf:getUnivAtts"/>
+                    <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
+                    <fo:list-item-label end-indent="label-end()"> 
+                        <fo:block>
+                            <xsl:call-template name="getAttributeSetWithLang">
+                                <xsl:with-param name="prmAttrSetName" select="'atsOlLabel'"/>
+                            </xsl:call-template>
+                            <xsl:number format="{$prmNumberFormat}" value="count(preceding-sibling::*[contains(@class,' topic/li ')][not(contains(@class,' task/stepsection '))]) + 1"/>
+                        </fo:block>
+                    </fo:list-item-label>
+                    <fo:list-item-body start-indent="body-start()">
+                        <fo:block>
+                            <xsl:call-template name="getAttributeSetWithLang">
+                                <xsl:with-param name="prmAttrSetName" select="'atsP'"/>
+                            </xsl:call-template>
+                            <xsl:apply-templates/>
+                        </fo:block>
+                    </fo:list-item-body>
+                </fo:list-item>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     
     <!-- 
-     function:	Get ol number format
-     param:		prmOl, prmOlNumberFormat
-     return:	Number format string
-     note:		Count ol in entry/note independently.
+     function:  floatfig template
+     param:     
+     return:    none
+     note:      Ignore if exists left float figure.
+     -->
+    <xsl:template match="*[contains(@class,' topic/ol ')][exists(*[contains(@class,' topic/li ')]//*[ahf:isFloatFigure(.)][ahf:getFloatSpec(.) = 'left'])]//*[ahf:isFloatFigure(.)]" priority="4"/>
+    
+    <!-- 
+     function:  Get ol number format
+     param:     prmOl, prmOlNumberFormat
+     return:    Number format string
+     note:      Count ol in entry/note independently.
                 2015-06-03 t.makita
      -->
     <xsl:function name="ahf:getOlNumberFormat" as="xs:string">
@@ -149,11 +245,14 @@ E-mail : info@antennahouse.com
     </xsl:function>
     
     <!-- 
-     function:	ul template
+     function:  ul template
      param:	    
      return:	Unordered list (fo:list-block)
-     note:		Call "processUl" for overriding from other plug-ins.
+     note:      Call "processUl" for overriding from other plug-ins.
                 2015-08-25 t.makita
+                Add support for floating left figure.
+                Generate fo:list-blck per li.
+                2019-05-08 t.makita
      -->
     <xsl:template match="*[contains(@class, ' topic/ul ')]" mode="MODE_GET_STYLE" as="xs:string*">
         <xsl:sequence select="'atsUl'"/>
@@ -164,12 +263,38 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <xsl:template name="processUl">
-        <fo:list-block>
-            <xsl:call-template name="getAttributeSetWithLang"/>
-            <xsl:call-template name="ahf:getUnivAtts"/>
-            <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
-            <xsl:apply-templates/>
-        </fo:list-block>
+        <xsl:variable name="hasFloatFigLeft" as="xs:boolean" select="exists(*[contains(@class,' topic/li ')]//*[ahf:isFloatFigure(.)][ahf:getFloatSpec(.) = 'left'])"/>
+        <!-- Ul bullet -->
+        <xsl:variable name="ulLabelChars" as="xs:string+">
+            <xsl:call-template name="getVarValueWithLangAsStringSequence">
+                <xsl:with-param name="prmVarName" select="'Ul_Label_Chars'"/>
+            </xsl:call-template>
+        </xsl:variable>
+        <xsl:variable name="ulLabelChar" select="ahf:getUlLabelChar(.,$ulLabelChars)" as="xs:string"/>
+        <xsl:choose>
+            <xsl:when test="$hasFloatFigLeft">
+                <fo:wrapper>
+                    <xsl:call-template name="ahf:getIdAtts">
+                        <xsl:with-param name="prmElement" select="."/>
+                    </xsl:call-template>
+                    <xsl:apply-templates>
+                        <xsl:with-param name="prmUlLabelChar" tunnel="yes" select="$ulLabelChar"/>
+                        <xsl:with-param name="prmHasFloatFigLeft" tunnel="yes" select="$hasFloatFigLeft"/>
+                    </xsl:apply-templates>
+                </fo:wrapper>
+            </xsl:when>
+            <xsl:otherwise>
+                <fo:list-block>
+                    <xsl:call-template name="getAttributeSetWithLang"/>
+                    <xsl:call-template name="ahf:getUnivAtts"/>
+                    <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
+                    <xsl:apply-templates>
+                        <xsl:with-param name="prmUlLabelChar" tunnel="yes" select="$ulLabelChar"/>
+                        <xsl:with-param name="prmHasFloatFigLeft" tunnel="yes" select="$hasFloatFigLeft"/>
+                    </xsl:apply-templates>
+                </fo:list-block>
+            </xsl:otherwise>
+        </xsl:choose>
         <xsl:if test="not($pDisplayFnAtEndOfTopic)">
             <xsl:call-template name="makeFootNote">
                 <xsl:with-param name="prmElement"  select="."/>
@@ -178,14 +303,22 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <!-- 
-     function:	ul/li template
-     param:	    
-     return:	Unordered list (fo:list-item)
-     note:		Call "processUlLi" for overriding from other plug-ins.
+     function:  ul/li template
+     param:   
+     return:    Unordered list (fo:list-item)
+     note:      Call "processUlLi" for overriding from other plug-ins.
                 2015-08-25 t.makita
+                Add support for floating left figure.
+                Generate fo:list-blck per li.
+                2019-05-08 t.makita
      -->
     <xsl:template match="*[contains(@class, ' topic/ul ')]/*[contains(@class,' topic/li ')]" mode="MODE_GET_STYLE" as="xs:string*">
+        <xsl:variable name="hasFloatFigLeft" as="xs:boolean" select="exists(parent::*/*[contains(@class,' topic/li ')]//*[ahf:isFloatFigure(.)][ahf:getFloatSpec(.) = 'left'])"/>
         <xsl:sequence select="'atsUlItem'"/>
+        <xsl:if test="$hasFloatFigLeft">
+            <xsl:sequence select="'atsUlItemClearNone'"/>
+            <xsl:sequence select="'atsUlItemSpaceBeforeZero'"/>
+        </xsl:if>
     </xsl:template>
 
     <xsl:template match="*[contains(@class,' topic/ul ')]/*[contains(@class,' topic/li ')]">
@@ -193,46 +326,133 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <xsl:template name="processUlLi">
-        <xsl:variable name="ulLabelChars" as="xs:string+">
-            <xsl:call-template name="getVarValueWithLangAsStringSequence">
-                <xsl:with-param name="prmVarName" select="'Ul_Label_Chars'"/>
-            </xsl:call-template>
-        </xsl:variable>
-        <xsl:variable name="ulLabelCharCount" as="xs:integer" select="count($ulLabelChars)"/>
-        <xsl:variable name="ulIndex" as="xs:integer">
-            <xsl:variable name="ulNestLevel" as="xs:integer" select="ahf:countUl(.,0)"/>
-            <xsl:variable name="ulTempIndex" as="xs:integer" select="$ulNestLevel mod $ulLabelCharCount"/>
-            <xsl:sequence select="if ($ulTempIndex eq 0) then $ulLabelCharCount else $ulTempIndex"/>
-        </xsl:variable>
-        <xsl:variable name="ulLabelChar" as="xs:string" select="$ulLabelChars[$ulIndex]"/>
-        <fo:list-item>
-            <xsl:call-template name="getAttributeSetWithLang"/>
-            <xsl:call-template name="ahf:getUnivAtts"/>
-            <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
-            <fo:list-item-label end-indent="label-end()"> 
+        <xsl:param name="prmUlLabelChar" tunnel="yes" required="yes" as="xs:string"/>
+        <xsl:param name="prmHasFloatFigLeft" tunnel="yes" required="yes" as="xs:boolean"/>
+        
+        <xsl:variable name="li" as="element()" select="."/>
+        <xsl:variable name="ul" as="element()" select="$li/parent::*"/>
+        <xsl:choose>
+            <xsl:when test="$prmHasFloatFigLeft">
+                <xsl:variable name="hasFloatFig" as="xs:boolean" select="exists(descendant::*[ahf:isFloatFigure(.)])"/>
+                <!-- Gnerate fo:list-block for each step -->
                 <fo:block>
-                    <xsl:call-template name="getAttributeSetWithLang">
-                        <xsl:with-param name="prmAttrSetName" select="'atsUlLabel'"/>
+                    <!-- Defaults clear='both' -->
+                    <xsl:call-template name="getAttributeSet">
+                        <xsl:with-param name="prmAttrSetName" select="'atsUlItemClearBoth atsUlItemSpaceBefore'"/>
                     </xsl:call-template>
-                    <xsl:value-of select="$ulLabelChar"/>
+                    <!-- Get clear attribute -->
+                    <xsl:call-template name="ahf:getClearAtts"/>
+                    <!-- Pull info/floatfig -->
+                    <xsl:for-each select="descendant::*[ahf:isFloatFigure(.)]">
+                        <xsl:choose>
+                            <xsl:when test="ahf:getFloatSpec(.) = ('left','right')">
+                                <xsl:call-template name="processFloatFigLR"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:call-template name="processFloatFigNone"/>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:for-each>
+                    <fo:list-block>
+                        <xsl:call-template name="getAttributeSetWithLang">
+                            <xsl:with-param name="prmElem" select="$ul"/>
+                        </xsl:call-template>
+                        <xsl:call-template name="ahf:getLocalizationAtts">
+                            <xsl:with-param name="prmElement" select="$ul"/>
+                        </xsl:call-template>
+                        <xsl:call-template name="ahf:getClearAtts">
+                            <xsl:with-param name="prmElement" select="$ul"/>
+                        </xsl:call-template>
+                        <xsl:copy-of select="ahf:getFoStyleAndProperty($ul)"/>
+                        <fo:list-item>
+                            <xsl:call-template name="getAttributeSetWithLang"/>
+                            <xsl:call-template name="ahf:getUnivAtts"/>
+                            <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
+                            <fo:list-item-label end-indent="label-end()"> 
+                                <fo:block>
+                                    <xsl:call-template name="getAttributeSetWithLang">
+                                        <xsl:with-param name="prmAttrSetName" select="'atsUlLabel'"/>
+                                    </xsl:call-template>
+                                    <xsl:value-of select="$prmUlLabelChar"/>
+                                </fo:block>
+                            </fo:list-item-label>
+                            <fo:list-item-body start-indent="body-start()">
+                                <xsl:call-template name="getAttributeSetWithLang">
+                                    <xsl:with-param name="prmAttrSetName" select="'atsUlBody'"/>
+                                </xsl:call-template>
+                                <fo:block>
+                                    <xsl:call-template name="getAttributeSetWithLang">
+                                        <xsl:with-param name="prmAttrSetName" select="'atsP'"/>
+                                    </xsl:call-template>
+                                    <xsl:apply-templates/>
+                                </fo:block>
+                            </fo:list-item-body>
+                        </fo:list-item>
+                    </fo:list-block>
                 </fo:block>
-            </fo:list-item-label>
-            <fo:list-item-body start-indent="body-start()">
-                <fo:block>
-                    <xsl:call-template name="getAttributeSetWithLang">
-                        <xsl:with-param name="prmAttrSetName" select="'atsP'"/>
-                    </xsl:call-template>
-                    <xsl:apply-templates/>
-                </fo:block>
-            </fo:list-item-body>
-        </fo:list-item>
+            </xsl:when>
+            <xsl:otherwise>
+                <fo:list-item>
+                    <xsl:call-template name="getAttributeSetWithLang"/>
+                    <xsl:call-template name="ahf:getUnivAtts"/>
+                    <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
+                    <fo:list-item-label end-indent="label-end()"> 
+                        <fo:block>
+                            <xsl:call-template name="getAttributeSetWithLang">
+                                <xsl:with-param name="prmAttrSetName" select="'atsUlLabel'"/>
+                            </xsl:call-template>
+                            <xsl:value-of select="$prmUlLabelChar"/>
+                        </fo:block>
+                    </fo:list-item-label>
+                    <fo:list-item-body start-indent="body-start()">
+                        <xsl:call-template name="getAttributeSetWithLang">
+                            <xsl:with-param name="prmAttrSetName" select="'atsUlBody'"/>
+                        </xsl:call-template>
+                        <fo:block>
+                            <xsl:call-template name="getAttributeSetWithLang">
+                                <xsl:with-param name="prmAttrSetName" select="'atsP'"/>
+                            </xsl:call-template>
+                            <xsl:apply-templates/>
+                        </fo:block>
+                    </fo:list-item-body>
+                </fo:list-item>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
 
     <!-- 
-     function:	Count ul nesting level
-     param:	    prmElem, prmCount
-     return:	xs:integer
-     note:		A nesting level is counted from entry, stentry, note, topic.
+     function:  floatfig template
+     param:     
+     return:    none
+     note:      Ignore if exists left float figure.
+     -->
+    <xsl:template match="*[contains(@class,' topic/ul ')][exists(*[contains(@class,' topic/li ')]//*[ahf:isFloatFigure(.)][ahf:getFloatSpec(.) = 'left'])]//*[ahf:isFloatFigure(.)]" priority="4"/>
+    
+    <!-- 
+     function:  Get ul label char
+     param:     prmUl, prmUlLabelChars
+     return:    Label char string
+     note:      Count ul in entry/note independently.
+                2019-05-08 t.makita
+     -->
+    <xsl:function name="ahf:getUlLabelChar" as="xs:string">
+        <xsl:param name="prmUl" as="element()"/>
+        <xsl:param name="prmUlLabelChars" as="xs:string+"/>
+        
+        <xsl:variable name="ulLabelCharsCount" as="xs:integer" select="count($prmUlLabelChars)"/>
+        <xsl:variable name="ulNestLevel" select="ahf:countUl($prmUl,0)" as="xs:integer"/>
+        <xsl:variable name="ulIndex" as="xs:integer">
+            <xsl:variable name="tempUlIndex" as="xs:integer" select="$ulNestLevel mod $ulLabelCharsCount"/>
+            <xsl:sequence select="if ($tempUlIndex eq 0) then $ulLabelCharsCount else $tempUlIndex"/>
+        </xsl:variable>
+        <xsl:sequence select="$prmUlLabelChars[$ulIndex]"/>
+    </xsl:function>
+    
+    <!-- 
+     function:  Count ul nesting level
+     param:     prmElem, prmCount
+     return:    xs:integer
+     note:      A nesting level is counted from entry, stentry, note, topic.
                 2019-02-04 t.makita
      -->
     <xsl:function name="ahf:countUl" as="xs:integer">
@@ -260,10 +480,10 @@ E-mail : info@antennahouse.com
     </xsl:function>
     
     <!-- 
-     function:	sl template
+     function:  sl template
      param:	    
-     return:	fo:list-block
-     note:		none
+     return:    fo:list-block
+     note:      none
      -->
     <xsl:template match="*[contains(@class, ' topic/sl ')]" mode="MODE_GET_STYLE" as="xs:string*">
         <xsl:sequence select="'atsSl'"/>
@@ -334,9 +554,9 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <!-- 
-     function:	dl template
-     param:	    
-     return:	fo:block or fo:table
+     function:  dl template
+     param:        
+     return:    fo:block or fo:table
      note:		
      -->
     <xsl:template match="*[contains(@class, ' topic/dl ')][$pFormatDlAsBlock]" mode="MODE_GET_STYLE" as="xs:string*">

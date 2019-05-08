@@ -59,6 +59,9 @@ E-mail : info@antennahouse.com
         <xsl:choose>
             <xsl:when test="$hasFloatFigLeft">
                 <fo:wrapper>
+                    <xsl:call-template name="ahf:getIdAtts">
+                        <xsl:with-param name="prmElement" select="."/>
+                    </xsl:call-template>
                     <xsl:apply-templates>
                         <xsl:with-param name="prmNumberFormat" tunnel="yes" select="$numberFormat"/>
                         <xsl:with-param name="prmHasFloatFigLeft" tunnel="yes" select="$hasFloatFigLeft"/>
@@ -133,7 +136,10 @@ E-mail : info@antennahouse.com
                         <xsl:call-template name="getAttributeSetWithLang">
                             <xsl:with-param name="prmElem" select="$steps"/>
                         </xsl:call-template>
-                        <xsl:call-template name="ahf:getUnivAtts">
+                        <xsl:call-template name="ahf:getLocalizationAtts">
+                            <xsl:with-param name="prmElement" select="$steps"/>
+                        </xsl:call-template>
+                        <xsl:call-template name="ahf:getClearAtts">
                             <xsl:with-param name="prmElement" select="$steps"/>
                         </xsl:call-template>
                         <xsl:copy-of select="ahf:getFoStyleAndProperty($steps)"/>

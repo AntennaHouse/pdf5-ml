@@ -1740,17 +1740,34 @@ URL : http://www.antennahouse.com/
                 <attribute name="provisional-label-separation">1mm</attribute>
             </attribute-set>
 
-            <attribute-set name="atsUlItem">
+            <attribute-set name="atsUlItemSpaceBeforeZero">
+                <attribute name="space-before">0mm</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsUlItemSpaceBefore">
                 <attribute name="space-before">$Para_Space_Before</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsUlItem" use-attribute-sets="atsUlItemSpaceBefore">
                 <attribute name="relative-align">baseline</attribute>
                 <attribute name="clear">both</attribute>
             </attribute-set>
+
             <attribute-set name="atsUlLabel">
                 <attribute name="font-family">$General_Bullet_Font</attribute>
                 <attribute name="text-align">center</attribute>
             </attribute-set>
-            <attribute-set name="atsUlBody"> </attribute-set>
 
+            <attribute-set name="atsUlBody"></attribute-set>
+
+            <attribute-set name="atsUlItemClearBoth">
+                <attribute name="clear">both</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsUlItemClearNone">
+                <attribute name="clear">none</attribute>
+            </attribute-set>
+            
             <!-- ol -->
             <attribute-set name="atsOl">
                 <attribute name="space-before">$Para_Space_Before</attribute>
@@ -1758,16 +1775,33 @@ URL : http://www.antennahouse.com/
                 <attribute name="provisional-label-separation">0.5mm</attribute>
             </attribute-set>
 
-            <attribute-set name="atsOlItem">
+            <attribute-set name="atsOlItemSpaceBeforeZero">
+                <attribute name="space-before">0mm</attribute>
+            </attribute-set>
+            
+            <attribute-set name="atsOlItemSpaceBefore">
                 <attribute name="space-before">$Para_Space_Before</attribute>
+            </attribute-set>
+            
+            <attribute-set name="atsOlItem" use-attribute-sets="atsOlItemSpaceBefore">
                 <attribute name="relative-align">baseline</attribute>
                 <attribute name="clear">both</attribute>
             </attribute-set>
+
             <attribute-set name="atsOlLabel">
                 <attribute name="text-align">center</attribute>
             </attribute-set>
-            <attribute-set name="atsOlBody"> </attribute-set>
 
+            <attribute-set name="atsOlBody"></attribute-set>
+            
+            <attribute-set name="atsOlItemClearBoth">
+                <attribute name="clear">both</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsOlItemClearNone">
+                <attribute name="clear">none</attribute>
+            </attribute-set>
+            
             <!-- sl/sli -->
             <attribute-set name="atsSl">
                 <attribute name="space-before">$Para_Space_Before</attribute>
