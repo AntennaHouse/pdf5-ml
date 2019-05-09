@@ -2493,6 +2493,72 @@ URL : http://www.antennahouse.com/
 
         </notes-attribute>
 
+        <hazardstatement-attribute>
+            <!-- hazardstatement -->
+            <attribute-set name="atshazardstatementOuterBlock">
+                <attribute name="space-before">6pt</attribute>
+                <attribute name="space-after">0pt</attribute>
+            </attribute-set>
+            
+            <attribute-set name="atsHazardsymbolColumn">
+                <attribute name="column-width">14mm</attribute>
+            </attribute-set>
+            
+            <attribute-set name="atsHazardstatementTitleRow">
+                <attribute name="keep-with-next.within-column">always</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsHazardstatementTitleCell">
+                <attribute name="number-columns-spanned">2</attribute>
+                <attribute name="border-style">solid</attribute>
+                <attribute name="border-width">0.5mm</attribute>
+                <attribute name="padding">0mm</attribute>
+            </attribute-set>
+            
+            <attribute-set name="atsHazardsymbolCell">
+                <attribute name="text-align">center</attribute>
+                <attribute name="border-style">solid</attribute>
+                <attribute name="border-width">0.5mm</attribute>
+                <attribute name="border-right-width">0.1mm</attribute>
+                <attribute name="border-right-color">$Color_Gray_20_Percent</attribute>
+                <attribute name="padding-top">1mm</attribute>
+                <attribute name="padding-bottom">1mm</attribute>
+                <attribute name="padding-left">2mm</attribute>
+                <attribute name="padding-right">2mm</attribute>
+                <attribute name="display-align">center</attribute>
+            </attribute-set>
+            
+            <attribute-set name="atsMessagepanelCell">
+                <attribute name="display-align">center</attribute>
+                <attribute name="border-style">solid</attribute>
+                <attribute name="border-width">0.5mm</attribute>
+                <attribute name="border-left-width">0.1mm</attribute>
+                <attribute name="border-left-color">$Color_Gray_20_Percent</attribute>
+                <attribute name="padding-top">1mm</attribute>
+                <attribute name="padding-bottom">1mm</attribute>
+                <attribute name="padding-left">2mm</attribute>
+                <attribute name="padding-right">2mm</attribute>
+            </attribute-set>
+            
+            <variable name="noteContentBlockBorder">0.5pt solid $Color_Black</variable>
+            <variable name="noteContentBlockPaddingAfter">9pt</variable>
+            
+            <variable name="atsWarningTitlePaddingStart">0.3em</variable>
+            <attribute-set name="atsWarningTitleBlock" use-attribute-sets="atsB">
+                <attribute name="font-size">15pt</attribute>
+                <attribute name="line-height">1.5</attribute>
+                <attribute name="line-stacking-strategy">font-height</attribute>
+                <attribute name="space-before">10pt</attribute>
+                <attribute name="space-after">10pt</attribute>
+                <attribute name="color">$Color_Black</attribute>
+                <attribute name="background-color">$Note_Warning_BG_Color</attribute>
+                <attribute name="start-indent">inherited-property-value(start-indent) + $atsWarningTitlePaddingStart</attribute>
+                <attribute name="padding-start">$atsWarningTitlePaddingStart</attribute>
+                <attribute name="keep-with-next">always</attribute>
+            </attribute-set>
+            
+        </hazardstatement-attribute>
+
         <miscellaneous-elements-attribute>
             <!-- draft-comment:title -->
             <attribute-set name="atsDraftCommentTitle">
