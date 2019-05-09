@@ -3,7 +3,7 @@
 ****************************************************************
 DITA to XSL-FO Stylesheet
 Module: Floating figure module
-Copyright © 2009-2012 Antenna House, Inc. All rights reserved.
+Copyright © 2009-2019 Antenna House, Inc. All rights reserved.
 Antenna House is a trademark of Antenna House, Inc.
 URL    : http://www.antennahouse.com/
 E-mail : info@antennahouse.com
@@ -31,7 +31,6 @@ E-mail : info@antennahouse.com
          </step>
 
          In this case floatfig is converted into fo:float as if it exists in <cmd>.
-         (Not yet implemented.)
 
          Or it may be inserted in simple <p> element.
 
@@ -48,12 +47,12 @@ E-mail : info@antennahouse.com
          floatfig is available in ah-dita specialization.
          https://github.com/AntennaHouse/ah-dita/tree/master/com.antennahouse.dita.dita13.doctypes
          
-         Make it possible to implement float figure in OASIS DTD & Schemas using@outputclass.
+         Make it possible to implement float figure in OASIS DTD & Schemas using @outputclass.
 
          <step>
            <cmd>Command of this step.</cmd>
            <info>
-             <fig outputclass="flow-left/floa-right">
+             <fig outputclass="float-left/floa-right">
                <desc>Description of figure</desc>
                <image placement="break" href="..."/>
              </float>
@@ -61,7 +60,7 @@ E-mail : info@antennahouse.com
          </step>
 
          <p>
-           <fig outputclass="flost-right">
+           <fig outputclass="float-right">
              <image placement="break" href="tys125f.jpg"/>
            </fig>
            Scorpa is a manufacturer of trials motorcycles based near Alès, France. 
