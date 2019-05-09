@@ -140,7 +140,7 @@ E-mail : info@antennahouse.com
     </xsl:function>
 
     <!-- 
-     function:  Get float attribute for flost-figgroup
+     function:  Get float attribute for floatfig-group
      param:     prmELem
      return:    float specification (none, left, right)
      note:      
