@@ -2520,7 +2520,7 @@ URL : http://www.antennahouse.com/
                 <attribute name="border-style">solid</attribute>
                 <attribute name="border-width">0.5mm</attribute>
                 <attribute name="border-right-width">0.1mm</attribute>
-                <attribute name="border-right-color">$Color_Gray_20_Percent</attribute>
+                <!--attribute name="border-right-color">$Color_Gray_20_Percent</attribute-->
                 <attribute name="padding-top">1mm</attribute>
                 <attribute name="padding-bottom">1mm</attribute>
                 <attribute name="padding-left">2mm</attribute>
@@ -2533,14 +2533,14 @@ URL : http://www.antennahouse.com/
                 <attribute name="border-style">solid</attribute>
                 <attribute name="border-width">0.5mm</attribute>
                 <attribute name="border-left-width">0.1mm</attribute>
-                <attribute name="border-left-color">$Color_Gray_20_Percent</attribute>
+                <!--attribute name="border-left-color">$Color_Gray_20_Percent</attribute-->
                 <attribute name="padding-top">1mm</attribute>
                 <attribute name="padding-bottom">1mm</attribute>
                 <attribute name="padding-left">2mm</attribute>
                 <attribute name="padding-right">2mm</attribute>
             </attribute-set>
             
-            <variable name="noteContentBlockBorder">0.5pt solid $Color_Black</variable>
+            <variable name="noteContentBlockBorder">0.5pt solid $General_Note_Border_Color</variable>
             <variable name="noteContentBlockPaddingAfter">9pt</variable>
             
             <variable name="atsWarningTitlePaddingStart">0.3em</variable>
@@ -2550,8 +2550,8 @@ URL : http://www.antennahouse.com/
                 <attribute name="line-stacking-strategy">font-height</attribute>
                 <attribute name="space-before">10pt</attribute>
                 <attribute name="space-after">10pt</attribute>
-                <attribute name="color">$Color_Black</attribute>
-                <attribute name="background-color">$Note_Warning_BG_Color</attribute>
+                <!--attribute name="color">$Color_Black</attribute-->
+                <!--attribute name="background-color">$Note_Warning_BG_Color</attribute-->
                 <attribute name="start-indent">inherited-property-value(start-indent) + $atsWarningTitlePaddingStart</attribute>
                 <attribute name="padding-start">$atsWarningTitlePaddingStart</attribute>
                 <attribute name="keep-with-next">always</attribute>
