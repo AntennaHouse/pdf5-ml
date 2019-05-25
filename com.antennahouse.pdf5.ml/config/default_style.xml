@@ -63,6 +63,9 @@ URL : http://www.antennahouse.com/
         <!-- Genral Frame border color -->
         <variable name="General_Frame_Border_Color">$Color_RGB_Black</variable>
         <variable name="General_Frame_Border_Color" output-type="print-color print-mono">$Color_CMYK_Black</variable>
+        <!-- Genral Hazardstatement header background color -->
+        <variable name="General_Hazardstatement_Header_Background_Color">rgb(128,128,128)</variable>
+        <variable name="General_Hazardstatement_Header_Background_Color" output-type="print-color print-mono">rgb-icc(#CMYK,0%,0%,0%,50%)</variable>
         
         <!--Hyphenation-->
         <variable name="General_Do_Hyphenation">true</variable>
@@ -2495,32 +2498,42 @@ URL : http://www.antennahouse.com/
 
         <hazardstatement-attribute>
             <!-- hazardstatement -->
-            <attribute-set name="atshazardstatementOuterBlock">
+            <attribute-set name="atsHazardStatementTable">
+                <attribute name="table-layout">fixed</attribute>
                 <attribute name="space-before">6pt</attribute>
                 <attribute name="space-after">0pt</attribute>
             </attribute-set>
             
-            <attribute-set name="atsHazardsymbolColumn">
+            <attribute-set name="atsHazardSymbolColumn">
                 <attribute name="column-width">14mm</attribute>
             </attribute-set>
+
+            <attribute-set name="atsHazardStatementDesc">
+            </attribute-set>
             
-            <attribute-set name="atsHazardstatementTitleRow">
+            <attribute-set name="atsHazardStatementTitleRow">
                 <attribute name="keep-with-next.within-column">always</attribute>
             </attribute-set>
 
-            <attribute-set name="atsHazardstatementTitleCell">
+            <attribute-set name="atsHazardStatementTitleCell" use-attribute-sets="atsB">
                 <attribute name="number-columns-spanned">2</attribute>
-                <attribute name="border-style">solid</attribute>
-                <attribute name="border-width">0.5mm</attribute>
+                <attribute name="border">1.5pt solid $General_Table_Border_Color</attribute>
                 <attribute name="padding">0mm</attribute>
+                <attribute name="font-family">$General_Title_Font</attribute>
+                <attribute name="text-align">center</attribute>
+                <attribute name="text-align-last">center</attribute>
+                <attribute name="background-color">$General_Hazardstatement_Header_Background_Color</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsHazardStatementTitleBlock">
+            </attribute-set>
+
+            <attribute-set name="atsHazardStatementIconImage" use-attribute-sets="atsNoteCautionIconImage">
             </attribute-set>
             
-            <attribute-set name="atsHazardsymbolCell">
+            <attribute-set name="atsHazardSymbolCell">
                 <attribute name="text-align">center</attribute>
-                <attribute name="border-style">solid</attribute>
-                <attribute name="border-width">0.5mm</attribute>
-                <attribute name="border-right-width">0.1mm</attribute>
-                <!--attribute name="border-right-color">$Color_Gray_20_Percent</attribute-->
+                <attribute name="border">1.5pt solid $General_Table_Border_Color</attribute>
                 <attribute name="padding-top">1mm</attribute>
                 <attribute name="padding-bottom">1mm</attribute>
                 <attribute name="padding-left">2mm</attribute>
@@ -2528,7 +2541,8 @@ URL : http://www.antennahouse.com/
                 <attribute name="display-align">center</attribute>
             </attribute-set>
             
-            <attribute-set name="atsMessagepanelCell">
+            <attribute-set name="atsMessagePanelCell">
+                <attribute name="text-align">justify</attribute>
                 <attribute name="display-align">center</attribute>
                 <attribute name="border-style">solid</attribute>
                 <attribute name="border-width">0.5mm</attribute>

@@ -24,23 +24,25 @@ E-mail : info@antennahouse.com
      note:      Hazardstatement is specialized from note
                 Only @type="caution/warning/danger" are supported.
      -->
-    <xsl:template match="*[contains(@class, ' hazard-d/hazardstatement ')]" priority="4">
-        <fo:table table-layout="fixed">
-            <xsl:copy-of select="ahf:getAttributeSet('atshazardstatementOuterBlock')"/>
+    <xsl:template match="*[contains(@class, ' hazard-d/hazardstatement ')]" priority="2">
+        <fo:table>
+            <xsl:copy-of select="ahf:getAttributeSet('atsHazardStatementTable')"/>
             <fo:table-column column-number="1">
-                <xsl:copy-of select="ahf:getAttributeSet('atsHazardsymbolColumn')"/>
+                <xsl:copy-of select="ahf:getAttributeSet('atsHazardSymbolColumn')"/>
             </fo:table-column>
-            <fo:table-column column-number="2"/>
-            <fo:table-body>
+            <fo:table-column column-number="2">
+                <xsl:copy-of select="ahf:getAttributeSet('atsHazardStatementDesc')"/>
+            </fo:table-column>
+            <fo:table-header>
                 <fo:table-row>
-                    <xsl:copy-of select="ahf:getAttributeSet('atsHazardstatementTitleRow')"/>
+                    <xsl:copy-of select="ahf:getAttributeSet('atsHazardStatementTitleRow')"/>
                     <fo:table-cell>
-                        <xsl:copy-of select="ahf:getAttributeSet('atsHazardstatementTitleCell')"/>
-                        <fo:block text-align="center">
-                            <xsl:copy-of select="ahf:getAttributeSet('atsWarningTitleBlock')"/>
+                        <xsl:copy-of select="ahf:getAttributeSet('atsHazardStatementTitleCell')"/>
+                        <fo:block>
+                            <xsl:copy-of select="ahf:getAttributeSet('atsHazardStatementTitleBlock')"/>
                             <fo:inline>
                                 <fo:external-graphic>
-                                    <xsl:copy-of select="ahf:getAttributeSet('atsNoteCautionIconImage')"/>
+                                    <xsl:copy-of select="ahf:getAttributeSet('atsHazardStatementIconImage')"/>
                                 </fo:external-graphic>
                                 <xsl:choose>
                                     <xsl:when test="@type eq 'danger'">
@@ -68,27 +70,22 @@ E-mail : info@antennahouse.com
                         </fo:block>
                     </fo:table-cell>
                 </fo:table-row>
-                <xsl:variable name="hsymbols" select="*[contains(@class,' hazard-d/hazardsymbol ')]" as="node()*"/>
-                <xsl:variable name="hmespanel" select="*[contains(@class,' hazard-d/messagepanel ')]" as="node()*"/>
+            </fo:table-header>
+            <fo:table-body>
+                <xsl:variable name="hazardSymbols" select="*[contains(@class,' hazard-d/hazardsymbol ')]" as="element()*"/>
+                <xsl:variable name="hazardMessagePanel" select="*[contains(@class,' hazard-d/messagepanel ')]" as="element()*"/>
                 <!-- Contens of hazardstatement -->
-                <xsl:for-each select="$hmespanel">
-                    <fo:table-row text-align="justify">
+                <xsl:for-each select="$hazardMessagePanel">
+                    <fo:table-row>
                         <!-- hazardsymbol -->
                         <fo:table-cell>
-                            <xsl:copy-of select="ahf:getAttributeSet('atsHazardsymbolCell')"/>
+                            <xsl:copy-of select="ahf:getAttributeSet('atsHazardSymbolCell')"/>
                             <xsl:variable name="hpos" select="position()" as="xs:integer"/>
-                            <xsl:choose>
-                                <xsl:when test="$hsymbols[$hpos]">
-                                    <xsl:apply-templates select="$hsymbols[$hpos]"/>
-                                </xsl:when>
-                                <xsl:otherwise>
-                                    <xsl:apply-templates select="$hsymbols[1]"/>
-                                </xsl:otherwise>
-                            </xsl:choose>
+                            <xsl:apply-templates select="$hazardSymbols[$hpos]"/>
                         </fo:table-cell>
                         <!-- messagepanel -->
                         <fo:table-cell>
-                            <xsl:copy-of select="ahf:getAttributeSet('atsMessagepanelCell')"/>
+                            <xsl:copy-of select="ahf:getAttributeSet('atsMessagePanelCell')"/>
                             <xsl:apply-templates select="."/>
                         </fo:table-cell>
                     </fo:table-row>
@@ -107,12 +104,9 @@ E-mail : info@antennahouse.com
         <xsl:choose>
             <xsl:when test="$pAutoScaleDownToFit">
                 <fo:block-container>
-                    <xsl:if test="string(@span) eq 'all'">
-                        <xsl:copy-of select="ahf:getAttributeSet('atsImageBlockSpan')"/>
-                    </xsl:if>
                     <fo:block start-indent="0mm">
                         <xsl:choose>
-                            <xsl:when test="@placement eq  'break' and not(string(@scale))">
+                            <xsl:when test="(string(@placement) eq 'break') and empty(string(@scale))">
                                 <xsl:copy-of select="ahf:getAttributeSet('atsImageAutoScallDownToFitBlock')"/>
                             </xsl:when>
                         </xsl:choose>
@@ -127,9 +121,6 @@ E-mail : info@antennahouse.com
             <xsl:otherwise>
                 <fo:block>
                     <xsl:copy-of select="ahf:getImageBlockAttr(.)"/>
-                    <xsl:if test="string(@span) eq 'all'">
-                        <xsl:copy-of select="ahf:getAttributeSet('atsImageBlockSpan')"/>
-                    </xsl:if>
                     <!-- Image processing -->
                     <xsl:call-template name="ahf:processImage">
                         <xsl:with-param name="prmImage" select="."/>
