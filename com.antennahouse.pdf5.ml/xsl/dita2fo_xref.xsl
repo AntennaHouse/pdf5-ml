@@ -773,7 +773,7 @@ E-mail : info@antennahouse.com
 
             <!-- steps/step, substep: Xref link color does not apply. -->
             <xsl:when test="$prmDestElement[contains(@class, ' task/step ')][parent::*[contains(@class,' task/substep ')]][ancestor::*[contains(@class,' task/steps ')]]">
-  No        <xsl:variable name="opt" as="xs:string*" select="ahf:getXrefToStepOption($prmXref)"/>
+            <xsl:variable name="opt" as="xs:string*" select="ahf:getXrefToStepOption($prmXref)"/>
                 <xsl:copy-of select="ahf:getUnivAtts($prmXref,$prmTopicRef,$prmNeedId)"/>
                 <xsl:copy-of select="ahf:getFoStyleAndProperty($prmXref)"/>
                 <fo:inline>
