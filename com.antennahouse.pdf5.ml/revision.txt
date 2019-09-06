@@ -6,6 +6,17 @@
              Antenna House is a trademark of Antenna House, Inc.
 _______________________________________________________________________________
 
+Sep. 2019
+V1.0.6
+- Support floating figure if it is not specialized as <float-fig> in DTD or scheme.
+  ex) <fig outputclass="float-right/float-left/float-none">
+- Supports floatfig/@float="left" on ol/ul/step.
+- Support xref/@outputclass to control output.
+  ex) <xref outputclas="title-and-page" href="[reference to topic]"/>
+- Implement hazardstatement domain.
+- Add brand-type to style selection constraint.
+- Remove obsolete dita2fo_numberingmap_deprecated.xsl.
+
 Apr. 2019
 V1.0.5
 - Change fig & table numbering algorithms.
