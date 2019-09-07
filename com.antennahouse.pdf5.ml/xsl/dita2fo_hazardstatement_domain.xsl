@@ -25,73 +25,135 @@ E-mail : info@antennahouse.com
                 Only @type="caution/warning/danger" are supported.
      -->
     <xsl:template match="*[contains(@class, ' hazard-d/hazardstatement ')]" priority="2">
-        <fo:table>
-            <xsl:copy-of select="ahf:getAttributeSet('atsHazardStatementTable')"/>
-            <fo:table-column column-number="1">
-                <xsl:copy-of select="ahf:getAttributeSet('atsHazardSymbolColumn')"/>
-            </fo:table-column>
-            <fo:table-column column-number="2">
-                <xsl:copy-of select="ahf:getAttributeSet('atsHazardStatementDesc')"/>
-            </fo:table-column>
-            <fo:table-header>
-                <fo:table-row>
-                    <xsl:copy-of select="ahf:getAttributeSet('atsHazardStatementTitleRow')"/>
-                    <fo:table-cell>
-                        <xsl:copy-of select="ahf:getAttributeSet('atsHazardStatementTitleCell')"/>
-                        <fo:block>
-                            <xsl:copy-of select="ahf:getAttributeSet('atsHazardStatementTitleBlock')"/>
-                            <fo:inline>
-                                <fo:external-graphic>
-                                    <xsl:copy-of select="ahf:getAttributeSet('atsHazardStatementIconImage')"/>
-                                </fo:external-graphic>
-                                <xsl:choose>
-                                    <xsl:when test="@type eq 'danger'">
-                                        <xsl:call-template name="getVarValueWithLangAsText">
-                                            <xsl:with-param name="prmVarName" select="'Note_Danger'"/>
-                                        </xsl:call-template>
-                                    </xsl:when>
-                                    <xsl:when test="@type eq 'caution'">
-                                        <xsl:call-template name="getVarValueWithLangAsText">
-                                            <xsl:with-param name="prmVarName" select="'Note_Caution'"/>
-                                        </xsl:call-template>
-                                    </xsl:when>
-                                    <xsl:when test="@type eq 'warning'">
-                                        <xsl:call-template name="getVarValueWithLangAsText">
-                                            <xsl:with-param name="prmVarName" select="'Note_Warning'"/>
-                                        </xsl:call-template>
-                                    </xsl:when>
-                                    <xsl:otherwise>
-                                        <xsl:call-template name="getVarValueWithLangAsText">
-                                            <xsl:with-param name="prmVarName" select="'Note_Warning'"/>
-                                        </xsl:call-template>
-                                    </xsl:otherwise>
-                                </xsl:choose>
-                            </fo:inline>
-                        </fo:block>
-                    </fo:table-cell>
-                </fo:table-row>
-            </fo:table-header>
-            <fo:table-body>
-                <xsl:variable name="hazardSymbols" select="*[contains(@class,' hazard-d/hazardsymbol ')]" as="element()*"/>
-                <xsl:variable name="hazardMessagePanel" select="*[contains(@class,' hazard-d/messagepanel ')]" as="element()*"/>
-                <!-- Contens of hazardstatement -->
-                <xsl:for-each select="$hazardMessagePanel">
-                    <fo:table-row>
-                        <!-- hazardsymbol -->
-                        <fo:table-cell>
-                            <xsl:copy-of select="ahf:getAttributeSet('atsHazardSymbolCell')"/>
-                            <xsl:variable name="hpos" select="position()" as="xs:integer"/>
-                            <xsl:apply-templates select="$hazardSymbols[$hpos]"/>
-                        </fo:table-cell>
-                        <!-- messagepanel -->
-                        <fo:table-cell>
-                            <xsl:copy-of select="ahf:getAttributeSet('atsMessagePanelCell')"/>
-                            <xsl:apply-templates select="."/>
-                        </fo:table-cell>
-                    </fo:table-row>
-                </xsl:for-each>
-            </fo:table-body>
-        </fo:table>
+        <xsl:variable name="hazardSymbolCount" as="xs:integer" select="count(*[contains(@class,' hazard-d/hazardsymbol ')])"/>
+        <xsl:choose>
+            <xsl:when test="$hazardSymbolCount gt 0">
+                <fo:table>
+                    <xsl:copy-of select="ahf:getAttributeSet('atsHazardStatementTable')"/>
+                    <fo:table-column column-number="1">
+                        <xsl:copy-of select="ahf:getAttributeSet('atsHazardSymbolColumn')"/>
+                    </fo:table-column>
+                    <fo:table-column column-number="2">
+                        <xsl:copy-of select="ahf:getAttributeSet('atsHazardStatementDesc')"/>
+                    </fo:table-column>
+                    <fo:table-header>
+                        <fo:table-row>
+                            <xsl:copy-of select="ahf:getAttributeSet('atsHazardStatementTitleRow')"/>
+                            <fo:table-cell>
+                                <xsl:copy-of select="ahf:getAttributeSet('atsHazardStatementTitleCell')"/>
+                                <fo:block>
+                                    <xsl:copy-of select="ahf:getAttributeSet('atsHazardStatementTitleBlock')"/>
+                                    <fo:inline>
+                                        <fo:external-graphic>
+                                            <xsl:copy-of select="ahf:getAttributeSet('atsHazardStatementIconImage')"/>
+                                        </fo:external-graphic>
+                                        <xsl:choose>
+                                            <xsl:when test="@type eq 'danger'">
+                                                <xsl:call-template name="getVarValueWithLangAsText">
+                                                    <xsl:with-param name="prmVarName" select="'Note_Danger'"/>
+                                                </xsl:call-template>
+                                            </xsl:when>
+                                            <xsl:when test="@type eq 'caution'">
+                                                <xsl:call-template name="getVarValueWithLangAsText">
+                                                    <xsl:with-param name="prmVarName" select="'Note_Caution'"/>
+                                                </xsl:call-template>
+                                            </xsl:when>
+                                            <xsl:when test="@type eq 'warning'">
+                                                <xsl:call-template name="getVarValueWithLangAsText">
+                                                    <xsl:with-param name="prmVarName" select="'Note_Warning'"/>
+                                                </xsl:call-template>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <xsl:call-template name="getVarValueWithLangAsText">
+                                                    <xsl:with-param name="prmVarName" select="'Note_Warning'"/>
+                                                </xsl:call-template>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
+                                    </fo:inline>
+                                </fo:block>
+                            </fo:table-cell>
+                        </fo:table-row>
+                    </fo:table-header>
+                    <fo:table-body>
+                        <xsl:variable name="hazardSymbols" select="*[contains(@class,' hazard-d/hazardsymbol ')]" as="element()*"/>
+                        <xsl:variable name="hazardMessagePanel" select="*[contains(@class,' hazard-d/messagepanel ')]" as="element()*"/>
+                        <!-- Contens of hazardstatement -->
+                        <xsl:for-each select="$hazardMessagePanel">
+                            <fo:table-row>
+                                <!-- hazardsymbol -->
+                                <fo:table-cell>
+                                    <xsl:copy-of select="ahf:getAttributeSet('atsHazardSymbolCell')"/>
+                                    <xsl:variable name="hpos" select="position()" as="xs:integer"/>
+                                    <xsl:apply-templates select="$hazardSymbols[$hpos]"/>
+                                </fo:table-cell>
+                                <!-- messagepanel -->
+                                <fo:table-cell>
+                                    <xsl:copy-of select="ahf:getAttributeSet('atsMessagePanelCell')"/>
+                                    <xsl:apply-templates select="."/>
+                                </fo:table-cell>
+                            </fo:table-row>
+                        </xsl:for-each>
+                    </fo:table-body>
+                </fo:table>
+            </xsl:when>
+            <xsl:otherwise>
+                <!-- Hazardstatement with no hazardsymbol -->
+                <fo:table>
+                    <xsl:copy-of select="ahf:getAttributeSet('atsHazardStatementTable')"/>
+                    <fo:table-header>
+                        <fo:table-row>
+                            <xsl:copy-of select="ahf:getAttributeSet('atsHazardStatementTitleRow')"/>
+                            <fo:table-cell>
+                                <xsl:copy-of select="ahf:getAttributeSet('atsHazardStatementTitleCell atsHazardStatementTitleCellWoHazardSymbol')"/>
+                                <fo:block>
+                                    <xsl:copy-of select="ahf:getAttributeSet('atsHazardStatementTitleBlock')"/>
+                                    <fo:inline>
+                                        <fo:external-graphic>
+                                            <xsl:copy-of select="ahf:getAttributeSet('atsHazardStatementIconImage')"/>
+                                        </fo:external-graphic>
+                                        <xsl:choose>
+                                            <xsl:when test="@type eq 'danger'">
+                                                <xsl:call-template name="getVarValueWithLangAsText">
+                                                    <xsl:with-param name="prmVarName" select="'Note_Danger'"/>
+                                                </xsl:call-template>
+                                            </xsl:when>
+                                            <xsl:when test="@type eq 'caution'">
+                                                <xsl:call-template name="getVarValueWithLangAsText">
+                                                    <xsl:with-param name="prmVarName" select="'Note_Caution'"/>
+                                                </xsl:call-template>
+                                            </xsl:when>
+                                            <xsl:when test="@type eq 'warning'">
+                                                <xsl:call-template name="getVarValueWithLangAsText">
+                                                    <xsl:with-param name="prmVarName" select="'Note_Warning'"/>
+                                                </xsl:call-template>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <xsl:call-template name="getVarValueWithLangAsText">
+                                                    <xsl:with-param name="prmVarName" select="'Note_Warning'"/>
+                                                </xsl:call-template>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
+                                    </fo:inline>
+                                </fo:block>
+                            </fo:table-cell>
+                        </fo:table-row>
+                    </fo:table-header>
+                    <fo:table-body>
+                        <xsl:variable name="hazardMessagePanel" select="*[contains(@class,' hazard-d/messagepanel ')]" as="element()*"/>
+                        <!-- Contens of hazardstatement -->
+                        <xsl:for-each select="$hazardMessagePanel">
+                            <fo:table-row>
+                                <!-- messagepanel -->
+                                <fo:table-cell>
+                                    <xsl:copy-of select="ahf:getAttributeSet('atsMessagePanelCell')"/>
+                                    <xsl:apply-templates select="."/>
+                                </fo:table-cell>
+                            </fo:table-row>
+                        </xsl:for-each>
+                    </fo:table-body>
+                </fo:table>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
 
     <!-- 

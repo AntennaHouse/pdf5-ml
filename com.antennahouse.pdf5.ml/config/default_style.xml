@@ -2525,6 +2525,10 @@ URL : http://www.antennahouse.com/
                 <attribute name="background-color">$General_Hazardstatement_Header_Background_Color</attribute>
             </attribute-set>
 
+            <attribute-set name="atsHazardStatementTitleCellWoHazardSymbol">
+                <attribute name="number-columns-spanned">0</attribute>
+            </attribute-set>
+
             <attribute-set name="atsHazardStatementTitleBlock">
             </attribute-set>
 
@@ -2547,7 +2551,6 @@ URL : http://www.antennahouse.com/
                 <attribute name="border-style">solid</attribute>
                 <attribute name="border-width">0.5mm</attribute>
                 <attribute name="border-left-width">0.1mm</attribute>
-                <!--attribute name="border-left-color">$Color_Gray_20_Percent</attribute-->
                 <attribute name="padding-top">1mm</attribute>
                 <attribute name="padding-bottom">1mm</attribute>
                 <attribute name="padding-left">2mm</attribute>
