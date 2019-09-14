@@ -262,6 +262,12 @@ URL : http://www.antennahouse.com/
         <!-- @outputclass regx value for table alignment -->
         <variable name="OcTableAlignRegx">(align-)(.+)</variable>
         <variable name="OcTableAlignReplaceGroup">2</variable>
+
+        <!-- @outputclass value for topicref/@outputclass -->
+        <variable name="OcBreakNo">break-no</variable>
+        <variable name="OcBreakAuto">break-auto</variable>
+        <variable name="OcBreakColumn">break-column</variable>
+        <variable name="OcBreakPage">break-page</variable>
         
         <!-- Literals for thumbnail -->
         <variable name="Toc_Thumbnail_Label">TOC</variable>
@@ -1316,6 +1322,15 @@ URL : http://www.antennahouse.com/
         </thumbindex-attribute>
 
         <topic-break-attr>
+            <!-- @outputclass -->
+            <attribute-set name="atsBreakColumn">
+                <attribute name="break-before">column</attribute>
+            </attribute-set>
+            
+            <attribute-set name="atsBreakPage">
+                <attribute name="break-before">page</attribute>
+            </attribute-set>
+            
             <!-- Frontmatter -->
             <attribute-set name="atsFrontmatterBreak1">
                 <attribute name="break-before">auto</attribute>
@@ -1350,6 +1365,23 @@ URL : http://www.antennahouse.com/
                 <attribute name="break-before">auto</attribute>
             </attribute-set>
 
+            <!-- Backmatter -->
+            <attribute-set name="atsBackmatterBreak1">
+                <attribute name="break-before">auto</attribute>
+            </attribute-set>
+            
+            <attribute-set name="atsBackmatterBreak1Online" use-attribute-sets="atsBackmatterBreak1">
+                <attribute name="break-before">auto</attribute>
+            </attribute-set>
+            
+            <attribute-set name="atsBackmatterBreak2">
+                <attribute name="break-before">auto</attribute>
+            </attribute-set>
+            
+            <attribute-set name="atsBackmatterBreak3">
+                <attribute name="break-before">auto</attribute>
+            </attribute-set>
+            
         </topic-break-attr>
 
         <title-attribute>

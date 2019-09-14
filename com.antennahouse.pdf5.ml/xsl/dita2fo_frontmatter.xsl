@@ -19,10 +19,10 @@ E-mail : info@antennahouse.com
 >
 
     <!-- 
-     function:	Generate front matter
-     param:		none
-     return:	fo:page-sequence
-     note:		Called from dita2fo_main.xsl
+     function:  Generate front matter
+     param:     none
+     return:    fo:page-sequence
+     note:      Called from dita2fo_main.xsl
      -->
     <xsl:template match="*[contains(@class, ' bookmap/frontmatter ')]" >
         <xsl:if test="descendant::*[contains(@class,' map/topicref ')][@href]
@@ -57,10 +57,10 @@ E-mail : info@antennahouse.com
     </xsl:template>
 
     <!-- 
-        function:	Frontmatter's cover template
-        param:		none
-        return:	    none
-        note:		Call cover generation template
+        function:   Frontmatter's cover template
+        param:      none
+        return:     none
+        note:       Call cover generation template
     -->
     <xsl:template match="*[contains(@class, ' bookmap/frontmatter ')]//*[contains(@class,' map/topicref ')][ahf:isCoverTopicRef(.)]" mode="PROCESS_FRONTMATTER" priority="6">
         <xsl:variable name="topicRef" select="."/>
@@ -84,10 +84,10 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <!-- 
-        function:	Front matter's child template
-        param:		none
-        return:	    none
-        note:		Call templates using next-match. (2011-09-27 t.makita)
+        function:   Front matter's child template
+        param:      none
+        return:     none
+        note:       Call templates using next-match. (2011-09-27 t.makita)
     -->
     <xsl:template match="*[contains(@class, ' bookmap/frontmatter ')]//*[contains(@class,' map/topicref ')]" mode="PROCESS_FRONTMATTER" priority="4">
         <xsl:variable name="topicRef" select="."/>
@@ -105,9 +105,9 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <!-- 
-     function:	Frontmatter's general template
-     param:		none
-     return:	none
+     function:  Frontmatter's general template
+     param:     none
+     return:    none
      note:		
      -->
     <xsl:template match="*" mode="PROCESS_FRONTMATTER">
@@ -121,9 +121,9 @@ E-mail : info@antennahouse.com
     <xsl:template match="*[contains(@class, ' map/topicmeta ')]" mode="PROCESS_FRONTMATTER"/>
     
     <!-- 
-     function:	Bookabstract templates
-     param:		none
-     return:	descendant topic contents
+     function:  Bookabstract templates
+     param:     none
+     return:    descendant topic contents
      note:		
      -->
     <xsl:template match="*[contains(@class,' bookmap/bookabstract ')][empty(@href)]" mode="PROCESS_FRONTMATTER" priority="2">
@@ -137,9 +137,9 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <!-- 
-     function:	Colophon templates
-     param:		none
-     return:	descendant topic contents
+     function:  Colophon templates
+     param:     none
+     return:    descendant topic contents
      note:		
      -->
     <xsl:template match="*[contains(@class,' bookmap/colophon ')][empty(@href)]" mode="PROCESS_FRONTMATTER" priority="2">
@@ -153,9 +153,9 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <!-- 
-     function:	Booklists templates
-     param:		none
-     return:	descendant topic contents
+     function:  Booklists templates
+     param:     none
+     return:    descendant topic contents
      note:		
      -->
     <xsl:template match="*[contains(@class,' bookmap/booklists ')]" mode="PROCESS_FRONTMATTER" priority="2">
@@ -163,9 +163,9 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <!-- 
-     function:	Abbrevlist
-     param:		none
-     return:	Automatic abbrevation list generation is not supported.
+     function:  Abbrevlist
+     param:     none
+     return:    Automatic abbrevation list generation is not supported.
      note:		
      -->
     <xsl:template match="*[contains(@class,' bookmap/abbrevlist ')][exists(@href)]" mode="PROCESS_FRONTMATTER" priority="2">
@@ -179,9 +179,9 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <!-- 
-     function:	Bibliolist
-     param:		none
-     return:	Automatic bibliography generation is not supported.
+     function:  Bibliolist
+     param:     none
+     return:    Automatic bibliography generation is not supported.
      note:		
      -->
     <xsl:template match="*[contains(@class,' bookmap/bibliolist ')][exists(@href)]" mode="PROCESS_FRONTMATTER" priority="2">
@@ -195,9 +195,9 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <!-- 
-     function:	Booklist
-     param:		none
-     return:	Automatic bibliography generation is not supported.
+     function:  Booklist
+     param:     none
+     return:    Automatic bibliography generation is not supported.
      note:		
      -->
     <xsl:template match="*[contains(@class,' bookmap/booklist ')][exists(@href)]" mode="PROCESS_FRONTMATTER" priority="2">
@@ -211,10 +211,10 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <!-- 
-     function:	Figure list
-     param:		none
-     return:	Figurelist content
-     note:		Generates automatic figurelist generation
+     function:  Figure list
+     param:     none
+     return:    Figurelist content
+     note:      Generates automatic figurelist generation
      -->
     <xsl:template match="*[contains(@class,' bookmap/figurelist ')][exists(@href)]" mode="PROCESS_FRONTMATTER" priority="2">
         <xsl:next-match/>
@@ -234,9 +234,9 @@ E-mail : info@antennahouse.com
     </xsl:template>
         
     <!-- 
-     function:	Glossary list
-     param:		none
-     return:	glossary list contents
+     function:  Glossary list
+     param:     none
+     return:    glossary list contents
      note:		
     -->
     <xsl:template match="*[contains(@class,' bookmap/glossarylist ')]" mode="PROCESS_FRONTMATTER" priority="2" >
@@ -244,10 +244,10 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <!-- 
-     function:	Index
-     param:		none
-     return:	Index contents
-     note:		This template will not be executed because this plug-in treats index in frontmatter as error.
+     function:  Index
+     param:     none
+     return:    Index contents
+     note:      This template will not be executed because this plug-in treats index in frontmatter as error.
                 2012-03-29 t.makita
      -->
     <xsl:template match="*[contains(@class,' bookmap/indexlist ')][exists(@href)]" mode="PROCESS_FRONTMATTER" priority="2">
@@ -259,9 +259,9 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <!-- 
-     function:	Table list
-     param:		none
-     return:	Table list content
+     function:  Table list
+     param:     none
+     return:    Table list content
      note:		
      -->
     <xsl:template match="*[contains(@class,' bookmap/tablelist ')][exists(@href)]" mode="PROCESS_FRONTMATTER" priority="2">
@@ -282,9 +282,9 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <!-- 
-     function:	Trademark list
-     param:		none
-     return:	none
+     function:  Trademark list
+     param:     none
+     return:    none
      note:		
      -->
     <xsl:template match="*[contains(@class,' bookmap/trademarklist ')][exists(@href)]" mode="PROCESS_FRONTMATTER" priority="2">
@@ -298,9 +298,9 @@ E-mail : info@antennahouse.com
     </xsl:template>
         
     <!-- 
-     function:	Table of content
-     param:		none
-     return:	toc contents
+     function:  Table of content
+     param:     none
+     return:    toc contents
      note:		
      -->
     <xsl:template match="*[contains(@class,' bookmap/toc ')][exists(@href)]" mode="PROCESS_FRONTMATTER" priority="2">
@@ -312,9 +312,9 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <!-- 
-     function:	Dedication templates
-     param:		none
-     return:	descendant topic contents
+     function:  Dedication templates
+     param:     none
+     return:    descendant topic contents
      note:		
      -->
     <xsl:template match="*[contains(@class,' bookmap/dedication ')][empty(@href)]" mode="PROCESS_FRONTMATTER" priority="2">
@@ -328,9 +328,9 @@ E-mail : info@antennahouse.com
     </xsl:template>
         
     <!-- 
-     function:	Draftintro templates
-     param:		none
-     return:	descendant topic contents
+     function:  Draftintro templates
+     param:     none
+     return:    descendant topic contents
      note:		
      -->
     <xsl:template match="*[contains(@class,' bookmap/draftintro ')]" mode="PROCESS_FRONTMATTER" priority="2">
@@ -338,9 +338,9 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <!-- 
-     function:	Notices templates
-     param:		none
-     return:	descendant topic contents
+     function:  Notices templates
+     param:     none
+     return:    descendant topic contents
      note:		
      -->
     <xsl:template match="*[contains(@class,' bookmap/notices ')]" mode="PROCESS_FRONTMATTER" priority="2">
@@ -350,9 +350,9 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <!-- 
-     function:	Preface templates
-     param:		none
-     return:	descendant topic contents
+     function:  Preface templates
+     param:     none
+     return:    descendant topic contents
      note:		
      -->
     <xsl:template match="*[contains(@class,' bookmap/preface ')]" mode="PROCESS_FRONTMATTER" priority="2">
@@ -362,10 +362,10 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <!-- 
-     function:	topicref without @href templates
-     param:		none
-     return:	descendant topic contents
-     note:		Add page-break control.
+     function:  topicref without @href templates
+     param:     none
+     return:    descendant topic contents
+     note:      Add page-break control.
                 2014-09-13 t.makita
                 Newly added "processTopicrefWoHrefInFrontmatter" for easy customization.
                 2015-05-25 t.makita
@@ -427,10 +427,10 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <!-- 
-     function:	Process front matter's topicref
-     param:		none
-     return:	topic contents
-     note:		none
+     function:  Process front matter's topicref
+     param:     none
+     return:    topic contents
+     note:      none
      -->
     <xsl:template match="*[contains(@class,' map/topicref ')][@href]" mode="PROCESS_FRONTMATTER">
         <xsl:call-template name="processTopicRefWithHrefInFrontmatter"/>    
@@ -464,10 +464,10 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <!-- 
-     function:	Process frontmatter topic
-     param:		prmTopicRef, prmTitleMode
-     return:	topic contents
-     note:		Changed to output post-note per topic/body. 2011-07-28 t.makita
+     function:  Process frontmatter topic
+     param:     prmTopicRef, prmTitleMode
+     return:    topic contents
+     note:      Changed to output post-note per topic/body. 2011-07-28 t.makita
      -->
     <xsl:template match="*[contains(@class, ' topic/topic ')]" mode="OUTPUT_FRONTMATTER">
         <xsl:param name="prmTopicRef"    tunnel="yes" required="yes" as="element()"/>
@@ -560,11 +560,13 @@ E-mail : info@antennahouse.com
     </xsl:template>
 
     <!-- 
-     function:	Generate frontmatter topic break attribute
-     param:		prmTopicRef, prmTopicContent
-     return:	attribute()?
-     note:		Changed to output break attribute from topic/title to topic level.
+     function:  Generate frontmatter topic break attribute
+     param:     prmTopicRef, prmTopicContent
+     return:    attribute()?
+     note:      Changed to output break attribute from topic/title to topic level.
                 2014-09-13 t.makita
+                Add @outputclass page-break control.
+                2019-09-14 t.makita
      -->
     <xsl:template name="getFrontmatterTopicBreakAttr" as="attribute()*">
         <xsl:param name="prmTopicRef" as="element()" required="yes"/>
@@ -574,7 +576,7 @@ E-mail : info@antennahouse.com
         <xsl:variable name="level" 
                       as="xs:integer"
                       select="count($prmTopicRef/ancestor-or-self::*[contains(@class, ' map/topicref ')]
-                                                                      [not(contains(@class, ' bookmap/frontmatter '))])"/>
+                                                                    [not(contains(@class, ' bookmap/frontmatter '))])"/>
         <!-- top level topic -->
         <xsl:variable name="isTopLevelTopic" as="xs:boolean">
             <xsl:choose>
@@ -589,9 +591,21 @@ E-mail : info@antennahouse.com
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:variable>
+        <!-- @outputclass value -->
+        <xsl:variable name="outputClassVal" as="xs:string*" select="ahf:getOutputClass($prmTopicRef)"/>
+        
         <xsl:choose>
             <xsl:when test="not($isTopLevelTopic)">
                 <xsl:sequence select="()"/>
+            </xsl:when>
+            <xsl:when test="$outputClassVal = $ocBreakNo">
+                <xsl:sequence select="()"/>
+            </xsl:when>
+            <xsl:when test="$outputClassVal = $ocBreakColumn">
+                <xsl:copy-of select="ahf:getAttributeSet('atsBreakColumn')"/>        
+            </xsl:when>
+            <xsl:when test="$outputClassVal = $ocBreakPage">
+                <xsl:copy-of select="ahf:getAttributeSet('atsBreakPage')"/>        
             </xsl:when>
             <xsl:when test="$level eq 1">
                 <xsl:choose>

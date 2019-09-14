@@ -18,10 +18,10 @@ E-mail : info@antennahouse.com
  >
 
     <!-- 
-     function:	Generate main content, part, chapter or appendix
-     param:		none
-     return:	part, chapter contents
-     note:		Called from dita2fo_main.xsl
+     function:  Generate main content, part, chapter or appendix or map/topicref
+     param:     none
+     return:    part, chapter contents
+     note:      Called from dita2fo_main.xsl
      -->
     <xsl:template match="/*/*[contains(@class, ' map/map ')]
                            /*[contains(@class, ' map/topicref ')]
@@ -34,9 +34,9 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <!-- 
-     function:	Generate content fo:page-sequence from part or chapter
-     param:		none (curent is top-level topicref)
-     return:	fo:page-sequence
+     function:  Generate content fo:page-sequence from part, chapter or map/topicref
+     param:     none (curent is top-level topicref)
+     return:    fo:page-sequence
      note:      FIX: Page number bug. 2011-09-08 t.makita
      -->
     <xsl:template name="processChapterMain">
@@ -93,10 +93,10 @@ E-mail : info@antennahouse.com
     
     
     <!-- 
-     function:	Process topicref
-     param:		none
-     return:	fo:block
-     note:		none
+     function:  Process topicref
+     param:     none
+     return:    fo:block
+     note:      none
      -->
     <xsl:template match="*[contains(@class,' map/topicref ')][@href]" mode="PROCESS_TOPICREF">
     
@@ -133,10 +133,10 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <!-- 
-     function:	topichead templates
-     param:		none
-     return:	descendant topic contents
-     note:		Add title when $PRM_ADOPT_NAVTITLE='yes'.
+     function:  topichead templates
+     param:     none
+     return:    descendant topic contents
+     note:      Add title when $PRM_ADOPT_NAVTITLE='yes'.
                 2011-07-26 t.makita
                 Add page-break control.
                 2014-09-13 t.makita
@@ -209,10 +209,10 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <!-- 
-     function:	Process topic (part, chapter, appendix and nested topic)
-     param:		prmTitleMode
-     return:	topic contents
-     note:		Changed to output post-note per topic/body. 2011-07-28 t.makita
+     function:  Process topic (part, chapter, appendix and nested topic)
+     param:     prmTitleMode
+     return:    topic contents
+     note:      Changed to output post-note per topic/body. 2011-07-28 t.makita
                 Apply style and fo attribute in $prmTopicRef if topic is top level.
                 2014-09-13 t.makita
                 Move page-break control from topic/title to topic level.
@@ -307,11 +307,13 @@ E-mail : info@antennahouse.com
     </xsl:template>
 
     <!-- 
-     function:	Generate chapter topic break attribute
-     param:		prmTopicRef, prmTopicContent
-     return:	attribute()?
-     note:		Changed to output break attribute from topic/title to topic level.
+     function:  Generate chapter topic break attribute
+     param:     prmTopicRef, prmTopicContent
+     return:    attribute()?
+     note:      Changed to output break attribute from topic/title to topic level.
                 2014-09-13 t.makita
+                Add @outputclass page-break control.
+                2019-09-14 t.makita
      -->
     <xsl:template name="getChapterTopicBreakAttr" as="attribute()*">
         <xsl:param name="prmTopicRef" required="yes" as="element()"/>
@@ -333,33 +335,37 @@ E-mail : info@antennahouse.com
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:variable>
+        <!-- @outputclass value -->
+        <xsl:variable name="outputClassVal" as="xs:string*" select="ahf:getOutputClass($prmTopicRef)"/>
+
         <xsl:choose>
             <xsl:when test="not($isTopLevelTopic)">
                 <xsl:sequence select="()"/>
             </xsl:when>
+            <xsl:when test="$outputClassVal = $ocBreakNo">
+                <xsl:sequence select="()"/>
+            </xsl:when>
+            <xsl:when test="$outputClassVal = $ocBreakColumn">
+                <xsl:copy-of select="ahf:getAttributeSet('atsBreakColumn')"/>        
+            </xsl:when>
+            <xsl:when test="$outputClassVal = $ocBreakPage">
+                <xsl:copy-of select="ahf:getAttributeSet('atsBreakPage')"/>        
+            </xsl:when>
             <xsl:when test="$level eq 1">
                 <xsl:choose>
                     <xsl:when test="$pIsWebOutput">
-                        <xsl:call-template name="getAttributeSetWithLang">
-                            <xsl:with-param name="prmAttrSetName" select="'atsChapterBreak1Online'"/>
-                        </xsl:call-template>
+                        <xsl:copy-of select="ahf:getAttributeSet('atsChapterBreak1Online')"/>
                     </xsl:when>
                     <xsl:otherwise>
-                        <xsl:call-template name="getAttributeSetWithLang">
-                            <xsl:with-param name="prmAttrSetName" select="'atsChapterBreak1'"/>
-                        </xsl:call-template>
+                        <xsl:copy-of select="ahf:getAttributeSet('atsChapterBreak1')"/>
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:when>
             <xsl:when test="$level eq 2">    
-                <xsl:call-template name="getAttributeSetWithLang">
-                    <xsl:with-param name="prmAttrSetName" select="'atsChapterBreak2'"/>
-                </xsl:call-template>
+                <xsl:copy-of select="ahf:getAttributeSet('atsChapterBreak2')"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:call-template name="getAttributeSetWithLang">
-                    <xsl:with-param name="prmAttrSetName" select="'atsChapterBreak3'"/>
-                </xsl:call-template>
+                <xsl:copy-of select="ahf:getAttributeSet('atsChapterBreak3')"/>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
