@@ -89,11 +89,13 @@ E-mail : info@antennahouse.com
     <xsl:param name="PRM_USE_OID" required="no" as="xs:string" select="$cNo"/>
     <xsl:variable name="pUseOid" select="boolean($PRM_USE_OID eq $cYes)" as="xs:boolean"/>
 
-
     <!-- Format dl as block -->
-    <xsl:param name="PRM_FORMAT_DL_AS_BLOCK" required="no" as="xs:string" select="$cYes"/>
+    <!-- Drerecated. dlhead is honored when authored.
+         2019-09-22 t.makita
+    -->
+    <!--xsl:param name="PRM_FORMAT_DL_AS_BLOCK" required="no" as="xs:string" select="$cYes"/>
     <xsl:variable name="pFormatDlAsBlock" select="boolean($PRM_FORMAT_DL_AS_BLOCK eq $cYes)"
-        as="xs:boolean"/>
+        as="xs:boolean"/-->
 
     <!-- Honor toc="no" or not -->
     <!-- Deprecated. @toc must be honored in DITA 1.2

@@ -1884,52 +1884,48 @@ URL : http://www.antennahouse.com/
             <attribute-set name="atsSlItem">
                 <attribute name="space-before">$Para_Space_Before</attribute>
             </attribute-set>
+
             <!-- Ratio for sl/@compact: must be number -->
             <variable name="Sl_Compact_Ratio">0.1</variable>
             <variable name="Sl_Compact_Attr">space-before</variable>
 
             <!-- dl -->
-            <attribute-set name="atsDl">
-                <attribute name="start-indent">inherited-property-value(start-indent)+$Dl_Indent_Value</attribute>
-                <attribute name="space-before">$Para_Space_Before</attribute>
+            <attribute-set name="atsDlBlock">
+            </attribute-set>
+
+            <attribute-set name="atsDlTable" use-attribute-sets="atsTable">
                 <attribute name="table-layout">auto</attribute>
             </attribute-set>
 
-            <attribute-set name="atsDlhead" use-attribute-sets="atsB">
-                <attribute name="start-indent">0pt</attribute>
-                <!--attribute name="font-weight">bold</attribute-->
+            <attribute-set name="atsDlhead" use-attribute-sets="atsThead">
             </attribute-set>
 
-            <attribute-set name="atsDlbody">
-                <attribute name="start-indent">0pt</attribute>
+            <attribute-set name="atsDlbody" use-attribute-sets="atsTbody">
             </attribute-set>
 
-            <attribute-set name="atsDthd"> </attribute-set>
-
-            <attribute-set name="atsDdhd">
-                <attribute name="start-indent">$Dl_Dd_Indent_Value</attribute>
+            <attribute-set name="atsDthd" use-attribute-sets="atsTableHeaderCell">
+                <attribute name="border-style">solid</attribute>
             </attribute-set>
 
-            <attribute-set name="atsDlentry"></attribute-set>
+            <attribute-set name="atsDdhd" use-attribute-sets="atsTableHeaderCell">
+                <attribute name="border-style">solid</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsDlentryTable">
+            </attribute-set>
             
             <attribute-set name="atsDlentryBlock">
                 <attribute name="clear">both</attribute>
             </attribute-set>
             
-            <attribute-set name="atsDt" use-attribute-sets="atsB">
-                <attribute name="padding-before">$Para_Space_Before</attribute>
-                <!--attribute name="font-weight">bold</attribute-->
-            </attribute-set>
-
-            <attribute-set name="atsDlBlock"> </attribute-set>
-
-            <attribute-set name="atsDlentryBlock"> </attribute-set>
-
             <attribute-set name="atsDtBlock" use-attribute-sets="atsBTitle">
                 <attribute name="space-before">$Dl_Dt_Block_Space_Before</attribute>
                 <attribute name="font-family">$General_Title_Font</attribute>
-                <!--attribute name="font-weight">bold</attribute-->
                 <attribute name="keep-with-next">always</attribute>
+            </attribute-set>
+            
+            <attribute-set name="atsDtTable"  use-attribute-sets="atsTableBodyCell">
+                <attribute name="border-style">solid</attribute>
             </attribute-set>
 
             <attribute-set name="atsDdBlock">
@@ -1937,18 +1933,13 @@ URL : http://www.antennahouse.com/
                 <attribute name="start-indent">inherited-property-value(start-indent) + $Dl_Indent_Value</attribute>
             </attribute-set>
 
-
-
-            <!-- dt attribute when dl/dlhead exists -->
-            <attribute-set name="atsDtHasDlhead">
-                <attribute name="font-weight">normal</attribute>
+            <attribute-set name="atsDdTableCell" use-attribute-sets="atsTableBodyCell">
+                <attribute name="border-style">solid</attribute>
             </attribute-set>
-
-            <attribute-set name="atsDd">
-                <attribute name="padding-before">$Para_Space_Before</attribute>
-                <attribute name="start-indent">$Dl_Dd_Indent_Value</attribute>
+            
+            <attribute-set name="atsDdTable">
             </attribute-set>
-
+            
             <!-- Ratio for dl/@compact: must be number -->
             <variable name="Dl_Compact_Ratio">0.1</variable>
             <variable name="Dl_Compact_Ratio_Block_Dt">0.3</variable>
