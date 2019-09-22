@@ -12,7 +12,7 @@ V1.0.6
   ex.
   <fig outputclass="float-right/float-left/float-none">
 - Supports floatfig/@float="left" on ol/ul/step.
-- Support xref/@outputclass to control output.
+- Support xref/@outputclass to control output. You can customize the @outputclass value by changing style definition file description. 
   ex.
   <xref outputclass="title-and-page" href="[reference to topic]"/>
   <xref outputclass="title-only" href="[reference to topic]"/>
@@ -26,6 +26,8 @@ V1.0.6
   <topicref href="a.xml" outputclass="break-column"/>
   <topicref href="a.xml" outputclass="break-no"/>
   <topicref href="a.xml" outputclass="break-auto"/>
+  
+- Implement dl table formatting when dlhead is specified. 
   
 Apr. 2019
 V1.0.5

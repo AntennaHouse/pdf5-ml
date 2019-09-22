@@ -1893,7 +1893,7 @@ URL : http://www.antennahouse.com/
             <attribute-set name="atsDlBlock">
             </attribute-set>
 
-            <attribute-set name="atsDlTable" use-attribute-sets="atsTable">
+            <attribute-set name="atsDlTable" use-attribute-sets="atsTable atsTableBorderAll">
                 <attribute name="table-layout">auto</attribute>
             </attribute-set>
 
