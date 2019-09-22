@@ -336,6 +336,43 @@ URL : http://www.antennahouse.com/
         <variable name="Xref_Step_Prefix">step&#xA0;</variable>
         <variable name="Xref_Step_Substep_Separator">.</variable>
         
+        <!-- Xref output option -->
+        <variable name="optXrefToTopicTitleAndPage">title-page</variable>
+        <variable name="optXrefToTopicTitleOnly">title-only</variable>
+        <variable name="optXrefToTopicPageOnly">page-only</variable>
+        
+        <variable name="optXrefToSectionTitleAndPage">title-page</variable>>
+        <variable name="optXrefToSectionTitleOnly">title-only</variable>
+        <variable name="optXrefToSectionPageOnly">page-only</variable>
+
+        <variable name="optXrefToExampleTitleAndPage">title-page</variable>
+        <variable name="optXrefToExampleTitleOnly">title-only</variable>
+        <variable name="optXrefToExamplePageOnly">page-only</variable>
+        
+        <variable name="optXrefToStepNumberAndPage">number-page</variable>
+        <variable name="optXrefToStepNumberOnly">number-only</variable>
+        <variable name="optXrefToStepPageOnly">page-only</variable>
+
+        <variable name="optXrefToLiNumberAndPage">number-page</variable>
+        <variable name="optXrefToLiNumberOnly">number-only</variable>
+        <variable name="optXrefToLiPageOnly">page-only</variable>
+        
+        <variable name="optXrefToFigTitleAndPage">title-page</variable>
+        <variable name="optXrefToFigTitleOnly">title-only</variable>
+        <variable name="optXrefToFigPageOnly">page-only</variable>
+        
+        <variable name="optXrefToTableTitleAndPage">title-page</variable>
+        <variable name="optXrefToTableTitleOnly">title-only</variable>
+        <variable name="optXrefToTablePageOnly">page-only</variable>
+        
+        <variable name="optXrefToEquationBlockNumberAndPage">number-page</variable>
+        <variable name="optXrefToEquationBlockNumberOnly">number-only</variable>
+        <variable name="optXrefToEquationBlockPageOnly">page-only</variable>
+        
+        <variable name="optXrefToOtherTitleAndPage">title-page</variable>
+        <variable name="optXrefToOtherTitleOnly">title-only</variable>
+        <variable name="optXrefToOtherPageOnly">page-only</variable>
+        
         <!-- Draft-comment -->
         <variable name="Draft_Comment_Title_Prefix">[DRAFT-COMMENT </variable>
         <variable name="Draft_Comment_Author"> Author:</variable>

@@ -137,7 +137,10 @@ E-mail : info@antennahouse.com
         <xsl:param name="prmXref"          required="yes" as="element()"/>
         <xsl:param name="prmDestElement"   required="yes" as="element()?"/>
         
-        <xsl:variable name="hasUserText" as="xs:boolean" select="exists($prmXref/node()[1][self::processing-instruction(ditaot)][string(.) eq 'usertext'])"/>
+        <xsl:variable name="hasUserContent" as="xs:boolean" select="exists($prmXref/node()[1][self::processing-instruction(ditaot)][string(.) eq 'usertext'])"/>
+        <xsl:variable name="userContent" as="node()*">
+            <xsl:apply-templates select="$prmXref/node() except *[contains(@class,' topic/desc ')]" mode="GET_CONTENTS"/>
+        </xsl:variable>
         
         <xsl:choose>
             <!-- external link or no destination element
@@ -146,8 +149,8 @@ E-mail : info@antennahouse.com
               -->
             <xsl:when test="empty($prmDestElement)">
                 <xsl:choose>
-                    <xsl:when test="$hasUserText">
-                        <xsl:apply-templates select="$prmXref" mode="GET_CONTENTS"/>
+                    <xsl:when test="$hasUserContent">
+                        <xsl:copy-of select="$userContent"/>
                     </xsl:when>
                     <xsl:otherwise>
                         <xsl:value-of select="$prmXref/@href"/>
@@ -201,10 +204,10 @@ E-mail : info@antennahouse.com
                     </xsl:call-template>
                 </xsl:variable>
                 <xsl:choose>
-                    <xsl:when test="$hasUserText">
+                    <xsl:when test="$hasUserContent">
                         <fo:inline>
                             <xsl:copy-of select="$topicTitlePrefix"/>
-                            <xsl:apply-templates select="$prmXref/node() except *[contains(@class,' topic/desc ')]" mode="GET_CONTENTS"/>
+                            <xsl:copy-of select="$userContent"/>
                             <xsl:copy-of select="$topicTitleSuffix"/>
                         </fo:inline>
                     </xsl:when>
@@ -242,10 +245,10 @@ E-mail : info@antennahouse.com
                     </xsl:call-template>
                 </xsl:variable>
                 <xsl:choose>
-                    <xsl:when test="$hasUserText">
+                    <xsl:when test="$hasUserContent">
                         <fo:inline>
                             <xsl:copy-of select="$sectionTitlePrefix"/>
-                            <xsl:apply-templates select="$prmXref/node() except *[contains(@class,' topic/desc ')]" mode="GET_CONTENTS"/>
+                            <xsl:copy-of select="$userContent"/>
                             <xsl:copy-of select="$sectionTitleSuffix"/>
                         </fo:inline>
                     </xsl:when>
@@ -289,10 +292,10 @@ E-mail : info@antennahouse.com
                     </xsl:call-template>
                 </xsl:variable>
                 <xsl:choose>
-                    <xsl:when test="$hasUserText">
+                    <xsl:when test="$hasUserContent">
                         <fo:inline>
                             <xsl:copy-of select="$exampleTitlePrefix"/>
-                            <xsl:apply-templates select="$prmXref/node() except *[contains(@class,' topic/desc ')]" mode="GET_CONTENTS"/>
+                            <xsl:copy-of select="$userContent"/>
                             <xsl:copy-of select="$exampleTitleSuffix"/>
                         </fo:inline>
                     </xsl:when>
@@ -324,8 +327,8 @@ E-mail : info@antennahouse.com
             <!-- step/substep -->
             <xsl:when test="$prmDestElement[ahf:seqContains(@class, (' task/step ',' task/substep '))][ancestor::*[contains(@class,' task/steps ')]]">
                 <xsl:choose>
-                    <xsl:when test="$hasUserText">
-                        <xsl:apply-templates select="$prmXref/node() except *[contains(@class,' topic/desc ')]" mode="GET_CONTENTS"/>
+                    <xsl:when test="$hasUserContent">
+                        <xsl:copy-of select="$userContent"/>
                     </xsl:when>
                     <xsl:otherwise>
                         <!-- Prefix of step: "step" -->
@@ -372,8 +375,8 @@ E-mail : info@antennahouse.com
             <!-- ol/li -->
             <xsl:when test="$prmDestElement[contains(@class, ' topic/li ')][parent::*[contains(@class,' topic/ol ')]]">
                 <xsl:choose>
-                    <xsl:when test="$hasUserText">
-                        <xsl:apply-templates select="$prmXref/node() except *[contains(@class,' topic/desc ')]" mode="GET_CONTENTS"/>
+                    <xsl:when test="$hasUserContent">
+                        <xsl:copy-of select="$userContent"/>
                     </xsl:when>
                     <xsl:otherwise>
                         <!-- Prefix of ol -->
@@ -412,10 +415,10 @@ E-mail : info@antennahouse.com
                     </xsl:call-template>
                 </xsl:variable>
                 <xsl:choose>
-                    <xsl:when test="$hasUserText">
+                    <xsl:when test="$hasUserContent">
                         <fo:inline>
                             <xsl:copy-of select="$tableTitlePrefix"/>
-                            <xsl:apply-templates select="$prmXref/node() except *[contains(@class,' topic/desc ')]" mode="GET_CONTENTS"/>
+                            <xsl:copy-of select="$userContent"/>
                             <xsl:copy-of select="$tableTitleSuffix"/>
                         </fo:inline>
                     </xsl:when>
@@ -459,10 +462,10 @@ E-mail : info@antennahouse.com
                     </xsl:call-template>
                 </xsl:variable>
                 <xsl:choose>
-                    <xsl:when test="$hasUserText">
+                    <xsl:when test="$hasUserContent">
                         <fo:inline>
                             <xsl:copy-of select="$figTitlePrefix"/>
-                            <xsl:apply-templates select="$prmXref/node() except *[contains(@class,' topic/desc ')]" mode="GET_CONTENTS"/>
+                            <xsl:copy-of select="$userContent"/>
                             <xsl:copy-of select="$figTitleSuffix"/>
                         </fo:inline>
                     </xsl:when>
@@ -497,8 +500,8 @@ E-mail : info@antennahouse.com
                 <xsl:variable name="equationNumber" as="element()?" select="($prmDestElement/*[contains(@class, ' equation-d/equation-number ')])[1]"/>
                 <xsl:variable name="equtionNumberResult" as="node()*">
                     <xsl:choose>
-                        <xsl:when test="$hasUserText">
-                            <xsl:apply-templates select="$prmXref/node() except *[contains(@class,' topic/desc ')]" mode="GET_CONTENTS"/>
+                        <xsl:when test="$hasUserContent">
+                            <xsl:copy-of select="$userContent"/>
                         </xsl:when>
                         <xsl:when test="$pNumberEquationBlockUnconditionally and empty($equationNumber)">
                             <xsl:variable name="autoEquationNumber" as="xs:string">
@@ -583,9 +586,9 @@ E-mail : info@antennahouse.com
                     </xsl:call-template>
                 </xsl:variable>
                 <xsl:choose>
-                    <xsl:when test="$hasUserText">
+                    <xsl:when test="$hasUserContent">
                         <xsl:copy-of select="$otherTitlePrefix"/>
-                        <xsl:apply-templates select="$prmXref/node() except *[contains(@class,' topic/desc ')]" mode="GET_CONTENTS"/>
+                        <xsl:copy-of select="$userContent"/>
                         <xsl:copy-of select="$otherTitleSuffix"/>
                     </xsl:when>
                     <xsl:otherwise>
@@ -602,6 +605,7 @@ E-mail : info@antennahouse.com
             </xsl:when>
             
             <!-- Others: Adopt the content of xref itself if user supplied text exists.
+                         Otherwise adopt the destination element content
              -->
             <xsl:otherwise>
                 <xsl:variable name="otherTitlePrefix" as="text()?">
@@ -617,9 +621,9 @@ E-mail : info@antennahouse.com
                     </xsl:call-template>
                 </xsl:variable>
                 <xsl:choose>
-                    <xsl:when test="$hasUserText">
+                    <xsl:when test="$hasUserContent">
                         <xsl:copy-of select="$otherTitlePrefix"/>
-                        <xsl:apply-templates select="$prmXref/node() except *[contains(@class,' topic/desc ')]" mode="GET_CONTENTS"/>
+                        <xsl:copy-of select="$userContent"/>
                         <xsl:copy-of select="$otherTitleSuffix"/>
                     </xsl:when>
                     <xsl:otherwise>
@@ -627,7 +631,9 @@ E-mail : info@antennahouse.com
                             <xsl:with-param name="prmMes"
                                 select="ahf:replace($stMes035,('%id','%elem','%file'),(string($prmDestElement/@id),name($prmDestElement),string($prmDestElement/@xtrf)))"/>
                         </xsl:call-template>
-                        <xsl:sequence select="()"/>
+                        <xsl:copy-of select="$otherTitlePrefix"/>
+                        <xsl:apply-templates select="$prmDestElement" mode="GET_CONTENTS"/>
+                        <xsl:copy-of select="$otherTitleSuffix"/>
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:otherwise>
@@ -636,10 +642,10 @@ E-mail : info@antennahouse.com
     </xsl:template>
 
     <!-- 
-     function:	Generate attribute and contents for fo:basic-link
-     param:		prmTopicRef, prmNeedId, prmXref, prmDestElement, prmDestId, prmXrefTitle
-     return:	FO objects
-     note:		This template generates attribute() then content node (text() or other inline element).
+     function:  Generate attribute and contents for fo:basic-link
+     param:     prmTopicRef, prmNeedId, prmXref, prmDestElement, prmDestId, prmXrefTitle
+     return:    FO objects
+     note:      This template generates attribute() then content node (text() or other inline element).
                 Do not generate ant content node for fo:basic-link before calling this template.
      -->
     <xsl:template name="genXrefAttrAndTitle" as="node()*">
@@ -1065,9 +1071,10 @@ E-mail : info@antennahouse.com
         return:	  xs:string
         note:		Customizing this function make it possible to specify your own xref output option values.
     -->
-    <xsl:variable name="optXrefToTopicTitleAndPage" as="xs:string" select="'title-page'"/>
-    <xsl:variable name="optXrefToTopicTitleOnly" as="xs:string" select="'title-only'"/>
-    <xsl:variable name="optXrefToTopicPageOnly" as="xs:string" select="'page-only'"/>
+    <xsl:variable name="optXrefToTopicTitleAndPage" as="xs:string" select="ahf:getVarValue('optXrefToTopicTitleAndPage')"/>
+    <xsl:variable name="optXrefToTopicTitleOnly" as="xs:string" select="ahf:getVarValue('optXrefToTopicTitleOnly')"/>
+    <xsl:variable name="optXrefToTopicPageOnly" as="xs:string" select="ahf:getVarValue('optXrefToTopicPageOnly')"/>
+    
     <xsl:function name="ahf:getXrefToTopicOption" as="xs:string*">
         <xsl:param name="prmXref" as="element()"/>
         <xsl:choose>
@@ -1092,9 +1099,10 @@ E-mail : info@antennahouse.com
         return:	  xs:string
         note:		Customizing this function make it possible to specify your own xref output option values.
     -->
-    <xsl:variable name="optXrefToSectionTitleAndPage" as="xs:string" select="'title-page'"/>
-    <xsl:variable name="optXrefToSectionTitleOnly" as="xs:string" select="'title-only'"/>
-    <xsl:variable name="optXrefToSectionPageOnly" as="xs:string" select="'page-only'"/>
+    <xsl:variable name="optXrefToSectionTitleAndPage" as="xs:string" select="ahf:getVarValue('optXrefToSectionTitleAndPage')"/>
+    <xsl:variable name="optXrefToSectionTitleOnly" as="xs:string" select="ahf:getVarValue('optXrefToSectionTitleOnly')"/>
+    <xsl:variable name="optXrefToSectionPageOnly" as="xs:string" select="ahf:getVarValue('optXrefToSectionPageOnly')"/>
+
     <xsl:function name="ahf:getXrefToSectionOption" as="xs:string*">
         <xsl:param name="prmXref" as="element()"/>
         <xsl:choose>
@@ -1119,9 +1127,10 @@ E-mail : info@antennahouse.com
         return:	  xs:string
         note:		Customizing this function make it possible to specify your own xref output option values.
     -->
-    <xsl:variable name="optXrefToExampleTitleAndPage" as="xs:string" select="'title-page'"/>
-    <xsl:variable name="optXrefToExampleTitleOnly" as="xs:string" select="'title-only'"/>
-    <xsl:variable name="optXrefToExamplePageOnly" as="xs:string" select="'page-only'"/>
+    <xsl:variable name="optXrefToExampleTitleAndPage" as="xs:string" select="ahf:getVarValue('optXrefToExampleTitleAndPage')"/>
+    <xsl:variable name="optXrefToExampleTitleOnly" as="xs:string" select="ahf:getVarValue('optXrefToExampleTitleOnly')"/>
+    <xsl:variable name="optXrefToExamplePageOnly" as="xs:string" select="ahf:getVarValue('optXrefToExamplePageOnly')"/>
+
     <xsl:function name="ahf:getXrefToExampleOption" as="xs:string*">
         <xsl:param name="prmXref" as="element()"/>
         <xsl:choose>
@@ -1146,9 +1155,10 @@ E-mail : info@antennahouse.com
         return:	  xs:string
         note:		Customizing this function make it possible to specify your own xref output option values.
     -->
-    <xsl:variable name="optXrefToStepNumberAndPage" as="xs:string" select="'number-page'"/>
-    <xsl:variable name="optXrefToStepNumberOnly" as="xs:string" select="'number-only'"/>
-    <xsl:variable name="optXrefToStepPageOnly" as="xs:string" select="'page-only'"/>
+    <xsl:variable name="optXrefToStepNumberAndPage" as="xs:string" select="ahf:getVarValue('optXrefToStepNumberAndPage')"/>
+    <xsl:variable name="optXrefToStepNumberOnly" as="xs:string" select="ahf:getVarValue('optXrefToStepNumberOnly')"/>
+    <xsl:variable name="optXrefToStepPageOnly" as="xs:string" select="ahf:getVarValue('optXrefToStepPageOnly')"/>
+
     <xsl:function name="ahf:getXrefToStepOption" as="xs:string*">
         <xsl:param name="prmXref" as="element()"/>
         <xsl:choose>
@@ -1173,9 +1183,10 @@ E-mail : info@antennahouse.com
         return:	  xs:string
         note:		Customizing this function make it possible to specify your own xref output option values.
     -->
-    <xsl:variable name="optXrefToLiNumberAndPage" as="xs:string" select="'number-page'"/>
-    <xsl:variable name="optXrefToLiNumberOnly" as="xs:string" select="'number-only'"/>
-    <xsl:variable name="optXrefToLiPageOnly" as="xs:string" select="'page-only'"/>
+    <xsl:variable name="optXrefToLiNumberAndPage" as="xs:string" select="ahf:getVarValue('optXrefToLiNumberAndPage')"/>
+    <xsl:variable name="optXrefToLiNumberOnly" as="xs:string" select="ahf:getVarValue('optXrefToLiNumberOnly')"/>
+    <xsl:variable name="optXrefToLiPageOnly" as="xs:string" select="ahf:getVarValue('optXrefToLiPageOnly')"/>
+
     <xsl:function name="ahf:getXrefToLiOption" as="xs:string*">
         <xsl:param name="prmXref" as="element()"/>
         <xsl:choose>
@@ -1200,9 +1211,10 @@ E-mail : info@antennahouse.com
         return:	  xs:string
         note:		Customizing this function make it possible to specify your own xref output option values.
     -->
-    <xsl:variable name="optXrefToFigTitleAndPage" as="xs:string" select="'title-page'"/>
-    <xsl:variable name="optXrefToFigTitleOnly" as="xs:string" select="'title-only'"/>
-    <xsl:variable name="optXrefToFigPageOnly" as="xs:string" select="'page-only'"/>
+    <xsl:variable name="optXrefToFigTitleAndPage" as="xs:string" select="ahf:getVarValue('optXrefToFigTitleAndPage')"/>
+    <xsl:variable name="optXrefToFigTitleOnly" as="xs:string" select="ahf:getVarValue('optXrefToFigTitleOnly')"/>
+    <xsl:variable name="optXrefToFigPageOnly" as="xs:string" select="ahf:getVarValue('optXrefToFigPageOnly')"/>
+    
     <xsl:function name="ahf:getXrefToFigOption" as="xs:string*">
         <xsl:param name="prmXref" as="element()"/>
         <xsl:choose>
@@ -1230,6 +1242,7 @@ E-mail : info@antennahouse.com
     <xsl:variable name="optXrefToTableTitleAndPage" as="xs:string" select="'title-page'"/>
     <xsl:variable name="optXrefToTableTitleOnly" as="xs:string" select="'title-only'"/>
     <xsl:variable name="optXrefToTablePageOnly" as="xs:string" select="'page-only'"/>
+    
     <xsl:function name="ahf:getXrefToTableOption" as="xs:string*">
         <xsl:param name="prmXref" as="element()"/>
         <xsl:choose>
@@ -1257,6 +1270,7 @@ E-mail : info@antennahouse.com
     <xsl:variable name="optXrefToEquationBlockNumberAndPage" as="xs:string" select="'number-page'"/>
     <xsl:variable name="optXrefToEquationBlockNumberOnly" as="xs:string" select="'number-only'"/>
     <xsl:variable name="optXrefToEquationBlockPageOnly" as="xs:string" select="'page-only'"/>
+
     <xsl:function name="ahf:getXrefToEquationBlockOption" as="xs:string*">
         <xsl:param name="prmXref" as="element()"/>
         <xsl:choose>
@@ -1282,9 +1296,10 @@ E-mail : info@antennahouse.com
         return:	  xs:string
         note:		Customizing this function make it possible to specify your own xref output option values.
     -->
-    <xsl:variable name="optXrefToOtherTitleAndPage" as="xs:string" select="'title-page'"/>
-    <xsl:variable name="optXrefToOtherTitleOnly" as="xs:string" select="'title-only'"/>
-    <xsl:variable name="optXrefToOtherPageOnly" as="xs:string" select="'page-only'"/>
+    <xsl:variable name="optXrefToOtherTitleAndPage" as="xs:string" select="ahf:getVarValue('optXrefToOtherTitleAndPage')"/>
+    <xsl:variable name="optXrefToOtherTitleOnly" as="xs:string" select="ahf:getVarValue('optXrefToOtherTitleOnly')"/>
+    <xsl:variable name="optXrefToOtherPageOnly" as="xs:string" select="ahf:getVarValue('optXrefToOtherPageOnly')"/>
+
     <xsl:function name="ahf:getXrefToOtherOption" as="xs:string*">
         <xsl:param name="prmXref" as="element()"/>
         <xsl:choose>
