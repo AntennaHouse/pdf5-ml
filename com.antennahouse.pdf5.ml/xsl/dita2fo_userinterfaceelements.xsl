@@ -28,8 +28,6 @@ E-mail : info@antennahouse.com
     </xsl:template>    
 
     <xsl:template match="*[contains(@class,' ui-d/uicontrol ')]" priority="2">
-        <xsl:param name="prmGetContent" required="no" tunnel="yes" as="xs:boolean" select="false()"/>
-
         <xsl:if test="parent::*[contains(@class, ' ui-d/menucascade ')]">
             <!-- Child of menucascade -->
             <xsl:if test="preceding-sibling::*[contains(@class, ' ui-d/uicontrol ')]">
@@ -48,19 +46,9 @@ E-mail : info@antennahouse.com
                 <xsl:with-param name="prmVarName" select="'UiControl_Prefix'"/>
             </xsl:call-template>
             <fo:inline>
-                <xsl:choose>
-                    <xsl:when test="$prmGetContent">
-                        <xsl:call-template name="getAttributeSetWithLang">
-                            <xsl:with-param name="prmAttrSetName" select="'atsUiControl'"/>
-                        </xsl:call-template>
-                        <xsl:copy-of select="ahf:getUnivAtts(.,(),false())"/>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:call-template name="getAttributeSetWithLang"/>
-                        <xsl:call-template name="ahf:getUnivAtts"/>
-                        <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
-                    </xsl:otherwise>
-                </xsl:choose>
+                <xsl:call-template name="getAttributeSetWithLang"/>
+                <xsl:call-template name="ahf:getUnivAtts"/>
+                <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
                 <xsl:apply-templates/>
             </fo:inline>
             <xsl:call-template name="getVarValueWithLangAsText">
@@ -80,22 +68,10 @@ E-mail : info@antennahouse.com
     </xsl:template>    
     
     <xsl:template match="*[contains(@class,' ui-d/wintitle ')]" priority="2">
-        <xsl:param name="prmGetContent" required="no" tunnel="yes" as="xs:boolean" select="false()"/>
-
         <fo:inline>
-            <xsl:choose>
-                <xsl:when test="$prmGetContent">
-                    <xsl:call-template name="getAttributeSetWithLang">
-                        <xsl:with-param name="prmAttrSetName" select="'atsWinTitle'"/>
-                    </xsl:call-template>
-                    <xsl:copy-of select="ahf:getUnivAtts(.,(),false())"/>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:call-template name="getAttributeSetWithLang"/>
-                    <xsl:call-template name="ahf:getUnivAtts"/>
-                    <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
-                </xsl:otherwise>
-            </xsl:choose>
+            <xsl:call-template name="getAttributeSetWithLang"/>
+            <xsl:call-template name="ahf:getUnivAtts"/>
+            <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
             <xsl:apply-templates/>
         </fo:inline>
     </xsl:template>
@@ -111,22 +87,10 @@ E-mail : info@antennahouse.com
     </xsl:template>    
 
     <xsl:template match="*[contains(@class,' ui-d/menucascade ')]" priority="2">
-        <xsl:param name="prmGetContent" required="no" tunnel="yes" as="xs:boolean" select="false()"/>
-
         <fo:inline>
-            <xsl:choose>
-                <xsl:when test="$prmGetContent">
-                    <xsl:call-template name="getAttributeSetWithLang">
-                        <xsl:with-param name="prmAttrSetName" select="'atsMenuCascade'"/>
-                    </xsl:call-template>
-                    <xsl:copy-of select="ahf:getUnivAtts(.,(),false())"/>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:call-template name="getAttributeSetWithLang"/>
-                    <xsl:call-template name="ahf:getUnivAtts"/>
-                    <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
-                </xsl:otherwise>
-            </xsl:choose>
+            <xsl:call-template name="getAttributeSetWithLang"/>
+            <xsl:call-template name="ahf:getUnivAtts"/>
+            <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
             <xsl:apply-templates/>
         </fo:inline>
     </xsl:template>
@@ -142,21 +106,10 @@ E-mail : info@antennahouse.com
     </xsl:template>    
     
     <xsl:template match="*[contains(@class,' ui-d/shortcut ')]" priority="2">
-        <xsl:param name="prmGetContent" required="no" tunnel="yes" as="xs:boolean" select="false()"/>
         <fo:inline>
-            <xsl:choose>
-                <xsl:when test="$prmGetContent">
-                    <xsl:call-template name="getAttributeSetWithLang">
-                        <xsl:with-param name="prmAttrSetName" select="'atsShortcut'"/>
-                    </xsl:call-template>
-                    <xsl:copy-of select="ahf:getUnivAtts(.,(),false())"/>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:call-template name="getAttributeSetWithLang"/>
-                    <xsl:call-template name="ahf:getUnivAtts"/>
-                    <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
-                </xsl:otherwise>
-            </xsl:choose>
+            <xsl:call-template name="getAttributeSetWithLang"/>
+            <xsl:call-template name="ahf:getUnivAtts"/>
+            <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
             <xsl:apply-templates/>
         </fo:inline>
     </xsl:template>

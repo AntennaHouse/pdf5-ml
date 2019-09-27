@@ -176,6 +176,7 @@
         <xsl:param name="prmBrandType" as="xs:string?" required="no" select="$defaultBrandType"/>
         <xsl:param name="prmDoInherit" as="xs:boolean" required="no" select="false()"/>
         <xsl:param name="prmRequiredProperty" tunnel="yes" as="xs:string*" required="no" select="()"/>
+        <xsl:param name="prmGetContent" required="no" tunnel="yes" as="xs:boolean" select="false()"/>
         
         <xsl:variable name="curXmlLang" as="xs:string" select="ahf:getCurrentXmlLang($prmElem)"/>
         
@@ -194,6 +195,9 @@
         <!-- Inherited style sequence -->
         <xsl:variable name="inheritedStyles" as="xs:string*">
             <xsl:choose>
+                <xsl:when test="$prmGetContent">
+                    <xsl:sequence select="()"/>
+                </xsl:when>
                 <xsl:when test="(ahf:isXmlLangChanged($prmElem) and (empty($prmAttrSetName) or (exists($prmAttrSetName) and $prmDoInherit))) or $prmDoInherit">
                     <xsl:call-template name="ahf:getAncestorStyleNames">
                         <xsl:with-param name="prmElem" select="$prmElem"/>
