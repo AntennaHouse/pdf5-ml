@@ -515,7 +515,8 @@ E-mail : info@antennahouse.com
      function:  sl template
      param:	    
      return:    fo:list-block
-     note:      none
+     note:      Implement GET_CONTENT mode to prevent missing required parameter in processSlSli.
+                2019-09-27 t.makita
      -->
     <xsl:template match="*[contains(@class, ' topic/sl ')]" mode="MODE_GET_STYLE" as="xs:string*">
         <xsl:sequence select="'atsSl'"/>
@@ -532,13 +533,30 @@ E-mail : info@antennahouse.com
             </xsl:apply-templates>
         </fo:list-block>
     </xsl:template>
+
+    <xsl:template match="*[contains(@class,' topic/sl ')]/*[contains(@class,' topic/sli ')]">
+        <xsl:param name="prmGetContent" required="no" tunnel="yes" as="xs:boolean" select="false()"/>
+        <xsl:choose>
+            <xsl:when test="$prmGetContent">
+                <xsl:call-template name="processSlSliGetContent"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:call-template name="processSlSli"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
     
+    <xsl:template name="processSlSliGetContent">
+        <fo:inline>
+            <xsl:apply-templates/>
+        </fo:inline>
+    </xsl:template>
     
     <xsl:template match="*[contains(@class, ' topic/sl ')]/*[contains(@class,' topic/sli ')]" mode="MODE_GET_STYLE" as="xs:string*">
         <xsl:sequence select="'atsSlItem'"/>
     </xsl:template>
     
-    <xsl:template match="*[contains(@class,' topic/sl ')]/*[contains(@class,' topic/sli ')]">
+    <xsl:template name="processSlSli">
         <xsl:param name="prmDoCompact" required="yes" tunnel="yes" as="xs:boolean"/>
         
         <fo:list-item>
