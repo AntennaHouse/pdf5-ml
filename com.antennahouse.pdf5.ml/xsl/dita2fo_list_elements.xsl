@@ -84,6 +84,8 @@ E-mail : info@antennahouse.com
                 (2011-10-24 t.makita)
                 Call "processOlLi" for overriding from other plug-ins.
                 2015-08-25 t.makita
+                Implement GET_CONTENT mode to prevent missing required parameter in processOlLi.
+                2019-09-27 t.makita
      -->
     <xsl:template match="*[contains(@class, ' topic/ol ')]/*[contains(@class,' topic/li ')]" mode="MODE_GET_STYLE" as="xs:string*">
         <xsl:variable name="hasFloatFigLeft" as="xs:boolean" select="exists(parent::*/*[contains(@class,' topic/li ')]//*[ahf:isFloatFigure(.)][ahf:getFloatSpec(.) = 'left'])"/>
@@ -95,9 +97,23 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <xsl:template match="*[contains(@class,' topic/ol ')]/*[contains(@class,' topic/li ')]">
-        <xsl:call-template name="processOlLi"/>
+        <xsl:param name="prmGetContent" required="no" tunnel="yes" as="xs:boolean" select="false()"/>
+        <xsl:choose>
+            <xsl:when test="$prmGetContent">
+                <xsl:call-template name="processOlLiGetContent"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:call-template name="processOlLi"/>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
-    
+
+    <xsl:template name="processOlLiGetContent">
+        <fo:inline>
+            <xsl:apply-templates/>
+        </fo:inline>
+    </xsl:template>
+
     <xsl:template name="processOlLi">
         <xsl:param name="prmNumberFormat" tunnel="yes" required="yes" as="xs:string"/>
         <xsl:param name="prmHasFloatFigLeft" tunnel="yes" required="yes" as="xs:boolean"/>
@@ -311,6 +327,8 @@ E-mail : info@antennahouse.com
                 Add support for floating left figure.
                 Generate fo:list-blck per li.
                 2019-05-08 t.makita
+                Implement GET_CONTENT mode to prevent missing required parameter in processUlLi.
+                2019-09-27 t.makita
      -->
     <xsl:template match="*[contains(@class, ' topic/ul ')]/*[contains(@class,' topic/li ')]" mode="MODE_GET_STYLE" as="xs:string*">
         <xsl:variable name="hasFloatFigLeft" as="xs:boolean" select="exists(parent::*/*[contains(@class,' topic/li ')]//*[ahf:isFloatFigure(.)][ahf:getFloatSpec(.) = 'left'])"/>
@@ -322,9 +340,23 @@ E-mail : info@antennahouse.com
     </xsl:template>
 
     <xsl:template match="*[contains(@class,' topic/ul ')]/*[contains(@class,' topic/li ')]">
-        <xsl:call-template name="processUlLi"/>
+        <xsl:param name="prmGetContent" required="no" tunnel="yes" as="xs:boolean" select="false()"/>
+        <xsl:choose>
+            <xsl:when test="$prmGetContent">
+                <xsl:call-template name="processUlLiGetContent"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:call-template name="processUlLi"/>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     
+    <xsl:template name="processUlLiGetContent">
+        <fo:inline>
+            <xsl:apply-templates/>
+        </fo:inline>
+    </xsl:template>    
+
     <xsl:template name="processUlLi">
         <xsl:param name="prmUlLabelChar" tunnel="yes" required="yes" as="xs:string"/>
         <xsl:param name="prmHasFloatFigLeft" tunnel="yes" required="yes" as="xs:boolean"/>
