@@ -469,32 +469,4 @@ E-mail : info@antennahouse.com
         </xsl:choose>
     </xsl:template>
     
-    
-    <!-- 
-     function: Dump indexterm sorted data
-     param:    none
-     return:   none
-     note:     none
-    -->
-    <xsl:template name="dumpIndexterm">
-        <xsl:for-each select="$indextermSorted/index-data">
-        <!--xsl:for-each select="$indextermOrigin/index-data"-->
-            <xsl:message>[dumpIndexterm] seq='<xsl:value-of select="position()"/>'</xsl:message>
-            <xsl:message>[dumpIndexterm]   id='<xsl:value-of select="@id"/>'</xsl:message>
-            <xsl:message>[dumpIndexterm]   label='<xsl:value-of select="@group-label"/>'</xsl:message>
-            <xsl:message>[dumpIndexterm]   indexkey='<xsl:value-of select="@indexkey"/>'</xsl:message>
-            <xsl:message>[dumpIndexterm]   level='<xsl:value-of select="@level"/>'</xsl:message>
-            <xsl:message>[dumpIndexterm]   see='<xsl:value-of select="@see"/>'</xsl:message>
-            <xsl:message>[dumpIndexterm]   seekey='<xsl:value-of select="@seekey"/>'</xsl:message>
-            <xsl:message>[dumpIndexterm]   seealso='<xsl:value-of select="@seealso"/>'</xsl:message>
-            <xsl:message>[dumpIndexterm]   seealsokey='<xsl:value-of select="@seealsokey"/>'</xsl:message>
-            <xsl:message>[dumpIndexterm]   nestedindexterm='<xsl:value-of select="@nestedindexterm"/>'</xsl:message>
-            <xsl:for-each select="./indexterm">
-                <xsl:message>[dumpIndexterm]   sub-seq='<xsl:value-of select="position()"/>'</xsl:message>
-                <xsl:message>[dumpIndexterm]     sortas='<xsl:value-of select="@sortas"/>'</xsl:message>
-                <xsl:message>[dumpIndexterm]     indexterm='<xsl:value-of select="text()"/>'</xsl:message>
-            </xsl:for-each>
-        </xsl:for-each>
-    </xsl:template>
-
 </xsl:stylesheet>

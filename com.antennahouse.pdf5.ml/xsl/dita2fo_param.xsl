@@ -309,5 +309,11 @@ E-mail : info@antennahouse.com
     <xsl:param name="PRM_OUTPUT_TABLE_FOOTER_CONTINUED" as="xs:string" select="$cNo"/>
     <xsl:variable name="pOutputTableFooterContinued" as="xs:boolean" select="$PRM_OUTPUT_TABLE_FOOTER_CONTINUED eq $cYes"/>
     <xsl:variable name="pNotOutputTableFooterContinued" as="xs:boolean" select="not($pOutputTableFooterContinued)"/>
+
+    <!-- Debug index middle file
+         2019-09-29 t.makita
+     -->
+    <xsl:param name="PRM_DEBUG_INDEX" required="no" as="xs:string" select="$cNo"/>
+    <xsl:variable name="pDebugIndex" as="xs:boolean" select="$PRM_DEBUG_INDEX eq $cYes"/>
     
 </xsl:stylesheet>
