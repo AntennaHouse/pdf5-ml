@@ -563,25 +563,6 @@ E-mail : info@antennahouse.com
             </xsl:call-template>
         </xsl:if>
         
-        <xsl:if test="$pDebugIndex">
-            <xsl:call-template name="warningContinue">
-                <xsl:with-param name="prmMes" select="$stMes601"/>
-            </xsl:call-template>
-            <!--xsl:result-document href="{concat($pOutputDirUrl,$pInputMapName,'_index_input.xml')}" encoding="UTF-8" byte-order-mark="no" indent="yes">
-                <index-input>
-                    <xsl:copy-of select="$indextermOrigin"/>
-                </index-input>
-            </xsl:result-document-->
-            <xsl:result-document href="{concat($pOutputDirUrl,$pInputMapName,'_index_out.xml')}" encoding="UTF-8" byte-order-mark="no" indent="yes">
-                <index-output>
-                    <xsl:apply-templates select="$indextermSorted//*" mode="MODE_INDEX_DEBUG"/>
-                </index-output>
-            </xsl:result-document>
-            <xsl:call-template name="warningContinue">
-                <xsl:with-param name="prmMes" select="$stMes602"/>
-            </xsl:call-template>
-        </xsl:if>
-        
         <xsl:if test="$indextermSortedCount &gt; 0">
             <fo:page-sequence>
                 <xsl:copy-of select="ahf:getAttributeSet('atsPageSeqIndex')"/>
@@ -1761,7 +1742,7 @@ E-mail : info@antennahouse.com
             encoding="UTF-8" 
             byte-order-mark="no"
             indent="yes"
-            href="$indextermOrigin.xml">
+            href="{concat($pOutputDirUrl,'$indextermOrigin.xml')}">
             <root>
                 <xsl:copy-of select="$indextermOrigin"/>
             </root>
@@ -1771,7 +1752,7 @@ E-mail : info@antennahouse.com
             encoding="UTF-8" 
             byte-order-mark="no"
             indent="yes"
-            href="$indextermSorted.xml">
+            href="{concat($pOutputDirUrl,'$indextermSorted.xml')}">
             <root>
                 <xsl:copy-of select="$indextermSorted"/>
             </root>
