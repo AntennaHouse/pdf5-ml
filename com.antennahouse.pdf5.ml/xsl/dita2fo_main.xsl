@@ -58,6 +58,9 @@ E-mail : info@antennahouse.com
         <!--xsl:call-template name="dumpFigureMap"/-->
         <!--xsl:call-template name="dumpTableMap"/-->
     <xsl:template match="/">
+        <xsl:if test="$pDebugIndex">
+            <xsl:call-template name="indexDump"/>
+        </xsl:if>
         <xsl:if test="$pDebugStyle">
             <xsl:call-template name="stlyeDump"/>
         </xsl:if>

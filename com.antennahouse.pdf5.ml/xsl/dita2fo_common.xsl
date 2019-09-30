@@ -51,11 +51,35 @@ E-mail : info@antennahouse.com
     <xsl:template match="*" mode="GET_CONTENTS">
         <fo:inline>
             <xsl:copy-of select="ahf:getUnivAtts(.,(),false())"/>
-            <xsl:apply-templates>
-                <xsl:with-param name="prmTopicRef" tunnel="yes" select="()"/>
-                <xsl:with-param name="prmNeedId"   tunnel="yes" select="false()"/>
-                <xsl:with-param name="prmGetContent" tunnel="yes" select="true()"/>
-            </xsl:apply-templates>
+            <xsl:for-each select="child::node()">
+                <xsl:variable name="node" as="node()" select="."/>
+                <xsl:choose>
+                    <xsl:when test="$node instance of element()">
+                        <xsl:choose>
+                            <xsl:when test="ahf:isInlineElement($node treat as element())">
+                                <xsl:apply-templates select="$node">
+                                    <xsl:with-param name="prmTopicRef" tunnel="yes" select="()"/>
+                                    <xsl:with-param name="prmNeedId"   tunnel="yes" select="false()"/>
+                                    <xsl:with-param name="prmGetContent" tunnel="yes" select="true()"/>
+                                </xsl:apply-templates>
+                            </xsl:when>
+                            <xsl:when test="ahf:isIgnorebleElement($node treat as element())">
+                                <xsl:sequence select="()"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <!-- Possible non-inline element -->
+                                <xsl:apply-templates select="$node" mode="#current"/>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:when>
+                    <xsl:when test="$node instance of text()">
+                        <xsl:copy-of select="$node"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:sequence select="()"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:for-each>
         </fo:inline>
     </xsl:template>
     

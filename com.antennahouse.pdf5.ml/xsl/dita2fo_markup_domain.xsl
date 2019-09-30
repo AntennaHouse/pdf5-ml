@@ -34,22 +34,10 @@
     </xsl:template>
     
     <xsl:template name="processMarkupName">
-        <xsl:param name="prmGetContent" required="no" tunnel="yes" as="xs:boolean" select="false()"/>
-
         <fo:inline>
-            <xsl:choose>
-                <xsl:when test="$prmGetContent">
-                    <xsl:call-template name="getAttributeSetWithLang">
-                        <xsl:with-param name="prmAttrSetName" select="'atsMarkupName'"/>
-                    </xsl:call-template>
-                    <xsl:copy-of select="ahf:getUnivAtts(.,(),false())"/>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:call-template name="getAttributeSetWithLang"/>
-                    <xsl:call-template name="ahf:getUnivAtts"/>
-                    <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
-                </xsl:otherwise>
-            </xsl:choose>
+            <xsl:call-template name="getAttributeSetWithLang"/>
+            <xsl:call-template name="ahf:getUnivAtts"/>
+            <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
             <xsl:apply-templates/>
         </fo:inline>
     </xsl:template>

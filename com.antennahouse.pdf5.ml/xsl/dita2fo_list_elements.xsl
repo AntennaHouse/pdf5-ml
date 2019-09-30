@@ -97,21 +97,7 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <xsl:template match="*[contains(@class,' topic/ol ')]/*[contains(@class,' topic/li ')]">
-        <xsl:param name="prmGetContent" required="no" tunnel="yes" as="xs:boolean" select="false()"/>
-        <xsl:choose>
-            <xsl:when test="$prmGetContent">
-                <xsl:call-template name="processOlLiGetContent"/>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:call-template name="processOlLi"/>
-            </xsl:otherwise>
-        </xsl:choose>
-    </xsl:template>
-
-    <xsl:template name="processOlLiGetContent">
-        <fo:inline>
-            <xsl:apply-templates/>
-        </fo:inline>
+        <xsl:call-template name="processOlLi"/>
     </xsl:template>
 
     <xsl:template name="processOlLi">
@@ -340,22 +326,8 @@ E-mail : info@antennahouse.com
     </xsl:template>
 
     <xsl:template match="*[contains(@class,' topic/ul ')]/*[contains(@class,' topic/li ')]">
-        <xsl:param name="prmGetContent" required="no" tunnel="yes" as="xs:boolean" select="false()"/>
-        <xsl:choose>
-            <xsl:when test="$prmGetContent">
-                <xsl:call-template name="processUlLiGetContent"/>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:call-template name="processUlLi"/>
-            </xsl:otherwise>
-        </xsl:choose>
+        <xsl:call-template name="processUlLi"/>
     </xsl:template>
-    
-    <xsl:template name="processUlLiGetContent">
-        <fo:inline>
-            <xsl:apply-templates/>
-        </fo:inline>
-    </xsl:template>    
 
     <xsl:template name="processUlLi">
         <xsl:param name="prmUlLabelChar" tunnel="yes" required="yes" as="xs:string"/>
@@ -535,21 +507,7 @@ E-mail : info@antennahouse.com
     </xsl:template>
 
     <xsl:template match="*[contains(@class,' topic/sl ')]/*[contains(@class,' topic/sli ')]">
-        <xsl:param name="prmGetContent" required="no" tunnel="yes" as="xs:boolean" select="false()"/>
-        <xsl:choose>
-            <xsl:when test="$prmGetContent">
-                <xsl:call-template name="processSlSliGetContent"/>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:call-template name="processSlSli"/>
-            </xsl:otherwise>
-        </xsl:choose>
-    </xsl:template>
-    
-    <xsl:template name="processSlSliGetContent">
-        <fo:inline>
-            <xsl:apply-templates/>
-        </fo:inline>
+        <xsl:call-template name="processSlSli"/>
     </xsl:template>
     
     <xsl:template match="*[contains(@class, ' topic/sl ')]/*[contains(@class,' topic/sli ')]" mode="MODE_GET_STYLE" as="xs:string*">

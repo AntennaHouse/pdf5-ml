@@ -28,8 +28,6 @@ E-mail : info@antennahouse.com
                   A process generating an online page might emit the surface form as a hover tooltip on every instance of the term.
                   
                   Change the abbreviated-form count range to document level (with map & topic).
-                  Implement $prmGetContent processing.
-                  2019-04-02 t.makita
      -->
     <xsl:template match="*[contains(@class,' abbrev-d/abbreviated-form ')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
         <xsl:sequence select="'atsXref'"/>
@@ -37,7 +35,6 @@ E-mail : info@antennahouse.com
 
     <xsl:template match="*[contains(@class,' abbrev-d/abbreviated-form ')]" priority="2">
         <xsl:param name="prmTopicRef" tunnel="yes" required="yes"  as="element()?"/>
-        <xsl:param name="prmGetContent" required="no" tunnel="yes" as="xs:boolean" select="false()"/>
         
         <xsl:variable name="abbreviatedForm" as="element()" select="."/>
         <xsl:variable name="href" as="xs:string" select="string(@href)"/>
@@ -69,23 +66,13 @@ E-mail : info@antennahouse.com
             <xsl:when test="not(contains($topicElement/@class,' glossentry/glossentry '))">
                 <fo:basic-link>
                     <xsl:copy-of select="$destAttr"/>
-                    <xsl:choose>
-                        <xsl:when test="$prmGetContent">
-                            <xsl:call-template name="getAttributeSetWithLang">
-                                <xsl:with-param name="prmAttrSetName" select="'atsXref'"/>
-                            </xsl:call-template>
-                            <xsl:copy-of select="ahf:getUnivAtts(.,(),false())"/>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <xsl:call-template name="getAttributeSetWithLang">
-                                <xsl:with-param name="prmAttrSetName" select="'atsXref'"/>
-                                <xsl:with-param name="prmElem" select="$topicElement/*[contains(@class, ' topic/title ')]"/>
-                                <xsl:with-param name="prmDoInherit" select="true()"/>
-                            </xsl:call-template>
-                            <xsl:call-template name="ahf:getUnivAtts"/>
-                            <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
-                        </xsl:otherwise>
-                    </xsl:choose>
+                    <xsl:call-template name="getAttributeSetWithLang">
+                        <xsl:with-param name="prmAttrSetName" select="'atsXref'"/>
+                        <xsl:with-param name="prmElem" select="$topicElement/*[contains(@class, ' topic/title ')]"/>
+                        <xsl:with-param name="prmDoInherit" select="true()"/>
+                    </xsl:call-template>
+                    <xsl:call-template name="ahf:getUnivAtts"/>
+                    <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
                     <xsl:apply-templates select="$topicElement/*[contains(@class, ' topic/title ')]" mode="GET_CONTENTS"/>
                 </fo:basic-link>
             </xsl:when>
@@ -99,23 +86,13 @@ E-mail : info@antennahouse.com
                     <xsl:when test="exists($glossSurfaceFormElem)">
                         <fo:basic-link>
                             <xsl:copy-of select="$destAttr"/>
-                            <xsl:choose>
-                                <xsl:when test="$prmGetContent">
-                                    <xsl:call-template name="getAttributeSetWithLang">
-                                        <xsl:with-param name="prmAttrSetName" select="'atsXref'"/>
-                                    </xsl:call-template>
-                                    <xsl:copy-of select="ahf:getUnivAtts(.,(),false())"/>
-                                </xsl:when>
-                                <xsl:otherwise>
-                                    <xsl:call-template name="getAttributeSetWithLang">
-                                        <xsl:with-param name="prmAttrSetName" select="'atsXref'"/>
-                                        <xsl:with-param name="prmElem" select="$glossSurfaceFormElem"/>
-                                        <xsl:with-param name="prmDoInherit" select="true()"/>
-                                    </xsl:call-template>
-                                    <xsl:call-template name="ahf:getUnivAtts"/>
-                                    <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
-                                </xsl:otherwise>
-                            </xsl:choose>
+                            <xsl:call-template name="getAttributeSetWithLang">
+                                <xsl:with-param name="prmAttrSetName" select="'atsXref'"/>
+                                <xsl:with-param name="prmElem" select="$glossSurfaceFormElem"/>
+                                <xsl:with-param name="prmDoInherit" select="true()"/>
+                            </xsl:call-template>
+                            <xsl:call-template name="ahf:getUnivAtts"/>
+                            <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
                             <xsl:apply-templates select="$glossSurfaceFormElem" mode="GET_CONTENTS"/>
                         </fo:basic-link>
                     </xsl:when>
@@ -123,23 +100,13 @@ E-mail : info@antennahouse.com
                         <xsl:variable name="glossTerm" as="element()" select="$topicElement/*[contains(@class, ' glossentry/glossterm ')][1]"/>
                         <fo:basic-link>
                             <xsl:copy-of select="$destAttr"/>
-                            <xsl:choose>
-                                <xsl:when test="$prmGetContent">
-                                    <xsl:call-template name="getAttributeSetWithLang">
-                                        <xsl:with-param name="prmAttrSetName" select="'atsXref'"/>
-                                    </xsl:call-template>
-                                    <xsl:copy-of select="ahf:getUnivAtts(.,(),false())"/>
-                                </xsl:when>
-                                <xsl:otherwise>
-                                    <xsl:call-template name="getAttributeSetWithLang">
-                                        <xsl:with-param name="prmAttrSetName" select="'atsXref'"/>
-                                        <xsl:with-param name="prmElem" select="$glossTerm"/>
-                                        <xsl:with-param name="prmDoInherit" select="true()"/>
-                                    </xsl:call-template>
-                                    <xsl:call-template name="ahf:getUnivAtts"/>
-                                    <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
-                                </xsl:otherwise>
-                            </xsl:choose>
+                            <xsl:call-template name="getAttributeSetWithLang">
+                                <xsl:with-param name="prmAttrSetName" select="'atsXref'"/>
+                                <xsl:with-param name="prmElem" select="$glossTerm"/>
+                                <xsl:with-param name="prmDoInherit" select="true()"/>
+                            </xsl:call-template>
+                            <xsl:call-template name="ahf:getUnivAtts"/>
+                            <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
                             <xsl:apply-templates select="$glossTerm" mode="GET_CONTENTS"/>
                         </fo:basic-link>
                     </xsl:otherwise>
@@ -175,23 +142,13 @@ E-mail : info@antennahouse.com
                 </xsl:variable>
                 <fo:basic-link>
                     <xsl:copy-of select="$destAttr"/>
-                    <xsl:choose>
-                        <xsl:when test="$prmGetContent">
-                            <xsl:call-template name="getAttributeSetWithLang">
-                                <xsl:with-param name="prmAttrSetName" select="'atsXref'"/>
-                            </xsl:call-template>
-                            <xsl:copy-of select="ahf:getUnivAtts(.,(),false())"/>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <xsl:call-template name="getAttributeSetWithLang">
-                                <xsl:with-param name="prmAttrSetName" select="'atsXref'"/>
-                                <xsl:with-param name="prmElem" select="$glossAltElem"/>
-                                <xsl:with-param name="prmDoInherit" select="true()"/>
-                            </xsl:call-template>
-                            <xsl:call-template name="ahf:getUnivAtts"/>
-                            <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
-                        </xsl:otherwise>
-                    </xsl:choose>
+                    <xsl:call-template name="getAttributeSetWithLang">
+                        <xsl:with-param name="prmAttrSetName" select="'atsXref'"/>
+                        <xsl:with-param name="prmElem" select="$glossAltElem"/>
+                        <xsl:with-param name="prmDoInherit" select="true()"/>
+                    </xsl:call-template>
+                    <xsl:call-template name="ahf:getUnivAtts"/>
+                    <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
                     <xsl:apply-templates select="$glossAltElem" mode="GET_CONTENTS"/>
                 </fo:basic-link>
             </xsl:otherwise>
