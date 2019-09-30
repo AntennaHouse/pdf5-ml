@@ -89,11 +89,13 @@ E-mail : info@antennahouse.com
     <xsl:param name="PRM_USE_OID" required="no" as="xs:string" select="$cNo"/>
     <xsl:variable name="pUseOid" select="boolean($PRM_USE_OID eq $cYes)" as="xs:boolean"/>
 
-
     <!-- Format dl as block -->
-    <xsl:param name="PRM_FORMAT_DL_AS_BLOCK" required="no" as="xs:string" select="$cYes"/>
+    <!-- Drerecated. dlhead is honored when authored.
+         2019-09-22 t.makita
+    -->
+    <!--xsl:param name="PRM_FORMAT_DL_AS_BLOCK" required="no" as="xs:string" select="$cYes"/>
     <xsl:variable name="pFormatDlAsBlock" select="boolean($PRM_FORMAT_DL_AS_BLOCK eq $cYes)"
-        as="xs:boolean"/>
+        as="xs:boolean"/-->
 
     <!-- Honor toc="no" or not -->
     <!-- Deprecated. @toc must be honored in DITA 1.2
@@ -236,6 +238,12 @@ E-mail : info@antennahouse.com
     <xsl:variable name="pOutputType" as="xs:string" select="$PRM_OUTPUT_TYPE"/>
     <xsl:variable name="pIsWebOutput" as="xs:boolean" select="$pOutputType eq 'web'"/>
     <xsl:variable name="pIsPrintOutput" as="xs:boolean" select="not($pIsWebOutput)"/>
+
+    <!-- Brand type
+         Possible value: none
+     -->
+    <xsl:param name="PRM_BRAND_TYPE" as="xs:string?" required="no" select="()"/>
+    <xsl:variable name="pBrandType" as="xs:string?" select="$PRM_BRAND_TYPE"/>
     
     <!-- Support floating fig
          This function is experimental
@@ -301,5 +309,11 @@ E-mail : info@antennahouse.com
     <xsl:param name="PRM_OUTPUT_TABLE_FOOTER_CONTINUED" as="xs:string" select="$cNo"/>
     <xsl:variable name="pOutputTableFooterContinued" as="xs:boolean" select="$PRM_OUTPUT_TABLE_FOOTER_CONTINUED eq $cYes"/>
     <xsl:variable name="pNotOutputTableFooterContinued" as="xs:boolean" select="not($pOutputTableFooterContinued)"/>
+
+    <!-- Debug index middle file
+         2019-09-29 t.makita
+     -->
+    <xsl:param name="PRM_DEBUG_INDEX" required="no" as="xs:string" select="$cNo"/>
+    <xsl:variable name="pDebugIndex" as="xs:boolean" select="$PRM_DEBUG_INDEX eq $cYes"/>
     
 </xsl:stylesheet>

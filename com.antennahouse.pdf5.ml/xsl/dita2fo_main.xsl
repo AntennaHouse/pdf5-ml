@@ -29,7 +29,7 @@ E-mail : info@antennahouse.com
         <!-- Plug-in name and version -->
         <xsl:variable name="pluginAuthor" as="xs:string" select="'Antenna House'"/>
         <xsl:variable name="pluginName" as="xs:string" select="'PDF5-ML'"/>
-        <xsl:variable name="pluginVersion" as="xs:string" select="'1.0.5'"/>
+        <xsl:variable name="pluginVersion" as="xs:string" select="'1.0.6'"/>
         <xsl:message select="concat($pluginAuthor,' ',$pluginName,' plug-in Version: ',$pluginVersion)"/>
         <!-- XSLT processor information -->
         <xsl:variable name="vendor" as="xs:string" select="system-property('xsl:vendor')"/>
@@ -58,6 +58,9 @@ E-mail : info@antennahouse.com
         <!--xsl:call-template name="dumpFigureMap"/-->
         <!--xsl:call-template name="dumpTableMap"/-->
     <xsl:template match="/">
+        <xsl:if test="$pDebugIndex">
+            <xsl:call-template name="indexDump"/>
+        </xsl:if>
         <xsl:if test="$pDebugStyle">
             <xsl:call-template name="stlyeDump"/>
         </xsl:if>

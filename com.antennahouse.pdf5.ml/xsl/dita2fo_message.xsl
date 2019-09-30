@@ -439,6 +439,11 @@ URL : http://www.antennahouse.co.jp/
         <xsl:text>[processUseAttributeSet 904F] There is no attribute-set referenced by @use-attribute-sets. use-attribute-set='%attribute-set-name'.</xsl:text>
     </xsl:variable>
 
+    <xsl:variable name="stMes906">
+        <xsl:text>[variable 906F] Illegal attribute found in variable element in style definition. variable name='%variable-name' attribute='%attribute'.</xsl:text>
+    </xsl:variable>
+    
+
     <xsl:variable name="stMes1500">
         <xsl:text>[parameter 1500F] Paper size parameter is invalid. Parameter=%param Supported value=%sptval.</xsl:text>
     </xsl:variable>

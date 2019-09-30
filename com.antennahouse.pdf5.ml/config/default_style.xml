@@ -63,6 +63,9 @@ URL : http://www.antennahouse.com/
         <!-- Genral Frame border color -->
         <variable name="General_Frame_Border_Color">$Color_RGB_Black</variable>
         <variable name="General_Frame_Border_Color" output-type="print-color print-mono">$Color_CMYK_Black</variable>
+        <!-- Genral Hazardstatement header background color -->
+        <variable name="General_Hazardstatement_Header_Background_Color">rgb(128,128,128)</variable>
+        <variable name="General_Hazardstatement_Header_Background_Color" output-type="print-color print-mono">rgb-icc(#CMYK,0%,0%,0%,50%)</variable>
         
         <!--Hyphenation-->
         <variable name="General_Do_Hyphenation">true</variable>
@@ -259,6 +262,12 @@ URL : http://www.antennahouse.com/
         <!-- @outputclass regx value for table alignment -->
         <variable name="OcTableAlignRegx">(align-)(.+)</variable>
         <variable name="OcTableAlignReplaceGroup">2</variable>
+
+        <!-- @outputclass value for topicref/@outputclass -->
+        <variable name="OcBreakNo">break-no</variable>
+        <variable name="OcBreakAuto">break-auto</variable>
+        <variable name="OcBreakColumn">break-column</variable>
+        <variable name="OcBreakPage">break-page</variable>
         
         <!-- Literals for thumbnail -->
         <variable name="Toc_Thumbnail_Label">TOC</variable>
@@ -308,9 +317,62 @@ URL : http://www.antennahouse.com/
         <variable name="Q_Suffix">”</variable>
 
         <!-- Xref -->
+        <!-- Obsolete: remained only for old stylesheet compatibility only
+             2019-05-03 t.makita
+          -->
         <variable name="Xref_Prefix"> on page </variable>
         <variable name="Xref_Suffix"/>
 
+        
+        <variable name="Xref_Prefix_Title_Page"> on page </variable>
+        <variable name="Xref_Suffix_Title_Page"/>
+        
+        <variable name="Xref_Prefix_Page_Only"> page </variable>
+        <variable name="Xref_Suffix_Page_Only"/>
+        
+        <variable name="Xref_Title_Prefix"></variable>
+        <variable name="Xref_Title_Suffix"></variable>
+
+        <variable name="Xref_Step_Prefix">step&#xA0;</variable>
+        <variable name="Xref_Step_Substep_Separator">.</variable>
+        
+        <!-- Xref output option -->
+        <variable name="optXrefToTopicTitleAndPage">title-page</variable>
+        <variable name="optXrefToTopicTitleOnly">title-only</variable>
+        <variable name="optXrefToTopicPageOnly">page-only</variable>
+        
+        <variable name="optXrefToSectionTitleAndPage">title-page</variable>>
+        <variable name="optXrefToSectionTitleOnly">title-only</variable>
+        <variable name="optXrefToSectionPageOnly">page-only</variable>
+
+        <variable name="optXrefToExampleTitleAndPage">title-page</variable>
+        <variable name="optXrefToExampleTitleOnly">title-only</variable>
+        <variable name="optXrefToExamplePageOnly">page-only</variable>
+        
+        <variable name="optXrefToStepNumberAndPage">number-page</variable>
+        <variable name="optXrefToStepNumberOnly">number-only</variable>
+        <variable name="optXrefToStepPageOnly">page-only</variable>
+
+        <variable name="optXrefToLiNumberAndPage">number-page</variable>
+        <variable name="optXrefToLiNumberOnly">number-only</variable>
+        <variable name="optXrefToLiPageOnly">page-only</variable>
+        
+        <variable name="optXrefToFigTitleAndPage">title-page</variable>
+        <variable name="optXrefToFigTitleOnly">title-only</variable>
+        <variable name="optXrefToFigPageOnly">page-only</variable>
+        
+        <variable name="optXrefToTableTitleAndPage">title-page</variable>
+        <variable name="optXrefToTableTitleOnly">title-only</variable>
+        <variable name="optXrefToTablePageOnly">page-only</variable>
+        
+        <variable name="optXrefToEquationBlockNumberAndPage">number-page</variable>
+        <variable name="optXrefToEquationBlockNumberOnly">number-only</variable>
+        <variable name="optXrefToEquationBlockPageOnly">page-only</variable>
+        
+        <variable name="optXrefToOtherTitleAndPage">title-page</variable>
+        <variable name="optXrefToOtherTitleOnly">title-only</variable>
+        <variable name="optXrefToOtherPageOnly">page-only</variable>
+        
         <!-- Draft-comment -->
         <variable name="Draft_Comment_Title_Prefix">[DRAFT-COMMENT </variable>
         <variable name="Draft_Comment_Author"> Author:</variable>
@@ -339,9 +401,11 @@ URL : http://www.antennahouse.com/
 
         <!-- Number format of ol (Format string separate by space!) -->
         <variable name="Ol_Number_Formats" delim="[,\s]+">1. a. i.</variable>
+        <variable name="Ol_Number_Formats_For_Xref" delim="[,\s]+">1 a i</variable>
         
         <!-- Number format of step/substep (Format string separate by space!) -->
         <variable name="Step_Number_Formats" delim="[,\s]+">1. a.</variable>
+        <variable name="Step_Number_Formats_For_Xref" delim="[,\s]+">1 a</variable>
         
         <!-- Syntaxdiagram -->
         <variable name="Sd_Or"> | </variable>
@@ -377,6 +441,21 @@ URL : http://www.antennahouse.com/
         <variable name="Dead_Link_PDF">deadlink.pdf</variable>
         <variable name="Dead_Link_Color">$General_Text_Color</variable>
 
+        <!-- floating figure outputclass -->
+        <variable name="ocFloatNone">float-none</variable>
+        <variable name="ocFloatLeft">float-left</variable>
+        <variable name="ocFloatRight">float-right</variable>
+        <variable name="ocFloatFigure" delim="[,\s]+">$ocFloatNone $ocFloatLeft $ocFloatRight</variable>
+
+        <variable name="ocFloatAuto">float-auto</variable>
+        <variable name="ocFloatFigGroup" delim="[,\s]+">$ocFloatAuto $ocFloatLeft $ocFloatRight</variable>
+        
+        <!-- Clear -->
+        <variable name="ocClearBoth">clear-both</variable>
+        <variable name="ocClearLeft">clear-left</variable>
+        <variable name="ocClearRight">clear-right</variable>
+        <variable name="ocClearNone">clear-none</variable>
+        
         <!-- Review PDF color and style -->
         <variable name="cInsertColor">blue</variable>
         <variable name="cRemoveColor">magenta</variable>
@@ -1280,6 +1359,15 @@ URL : http://www.antennahouse.com/
         </thumbindex-attribute>
 
         <topic-break-attr>
+            <!-- @outputclass -->
+            <attribute-set name="atsBreakColumn">
+                <attribute name="break-before">column</attribute>
+            </attribute-set>
+            
+            <attribute-set name="atsBreakPage">
+                <attribute name="break-before">page</attribute>
+            </attribute-set>
+            
             <!-- Frontmatter -->
             <attribute-set name="atsFrontmatterBreak1">
                 <attribute name="break-before">auto</attribute>
@@ -1314,6 +1402,23 @@ URL : http://www.antennahouse.com/
                 <attribute name="break-before">auto</attribute>
             </attribute-set>
 
+            <!-- Backmatter -->
+            <attribute-set name="atsBackmatterBreak1">
+                <attribute name="break-before">auto</attribute>
+            </attribute-set>
+            
+            <attribute-set name="atsBackmatterBreak1Online" use-attribute-sets="atsBackmatterBreak1">
+                <attribute name="break-before">auto</attribute>
+            </attribute-set>
+            
+            <attribute-set name="atsBackmatterBreak2">
+                <attribute name="break-before">auto</attribute>
+            </attribute-set>
+            
+            <attribute-set name="atsBackmatterBreak3">
+                <attribute name="break-before">auto</attribute>
+            </attribute-set>
+            
         </topic-break-attr>
 
         <title-attribute>
@@ -1544,10 +1649,30 @@ URL : http://www.antennahouse.com/
                 <attribute name="provisional-distance-between-starts">$General_Indent_Value</attribute>
                 <attribute name="provisional-label-separation">0.2mm</attribute>
             </attribute-set>
+
+            <attribute-set name="atsStepsSpaceBeforeZero">
+                <attribute name="space-before">0mm</attribute>
+            </attribute-set>
             
             <attribute-set name="atsStepItem">
                 <attribute name="space-before">$Para_Space_Before</attribute>
                 <attribute name="relative-align">baseline</attribute>
+                <attribute name="clear">both</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsStepItemSpaceBefore">
+                <attribute name="space-before">$Para_Space_Before</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsStepItemSpaceBeforeZero">
+                <attribute name="space-before">0mm</attribute>
+            </attribute-set>
+            
+            <attribute-set name="atsStepItemClearNone">
+                <attribute name="clear">none</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsStepItemClearBoth">
                 <attribute name="clear">both</attribute>
             </attribute-set>
             
@@ -1687,17 +1812,34 @@ URL : http://www.antennahouse.com/
                 <attribute name="provisional-label-separation">1mm</attribute>
             </attribute-set>
 
-            <attribute-set name="atsUlItem">
+            <attribute-set name="atsUlItemSpaceBeforeZero">
+                <attribute name="space-before">0mm</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsUlItemSpaceBefore">
                 <attribute name="space-before">$Para_Space_Before</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsUlItem" use-attribute-sets="atsUlItemSpaceBefore">
                 <attribute name="relative-align">baseline</attribute>
                 <attribute name="clear">both</attribute>
             </attribute-set>
+
             <attribute-set name="atsUlLabel">
                 <attribute name="font-family">$General_Bullet_Font</attribute>
                 <attribute name="text-align">center</attribute>
             </attribute-set>
-            <attribute-set name="atsUlBody"> </attribute-set>
 
+            <attribute-set name="atsUlBody"></attribute-set>
+
+            <attribute-set name="atsUlItemClearBoth">
+                <attribute name="clear">both</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsUlItemClearNone">
+                <attribute name="clear">none</attribute>
+            </attribute-set>
+            
             <!-- ol -->
             <attribute-set name="atsOl">
                 <attribute name="space-before">$Para_Space_Before</attribute>
@@ -1705,16 +1847,33 @@ URL : http://www.antennahouse.com/
                 <attribute name="provisional-label-separation">0.5mm</attribute>
             </attribute-set>
 
-            <attribute-set name="atsOlItem">
+            <attribute-set name="atsOlItemSpaceBeforeZero">
+                <attribute name="space-before">0mm</attribute>
+            </attribute-set>
+            
+            <attribute-set name="atsOlItemSpaceBefore">
                 <attribute name="space-before">$Para_Space_Before</attribute>
+            </attribute-set>
+            
+            <attribute-set name="atsOlItem" use-attribute-sets="atsOlItemSpaceBefore">
                 <attribute name="relative-align">baseline</attribute>
                 <attribute name="clear">both</attribute>
             </attribute-set>
+
             <attribute-set name="atsOlLabel">
                 <attribute name="text-align">center</attribute>
             </attribute-set>
-            <attribute-set name="atsOlBody"> </attribute-set>
 
+            <attribute-set name="atsOlBody"></attribute-set>
+            
+            <attribute-set name="atsOlItemClearBoth">
+                <attribute name="clear">both</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsOlItemClearNone">
+                <attribute name="clear">none</attribute>
+            </attribute-set>
+            
             <!-- sl/sli -->
             <attribute-set name="atsSl">
                 <attribute name="space-before">$Para_Space_Before</attribute>
@@ -1725,52 +1884,48 @@ URL : http://www.antennahouse.com/
             <attribute-set name="atsSlItem">
                 <attribute name="space-before">$Para_Space_Before</attribute>
             </attribute-set>
+
             <!-- Ratio for sl/@compact: must be number -->
             <variable name="Sl_Compact_Ratio">0.1</variable>
             <variable name="Sl_Compact_Attr">space-before</variable>
 
             <!-- dl -->
-            <attribute-set name="atsDl">
-                <attribute name="start-indent">inherited-property-value(start-indent)+$Dl_Indent_Value</attribute>
-                <attribute name="space-before">$Para_Space_Before</attribute>
+            <attribute-set name="atsDlBlock">
+            </attribute-set>
+
+            <attribute-set name="atsDlTable" use-attribute-sets="atsTable atsTableBorderAll">
                 <attribute name="table-layout">auto</attribute>
             </attribute-set>
 
-            <attribute-set name="atsDlhead" use-attribute-sets="atsB">
-                <attribute name="start-indent">0pt</attribute>
-                <!--attribute name="font-weight">bold</attribute-->
+            <attribute-set name="atsDlhead" use-attribute-sets="atsThead">
             </attribute-set>
 
-            <attribute-set name="atsDlbody">
-                <attribute name="start-indent">0pt</attribute>
+            <attribute-set name="atsDlbody" use-attribute-sets="atsTbody">
             </attribute-set>
 
-            <attribute-set name="atsDthd"> </attribute-set>
-
-            <attribute-set name="atsDdhd">
-                <attribute name="start-indent">$Dl_Dd_Indent_Value</attribute>
+            <attribute-set name="atsDthd" use-attribute-sets="atsTableHeaderCell">
+                <attribute name="border-style">solid</attribute>
             </attribute-set>
 
-            <attribute-set name="atsDlentry"></attribute-set>
+            <attribute-set name="atsDdhd" use-attribute-sets="atsTableHeaderCell">
+                <attribute name="border-style">solid</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsDlentryTable">
+            </attribute-set>
             
             <attribute-set name="atsDlentryBlock">
                 <attribute name="clear">both</attribute>
             </attribute-set>
             
-            <attribute-set name="atsDt" use-attribute-sets="atsB">
-                <attribute name="padding-before">$Para_Space_Before</attribute>
-                <!--attribute name="font-weight">bold</attribute-->
-            </attribute-set>
-
-            <attribute-set name="atsDlBlock"> </attribute-set>
-
-            <attribute-set name="atsDlentryBlock"> </attribute-set>
-
             <attribute-set name="atsDtBlock" use-attribute-sets="atsBTitle">
                 <attribute name="space-before">$Dl_Dt_Block_Space_Before</attribute>
                 <attribute name="font-family">$General_Title_Font</attribute>
-                <!--attribute name="font-weight">bold</attribute-->
                 <attribute name="keep-with-next">always</attribute>
+            </attribute-set>
+            
+            <attribute-set name="atsDtTable"  use-attribute-sets="atsTableBodyCell">
+                <attribute name="border-style">solid</attribute>
             </attribute-set>
 
             <attribute-set name="atsDdBlock">
@@ -1778,18 +1933,13 @@ URL : http://www.antennahouse.com/
                 <attribute name="start-indent">inherited-property-value(start-indent) + $Dl_Indent_Value</attribute>
             </attribute-set>
 
-
-
-            <!-- dt attribute when dl/dlhead exists -->
-            <attribute-set name="atsDtHasDlhead">
-                <attribute name="font-weight">normal</attribute>
+            <attribute-set name="atsDdTableCell" use-attribute-sets="atsTableBodyCell">
+                <attribute name="border-style">solid</attribute>
             </attribute-set>
-
-            <attribute-set name="atsDd">
-                <attribute name="padding-before">$Para_Space_Before</attribute>
-                <attribute name="start-indent">$Dl_Dd_Indent_Value</attribute>
+            
+            <attribute-set name="atsDdTable">
             </attribute-set>
-
+            
             <!-- Ratio for dl/@compact: must be number -->
             <variable name="Dl_Compact_Ratio">0.1</variable>
             <variable name="Dl_Compact_Ratio_Block_Dt">0.3</variable>
@@ -1856,7 +2006,15 @@ URL : http://www.antennahouse.com/
                 <attribute name="clear">none</attribute>
                 <attribute name="axf:float-wrap">skip</attribute>
             </attribute-set>
+            
+            <attribute-set name="atsFloatFigTitle" use-attribute-sets="atsTitle">
+                <attribute name="space-before">1pt</attribute>
+            </attribute-set>
 
+            <attribute-set name="atsFloatFigDesc">
+                <attribute name="text-align">start</attribute>
+            </attribute-set>
+            
             <!-- figgroup (??) -->
             <attribute-set name="atsFiggroup">
                 <attribute name="space-before">1mm</attribute>
@@ -2397,6 +2555,86 @@ URL : http://www.antennahouse.com/
             <variable name="Other_Icon" output-type="print-mono">url(%plug-in-path%common-graphic/other.pdf)</variable>
 
         </notes-attribute>
+
+        <hazardstatement-attribute>
+            <!-- hazardstatement -->
+            <attribute-set name="atsHazardStatementTable">
+                <attribute name="table-layout">fixed</attribute>
+                <attribute name="space-before">6pt</attribute>
+                <attribute name="space-after">0pt</attribute>
+            </attribute-set>
+            
+            <attribute-set name="atsHazardSymbolColumn">
+                <attribute name="column-width">14mm</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsHazardStatementDesc">
+            </attribute-set>
+            
+            <attribute-set name="atsHazardStatementTitleRow">
+                <attribute name="keep-with-next.within-column">always</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsHazardStatementTitleCell" use-attribute-sets="atsB">
+                <attribute name="number-columns-spanned">2</attribute>
+                <attribute name="border">1.5pt solid $General_Table_Border_Color</attribute>
+                <attribute name="padding">0mm</attribute>
+                <attribute name="font-family">$General_Title_Font</attribute>
+                <attribute name="text-align">center</attribute>
+                <attribute name="text-align-last">center</attribute>
+                <attribute name="background-color">$General_Hazardstatement_Header_Background_Color</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsHazardStatementTitleCellWoHazardSymbol">
+                <attribute name="number-columns-spanned">0</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsHazardStatementTitleBlock">
+            </attribute-set>
+
+            <attribute-set name="atsHazardStatementIconImage" use-attribute-sets="atsNoteCautionIconImage">
+            </attribute-set>
+            
+            <attribute-set name="atsHazardSymbolCell">
+                <attribute name="text-align">center</attribute>
+                <attribute name="border">1.5pt solid $General_Table_Border_Color</attribute>
+                <attribute name="padding-top">1mm</attribute>
+                <attribute name="padding-bottom">1mm</attribute>
+                <attribute name="padding-left">2mm</attribute>
+                <attribute name="padding-right">2mm</attribute>
+                <attribute name="display-align">center</attribute>
+            </attribute-set>
+            
+            <attribute-set name="atsMessagePanelCell">
+                <attribute name="text-align">justify</attribute>
+                <attribute name="display-align">center</attribute>
+                <attribute name="border-style">solid</attribute>
+                <attribute name="border-width">0.5mm</attribute>
+                <attribute name="border-left-width">0.1mm</attribute>
+                <attribute name="padding-top">1mm</attribute>
+                <attribute name="padding-bottom">1mm</attribute>
+                <attribute name="padding-left">2mm</attribute>
+                <attribute name="padding-right">2mm</attribute>
+            </attribute-set>
+            
+            <variable name="noteContentBlockBorder">0.5pt solid $General_Note_Border_Color</variable>
+            <variable name="noteContentBlockPaddingAfter">9pt</variable>
+            
+            <variable name="atsWarningTitlePaddingStart">0.3em</variable>
+            <attribute-set name="atsWarningTitleBlock" use-attribute-sets="atsB">
+                <attribute name="font-size">15pt</attribute>
+                <attribute name="line-height">1.5</attribute>
+                <attribute name="line-stacking-strategy">font-height</attribute>
+                <attribute name="space-before">10pt</attribute>
+                <attribute name="space-after">10pt</attribute>
+                <!--attribute name="color">$Color_Black</attribute-->
+                <!--attribute name="background-color">$Note_Warning_BG_Color</attribute-->
+                <attribute name="start-indent">inherited-property-value(start-indent) + $atsWarningTitlePaddingStart</attribute>
+                <attribute name="padding-start">$atsWarningTitlePaddingStart</attribute>
+                <attribute name="keep-with-next">always</attribute>
+            </attribute-set>
+            
+        </hazardstatement-attribute>
 
         <miscellaneous-elements-attribute>
             <!-- draft-comment:title -->

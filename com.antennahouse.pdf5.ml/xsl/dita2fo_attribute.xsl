@@ -38,6 +38,16 @@ E-mail : info@antennahouse.com
         
     </xsl:function>
 
+    <xsl:variable name="ocClearBoth" as="xs:string" select="ahf:getVarValue('ocClearBoth')"/>
+    <xsl:variable name="ocClearLeft" as="xs:string" select="ahf:getVarValue('ocClearLeft')"/>
+    <xsl:variable name="ocClearRight" as="xs:string" select="ahf:getVarValue('ocClearRight')"/>
+    <xsl:variable name="ocClearStart" as="xs:string" select="ahf:getVarValue('ocClearStart')"/>
+    <xsl:variable name="ocClearEnd" as="xs:string" select="ahf:getVarValue('ocClearEnd')"/>
+    <xsl:variable name="ocClearInside" as="xs:string" select="ahf:getVarValue('ocClearInside')"/>
+    <xsl:variable name="ocClearOutside" as="xs:string" select="ahf:getVarValue('ocClearOutside')"/>
+    <xsl:variable name="ocClearNone" as="xs:string" select="ahf:getVarValue('ocClearNone')"/>
+    
+
     <xsl:template name="ahf:getUnivAtts" as="attribute()*">
         <xsl:param name="prmElement" as="element()" required="no" select="."/>
         <xsl:param name="prmTopicRef" as="element()?" tunnel="yes" required="yes"/>
@@ -56,10 +66,38 @@ E-mail : info@antennahouse.com
         </xsl:call-template>
         
         <!-- Clear attribute -->
-        <xsl:copy-of select="$prmElement/@clear"/>
-        
+        <xsl:call-template name="ahf:getClearAtts">
+            <xsl:with-param name="prmElement" select="$prmElement"/>
+        </xsl:call-template>
     </xsl:template>
-    
+
+    <!-- 
+     function:  Process @clear attribute
+     param:     prmElement
+     return:	attribute node
+     note:      
+     -->
+    <xsl:template name="ahf:getClearAtts" as="attribute()?">
+        <xsl:param name="prmElement" as="element()" required="no" select="."/>
+
+        <xsl:choose>
+            <xsl:when test="$prmElement/@clear">
+                <xsl:copy-of select="$prmElement/@clear"/>
+            </xsl:when>
+            <xsl:when test="ahf:hasOutputClassValue($prmElement,$ocClearBoth)">
+                <xsl:attribute name="clear" select="'both'"/>
+            </xsl:when>
+            <xsl:when test="ahf:hasOutputClassValue($prmElement,$ocClearLeft)">
+                <xsl:attribute name="clear" select="'left'"/>
+            </xsl:when>
+            <xsl:when test="ahf:hasOutputClassValue($prmElement,$ocClearRight)">
+                <xsl:attribute name="clear" select="'right'"/>
+            </xsl:when>
+            <xsl:when test="ahf:hasOutputClassValue($prmElement,$ocClearNone)">
+                <xsl:attribute name="clear" select="'none'"/>
+            </xsl:when>
+        </xsl:choose>
+    </xsl:template>
 
     <!-- 
      function:	Process %id-atts; attribute

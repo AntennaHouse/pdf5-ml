@@ -107,7 +107,14 @@ E-mail : info@antennahouse.com
          ***************************************-->
     <xsl:variable name="cDeadLinkPDF"           select="ahf:getVarValue('Dead_Link_PDF')" as="xs:string"/>
     <xsl:variable name="cDeadLinkColor"         select="ahf:getVarValue('Dead_Link_Color')" as="xs:string"/>
-    
+
+    <!-- *************************************** 
+            Break control @outputclass value
+         ***************************************-->
+    <xsl:variable name="ocBreakNo"             select="ahf:getVarValue('OcBreakNo')" as="xs:string"/>
+    <xsl:variable name="ocBreakAuto"           select="ahf:getVarValue('OcBreakAuto')" as="xs:string"/>
+    <xsl:variable name="ocBreakColumn"         select="ahf:getVarValue('OcBreakColumn')" as="xs:string"/>
+    <xsl:variable name="ocBreakPage"           select="ahf:getVarValue('OcBreakPage')" as="xs:string"/>
     
     <!-- *************************************** 
             Variables depending on document

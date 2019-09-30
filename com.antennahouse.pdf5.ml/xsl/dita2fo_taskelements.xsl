@@ -32,11 +32,15 @@ E-mail : info@antennahouse.com
     <!-- 
      function:	steps template
      param:	    
-     return:	fo:list-block
+     return:	fo:list-block or fo:wrapper
      note:      No fn elements supposed in the steps		
      -->
     <xsl:template match="*[contains(@class, ' task/steps ')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
+        <xsl:variable name="hasFloatFigLeft" as="xs:boolean" select="exists(*[contains(@class,' task/step ')]/*[contains(@class,' task/info ')]//*[ahf:isFloatFigure(.)][ahf:getFloatSpec(.) = 'left'])"/>
         <xsl:sequence select="'atsSteps'"/>
+        <xsl:if test="$hasFloatFigLeft">
+            <xsl:sequence select="'atsStepsSpaceBeforeZero'"/>
+        </xsl:if>
     </xsl:template>
     
     <xsl:template match="*[contains(@class,' task/steps ')]" priority="2">
@@ -44,6 +48,7 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <xsl:template name="processSteps">
+        <xsl:variable name="hasFloatFigLeft" as="xs:boolean" select="exists(*[contains(@class,' task/step ')]/*[contains(@class,' task/info ')]//*[ahf:isFloatFigure(.)][ahf:getFloatSpec(.) = 'left'])"/>
         <!-- Prefix of step -->
         <xsl:variable name="stepNumberFormat" as="xs:string+">
             <xsl:call-template name="getVarValueWithLangAsStringSequence">
@@ -51,77 +56,175 @@ E-mail : info@antennahouse.com
             </xsl:call-template>
         </xsl:variable>
         <xsl:variable name="numberFormat" select="ahf:getOlNumberFormat(.,$stepNumberFormat)" as="xs:string"/>
-        <fo:list-block>
-            <xsl:call-template name="getAttributeSetWithLang"/>
-            <xsl:call-template name="ahf:getUnivAtts"/>
-            <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
-            <xsl:apply-templates>
-                <xsl:with-param name="prmNumberFormat" tunnel="yes" select="$numberFormat"/>
-            </xsl:apply-templates>
-        </fo:list-block>
+        <xsl:choose>
+            <xsl:when test="$hasFloatFigLeft">
+                <fo:wrapper>
+                    <xsl:call-template name="ahf:getIdAtts">
+                        <xsl:with-param name="prmElement" select="."/>
+                    </xsl:call-template>
+                    <xsl:apply-templates>
+                        <xsl:with-param name="prmNumberFormat" tunnel="yes" select="$numberFormat"/>
+                        <xsl:with-param name="prmHasFloatFigLeft" tunnel="yes" select="$hasFloatFigLeft"/>
+                    </xsl:apply-templates>
+                </fo:wrapper>
+            </xsl:when>
+            <xsl:otherwise>
+                <fo:list-block>
+                    <xsl:call-template name="getAttributeSetWithLang"/>
+                    <xsl:call-template name="ahf:getUnivAtts"/>
+                    <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
+                    <xsl:apply-templates>
+                        <xsl:with-param name="prmNumberFormat" tunnel="yes" select="$numberFormat"/>
+                        <xsl:with-param name="prmHasFloatFigLeft" tunnel="yes" select="$hasFloatFigLeft"/>
+                    </xsl:apply-templates>
+                </fo:list-block>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     
     <!-- 
-     function:	steps/step template
-     param:	    prmNumberFormat
-     return:	fo:list-item
-     note:		
+     function:  steps/step template
+     param:     prmNumberFormat
+     return:    fo:list-item
+     note:      Added support for left float figure.
+                Left float figure must be generated as the independent fo:float. Not in fo:list-item-body nor fo:list-item-label.
+                2019-05-07 t.makita
      -->
     <xsl:template match="*[contains(@class, ' task/steps ')]/*[contains(@class,' task/step ')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
+        <xsl:variable name="hasFloatFigLeft" as="xs:boolean" select="exists(parent::*/*[contains(@class,' task/step ')]/*[contains(@class,' task/info ')]//*[ahf:isFloatFigure(.)][ahf:getFloatSpec(.) = 'left'])"/>
         <xsl:sequence select="'atsStepItem'"/>
+        <xsl:if test="$hasFloatFigLeft">
+            <xsl:sequence select="'atsStepItemClearNone'"/>
+            <xsl:sequence select="'atsStepItemSpaceBeforeZero'"/>
+        </xsl:if>
     </xsl:template>
     
     <xsl:template match="*[contains(@class,' task/steps ')]/*[contains(@class,' task/step ')]" priority="2">
-        <xsl:param name="prmNumberFormat" required="yes" tunnel="yes" as="xs:string"/>
-        
-        <xsl:call-template name="processStep">
-            <xsl:with-param name="prmNumberFormat" select="$prmNumberFormat"/>
-        </xsl:call-template>
+        <xsl:call-template name="processStep"/>
     </xsl:template>
     
     <xsl:template name="processStep">
-        <xsl:param name="prmNumberFormat" required="yes" as="xs:string"/>
+        <xsl:param name="prmNumberFormat" tunnel="yes" required="yes" as="xs:string"/>
+        <xsl:param name="prmHasFloatFigLeft" tunnel="yes" required="yes" as="xs:boolean"/>
         
-        <fo:list-item>
-            <!-- Set list-item attribute. -->
-            <xsl:call-template name="getAttributeSetWithLang"/>
-            <xsl:call-template name="ahf:getUnivAtts"/>
-            <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
-            <fo:list-item-label end-indent="label-end()"> 
+        <xsl:variable name="step" as="element()" select="."/>
+        <xsl:variable name="steps" as="element()" select="$step/parent::*"/>
+        
+        <xsl:choose>
+            <xsl:when test="$prmHasFloatFigLeft">
+                <xsl:variable name="hasFloatFig" as="xs:boolean" select="exists(*[contains(@class,' task/info ')]//*[ahf:isFloatFigure(.)])"/>
+                <!-- Gnerate fo:list-block for each step -->
                 <fo:block>
-                    <xsl:call-template name="getAttributeSetWithLang">
-                        <xsl:with-param name="prmAttrSetName" select="'atsStepLabel'"/>
+                    <!-- Defaults clear='both' -->
+                    <xsl:call-template name="getAttributeSet">
+                        <xsl:with-param name="prmAttrSetName" select="'atsStepItemClearBoth atsStepItemSpaceBefore'"/>
                     </xsl:call-template>
-                    <xsl:number format="{$prmNumberFormat}" value="count(preceding-sibling::*[contains(@class,' topic/li ')][not(contains(@class,' task/stepsection '))]) + 1"/>
+                    <!-- Get clear attribute -->
+                    <xsl:call-template name="ahf:getClearAtts"/>
+                    <!-- Pull info/floatfig -->
+                    <xsl:for-each select="*[contains(@class,' task/info ')]//*[ahf:isFloatFigure(.)]">
+                        <xsl:choose>
+                            <xsl:when test="ahf:getFloatSpec(.) = ('left','right')">
+                                <xsl:call-template name="processFloatFigLR"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:call-template name="processFloatFigNone"/>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:for-each>
+                    <fo:list-block>
+                        <xsl:call-template name="getAttributeSetWithLang">
+                            <xsl:with-param name="prmElem" select="$steps"/>
+                        </xsl:call-template>
+                        <xsl:call-template name="ahf:getLocalizationAtts">
+                            <xsl:with-param name="prmElement" select="$steps"/>
+                        </xsl:call-template>
+                        <xsl:call-template name="ahf:getClearAtts">
+                            <xsl:with-param name="prmElement" select="$steps"/>
+                        </xsl:call-template>
+                        <xsl:copy-of select="ahf:getFoStyleAndProperty($steps)"/>
+                        <fo:list-item>
+                            <!-- Set list-item attribute. -->
+                            <xsl:call-template name="getAttributeSetWithLang"/>
+                            <xsl:call-template name="ahf:getUnivAtts"/>
+                            <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
+                            <fo:list-item-label end-indent="label-end()"> 
+                                <fo:block>
+                                    <xsl:call-template name="getAttributeSetWithLang">
+                                        <xsl:with-param name="prmAttrSetName" select="'atsStepLabel'"/>
+                                    </xsl:call-template>
+                                    <xsl:number format="{$prmNumberFormat}" value="ahf:getStepNumber(.)"/>
+                                </fo:block>
+                            </fo:list-item-label>
+                            <fo:list-item-body start-indent="body-start()">
+                                <xsl:call-template name="getAttributeSetWithLang">
+                                    <xsl:with-param name="prmAttrSetName" select="'atsStepBody'"/>
+                                </xsl:call-template>
+                                <fo:block>
+                                    <xsl:call-template name="getAttributeSetWithLang">
+                                        <xsl:with-param name="prmAttrSetName" select="'atsP'"/>
+                                    </xsl:call-template>
+                                    <xsl:apply-templates/>
+                                </fo:block>
+                            </fo:list-item-body>
+                        </fo:list-item>
+                    </fo:list-block>
                 </fo:block>
-            </fo:list-item-label>
-            <fo:list-item-body start-indent="body-start()">
-                <xsl:call-template name="getAttributeSetWithLang">
-                    <xsl:with-param name="prmAttrSetName" select="'atsStepBody'"/>
-                </xsl:call-template>
-                <!-- Pull info/floatfig -->
-                <xsl:for-each select="*[contains(@class,' task/info ')]//*[contains(@class,' floatfig-d/floatfig ')]">
-                    <xsl:choose>
-                        <xsl:when test="string(@float) = ('left','right')">
-                            <xsl:call-template name="processFloatFigLR"/>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <xsl:call-template name="processFloatFigNone"/>
-                        </xsl:otherwise>
-                    </xsl:choose>
-                </xsl:for-each>
-                <fo:block>
-                    <xsl:call-template name="getAttributeSetWithLang">
-                        <xsl:with-param name="prmAttrSetName" select="'atsP'"/>
-                    </xsl:call-template>
-                    <xsl:apply-templates/>
-                </fo:block>
-            </fo:list-item-body>
-        </fo:list-item>
+            </xsl:when>
+            <xsl:otherwise>
+                <fo:list-item>
+                    <!-- Set list-item attribute. -->
+                    <xsl:call-template name="getAttributeSetWithLang"/>
+                    <xsl:call-template name="ahf:getUnivAtts"/>
+                    <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
+                    <fo:list-item-label end-indent="label-end()"> 
+                        <fo:block>
+                            <xsl:call-template name="getAttributeSetWithLang">
+                                <xsl:with-param name="prmAttrSetName" select="'atsStepLabel'"/>
+                            </xsl:call-template>
+                            <xsl:number format="{$prmNumberFormat}" value="ahf:getStepNumber(.)"/>
+                        </fo:block>
+                    </fo:list-item-label>
+                    <fo:list-item-body start-indent="body-start()">
+                        <xsl:call-template name="getAttributeSetWithLang">
+                            <xsl:with-param name="prmAttrSetName" select="'atsStepBody'"/>
+                        </xsl:call-template>
+                        <!-- Pull info/floatfig -->
+                        <xsl:for-each select="*[contains(@class,' task/info ')]//*[ahf:isFloatFigure(.)]">
+                            <xsl:choose>
+                                <xsl:when test="ahf:getFloatSpec(.) = ('left','right')">
+                                    <xsl:call-template name="processFloatFigLR"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:call-template name="processFloatFigNone"/>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </xsl:for-each>
+                        <fo:block>
+                            <xsl:call-template name="getAttributeSetWithLang">
+                                <xsl:with-param name="prmAttrSetName" select="'atsP'"/>
+                            </xsl:call-template>
+                            <xsl:apply-templates/>
+                        </fo:block>
+                    </fo:list-item-body>
+                </fo:list-item>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
-    
+
+    <!-- 
+     function:    get step number
+     param:       prmStep 
+     return:      xs:integer
+     note:        Skip stepsection		
+     -->
+    <xsl:function name="ahf:getStepNumber" as="xs:integer">
+        <xsl:param name="prmStep" as="element()"/>
+        <xsl:sequence select="count($prmStep| $prmStep/preceding-sibling::*[contains(@class,' topic/li ')][not(contains(@class,' task/stepsection '))])"/>
+    </xsl:function>
+
     <!-- Ignore floatfig in info -->
-    <xsl:template match="*[contains(@class,' task/info ')]//*[contains(@class,' floatfig-d/floatfig ')]" priority="4"/>
+    <xsl:template match="*[contains(@class,' task/info ')]//*[ahf:isFloatFigure(.)]" priority="4"/>
 
     <!-- 
      function:	substeps template
@@ -194,7 +297,7 @@ E-mail : info@antennahouse.com
                     <xsl:with-param name="prmAttrSetName" select="'atsSubStepBody'"/>
                 </xsl:call-template>
                 <!-- Pull info/floatfig -->
-                <xsl:for-each select="*[contains(@class,' task/info ')]//*[contains(@class,' floatfig-d/floatfig ')]">
+                <xsl:for-each select="*[contains(@class,' task/info ')]//*[ahf:isFloatFigure(.)]">
                     <xsl:choose>
                         <xsl:when test="string(@float) = ('left','right')">
                             <xsl:call-template name="processFloatFigLR"/>

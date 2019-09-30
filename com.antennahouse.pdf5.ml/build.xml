@@ -156,7 +156,7 @@
         <equals arg1="${use.saxon.transform}" arg2="yes"/> 
     </condition>
     
-    <condition property="debug.index.sort.result" value="no">
+    <condition property="debug.index" value="no">
         <equals arg1="${use.saxon.transform}" arg2="yes"/> 
     </condition>
 

@@ -30,22 +30,10 @@
     </xsl:template>
     
     <xsl:template match="*[contains(@class, ' xml-d/numcharref ')]" priority="6">
-        <xsl:param name="prmGetContent" required="no" tunnel="yes" as="xs:boolean" select="false()"/>
-
         <fo:inline>
-            <xsl:choose>
-                <xsl:when test="$prmGetContent">
-                    <xsl:call-template name="getAttributeSetWithLang">
-                        <xsl:with-param name="prmAttrSetName" select="'atsNumCharRef'"/>
-                    </xsl:call-template>
-                    <xsl:copy-of select="ahf:getUnivAtts(.,(),false())"/>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:call-template name="getAttributeSetWithLang"/>
-                    <xsl:call-template name="ahf:getUnivAtts"/>
-                    <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
-                </xsl:otherwise>
-            </xsl:choose>
+            <xsl:call-template name="getAttributeSetWithLang"/>
+            <xsl:call-template name="ahf:getUnivAtts"/>
+            <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
             <xsl:call-template name="getVarValueAsText">
                 <xsl:with-param name="prmVarName" select="'NumCharRef_Prefix'"/>
             </xsl:call-template>
@@ -77,21 +65,10 @@
     </xsl:template>
     
     <xsl:template match="*[contains(@class, ' xml-d/parameterentity ')]" priority="6">
-        <xsl:param name="prmGetContent" required="no" tunnel="yes" as="xs:boolean" select="false()"/>
         <fo:inline>
-            <xsl:choose>
-                <xsl:when test="$prmGetContent">
-                    <xsl:call-template name="getAttributeSetWithLang">
-                        <xsl:with-param name="prmAttrSetName" select="'atsParameterEntity'"/>
-                    </xsl:call-template>
-                    <xsl:copy-of select="ahf:getUnivAtts(.,(),false())"/>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:call-template name="getAttributeSetWithLang"/>
-                    <xsl:call-template name="ahf:getUnivAtts"/>
-                    <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
-                </xsl:otherwise>
-            </xsl:choose>
+            <xsl:call-template name="getAttributeSetWithLang"/>
+            <xsl:call-template name="ahf:getUnivAtts"/>
+            <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
             <fo:inline>
                 <xsl:call-template name="getAttributeSet">
                     <xsl:with-param name="prmAttrSetName" select="'atsParameterEntityPrefix'"/>
@@ -138,21 +115,10 @@
     </xsl:template>
     
     <xsl:template match="*[contains(@class, ' xml-d/textentity ')]" priority="6">
-        <xsl:param name="prmGetContent" required="no" tunnel="yes" as="xs:boolean" select="false()"/>
         <fo:inline>
-            <xsl:choose>
-                <xsl:when test="$prmGetContent">
-                    <xsl:call-template name="getAttributeSetWithLang">
-                        <xsl:with-param name="prmAttrSetName" select="'atsTextEntity'"/>
-                    </xsl:call-template>
-                    <xsl:copy-of select="ahf:getUnivAtts(.,(),false())"/>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:call-template name="getAttributeSetWithLang"/>
-                    <xsl:call-template name="ahf:getUnivAtts"/>
-                    <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
-                </xsl:otherwise>
-            </xsl:choose>
+            <xsl:call-template name="getAttributeSetWithLang"/>
+            <xsl:call-template name="ahf:getUnivAtts"/>
+            <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
             <fo:inline>
                 <xsl:call-template name="getAttributeSet">
                     <xsl:with-param name="prmAttrSetName" select="'atsTextEntityPrefix'"/>
@@ -199,21 +165,10 @@
     </xsl:template>
     
     <xsl:template match="*[contains(@class, ' xml-d/xmlatt ')]" priority="6">
-        <xsl:param name="prmGetContent" required="no" tunnel="yes" as="xs:boolean" select="false()"/>
         <fo:inline>
-            <xsl:choose>
-                <xsl:when test="$prmGetContent">
-                    <xsl:call-template name="getAttributeSetWithLang">
-                        <xsl:with-param name="prmAttrSetName" select="'atsXmlAtt'"/>
-                    </xsl:call-template>
-                    <xsl:copy-of select="ahf:getUnivAtts(.,(),false())"/>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:call-template name="getAttributeSetWithLang"/>
-                    <xsl:call-template name="ahf:getUnivAtts"/>
-                    <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
-                </xsl:otherwise>
-            </xsl:choose>
+            <xsl:call-template name="getAttributeSetWithLang"/>
+            <xsl:call-template name="ahf:getUnivAtts"/>
+            <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
             <fo:inline>
                 <xsl:call-template name="getAttributeSet">
                     <xsl:with-param name="prmAttrSetName" select="'atsXmlAttPrefix'"/>
@@ -249,21 +204,10 @@
     </xsl:template>
     
     <xsl:template match="*[contains(@class, ' xml-d/xmlelement ')]" priority="6">
-        <xsl:param name="prmGetContent" required="no" tunnel="yes" as="xs:boolean" select="false()"/>
         <fo:inline>
-            <xsl:choose>
-                <xsl:when test="$prmGetContent">
-                    <xsl:call-template name="getAttributeSetWithLang">
-                        <xsl:with-param name="prmAttrSetName" select="'atsXmlElement'"/>
-                    </xsl:call-template>
-                    <xsl:copy-of select="ahf:getUnivAtts(.,(),false())"/>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:call-template name="getAttributeSetWithLang"/>
-                    <xsl:call-template name="ahf:getUnivAtts"/>
-                    <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
-                </xsl:otherwise>
-            </xsl:choose>
+            <xsl:call-template name="getAttributeSetWithLang"/>
+            <xsl:call-template name="ahf:getUnivAtts"/>
+            <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
             <fo:inline>
                 <xsl:call-template name="getAttributeSet">
                     <xsl:with-param name="prmAttrSetName" select="'atsXmlElementPrefix'"/>
@@ -310,21 +254,10 @@
     </xsl:template>
     
     <xsl:template match="*[contains(@class, ' xml-d/xmlnsname ')]" priority="6">
-        <xsl:param name="prmGetContent" required="no" tunnel="yes" as="xs:boolean" select="false()"/>
         <fo:inline>
-            <xsl:choose>
-                <xsl:when test="$prmGetContent">
-                    <xsl:call-template name="getAttributeSetWithLang">
-                        <xsl:with-param name="prmAttrSetName" select="'atsXmlNsName'"/>
-                    </xsl:call-template>
-                    <xsl:copy-of select="ahf:getUnivAtts(.,(),false())"/>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:call-template name="getAttributeSetWithLang"/>
-                    <xsl:call-template name="ahf:getUnivAtts"/>
-                    <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
-                </xsl:otherwise>
-            </xsl:choose>
+            <xsl:call-template name="getAttributeSetWithLang"/>
+            <xsl:call-template name="ahf:getUnivAtts"/>
+            <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
             <xsl:apply-templates/>
         </fo:inline>
     </xsl:template>
@@ -344,21 +277,10 @@
     </xsl:template>
     
     <xsl:template match="*[contains(@class, ' xml-d/xmlpi ')]" priority="6">
-        <xsl:param name="prmGetContent" required="no" tunnel="yes" as="xs:boolean" select="false()"/>
         <fo:inline>
-            <xsl:choose>
-                <xsl:when test="$prmGetContent">
-                    <xsl:call-template name="getAttributeSetWithLang">
-                        <xsl:with-param name="prmAttrSetName" select="'atsXmlPi'"/>
-                    </xsl:call-template>
-                    <xsl:copy-of select="ahf:getUnivAtts(.,(),false())"/>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:call-template name="getAttributeSetWithLang"/>
-                    <xsl:call-template name="ahf:getUnivAtts"/>
-                    <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
-                </xsl:otherwise>
-            </xsl:choose>
+            <xsl:call-template name="getAttributeSetWithLang"/>
+            <xsl:call-template name="ahf:getUnivAtts"/>
+            <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
             <xsl:apply-templates/>
         </fo:inline>
     </xsl:template>

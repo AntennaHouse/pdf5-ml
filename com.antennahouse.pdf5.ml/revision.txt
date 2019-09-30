@@ -6,6 +6,29 @@
              Antenna House is a trademark of Antenna House, Inc.
 _______________________________________________________________________________
 
+Sep. 2019
+V1.0.6
+- Support floating figure if it is not specialized as <float-fig> in DTD or scheme.
+  ex.
+  <fig outputclass="float-right/float-left/float-none">
+- Supports floatfig/@float="left" on ol/ul/step.
+- Support xref/@outputclass to control output. You can customize the @outputclass value by changing style definition file description. 
+  ex.
+  <xref outputclass="title-and-page" href="[reference to topic]"/>
+  <xref outputclass="title-only" href="[reference to topic]"/>
+  <xref outputclass="page-only" href="[reference to topic]"/>
+- Implement hazardstatement domain.
+- Add brand-type to style selection constraint.
+- Remove obsolete dita2fo_numberingmap_deprecated.xsl.
+- Add page-break control by topicref/@outputclass.
+  ex.
+  <topicref href="a.xml" outputclass="break-page"/> 
+  <topicref href="a.xml" outputclass="break-column"/>
+  <topicref href="a.xml" outputclass="break-no"/>
+  <topicref href="a.xml" outputclass="break-auto"/>
+  
+- Implement dl table formatting when dlhead is specified. 
+  
 Apr. 2019
 V1.0.5
 - Change fig & table numbering algorithms.
