@@ -28,6 +28,7 @@ V1.0.6
   <topicref href="a.xml" outputclass="break-auto"/>
   
 - Implement dl table formatting when dlhead is specified. 
+- Refine mode="GET_CONTENT" processing.
   
 Apr. 2019
 V1.0.5
