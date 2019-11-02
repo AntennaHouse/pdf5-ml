@@ -1709,20 +1709,21 @@ E-mail : info@antennahouse.com
     </xsl:function>
     
     <!--    function: Get currentlevel indexkey
-            param: prmId, prmLevel
+            param:  prmId, prmLevel
             return: index-data[@id=$prmId]/indexterm[$prmLevel]/@indexkey
-            note:none
+            note:   Change @indexKey to @indexkeyForSee to make <index-see>, <index-see-also> link correctly.
+                    2019-11-03 t.makita
     -->
     <xsl:function name="ahf:getCurrentLevelIndexKey" as="xs:string">
         <xsl:param name="prmId" as="xs:string"/>
         <xsl:param name="prmLevel" as="xs:integer"/>
-        <xsl:variable name="indexkey" select="string($indextermSorted/index-data[@id=$prmId]/indexterm[$prmLevel]/@indexkey)" as="xs:string"/>
+        <xsl:variable name="indexkeyForSee" select="string($indextermSorted/index-data[@id=$prmId]/indexterm[$prmLevel]/@indexkeyForSee)" as="xs:string"/>
         <xsl:choose>
-        	<xsl:when test="$indextermSorted/index-data[@id=$prmId]/preceding-sibling::index-data/indexterm[$prmLevel][string(@indexkey) eq $indexkey ]">
+        	<xsl:when test="$indextermSorted/index-data[@id=$prmId]/preceding-sibling::index-data/indexterm[$prmLevel][string(@indexkeyForSee) eq $indexkeyForSee ]">
         		<xsl:sequence select="''"/>
         	</xsl:when>
         	<xsl:otherwise>
-        		<xsl:sequence select="$indexkey"/>
+        		<xsl:sequence select="$indexkeyForSee"/>
         	</xsl:otherwise>
         </xsl:choose>
     </xsl:function>

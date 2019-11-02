@@ -197,6 +197,7 @@ E-mail : info@antennahouse.com
                     </xsl:attribute>
                 </xsl:if>
                 <xsl:attribute name="indexkey" select="$currentFoIndexKey"/>
+                <xsl:attribute name="indexkeyForSee" select="$currentFoIndexKeyForSee"/>
                 <xsl:element name="indextermfo">
                     <xsl:copy-of select="$indextermFO"/>
                 </xsl:element>
