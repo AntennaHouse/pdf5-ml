@@ -458,7 +458,25 @@ E-mail : info@antennahouse.com
         </xsl:choose>
     </xsl:template>
     
-    
+    <!-- 
+         Function: Generate indexterm key without considering index-sort-as
+         Param:    prmIndexterm
+         Return:   xs:string 
+         Note:     Used for making key for index-see, index-see-also
+                   2019-11-03 t.makita
+      -->
+    <xsl:template name="getIndextermKeyForSee" as="xs:string">
+        <xsl:param name="prmIndexterm" as="element()" required="yes"/>
+        <xsl:variable name="indextermKeyWoSortAs" as="xs:string">
+            <xsl:variable name="tempIndextermKeyWoSortAs" as="xs:string*">
+                <xsl:apply-templates select="$prmIndexterm/node() except $prmIndexterm/*[contains(@class,' indexing-d/index-sort-as ')]" mode="TEXT_ONLY">
+                    <xsl:with-param name="prmGetIndextermKey" tunnel="yes" select="true()"/>
+                </xsl:apply-templates>
+            </xsl:variable>
+            <xsl:sequence select="normalize-space(string-join($tempIndextermKeyWoSortAs,''))"/>
+        </xsl:variable>
+        <xsl:sequence select="$indextermKeyWoSortAs"/>
+    </xsl:template>
     
     <!-- 
          Function: Make index page sequence
@@ -1046,8 +1064,12 @@ E-mail : info@antennahouse.com
                     <xsl:copy-of select="ahf:getAttributeSetReplacing('atsIndexLine',('%level'),(string($prmStartLevel)))"/>
                     <fo:inline>
                         <xsl:if test="$pMakeSeeLink">
+                            <!-- Make @id from @indexKeyForSee, because it has no index-sort-as content.
+                                 2019-11-03 t.makita
+                             -->
+                            <xsl:variable name="indexKeyForSee"  select="string($indextermSorted/index-data[@id = $prmCurrentId]/@indexKeyForSee)" as="xs:string"/>
                             <xsl:attribute name="id">
-                                <xsl:value-of select="ahf:indexKeyToIdValue($prmCurrentIndexKey)"/>
+                                <xsl:value-of select="ahf:indexKeyToIdValue($indexKeyForSee)"/>
                             </xsl:attribute>
                         </xsl:if>
                         <xsl:copy-of select="$indextermFO"/>
