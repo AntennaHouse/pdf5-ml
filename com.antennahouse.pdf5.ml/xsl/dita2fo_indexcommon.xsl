@@ -1067,7 +1067,7 @@ E-mail : info@antennahouse.com
                             <!-- Make @id from @indexKeyForSee, because it has no index-sort-as content.
                                  2019-11-03 t.makita
                              -->
-                            <xsl:variable name="indexKeyForSee"  select="string($indextermSorted/index-data[@id = $prmCurrentId]/@indexKeyForSee)" as="xs:string"/>
+                            <xsl:variable name="indexKeyForSee"  select="string($indextermSorted/index-data[@id = $prmCurrentId]/@indexkeyForSee)" as="xs:string"/>
                             <xsl:attribute name="id">
                                 <xsl:value-of select="ahf:indexKeyToIdValue($indexKeyForSee)"/>
                             </xsl:attribute>
