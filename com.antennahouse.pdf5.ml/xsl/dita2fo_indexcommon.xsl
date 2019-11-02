@@ -442,7 +442,7 @@ E-mail : info@antennahouse.com
         </xsl:variable>
         <xsl:variable name="indextermKeySortAs" as="xs:string">
             <xsl:variable name="tempIndextermKeySortAs" as="xs:string*">
-                <xsl:apply-templates select="$prmIndexterm/*[contains(@class,' indexing-d/index-sort-as ')]" mode="TEXT_ONLY">
+                <xsl:apply-templates select="$prmIndexterm/*[contains(@class,$CLASS_INDEX_SORTAS)]" mode="TEXT_ONLY">
                     <xsl:with-param name="prmGetIndextermKey" tunnel="yes" select="true()"/>
                 </xsl:apply-templates>
             </xsl:variable>
@@ -469,7 +469,7 @@ E-mail : info@antennahouse.com
         <xsl:param name="prmIndexterm" as="element()" required="yes"/>
         <xsl:variable name="indextermKeyWoSortAs" as="xs:string">
             <xsl:variable name="tempIndextermKeyWoSortAs" as="xs:string*">
-                <xsl:apply-templates select="$prmIndexterm/node() except $prmIndexterm/*[contains(@class,' indexing-d/index-sort-as ')]" mode="TEXT_ONLY">
+                <xsl:apply-templates select="$prmIndexterm/node() except $prmIndexterm/*[contains(@class,$CLASS_INDEX_SORTAS)]" mode="TEXT_ONLY">
                     <xsl:with-param name="prmGetIndextermKey" tunnel="yes" select="true()"/>
                 </xsl:apply-templates>
             </xsl:variable>
