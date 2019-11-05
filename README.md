@@ -208,7 +208,7 @@ This folder contains the sample DITA instance and formatted results.
 |sample_udhr|Contains multi-language DITA instance example.|
 |sample_dita13|Contains DITA 1.3 example.|
 
-## oxygen-integrarion folder
+## oxygen-integration folder
 
 This folder contains the HTML file that describes how to integrate PDF-ML with oXygen XML Editor.
 
