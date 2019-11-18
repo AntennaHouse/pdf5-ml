@@ -442,7 +442,7 @@ E-mail : info@antennahouse.com
         </xsl:variable>
         <xsl:variable name="indextermKeySortAs" as="xs:string">
             <xsl:variable name="tempIndextermKeySortAs" as="xs:string*">
-                <xsl:apply-templates select="$prmIndexterm/*[contains(@class,' indexing-d/index-sort-as ')]" mode="TEXT_ONLY">
+                <xsl:apply-templates select="$prmIndexterm/*[contains(@class,$CLASS_INDEX_SORTAS)]" mode="TEXT_ONLY">
                     <xsl:with-param name="prmGetIndextermKey" tunnel="yes" select="true()"/>
                 </xsl:apply-templates>
             </xsl:variable>
@@ -458,7 +458,25 @@ E-mail : info@antennahouse.com
         </xsl:choose>
     </xsl:template>
     
-    
+    <!-- 
+         Function: Generate indexterm key without considering index-sort-as
+         Param:    prmIndexterm
+         Return:   xs:string 
+         Note:     Used for making key for index-see, index-see-also
+                   2019-11-03 t.makita
+      -->
+    <xsl:template name="getIndextermKeyForSee" as="xs:string">
+        <xsl:param name="prmIndexterm" as="element()" required="yes"/>
+        <xsl:variable name="indextermKeyWoSortAs" as="xs:string">
+            <xsl:variable name="tempIndextermKeyWoSortAs" as="xs:string*">
+                <xsl:apply-templates select="$prmIndexterm/node() except $prmIndexterm/*[contains(@class,$CLASS_INDEX_SORTAS)]" mode="TEXT_ONLY">
+                    <xsl:with-param name="prmGetIndextermKey" tunnel="yes" select="true()"/>
+                </xsl:apply-templates>
+            </xsl:variable>
+            <xsl:sequence select="normalize-space(string-join($tempIndextermKeyWoSortAs,''))"/>
+        </xsl:variable>
+        <xsl:sequence select="$indextermKeyWoSortAs"/>
+    </xsl:template>
     
     <!-- 
          Function: Make index page sequence
@@ -1046,8 +1064,12 @@ E-mail : info@antennahouse.com
                     <xsl:copy-of select="ahf:getAttributeSetReplacing('atsIndexLine',('%level'),(string($prmStartLevel)))"/>
                     <fo:inline>
                         <xsl:if test="$pMakeSeeLink">
+                            <!-- Make @id from @indexKeyForSee, because it has no index-sort-as content.
+                                 2019-11-03 t.makita
+                             -->
+                            <xsl:variable name="indexKeyForSee"  select="string($indextermSorted/index-data[@id = $prmCurrentId]/@indexkeyForSee)" as="xs:string"/>
                             <xsl:attribute name="id">
-                                <xsl:value-of select="ahf:indexKeyToIdValue($prmCurrentIndexKey)"/>
+                                <xsl:value-of select="ahf:indexKeyToIdValue($indexKeyForSee)"/>
                             </xsl:attribute>
                         </xsl:if>
                         <xsl:copy-of select="$indextermFO"/>
@@ -1687,20 +1709,21 @@ E-mail : info@antennahouse.com
     </xsl:function>
     
     <!--    function: Get currentlevel indexkey
-            param: prmId, prmLevel
+            param:  prmId, prmLevel
             return: index-data[@id=$prmId]/indexterm[$prmLevel]/@indexkey
-            note:none
+            note:   Change @indexKey to @indexkeyForSee to make <index-see>, <index-see-also> link correctly.
+                    2019-11-03 t.makita
     -->
     <xsl:function name="ahf:getCurrentLevelIndexKey" as="xs:string">
         <xsl:param name="prmId" as="xs:string"/>
         <xsl:param name="prmLevel" as="xs:integer"/>
-        <xsl:variable name="indexkey" select="string($indextermSorted/index-data[@id=$prmId]/indexterm[$prmLevel]/@indexkey)" as="xs:string"/>
+        <xsl:variable name="indexkeyForSee" select="string($indextermSorted/index-data[@id=$prmId]/indexterm[$prmLevel]/@indexkeyForSee)" as="xs:string"/>
         <xsl:choose>
-        	<xsl:when test="$indextermSorted/index-data[@id=$prmId]/preceding-sibling::index-data/indexterm[$prmLevel][string(@indexkey) eq $indexkey ]">
+        	<xsl:when test="$indextermSorted/index-data[@id=$prmId]/preceding-sibling::index-data/indexterm[$prmLevel][string(@indexkeyForSee) eq $indexkeyForSee ]">
         		<xsl:sequence select="''"/>
         	</xsl:when>
         	<xsl:otherwise>
-        		<xsl:sequence select="$indexkey"/>
+        		<xsl:sequence select="$indexkeyForSee"/>
         	</xsl:otherwise>
         </xsl:choose>
     </xsl:function>

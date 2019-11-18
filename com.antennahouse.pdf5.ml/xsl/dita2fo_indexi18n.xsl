@@ -63,6 +63,7 @@ E-mail : info@antennahouse.com
                              mode="MAKE_INDEX_ORIGIN">
             <xsl:with-param name="prmTopicRef"      tunnel="yes" select="()"/>
             <xsl:with-param name="prmFoIndexKey"    select="''"/>
+            <xsl:with-param name="prmFoIndexKeyForSee"    select="''"/>
             <xsl:with-param name="prmLevel"         select="0"/>
             <xsl:with-param name="prmIndextermElem" select="()"/>
         </xsl:apply-templates>
@@ -86,6 +87,7 @@ E-mail : info@antennahouse.com
                              mode="MAKE_INDEX_ORIGIN">
             <xsl:with-param name="prmTopicRef"      tunnel="yes" select="$prmTopicRef"/>
             <xsl:with-param name="prmFoIndexKey"    select="''"/>
+            <xsl:with-param name="prmFoIndexKeyForSee"    select="''"/>
             <xsl:with-param name="prmLevel"         select="0"/>
             <xsl:with-param name="prmIndextermElem" select="()"/>
         </xsl:apply-templates>
@@ -101,6 +103,7 @@ E-mail : info@antennahouse.com
     <xsl:template match="*[contains(@class, ' topic/indexterm ')]" mode="MAKE_INDEX_ORIGIN">
         <xsl:param name="prmTopicRef"      tunnel="yes" required="yes" as="element()?"/>
         <xsl:param name="prmFoIndexKey"    required="yes" as="xs:string"/>
+        <xsl:param name="prmFoIndexKeyForSee" required="yes" as="xs:string"/>
         <xsl:param name="prmLevel"         required="yes" as="xs:integer"/>
         <xsl:param name="prmIndextermElem" required="yes" as="element()*"/>
     
@@ -124,6 +127,12 @@ E-mail : info@antennahouse.com
           -->
         <xsl:variable name="indextermKey" as="xs:string">
             <xsl:call-template name="getIndextermKey">
+                <xsl:with-param name="prmIndexterm" select="."/>
+            </xsl:call-template>
+        </xsl:variable>
+
+        <xsl:variable name="indextermKeyForSee" as="xs:string">
+            <xsl:call-template name="getIndextermKeyForSee">
                 <xsl:with-param name="prmIndexterm" select="."/>
             </xsl:call-template>
         </xsl:variable>
@@ -162,7 +171,19 @@ E-mail : info@antennahouse.com
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:variable>
+
+        <xsl:variable name="currentFoIndexKeyForSee" as="xs:string">
+            <xsl:choose>
+                <xsl:when test="not(string($prmFoIndexKeyForSee))">
+                    <xsl:value-of select="$indextermKeyForSee"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:value-of select="concat($prmFoIndexKeyForSee,$indexKeySep,$indextermKeyForSee)"/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
         
+
         <!-- Current indexterm element
              Added @indexkey attribute.
              2014-09-27 t.makita
@@ -176,6 +197,7 @@ E-mail : info@antennahouse.com
                     </xsl:attribute>
                 </xsl:if>
                 <xsl:attribute name="indexkey" select="$currentFoIndexKey"/>
+                <xsl:attribute name="indexkeyForSee" select="$currentFoIndexKeyForSee"/>
                 <xsl:element name="indextermfo">
                     <xsl:copy-of select="$indextermFO"/>
                 </xsl:element>
@@ -201,6 +223,9 @@ E-mail : info@antennahouse.com
                     <xsl:attribute name="indexkey">
                         <xsl:value-of select="$currentFoIndexKey"/>
                     </xsl:attribute>
+                    <xsl:attribute name="indexkeyForSee">
+                        <xsl:value-of select="$currentFoIndexKeyForSee"/>
+                    </xsl:attribute>
                     <xsl:attribute name="level">
                         <xsl:value-of select="$currentLevel"/>
                     </xsl:attribute>
@@ -219,6 +244,7 @@ E-mail : info@antennahouse.com
                                      mode="MAKE_INDEX_ORIGIN">
                     <xsl:with-param name="prmTopicRef"      tunnel="yes" select="$prmTopicRef"/>
                     <xsl:with-param name="prmFoIndexKey"    select="$currentFoIndexKey"/>
+                    <xsl:with-param name="prmFoIndexKeyForSee"    select="$currentFoIndexKeyForSee"/>
                     <xsl:with-param name="prmLevel"         select="$currentLevel"/>
                     <xsl:with-param name="prmIndextermElem" select="$currentIndextermElement"/>
                 </xsl:apply-templates>
@@ -231,6 +257,7 @@ E-mail : info@antennahouse.com
                                      mode="MAKE_INDEX_ORIGIN">
                     <xsl:with-param name="prmTopicRef"      tunnel="yes" select="$prmTopicRef"/>
                     <xsl:with-param name="prmFoIndexKey"    select="$currentFoIndexKey"/>
+                    <xsl:with-param name="prmFoIndexKeyForSee"    select="$currentFoIndexKeyForSee"/>
                     <xsl:with-param name="prmLevel"         select="$currentLevel"/>
                     <xsl:with-param name="prmIndextermElem" select="$currentIndextermElement"/>
                 </xsl:apply-templates>
@@ -246,6 +273,9 @@ E-mail : info@antennahouse.com
                     <xsl:attribute name="indexkey">
                         <xsl:value-of select="$currentFoIndexKey"/>
                     </xsl:attribute>
+                    <xsl:attribute name="indexkeyForSee">
+                        <xsl:value-of select="$currentFoIndexKeyForSee"/>
+                    </xsl:attribute>
                     <xsl:attribute name="level">
                         <xsl:value-of select="$currentLevel"/>
                     </xsl:attribute>
@@ -264,6 +294,7 @@ E-mail : info@antennahouse.com
                                      mode="MAKE_INDEX_ORIGIN">
                     <xsl:with-param name="prmTopicRef"      tunnel="yes" select="$prmTopicRef"/>
                     <xsl:with-param name="prmFoIndexKey"    select="$currentFoIndexKey"/>
+                    <xsl:with-param name="prmFoIndexKeyForSee"    select="$currentFoIndexKeyForSee"/>
                     <xsl:with-param name="prmLevel"         select="$currentLevel"/>
                     <xsl:with-param name="prmIndextermElem" select="$currentIndextermElement"/>
                 </xsl:apply-templates>
@@ -275,6 +306,9 @@ E-mail : info@antennahouse.com
                     </xsl:attribute-->
                     <xsl:attribute name="indexkey">
                         <xsl:value-of select="$currentFoIndexKey"/>
+                    </xsl:attribute>
+                    <xsl:attribute name="indexkeyForSee">
+                        <xsl:value-of select="$currentFoIndexKeyForSee"/>
                     </xsl:attribute>
                     <xsl:attribute name="level">
                         <xsl:value-of select="$currentLevel"/>
@@ -302,6 +336,7 @@ E-mail : info@antennahouse.com
     <xsl:template match="*[contains(@class, ' indexing-d/index-see ')]" mode="MAKE_INDEX_ORIGIN">
         <xsl:param name="prmTopicRef"      tunnel="yes" required="yes" as="element()?"/>
         <xsl:param name="prmFoIndexKey"    required="yes" as="xs:string"/>
+        <xsl:param name="prmFoIndexKeyForSee"    required="yes" as="xs:string"/>
         <xsl:param name="prmLevel"         required="yes" as="xs:integer"/>
         <xsl:param name="prmIndextermElem" required="yes" as="element()*"/>
         
@@ -351,6 +386,9 @@ E-mail : info@antennahouse.com
                     <xsl:attribute name="indexkey">
                         <xsl:value-of select="$prmFoIndexKey"/>
                     </xsl:attribute>
+                    <xsl:attribute name="indexkeyForSee">
+                        <xsl:value-of select="$prmFoIndexKeyForSee"/>
+                    </xsl:attribute>
                     <xsl:attribute name="level">
                         <xsl:value-of select="$prmLevel"/>
                     </xsl:attribute>
@@ -390,6 +428,7 @@ E-mail : info@antennahouse.com
     <xsl:template match="*[contains(@class, ' indexing-d/index-see-also ')]" mode="MAKE_INDEX_ORIGIN">
         <xsl:param name="prmTopicRef"      tunnel="yes" required="yes" as="element()?"/>
         <xsl:param name="prmFoIndexKey"    required="yes" as="xs:string"/>
+        <xsl:param name="prmFoIndexKeyForSee"    required="yes" as="xs:string"/>
         <xsl:param name="prmLevel"         required="yes" as="xs:integer"/>
         <xsl:param name="prmIndextermElem" required="yes" as="element()*"/>
         
@@ -438,6 +477,9 @@ E-mail : info@antennahouse.com
                     </xsl:attribute-->
                     <xsl:attribute name="indexkey">
                         <xsl:value-of select="$prmFoIndexKey"/>
+                    </xsl:attribute>
+                    <xsl:attribute name="indexkeyForSee">
+                        <xsl:value-of select="$prmFoIndexKeyForSee"/>
                     </xsl:attribute>
                     <xsl:attribute name="level">
                         <xsl:value-of select="$prmLevel"/>

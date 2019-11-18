@@ -500,8 +500,12 @@
 				<variable name="index_H_top">($index_K_top + $index_K_height) + 0.7mm</variable>
 				If you insert a white-space, it will be processed normally.
 				<variable name="index_H_top">( $index_K_top + $index_K_height ) + 0.7mm</variable>
+				
+				Change variable delimitor.
+				2019-11-12 t.makita.
 	  -->
-	<xsl:variable name="expandExpRegX" as="xs:string" select="'[\s\(\),\*\+]+?'"/>
+	<!--xsl:variable name="expandExpRegX" as="xs:string" select="'[\s\(\),\*\+]+?'"/-->
+	<xsl:variable name="expandExpRegX" as="xs:string">[\s\(\),\*\+&lt;&gt;:;'"&#x3000;\\\.]+?</xsl:variable>
 	
 	<xsl:template name="expandExp" as="xs:string">
 		<xsl:param name="prmExp" required="yes" as="xs:string"/>
