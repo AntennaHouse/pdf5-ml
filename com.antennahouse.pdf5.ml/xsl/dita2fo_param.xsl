@@ -36,10 +36,13 @@ E-mail : info@antennahouse.com
          The key of <indexterm> is generated from indexterm and index-sort-as.
          So <see> or <see-also> cannot generate correct link to <indexterm> if <index-sort-as> is used.
          2019-01-26 t.makita
+         Remove above restriction by introducing @indexKeyForSee attribute
+         2019-11-03 t.makita
       -->
     <xsl:param name="PRM_MAKE_SEE_LINK" required="no" as="xs:string" select="$cYes"/>
     <xsl:variable name="pMakeSeeLink" as="xs:boolean">
-        <xsl:choose>
+        <xsl:sequence select="$PRM_MAKE_SEE_LINK eq $cYes"/>
+        <!--xsl:choose>
             <xsl:when test="$documentLang = ('ja','ja-JP')">
                 <xsl:sequence select="false()"/>
             </xsl:when>
@@ -49,7 +52,7 @@ E-mail : info@antennahouse.com
             <xsl:otherwise>
                 <xsl:sequence select="$PRM_MAKE_SEE_LINK eq $cYes"/>
             </xsl:otherwise>
-        </xsl:choose>
+        </xsl:choose-->
     </xsl:variable>
 
     <!-- Include frontmatter to toc
