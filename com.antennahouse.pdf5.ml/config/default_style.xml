@@ -1886,8 +1886,8 @@ URL : http://www.antennahouse.com/
             </attribute-set>
 
             <!-- Ratio for sl/@compact: must be number -->
-            <variable name="Sl_Compact_Ratio">0.1</variable>
-            <variable name="Sl_Compact_Attr">space-before</variable>
+            <variable name="Sl_Compact_Ratio" delim="[,\s]+">0.1</variable>
+            <variable name="Sl_Compact_Attr" delim="[,\s]+">space-before</variable>
 
             <!-- dl -->
             <attribute-set name="atsDlBlock">
@@ -1924,7 +1924,7 @@ URL : http://www.antennahouse.com/
                 <attribute name="keep-with-next">always</attribute>
             </attribute-set>
             
-            <attribute-set name="atsDtTable"  use-attribute-sets="atsTableBodyCell">
+            <attribute-set name="atsDtTableCell"  use-attribute-sets="atsTableBodyCell">
                 <attribute name="border-style">solid</attribute>
             </attribute-set>
 
@@ -1941,11 +1941,11 @@ URL : http://www.antennahouse.com/
             </attribute-set>
             
             <!-- Ratio for dl/@compact: must be number -->
-            <variable name="Dl_Compact_Ratio">0.1</variable>
-            <variable name="Dl_Compact_Ratio_Block_Dt">0.3</variable>
-            <variable name="Dl_Compact_Ratio_Block_Dd">0.2</variable>
-            <variable name="Dl_Compact_Attr">padding-before</variable>
-            <variable name="Dl_Compact_Attr_Block">space-before</variable>
+            <variable name="Dl_Compact_Ratio_Table" delim="[,\s]+">0.1 0.1</variable>
+            <variable name="Dl_Compact_Ratio_Block_Dt" delim="[,\s]+">0.3</variable>
+            <variable name="Dl_Compact_Ratio_Block_Dd" delim="[,\s]+">0.2</variable>
+            <variable name="Dl_Compact_Attr_Table" delim="[,\s]+">padding-before padding-after</variable>
+            <variable name="Dl_Compact_Attr_Block" delim="[,\s]+">space-before</variable>
 
             <!-- fig -->
             <attribute-set name="atsFig">

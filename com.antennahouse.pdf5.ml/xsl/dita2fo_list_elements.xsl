@@ -520,33 +520,14 @@ E-mail : info@antennahouse.com
         <fo:list-item>
             <xsl:call-template name="getAttributeSetWithLang"/>
             <xsl:call-template name="ahf:getUnivAtts"/>
-            <xsl:choose>
-                <!-- Apply compact spacing -->
-                <xsl:when test="$prmDoCompact">
-                    <xsl:variable name="slCompactRatio" as="xs:double">
-                        <xsl:call-template name="getVarValueWithLangAsDouble">
-                            <xsl:with-param name="prmVarName" select="'Sl_Compact_Ratio'"/>
-                        </xsl:call-template>
-                    </xsl:variable>
-                    <!--xsl:message select="'$slCompactRatio=',$slCompactRatio"/>
-                    <xsl:message select="'$slCompactRatio castable as xs:double=',$slCompactRatio castable as xs:double"/-->
-                    <xsl:variable name="slCompactAttrName" as="xs:string">
-                        <xsl:call-template name="getVarValueWithLang">
-                            <xsl:with-param name="prmVarName" select="'Sl_Compact_Attr'"/>
-                        </xsl:call-template>
-                    </xsl:variable>
-                    <xsl:variable name="compactAttrVal" as="xs:string">
-                        <xsl:call-template name="getAttributeValueWithLang">
-                            <xsl:with-param name="prmAttrSetName" as="xs:string*">
-                                <xsl:apply-templates select="." mode="MODE_GET_STYLE"/>
-                            </xsl:with-param>
-                            <xsl:with-param name="prmAttrName" select="$slCompactAttrName"/>
-                        </xsl:call-template>
-                    </xsl:variable>
-                    <xsl:attribute name="{$slCompactAttrName}" 
-                                   select="ahf:getPropertyRatio($compactAttrVal,$slCompactRatio)"/>
-                </xsl:when>
-            </xsl:choose>
+            <!-- Apply compact spacing -->
+            <xsl:if test="$prmDoCompact">
+                <xsl:call-template name="applyCompact">
+                    <xsl:with-param name="prmElem" select="."/>
+                    <xsl:with-param name="prmCompactRatioVarName" select="'Sl_Compact_Ratio'"/>
+                    <xsl:with-param name="prmCompactAttrName" select="'Sl_Compact_Attr'"/>
+                </xsl:call-template>
+            </xsl:if>
             <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
             <fo:list-item-label end-indent="label-end()"> 
                 <fo:block>
@@ -572,30 +553,11 @@ E-mail : info@antennahouse.com
         <xsl:sequence select="exists($prmDlElem/ancestor-or-self::*[contains(@class,' topic/dl ')][1]/*[contains(@class,' topic/dlhead ')])"/>
     </xsl:function>
     
-    <xsl:template match="*[contains(@class, ' topic/dl ')][not(ahf:formatDlAsTable(.))]" mode="MODE_GET_STYLE" as="xs:string*">
-    </xsl:template>
-    
     <xsl:template match="*[contains(@class, ' topic/dl ')][ahf:formatDlAsTable(.)]" mode="MODE_GET_STYLE" as="xs:string*">
         <xsl:sequence select="'atsDlTable'"/>
     </xsl:template>
-    
-    <xsl:template match="*[contains(@class, ' topic/dl ')][not(ahf:formatDlAsTable(.))]">
-        <xsl:variable name="doCompact" select="string(@compact) eq 'yes'" as="xs:boolean"/>
-        <fo:block>
-            <xsl:call-template name="ahf:getUnivAtts"/>
-            <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
-            <xsl:apply-templates select="*[contains(@class, ' topic/dlhead ')]">
-                <xsl:with-param name="prmDoCompact" tunnel="yes" select="$doCompact"/>
-            </xsl:apply-templates>
-            <xsl:apply-templates select="*[contains(@class, ' topic/dlentry ')]">
-                <xsl:with-param name="prmDoCompact" tunnel="yes" select="$doCompact"/>
-            </xsl:apply-templates>
-            <xsl:if test="not($pDisplayFnAtEndOfTopic)">
-                <xsl:call-template name="makeFootNote">
-                    <xsl:with-param name="prmElement"  select="."/>
-                </xsl:call-template>
-            </xsl:if>
-        </fo:block>
+
+    <xsl:template match="*[contains(@class, ' topic/dl ')][not(ahf:formatDlAsTable(.))]" mode="MODE_GET_STYLE" as="xs:string*">
     </xsl:template>
 
     <xsl:template match="*[contains(@class, ' topic/dl ')][ahf:formatDlAsTable(.)]">
@@ -620,22 +582,37 @@ E-mail : info@antennahouse.com
             </xsl:call-template>
         </xsl:if>
     </xsl:template>
+    
+    <xsl:template match="*[contains(@class, ' topic/dl ')][not(ahf:formatDlAsTable(.))]">
+        <xsl:variable name="doCompact" select="string(@compact) eq 'yes'" as="xs:boolean"/>
+        <fo:block>
+            <xsl:call-template name="ahf:getUnivAtts"/>
+            <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
+            <xsl:apply-templates select="*[contains(@class, ' topic/dlhead ')]">
+                <xsl:with-param name="prmDoCompact" tunnel="yes" select="$doCompact"/>
+            </xsl:apply-templates>
+            <xsl:apply-templates select="*[contains(@class, ' topic/dlentry ')]">
+                <xsl:with-param name="prmDoCompact" tunnel="yes" select="$doCompact"/>
+            </xsl:apply-templates>
+            <xsl:if test="not($pDisplayFnAtEndOfTopic)">
+                <xsl:call-template name="makeFootNote">
+                    <xsl:with-param name="prmElement"  select="."/>
+                </xsl:call-template>
+            </xsl:if>
+        </fo:block>
+    </xsl:template>
 
     <xsl:template match="*[contains(@class, ' topic/dlhead ')]" mode="MODE_GET_STYLE" as="xs:string*">
         <xsl:sequence select="'atsDlhead'"/>
     </xsl:template>
-
-    <xsl:template match="*[contains(@class, ' topic/dlhead ')]">
-        <xsl:param name="prmDoCompact" required="yes" tunnel="yes" as="xs:boolean"/>
     
+    <xsl:template match="*[contains(@class, ' topic/dlhead ')]">
         <fo:table-header>
             <xsl:call-template name="getAttributeSetWithLang"/>
             <xsl:call-template name="ahf:getUnivAtts"/>
             <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
             <fo:table-row>
-                <xsl:apply-templates>
-                    <xsl:with-param name="prmDoCompact" select="$prmDoCompact"/>
-                </xsl:apply-templates>
+                <xsl:apply-templates/>
             </fo:table-row>
         </fo:table-header>
     </xsl:template>
@@ -649,30 +626,15 @@ E-mail : info@antennahouse.com
         
         <fo:table-cell>
             <xsl:call-template name="getAttributeSetWithLang"/>
+            <xsl:if test="$prmDoCompact">
+                <xsl:call-template name="applyCompact">
+                    <xsl:with-param name="prmElem" select="."/>
+                    <xsl:with-param name="prmCompactRatioVarName" select="'Dl_Compact_Ratio_Table'"/>
+                    <xsl:with-param name="prmCompactAttrName" select="'Dl_Compact_Attr_Table'"/>
+                </xsl:call-template>
+            </xsl:if>
             <fo:block>
                 <xsl:call-template name="ahf:getUnivAtts"/>
-                <xsl:if test="$prmDoCompact">
-                    <xsl:variable name="dlCompactRatio" as="xs:double">
-                        <xsl:call-template name="getVarValueWithLangAsDouble">
-                            <xsl:with-param name="prmVarName" select="'Dl_Compact_Ratio'"/>
-                        </xsl:call-template>
-                    </xsl:variable>
-                    <xsl:variable name="dlCompactAttrName" as="xs:string">
-                        <xsl:call-template name="getVarValueWithLang">
-                            <xsl:with-param name="prmVarName" select="'Dl_Compact_Attr'"/>
-                        </xsl:call-template>
-                    </xsl:variable>
-                    <xsl:variable name="dlCompactAttrVal" as="xs:string">
-                        <xsl:call-template name="getAttributeValueWithLang">
-                            <xsl:with-param name="prmAttrSetName" as="xs:string*">
-                                <xsl:apply-templates select="." mode="MODE_GET_STYLE"/>
-                            </xsl:with-param>
-                            <xsl:with-param name="prmAttrName" select="$dlCompactAttrName"/>
-                        </xsl:call-template>
-                    </xsl:variable>
-                    <xsl:attribute name="{$dlCompactAttrName}" 
-                                   select="ahf:getPropertyRatio($dlCompactAttrVal,$dlCompactRatio)"/>
-                </xsl:if>
                 <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
                 <xsl:apply-templates/>
             </fo:block>
@@ -688,55 +650,27 @@ E-mail : info@antennahouse.com
         
         <fo:table-cell>
             <xsl:call-template name="getAttributeSetWithLang"/>
+            <xsl:if test="$prmDoCompact">
+                <xsl:call-template name="applyCompact">
+                    <xsl:with-param name="prmElem" select="."/>
+                    <xsl:with-param name="prmCompactRatioVarName" select="'Dl_Compact_Ratio_Table'"/>
+                    <xsl:with-param name="prmCompactAttrName" select="'Dl_Compact_Attr_Table'"/>
+                </xsl:call-template>
+            </xsl:if>
             <fo:block>
                 <xsl:call-template name="ahf:getUnivAtts"/>
-                <xsl:if test="$prmDoCompact">
-                    <xsl:variable name="dlCompactRatio" as="xs:double">
-                        <xsl:call-template name="getVarValueWithLangAsDouble">
-                            <xsl:with-param name="prmVarName" select="'Dl_Compact_Ratio'"/>
-                        </xsl:call-template>
-                    </xsl:variable>
-                    <xsl:variable name="dlCompactAttrName" as="xs:string">
-                        <xsl:call-template name="getVarValueWithLang">
-                            <xsl:with-param name="prmVarName" select="'Dl_Compact_Attr'"/>
-                        </xsl:call-template>
-                    </xsl:variable>
-                    <xsl:variable name="dlCompactAttrVal" as="xs:string">
-                        <xsl:call-template name="getAttributeValueWithLang">
-                            <xsl:with-param name="prmAttrSetName" as="xs:string*">
-                                <xsl:apply-templates select="." mode="MODE_GET_STYLE"/>
-                            </xsl:with-param>
-                            <xsl:with-param name="prmAttrName" select="$dlCompactAttrName"/>
-                        </xsl:call-template>
-                    </xsl:variable>
-                    <xsl:attribute name="{$dlCompactAttrName}" 
-                                   select="ahf:getPropertyRatio($dlCompactAttrVal,$dlCompactRatio)"/>
-                </xsl:if>
                 <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
                 <xsl:apply-templates/>
             </fo:block>
         </fo:table-cell>
-    </xsl:template>
-
-    <xsl:template match="*[contains(@class, ' topic/dlentry ')][not(ahf:formatDlAsTable(.))]" mode="MODE_GET_STYLE" as="xs:string*">
-        <xsl:sequence select="'atsDlentryBlock'"/>
     </xsl:template>
     
     <xsl:template match="*[contains(@class, ' topic/dlentry ')][ahf:formatDlAsTable(.)]" mode="MODE_GET_STYLE" as="xs:string*">
         <xsl:sequence select="'atsDlentryTable'"/>
     </xsl:template>
 
-    <xsl:template match="*[contains(@class, ' topic/dlentry ')][not(ahf:formatDlAsTable(.))]">
-        <xsl:param name="prmDoCompact" required="yes" tunnel="yes" as="xs:boolean"/>
-        
-        <fo:block>
-            <xsl:call-template name="getAttributeSetWithLang"/>
-            <xsl:call-template name="ahf:getUnivAtts"/>
-            <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
-            <xsl:apply-templates>
-                <xsl:with-param name="prmDoCompact" tunnel="yes" select="$prmDoCompact"/>
-            </xsl:apply-templates>
-        </fo:block>
+    <xsl:template match="*[contains(@class, ' topic/dlentry ')][not(ahf:formatDlAsTable(.))]" mode="MODE_GET_STYLE" as="xs:string*">
+        <xsl:sequence select="'atsDlentryBlock'"/>
     </xsl:template>
 
     <xsl:template match="*[contains(@class, ' topic/dlentry ')][ahf:formatDlAsTable(.)]">
@@ -746,29 +680,63 @@ E-mail : info@antennahouse.com
             <xsl:call-template name="getAttributeSetWithLang"/>
             <xsl:call-template name="ahf:getUnivAtts"/>
             <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
-            <xsl:apply-templates select="*[contains(@class, ' topic/dt ')]">
-                <xsl:with-param name="prmDoCompact" tunnel="yes" select="$prmDoCompact"/>
-            </xsl:apply-templates>
             <fo:table-cell>
-                <xsl:call-template name="getAttributeSet">
-                    <xsl:with-param name="prmAttrSetName" select="'atsDdTableCell'"/>
+                <xsl:call-template name="getAttributeSetWithLang">
+                    <xsl:with-param name="prmElem" select="*[contains(@class, ' topic/dt ')][1]"/>
                 </xsl:call-template>
-                <xsl:apply-templates select="*[contains(@class, ' topic/dd ')]">
-                    <xsl:with-param name="prmDoCompact" tunnel="yes" select="$prmDoCompact"/>
-                </xsl:apply-templates>
+                <xsl:if test="$prmDoCompact">
+                    <xsl:call-template name="applyCompact">
+                        <xsl:with-param name="prmElem" select="*[contains(@class, ' topic/dt ')][1]"/>
+                        <xsl:with-param name="prmCompactRatioVarName" select="'Dl_Compact_Ratio_Table'"/>
+                        <xsl:with-param name="prmCompactAttrName" select="'Dl_Compact_Attr_Table'"/>
+                    </xsl:call-template>
+                </xsl:if>
+                <xsl:apply-templates select="*[contains(@class, ' topic/dt ')]"/>
+            </fo:table-cell>
+            <fo:table-cell>
+                <xsl:call-template name="getAttributeSetWithLang">
+                    <xsl:with-param name="prmElem" select="*[contains(@class, ' topic/dd ')][1]"/>
+                </xsl:call-template>
+                <xsl:if test="$prmDoCompact">
+                    <xsl:call-template name="applyCompact">
+                        <xsl:with-param name="prmElem" select="*[contains(@class, ' topic/dd ')][1]"/>
+                        <xsl:with-param name="prmCompactRatioVarName" select="'Dl_Compact_Ratio_Table'"/>
+                        <xsl:with-param name="prmCompactAttrName" select="'Dl_Compact_Attr_Table'"/>
+                    </xsl:call-template>
+                </xsl:if>
+                <xsl:apply-templates select="*[contains(@class, ' topic/dd ')]"/>
             </fo:table-cell>
         </fo:table-row>
     </xsl:template>
     
-    <xsl:template match="*[contains(@class, ' topic/dt ')][not(ahf:formatDlAsTable(.))]" mode="MODE_GET_STYLE" as="xs:string*">
-        <xsl:sequence select="'atsDtBlock'"/>
+    <xsl:template match="*[contains(@class, ' topic/dlentry ')][not(ahf:formatDlAsTable(.))]">
+        <fo:block>
+            <xsl:call-template name="getAttributeSetWithLang"/>
+            <xsl:call-template name="ahf:getUnivAtts"/>
+            <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
+            <xsl:apply-templates/>
+        </fo:block>
     </xsl:template>
     
     <xsl:template match="*[contains(@class, ' topic/dt ')][ahf:formatDlAsTable(.)]" mode="MODE_GET_STYLE" as="xs:string*">
-        <xsl:sequence select="'atsDtTable'"/>
+        <xsl:sequence select="'atsDtTableCell'"/>
     </xsl:template>
 
-    <xsl:template match="*[contains(@class, ' topic/dt ')][not(ahf:formatDlAsTable(.))]">
+    <xsl:template match="*[contains(@class, ' topic/dt ')][not(ahf:formatDlAsTable(.))]" mode="MODE_GET_STYLE" as="xs:string*">
+        <xsl:sequence select="'atsDtBlock'"/>
+    </xsl:template>
+
+    <xsl:template match="*[contains(@class, ' topic/dt ')][ahf:formatDlAsTable(.)]">
+        <xsl:param name="prmDoCompact" required="yes" tunnel="yes" as="xs:boolean"/>
+        
+        <fo:block>
+            <xsl:call-template name="ahf:getUnivAtts"/>
+            <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
+            <xsl:apply-templates/>
+        </fo:block>
+    </xsl:template>
+
+    <xsl:template match="*[contains(@class, ' topic/dt ')][not(ahf:formatDlAsTable(.))]" name="processDtBlock">
         <xsl:param name="prmDoCompact" required="yes" tunnel="yes" as="xs:boolean"/>
         
         <fo:block>
@@ -776,138 +744,90 @@ E-mail : info@antennahouse.com
             <xsl:call-template name="ahf:getUnivAtts"/>
             <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
             <xsl:if test="$prmDoCompact">
-                <xsl:variable name="dlCompactRatioBlockDt" as="xs:double">
-                    <xsl:call-template name="getVarValueWithLangAsDouble">
-                        <xsl:with-param name="prmVarName" select="'Dl_Compact_Ratio_Block_Dt'"/>
-                    </xsl:call-template>
-                </xsl:variable>
-                <xsl:variable name="dlCompactAttrNameBlock" as="xs:string">
-                    <xsl:call-template name="getVarValueWithLang">
-                        <xsl:with-param name="prmVarName" select="'Dl_Compact_Attr_Block'"/>
-                    </xsl:call-template>
-                </xsl:variable>
-                <xsl:variable name="dlCompactAttrValBlock" as="xs:string">
-                    <xsl:call-template name="getAttributeValueWithLang">
-                        <xsl:with-param name="prmAttrSetName" as="xs:string*">
-                            <xsl:apply-templates select="." mode="MODE_GET_STYLE"/>
-                        </xsl:with-param>
-                        <xsl:with-param name="prmAttrName" select="$dlCompactAttrNameBlock"/>
-                    </xsl:call-template>
-                </xsl:variable>
-                <xsl:attribute name="{$dlCompactAttrNameBlock}" 
-                    select="ahf:getPropertyRatio($dlCompactAttrValBlock,$dlCompactRatioBlockDt)"/>
+                <xsl:call-template name="applyCompact">
+                    <xsl:with-param name="prmElem" select="."/>
+                    <xsl:with-param name="prmCompactRatioVarName" select="'Dl_Compact_Ratio_Block_Dt'"/>
+                    <xsl:with-param name="prmCompactAttrName" select="'Dl_Compact_Attr_Block'"/>
+                </xsl:call-template>
             </xsl:if>
             <xsl:apply-templates/>
         </fo:block>
-    </xsl:template>
-
-    <xsl:template match="*[contains(@class, ' topic/dt ')][ahf:formatDlAsTable(.)]">
-        <xsl:param name="prmDoCompact" required="yes" tunnel="yes" as="xs:boolean"/>
-        
-        <fo:table-cell>
-            <xsl:call-template name="getAttributeSetWithLang"/>
-            <fo:block>
-                <xsl:call-template name="ahf:getUnivAtts"/>
-                <xsl:if test="$prmDoCompact">
-                    <xsl:variable name="dlCompactRatio" as="xs:double">
-                        <xsl:call-template name="getVarValueWithLangAsDouble">
-                            <xsl:with-param name="prmVarName" select="'Dl_Compact_Ratio'"/>
-                        </xsl:call-template>
-                    </xsl:variable>
-                    <xsl:variable name="dlCompactAttrName" as="xs:string">
-                        <xsl:call-template name="getVarValueWithLang">
-                            <xsl:with-param name="prmVarName" select="'Dl_Compact_Attr'"/>
-                        </xsl:call-template>
-                    </xsl:variable>
-                    <xsl:variable name="dlCompactAttrVal" as="xs:string">
-                        <xsl:call-template name="getAttributeValueWithLang">
-                            <xsl:with-param name="prmAttrSetName" as="xs:string*">
-                                <xsl:apply-templates select="." mode="MODE_GET_STYLE"/>
-                            </xsl:with-param>
-                            <xsl:with-param name="prmAttrName" select="$dlCompactAttrName"/>
-                        </xsl:call-template>
-                    </xsl:variable>
-                    <xsl:attribute name="{$dlCompactAttrName}" 
-                        select="ahf:getPropertyRatio($dlCompactAttrVal,$dlCompactRatio)"/>
-                </xsl:if>
-                <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
-                <xsl:apply-templates/>
-            </fo:block>
-        </fo:table-cell>
-    </xsl:template>
-    
-    <xsl:template match="*[contains(@class, ' topic/dd ')][not(ahf:formatDlAsTable(.))]" mode="MODE_GET_STYLE" as="xs:string*">
-        <xsl:sequence select="'atsDdBlock'"/>
     </xsl:template>
     
     <xsl:template match="*[contains(@class, ' topic/dd ')][ahf:formatDlAsTable(.)]" mode="MODE_GET_STYLE" as="xs:string*">
         <xsl:sequence select="'atsDdTableCell'"/>
     </xsl:template>
 
-    <xsl:template match="*[contains(@class, ' topic/dd ')][not(ahf:formatDlAsTable(.))]">
+    <xsl:template match="*[contains(@class, ' topic/dd ')][not(ahf:formatDlAsTable(.))]" mode="MODE_GET_STYLE" as="xs:string*">
+        <xsl:sequence select="'atsDdBlock'"/>
+    </xsl:template>
+
+    <xsl:template match="*[contains(@class, ' topic/dd ')][ahf:formatDlAsTable(.)]">
+        <fo:block>
+            <xsl:call-template name="ahf:getUnivAtts"/>
+            <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
+            <xsl:apply-templates/>
+        </fo:block>
+    </xsl:template>
+    
+    <xsl:template match="*[contains(@class, ' topic/dd ')][not(ahf:formatDlAsTable(.))]" name="processDdBlock">
         <xsl:param name="prmDoCompact" required="yes" tunnel="yes" as="xs:boolean"/>
         
         <fo:block>
             <xsl:call-template name="getAttributeSetWithLang"/>
             <xsl:call-template name="ahf:getUnivAtts"/>
             <xsl:if test="$prmDoCompact">
-                <xsl:variable name="dlCompactRatioBlockDd" as="xs:double">
-                    <xsl:call-template name="getVarValueWithLangAsDouble">
-                        <xsl:with-param name="prmVarName" select="'Dl_Compact_Ratio_Block_Dd'"/>
-                    </xsl:call-template>
-                </xsl:variable>
-                <xsl:variable name="dlCompactAttrNameBlock" as="xs:string">
-                    <xsl:call-template name="getVarValueWithLang">
-                        <xsl:with-param name="prmVarName" select="'Dl_Compact_Attr_Block'"/>
-                    </xsl:call-template>
-                </xsl:variable>
-                <xsl:variable name="dlCompactAttrValBlock" as="xs:string">
-                    <xsl:call-template name="getAttributeValueWithLang">
-                        <xsl:with-param name="prmAttrSetName" as="xs:string*">
-                            <xsl:apply-templates select="." mode="MODE_GET_STYLE"/>
-                        </xsl:with-param>
-                        <xsl:with-param name="prmAttrName" select="$dlCompactAttrNameBlock"/>
-                    </xsl:call-template>
-                </xsl:variable>
-                <xsl:attribute name="{$dlCompactAttrNameBlock}" 
-                               select="ahf:getPropertyRatio($dlCompactAttrValBlock,$dlCompactRatioBlockDd)"/>
+                <xsl:call-template name="applyCompact">
+                    <xsl:with-param name="prmElem" select="."/>
+                    <xsl:with-param name="prmCompactRatioVarName" select="'Dl_Compact_Ratio_Block_Dd'"/>
+                    <xsl:with-param name="prmCompactAttrName" select="'Dl_Compact_Attr_Block'"/>
+                </xsl:call-template>
             </xsl:if>
             <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
             <xsl:apply-templates/>
         </fo:block>
     </xsl:template>
 
-    <xsl:template match="*[contains(@class, ' topic/dd ')][ahf:formatDlAsTable(.)]">
-        <xsl:param name="prmDoCompact" required="yes" tunnel="yes" as="xs:boolean"/>
-        
-        <fo:block>
-            <xsl:call-template name="getAttributeSetWithLang"/>
-            <xsl:call-template name="ahf:getUnivAtts"/>
-            <xsl:if test="$prmDoCompact">
-                <xsl:variable name="dlCompactRatio" as="xs:double">
-                    <xsl:call-template name="getVarValueWithLangAsDouble">
-                        <xsl:with-param name="prmVarName" select="'Dl_Compact_Ratio'"/>
-                    </xsl:call-template>
-                </xsl:variable>
-                <xsl:variable name="dlCompactAttrName" as="xs:string">
-                    <xsl:call-template name="getVarValueWithLang">
-                        <xsl:with-param name="prmVarName" select="'Dl_Compact_Attr'"/>
-                    </xsl:call-template>
-                </xsl:variable>
-                <xsl:variable name="dlCompactAttrVal" as="xs:string">
-                    <xsl:call-template name="getAttributeValueWithLang">
-                        <xsl:with-param name="prmAttrSetName" as="xs:string*">
-                            <xsl:apply-templates select="." mode="MODE_GET_STYLE"/>
-                        </xsl:with-param>
-                        <xsl:with-param name="prmAttrName" select="$dlCompactAttrName"/>
-                    </xsl:call-template>
-                </xsl:variable>
-                <xsl:attribute name="{$dlCompactAttrName}" 
-                    select="ahf:getPropertyRatio($dlCompactAttrVal,$dlCompactRatio)"/>
-            </xsl:if>
-            <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
-            <xsl:apply-templates/>
-        </fo:block>
+    <!-- 
+     function:  Apply compact="yes"
+     param:     prmElem, prmCompactRatioVarName, prmCompactAttrName
+     return:    attribute()*
+     note:	  Compact property specified via $prmCompactAttrName by $prmCompactRatioVarName
+     -->
+    <xsl:template name="applyCompact" as="attribute()*">
+        <xsl:param name="prmElem" as="element()" required="yes"/>
+        <xsl:param name="prmCompactRatioVarName" as="xs:string" required="yes"/>
+        <xsl:param name="prmCompactAttrName" as="xs:string" required="yes"/>
+
+        <xsl:variable name="compactRatios" as="xs:double*">
+            <xsl:variable name="compactRatioTemp" as="xs:string*">
+                <xsl:call-template name="getVarValueWithLangAsStringSequence">
+                    <xsl:with-param name="prmVarName" select="$prmCompactRatioVarName"/>
+                    <xsl:with-param name="prmElem" select="$prmElem"/>
+                </xsl:call-template>
+            </xsl:variable>
+            <xsl:sequence select="for $ratio in $compactRatioTemp return xs:double($ratio)"/>
+        </xsl:variable>
+        <xsl:variable name="compactAttrNames" as="xs:string*">
+            <xsl:call-template name="getVarValueWithLangAsStringSequence">
+                <xsl:with-param name="prmVarName" select="$prmCompactAttrName"/>
+                <xsl:with-param name="prmElem" select="$prmElem"/>
+            </xsl:call-template>
+        </xsl:variable>
+        <xsl:for-each select="$compactAttrNames">
+            <xsl:variable name="compactAttrName" as="xs:string" select="."/>
+            <xsl:variable name="position" as="xs:integer" select="position()"/>
+            <xsl:variable name="compactAttrVal" as="xs:string">
+                <xsl:call-template name="getAttributeValueWithLang">
+                    <xsl:with-param name="prmAttrSetName" as="xs:string*">
+                        <xsl:apply-templates select="$prmElem" mode="MODE_GET_STYLE"/>
+                    </xsl:with-param>
+                    <xsl:with-param name="prmAttrName" select="$compactAttrName"/>
+                    <xsl:with-param name="prmElem" select="$prmElem"/>
+                </xsl:call-template>
+            </xsl:variable>
+            <xsl:attribute name="{$compactAttrName}" select="ahf:getPropertyRatio($compactAttrVal,$compactRatios[$position])"/>
+        </xsl:for-each>
     </xsl:template>
 
 </xsl:stylesheet>
