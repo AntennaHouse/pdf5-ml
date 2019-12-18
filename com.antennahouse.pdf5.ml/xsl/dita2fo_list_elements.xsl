@@ -841,7 +841,7 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <xsl:template match="*[contains(@class, ' topic/dd ')][ahf:formatDlAsTable(.)]" mode="MODE_GET_STYLE" as="xs:string*">
-        <xsl:sequence select="'atsDdTable'"/>
+        <xsl:sequence select="'atsDdTableCell'"/>
     </xsl:template>
 
     <xsl:template match="*[contains(@class, ' topic/dd ')][not(ahf:formatDlAsTable(.))]">

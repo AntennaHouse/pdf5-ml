@@ -2235,7 +2235,10 @@ URL : http://www.antennahouse.com/
             
             <attribute-set name="atsTableHeaderCell">
                 <attribute name="border">$General_Table_Border_Width none $General_Table_Border_Color</attribute>
-                <attribute name="padding">$General_Table_Cell_Padding</attribute>
+                <attribute name="padding-before">$General_Table_Cell_Padding</attribute>
+                <attribute name="padding-after">$General_Table_Cell_Padding</attribute>
+                <attribute name="padding-start">$General_Table_Cell_Padding</attribute>
+                <attribute name="padding-end">$General_Table_Cell_Padding</attribute>
                 <attribute name="border-after-width">$Table_Header_Border_After_Width</attribute>
             </attribute-set>
             
@@ -2269,7 +2272,10 @@ URL : http://www.antennahouse.com/
     		 -->
             <attribute-set name="atsTableBodyCell">
                 <attribute name="border">$General_Table_Border_Width none $General_Table_Border_Color</attribute>
-                <attribute name="padding">$General_Table_Cell_Padding</attribute>
+                <attribute name="padding-before">$General_Table_Cell_Padding</attribute>
+                <attribute name="padding-after">$General_Table_Cell_Padding</attribute>
+                <attribute name="padding-start">$General_Table_Cell_Padding</attribute>
+                <attribute name="padding-end">$General_Table_Cell_Padding</attribute>
                 <attribute name="border-after-width.conditionality">retain</attribute>
             </attribute-set>
             
