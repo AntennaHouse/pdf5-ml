@@ -803,10 +803,11 @@ E-mail : info@antennahouse.com
     </xsl:template>
 
     <!-- 
-     function:	Generate prefix of title
-     param:		prmTopicRef
-     return:	prefix of title 
-     note:		none
+     function:  Generate prefix of title
+     param:     prmTopicRef
+     return:    prefix of title 
+     note:      Add $prefixPart and $suffixPart only when $pAddPartToTitle is true().
+                2019-12-27 t.makita
      -->
     <xsl:template name="genTitlePrefix" as="xs:string">
         <xsl:param name="prmTopicRef" required="yes" as="element()"/>
@@ -907,7 +908,7 @@ E-mail : info@antennahouse.com
             </xsl:choose>
         </xsl:variable>
         
-        <xsl:variable name="result" select="concat($prefixPart,$numberPart,$suffixPart)"/>
+        <xsl:variable name="result" select="if ($pAddPartToTitle) then concat($prefixPart,$numberPart,$suffixPart) else $numberPart"/>
         <xsl:sequence select="$result"/>
     </xsl:template>
 
