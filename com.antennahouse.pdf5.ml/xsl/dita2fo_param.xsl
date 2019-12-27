@@ -318,5 +318,11 @@ E-mail : info@antennahouse.com
      -->
     <xsl:param name="PRM_DEBUG_INDEX" required="no" as="xs:string" select="$cNo"/>
     <xsl:variable name="pDebugIndex" as="xs:boolean" select="$PRM_DEBUG_INDEX eq $cYes"/>
+
+    <!-- Adopt m:math/alttext in text mode processing
+         2019-12-27 t.makita
+     -->
+    <xsl:param name="PRM_ADOPT_MATHML_ALTTEXT" required="no" as="xs:string" select="$cYes"/>
+    <xsl:variable name="pAdoptMathMlAltText" as="xs:boolean" select="$PRM_ADOPT_MATHML_ALTTEXT eq $cYes"/>
     
 </xsl:stylesheet>
