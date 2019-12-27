@@ -149,6 +149,7 @@
             <param name="PRM_OUTPUT_DIR_URL" expression="${output.dir.url}" if="output.dir.url"/>
             <param name="PRM_INPUT_MAP_NAME" expression="${dita.map.filename.root}" if="dita.map.filename.root"/>
             <param name="PRM_DEBUG_INDEX" expression="${debug.index}" if="debug.index"/>
+            <param name="PRM_ADOPT_MATHML_ALTTEXT" expression="${adopt.mathml.alttext}" if="adopt.mathml.alttext"/>
             <param name="PRM_OUTPUT_INDEX" expression="${output.index}" if="output.index"/>
             <param name="PRM_OT_VERSION" expression="${otversion}" if="otversion"/>
             <param name="PRM_TEMP_DIR_URL" expression="${temp.dir.url}" if="temp.dir.url"/>
