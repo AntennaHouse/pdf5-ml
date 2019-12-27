@@ -316,13 +316,11 @@ E-mail : info@antennahouse.com
     <xsl:template match="*[contains(@class,' bookmap/trademarklist ')][empty(@href)][ahf:isToc(.)]" mode="MAKE_TOC" priority="2" >
     </xsl:template>
         
-    <!-- Toc -->
-    <xsl:template match="*[contains(@class,' bookmap/toc ')][ahf:isToc(.)]" mode="MAKE_TOC" priority="2" >
-        <xsl:next-match>
-            <xsl:with-param name="prmDefaultTitle" select="$cTocTitle"/>
-            <xsl:with-param name="prmProcessChild" select="false()"/>
-        </xsl:next-match>
-    </xsl:template>
+    <!-- Toc
+         Ignore!
+         2019-12-27 t.makita
+     -->
+    <xsl:template match="*[contains(@class,' bookmap/toc ')][ahf:isToc(.)]" mode="MAKE_TOC" priority="2" />
         
     <!-- Colophon -->
     <xsl:template match="*[contains(@class,' bookmap/colophon ')][exists(@href)][ahf:isToc(.)]" mode="MAKE_TOC" priority="2" >
