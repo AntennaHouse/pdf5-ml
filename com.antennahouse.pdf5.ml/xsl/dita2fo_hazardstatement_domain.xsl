@@ -63,6 +63,11 @@ E-mail : info@antennahouse.com
                                                     <xsl:with-param name="prmVarName" select="'Note_Warning'"/>
                                                 </xsl:call-template>
                                             </xsl:when>
+                                            <xsl:when test="@type eq 'notice'">
+                                                <xsl:call-template name="getVarValueWithLangAsText">
+                                                    <xsl:with-param name="prmVarName" select="'Note_Notice'"/>
+                                                </xsl:call-template>
+                                            </xsl:when>
                                             <xsl:otherwise>
                                                 <xsl:call-template name="getVarValueWithLangAsText">
                                                     <xsl:with-param name="prmVarName" select="'Note_Warning'"/>
