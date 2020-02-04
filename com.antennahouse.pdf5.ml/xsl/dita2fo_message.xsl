@@ -402,6 +402,22 @@ URL : http://www.antennahouse.co.jp/
         <xsl:text> file=%file</xsl:text>
         <xsl:text> Stylesheet will ignore this indexterm.</xsl:text>
     </xsl:variable>
+
+    <xsl:variable name="stMes654">
+        <xsl:text>[ahf:getEntryAttr 654W] Authoring error! entry/@namest does not corresponds to colspec/@colname. @namest="%namest" file="%xtrf".</xsl:text>
+    </xsl:variable>
+
+    <xsl:variable name="stMes656">
+        <xsl:text>[ahf:getEntryAttr 656W] Authoring error! entry/@nameend does not corresponds to colspec/@colname. @nameend="%nameend" file="%xtrf".</xsl:text>
+    </xsl:variable>
+
+    <xsl:variable name="stMes658">
+        <xsl:text>[ahf:getEntryAttr 658W] Authoring error! entry/@morerows is not castable as xs:integer. @morerows="%morerows" file="%xtrf".</xsl:text>
+    </xsl:variable>
+
+    <xsl:variable name="stMes660">
+        <xsl:text>[ahf:getEntryAttr 660W] Authoring error! entry/@namest or @ nameend is invalid. @namest="%namest" @nameend="%nameend" file="%xtrf".</xsl:text>
+    </xsl:variable>
     
     <xsl:variable name="stMes700">
         <xsl:text>[makeChapterMap 700W] Illegal class is found in topicref. class='%class' file=%file.</xsl:text>
