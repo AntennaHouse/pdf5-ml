@@ -1160,15 +1160,64 @@ E-mail : info@antennahouse.com
         
         <!-- namest,nameend -->
         <xsl:if test="exists($prmEntry/@namest) and exists($prmEntry/@nameend)">
-            <xsl:variable name="startpos" as="xs:integer" select="xs:integer(string($prmColSpec[string(@ahf:column-name) eq string($prmEntry/@namest)]/@column-number))"/>
-            <xsl:variable name="endpos"   as="xs:integer" select="xs:integer(string($prmColSpec[string(@ahf:column-name) eq string($prmEntry/@nameend)]/@column-number))"/>
-            <xsl:variable name="spancolumns" as="xs:integer" select="$endpos - $startpos + 1"/>
-            <xsl:attribute name="number-columns-spanned" select="string($spancolumns)"/>
+            <xsl:variable name="startpos" as="xs:integer">
+                <xsl:variable name="tempStartPos" as="xs:string" select="string($prmColSpec[string(@ahf:column-name) eq string($prmEntry/@namest)]/@column-number)"/>
+                <xsl:choose>
+                    <xsl:when test="$tempStartPos castable as xs:integer">
+                        <xsl:sequence select="$tempStartPos cast as xs:integer"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:call-template name="warningContinue">
+                            <xsl:with-param name="prmMes" select="ahf:replace($stMes654,('%namest','%xtrf'),(string($prmEntry/@namest),string($prmEntry/@xtrf)))"/>
+                        </xsl:call-template>
+                        <xsl:sequence select="0"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:variable>
+            <xsl:variable name="endpos"   as="xs:integer">
+                <xsl:variable name="tempEndPos" as="xs:string" select="string($prmColSpec[string(@ahf:column-name) eq string($prmEntry/@nameend)]/@column-number)"/>
+                <xsl:choose>
+                    <xsl:when test="$tempEndPos castable as xs:integer">
+                        <xsl:sequence select="$tempEndPos cast as xs:integer"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:call-template name="warningContinue">
+                            <xsl:with-param name="prmMes" select="ahf:replace($stMes656,('%nameend','%xtrf'),(string($prmEntry/@nameend),string($prmEntry/@xtrf)))"/>
+                        </xsl:call-template>
+                        <xsl:sequence select="0"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:variable>
+            <xsl:if test="$startpos ne 0 and $endpos ne 0">
+                <xsl:variable name="spancolumns" as="xs:integer" select="$endpos - $startpos + 1"/>
+                <xsl:choose>
+                    <xsl:when test="$spancolumns gt 0">
+                        <xsl:attribute name="number-columns-spanned" select="string($spancolumns)"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:call-template name="warningContinue">
+                            <xsl:with-param name="prmMes" select="ahf:replace($stMes660,('%namest','%nameend','%xtrf'),(string($prmEntry/@namest),string($prmEntry/@nameend),string($prmEntry/@xtrf)))"/>
+                        </xsl:call-template>
+                        <xsl:sequence select="()"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:if>
         </xsl:if>
     
         <!-- morerows -->
         <xsl:if test="exists($prmEntry/@morerows)">
-            <xsl:attribute name="number-rows-spanned" select="string(xs:integer($prmEntry/@morerows) + 1)"/>
+            <xsl:variable name="tempMoreRows" as="xs:string" select="string($prmEntry/@morerows)"/>
+            <xsl:choose>
+                <xsl:when test="$tempMoreRows castable as xs:integer">
+                    <xsl:variable name="moreRows" as="xs:integer" select="$tempMoreRows cast as xs:integer"/>
+                    <xsl:attribute name="number-rows-spanned" select="string(1 + $moreRows)"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:call-template name="warningContinue">
+                        <xsl:with-param name="prmMes" select="ahf:replace($stMes658,('%morerows','%xtrf'),(string($prmEntry/@morerows),string($prmEntry/@xtrf)))"/>
+                    </xsl:call-template>
+                </xsl:otherwise>
+            </xsl:choose>
         </xsl:if>
         
     </xsl:function>
@@ -1442,10 +1491,10 @@ E-mail : info@antennahouse.com
     
     
     <!-- 
-     function:	Calculate column width template
-     param:		colwidth
+     function:  Calculate column width template
+     param:     colwidth
      return:	column width attribute value
-     note:		This template is from W3C XSL specification.
+     note:      This template is from W3C XSL specification.
      -->
     <xsl:template name="calc.column.width">
         <xsl:param name="colwidth">1*</xsl:param>
