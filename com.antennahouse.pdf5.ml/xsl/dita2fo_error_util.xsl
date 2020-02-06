@@ -27,26 +27,31 @@ URL : http://www.antennahouse.co.jp/
      Error processing
     ===============================================
     -->
+
+    <!-- Error message prefixes -->
+    <xsl:variable name="errorPrefixStr" as="xs:string" select="'[ERROR]'"/>
+    <xsl:variable name="warningPrefixStr" as="xs:string" select="'[WARNING]'"/>
+
     <!-- 
-     function:	Error Exit routine
-     param:		prmMes: message body
-     return:	none
-     note:		none
+     function:  Error Exit routine
+     param:     prmMes: message body
+     return:    none
+     note:      none
     -->
     <xsl:template name="errorExit">
     	<xsl:param name="prmMes" required="yes" as="xs:string"/>
-    	<xsl:message terminate="yes"><xsl:value-of select="$prmMes"/></xsl:message>
+        <xsl:message terminate="yes" select="concat($errorPrefixStr, $prmMes)"/>
     </xsl:template>
     
     <!-- 
-     function:	Warning display routine
-     param:		prmMes: message body
-     return:	none
-     note:		none
+     function:  Warning display routine
+     param:     prmMes: message body
+     return:    none
+     note:      none
     -->
     <xsl:template name="warningContinue">
     	<xsl:param name="prmMes" required="yes" as="xs:string"/>
-    	<xsl:message terminate="no"><xsl:value-of select="$prmMes"/></xsl:message>
+        <xsl:message terminate="no" select="concat($warningPrefixStr,$prmMes)"/>
     </xsl:template>
     
     <!-- end of stylesheet -->
