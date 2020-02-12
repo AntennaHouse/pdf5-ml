@@ -94,6 +94,8 @@ E-mail : info@antennahouse.com
      note:        no special formatting
                   Call "processKeyword" for easy override from other plug-ins.
                   2015-08-25 t.makita
+                  Add DITA-OT generated @href processing.
+                  2020-02-12 t.makita
      -->
     <xsl:template match="*[contains(@class, ' topic/keyword ')]" mode="MODE_GET_STYLE" as="xs:string*">
         <xsl:sequence select="'atsKeyword'"/>
@@ -104,12 +106,41 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <xsl:template name="processKeyword">
-        <fo:inline>
-            <xsl:call-template name="getAttributeSetWithLang"/>
-            <xsl:call-template name="ahf:getUnivAtts"/>
-            <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
-            <xsl:apply-templates/>
-        </fo:inline>
+        <xsl:param name="prmTopicRef" as="element()?" tunnel="yes" required="yes"/>
+        <xsl:variable name="href" as="xs:string?" select="string(@href)"/>
+        <xsl:variable name="destAttr" as="attribute()*">
+            <xsl:choose>
+                <xsl:when test="string($href)">
+                    <xsl:call-template name="getDestinationAttr">
+                        <xsl:with-param name="prmHref" select="$href"/>
+                        <xsl:with-param name="prmElem" as="element()" select="."/>
+                        <xsl:with-param name="prmTopicRef" select="$prmTopicRef"/>
+                    </xsl:call-template>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:sequence select="()"/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:choose>
+            <xsl:when test="exists($destAttr)">
+                <fo:basic-link>
+                    <xsl:call-template name="getAttributeSetWithLang"/>
+                    <xsl:call-template name="ahf:getUnivAtts"/>
+                    <xsl:copy-of select="$destAttr"/>
+                    <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
+                    <xsl:apply-templates/>
+                </fo:basic-link>
+            </xsl:when>
+            <xsl:otherwise>
+                <fo:inline>
+                    <xsl:call-template name="getAttributeSetWithLang"/>
+                    <xsl:call-template name="ahf:getUnivAtts"/>
+                    <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
+                    <xsl:apply-templates/>
+                </fo:inline>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     
 
@@ -1119,6 +1150,8 @@ E-mail : info@antennahouse.com
         return:      fo:inline
         note:        Call "processTerm" for overriding from other plug-ins.
                      2015-08-25 t.makita
+                     Add DITA-OT generated @href processing.
+                     2020-02-12 t.makita
     -->
     <xsl:template match="*[contains(@class, ' topic/term ')]" mode="MODE_GET_STYLE" as="xs:string*">
         <xsl:sequence select="'atsTerm'"/>
@@ -1129,12 +1162,41 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <xsl:template name="processTerm">
-        <fo:inline>
-            <xsl:call-template name="getAttributeSetWithLang"/>
-            <xsl:call-template name="ahf:getUnivAtts"/>
-            <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
-            <xsl:apply-templates/>
-        </fo:inline>
+        <xsl:param name="prmTopicRef" as="element()?" tunnel="yes" required="yes"/>
+        <xsl:variable name="href" as="xs:string?" select="string(@href)"/>
+        <xsl:variable name="destAttr" as="attribute()*">
+            <xsl:choose>
+                <xsl:when test="string($href)">
+                    <xsl:call-template name="getDestinationAttr">
+                        <xsl:with-param name="prmHref" select="$href"/>
+                        <xsl:with-param name="prmElem" as="element()" select="."/>
+                        <xsl:with-param name="prmTopicRef" select="$prmTopicRef"/>
+                    </xsl:call-template>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:sequence select="()"/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:choose>
+            <xsl:when test="exists($destAttr)">
+                <fo:basic-link>
+                    <xsl:call-template name="getAttributeSetWithLang"/>
+                    <xsl:call-template name="ahf:getUnivAtts"/>
+                    <xsl:copy-of select="$destAttr"/>
+                    <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
+                    <xsl:apply-templates/>
+                </fo:basic-link>
+            </xsl:when>
+            <xsl:otherwise>
+                <fo:inline>
+                    <xsl:call-template name="getAttributeSetWithLang"/>
+                    <xsl:call-template name="ahf:getUnivAtts"/>
+                    <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
+                    <xsl:apply-templates/>
+                </fo:inline>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     
     <!-- 
