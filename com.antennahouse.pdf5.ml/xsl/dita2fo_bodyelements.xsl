@@ -1342,10 +1342,12 @@ E-mail : info@antennahouse.com
     </xsl:function>
     
     <!-- 
-     function:	Generate fig title prefix
-     param:		prmTopicRef, prmFig
-     return:	Table title prefix string
-     note:		
+     function:  Generate fig title prefix
+     param:     prmTopicRef, prmFig
+     return:    Table title prefix string
+     note:      Count outer-most fig only not to count imagemap in fig.
+                Image map has a @class="+ topic/fig ut-d/imagemap".
+                2020-03-22 t.makita
      -->
     <xsl:template name="ahf:getFigTitlePrefix" as="xs:string">
         <xsl:param name="prmTopicRef" tunnel="yes" required="yes" as="element()?"/>
@@ -1378,7 +1380,7 @@ E-mail : info@antennahouse.com
         </xsl:variable>
         
         <xsl:variable name="figCurrentAmount" as="xs:integer">
-            <xsl:sequence select="count($topic//*[contains(@class,' topic/fig ')][. &lt;&lt; $prmFig]|$prmFig)"/>
+            <xsl:sequence select="count($topic//*[contains(@class,' topic/fig ')][empty(ancestor::*[contains(@class,' topic/fig ')])][not(ahf:isFloatFigure(.))][. &lt;&lt; $prmFig]|$prmFig)"/>
         </xsl:variable>
         <xsl:variable name="figNumber" select="$figPreviousAmount + $figCurrentAmount" as="xs:integer"/>
         
