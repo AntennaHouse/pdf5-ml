@@ -213,7 +213,8 @@ E-mail : info@antennahouse.com
      function:    make figure count map template
      param:       none
      return:      figure cout node
-     note:        count only titled <fig>
+     note:        count only outer-most titled <fig>
+                  2020-03-22 t.makita
      -->
     <xsl:template name="makeFigureCount" as="element()*">
         <xsl:apply-templates select="$map/*[contains(@class, ' map/topicref ')]" mode="MODE_FIGURE_COUNT"/>
@@ -225,7 +226,7 @@ E-mail : info@antennahouse.com
         <xsl:variable name="figureCount" as="xs:integer">
             <xsl:choose>
                 <xsl:when test="exists($targetTopic)">
-                    <xsl:variable name="figures" as="element()*" select="$targetTopic/descendant::*[contains(@class,' topic/fig ')][exists(*[contains(@class,' topic/title ')])][not(ahf:isFloatFigure(.))]"/>
+                    <xsl:variable name="figures" as="element()*" select="$targetTopic/descendant::*[contains(@class,' topic/fig ')][exists(*[contains(@class,' topic/title ')])][empty(ancestor::*[contains(@class,' topic/fig ')])][not(ahf:isFloatFigure(.))]"/>
                     <xsl:sequence select="count($figures)"/>
                 </xsl:when>
                 <xsl:otherwise>
