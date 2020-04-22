@@ -1804,7 +1804,40 @@ URL : http://www.antennahouse.com/
             <attribute-set name="atsXref">
                 <attribute name="color">$General_Link_Color</attribute>
             </attribute-set>
+            
+            <attribute-set name="atsXrefExt" use-attribute-sets="atsXref">
+            </attribute-set>
+            
+            <attribute-set name="atsXrefTopic" use-attribute-sets="atsXref">
+            </attribute-set>
 
+            <attribute-set name="atsXrefSection" use-attribute-sets="atsXref">
+            </attribute-set>
+
+            <attribute-set name="atsXrefExample" use-attribute-sets="atsXref">
+            </attribute-set>
+
+            <attribute-set name="atsXrefStep">
+            </attribute-set>
+
+            <attribute-set name="atsXrefOlLi">
+            </attribute-set>
+
+            <attribute-set name="atsXrefTable" use-attribute-sets="atsXref">
+            </attribute-set>
+
+            <attribute-set name="atsXrefFig" use-attribute-sets="atsXref">
+            </attribute-set>
+            
+            <attribute-set name="atsXrefEquationBlock" use-attribute-sets="atsXref">
+            </attribute-set>
+
+            <attribute-set name="atsXrefAnyTitle" use-attribute-sets="atsXref">
+            </attribute-set>
+
+            <attribute-set name="atsXrefOther" use-attribute-sets="atsXref">
+            </attribute-set>
+            
             <!-- ul -->
             <attribute-set name="atsUl">
                 <attribute name="space-before">$Para_Space_Before</attribute>

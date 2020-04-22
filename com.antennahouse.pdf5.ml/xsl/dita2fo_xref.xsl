@@ -659,14 +659,14 @@ E-mail : info@antennahouse.com
         <xsl:choose>
             <!-- external link -->
             <xsl:when test="empty($prmDestElement)">
-                <xsl:copy-of select="ahf:getAttributeSet('atsXref')"/>
+                <xsl:copy-of select="ahf:getAttributeSet('atsXrefExt')"/>
                 <xsl:copy-of  select="$prmXrefTitle"/>
             </xsl:when>
             
             <!-- topic -->
             <xsl:when test="$prmDestElement[contains(@class, ' topic/topic ')]">
                 <xsl:variable name="opt" as="xs:string*" select="ahf:getXrefToTopicOption($prmXref)"/>
-                <xsl:copy-of select="ahf:getAttributeSet('atsXref')"/>
+                <xsl:copy-of select="ahf:getAttributeSet('atsXrefTopic')"/>
                 <xsl:copy-of select="ahf:getUnivAtts($prmXref,$prmTopicRef,$prmNeedId)"/>
                 <xsl:copy-of select="ahf:getFoStyleAndProperty($prmXref)"/>
                 <fo:inline>
@@ -704,7 +704,7 @@ E-mail : info@antennahouse.com
             <!-- section -->
             <xsl:when test="$prmDestElement[contains(@class, ' topic/section ')]">
                 <xsl:variable name="opt" as="xs:string*" select="ahf:getXrefToSectionOption($prmXref)"/>
-                <xsl:copy-of select="ahf:getAttributeSet('atsXref')"/>
+                <xsl:copy-of select="ahf:getAttributeSet('atsXrefSection')"/>
                 <xsl:copy-of select="ahf:getUnivAtts($prmXref,$prmTopicRef,$prmNeedId)"/>
                 <xsl:copy-of select="ahf:getFoStyleAndProperty($prmXref)"/>
                 <fo:inline>
@@ -742,7 +742,7 @@ E-mail : info@antennahouse.com
             <!-- example -->
             <xsl:when test="$prmDestElement[contains(@class, ' topic/example ')]">
                 <xsl:variable name="opt" as="xs:string*" select="ahf:getXrefToExampleOption($prmXref)"/>
-                <xsl:copy-of select="ahf:getAttributeSet('atsXref')"/>
+                <xsl:copy-of select="ahf:getAttributeSet('atsXrefExample')"/>
                 <xsl:copy-of select="ahf:getUnivAtts($prmXref,$prmTopicRef,$prmNeedId)"/>
                 <xsl:copy-of select="ahf:getFoStyleAndProperty($prmXref)"/>
                 <fo:inline>
@@ -778,8 +778,9 @@ E-mail : info@antennahouse.com
             </xsl:when>
 
             <!-- steps/step, substep: Xref link color does not apply. -->
-            <xsl:when test="$prmDestElement[contains(@class, ' task/step ')][parent::*[contains(@class,' task/substep ')]][ancestor::*[contains(@class,' task/steps ')]]">
-            <xsl:variable name="opt" as="xs:string*" select="ahf:getXrefToStepOption($prmXref)"/>
+            <xsl:when test="$prmDestElement[ahf:seqContains(@class, (' task/step ',' task/substep '))][ancestor::*[contains(@class,' task/steps ')]]">
+                <xsl:variable name="opt" as="xs:string*" select="ahf:getXrefToStepOption($prmXref)"/>
+                <xsl:copy-of select="ahf:getAttributeSet('atsXrefStep')"/>
                 <xsl:copy-of select="ahf:getUnivAtts($prmXref,$prmTopicRef,$prmNeedId)"/>
                 <xsl:copy-of select="ahf:getFoStyleAndProperty($prmXref)"/>
                 <fo:inline>
@@ -817,6 +818,7 @@ E-mail : info@antennahouse.com
             <!-- ol/li: Xref link color does not apply for ol/li. -->
             <xsl:when test="$prmDestElement[contains(@class, ' topic/li ')][parent::*[contains(@class,' topic/ol ')]]">
                 <xsl:variable name="opt" as="xs:string*" select="ahf:getXrefToLiOption($prmXref)"/>
+                <xsl:copy-of select="ahf:getAttributeSet('atsXrefOlLi')"/>
                 <xsl:copy-of select="ahf:getUnivAtts($prmXref,$prmTopicRef,$prmNeedId)"/>
                 <xsl:copy-of select="ahf:getFoStyleAndProperty($prmXref)"/>
                 <fo:inline>
@@ -854,7 +856,7 @@ E-mail : info@antennahouse.com
             <!-- table -->
             <xsl:when test="$prmDestElement[contains(@class, ' topic/table ')]">
                 <xsl:variable name="opt" as="xs:string*" select="ahf:getXrefToTableOption($prmXref)"/>
-                <xsl:copy-of select="ahf:getAttributeSet('atsXref')"/>
+                <xsl:copy-of select="ahf:getAttributeSet('atsXrefTable')"/>
                 <xsl:copy-of select="ahf:getUnivAtts($prmXref,$prmTopicRef,$prmNeedId)"/>
                 <xsl:copy-of select="ahf:getFoStyleAndProperty($prmXref)"/>
                 <fo:inline>
@@ -892,7 +894,7 @@ E-mail : info@antennahouse.com
             <!-- fig -->
             <xsl:when test="$prmDestElement[contains(@class, ' topic/fig ')]">
                 <xsl:variable name="opt" as="xs:string*" select="ahf:getXrefToFigOption($prmXref)"/>
-                <xsl:copy-of select="ahf:getAttributeSet('atsXref')"/>
+                <xsl:copy-of select="ahf:getAttributeSet('atsXrefFig')"/>
                 <xsl:copy-of select="ahf:getUnivAtts($prmXref,$prmTopicRef,$prmNeedId)"/>
                 <xsl:copy-of select="ahf:getFoStyleAndProperty($prmXref)"/>
                 <fo:inline>
@@ -930,7 +932,7 @@ E-mail : info@antennahouse.com
             <!-- equation-block -->
             <xsl:when test="$prmDestElement[contains(@class, ' equation-d/equation-block ')]">
                 <xsl:variable name="opt" as="xs:string*" select="ahf:getXrefToEquationBlockOption($prmXref)"/>
-                <xsl:copy-of select="ahf:getAttributeSet('atsXref')"/>
+                <xsl:copy-of select="ahf:getAttributeSet('atsXrefEquationBlock')"/>
                 <xsl:copy-of select="ahf:getUnivAtts($prmXref,$prmTopicRef,$prmNeedId)"/>
                 <xsl:copy-of select="ahf:getFoStyleAndProperty($prmXref)"/>
                 <fo:inline>
@@ -976,7 +978,7 @@ E-mail : info@antennahouse.com
             <!-- Other elements that have title: same as section -->
             <xsl:when test="$prmDestElement[child::*[contains(@class, ' topic/title ')]]">
                 <xsl:variable name="opt" as="xs:string*" select="ahf:getXrefToOtherOption($prmXref)"/>
-                <xsl:copy-of select="ahf:getAttributeSet('atsXref')"/>
+                <xsl:copy-of select="ahf:getAttributeSet('atsXrefAnyTitle')"/>
                 <xsl:copy-of select="ahf:getUnivAtts($prmXref,$prmTopicRef,$prmNeedId)"/>
                 <xsl:copy-of select="ahf:getFoStyleAndProperty($prmXref)"/>
                 <fo:inline>
@@ -1014,7 +1016,7 @@ E-mail : info@antennahouse.com
             <!-- Others -->
             <xsl:otherwise>
                 <xsl:variable name="opt" as="xs:string*" select="ahf:getXrefToOtherOption($prmXref)"/>
-                <xsl:copy-of select="ahf:getAttributeSet('atsXref')"/>
+                <xsl:copy-of select="ahf:getAttributeSet('atsXrefOther')"/>
                 <xsl:copy-of select="ahf:getUnivAtts($prmXref,$prmTopicRef,$prmNeedId)"/>
                 <xsl:copy-of select="ahf:getFoStyleAndProperty($prmXref)"/>
                 <fo:inline>
