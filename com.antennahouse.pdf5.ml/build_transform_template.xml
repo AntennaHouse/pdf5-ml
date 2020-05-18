@@ -138,6 +138,7 @@
             <param name="PRM_IMAGE_IN_OUTPUT_FOLDER" expression="${image.in.output.folder}" if="image.in.output.folder"/>
             <param name="PRM_OUTPUT_CROP_REGION" expression="${output.crop.region}" if="output.crop.region"/>
             <param name="PRM_OUTPUT_TYPE" expression="${output.type}" if="output.type"/>
+            <param name="PRM_DOC_TYPE" expression="${doc.type}" if="doc.type"/>
             <param name="PRM_BRAND_TYPE" expression="${brand.type}" if="brand.type"/>
             <param name="PRM_EXCLUDE_COVER_FROM_COUNTING_PAGE" expression="${exclude.cover.from.counting.page}" if="exclude.cover.from.counting.page"/>
             <param name="PRM_NUMBER_EQUATION_BLOCK_UNCONDITIONALLY" expression="${number.equation.block.unconditionally}" if="number.equation.block.unconditionally"/>
@@ -201,6 +202,7 @@
             <arg line='"PRM_IMAGE_IN_OUTPUT_FOLDER=${image.in.output.folder}"'/>
             <arg line="'PRM_OUTPUT_CROP_REGION=${output.crop.region}'"/>
             <arg line="'PRM_OUTPUT_TYPE=${output.type}'"/>
+            <arg line="'PRM_DOC_TYPE=${doc.type}'"/>
             <arg line="'PRM_BRAND_TYPE=${brand.type}'"/>
             <arg line="'PRM_EXCLUDE_COVER_FROM_COUNTING_PAGE=${exclude.cover.from.counting.page}'"/>
             <arg line="'PRM_NUMBER_EQUATION_BLOCK_UNCONDITIONALLY=${number.equation.block.unconditionally}'"/>
