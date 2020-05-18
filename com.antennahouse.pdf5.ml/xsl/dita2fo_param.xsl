@@ -241,7 +241,13 @@ E-mail : info@antennahouse.com
     <xsl:variable name="pOutputType" as="xs:string" select="$PRM_OUTPUT_TYPE"/>
     <xsl:variable name="pIsWebOutput" as="xs:boolean" select="$pOutputType eq 'web'"/>
     <xsl:variable name="pIsPrintOutput" as="xs:boolean" select="not($pIsWebOutput)"/>
-
+    
+    <!-- Document type
+         Possible value: "UM" (User's manual), "IM" (Installation manual)
+     -->
+    <xsl:param name="PRM_DOC_TYPE" as="xs:string?" required="no" select="()"/>
+    <xsl:variable name="pDocType" as="xs:string?" select="$PRM_DOC_TYPE"/>
+    
     <!-- Brand type
          Possible value: none
      -->

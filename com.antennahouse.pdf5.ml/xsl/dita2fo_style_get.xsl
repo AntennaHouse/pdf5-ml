@@ -38,7 +38,7 @@
          $defaultBrandType: any brand identifier such as "own-brand", "oem-a", "oem-b"
      -->
     <xsl:variable name="defaultXmlLang" as="xs:string" select="ahf:nomalizeXmlLang($documentLang)"/>
-    <xsl:variable name="defaultDocType" as="xs:string?" select="()"/>
+    <xsl:variable name="defaultDocType" as="xs:string?" select="$pDocType"/>
     <xsl:variable name="defaultPaperSize" as="xs:string?" select="$pPaperSize"/>
     <xsl:variable name="defaultOutputType" as="xs:string?" select="$pOutputType"/>
     <xsl:variable name="defaultBrandType" as="xs:string?" select="$pBrandType"/>
