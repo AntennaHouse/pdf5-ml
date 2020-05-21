@@ -130,7 +130,7 @@
          Adopt m:math/@alttext as text-mode template result.
          2019-12-27 t.makita
      -->
-    <xsl:template match="*[contains(@class,' mathml-d/mathml ')]" mode="TEXT_ONLY">
+    <xsl:template match="*[contains(@class,' mathml-d/mathml ')]" mode="TEXT_ONLY" priority="5">
         <xsl:choose>
             <xsl:when test="exists(child::m:math/@alttext) and $pAdoptMathMlAltText">
                 <xsl:value-of select="m:math/@alttext"/>
