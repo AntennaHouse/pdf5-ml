@@ -824,7 +824,7 @@ E-mail : info@antennahouse.com
                 <xsl:variable name="maxCharCountInRotatedTableEntry" as="xs:double">
                     <!-- Manually specified row height -->
                     <xsl:variable name="maunuallyAssignRowHeight" as="xs:double?" select="xs:double($prmRowAttr/@*[name() eq 'ahs:max-char-count-in-rotated-table-entry'])"/>
-                    <xsl:message select="'ahf:getStylesheetProperty($prmRowAttr)=',ahf:getStylesheetProperty($prmRowAttr)"/>
+                    <!--xsl:message select="'ahf:getStylesheetProperty($prmRowAttr)=',ahf:getStylesheetProperty($prmRowAttr)"/-->
                     <xsl:choose>
                         <xsl:when test="exists($maunuallyAssignRowHeight)">
                             <xsl:sequence select="$maunuallyAssignRowHeight"/>
