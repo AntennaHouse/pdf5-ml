@@ -65,10 +65,10 @@ E-mail : info@antennahouse.com
     
 
     <!-- 
-     function:	table[@orient="land"] template
+     function:  table[@orient="land"] template
      param:	    
-     return:	fo:bloc-container
-     note:		Table will be lotated by 90 degrees counterclockwise from the text flow.
+     return:    fo:bloc-container
+     note:      Table will be lotated by 90 degrees counterclockwise from the text flow.
      -->
     <xsl:template match="*[contains(@class, ' topic/table ')][string(@orient) eq 'land']" priority="4">
         <fo:block-container>
@@ -80,10 +80,10 @@ E-mail : info@antennahouse.com
     </xsl:template>
 
     <!-- 
-     function:	table[@pgwide="1"] template
+     function:  table[@pgwide="1"] template
      param:	    
-     return:	fo:bloc-container
-     note:		Table will be positioned from left page margin to right page margin.
+     return:    fo:bloc-container
+     note:      Table will be positioned from left page margin to right page margin.
                 Change implementation method to force table width to full.
                 See also ahf:getTablePgwideAttr.
                 2016-09-23 t.makita
@@ -98,10 +98,10 @@ E-mail : info@antennahouse.com
     </xsl:template>
 
     <!-- 
-     function:	table template
+     function:  table template
      param:	    
-     return:	fo:wrapper
-     note:		SPEC: Remove deprecated table/title positioning for the end of table
+     return:    fo:wrapper
+     note:      SPEC: Remove deprecated table/title positioning for the end of table
                       Remove footnote generation. Instead it is moved to tgroup template
                       2018-01-05 t.makita
      -->
@@ -126,10 +126,10 @@ E-mail : info@antennahouse.com
     </xsl:template>
 
     <!-- 
-     function:	generate continued word in fo:table-header or fo:table-footer
-     param:		prmTable
-     return:	xs:boolean
-     note:		Disable generation for nested table.
+     function:  generate continued word in fo:table-header or fo:table-footer
+     param:     prmTable
+     return:    xs:boolean
+     note:      Disable generation for nested table.
      -->
     <xsl:function name="ahf:outputContinuedWordInTableTitle" as="xs:boolean">
         <xsl:param name="prmTable" as="element()"/>
@@ -168,13 +168,14 @@ E-mail : info@antennahouse.com
     </xsl:function>
 
     <!-- 
-     function:	build table attributes
-     param:		prmTable
-     return:	element()
-     note:		
+     function:  build table attributes
+     param:     prmTable
+     return:    element()
+     note:      outputclass="align-left/align-center/align-right" is adopted as table attribute if specified.	
      -->
     <xsl:function name="ahf:getTableAttr" as="element()">
         <xsl:param name="prmTable" as="element()"/>
+        <xsl:variable name="outputClassTableAlign" as="xs:string" select="ahf:getOutputClassRegx($prmTable,$ocTableAlignRegx,$ocTableAlignReplaceGroup)"/>
         <dummy>
             <xsl:attribute name="frame"  select="if (exists($prmTable/@frame))  then string($prmTable/@frame) else 'all'"/>
             <xsl:attribute name="colsep" select="if (exists($prmTable/@colsep)) then string($prmTable/@colsep) else '1'"/>
@@ -182,16 +183,19 @@ E-mail : info@antennahouse.com
             <xsl:attribute name="pgwide" select="if (exists($prmTable/@pgwide)) then string($prmTable/@pgwide) else '0'"/>
             <xsl:attribute name="rowheader" select="if (exists($prmTable/@rowheader)) then string($prmTable/@rowheader) else 'norowheader'"/>
             <xsl:attribute name="scale"  select="if (exists($prmTable/@scale))  then string($prmTable/@scale) else '100'"/>
+            <xsl:if test="string($outputClassTableAlign)">
+                <xsl:attribute name="text-align" select="$outputClassTableAlign"/>
+            </xsl:if>
             <xsl:copy-of select="$prmTable/@class"/>
             <xsl:copy-of select="$prmTable/@*[name() eq $pFoPropName]"/>
         </dummy>
     </xsl:function>
     
     <!-- 
-     function:	table/desc template
+     function:  table/desc template
      param:	    
-     return:	fo:block
-     note:		Set $prmDoInherit=true() for getAttributeSetWithLang to avoid thead style inheritance when adding "Continued" word in table title.
+     return:    fo:block
+     note:      Set $prmDoInherit=true() for getAttributeSetWithLang to avoid thead style inheritance when adding "Continued" word in table title.
                 2019-02-13 t.makita
      -->
     <xsl:template match="*[contains(@class, ' topic/table ')]/*[contains(@class, ' topic/desc ')]" mode="MODE_GET_STYLE" as="xs:string*">
@@ -210,10 +214,10 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <!-- 
-     function:	table/title template
-     param:	    prmOutputContinuedWordInTableTitle
-     return:	fo:block
-     note:		If table/title is called from fo:table-header generation, add fo:retrieve-table-marker to add "Continued" word.
+     function:  table/title template
+     param:     prmOutputContinuedWordInTableTitle
+     return:    fo:block
+     note:      If table/title is called from fo:table-header generation, add fo:retrieve-table-marker to add "Continued" word.
                 If called from fo:marker generation, add "Continued" word.
                 Set $prmDoInherit=true() for getAttributeSetWithLang to avoid thead style inheritance when adding "Continued" word in table title.
                 2019-02-13 t.makita
@@ -256,16 +260,32 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <!-- 
-     function:	tgroup template
-     param:	    prmTableAttr and etc
+     function:  Extract start-indent, end-indent, text-align properties for fo:table-and-cation from tgroup level attribute
+     param:     prmProps
+     return:    attribute()*
+     note:      start-indent, end-indent, text-align should be applied fo:table-and-caption, not fo:table.
+                This is because if table@pgwide="1" is specified, the relevant template generates width="100%" 
+                then the table overflows if start-indent is applied to fo:table
+                2020-05-21 t.makita
+     -->
+    <xsl:function name="ahf:extractTableAndCaptionProperty" as="attribute()*">
+        <xsl:param name="prmProps" as="attribute()*"/>
+        <xsl:sequence select="$prmProps[name() = ('start-indent','end-indent','text-align')]"/>
+    </xsl:function>
+    
+    <!-- 
+     function:  tgroup template
+     param:     prmTableAttr and etc
      return:	fo:table-and-caption
-     note:		Add space-before when there is no table/tite,desc.
+     note:      Add space-before when there is no table/tite,desc.
                 2016-07-24 t.makita
                 SPEC: Output table/title & desc for the first occurrence of table/tgroup in fo:table-cation.
                       Output "Continued" word in fo:table-header if $prmOutputContinuedWordInTableTitle is true().
                       Output "Continued" word in fo:table-footer if $prmOutputContinuedWordInTableFooter is true().
                       Generate footnote per table/tgroup
                       2019-01-05 t.makita
+                Apply start-indent, end-indent, text-align to fo:table-and-catption not fo:table.
+                2020-05-24 t.makita
      -->
     <xsl:template match="*[contains(@class, ' topic/tgroup ')]" mode="MODE_GET_STYLE" as="xs:string*">
         <xsl:sequence select="'atsTable'"/>
@@ -280,7 +300,7 @@ E-mail : info@antennahouse.com
         
         <xsl:variable name="tgroup" as="element()" select="."/>
         <xsl:variable name="isFirstTgroup" as="xs:boolean" select="empty(preceding-sibling::*[contains(@class, ' topic/tgroup ')])"/>
-        <xsl:variable name="tgroupAttr" select="ahf:addTgroupAttr(.,$prmTableAttr)" as="element()"/>
+        <xsl:variable name="tgroupAttr" select="ahf:addTgroupAttr($tgroup, $prmTableAttr)" as="element()"/>
         <xsl:variable name="colSpec" as="element()*">
             <xsl:apply-templates select="child::*[contains(@class, ' topic/colspec ')]"/>
         </xsl:variable>
@@ -308,9 +328,9 @@ E-mail : info@antennahouse.com
             <xsl:call-template name="getAttributeSetWithLang">
                 <xsl:with-param name="prmAttrSetName" select="'atsTableAndCaption'"/>
             </xsl:call-template>
-            <xsl:call-template name="getTableAlignAttr">
-                <xsl:with-param name="prmTgroupAttr" select="$tgroupAttr"/>
-            </xsl:call-template>
+            <xsl:copy-of select="ahf:extractTableAndCaptionProperty($tgroupAttr/@*)"/>
+            <xsl:copy-of select="ahf:extractTableAndCaptionProperty($tableAttr)"/>
+            <xsl:copy-of select="ahf:extractTableAndCaptionProperty(ahf:getFoStyleAndProperty($tgroup))"/>
             <xsl:if test="$outputTableCaption">
                 <fo:table-caption>
                     <xsl:call-template name="getAttributeSet">
@@ -321,14 +341,14 @@ E-mail : info@antennahouse.com
                 </fo:table-caption>
             </xsl:if>
             <fo:table>
-                <xsl:copy-of select="$tableAttr"/>
+                <xsl:copy-of select="$tableAttr except ahf:extractTableAndCaptionProperty($tableAttr)"/>
                 <xsl:call-template name="ahf:getUnivAtts"/>
                 <xsl:call-template name="ahf:getTablePgwideAttr ">
                     <xsl:with-param name="prmTgroupAttr" select="$tgroupAttr"/>
                 </xsl:call-template>
                 <xsl:copy-of select="ahf:getScaleAtts($tgroupAttr,$tableAttr)"/>
                 <xsl:copy-of select="ahf:getFrameAtts($tgroupAttr,$tableAttr)"/>
-                <xsl:copy-of select="ahf:getFoStyleAndProperty($tgroupAttr)[name() ne 'text-align']"/>
+                <xsl:copy-of select="ahf:getFoStyleAndProperty($tgroupAttr) except ahf:extractTableAndCaptionProperty($tgroupAttr/@*)"/>
                 <!-- Copy fo:table-column -->
                 <xsl:apply-templates select="$colSpec" mode="MODE_COPY_COLSPEC"/>
                 <xsl:choose>
@@ -373,10 +393,10 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <!-- 
-     function:	build tgroup attributes
-     param:		prmTgroup, prmTableAttr
-     return:	element()
-     note:		@fo:prop is only used to separate text-align because it is only applied to fo:table-and-caption.
+     function:  build tgroup attributes
+     param:     prmTgroup, prmTableAttr
+     return:    element()
+     note:      @fo:prop is only used to separate text-align because it is only applied to fo:table-and-caption.
                 2016-02-26 t.makita
      -->
     <xsl:function name="ahf:addTgroupAttr" as="element()">
@@ -393,12 +413,12 @@ E-mail : info@antennahouse.com
     </xsl:function>
 
     <!-- 
-     function:	Get table align attribute
-     param:		prmTable
-     return:	attribute()
-     note:		This template controls table alignment (text-align of fo:table-and-caption) not defined in DITA.
+     function:  Get table align attribute
+     param:     prmTable
+     return:    attribute()
+     note:      This template controls table alignment (text-align of fo:table-and-caption) not defined in DITA.
      -->
-    <xsl:template name="getTableAlignAttr" as="attribute()?">
+    <!--xsl:template name="getTableAlignAttr" as="attribute()?">
         <xsl:param name="prmTgroupAttr" required="yes" as="element()"/>
         <xsl:param name="prmTable" required="yes" tunnel="yes" as="element()"/>
         
@@ -411,13 +431,13 @@ E-mail : info@antennahouse.com
                 <xsl:copy-of select="ahf:getFoStyleAndProperty($prmTgroupAttr)[name() eq 'text-align']"/>
             </xsl:otherwise>
         </xsl:choose>
-    </xsl:template>
+    </xsl:template-->
     
     <!-- 
-     function:	Get pgwide attributes
-     param:		prmTgroupAttr
-     return:	attribute()
-     note:		
+     function:  Get pgwide attributes
+     param:     prmTgroupAttr
+     return:    attribute()
+     note:      width="100%" will be generated.
      -->
     <xsl:template name="ahf:getTablePgwideAttr" as="attribute()*">
         <xsl:param name="prmTgroupAttr" required="yes" as="element()"/>
@@ -429,10 +449,10 @@ E-mail : info@antennahouse.com
     </xsl:template>
 
     <!-- 
-     function:	Generate fo:table-header with "Continued" word when tgroup/thead is empty
-     param:		prmTableTitle, prmTableDesc, prmCols, prmIsFirstTgroup
-     return:	fo:table-header
-     note:		table/desc is controled by fo:retrive-table-marker because it is needed in only first table header.
+     function:  Generate fo:table-header with "Continued" word when tgroup/thead is empty
+     param:     prmTableTitle, prmTableDesc, prmCols, prmIsFirstTgroup
+     return:    fo:table-header
+     note:      table/desc is controled by fo:retrive-table-marker because it is needed in only first table header.
      -->
     <xsl:template name="genTheaderForContinuedWord">
         <xsl:param name="prmTableTitle" as="element()?" tunnel="yes" required="yes"/>
@@ -470,9 +490,9 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <!-- 
-     function:	Generate fo:table-footer that includes "Continued" word
-     param:		none
-     return:	fo:table-footer
+     function:  Generate fo:table-footer that includes "Continued" word
+     param:     none
+     return:    fo:table-footer
      note:		
      -->
     <xsl:template name="genTfooterForContinuedWord">
@@ -497,8 +517,8 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <!-- 
-     function:	fo:table-column copy template
-     param:		none
+     function:  fo:table-column copy template
+     param:     none
      return:	fo:table-column
      note:		
      -->
@@ -509,10 +529,10 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <!-- 
-     function:	colspec template
-     param:	    none
-     return:	fo:table-column
-     note:		Added border style "atsTableColumn" to set default border width. 2014-01-03 t.makita
+     function:  colspec template
+     param:     none
+     return:    fo:table-column
+     note:      Added border style "atsTableColumn" to set default border width. 2014-01-03 t.makita
      -->
     <xsl:template match="*[contains(@class, ' topic/colspec ')]">
         <fo:table-column>
@@ -525,10 +545,10 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <!-- 
-     function:	build colspec attributes
-     param:		prmColSpec
-     return:	attribute()*
-     note:		Generates XSL-FO property.
+     function:  build colspec attributes
+     param:     prmColSpec
+     return:    attribute()*
+     note:      Generates XSL-FO property.
      -->
     <xsl:function name="ahf:getColSpecAttr" as="attribute()*">
         <xsl:param name="prmColSpec" as="element()"/>
@@ -669,9 +689,9 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <!-- 
-     function:	build thead attributes
-     param:		prmThead, prmTgroupAttr
-     return:	element()
+     function:  build thead attributes
+     param:     prmThead, prmTgroupAttr
+     return:    element()
      note:		
      -->
     <xsl:function name="ahf:addTheadAttr" as="element()">
@@ -685,9 +705,9 @@ E-mail : info@antennahouse.com
     </xsl:function>
     
     <!-- 
-     function:	tbody template
-     param:		prmTgroupAttr, prmColSpec
-     return:	fo:table-body
+     function:  tbody template
+     param:     prmTgroupAttr, prmColSpec
+     return:    fo:table-body
      note:		
      -->
     <xsl:template match="*[contains(@class, ' topic/tbody ')]" mode="MODE_GET_STYLE" as="xs:string*">
@@ -713,9 +733,9 @@ E-mail : info@antennahouse.com
     </xsl:template>
 
     <!-- 
-     function:	build tbody attributes
-     param:		prmTbody, prmTgroupAttr
-     return:	element()
+     function:  build tbody attributes
+     param:     prmTbody, prmTgroupAttr
+     return:    element()
      note:		
      -->
     <xsl:function name="ahf:addTbodyAttr" as="element()">
@@ -729,10 +749,10 @@ E-mail : info@antennahouse.com
     </xsl:function>
     
     <!-- 
-     function:	row template
-     param:		prmRowUpperAttr, prmColSpec
-     return:	fo:table-row
-     note:		SPEC: If row belongs thead and output "Continued" word in table title, set thead background color to row.
+     function:  row template
+     param:     prmRowUpperAttr, prmColSpec
+     return:    fo:table-row
+     note:      SPEC: If row belongs thead and output "Continued" word in table title, set thead background color to row.
      -->
     <xsl:template match="*[contains(@class, ' topic/row ')]" mode="MODE_GET_STYLE" as="xs:string*">
         <xsl:sequence select="'atsRow'"/>
@@ -777,9 +797,9 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <!-- 
-     function:	build row attributes
-     param:		prmRow, prmRowUpperAttr
-     return:	element()
+     function:  build row attributes
+     param:     prmRow, prmRowUpperAttr
+     return:    element()
      note:		
      -->
     <xsl:function name="ahf:addRowAttr" as="element()">
@@ -794,9 +814,9 @@ E-mail : info@antennahouse.com
     </xsl:function>
     
     <!-- 
-     function:	get row height considering entry/@rotate="1"
-     param:		prmRow, prmRowAttr
-     return:	xs:double (Row height as em unit. 0.0 means no needs to set row height)
+     function:  get row height considering entry/@rotate="1"
+     param:     prmRow, prmRowAttr
+     return:    xs:double (Row height as em unit. 0.0 means no needs to set row height)
      note:		
      -->
     <xsl:template name="getRowHeight" as="xs:double">
@@ -866,10 +886,10 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <!-- 
-     function:	table header entry template
-     param:		prmRowAttr, prmColSpec,prmRowHeight
-     return:	fo:table-cell
-     note:		Honor the entry attribute than colspec attribute. 2011-08-29 t.makita
+     function:  table header entry template
+     param:     prmRowAttr, prmColSpec,prmRowHeight
+     return:    fo:table-cell
+     note:      Honor the entry attribute than colspec attribute. 2011-08-29 t.makita
                 $prmRowHeight is needed for entry/@rotate="1" when specifying fo:block-container/@width
      -->
     <xsl:template match="*[contains(@class,' topic/thead ')]/*[contains(@class,' topic/row ')]/*[contains(@class,' topic/entry ')]" mode="MODE_GET_STYLE" as="xs:string*">
@@ -909,10 +929,10 @@ E-mail : info@antennahouse.com
     </xsl:template>
 
     <!-- 
-     function:	table body entry template
-     param:		prmRowAttr, prmColSpec,prmRowHeight
-     return:	fo:table-cell
-     note:		Honor the entry attribute than colspec attribute. 2011-08-29 t.makita
+     function:  table body entry template
+     param:     prmRowAttr, prmColSpec,prmRowHeight
+     return:    fo:table-cell
+     note:      Honor the entry attribute than colspec attribute. 2011-08-29 t.makita
                 $prmRowHeight is needed for entry/@rotate="1" when specifying fo:block-container/@width
                 SPEC: generate fo:marker if table needs "Continued" word in header or footer.
                       2018-01-06 t.makita
@@ -961,8 +981,8 @@ E-mail : info@antennahouse.com
     </xsl:template>
 
     <!-- 
-     function:	Generate fo:marker for controlling output "Continued" word in table header or footer
-     param:		prmEntry, prmOutputContinuedWordInTableTitle, prmOutputContinuedWordInTableFooter, etc 
+     function:  Generate fo:marker for controlling output "Continued" word in table header or footer
+     param:     prmEntry, prmOutputContinuedWordInTableTitle, prmOutputContinuedWordInTableFooter, etc 
      return:	fo:marker*
      note:      First Row/First Cell
                 - Not output "Continued" in table header.
@@ -1041,10 +1061,10 @@ E-mail : info@antennahouse.com
     </xsl:template>
 
     <!-- 
-     function:	get XSL-FO property from CALS table entry attributes
-     param:		prmEntry, prmRowAttr, prmColSpec
-     return:	attribute()*
-     note:		DITA-OT 1.5 sets correct @colname to every entry element.
+     function:  get XSL-FO property from CALS table entry attributes
+     param:     prmEntry, prmRowAttr, prmColSpec
+     return:    attribute()*
+     note:      DITA-OT 1.5 sets correct @colname to every entry element.
                 This stylesheet use this functionality.
                 The evaluation order:
                 1. Inherit value
@@ -1223,10 +1243,10 @@ E-mail : info@antennahouse.com
     </xsl:function>
     
     <!-- 
-     function:	inherit colspec property to table entry
-     param:		prmColName, prmColSpec
-     return:	attribute()*
-     note:		DITA-OT 1.5 sets correct @colname to every entry element.
+     function:  inherit colspec property to table entry
+     param:     prmColName, prmColSpec
+     return:    attribute()*
+     note:      DITA-OT 1.5 sets correct @colname to every entry element.
                 This stylesheet use this functionality.
                 $prmColspec contains fo:table-column obuject with properties.
      -->
@@ -1261,9 +1281,9 @@ E-mail : info@antennahouse.com
             Simple Table Templates
          ****************************-->
     <!-- 
-     function:	simpletable template
+     function:  simpletable template
      param:	    
-     return:	fo:table
+     return:    fo:table
      note:		
      -->
     <xsl:template match="*[contains(@class, ' topic/simpletable ')]" mode="MODE_GET_STYLE" as="xs:string*">
@@ -1310,10 +1330,10 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <!-- 
-     function:	sthead template
-     param:	    prmKeyCol
-     return:	fo:table-header
-     note:		sthead is optional.
+     function:  sthead template
+     param:     prmKeyCol
+     return:    fo:table-header
+     note:      sthead is optional.
                 This stylesheet apply bold for sthead if simpletable/@keycol is not defined.
      -->
     <xsl:template match="*[contains(@class, ' topic/sthead ')]" mode="MODE_GET_STYLE" as="xs:string*">
@@ -1339,10 +1359,10 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <!-- 
-     function:	stentry template
-     param:	    prmKeyCol
-     return:	stentry contents (fo:table-cell)
-     note:		none
+     function:  stentry template
+     param:     prmKeyCol
+     return:    stentry contents (fo:table-cell)
+     note:      none
      -->
     <xsl:template match="*[contains(@class, ' topic/sthead ')]/*[contains(@class, ' topic/stentry ')]" mode="MODE_GET_STYLE" as="xs:string*">
         <xsl:sequence select="'atsSimpleTableHeaderCell'"/>
@@ -1402,10 +1422,10 @@ E-mail : info@antennahouse.com
     
     
     <!-- 
-     function:	strow template
-     param:	    prmKeyCol
-     return:	fo:table-row
-     note:		none
+     function:  strow template
+     param:     prmKeyCol
+     return:    fo:table-row
+     note:      none
      -->
     <xsl:template match="*[contains(@class, ' topic/strow ')]" mode="MODE_GET_STYLE" as="xs:string*">
         <xsl:sequence select="'atsSimpleTableRow'"/>
@@ -1428,9 +1448,9 @@ E-mail : info@antennahouse.com
             Table related common templates
          ***************************************-->
     <!-- 
-     function:	get @keycol value and return it.
-     param:		prmTable
-     return:	integer
+     function:  get @keycol value and return it.
+     param:     prmTable
+     return:    integer
      note:		
      -->
     <xsl:function name="ahf:getKeyCol" as="xs:integer">
@@ -1463,9 +1483,9 @@ E-mail : info@antennahouse.com
     </xsl:function>
     
     <!-- 
-     function:	@relcolwidth processing
-     param:		prmRelColWidth, prmTable
-     return:	fo:table-column
+     function:  @relcolwidth processing
+     param:     prmRelColWidth, prmTable
+     return:    fo:table-column
      note:		
      -->
     <xsl:template name="processRelColWidth">
@@ -1554,9 +1574,9 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <!-- 
-     function:	Generate table title prefix
-     param:		prmTopicRef, prmTable
-     return:	Table title prefix
+     function:  Generate table title prefix
+     param:     prmTopicRef, prmTable
+     return:    Table title prefix
      note:		
      -->
     <xsl:template name="ahf:getTableTitlePrefix" as="xs:string">
