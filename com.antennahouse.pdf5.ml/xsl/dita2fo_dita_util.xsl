@@ -221,11 +221,11 @@ URL : http://www.antennahouse.co.jp/
     </xsl:function>
 
     <!-- 
-     function:	Get @output class value with regex
-     param:		prmElem, prmRegx, prmReplace
-     return:	xs:string
-     note:		prmRegEx must have several parts using "(" and ")"
-                Ex: outputclass="width60" & prmRegx="(width)(\d+)" & prmReplace="$2"
+     function:  Get @output class value with regex
+     param:     prmElem, prmRegx, prmReplace
+     return:    xs:string
+     note:      prmRegEx must have several parts using "(" and ")"
+                Ex: outputclass="width60" & prmRegx="(width)(\d+)" & prmReplace="\$2"
      -->
     <xsl:function name="ahf:getOutputClassRegx" as="xs:string">
         <xsl:param name="prmElem" as="element()"/>
