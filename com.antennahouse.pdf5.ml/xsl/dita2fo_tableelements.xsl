@@ -1,13 +1,13 @@
 <?xml version='1.0' encoding="UTF-8" ?>
 <!--
-****************************************************************
-DITA to XSL-FO Stylesheet
-Module: Table templates
-Copyright © 2009-2019 Antenna House, Inc. All rights reserved.
-Antenna House is a trademark of Antenna House, Inc.
-URL    : http://www.antennahouse.com/
-E-mail : info@antennahouse.com
-****************************************************************
+    ****************************************************************
+    DITA to XSL-FO Stylesheet
+    Module: Table templates
+    Copyright © 2009-2019 Antenna House, Inc. All rights reserved.
+    Antenna House is a trademark of Antenna House, Inc.
+    URL    : http://www.antennahouse.com/
+    E-mail : info@antennahouse.com
+    ****************************************************************
 -->
 <xsl:stylesheet version="2.0" 
  xmlns:fo="http://www.w3.org/1999/XSL/Format" 
@@ -175,7 +175,6 @@ E-mail : info@antennahouse.com
      -->
     <xsl:function name="ahf:getTableAttr" as="element()">
         <xsl:param name="prmTable" as="element()"/>
-        <xsl:variable name="outputClassTableAlign" as="xs:string" select="ahf:getOutputClassRegx($prmTable,$ocTableAlignRegx,$ocTableAlignReplaceGroup)"/>
         <dummy>
             <xsl:attribute name="frame"  select="if (exists($prmTable/@frame))  then string($prmTable/@frame) else 'all'"/>
             <xsl:attribute name="colsep" select="if (exists($prmTable/@colsep)) then string($prmTable/@colsep) else '1'"/>
@@ -183,11 +182,7 @@ E-mail : info@antennahouse.com
             <xsl:attribute name="pgwide" select="if (exists($prmTable/@pgwide)) then string($prmTable/@pgwide) else '0'"/>
             <xsl:attribute name="rowheader" select="if (exists($prmTable/@rowheader)) then string($prmTable/@rowheader) else 'norowheader'"/>
             <xsl:attribute name="scale"  select="if (exists($prmTable/@scale))  then string($prmTable/@scale) else '100'"/>
-            <xsl:if test="string($outputClassTableAlign)">
-                <xsl:attribute name="text-align" select="$outputClassTableAlign"/>
-            </xsl:if>
             <xsl:copy-of select="$prmTable/@class"/>
-            <xsl:copy-of select="$prmTable/@*[name() eq $pFoPropName]"/>
         </dummy>
     </xsl:function>
     
@@ -263,10 +258,8 @@ E-mail : info@antennahouse.com
      function:  Extract start-indent, end-indent, text-align properties for fo:table-and-cation from tgroup level attribute
      param:     prmProps
      return:    attribute()*
-     note:      start-indent, end-indent, text-align should be applied fo:table-and-caption, not fo:table.
-                This is because if table@pgwide="1" is specified, the relevant template generates width="100%" 
-                then the table overflows if start-indent is applied to fo:table
-                2020-05-21 t.makita
+     note:      Sortout properties for fo:table-and-caption and fo:table.
+                2020-05-25 t.makita
      -->
     <xsl:function name="ahf:extractTableAndCaptionProperty" as="attribute()*">
         <xsl:param name="prmProps" as="attribute()*"/>
@@ -284,7 +277,8 @@ E-mail : info@antennahouse.com
                       Output "Continued" word in fo:table-footer if $prmOutputContinuedWordInTableFooter is true().
                       Generate footnote per table/tgroup
                       2019-01-05 t.makita
-                Apply start-indent, end-indent, text-align to fo:table-and-catption not fo:table.
+                Adopt fo:prop authored both table, tgroup.
+                Apply start-indent, end-indent, text-align to fo:table-and-catption rather than fo:table.
                 2020-05-24 t.makita
      -->
     <xsl:template match="*[contains(@class, ' topic/tgroup ')]" mode="MODE_GET_STYLE" as="xs:string*">
@@ -299,6 +293,7 @@ E-mail : info@antennahouse.com
         <xsl:param name="prmTableDesc"  required="yes" tunnel="yes" as="element()?"/>
         
         <xsl:variable name="tgroup" as="element()" select="."/>
+        <xsl:variable name="table" as="element()" select="$tgroup/parent::*"/>
         <xsl:variable name="isFirstTgroup" as="xs:boolean" select="empty(preceding-sibling::*[contains(@class, ' topic/tgroup ')])"/>
         <xsl:variable name="tgroupAttr" select="ahf:addTgroupAttr($tgroup, $prmTableAttr)" as="element()"/>
         <xsl:variable name="colSpec" as="element()*">
@@ -328,8 +323,9 @@ E-mail : info@antennahouse.com
             <xsl:call-template name="getAttributeSetWithLang">
                 <xsl:with-param name="prmAttrSetName" select="'atsTableAndCaption'"/>
             </xsl:call-template>
-            <xsl:copy-of select="ahf:extractTableAndCaptionProperty($tgroupAttr/@*)"/>
             <xsl:copy-of select="ahf:extractTableAndCaptionProperty($tableAttr)"/>
+            <xsl:copy-of select="ahf:getOutputClassTableAlignAttr($table)"/>
+            <xsl:copy-of select="ahf:extractTableAndCaptionProperty(ahf:getFoStyleAndProperty($table))"/>
             <xsl:copy-of select="ahf:extractTableAndCaptionProperty(ahf:getFoStyleAndProperty($tgroup))"/>
             <xsl:if test="$outputTableCaption">
                 <fo:table-caption>
@@ -348,7 +344,8 @@ E-mail : info@antennahouse.com
                 </xsl:call-template>
                 <xsl:copy-of select="ahf:getScaleAtts($tgroupAttr,$tableAttr)"/>
                 <xsl:copy-of select="ahf:getFrameAtts($tgroupAttr,$tableAttr)"/>
-                <xsl:copy-of select="ahf:getFoStyleAndProperty($tgroupAttr) except ahf:extractTableAndCaptionProperty($tgroupAttr/@*)"/>
+                <xsl:copy-of select="ahf:getFoStyleAndProperty($table) except ahf:extractTableAndCaptionProperty(ahf:getFoStyleAndProperty($table))"/>
+                <xsl:copy-of select="ahf:getFoStyleAndProperty($tgroup) except ahf:extractTableAndCaptionProperty(ahf:getFoStyleAndProperty($tgroup))"/>
                 <!-- Copy fo:table-column -->
                 <xsl:apply-templates select="$colSpec" mode="MODE_COPY_COLSPEC"/>
                 <xsl:choose>
@@ -396,8 +393,7 @@ E-mail : info@antennahouse.com
      function:  build tgroup attributes
      param:     prmTgroup, prmTableAttr
      return:    element()
-     note:      @fo:prop is only used to separate text-align because it is only applied to fo:table-and-caption.
-                2016-02-26 t.makita
+     note:      
      -->
     <xsl:function name="ahf:addTgroupAttr" as="element()">
         <xsl:param name="prmTgroup"    as="element()"/>
@@ -408,7 +404,6 @@ E-mail : info@antennahouse.com
             <xsl:copy-of select="$prmTgroup/@colsep"/>
             <xsl:copy-of select="$prmTgroup/@rowsep"/>
             <xsl:copy-of select="$prmTgroup/@align"/>
-            <xsl:copy-of select="$prmTgroup/@*[name() eq $pFoPropName]"/>
         </dummy>
     </xsl:function>
 
@@ -418,20 +413,13 @@ E-mail : info@antennahouse.com
      return:    attribute()
      note:      This template controls table alignment (text-align of fo:table-and-caption) not defined in DITA.
      -->
-    <!--xsl:template name="getTableAlignAttr" as="attribute()?">
-        <xsl:param name="prmTgroupAttr" required="yes" as="element()"/>
-        <xsl:param name="prmTable" required="yes" tunnel="yes" as="element()"/>
-        
+    <xsl:function name="ahf:getOutputClassTableAlignAttr" as="attribute()?">
+        <xsl:param name="prmTable" as="element()"/>
         <xsl:variable name="outputClassTableAlign" as="xs:string" select="ahf:getOutputClassRegx($prmTable,$ocTableAlignRegx,$ocTableAlignReplaceGroup)"/>
-        <xsl:choose>
-            <xsl:when test="string($outputClassTableAlign)">
-                <xsl:attribute name="text-align" select="$outputClassTableAlign"/>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:copy-of select="ahf:getFoStyleAndProperty($prmTgroupAttr)[name() eq 'text-align']"/>
-            </xsl:otherwise>
-        </xsl:choose>
-    </xsl:template-->
+        <xsl:if test="string($outputClassTableAlign)">
+            <xsl:attribute name="text-align" select="$outputClassTableAlign"/>
+        </xsl:if>
+    </xsl:function>
     
     <!-- 
      function:  Get pgwide attributes
