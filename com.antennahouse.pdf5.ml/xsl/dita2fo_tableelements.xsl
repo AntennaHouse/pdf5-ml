@@ -278,7 +278,9 @@
                       Generate footnote per table/tgroup
                       2019-01-05 t.makita
                 Adopt fo:prop authored both table, tgroup.
-                Apply start-indent, end-indent, text-align to fo:table-and-catption rather than fo:table.
+                Simplify the element correspondence:
+                table→fo:table-and-caption
+                tgroup→fo:table
                 2020-05-24 t.makita
      -->
     <xsl:template match="*[contains(@class, ' topic/tgroup ')]" mode="MODE_GET_STYLE" as="xs:string*">
@@ -323,10 +325,8 @@
             <xsl:call-template name="getAttributeSetWithLang">
                 <xsl:with-param name="prmAttrSetName" select="'atsTableAndCaption'"/>
             </xsl:call-template>
-            <xsl:copy-of select="ahf:extractTableAndCaptionProperty($tableAttr)"/>
             <xsl:copy-of select="ahf:getOutputClassTableAlignAttr($table)"/>
-            <xsl:copy-of select="ahf:extractTableAndCaptionProperty(ahf:getFoStyleAndProperty($table))"/>
-            <xsl:copy-of select="ahf:extractTableAndCaptionProperty(ahf:getFoStyleAndProperty($tgroup))"/>
+            <xsl:copy-of select="ahf:getFoStyleAndProperty($table)"/>
             <xsl:if test="$outputTableCaption">
                 <fo:table-caption>
                     <xsl:call-template name="getAttributeSet">
@@ -337,15 +337,14 @@
                 </fo:table-caption>
             </xsl:if>
             <fo:table>
-                <xsl:copy-of select="$tableAttr except ahf:extractTableAndCaptionProperty($tableAttr)"/>
+                <xsl:copy-of select="$tableAttr"/>
                 <xsl:call-template name="ahf:getUnivAtts"/>
                 <xsl:call-template name="ahf:getTablePgwideAttr ">
                     <xsl:with-param name="prmTgroupAttr" select="$tgroupAttr"/>
                 </xsl:call-template>
                 <xsl:copy-of select="ahf:getScaleAtts($tgroupAttr,$tableAttr)"/>
                 <xsl:copy-of select="ahf:getFrameAtts($tgroupAttr,$tableAttr)"/>
-                <xsl:copy-of select="ahf:getFoStyleAndProperty($table) except ahf:extractTableAndCaptionProperty(ahf:getFoStyleAndProperty($table))"/>
-                <xsl:copy-of select="ahf:getFoStyleAndProperty($tgroup) except ahf:extractTableAndCaptionProperty(ahf:getFoStyleAndProperty($tgroup))"/>
+                <xsl:copy-of select="ahf:getFoStyleAndProperty($tgroup)"/>
                 <!-- Copy fo:table-column -->
                 <xsl:apply-templates select="$colSpec" mode="MODE_COPY_COLSPEC"/>
                 <xsl:choose>
