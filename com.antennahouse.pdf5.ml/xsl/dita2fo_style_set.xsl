@@ -506,7 +506,7 @@
 	  -->
 	<!--xsl:variable name="expandExpRegX" as="xs:string" select="'[\s\(\),\*\+]+?'"/-->
 	<!--xsl:variable name="expandExpRegX" as="xs:string">[\s\(\),\*\+&lt;&gt;:;'"&#x3000;\\\.]+?</xsl:variable-->
-	<xsl:variable name="expandExpRegX" as="xs:string">(\\\$)|[\s,\*\+&lt;&gt;:;'"&#x3000;\\\.]+?</xsl:variable>
+	<xsl:variable name="expandExpRegX" as="xs:string">(\\\$)|[\s,\(\)\*\+&lt;&gt;:;'"&#x3000;\\\.]+?</xsl:variable>
 	
 	<xsl:template name="expandExp" as="xs:string">
 		<xsl:param name="prmExp" required="yes" as="xs:string"/>
