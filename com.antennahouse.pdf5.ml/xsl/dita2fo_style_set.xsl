@@ -505,7 +505,8 @@
 				2019-11-12 t.makita.
 	  -->
 	<!--xsl:variable name="expandExpRegX" as="xs:string" select="'[\s\(\),\*\+]+?'"/-->
-	<xsl:variable name="expandExpRegX" as="xs:string">[\s\(\),\*\+&lt;&gt;:;'"&#x3000;\\\.]+?</xsl:variable>
+	<!--xsl:variable name="expandExpRegX" as="xs:string">[\s\(\),\*\+&lt;&gt;:;'"&#x3000;\\\.]+?</xsl:variable-->
+	<xsl:variable name="expandExpRegX" as="xs:string">(\\\$)|[\s,\(\)\*\+&lt;&gt;:;'"&#x3000;\\\.]+?</xsl:variable>
 	
 	<xsl:template name="expandExp" as="xs:string">
 		<xsl:param name="prmExp" required="yes" as="xs:string"/>
@@ -521,8 +522,16 @@
 			<xsl:analyze-string select="$prmExp" regex="{$expandExpRegX}">
 				<!-- White-space or other symbol-->
 				<xsl:matching-substring>
+					<xsl:variable name="matchedStr" as="xs:string" select="."/>
 					<!--xsl:message select="'[expandExp] match=''',.,''''"/-->
-					<xsl:sequence select="."/>
+					<xsl:choose>
+						<xsl:when test="$matchedStr eq '\$'">
+							<xsl:sequence select="'$'"/>
+						</xsl:when>
+						<xsl:otherwise>
+							<xsl:sequence select="$matchedStr"/>
+						</xsl:otherwise>
+					</xsl:choose>
 				</xsl:matching-substring>
 				<!-- Token that is delimitered by white-space or symbol-->
 				<xsl:non-matching-substring>

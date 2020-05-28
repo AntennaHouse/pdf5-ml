@@ -260,8 +260,8 @@ URL : http://www.antennahouse.com/
         <variable name="OcNoTableFooterContinued">output-no-continued-in-table-footer</variable>
 
         <!-- @outputclass regx value for table alignment -->
-        <variable name="OcTableAlignRegx">(align-)(.+)</variable>
-        <variable name="OcTableAlignReplaceGroup">2</variable>
+        <variable name="OcTableAlignRegx">(align\-)(.+)</variable>
+        <variable name="OcTableAlignReplaceGroup">\$2</variable>
 
         <!-- @outputclass value for topicref/@outputclass -->
         <variable name="OcBreakNo">break-no</variable>
