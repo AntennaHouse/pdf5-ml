@@ -3,8 +3,136 @@
   <extension-point id="com.antennahouse.pdf5.ml.param" name="PDF XSLT parameters (JAXP)"/>
   <extension-point id="com.antennahouse.pdf5.ml.saxon.param" name="PDF XSLT parameters (SAXON)"/>
   <extension-point id="com.antennahouse.pdf5.ml.psmi.param" name="PDF XSLT parameters (PSMI)"/>
-  <feature extension="dita.conductor.transtype.check" value="pdf5.ml" type="pdf"/>
+  <extension-point id="com.antennahouse.pdf5.ml.xsl" name="PDF XSLT stylesheet overrides"/>
+  <extension-point id="depend.com.antennahouse.pdf5.ml.convmerged.pre" name="Convert merged middle file pre-target"/>
+  <extension-point id="depend.com.antennahouse.pdf5.ml.convmerged.post" name="Convert merged middle file post-target"/>
+  <extension-point id="depend.com.antennahouse.pdf5.ml.format.pre" name="Formatting pre-target"/>
+  <extension-point id="depend.com.antennahouse.pdf5.ml.format.post" name="Formatting post-target"/>
   <feature extension="dita.conductor.target.relative" value="integrator.xml" type="file"/>
-  <feature extension="dita.transtype.print" value="pdf5.ml"/>
+  <transtype name="pdf5.ml" desc="PDF">
+    <param name="style.def.file" desc="Style definition file" type="file"/>
+    <param name="include.frontmatter.to.toc" desc="Specifies whether to include frontmatter topicref in toc." type="enum">
+      <val>yes</val>
+      <val default="true">no</val>
+    </param>
+    <param name="add.numbering.title.prefix" desc="Specifies whether to add numbering to topic/table/fig." type="enum">
+      <val default="true">yes</val>
+      <val>no</val>
+    </param>
+    <param name="add.part.to.title" desc="Specifies whether to add Part/Chapter literal" type="enum">
+      <val default="true">yes</val>
+      <val>no</val>
+    </param>
+    <param name="add.thumbnail.index" desc="Specifies wheter to add thumbnail index" type="enum">
+      <val default="true">yes</val>
+      <val>no</val>
+    </param>
+    <param name="assume.sortas.pinyin" desc="Specifies whether to treate index-sort-as pinyin readings" type="enum">
+      <val>yes</val>
+      <val default="true">no</val>
+    </param>
+    <param name="xml.lang" desc="Specify base xsml:lang" type="string"/>
+    <param name="make.see.link" desc="Specifies whether to generate links for index-see" type="enum">
+      <val default="true">yes</val>
+      <val>no</val>
+    </param>
+    <param name="output.draft.comment" desc="Specifies whether to output draft-comment" type="enum">
+      <val>yes</val>
+      <val default="true">no</val>
+    </param>
+    <param name="output.required.cleanup" desc="Specifies whether to output required-cleanup" type="enum">
+      <val>yes</val>
+      <val default="true">no</val>
+    </param>
+    <param name="use.oid" desc="Specifies whether to adopt @oid as topic/@id" type="enum">
+      <val>yes</val>
+      <val default="true">no</val>
+    </param>
+    <param name="format.dl.as.block" desc="Specifies whether to format dl element as block" type="enum" deprecated="yes">
+      <val>yes</val>
+      <val default="true">no</val>
+    </param>
+    <param name="debug.style" desc="Specifies whether to output style debugging information" type="enum">
+      <val>yes</val>
+      <val default="true">no</val>
+    </param>
+    <param name="sort.glossentry" desc="Specifies whether to sort glossentry" type="enum">
+      <val default="true">yes</val>
+      <val>no</val>
+    </param>
+    <param name="output.start.message" desc="Specifies whether to output start message of plug-in stylesheet" type="enum">
+      <val default="true">yes</val>
+      <val>no</val>
+    </param>
+    <param name="auto.scale.down.to.fit" desc="Specifies whether to apply auto-scale-down to block image" type="enum">
+      <val default="true">yes</val>
+      <val>no</val>
+    </param>
+    <param name="make.toc.for.map" desc="Specifies whether to generate toc for map" type="enum">
+      <val default="true">yes</val>
+      <val>no</val>
+    </param>
+    <param name="make.index.for.map" desc="Specifies whether to generate index for map" type="enum">
+      <val default="true">yes</val>
+      <val>no</val>
+    </param>
+    <param name="make.alt.text" desc="Specifies whether to generate alt-text for image" type="enum">
+      <val>yes</val>
+      <val default="true">no</val>
+    </param>
+    <param name="paper.size" desc="Specifies the output paper-size" type="string"/>
+    <param name="make.alt.text" desc="Specifies whether to generate alt-text for image" type="enum">
+      <val>yes</val>
+      <val default="true">no</val>
+    </param>
+    <param name="image.in.output.folder" desc="Specifies whether to copy images into output folder" type="enum">
+      <val>yes</val>
+      <val default="true">no</val>
+    </param>
+    <param name="output.crop.region" desc="Specifies whether to output crop region" type="enum">
+      <val>yes</val>
+      <val default="true">no</val>
+    </param>
+    <param name="output.type" desc="Specifies output type such as 'web','print-color','print-monochrome'" type="string"/>
+    <param name="doc.type" desc="Specifies document type such as 'UM' (User's manual), 'IM' (Installation manual)" type="string"/>
+    <param name="brand.type" desc="Specifies brand type for publication" type="string"/>
+    <param name="exclude.cover.from.counting.page" desc="Specifies whether to exclude cover for page count" type="enum">
+      <val default="true">yes</val>
+      <val>no</val>
+    </param>
+    <param name="number.equation.block.unconditionally" desc="Specifies whether to number &lt;equation-block&gt; unconditionally" type="enum">
+      <val>yes</val>
+      <val default="true">no</val>
+    </param>
+    <param name="exclude.auto.numbering.from.equation.figure" desc="Specifies wheteher to exclude &lt;equation-block&gt; in &lt;equation-figure&gt; in unconditionally numbering mode" type="enum">
+      <val default="true">yes</val>
+      <val>no</val>
+    </param>
+    <param name="assume.equation.number.as.auto" desc="Specifies wheteher to assume all &lt;equation-number&gt; as auto" type="enum">
+      <val>yes</val>
+      <val default="true">no</val>
+    </param>
+    <param name="display.fn.at.end.of.topic" desc="Specifies wheteher to output footnote at the end of topic" type="enum">
+      <val>yes</val>
+      <val default="true">no</val>
+    </param>
+    <param name="use.i18n.index.lib" desc="Specifies wheteher to use I18N Index Library" type="enum">
+      <val>yes</val>
+      <val default="true">no</val>
+    </param>
+    <param name="debug.index" desc="Specifies wheteher to output index sorting debug information" type="enum">
+      <val>yes</val>
+      <val default="true">no</val>
+    </param>
+    <param name="adopt.mathml.alttext" desc="Specifies wheteher to adopt m:math/alttext in text mode processing" type="enum">
+      <val default="true">yes</val>
+      <val>no</val>
+    </param>
+    <param name="output.index" desc="Specifies wheteher to output index" type="enum">
+      <val default="true">yes</val>
+      <val>no</val>
+    </param>
+  </transtype>
   <template file="build_transform_template.xml"/>
+  <template file="xsl/dita2fo_shell_template.xsl"/>
 </plugin>

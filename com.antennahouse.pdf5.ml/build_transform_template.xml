@@ -64,7 +64,13 @@
     </target>
 
     <!-- Convert merged middle file -->
-    <target name="transform.merged">
+    <target name="transform.merged"
+        dita:extension="depends org.dita.dost.platform.InsertDependsAction"
+        dita:depends="{depend.com.antennahouse.pdf5.ml.convmerged.pre},
+                      transform.merged.impl,
+                      {depend.com.antennahouse.pdf5.ml.convmerged.post}"/>
+        
+    <target name="transform.merged.impl">
         <property name="stylesheet" value="${xsl.dir}${file.separator}dita2fo_convmerged_shell.xsl"/>
         <antcall target="transform.merged.common">
             <param name="prmInputFile" value="${prmInputFile}"/>
@@ -74,7 +80,13 @@
     </target>
 
     <!-- Make XSL-FO(PSMI) from merged middle file -->
-    <target name="transform.merged2psmi">
+    <target name="transform.merged2psmi"
+        dita:extension="depends org.dita.dost.platform.InsertDependsAction"
+        dita:depends="{depend.com.antennahouse.pdf5.ml.format.pre},
+                      transform.merged2psmi.impl,
+                      {depend.com.antennahouse.pdf5.ml.format.post}"/>
+    
+    <target name="transform.merged2psmi.impl">
         <property name="stylesheet" value="${xsl.dir}${file.separator}dita2fo_shell.xsl"/>
         <antcall target="transform.merged.common">
             <param name="prmInputFile" value="${prmInputFile}"/>
