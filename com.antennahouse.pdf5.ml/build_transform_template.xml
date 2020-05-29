@@ -16,6 +16,8 @@
          Parameter：prmInputFile⇒Path of merged middle file
                     prmOutputFile⇒Path of output PDF file
       -->
+    <dita:extension id="build.com.antennahouse.pdf5.ml.format.inclusion" behavior="org.dita.dost.platform.InsertAction"/>
+    
     <target name="build.project.class.path.wo.plugin" unless="use.18n_index.class.path">
         <path id="project.class.path">
             <pathelement path="${java.class.path}"/>
