@@ -3,6 +3,7 @@
   <extension-point id="com.antennahouse.pdf5.ml.param" name="PDF XSLT parameters (JAXP)"/>
   <extension-point id="com.antennahouse.pdf5.ml.saxon.param" name="PDF XSLT parameters (SAXON)"/>
   <extension-point id="com.antennahouse.pdf5.ml.psmi.param" name="PDF XSLT parameters (PSMI)"/>
+  <extension-point id="com.antennahouse.pdf5.ml.convmerged.xsl" name="PDF XSLT stylesheet (convert merged middle file) inclusion"/>
   <extension-point id="com.antennahouse.pdf5.ml.xsl" name="PDF XSLT stylesheet inclusion"/>
   <extension-point id="depend.com.antennahouse.pdf5.ml.convmerged.pre" name="Convert merged middle file pre-target"/>
   <extension-point id="depend.com.antennahouse.pdf5.ml.convmerged.post" name="Convert merged middle file post-target"/>
@@ -136,4 +137,5 @@
   </transtype>
   <template file="build_transform_template.xml"/>
   <template file="xsl/dita2fo_import_template.xsl"/>
+  <template file="xsl/dita2fo_convmerged_import_template.xsl"/>
 </plugin>
