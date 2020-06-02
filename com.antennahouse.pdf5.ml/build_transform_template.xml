@@ -9,7 +9,7 @@
      prmInputFile:  Merged middle file path
      prmOutputFile: PDF file path
   -->
-<project name="build.transform" xmlns:dita="http://dita-ot.sourceforge.net">
+<project name="build.transform" xmlns:dita="http://dita-ot.sourceforge.net" xmlns:if="ant:if">
     <import file="build_ahf.xml"/>
 
     <!-- Genarate XSL-FO & PDF from merged middle file.

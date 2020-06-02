@@ -3,7 +3,7 @@
   <extension-point id="com.antennahouse.pdf5.ml.param" name="PDF XSLT parameters (JAXP)"/>
   <extension-point id="com.antennahouse.pdf5.ml.saxon.param" name="PDF XSLT parameters (SAXON)"/>
   <extension-point id="com.antennahouse.pdf5.ml.psmi.param" name="PDF XSLT parameters (PSMI)"/>
-  <extension-point id="com.antennahouse.pdf5.ml.xsl" name="PDF XSLT stylesheet overrides"/>
+  <extension-point id="com.antennahouse.pdf5.ml.xsl" name="PDF XSLT stylesheet inclusion"/>
   <extension-point id="depend.com.antennahouse.pdf5.ml.convmerged.pre" name="Convert merged middle file pre-target"/>
   <extension-point id="depend.com.antennahouse.pdf5.ml.convmerged.post" name="Convert merged middle file post-target"/>
   <extension-point id="depend.com.antennahouse.pdf5.ml.format.pre" name="Formatting pre-target"/>
@@ -49,7 +49,7 @@
       <val>yes</val>
       <val default="true">no</val>
     </param>
-    <param name="format.dl.as.block" desc="Specifies whether to format dl element as block" type="enum" deprecated="yes">
+    <param name="format.dl.as.block" desc="Specifies whether to format dl element as block" type="enum" deprecated="true">
       <val>yes</val>
       <val default="true">no</val>
     </param>
@@ -135,5 +135,5 @@
     </param>
   </transtype>
   <template file="build_transform_template.xml"/>
-  <template file="xsl/dita2fo_shell_template.xsl"/>
+  <template file="xsl/dita2fo_import_template.xsl"/>
 </plugin>
