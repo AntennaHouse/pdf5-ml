@@ -173,6 +173,7 @@
             <sysproperty key="com.innodata.i18n.home" value="${i18n.home}"/>
             <sysproperty key="use.i18n.index.lib" value="${use.i18n.index.lib}"/>
             <sysproperty key="ot.version" value="${otversion}"/>
+            <xmlcatalog refid="dita.catalog"/>
         </xslt>
     </target>
 
@@ -236,6 +237,7 @@
             <sysproperty key="com.innodata.i18n.home" value="${i18n.home}"/>
             <sysproperty key="use.i18n.index.lib" value="${use.i18n.index.lib}"/>
             <sysproperty key="ot.version" value="${otversion}"/>
+            <xmlcatalog refid="dita.catalog"/>
         </java>
     </target>
 

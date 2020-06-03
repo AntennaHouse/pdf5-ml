@@ -136,6 +136,6 @@
     </param>
   </transtype>
   <template file="build_transform_template.xml"/>
-  <template file="xsl/dita2fo_import_template.xsl"/>
-  <template file="xsl/dita2fo_convmerged_import_template.xsl"/>
+  <template file="xsl/dita2fo_shell_template.xsl"/>
+  <template file="xsl/dita2fo_convmerged_shell_template.xsl"/>
 </plugin>
