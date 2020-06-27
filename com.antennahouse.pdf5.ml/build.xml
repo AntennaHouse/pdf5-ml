@@ -48,7 +48,12 @@
             <isset property="com.antennahouse.i18n_index.plugin.lib"/>
         </and>
     </condition>
-
+    
+    <!-- XML catalog -->
+    <xmlcatalog id="dita.catalog">
+        <catalogpath path="${dita.dir}/catalog-dita.xml"/>
+    </xmlcatalog>
+    
     <!-- Logical check -->
     <fail message="[com.antennahouse.pdf5.ml] I18n Index Library plug-in is needed if use.i18n.index.lib is 'yes'.">
         <condition>

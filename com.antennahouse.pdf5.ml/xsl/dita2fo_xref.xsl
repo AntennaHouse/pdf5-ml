@@ -51,6 +51,7 @@ E-mail : info@antennahouse.com
             </xsl:when>
             <xsl:otherwise>
                 <fo:inline>
+                    <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
                     <xsl:apply-templates select="$xref/child::node()">
                         <xsl:with-param name="prmTopcRef" tunnel="yes" select="$prmTopicRef"/>
                         <xsl:with-param name="prmNeedId"  tunnel="yes" select="$prmNeedId"/>
@@ -660,6 +661,7 @@ E-mail : info@antennahouse.com
             <!-- external link -->
             <xsl:when test="empty($prmDestElement)">
                 <xsl:copy-of select="ahf:getAttributeSet('atsXrefExt')"/>
+                <xsl:copy-of select="ahf:getFoStyleAndProperty($prmXref)"/>
                 <xsl:copy-of  select="$prmXrefTitle"/>
             </xsl:when>
             
@@ -970,8 +972,8 @@ E-mail : info@antennahouse.com
             <!-- fn: Apply fn style. No output options. -->
             <xsl:when test="$prmDestElement[contains(@class, ' topic/fn ')]">
                 <xsl:copy-of select="ahf:getUnivAtts($prmXref,$prmTopicRef,$prmNeedId)"/>
-                <xsl:copy-of select="ahf:getFoStyleAndProperty($prmXref)"/>
                 <xsl:copy-of select="ahf:getAttributeSet('atsFnPrefix')"/>
+                <xsl:copy-of select="ahf:getFoStyleAndProperty($prmXref)"/>
                 <xsl:value-of select="$prmXrefTitle"/>
             </xsl:when>
             

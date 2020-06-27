@@ -1,15 +1,15 @@
-<?xml version='1.0' encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
-****************************************************************
-DITA to XSL-FO Stylesheet 
-Module: Import layer shell stylesheet
-Copyright © 2009-2011 Antenna House, Inc. All rights reserved.
-Antenna House is a trademark of Antenna House, Inc.
-URL    : http://www.antennahouse.com/
-E-mail : info@antennahouse.com
-****************************************************************
--->
-<xsl:stylesheet version="2.0" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+   ****************************************************************
+   DITA to XSL-FO Stylesheet 
+   Module: Import layer shell stylesheet
+   Copyright © 2009-2011 Antenna House, Inc. All rights reserved.
+   Antenna House is a trademark of Antenna House, Inc.
+   URL    : http://www.antennahouse.com/
+   E-mail : info@antennahouse.com
+   ****************************************************************
+ -->
+<xsl:stylesheet xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="2.0">
 
    <xsl:include href="dita2fo_main.xsl"/>
    <xsl:include href="dita2fo_constants.xsl"/>
@@ -82,4 +82,5 @@ E-mail : info@antennahouse.com
    <xsl:include href="dita2fo_error_util.xsl"/>
    <xsl:include href="dita2fo_sort_util.xsl"/>
    <xsl:include href="dita2fo_change_bar.xsl"/>
+   
 </xsl:stylesheet>

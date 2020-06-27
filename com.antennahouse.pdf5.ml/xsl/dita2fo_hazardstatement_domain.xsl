@@ -30,6 +30,7 @@ E-mail : info@antennahouse.com
             <xsl:when test="$hazardSymbolCount gt 0">
                 <fo:table>
                     <xsl:copy-of select="ahf:getAttributeSet('atsHazardStatementTable')"/>
+                    <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
                     <fo:table-column column-number="1">
                         <xsl:copy-of select="ahf:getAttributeSet('atsHazardSymbolColumn')"/>
                     </fo:table-column>
@@ -37,6 +38,7 @@ E-mail : info@antennahouse.com
                         <xsl:copy-of select="ahf:getAttributeSet('atsHazardStatementDesc')"/>
                     </fo:table-column>
                     <fo:table-header>
+                        <xsl:copy-of select="ahf:getAttributeSet('atsHazardStatementTableHeader')"/>
                         <fo:table-row>
                             <xsl:copy-of select="ahf:getAttributeSet('atsHazardStatementTitleRow')"/>
                             <fo:table-cell>
@@ -80,6 +82,7 @@ E-mail : info@antennahouse.com
                         </fo:table-row>
                     </fo:table-header>
                     <fo:table-body>
+                        <xsl:copy-of select="ahf:getAttributeSet('atsHazardStatementTableBody')"/>
                         <xsl:variable name="hazardSymbols" select="*[contains(@class,' hazard-d/hazardsymbol ')]" as="element()*"/>
                         <xsl:variable name="hazardMessagePanel" select="*[contains(@class,' hazard-d/messagepanel ')]" as="element()*"/>
                         <!-- Contens of hazardstatement -->
@@ -105,7 +108,9 @@ E-mail : info@antennahouse.com
                 <!-- Hazardstatement with no hazardsymbol -->
                 <fo:table>
                     <xsl:copy-of select="ahf:getAttributeSet('atsHazardStatementTable')"/>
+                    <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
                     <fo:table-header>
+                        <xsl:copy-of select="ahf:getAttributeSet('atsHazardStatementTableHeader')"/>
                         <fo:table-row>
                             <xsl:copy-of select="ahf:getAttributeSet('atsHazardStatementTitleRow')"/>
                             <fo:table-cell>
@@ -144,6 +149,7 @@ E-mail : info@antennahouse.com
                         </fo:table-row>
                     </fo:table-header>
                     <fo:table-body>
+                        <xsl:copy-of select="ahf:getAttributeSet('atsHazardStatementTableBody')"/>
                         <xsl:variable name="hazardMessagePanel" select="*[contains(@class,' hazard-d/messagepanel ')]" as="element()*"/>
                         <!-- Contens of hazardstatement -->
                         <xsl:for-each select="$hazardMessagePanel">
