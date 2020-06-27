@@ -2602,6 +2602,14 @@ URL : http://www.antennahouse.com/
                 <attribute name="space-before">6pt</attribute>
                 <attribute name="space-after">0pt</attribute>
             </attribute-set>
+
+            <attribute-set name="atsHazardStatementTableHeader">
+                <attribute name="start-indent">0mm</attribute>
+            </attribute-set>
+
+            <attribute-set name="atsHazardStatementTableBody">
+                <attribute name="start-indent">0mm</attribute>
+            </attribute-set>
             
             <attribute-set name="atsHazardSymbolColumn">
                 <attribute name="column-width">14mm</attribute>
