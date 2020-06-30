@@ -246,6 +246,7 @@
         <property name="stylesheet" value="${xsl.dir}${file.separator}psmi.xsl"/>
         <xslt processor="trax" in="${prmInputFile}" out="${prmOutputFile}" style="${stylesheet}">
             <dita:extension id="com.antennahouse.pdf5.ml.psmi.param" behavior="org.dita.dost.platform.InsertAction"/>
+            <xmlcatalog refid="dita.catalog"/>
         </xslt>
     </target>
 
