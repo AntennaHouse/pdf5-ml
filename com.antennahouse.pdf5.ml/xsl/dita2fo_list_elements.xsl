@@ -149,7 +149,7 @@ E-mail : info@antennahouse.com
                                     <xsl:call-template name="getAttributeSetWithLang">
                                         <xsl:with-param name="prmAttrSetName" select="'atsOlLabel'"/>
                                     </xsl:call-template>
-                                    <xsl:number format="{$prmNumberFormat}" value="count(preceding-sibling::*[contains(@class,' topic/li ')][not(contains(@class,' task/stepsection '))]) + 1"/>
+                                    <xsl:number format="{$prmNumberFormat}" value="ahf:countLi(.)"/>
                                 </fo:block>
                             </fo:list-item-label>
                             <fo:list-item-body start-indent="body-start()">
@@ -178,7 +178,7 @@ E-mail : info@antennahouse.com
                             <xsl:call-template name="getAttributeSetWithLang">
                                 <xsl:with-param name="prmAttrSetName" select="'atsOlLabel'"/>
                             </xsl:call-template>
-                            <xsl:number format="{$prmNumberFormat}" value="count(preceding-sibling::*[contains(@class,' topic/li ')][not(contains(@class,' task/stepsection '))]) + 1"/>
+                            <xsl:number format="{$prmNumberFormat}" value="ahf:countLi(.)"/>
                         </fo:block>
                     </fo:list-item-label>
                     <fo:list-item-body start-indent="body-start()">
@@ -194,6 +194,17 @@ E-mail : info@antennahouse.com
         </xsl:choose>
     </xsl:template>
     
+    <!-- 
+     function:  Get li number
+     param:     prmLi
+     return:    x:integer
+     note:      Count li without task/stepsection
+     -->
+    <xsl:function name="ahf:countLi" as="xs:integer">
+        <xsl:param name="prmLi" as="element()"/>
+        <xsl:sequence select="count($prmLi | $prmLi/preceding-sibling::*[contains(@class,' topic/li ')][not(contains(@class,' task/stepsection '))])"/>
+    </xsl:function>
+
     <!-- 
      function:  floatfig template
      param:     
