@@ -2,9 +2,59 @@
 
                  Antenna House PDF5-ML Plug-in Revision Notes
 
-      Copyright (C) 2009-2019 Antenna House, Inc. All rights reserved.
+      Copyright (C) 2009-2020 Antenna House, Inc. All rights reserved.
              Antenna House is a trademark of Antenna House, Inc.
 _______________________________________________________________________________
+
+Jun. 2020
+V1.0.7
+- Change plugin.xml to invoke this plug-in via [DITA-OT]/bin/dita command.
+- Add customization points. They are described in plugin.xml.
+  The relevant template stylesheets are:
+    dita2fo_convmerged_shell_template.xsl
+    dita2fo_shell_template.xsl
+  The relevant build file is:
+    build_transform_template.xml
+  The customization ID are:
+    com.antennahouse.pdf5.ml.param
+    com.antennahouse.pdf5.ml.saxon.param
+    com.antennahouse.pdf5.ml.psmi.param
+    com.antennahouse.pdf5.ml.convmerged.xsl
+    com.antennahouse.pdf5.ml.xsl
+    depend.com.antennahouse.pdf5.ml.convmerged.pre
+    depend.com.antennahouse.pdf5.ml.convmerged.post
+    depend.com.antennahouse.pdf5.ml.format.pre
+    depend.com.antennahouse.pdf5.ml.format.post
+    build.com.antennahouse.pdf5.ml.format.inclusion
+- Add catalog to psmi.xsl XSLT task.
+- Fix 147
+  https://github.com/AntennaHouse/pdf5-ml/issues/147
+- Sort out the table processing:
+  https://github.com/AntennaHouse/pdf5-ml/commit/2efea626a53c1e97677307c996a3a872487bb02c
+- Make it functional with ahf:getOutputClassRegx
+  https://github.com/AntennaHouse/pdf5-ml/commit/bf0ccffece25e2503b4e5b904e2d3175933a6284
+- Fix 141
+  https://github.com/AntennaHouse/pdf5-ml/issues/141
+- Fix 139
+  https://github.com/AntennaHouse/pdf5-ml/issues/139
+- Make xref style customizable without overriding template
+  https://github.com/AntennaHouse/pdf5-ml/commit/1aa00ee7d821339fe712c4cc322e936ce4e8fa4b
+- Fix 134
+  https://github.com/AntennaHouse/pdf5-ml/issues/134
+- Fix 132
+  https://github.com/AntennaHouse/pdf5-ml/issues/132
+- Refine error message format.
+  https://github.com/AntennaHouse/pdf5-ml/commit/99a53cbb3bdc446bfefa55bcabcbaed931c1ceae
+- Fix 128
+  https://github.com/AntennaHouse/pdf5-ml/issues/128
+- Fix 121
+  https://github.com/AntennaHouse/pdf5-ml/issues/121
+- Fix 110
+  https://github.com/AntennaHouse/pdf5-ml/issues/110
+- Fix 112
+  https://github.com/AntennaHouse/pdf5-ml/issues/112
+- Fix 116
+  https://github.com/AntennaHouse/pdf5-ml/issues/116
 
 Sep. 2019
 V1.0.6
