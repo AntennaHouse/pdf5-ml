@@ -6,7 +6,7 @@
              Antenna House is a trademark of Antenna House, Inc.
 _______________________________________________________________________________
 
-Jun. 2020
+Jul. 2020
 V1.0.7
 - Change plugin.xml to invoke this plug-in via [DITA-OT]/bin/dita command.
 - Add customization points. They are described in plugin.xml.
