@@ -2237,6 +2237,11 @@ URL : http://www.antennahouse.com/
                 <attribute name="background-color">transparent</attribute>
             </attribute-set>
 
+            <attribute-set name="atsTableHeaderWoThead">
+                <attribute name="start-indent">0mm</attribute>
+                <attribute name="end-indent">0mm</attribute>
+            </attribute-set>
+            
             <attribute-set name="atsTfooter">
                 <attribute name="start-indent">0mm</attribute>
                 <attribute name="end-indent">0mm</attribute>
