@@ -16,10 +16,10 @@
     xmlns:ahs="http://www.antennahouse.com/names/XSLT/Document/Layout"
     exclude-result-prefixes="xs ahf ahs" 
     >
-    <xsl:import href="dita2fo_constants.xsl"/>
-    <xsl:import href="dita2fo_util.xsl"/>
-    <xsl:import href="dita2fo_error_util.xsl"/>
-    <xsl:import href="dita2fo_message.xsl/"/>
+    <xsl:import href="plugin:com.antennahouse.pdf5.ml:xsl/dita2fo_constants.xsl"/>
+    <xsl:import href="plugin:com.antennahouse.pdf5.ml:xsl/dita2fo_util.xsl"/>
+    <xsl:import href="plugin:com.antennahouse.pdf5.ml:xsl/dita2fo_error_util.xsl"/>
+    <xsl:import href="plugin:com.antennahouse.pdf5.ml:xsl/dita2fo_message.xsl/"/>
     
     <!--Referenced resources @outputclass -->
     <xsl:variable name="gLinkTargetResourceOutputClass" as="xs:string+" select="('link-target')"/>
