@@ -195,10 +195,34 @@
     	<echo message="basedir=${basedir}"/>
     	<echo message="outputFile=${dita.map.output.dir}${file.separator}${output.pdf}"/>
         <antcall target="build.disp.property"/>
+        <antcall target="copy.link.target.file"/>
         <antcall target="transform.merged2pdf.impl">
             <param name="prmInputFile"  value="${build.temp.dir}${file.separator}${merged.file}"/>
             <param name="prmOutputFile" value="${dita.map.output.dir}${file.separator}${output.pdf}"/>
         </antcall>
+    </target>
+    
+    <!-- Copy link target resource files into output directory -->
+    <target name="copy.link.target.file">
+        <property name="map.property" value="map.property.xml"/>
+        <dirname property="dita.input.dir" file="${args.input}"/>
+        <!-- generate XML property file -->
+        <xslt processor="trax" in="${dita.temp.dir}${file.separator}${dita.input.filename}" out="${dita.temp.dir}${file.separator}${map.property}" style="${basedir}${file.separator}xsl${file.separator}dita2fo_bookmap_to_xml_property.xsl" force="true" failonerror="true">
+            <factory name="net.sf.saxon.TransformerFactoryImpl">
+                <attribute name="http://saxon.sf.net/feature/timing" value="true"/>
+            </factory>
+            <xmlcatalog>
+                <catalogpath path="${dita.plugin.org.dita.base.dir}/catalog-dita.xml"/>
+            </xmlcatalog>
+        </xslt>
+        <!-- Make property from XML -->
+        <xmlproperty file="${dita.temp.dir}${file.separator}${map.property}" keeproot="true" collapseAttributes="true" semanticAttributes="true"/>
+        <echo message="Target file:${map.link-target}"/>
+        <!-- Copy them into output dir -->
+        <copy todir="${dita.output.dir}">
+            <mapper type="flatten"/>
+            <filelist dir="${dita.input.dir}" files="${map.link-target}"/>
+        </copy>
     </target>
     
 </project>
