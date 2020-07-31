@@ -609,6 +609,12 @@
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:if>
+        
+        <!-- rowheader -->
+        <xsl:if test="exists($prmColSpec/@rowheader)">
+            <xsl:attribute name="ahs:rowheader" select="string($prmColSpec/@rowheader)"/>
+        </xsl:if>
+        
     </xsl:function>
     
     <!-- 
@@ -1109,9 +1115,14 @@
         </xsl:choose>
         
         <!-- rowheader -->
-        <xsl:if test="(string($prmEntry/@rowheader) eq 'firstcol') and ($colName='col1')">
-            <xsl:sequence select="ahf:getAttributeSet('atsHeaderRow')"/>
-        </xsl:if>
+        <xsl:choose>
+            <xsl:when test="(string($prmRowAttr/@rowheader) eq 'firstcol') and ($colName='col1')">
+                <xsl:sequence select="ahf:getAttributeSet('atsHeaderRow')"/>
+            </xsl:when>
+            <xsl:when test="string($colSpec/@ahs:rowheader) eq 'headers'">
+                <xsl:sequence select="ahf:getAttributeSet('atsHeaderRow')"/>
+            </xsl:when>
+        </xsl:choose>
         
         <!-- align -->
         <xsl:if test="exists($colSpec/@text-align)">
