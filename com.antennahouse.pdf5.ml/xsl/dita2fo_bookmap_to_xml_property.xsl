@@ -22,7 +22,8 @@
     <xsl:import href="plugin:com.antennahouse.pdf5.ml:xsl/dita2fo_message.xsl/"/>
     
     <!--Referenced resources @outputclass -->
-    <xsl:variable name="gLinkTargetResourceOutputClass" as="xs:string+" select="('link-target')"/>
+    <xsl:param name="PRM_LINK_TARGET_OUTPUT_CLASS" as="xs:string" required="yes"/>
+    <xsl:variable name="gLinkTargetOutputClass" as="xs:string+" select="tokenize($PRM_LINK_TARGET_OUTPUT_CLASS, '[,\s]')"/>
     
     <!-- 
      function:  map matching template
@@ -34,7 +35,7 @@
         <xsl:variable name="xmlLang" as="xs:string" select="@xml:lang => string()"/>
         <xsl:element name="map">
             <!-- Link resource targets -->
-            <xsl:variable name="resourecTopicRef" as="element()*" select="descendant::*[contains(@class,' map/topicref ')][string(@processing-role) eq 'resource-only'][ahf:seqContains(@outputclass,$gLinkTargetResourceOutputClass)]"/>
+            <xsl:variable name="resourecTopicRef" as="element()*" select="descendant::*[contains(@class,' map/topicref ')][string(@processing-role) eq 'resource-only'][ahf:seqContains(@outputclass,$gLinkTargetOutputClass)]"/>
             <xsl:variable name="targetHrefs" as="xs:string*">
                 <xsl:for-each select="$resourecTopicRef">
                     <xsl:sequence select="ahf:bsToSlash(string(@href))"/>
