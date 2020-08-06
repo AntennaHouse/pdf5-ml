@@ -582,14 +582,12 @@ URL : http://www.antennahouse.com/
                 <attribute name="page-width">$General_Paper_Width</attribute>
                 <attribute name="page-height">$General_Paper_Height</attribute>
             </attribute-set>
-
-            <!--attribute-set name="atsCommonPage" use-attribute-sets="atsPaperBase">
-                <attribute name="margin-top">$General_Paper_Margin_Top</attribute>
-                <attribute name="margin-right">$General_Paper_Margin_Right</attribute>
-                <attribute name="margin-bottom">$General_Paper_Margin_Bottom</attribute>
-                <attribute name="margin-left">$General_Paper_Margin_Left</attribute>
-            </attribute-set-->
-
+            
+            <attribute-set name="atsPaperBaseLandscape">
+                <attribute name="page-width">$General_Paper_Height</attribute>
+                <attribute name="page-height">$General_Paper_Width</attribute>
+            </attribute-set>
+            
             <attribute-set name="atsCommonPageLeft" use-attribute-sets="atsPaperBase">
                 <attribute name="margin-top">$General_Paper_Margin_Top</attribute>
                 <attribute name="margin-bottom">$General_Paper_Margin_Bottom</attribute>
@@ -597,13 +595,27 @@ URL : http://www.antennahouse.com/
                 <attribute name="margin-right">$General_Paper_Margin_Right_For_Left_Page</attribute>
             </attribute-set>
 
+            <attribute-set name="atsCommonPageLeftLandscape" use-attribute-sets="atsPaperBaselandscape">
+                <attribute name="margin-top">$General_Paper_Margin_Top</attribute>
+                <attribute name="margin-bottom">$General_Paper_Margin_Bottom</attribute>
+                <attribute name="margin-left">$General_Paper_Margin_Left_For_Left_Page</attribute>
+                <attribute name="margin-right">$General_Paper_Margin_Right_For_Left_Page</attribute>
+            </attribute-set>
+            
             <attribute-set name="atsCommonPageRight" use-attribute-sets="atsPaperBase">
                 <attribute name="margin-top">$General_Paper_Margin_Top</attribute>
                 <attribute name="margin-bottom">$General_Paper_Margin_Bottom</attribute>
                 <attribute name="margin-left">$General_Paper_Margin_Left_For_Right_Page</attribute>
                 <attribute name="margin-right">$General_Paper_Margin_Right_For_Right_Page</attribute>
             </attribute-set>
-
+            
+            <attribute-set name="atsCommonPageRightLandScape" use-attribute-sets="atsPaperBaseLandScape">
+                <attribute name="margin-top">$General_Paper_Margin_Top</attribute>
+                <attribute name="margin-bottom">$General_Paper_Margin_Bottom</attribute>
+                <attribute name="margin-left">$General_Paper_Margin_Left_For_Right_Page</attribute>
+                <attribute name="margin-right">$General_Paper_Margin_Right_For_Right_Page</attribute>
+            </attribute-set>
+            
             <attribute-set name="atsCommonRegionBodyLeft">
                 <attribute name="margin-top">$General_Margin_Top</attribute>
                 <attribute name="margin-bottom">$General_Margin_Bottom</attribute>
@@ -667,6 +679,8 @@ URL : http://www.antennahouse.com/
             <!-- Frontmatter page -->
             <attribute-set name="atsFrontmatterPageLeft" use-attribute-sets="atsCommonPageLeft"/>
             <attribute-set name="atsFrontmatterPageRight" use-attribute-sets="atsCommonPageRight"/>
+            <attribute-set name="atsFrontmatterPageLeftLandscape" use-attribute-sets="atsCommonPageLeftLandscape"/>
+            <attribute-set name="atsFrontmatterPageRightLandscape" use-attribute-sets="atsCommonPageRightLandscape"/>
             <attribute-set name="atsFrontmatterRegionBodyLeft" use-attribute-sets="atsCommonRegionBodyLeft"/>
             <attribute-set name="atsFrontmatterRegionBodyRight" use-attribute-sets="atsCommonRegionBodyRight"/>
             <attribute-set name="atsFrontmatterRegionBefore" use-attribute-sets="atsCommonRegionBefore"/>
@@ -689,6 +703,8 @@ URL : http://www.antennahouse.com/
             <!-- Chapter page -->
             <attribute-set name="atsChapterPageLeft" use-attribute-sets="atsCommonPageLeft"/>
             <attribute-set name="atsChapterPageRight" use-attribute-sets="atsCommonPageRight"/>
+            <attribute-set name="atsChapterPageLeftLandScape" use-attribute-sets="atsCommonPageLeftLandscape"/>
+            <attribute-set name="atsChapterPageRightLandscape" use-attribute-sets="atsCommonPageRightLandscape"/>
             <attribute-set name="atsChapterRegionBodyLeft" use-attribute-sets="atsCommonRegionBodyLeft"/>
             <attribute-set name="atsChapterRegionBodyRight" use-attribute-sets="atsCommonRegionBodyRight"/>
             <attribute-set name="atsChapterRegionBefore" use-attribute-sets="atsCommonRegionBefore"/>
@@ -743,6 +759,8 @@ URL : http://www.antennahouse.com/
             <!-- Backmatter page -->
             <attribute-set name="atsBackmatterPageLeft" use-attribute-sets="atsCommonPageLeft"/>
             <attribute-set name="atsBackmatterPageRight" use-attribute-sets="atsCommonPageRight"/>
+            <attribute-set name="atsBackmatterPageLeftLandscape" use-attribute-sets="atsCommonPageLeftLandscape"/>
+            <attribute-set name="atsBackmatterPageRightLandscape" use-attribute-sets="atsCommonPageRightLandscape"/>
             <attribute-set name="atsBackmatterRegionBodyLeft" use-attribute-sets="atsCommonRegionBodyLeft"/>
             <attribute-set name="atsBackmatterRegionBodyRight" use-attribute-sets="atsCommonRegionBodyRight"/>
             <attribute-set name="atsBackmatterRegionBefore" use-attribute-sets="atsCommonRegionBefore"/>
