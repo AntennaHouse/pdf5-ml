@@ -115,7 +115,12 @@ E-mail : info@antennahouse.com
     <xsl:variable name="ocBreakAuto"           select="ahf:getVarValue('OcBreakAuto')" as="xs:string"/>
     <xsl:variable name="ocBreakColumn"         select="ahf:getVarValue('OcBreakColumn')" as="xs:string"/>
     <xsl:variable name="ocBreakPage"           select="ahf:getVarValue('OcBreakPage')" as="xs:string"/>
-    
+
+    <!-- *************************************** 
+            Landscape control @outputclass value
+         ***************************************-->
+    <xsl:variable name="ocLandscape"            select="ahf:getVarValue('OcLandscape')" as="xs:string"/>
+
     <!-- *************************************** 
             Variables depending on document
          ***************************************-->

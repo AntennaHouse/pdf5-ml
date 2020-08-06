@@ -456,6 +456,9 @@ URL : http://www.antennahouse.com/
         <variable name="ocClearRight">clear-right</variable>
         <variable name="ocClearNone">clear-none</variable>
         
+        <!-- Landscape page control -->
+        <variable name="ocLandscape">landscape</variable>
+        
         <!-- Review PDF color and style -->
         <variable name="cInsertColor">blue</variable>
         <variable name="cRemoveColor">magenta</variable>
@@ -888,6 +891,11 @@ URL : http://www.antennahouse.com/
                 <attribute name="format">i</attribute>
             </attribute-set>
 
+            <attribute-set name="atsPageSeqFrontmatterLandscape" use-attribute-sets="atsPageSeqBase">
+                <attribute name="master-reference">pmsPageSeqFrontmatterLandscape</attribute>
+                <attribute name="format">i</attribute>
+            </attribute-set>
+            
             <!-- Region before -->
             <attribute-set name="atsFrontmatterRegionBeforeBlock">
                 <attribute name="font-size">8pt</attribute>
@@ -1095,7 +1103,11 @@ URL : http://www.antennahouse.com/
             <attribute-set name="atsPageSeqChapter" use-attribute-sets="atsPageSeqBase">
                 <attribute name="master-reference">pmsPageSeqChapter</attribute>
             </attribute-set>
-
+            
+            <attribute-set name="atsPageSeqChapterLandscape" use-attribute-sets="atsPageSeqBase">
+                <attribute name="master-reference">pmsPageSeqChapterLandscape</attribute>
+            </attribute-set>
+            
             <attribute-set name="atsChapterRegionBeforeBlock">
                 <attribute name="font-size">8pt</attribute>
                 <attribute name="font-weight">normal</attribute>
@@ -1159,7 +1171,11 @@ URL : http://www.antennahouse.com/
             <attribute-set name="atsPageSeqBackmatter" use-attribute-sets="atsPageSeqBase">
                 <attribute name="master-reference">pmsPageSeqBackmatter</attribute>
             </attribute-set>
-
+            
+            <attribute-set name="atsPageSeqBackmatterLandscape" use-attribute-sets="atsPageSeqBase">
+                <attribute name="master-reference">pmsPageSeqBackmatterLandscape</attribute>
+            </attribute-set>
+            
             <!-- Region before -->
             <attribute-set name="atsBackmatterRegionBeforeBlock" use-attribute-sets="atsFrontmatterRegionBeforeBlock"/> 
 

@@ -1,19 +1,20 @@
 <?xml version='1.0' encoding="UTF-8" ?>
 <!--
-****************************************************************
-DITA to XSL-FO Stylesheet
-Module: Part, chapter, appendix templates
-Copyright © 2009-2011 Antenna House, Inc. All rights reserved.
-Antenna House is a trademark of Antenna House, Inc.
-URL    : http://www.antennahouse.com/
-E-mail : info@antennahouse.com
-****************************************************************
+    ****************************************************************
+    DITA to XSL-FO Stylesheet
+    Module: Part, chapter, appendix templates
+    Copyright © 2009-2011 Antenna House, Inc. All rights reserved.
+    Antenna House is a trademark of Antenna House, Inc.
+    URL    : http://www.antennahouse.com/
+    E-mail : info@antennahouse.com
+    ****************************************************************
 -->
 <xsl:stylesheet version="2.0" 
  xmlns:fo="http://www.w3.org/1999/XSL/Format" 
  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
  xmlns:xs="http://www.w3.org/2001/XMLSchema"
  xmlns:ahf="http://www.antennahouse.com/names/XSLT/Functions/Document"
+ xmlns:psmi="http://www.CraneSoftwrights.com/resources/psmi"
  exclude-result-prefixes="xs ahf"
  >
 
@@ -104,14 +105,77 @@ E-mail : info@antennahouse.com
         <!-- get topic from @href -->
         <xsl:variable name="topicContent" select="ahf:getTopicFromTopicRef($topicRef)" as="element()?"/>
         <xsl:variable name="titleMode" select="ahf:getTitleMode($topicRef,())" as="xs:integer"/>
+        <xsl:variable name="isLandscape" select="ahf:getOutputClass($topicRef) = $ocLandscape"/>
         
         <xsl:choose>
             <xsl:when test="exists($topicContent)">
-                <!-- Process contents -->
-                <xsl:apply-templates select="$topicContent" mode="PROCESS_MAIN_CONTENT">
-                    <xsl:with-param name="prmTopicRef"   tunnel="yes" select="$topicRef"/>
-                    <xsl:with-param name="prmTitleMode"  select="$titleMode"/>
-                </xsl:apply-templates>
+                <xsl:choose>
+                    <xsl:when test="$isLandscape">
+                        <!-- Adopt Landscape layout -->
+                        <psmi:page-sequence>
+                            <xsl:copy-of select="ahf:getAttributeSet('atsPageSeqChapterLnadscape')"/>
+                            <xsl:choose>
+                                <xsl:when test="$isBookMap">
+                                    <xsl:choose>
+                                        <xsl:when test="exists($topicRef/ancestor-or-self::*[contains(@class, ' bookmap/part ')])">
+                                            <xsl:variable name="part" as="element()" select="$topicRef/ancestor-or-self::*[contains(@class, ' bookmap/part ')][1]"/>
+                                            <xsl:variable name="topicRefs" as="element()*" select="$part/descendant-or-self::*[contains(@class,' map/topicref ')][. &lt;&lt; $topicRef]"/>
+                                            <xsl:if test="empty($part/preceding-sibling::*[contains(@class, ' bookmap/part ')]) and empty($topicRefs)">
+                                                <xsl:attribute name="initial-page-number" select="'1'"/>
+                                            </xsl:if>
+                                        </xsl:when>
+                                        <xsl:when test="contains(@class, ' bookmap/chapter ') and empty(parent::*[contains(@class, ' bookmap/part ')])">
+                                            <xsl:variable name="chapter" as="element()" select="$topicRef/ancestor-or-self::*[contains(@class, ' bookmap/chapter ')][1]"/>
+                                            <xsl:variable name="topicRefs" as="element()*" select="$chapter/descendant-or-self::*[contains(@class,' map/topicref ')][. &lt;&lt; $topicRef]"/>
+                                            <xsl:if test="empty($chapter/preceding-sibling::*[contains(@class, ' bookmap/chapter ')]) and empty($topicRefs)">
+                                                <xsl:attribute name="initial-page-number" select="'1'"/>
+                                            </xsl:if>
+                                        </xsl:when>
+                                    </xsl:choose>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:if test="empty($map/descendant-or-self::*[contains(@class, ' map/topicref ')][exists(@href)][. &lt;&lt; $topicRef])">
+                                        <xsl:attribute name="initial-page-number" select="'1'"/>
+                                    </xsl:if>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                            <fo:static-content flow-name="rgnChapterBeforeLeft">
+                                <xsl:call-template name="chapterBeforeLeft"/>
+                            </fo:static-content>
+                            <fo:static-content flow-name="rgnChapterBeforeRight">
+                                <xsl:call-template name="chapterBeforeRight"/>
+                            </fo:static-content>
+                            <fo:static-content flow-name="rgnChapterAfterLeft">
+                                <xsl:call-template name="chapterAfterLeft"/>
+                            </fo:static-content>
+                            <fo:static-content flow-name="rgnChapterAfterRight">
+                                <xsl:call-template name="chapterAfterRight"/>
+                            </fo:static-content>
+                            <fo:static-content flow-name="rgnChapterEndRight">
+                                <xsl:call-template name="chapterEndRight"/>
+                            </fo:static-content>
+                            <fo:static-content flow-name="rgnChapterEndLeft">
+                                <xsl:call-template name="chapterEndLeft"/>
+                            </fo:static-content>
+                            <fo:static-content flow-name="rgnChapterBlankBody">
+                                <xsl:call-template name="makeBlankBlock"/>
+                            </fo:static-content>
+                            <fo:flow flow-name="xsl-region-body">
+                                <xsl:apply-templates select="$topicContent" mode="PROCESS_MAIN_CONTENT">
+                                    <xsl:with-param name="prmTopicRef"   tunnel="yes" select="$topicRef"/>
+                                    <xsl:with-param name="prmTitleMode"  select="$titleMode"/>
+                                </xsl:apply-templates>
+                            </fo:flow>
+                        </psmi:page-sequence>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <!-- Process contents -->
+                        <xsl:apply-templates select="$topicContent" mode="PROCESS_MAIN_CONTENT">
+                            <xsl:with-param name="prmTopicRef"   tunnel="yes" select="$topicRef"/>
+                            <xsl:with-param name="prmTitleMode"  select="$titleMode"/>
+                        </xsl:apply-templates>
+                    </xsl:otherwise>
+                </xsl:choose>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:call-template name="warningContinue">
