@@ -595,7 +595,7 @@ URL : http://www.antennahouse.com/
                 <attribute name="margin-right">$General_Paper_Margin_Right_For_Left_Page</attribute>
             </attribute-set>
 
-            <attribute-set name="atsCommonPageLeftLandscape" use-attribute-sets="atsPaperBaselandscape">
+            <attribute-set name="atsCommonPageLeftLandscape" use-attribute-sets="atsPaperBaseLandscape">
                 <attribute name="margin-top">$General_Paper_Margin_Top</attribute>
                 <attribute name="margin-bottom">$General_Paper_Margin_Bottom</attribute>
                 <attribute name="margin-left">$General_Paper_Margin_Left_For_Left_Page</attribute>
@@ -609,7 +609,7 @@ URL : http://www.antennahouse.com/
                 <attribute name="margin-right">$General_Paper_Margin_Right_For_Right_Page</attribute>
             </attribute-set>
             
-            <attribute-set name="atsCommonPageRightLandScape" use-attribute-sets="atsPaperBaseLandScape">
+            <attribute-set name="atsCommonPageRightLandscape" use-attribute-sets="atsPaperBaseLandscape">
                 <attribute name="margin-top">$General_Paper_Margin_Top</attribute>
                 <attribute name="margin-bottom">$General_Paper_Margin_Bottom</attribute>
                 <attribute name="margin-left">$General_Paper_Margin_Left_For_Right_Page</attribute>
@@ -703,7 +703,7 @@ URL : http://www.antennahouse.com/
             <!-- Chapter page -->
             <attribute-set name="atsChapterPageLeft" use-attribute-sets="atsCommonPageLeft"/>
             <attribute-set name="atsChapterPageRight" use-attribute-sets="atsCommonPageRight"/>
-            <attribute-set name="atsChapterPageLeftLandScape" use-attribute-sets="atsCommonPageLeftLandscape"/>
+            <attribute-set name="atsChapterPageLeftLandscape" use-attribute-sets="atsCommonPageLeftLandscape"/>
             <attribute-set name="atsChapterPageRightLandscape" use-attribute-sets="atsCommonPageRightLandscape"/>
             <attribute-set name="atsChapterRegionBodyLeft" use-attribute-sets="atsCommonRegionBodyLeft"/>
             <attribute-set name="atsChapterRegionBodyRight" use-attribute-sets="atsCommonRegionBodyRight"/>
