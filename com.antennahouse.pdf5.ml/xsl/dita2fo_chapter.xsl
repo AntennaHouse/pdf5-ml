@@ -110,10 +110,10 @@
         <xsl:choose>
             <xsl:when test="exists($topicContent)">
                 <xsl:choose>
-                    <xsl:when test="$isLandscape">
+                    <xsl:when test="$isLandscape and $pEnableLandscapePage">
                         <!-- Adopt Landscape layout -->
                         <psmi:page-sequence>
-                            <xsl:copy-of select="ahf:getAttributeSet('atsPageSeqChapterLnadscape')"/>
+                            <xsl:copy-of select="ahf:getAttributeSet('atsPageSeqChapterLandscape')"/>
                             <xsl:choose>
                                 <xsl:when test="$isBookMap">
                                     <xsl:choose>

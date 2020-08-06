@@ -376,7 +376,7 @@
         <xsl:variable name="topicRef" select="."/>
         <xsl:variable name="isLandscape" select="ahf:getOutputClass($topicRef) = $ocLandscape"/>
         <xsl:choose>
-            <xsl:when test="$isLandscape">
+            <xsl:when test="$isLandscape and $pEnableLandscapePage">
                 <psmi:page-sequence>
                     <xsl:call-template name="getAttributeSet">
                         <xsl:with-param name="prmAttrSetName" select="'atsPageSeqBackmatterLandscape'"/>

@@ -437,7 +437,7 @@
         <xsl:variable name="topicRef" select="."/>
         <xsl:variable name="isLandscape" select="ahf:getOutputClass($topicRef) = $ocLandscape"/>
         <xsl:choose>
-            <xsl:when test="$isLandscape">
+            <xsl:when test="$isLandscape and $pEnableLandscapePage">
                 <psmi:page-sequence>
                     <xsl:copy-of select="ahf:getAttributeSet('atsPageSeqFrontmatterLandscape')"/>
                     <xsl:if test="not(ahf:exitsFrontmatterTopicRefBefore($topicRef))">

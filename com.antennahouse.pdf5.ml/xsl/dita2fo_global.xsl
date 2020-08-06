@@ -119,7 +119,7 @@ E-mail : info@antennahouse.com
     <!-- *************************************** 
             Landscape control @outputclass value
          ***************************************-->
-    <xsl:variable name="ocLandscape"            select="ahf:getVarValue('OcLandscape')" as="xs:string"/>
+    <xsl:variable name="ocLandscape"            select="ahf:getVarValue('ocLandscape')" as="xs:string"/>
 
     <!-- *************************************** 
             Variables depending on document
