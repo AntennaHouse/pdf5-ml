@@ -161,6 +161,8 @@
             <param name="PRM_DISPLAY_FN_AT_END_OF_TOPIC" expression="${display.fn.at.end.of.topic}" if:set="display.fn.at.end.of.topic"/>
             <param name="PRM_ADOPT_MATHML_ALTTEXT" expression="${adopt.mathml.alttext}" if:set="adopt.mathml.alttext"/>
             <param name="PRM_ENABLE_LANDSCAPE_PAGE" expression="${enable.landscape.page}" if:set="enable.landscape.page"/>
+            <param name="PRM_OUTPUT_TABLE_TITLE_CONTINUED" expression="${output.table.title.continued}" if:set="output.table.title.continued"/>
+            <param name="PRM_OUTPUT_TABLE_FOOTER_CONTINUED" expression="${output.table.footer.continued}" if:set="output.table.footer.continued"/>
             <param name="PRM_USE_I18N_INDEX_LIB" expression="${use.i18n.index.lib}" if:set="use.i18n.index.lib"/>
             <param name="PRM_MAP_DIR_URL" expression="${user.input.dir.url}" if:set="user.input.dir.url"/>
             <param name="PRM_OUTPUT_DIR_URL" expression="${output.dir.url}" if:set="output.dir.url"/>
@@ -227,6 +229,8 @@
             <arg line="'PRM_DISPLAY_FN_AT_END_OF_TOPIC=${display.fn.at.end.of.topic}'" if:set="display.fn.at.end.of.topic"/>
             <arg line="'PRM_ADOPT_MATHML_ALTTEXT=${adopt.mathml.alttext}'" if:set="adopt.mathml.alttext"/>
             <arg line="'PRM_ENABLE_LANDSCAPE_PAGE=${enable.landscape.page}'" if:set="enable.landscape.page"/>
+            <arg line="'PRM_OUTPUT_TABLE_TITLE_CONTINUED=${output.table.title.continued}" if:set="output.table.title.continued"/>
+            <arg line="'PRM_OUTPUT_TABLE_FOOTER_CONTINUED=${output.table.footer.continued}" if:set="output.table.footer.continued"/>
             <arg line='"PRM_USE_I18N_INDEX_LIB=${use.i18n.index.lib}"' if:set="use.i18n.index.lib"/>
             <arg line='"PRM_MAP_DIR_URL=${user.input.dir.url}"' if:set="user.input.dir.url"/>
             <arg line='"PRM_OUTPUT_DIR_URL=${output.dir.url}"' if:set="output.dir.url"/>
