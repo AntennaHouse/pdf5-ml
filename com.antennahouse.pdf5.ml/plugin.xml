@@ -130,6 +130,10 @@
       <val default="true">yes</val>
       <val>no</val>
     </param>
+    <param name="enable.landscape.page" desc="Enable topic level landscape page layout" type="enum">
+      <val>yes</val>
+      <val default="true">no</val>
+    </param>
     <param name="output.index" desc="Specifies wheteher to output index" type="enum">
       <val default="true">yes</val>
       <val>no</val>

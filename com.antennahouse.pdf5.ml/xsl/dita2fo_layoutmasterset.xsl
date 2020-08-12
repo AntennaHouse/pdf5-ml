@@ -1,13 +1,13 @@
 <?xml version='1.0' encoding="UTF-8" ?>
 <!--
-****************************************************************
-DITA to XSL-FO Stylesheet
-Module: Generate fo:layout-master-set.
-Copyright © 2009-2011 Antenna House, Inc. All rights reserved.
-Antenna House is a trademark of Antenna House, Inc.
-URL    : http://www.antennahouse.com/
-E-mail : info@antennahouse.com
-****************************************************************
+    ****************************************************************
+    DITA to XSL-FO Stylesheet
+    Module: Generate fo:layout-master-set.
+    Copyright © 2009-2011 Antenna House, Inc. All rights reserved.
+    Antenna House is a trademark of Antenna House, Inc.
+    URL    : http://www.antennahouse.com/
+    E-mail : info@antennahouse.com
+    ****************************************************************
 -->
 <xsl:stylesheet version="2.0" 
  xmlns:fo="http://www.w3.org/1999/XSL/Format" 
@@ -149,6 +149,71 @@ E-mail : info@antennahouse.com
             </fo:region-body>
         </fo:simple-page-master>
         
+        <xsl:if test="$pEnableLandscapePage">
+            <fo:simple-page-master master-name="pmsFrontmatterLeftLandscape">
+                <xsl:copy-of select="ahf:getAttributeSetWithPageVariables('atsFrontmatterPageLeftLandscape')"/>
+                <xsl:if test="$pOutputCropRegion">
+                    <xsl:copy-of select="ahf:getAttributeSetWithPageVariables('atsCommonCropAndPrintMark')"/>
+                </xsl:if>
+                <fo:region-body>
+                    <xsl:copy-of select="ahf:getAttributeSet('atsFrontmatterRegionBodyLeft')"/>
+                </fo:region-body>
+                <fo:region-before region-name="rgnFrontmatterBeforeLeft">
+                    <xsl:copy-of select="ahf:getAttributeSet('atsFrontmatterRegionBefore')"/>
+                </fo:region-before>
+                <fo:region-after region-name="rgnFrontmatterAfterLeft">
+                    <xsl:copy-of select="ahf:getAttributeSet('atsFrontmatterRegionAfter')"/>
+                </fo:region-after>
+                <fo:region-start region-name="rgnFrontmatterStartLeft">
+                    <xsl:copy-of select="ahf:getAttributeSet('atsFrontmatterRegionStartLeft')"/>
+                </fo:region-start>
+                <fo:region-end>
+                    <xsl:copy-of select="ahf:getAttributeSet('atsFrontmatterRegionEndLeft')"/>
+                </fo:region-end>
+            </fo:simple-page-master>
+            
+            <fo:simple-page-master master-name="pmsFrontmatterRightLandscape">
+                <xsl:copy-of select="ahf:getAttributeSetWithPageVariables('atsFrontmatterPageRightLandscape')"/>
+                <xsl:if test="$pOutputCropRegion">
+                    <xsl:copy-of select="ahf:getAttributeSetWithPageVariables('atsCommonCropAndPrintMark')"/>
+                </xsl:if>
+                <fo:region-body>
+                    <xsl:copy-of select="ahf:getAttributeSet('atsFrontmatterRegionBodyRight')"/>
+                </fo:region-body>
+                <fo:region-before region-name="rgnFrontmatterBeforeRight">
+                    <xsl:copy-of select="ahf:getAttributeSet('atsFrontmatterRegionBefore')"/>
+                </fo:region-before>
+                <fo:region-after region-name="rgnFrontmatterAfterRight">
+                    <xsl:copy-of select="ahf:getAttributeSet('atsFrontmatterRegionAfter')"/>
+                </fo:region-after>
+                <fo:region-start>
+                    <xsl:copy-of select="ahf:getAttributeSet('atsFrontmatterRegionStartRight')"/>
+                </fo:region-start>
+                <fo:region-end   region-name="rgnFrontmatterEndRight">
+                    <xsl:copy-of select="ahf:getAttributeSet('atsFrontmatterRegionEndRight')"/>
+                </fo:region-end>
+            </fo:simple-page-master>
+            
+            <fo:simple-page-master master-name="pmsFrontmatterBlankLeftLandscape">
+                <xsl:copy-of select="ahf:getAttributeSetWithPageVariables('atsFrontmatterPageLeftLandscape')"/>
+                <xsl:if test="$pOutputCropRegion">
+                    <xsl:copy-of select="ahf:getAttributeSetWithPageVariables('atsCommonCropAndPrintMark')"/>
+                </xsl:if>
+                <fo:region-body region-name="rgnFrontmatterBlankBody">
+                    <xsl:copy-of select="ahf:getAttributeSet('atsFrontmatterRegionBodyLeft')"/>
+                </fo:region-body>
+            </fo:simple-page-master>
+            
+            <fo:simple-page-master master-name="pmsFrontmatterBlankRightLandscape">
+                <xsl:copy-of select="ahf:getAttributeSetWithPageVariables('atsFrontmatterPageRightLandscape')"/>
+                <xsl:if test="$pOutputCropRegion">
+                    <xsl:copy-of select="ahf:getAttributeSetWithPageVariables('atsCommonCropAndPrintMark')"/>
+                </xsl:if>
+                <fo:region-body region-name="rgnFrontmatterBlankBody">
+                    <xsl:copy-of select="ahf:getAttributeSet('atsFrontmatterRegionBodyRight')"/>
+                </fo:region-body>
+            </fo:simple-page-master>
+        </xsl:if>
 
     </xsl:template>
     
@@ -217,7 +282,72 @@ E-mail : info@antennahouse.com
                 <xsl:copy-of select="ahf:getAttributeSet('atsChapterRegionBodyRight')"/>
             </fo:region-body>
         </fo:simple-page-master>
-        
+
+        <xsl:if test="$pEnableLandscapePage">
+            <fo:simple-page-master master-name="pmsChapterLeftLandscape">
+                <xsl:copy-of select="ahf:getAttributeSetWithPageVariables('atsChapterPageLeftLandscape')"/>
+                <xsl:if test="$pOutputCropRegion">
+                    <xsl:copy-of select="ahf:getAttributeSetWithPageVariables('atsCommonCropAndPrintMark')"/>
+                </xsl:if>
+                <fo:region-body>
+                    <xsl:copy-of select="ahf:getAttributeSet('atsChapterRegionBodyLeft')"/>
+                </fo:region-body>
+                <fo:region-before region-name="rgnChapterBeforeLeft">
+                    <xsl:copy-of select="ahf:getAttributeSet('atsChapterRegionBefore')"/>
+                </fo:region-before>
+                <fo:region-after region-name="rgnChapterAfterLeft">
+                    <xsl:copy-of select="ahf:getAttributeSet('atsChapterRegionAfter')"/>
+                </fo:region-after>
+                <fo:region-start region-name="rgnChapterStartLeft">
+                    <xsl:copy-of select="ahf:getAttributeSet('atsChapterRegionStartLeft')"/>
+                </fo:region-start>
+                <fo:region-end region-name="rgnChapterEndLeft">
+                    <xsl:copy-of select="ahf:getAttributeSet('atsChapterRegionEndLeft')"/>
+                </fo:region-end>
+            </fo:simple-page-master>
+            
+            <fo:simple-page-master master-name="pmsChapterRightLandscape">
+                <xsl:copy-of select="ahf:getAttributeSetWithPageVariables('atsChapterPageRightLandscape')"/>
+                <xsl:if test="$pOutputCropRegion">
+                    <xsl:copy-of select="ahf:getAttributeSetWithPageVariables('atsCommonCropAndPrintMark')"/>
+                </xsl:if>
+                <fo:region-body>
+                    <xsl:copy-of select="ahf:getAttributeSet('atsChapterRegionBodyRight')"/>
+                </fo:region-body>
+                <fo:region-before region-name="rgnChapterBeforeRight">
+                    <xsl:copy-of select="ahf:getAttributeSet('atsChapterRegionBefore')"/>
+                </fo:region-before>
+                <fo:region-after region-name="rgnChapterAfterRight">
+                    <xsl:copy-of select="ahf:getAttributeSet('atsChapterRegionAfter')"/>
+                </fo:region-after>
+                <fo:region-start>
+                    <xsl:copy-of select="ahf:getAttributeSet('atsChapterRegionStartRight')"/>
+                </fo:region-start>
+                <fo:region-end region-name="rgnChapterEndRight">
+                    <xsl:copy-of select="ahf:getAttributeSet('atsChapterRegionEndRight')"/>
+                </fo:region-end>
+            </fo:simple-page-master>
+            
+            <fo:simple-page-master master-name="pmsChapterBlankLeftLandscape">
+                <xsl:copy-of select="ahf:getAttributeSetWithPageVariables('atsChapterPageLeftLandscape')"/>
+                <xsl:if test="$pOutputCropRegion">
+                    <xsl:copy-of select="ahf:getAttributeSetWithPageVariables('atsCommonCropAndPrintMark')"/>
+                </xsl:if>
+                <fo:region-body region-name="rgnChapterBlankBody">
+                    <xsl:copy-of select="ahf:getAttributeSet('atsChapterRegionBodyLeft')"/>
+                </fo:region-body>
+            </fo:simple-page-master>
+            
+            <fo:simple-page-master master-name="pmsChapterBlankRightLandscape">
+                <xsl:copy-of select="ahf:getAttributeSetWithPageVariables('atsChapterPageRightLandscape')"/>
+                <xsl:if test="$pOutputCropRegion">
+                    <xsl:copy-of select="ahf:getAttributeSetWithPageVariables('atsCommonCropAndPrintMark')"/>
+                </xsl:if>
+                <fo:region-body region-name="rgnChapterBlankBody">
+                    <xsl:copy-of select="ahf:getAttributeSet('atsChapterRegionBodyRight')"/>
+                </fo:region-body>
+            </fo:simple-page-master>
+        </xsl:if>
 
     </xsl:template>
     
@@ -422,7 +552,72 @@ E-mail : info@antennahouse.com
                 <xsl:copy-of select="ahf:getAttributeSet('atsBackmatterRegionBodyRight')"/>
             </fo:region-body>
         </fo:simple-page-master>
-        
+
+        <xsl:if test="$pEnableLandscapePage">
+            <fo:simple-page-master master-name="pmsBackmatterLeftLandscape">
+                <xsl:copy-of select="ahf:getAttributeSetWithPageVariables('atsBackmatterPageLeftLandscape')"/>
+                <xsl:if test="$pOutputCropRegion">
+                    <xsl:copy-of select="ahf:getAttributeSetWithPageVariables('atsCommonCropAndPrintMark')"/>
+                </xsl:if>
+                <fo:region-body>
+                    <xsl:copy-of select="ahf:getAttributeSet('atsBackmatterRegionBodyLeft')"/>
+                </fo:region-body>
+                <fo:region-before region-name="rgnBackmatterBeforeLeft">
+                    <xsl:copy-of select="ahf:getAttributeSet('atsBackmatterRegionBefore')"/>
+                </fo:region-before>
+                <fo:region-after region-name="rgnBackmatterAfterLeft">
+                    <xsl:copy-of select="ahf:getAttributeSet('atsBackmatterRegionAfter')"/>
+                </fo:region-after>
+                <fo:region-start region-name="rgnBackmatterStartLeft">
+                    <xsl:copy-of select="ahf:getAttributeSet('atsBackmatterRegionStartLeft')"/>
+                </fo:region-start>
+                <fo:region-end>
+                    <xsl:copy-of select="ahf:getAttributeSet('atsBackmatterRegionEndLeft')"/>
+                </fo:region-end>
+            </fo:simple-page-master>
+            
+            <fo:simple-page-master master-name="pmsBackmatterRightLandscape">
+                <xsl:copy-of select="ahf:getAttributeSetWithPageVariables('atsBackmatterPageRightLandscape')"/>
+                <xsl:if test="$pOutputCropRegion">
+                    <xsl:copy-of select="ahf:getAttributeSetWithPageVariables('atsCommonCropAndPrintMark')"/>
+                </xsl:if>
+                <fo:region-body>
+                    <xsl:copy-of select="ahf:getAttributeSet('atsBackmatterRegionBodyRight')"/>
+                </fo:region-body>
+                <fo:region-before region-name="rgnBackmatterBeforeRight">
+                    <xsl:copy-of select="ahf:getAttributeSet('atsBackmatterRegionBefore')"/>
+                </fo:region-before>
+                <fo:region-after region-name="rgnBackmatterAfterRight">
+                    <xsl:copy-of select="ahf:getAttributeSet('atsBackmatterRegionAfter')"/>
+                </fo:region-after>
+                <fo:region-start>
+                    <xsl:copy-of select="ahf:getAttributeSet('atsBackmatterRegionStartRight')"/>
+                </fo:region-start>
+                <fo:region-end  region-name="rgnBackmatterEndRight">
+                    <xsl:copy-of select="ahf:getAttributeSet('atsBackmatterRegionEndRight')"/>
+                </fo:region-end>
+            </fo:simple-page-master>
+            
+            <fo:simple-page-master master-name="pmsBackmatterBlankLeftLandscape">
+                <xsl:copy-of select="ahf:getAttributeSetWithPageVariables('atsBackmatterPageLeftLandscape')"/>
+                <xsl:if test="$pOutputCropRegion">
+                    <xsl:copy-of select="ahf:getAttributeSetWithPageVariables('atsCommonCropAndPrintMark')"/>
+                </xsl:if>
+                <fo:region-body region-name="rgnBackmatterBlankBody">
+                    <xsl:copy-of select="ahf:getAttributeSet('atsBackmatterRegionBodyLeft')"/>
+                </fo:region-body>
+            </fo:simple-page-master>
+            
+            <fo:simple-page-master master-name="pmsBackmatterBlankRightLandscape">
+                <xsl:copy-of select="ahf:getAttributeSetWithPageVariables('atsBackmatterPageRightLandscape')"/>
+                <xsl:if test="$pOutputCropRegion">
+                    <xsl:copy-of select="ahf:getAttributeSetWithPageVariables('atsCommonCropAndPrintMark')"/>
+                </xsl:if>
+                <fo:region-body region-name="rgnBackmatterBlankBody">
+                    <xsl:copy-of select="ahf:getAttributeSet('atsBackmatterRegionBodyRight')"/>
+                </fo:region-body>
+            </fo:simple-page-master>
+        </xsl:if>
     </xsl:template>
     
     <!-- 
@@ -500,6 +695,43 @@ E-mail : info@antennahouse.com
         	    </xsl:choose>
         	</fo:repeatable-page-master-alternatives>
         </fo:page-sequence-master>
+
+        <xsl:if test="$pEnableLandscapePage">
+            <fo:page-sequence-master master-name="pmsPageSeqFrontmatterLandscape">
+                <fo:repeatable-page-master-alternatives>
+                    <xsl:choose>
+                        <xsl:when test="$pIsWebOutput">
+                            <fo:conditional-page-master-reference master-reference="pmsFrontmatterRightLandscape" 
+                                odd-or-even="any"  
+                                page-position="any"
+                                blank-or-not-blank="not-blank"/>
+                            <fo:conditional-page-master-reference master-reference="pmsFrontmatterBlankRightLandscape" 
+                                odd-or-even="any"  
+                                page-position="any"
+                                blank-or-not-blank="blank"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <fo:conditional-page-master-reference master-reference="pmsFrontmatterLeftLandscape" 
+                                odd-or-even="even"  
+                                page-position="any"
+                                blank-or-not-blank="not-blank"/>
+                            <fo:conditional-page-master-reference master-reference="pmsFrontmatterRightLandscape" 
+                                odd-or-even="odd"  
+                                page-position="any"
+                                blank-or-not-blank="not-blank"/>
+                            <fo:conditional-page-master-reference master-reference="pmsFrontmatterBlankLeftLandscape" 
+                                odd-or-even="even"  
+                                page-position="any"
+                                blank-or-not-blank="blank"/>
+                            <fo:conditional-page-master-reference master-reference="pmsFrontmatterBlankRightLandscape" 
+                                odd-or-even="odd"  
+                                page-position="any"
+                                blank-or-not-blank="blank"/>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </fo:repeatable-page-master-alternatives>
+            </fo:page-sequence-master>
+        </xsl:if>
     </xsl:template>
     
     <xsl:template name="genPsmChapter">
@@ -538,6 +770,45 @@ E-mail : info@antennahouse.com
         	    </xsl:choose>
         	</fo:repeatable-page-master-alternatives>
         </fo:page-sequence-master>
+
+        <xsl:if test="$pEnableLandscapePage">
+            <fo:page-sequence-master master-name="pmsPageSeqChapterLandscape">
+                <fo:repeatable-page-master-alternatives>
+                    <xsl:choose>
+                        <xsl:when test="$pIsWebOutput">
+                            <fo:conditional-page-master-reference master-reference="pmsChapterRightLandscape" 
+                                odd-or-even="any" 
+                                page-position="any"
+                                blank-or-not-blank="not-blank"/>
+                            <fo:conditional-page-master-reference master-reference="pmsChapterBlankRightLandscape" 
+                                odd-or-even="any"  
+                                page-position="any"
+                                blank-or-not-blank="blank"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <fo:conditional-page-master-reference master-reference="pmsChapterLeftLandscape" 
+                                odd-or-even="even"  
+                                page-position="any"
+                                blank-or-not-blank="not-blank"/>
+                            <fo:conditional-page-master-reference master-reference="pmsChapterRightLandscape" 
+                                odd-or-even="odd" 
+                                page-position="any"
+                                blank-or-not-blank="not-blank"/>
+                            <fo:conditional-page-master-reference master-reference="pmsChapterBlankLeftLandscape" 
+                                odd-or-even="even"  
+                                page-position="any"
+                                blank-or-not-blank="blank"/>
+                            <fo:conditional-page-master-reference master-reference="pmsChapterBlankRightLandscape" 
+                                odd-or-even="odd"  
+                                page-position="any"
+                                blank-or-not-blank="blank"/>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </fo:repeatable-page-master-alternatives>
+            </fo:page-sequence-master>
+        </xsl:if>
+        
+
     </xsl:template>
     
     <xsl:template name="genPsmGlossaryList">
@@ -652,6 +923,43 @@ E-mail : info@antennahouse.com
         	    </xsl:choose>
         	</fo:repeatable-page-master-alternatives>
         </fo:page-sequence-master>
+
+        <xsl:if test="$pEnableLandscapePage">
+            <fo:page-sequence-master master-name="pmsPageSeqBackmatterLandscape">
+                <fo:repeatable-page-master-alternatives>
+                    <xsl:choose>
+                        <xsl:when test="$pIsWebOutput">
+                            <fo:conditional-page-master-reference master-reference="pmsBackmatterRightLandscape" 
+                                odd-or-even="any"  
+                                page-position="any"
+                                blank-or-not-blank="not-blank"/>
+                            <fo:conditional-page-master-reference master-reference="pmsBackmatterBlankRightLandscape" 
+                                odd-or-even="any"  
+                                page-position="any"
+                                blank-or-not-blank="blank"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <fo:conditional-page-master-reference master-reference="pmsBackmatterLeftLandscape" 
+                                odd-or-even="even"  
+                                page-position="any"
+                                blank-or-not-blank="not-blank"/>
+                            <fo:conditional-page-master-reference master-reference="pmsBackmatterRightLandscape" 
+                                odd-or-even="odd"  
+                                page-position="any"
+                                blank-or-not-blank="not-blank"/>
+                            <fo:conditional-page-master-reference master-reference="pmsBackmatterBlankLeftLandscape" 
+                                odd-or-even="even"  
+                                page-position="any"
+                                blank-or-not-blank="blank"/>
+                            <fo:conditional-page-master-reference master-reference="pmsBackmatterBlankRightLandscape" 
+                                odd-or-even="odd"  
+                                page-position="any"
+                                blank-or-not-blank="blank"/>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </fo:repeatable-page-master-alternatives>
+            </fo:page-sequence-master>
+        </xsl:if>
     </xsl:template>
 
 </xsl:stylesheet>
