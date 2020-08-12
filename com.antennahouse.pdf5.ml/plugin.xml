@@ -134,6 +134,14 @@
       <val>yes</val>
       <val default="true">no</val>
     </param>
+    <param name="output.table.title.continued" desc="Output 'Continued' word in table title" type="enum">
+      <val>yes</val>
+      <val default="true">no</val>
+    </param>
+    <param name="output.table.footer.continued" desc="Output 'Continued' word in table footer" type="enum">
+      <val>yes</val>
+      <val default="true">no</val>
+    </param>
     <param name="output.index" desc="Specifies wheteher to output index" type="enum">
       <val default="true">yes</val>
       <val>no</val>
