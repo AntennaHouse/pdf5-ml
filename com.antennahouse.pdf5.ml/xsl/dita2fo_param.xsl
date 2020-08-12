@@ -330,5 +330,11 @@ E-mail : info@antennahouse.com
      -->
     <xsl:param name="PRM_ADOPT_MATHML_ALTTEXT" required="no" as="xs:string" select="$cYes"/>
     <xsl:variable name="pAdoptMathMlAltText" as="xs:boolean" select="$PRM_ADOPT_MATHML_ALTTEXT eq $cYes"/>
+
+    <!-- Adopt landscape page for topic
+         2020-08-06 t.makita
+     -->
+    <xsl:param name="PRM_ENABLE_LANDSCAPE_PAGE" required="no" as="xs:string" select="$cNo"/>
+    <xsl:variable name="pEnableLandscapePage" as="xs:boolean" select="$PRM_ENABLE_LANDSCAPE_PAGE eq $cYes"/>
     
 </xsl:stylesheet>

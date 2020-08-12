@@ -1,13 +1,13 @@
 <?xml version='1.0' encoding="UTF-8" ?>
 <!--
-****************************************************************
-DITA to XSL-FO Stylesheet
-Module: Frontmatter stylesheet
-Copyright © 2009-2011 Antenna House, Inc. All rights reserved.
-Antenna House is a trademark of Antenna House, Inc.
-URL    : http://www.antennahouse.com/
-E-mail : info@antennahouse.com
-****************************************************************
+    ****************************************************************
+    DITA to XSL-FO Stylesheet
+    Module: Frontmatter stylesheet
+    Copyright © 2009-2011 Antenna House, Inc. All rights reserved.
+    Antenna House is a trademark of Antenna House, Inc.
+    URL    : http://www.antennahouse.com/
+    E-mail : info@antennahouse.com
+    ****************************************************************
 -->
 <xsl:stylesheet version="2.0" 
  xmlns:fo="http://www.w3.org/1999/XSL/Format" 
@@ -15,6 +15,7 @@ E-mail : info@antennahouse.com
  xmlns:xs="http://www.w3.org/2001/XMLSchema"
  xmlns:axf="http://www.antennahouse.com/names/XSL/Extensions"
  xmlns:ahf="http://www.antennahouse.com/names/XSLT/Functions/Document"
+ xmlns:psmi="http://www.CraneSoftwrights.com/resources/psmi"
  exclude-result-prefixes="xs ahf"
 >
 
@@ -433,9 +434,60 @@ E-mail : info@antennahouse.com
      note:      none
      -->
     <xsl:template match="*[contains(@class,' map/topicref ')][@href]" mode="PROCESS_FRONTMATTER">
-        <xsl:call-template name="processTopicRefWithHrefInFrontmatter"/>    
+        <xsl:variable name="topicRef" select="."/>
+        <xsl:variable name="isLandscape" select="ahf:getOutputClass($topicRef) = $ocLandscape"/>
+        <xsl:choose>
+            <xsl:when test="$isLandscape and $pEnableLandscapePage">
+                <psmi:page-sequence>
+                    <xsl:copy-of select="ahf:getAttributeSet('atsPageSeqFrontmatterLandscape')"/>
+                    <xsl:if test="not(ahf:exitsFrontmatterTopicRefBefore($topicRef))">
+                        <xsl:attribute name="initial-page-number" select="'1'"/>
+                    </xsl:if>
+                    <fo:static-content flow-name="rgnFrontmatterBeforeLeft">
+                        <xsl:call-template name="frontmatterBeforeLeft"/>
+                    </fo:static-content>
+                    <fo:static-content flow-name="rgnFrontmatterBeforeRight">
+                        <xsl:call-template name="frontmatterBeforeRight"/>
+                    </fo:static-content>
+                    <fo:static-content flow-name="rgnFrontmatterAfterLeft">
+                        <xsl:call-template name="frontmatterAfterLeft"/>
+                    </fo:static-content>
+                    <fo:static-content flow-name="rgnFrontmatterAfterRight">
+                        <xsl:call-template name="frontmatterAfterRight"/>
+                    </fo:static-content>
+                    <fo:static-content flow-name="rgnFrontmatterBlankBody">
+                        <xsl:call-template name="makeBlankBlock"/>
+                    </fo:static-content>
+                    <fo:flow flow-name="xsl-region-body">
+                        <xsl:call-template name="processTopicRefWithHrefInFrontmatter"/>
+                    </fo:flow>
+                </psmi:page-sequence>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:call-template name="processTopicRefWithHrefInFrontmatter"/>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     
+    <!-- 
+     function:  Check if topicref exists before
+     param:     prrmTopicRef
+     return:    xs:boolean
+     note:      Used only here
+     -->
+    <xsl:function name="ahf:exitsFrontmatterTopicRefBefore" as="xs:boolean">
+        <xsl:param name="prmTopicRef" as="element()"/>
+        <xsl:variable name="frontmatter" as="element()" select="$map/descendant::*[contains(@class, ' bookmap/frontmatter ')][1]"/>
+        <xsl:variable name="topicRefs" as="element()*" select="$frontmatter/descendant::*[contains(@class, ' map/topicref ')][exists(@href)][. &lt;&lt; $prmTopicRef]"/>
+        <xsl:sequence select="exists($topicRefs)"/>
+    </xsl:function>
+    
+    <!-- 
+     function:  Process front matter's topicref main
+     param:     none
+     return:    topic contents
+     note:      none
+     -->
     <xsl:template name="processTopicRefWithHrefInFrontmatter">
         <xsl:variable name="topicRef" select="."/>
         <!-- get topic from @href -->

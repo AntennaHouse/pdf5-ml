@@ -1,13 +1,13 @@
 <?xml version='1.0' encoding="UTF-8" ?>
 <!--
-****************************************************************
-DITA to XSL-FO Stylesheet
-Module: Backmatter stylesheet
-Copyright © 2009-2011 Antenna House, Inc. All rights reserved.
-Antenna House is a trademark of Antenna House, Inc.
-URL    : http://www.antennahouse.com/
-E-mail : info@antennahouse.com
-****************************************************************
+    ****************************************************************
+    DITA to XSL-FO Stylesheet
+    Module: Backmatter stylesheet
+    Copyright © 2009-2011 Antenna House, Inc. All rights reserved.
+    Antenna House is a trademark of Antenna House, Inc.
+    URL    : http://www.antennahouse.com/
+    E-mail : info@antennahouse.com
+    ****************************************************************
 -->
 <xsl:stylesheet version="2.0" 
  xmlns:fo="http://www.w3.org/1999/XSL/Format" 
@@ -15,6 +15,7 @@ E-mail : info@antennahouse.com
  xmlns:xs="http://www.w3.org/2001/XMLSchema"
  xmlns:axf="http://www.antennahouse.com/names/XSL/Extensions"
  xmlns:ahf="http://www.antennahouse.com/names/XSLT/Functions/Document"
+ xmlns:psmi="http://www.CraneSoftwrights.com/resources/psmi"
  exclude-result-prefixes="xs ahf"
 >
 
@@ -365,17 +366,53 @@ E-mail : info@antennahouse.com
 
     </xsl:template>
     
-    
     <!-- 
      function:  Process backmatter's topicref
+     param:     none
+     return:    psmi:page-sequence or topic contents
+     note:      Support landscape page in backmatter
+     -->
+    <xsl:template match="*[contains(@class,' map/topicref ')][@href]" mode="PROCESS_BACKMATTER">
+        <xsl:variable name="topicRef" select="."/>
+        <xsl:variable name="isLandscape" select="ahf:getOutputClass($topicRef) = $ocLandscape"/>
+        <xsl:choose>
+            <xsl:when test="$isLandscape and $pEnableLandscapePage">
+                <psmi:page-sequence>
+                    <xsl:call-template name="getAttributeSet">
+                        <xsl:with-param name="prmAttrSetName" select="'atsPageSeqBackmatterLandscape'"/>
+                    </xsl:call-template>
+                    <fo:static-content flow-name="rgnBackmatterBeforeLeft">
+                        <xsl:call-template name="backmatterBeforeLeft"/>
+                    </fo:static-content>
+                    <fo:static-content flow-name="rgnBackmatterBeforeRight">
+                        <xsl:call-template name="backmatterBeforeRight"/>
+                    </fo:static-content>
+                    <fo:static-content flow-name="rgnBackmatterAfterLeft">
+                        <xsl:call-template name="backmatterAfterLeft"/>
+                    </fo:static-content>
+                    <fo:static-content flow-name="rgnBackmatterAfterRight">
+                        <xsl:call-template name="backmatterAfterRight"/>
+                    </fo:static-content>
+                    <fo:static-content flow-name="rgnBackmatterBlankBody">
+                        <xsl:call-template name="makeBlankBlock"/>
+                    </fo:static-content>
+                    <fo:flow flow-name="xsl-region-body">
+                        <xsl:call-template name="processTopicRefWithHrefInBackmatter"/>    
+                    </fo:flow>
+                </psmi:page-sequence>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:call-template name="processTopicRefWithHrefInBackmatter"/>    
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    
+    <!-- 
+     function:  Process backmatter's topicref main
      param:     none
      return:    topic contents
      note:      none
      -->
-    <xsl:template match="*[contains(@class,' map/topicref ')][@href]" mode="PROCESS_BACKMATTER">
-        <xsl:call-template name="processTopicRefWithHrefInBackmatter"/>    
-    </xsl:template>
-    
     <xsl:template name="processTopicRefWithHrefInBackmatter">
         <xsl:variable name="topicRef" select="."/>
         <!-- get topic from @href -->
