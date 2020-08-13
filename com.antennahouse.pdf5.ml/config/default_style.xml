@@ -2304,7 +2304,11 @@ URL : http://www.antennahouse.com/
                 <attribute name="border-after-style">solid</attribute>
                 <attribute name="border-after-width">$General_Table_Border_Width</attribute>
             </attribute-set>
-            
+
+            <attribute-set name="atsTableRowCaptionWithNoTopFrame">
+                <attribute name="border-after-style">hidden</attribute>
+            </attribute-set>                
+
             <attribute-set name="atsTableHeaderCell">
                 <attribute name="border">$General_Table_Border_Width none $General_Table_Border_Color</attribute>
                 <attribute name="padding-before">$General_Table_Cell_Padding</attribute>
@@ -2331,6 +2335,10 @@ URL : http://www.antennahouse.com/
                 <attribute name="border-after-style">hidden</attribute>
                 <attribute name="border-start-style">hidden</attribute>
                 <attribute name="border-end-style">hidden</attribute>
+            </attribute-set>
+            
+            <attribute-set name="atsTableFooterCellWithNoBottomFrame">
+                <attribute name="border-before-style">hidden</attribute>
             </attribute-set>
 
             <attribute-set name="atsTableFooterCellBlock">
