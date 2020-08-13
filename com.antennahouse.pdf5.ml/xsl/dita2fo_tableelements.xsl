@@ -360,12 +360,14 @@
                         <xsl:call-template name="genTheaderForContinuedWord">
                             <xsl:with-param name="prmCols" select="$cols"/>
                             <xsl:with-param name="prmIsFirstTgroup" select="$isFirstTgroup"/>
+                            <xsl:with-param name="prmTgroupAttr" tunnel="yes" select="$tgroupAttr"/>
                         </xsl:call-template>
                     </xsl:when>
                 </xsl:choose>
                 <xsl:if test="$prmOutputContinuedWordInTableFooter">
                     <xsl:call-template name="genTfooterForContinuedWord">
                         <xsl:with-param name="prmCols" select="$cols"/>
+                        <xsl:with-param name="prmTgroupAttr" tunnel="yes" select="$tgroupAttr"/>
                     </xsl:call-template>
                 </xsl:if>
                 <xsl:apply-templates select="*[contains(@class, ' topic/tbody ')]">
@@ -437,16 +439,19 @@
 
     <!-- 
      function:  Generate fo:table-header with "Continued" word when tgroup/thead is empty
-     param:     prmTableTitle, prmTableDesc, prmCols, prmIsFirstTgroup
+     param:     prmTableTitle, prmTableDesc, prmCols, prmIsFirstTgroup, prmTgroupAttr
      return:    fo:table-header
      note:      table/desc is controled by fo:retrive-table-marker because it is needed in only first table header.
+                Took into account the case when table/@frame="none/sides/bottom".
+                2020-08-13 t.makita
      -->
     <xsl:template name="genTheaderForContinuedWord">
         <xsl:param name="prmTableTitle" as="element()?" tunnel="yes" required="yes"/>
         <xsl:param name="prmTableDesc" as="element()?"  tunnel="yes" required="yes"/>
         <xsl:param name="prmCols" as="xs:string" required="yes"/>
         <xsl:param name="prmIsFirstTgroup" as="xs:boolean" required="yes"/>
-
+        <xsl:param name="prmTgroupAttr" tunnel="yes" required="yes"/>
+        
         <fo:table-header>
             <xsl:call-template name="getAttributeSet">
                 <xsl:with-param name="prmAttrSetName" select="'atsTableHeaderWoThead'"/>
@@ -455,6 +460,11 @@
                 <xsl:call-template name="getAttributeSet">
                     <xsl:with-param name="prmAttrSetName" select="'atsTableRowCaption'"/>
                 </xsl:call-template>
+                <xsl:if test="$prmTgroupAttr/@frame = ('none','sides','bottom')">
+                    <xsl:call-template name="getAttributeSet">
+                        <xsl:with-param name="prmAttrSetName" select="'atsTableRowCaptionWithNoTopFrame'"/>
+                    </xsl:call-template>
+                </xsl:if>
                 <fo:table-cell>
                     <xsl:attribute name="number-columns-spanned" select="$prmCols"/>
                     <xsl:call-template name="getAttributeSet">
@@ -478,12 +488,14 @@
     
     <!-- 
      function:  Generate fo:table-footer that includes "Continued" word
-     param:     none
+     param:     prmCols, prmTgroupAttr
      return:    fo:table-footer
-     note:		
+     note:      Took into account the case when table/@frame="none/sides/top".
+                2020-08-13 t.makita
      -->
     <xsl:template name="genTfooterForContinuedWord">
         <xsl:param name="prmCols" as="xs:string" required="yes"/>
+        <xsl:param name="prmTgroupAttr" tunnel="yes" required="yes"/>
         <fo:table-footer>
             <xsl:call-template name="getAttributeSet">
                 <xsl:with-param name="prmAttrSetName" select="'atsTfooter'"/>
@@ -497,6 +509,11 @@
                     <xsl:call-template name="getAttributeSet">
                         <xsl:with-param name="prmAttrSetName" select="'atsTableFooterCell'"/>
                     </xsl:call-template>
+                    <xsl:if test="$prmTgroupAttr/@frame = ('none','sides','top')">
+                        <xsl:call-template name="getAttributeSet">
+                            <xsl:with-param name="prmAttrSetName" select="'atsTableFooterCellWithNoBottomFrame'"/>
+                        </xsl:call-template>
+                    </xsl:if>
                     <fo:retrieve-table-marker retrieve-class-name="{$mcTableFooterContinuedWord}" retrieve-position-within-table="last-starting"/>
                 </fo:table-cell>
             </fo:table-row>
