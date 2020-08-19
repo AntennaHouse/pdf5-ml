@@ -188,6 +188,7 @@
     </condition>
 
     <!-- Make URL for input directory -->
+    <dirname property="user.input.dir" file="${args.input}"/>
     <makeurl property="user.input.dir.url" file="${user.input.dir}"/>
     
     <!-- Make URL for output directory -->
