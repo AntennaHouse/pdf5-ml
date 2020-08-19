@@ -146,6 +146,8 @@
       <val default="true">yes</val>
       <val>no</val>
     </param>
+    <param name="ahf.dir" desc="Specifies AH Formatter directory" type="string"/>
+    <param name="ahf.opt" desc="Specifies AH Formatter option setting file" type="file"/>
   </transtype>
   <template file="build_transform_template.xml"/>
   <template file="xsl/dita2fo_shell_template.xsl"/>
