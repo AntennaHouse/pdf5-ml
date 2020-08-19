@@ -51,7 +51,7 @@
     
     <!-- XML catalog -->
     <xmlcatalog id="dita.catalog">
-        <catalogpath path="${dita.dir}/catalog-dita.xml"/>
+        <catalogpath path="${dita.dir}${file.separator}plugins${file.separator}org.dita.base${file.separator}catalog-dita.xml"/>
     </xmlcatalog>
     
     <!-- Logical check -->
