@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!--
-****************************************************************
-DITA to XSL-FO Stylesheet
-Module: Stylesheet global variables.
-Copyright © 2009-2009 Antenna House, Inc. All rights reserved.
-Antenna House is a trademark of Antenna House, Inc.
-URL    : http://www.antennahouse.com/
-E-mail : info@antennahouse.com
-****************************************************************
+    ****************************************************************
+    DITA to XSL-FO Stylesheet
+    Module: Stylesheet global variables.
+    Copyright © 2009-2020 Antenna House, Inc. All rights reserved.
+    Antenna House is a trademark of Antenna House, Inc.
+    URL    : http://www.antennahouse.com/
+    E-mail : info@antennahouse.com
+    ****************************************************************
 -->
 <xsl:stylesheet version="2.0" 
  xmlns:fo="http://www.w3.org/1999/XSL/Format" 
@@ -30,6 +30,7 @@ E-mail : info@antennahouse.com
     <!-- *************************************** 
             IDs
          ***************************************-->
+    <xsl:variable name="cCoverId"        select="'__COVER'"         as="xs:string"/>
     <xsl:variable name="cTocId"          select="'__TOC'"           as="xs:string"/>
     <xsl:variable name="cFigureListId"   select="'__FIGURE_LIST'"   as="xs:string"/>
     <xsl:variable name="cTableListId"    select="'__TABLE_LIST'"    as="xs:string"/>

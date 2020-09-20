@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-****************************************************************
-DITA to XSL-FO Stylesheet 
-Module: Cover stylesheet
-Copyright © 2009-2015 Antenna House, Inc. All rights reserved.
-Antenna House is a trademark of Antenna House, Inc.
-URL    : http://www.antennahouse.com/
-E-mail : info@antennahouse.com
-****************************************************************
+    ****************************************************************
+    DITA to XSL-FO Stylesheet 
+    Module: Cover stylesheet
+    Copyright © 2009-2020 Antenna House, Inc. All rights reserved.
+    Antenna House is a trademark of Antenna House, Inc.
+    URL    : http://www.antennahouse.com/
+    E-mail : info@antennahouse.com
+    ****************************************************************
 -->
 <xsl:stylesheet version="2.0"
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
@@ -23,9 +23,9 @@ E-mail : info@antennahouse.com
     <!-- ahf:isCoverTopicRef is moved to dita2fo_dita_util.xsl -->
 
     <!-- 
-     function:	Return topicref is for cover3 
-     param:		prmTopicRef
-     return:	xs:boolean
+     function:  Return topicref is for cover3 
+     param:     prmTopicRef
+     return:    xs:boolean
      note:		
      -->
     <xsl:function name="ahf:isCover3TopicRef" as="xs:boolean">
@@ -34,11 +34,17 @@ E-mail : info@antennahouse.com
         <xsl:sequence select="matches($outputClass,'cover3')"/>
     </xsl:function>
     
-
+    <xsl:function name="ahf:isCoverNTopicRef" as="xs:boolean">
+        <xsl:param name="prmTopicRef" as="element()"/>
+        <xsl:param name="prmN" as="xs:string"/>
+        <xsl:variable name="outputClass" as="xs:string" select="string($prmTopicRef/@outputclass)"/>
+        <xsl:sequence select="matches($outputClass,concat('cover',$prmN))"/>
+    </xsl:function>
+    
     <!-- 
-     function:	Output cover N 
-     param:		prmTopicContent
-     return:	psmi:page-sequence
+     function:  Output cover N 
+     param:     prmTopicContent
+     return:    psmi:page-sequence
      note:		
      -->
     <xsl:template name="outputCoverN">
@@ -54,6 +60,10 @@ E-mail : info@antennahouse.com
                 <!-- Start cover3 from odd page -->
                 <xsl:attribute name="initial-page-number" select="'auto-odd'"/>
             </xsl:if>
+            <xsl:if test="ahf:isCoverNTopicRef($prmTopicRef,'1')">
+                <!-- Start cover id for navigating from bookmark -->
+                <xsl:attribute name="id" select="$cCoverId"/>
+            </xsl:if>
             <fo:flow flow-name="xsl-region-body">
                 <fo:block-container>
                     <xsl:call-template name="ahf:getIdAtts">
@@ -67,9 +77,9 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <!-- 
-     function:	body for cover
-     param:	    prmTopicRef
-     return:	fo:wrapper
+     function:  body for cover
+     param:     prmTopicRef
+     return:    fo:wrapper
      note:		
      -->
     <xsl:template match="*[contains(@class, ' topic/body ')]" priority="20">
@@ -88,9 +98,9 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <!-- 
-     function:	bodydiv for cover
-     param:		prmTopicRef
-     return:	fo:block-container
+     function:  bodydiv for cover
+     param:     prmTopicRef
+     return:    fo:block-container
      note:		
      -->
     <xsl:template match="*[contains(@class, ' topic/bodydiv ')]" priority="20">
@@ -109,9 +119,9 @@ E-mail : info@antennahouse.com
     </xsl:template>    
 
     <!-- 
-     function:	bodydiv for cover backgroound
-     param:		prmTopicRef
-     return:	fo:block-container
+     function:  bodydiv for cover backgroound
+     param:     prmTopicRef
+     return:    fo:block-container
      note:		
      -->
     <xsl:template match="*[contains(@class, ' topic/bodydiv ')][descendant::*[contains(@class,' topic/image ')][@outputclass eq 'background']]" priority="22">
@@ -134,9 +144,9 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <!-- 
-     function:	section for cover
-     param:		prmTopicRef
-     return:	fo:block
+     function:  section for cover
+     param:     prmTopicRef
+     return:    fo:block
      note:		
      -->
     <xsl:template match="*[contains(@class, ' topic/section ')]" priority="20">
@@ -155,9 +165,9 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <!-- 
-     function:	draft-comment for cover
-     param:		prmTopicRef
-     return:	ignore
+     function:  draft-comment for cover
+     param:     prmTopicRef
+     return:    ignore
      note:		
      -->
     <xsl:template match="*[contains(@class, ' topic/draft-comment ')]" priority="20" mode="TEXT_ONLY">
@@ -175,9 +185,9 @@ E-mail : info@antennahouse.com
     </xsl:template>
 
     <!-- 
-     function:	image for cover
-     param:		prmTopicRef
-     return:	see probe
+     function:  image for cover
+     param:     prmTopicRef
+     return:    see probe
      note:		
      -->
     <xsl:template match="*[contains(@class, ' topic/image ')]" priority="20">
@@ -221,9 +231,9 @@ E-mail : info@antennahouse.com
         </xsl:choose>
     </xsl:template>
     <!-- 
-     function:	data for cover: generates barcode
-     param:		prmTopicRef
-     return:	fo:external-graphic
+     function:  data for cover: generates barcode
+     param:     prmTopicRef
+     return:    fo:external-graphic
      note:      assume data/@name="barcode" express barcode
      -->
     <xsl:template match="*[contains(@class, ' topic/data ')][string(@name) eq 'barcode']" priority="20">
@@ -249,9 +259,9 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <!-- 
-     function:	data for cover: QR code
-     param:		prmTopicRef
-     return:	fo:external-graphic
+     function:  data for cover: QR code
+     param:     prmTopicRef
+     return:    fo:external-graphic
      note:      data/@name="qrcode" expresses QR code
                 data/@href is the target URL
      -->
@@ -273,9 +283,9 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <!-- 
-     function:	p for cover
-     param:		prmTopicRef
-     return:	fo:block
+     function:  p for cover
+     param:     prmTopicRef
+     return:    fo:block
      note:      		
      -->
     <xsl:template match="*[contains(@class, ' topic/p ')]" priority="20">
@@ -294,10 +304,10 @@ E-mail : info@antennahouse.com
     </xsl:template>
 
     <!-- 
-        function:	ph for cover
-        param:	    prmTopicRef
-        return:	    fo:inline-container, fo:block
-        note:		
+     function:   ph for cover
+     param:      prmTopicRef
+     return:     fo:inline-container, fo:block
+     note:		
     -->
     <xsl:template match="*[contains(@class,' topic/ph ')][string(@outputclass) eq 'inline-container']" priority="20">
         <xsl:param name="prmTopicRef" tunnel="yes" required="yes" as="element()?"/>

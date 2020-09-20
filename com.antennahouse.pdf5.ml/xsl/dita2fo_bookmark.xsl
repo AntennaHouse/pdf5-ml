@@ -1,13 +1,13 @@
 <?xml version='1.0' encoding="UTF-8" ?>
 <!--
-****************************************************************
-DITA to XSL-FO Stylesheet
-Module: Generate bookmark tree.
-Copyright © 2009-2012 Antenna House, Inc. All rights reserved.
-Antenna House is a trademark of Antenna House, Inc.
-URL    : http://www.antennahouse.com/
-E-mail : info@antennahouse.com
-****************************************************************
+    ****************************************************************
+    DITA to XSL-FO Stylesheet
+    Module: Generate bookmark tree.
+    Copyright © 2009-2020 Antenna House, Inc. All rights reserved.
+    Antenna House is a trademark of Antenna House, Inc.
+    URL    : http://www.antennahouse.com/
+    E-mail : info@antennahouse.com
+    ****************************************************************
 -->
 <xsl:stylesheet version="2.0" 
  xmlns:fo="http://www.w3.org/1999/XSL/Format" 
@@ -18,28 +18,45 @@ E-mail : info@antennahouse.com
  exclude-result-prefixes="xs ahf i18n_general_sort_saxon9">
  
     <!-- 
-     function:	Generate bookmark tree
-     param:		none
-     return:	fo:bookmark-tree
-     note:		none
+     function:  Generate bookmark tree
+     param:     none
+     return:    fo:bookmark-tree
+     note:      Implements link to map title
+                2020-09-21 t.makita
      -->
     <xsl:template name="genBookmarkTree">
     	<fo:bookmark-tree>
-    	    <xsl:if test="$isMap and $pMakeTocForMap">
-    	        <xsl:call-template name="genMapTocBookmark"/>
-    	    </xsl:if>
-    		<xsl:apply-templates select="$map" mode="MAKE_BOOKMARK"/>
-    	    <xsl:if test="$isMap and $pMakeIndexForMap and $pOutputIndex and ($indextermSortedCount gt 0)">
-    	        <xsl:call-template name="genMapIndexBookmark"/>
-    	    </xsl:if>
+    	    <xsl:choose>
+    	        <xsl:when test="$pAddMapTitleToBookmark">
+    	            <fo:bookmark internal-destination="{$cCoverId}">
+    	                <fo:bookmark-title>
+    	                    <xsl:apply-templates select="$bookTitle" mode="TEXT_ONLY"/>
+    	                </fo:bookmark-title>
+    	                <xsl:call-template name="genBookmarkTreeSub"/>
+    	            </fo:bookmark>
+    	        </xsl:when>
+    	        <xsl:otherwise>
+    	            <xsl:call-template name="genBookmarkTreeSub"/>
+    	        </xsl:otherwise>
+    	    </xsl:choose>
     	</fo:bookmark-tree>
+    </xsl:template>
+
+    <xsl:template name="genBookmarkTreeSub">
+        <xsl:if test="$isMap and $pMakeTocForMap">
+            <xsl:call-template name="genMapTocBookmark"/>
+        </xsl:if>
+        <xsl:apply-templates select="$map" mode="MAKE_BOOKMARK"/>
+        <xsl:if test="$isMap and $pMakeIndexForMap and $pOutputIndex and ($indextermSortedCount gt 0)">
+            <xsl:call-template name="genMapIndexBookmark"/>
+        </xsl:if>
     </xsl:template>
     
     <!-- 
-     function:	Generate toc bookmark for simple map
-     param:		none
+     function:  Generate toc bookmark for simple map
+     param:     none
      return:	
-     note:		none
+     note:      none
      -->
     <xsl:template name="genMapTocBookmark">
         <fo:bookmark>
@@ -51,10 +68,10 @@ E-mail : info@antennahouse.com
     </xsl:template>
 
     <!-- 
-     function:	Generate index bookmark for simple map
-     param:		none
+     function:  Generate index bookmark for simple map
+     param:     none
      return:	
-     note:		none
+     note:      none
      -->
     <xsl:template name="genMapIndexBookmark">
         <fo:bookmark>
@@ -66,10 +83,10 @@ E-mail : info@antennahouse.com
     </xsl:template>
 
     <!-- 
-     function:	General templates for bookmark
-     param:		none
+     function:  General templates for bookmark
+     param:     none
      return:	
-     note:		none
+     note:      none
      -->
     <xsl:template match="*" mode="MAKE_BOOKMARK">
         <xsl:apply-templates mode="#current"/>
@@ -80,9 +97,9 @@ E-mail : info@antennahouse.com
     <xsl:template match="*[contains(@class, ' bookmap/bookmeta ')]" mode="MAKE_BOOKMARK"/>
     
     <!-- 
-     function:	Frontmatter
-     param:		none
-     return:	see below
+     function:  Frontmatter
+     param:     none
+     return:    see below
      note:		
      -->
     <xsl:template match="*[contains(@class,' bookmap/frontmatter ')]" mode="MAKE_BOOKMARK" priority="2" >
@@ -90,9 +107,9 @@ E-mail : info@antennahouse.com
     </xsl:template>
         
     <!-- 
-     function:	Frontmatter/bookabstract templates
-     param:		none
-     return:	see below
+     function:  Frontmatter/bookabstract templates
+     param:     none
+     return:    see below
      note:		
      -->
     <xsl:template match="*[contains(@class,' bookmap/bookabstract ')][empty(@href)]" mode="MAKE_BOOKMARK" priority="2">
@@ -103,9 +120,9 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <!-- 
-     function:	Colophon templates
-     param:		none
-     return:	see below
+     function:  Colophon templates
+     param:     none
+     return:    see below
      note:		
      -->
     <xsl:template match="*[contains(@class,' bookmap/colophon ')][empty(@href)]" mode="MAKE_BOOKMARK" priority="2">
@@ -116,9 +133,9 @@ E-mail : info@antennahouse.com
     </xsl:template>
         
     <!-- 
-     function:	Booklists templates
-     param:		none
-     return:	see below
+     function:  Booklists templates
+     param:     none
+     return:    see below
      note:		
      -->
     <xsl:template match="*[contains(@class,' bookmap/booklists ')]" mode="MAKE_BOOKMARK" priority="2">
@@ -126,9 +143,9 @@ E-mail : info@antennahouse.com
     </xsl:template>
         
     <!-- 
-     function:	Abbrevlist
-     param:		none
-     return:	see below
+     function:  Abbrevlist
+     param:     none
+     return:    see below
      note:		
      -->
     <xsl:template match="*[contains(@class,' bookmap/abbrevlist ')][exists(@href)]" mode="MAKE_BOOKMARK" priority="2">
@@ -139,9 +156,9 @@ E-mail : info@antennahouse.com
     </xsl:template>
         
     <!-- 
-     function:	Bibliolist
-     param:		none
-     return:	see below
+     function:  Bibliolist
+     param:     none
+     return:    see below
      note:		
      -->
      <xsl:template match="*[contains(@class,' bookmap/bibliolist ')][exists(@href)]" mode="MAKE_BOOKMARK" priority="2">
@@ -152,9 +169,9 @@ E-mail : info@antennahouse.com
     </xsl:template>
         
     <!-- 
-     function:	Booklist
-     param:		none
-     return:	see below
+     function:  Booklist
+     param:     none
+     return:    see below
      note:		
      -->
     <xsl:template match="*[contains(@class,' bookmap/booklist ')][exists(@href)]" mode="MAKE_BOOKMARK" priority="2">
@@ -165,9 +182,9 @@ E-mail : info@antennahouse.com
     </xsl:template>
         
     <!-- 
-     function:	Figure list
-     param:		none
-     return:	Figurelist link
+     function:  Figure list
+     param:     none
+     return:    Figurelist link
      note:		
      -->
     <xsl:template match="*[contains(@class,' bookmap/figurelist ')][exists(@href)]" mode="MAKE_BOOKMARK" priority="2">
@@ -188,9 +205,9 @@ E-mail : info@antennahouse.com
     </xsl:template>
         
     <!-- 
-     function:	Glossary list
-     param:		none
-     return:	glossary list contents
+     function:  Glossary list
+     param:     none
+     return:    glossary list contents
      note:		
     -->
     <xsl:template match="*[contains(@class,' bookmap/glossarylist ')][ahf:isToc(.)]" mode="MAKE_BOOKMARK" priority="2" >
@@ -199,10 +216,10 @@ E-mail : info@antennahouse.com
     
 
     <!-- 
-     function:	Index
-     param:		none
-     return:	Index contents
-     note:		This template will not be executed because this plug-in treats index in frontmatter as error.
+     function:  Index
+     param:     none
+     return:    Index contents
+     note:      This template will not be executed because this plug-in treats index in frontmatter as error.
                 2012-03-29 t.makita
      -->
     <xsl:template match="*[contains(@class,' bookmap/indexlist ')][exists(@href)]" mode="MAKE_BOOKMARK" priority="2">
@@ -223,9 +240,9 @@ E-mail : info@antennahouse.com
     </xsl:template>
         
     <!-- 
-     function:	Table list
-     param:		none
-     return:	Table list content
+     function:  Table list
+     param:     none
+     return:    Table list content
      note:		
      -->
     <xsl:template match="*[contains(@class,' bookmap/tablelist ')][exists(@href)]" mode="MAKE_BOOKMARK" priority="2">
@@ -246,9 +263,9 @@ E-mail : info@antennahouse.com
     </xsl:template>
         
     <!-- 
-     function:	Trademark list
-     param:		none
-     return:	none
+     function:  Trademark list
+     param:     none
+     return:    none
      note:		
      -->
     <xsl:template match="*[contains(@class,' bookmap/trademarklist ')][exists(@href)]" mode="MAKE_BOOKMARK" priority="2">
@@ -259,9 +276,9 @@ E-mail : info@antennahouse.com
     </xsl:template>
         
     <!-- 
-     function:	Table of content
-     param:		none
-     return:	toc contents
+     function:  Table of content
+     param:     none
+     return:    toc contents
      note:		
      -->
     <xsl:template match="*[contains(@class,' bookmap/toc ')][exists(@href)]" mode="MAKE_BOOKMARK" priority="2">
@@ -280,9 +297,9 @@ E-mail : info@antennahouse.com
     </xsl:template>
         
     <!-- 
-     function:	Dedication templates
-     param:		none
-     return:	descendant topic contents
+     function:  Dedication templates
+     param:     none
+     return:    descendant topic contents
      note:		
      -->
     <xsl:template match="*[contains(@class,' bookmap/dedication ')][empty(@href)]" mode="MAKE_BOOKMARK" priority="2">
@@ -293,9 +310,9 @@ E-mail : info@antennahouse.com
     </xsl:template>
         
     <!-- 
-     function:	Draftintro templates
-     param:		none
-     return:	descendant topic contents
+     function:  Draftintro templates
+     param:     none
+     return:    descendant topic contents
      note:		
      -->
     <xsl:template match="*[contains(@class,' bookmap/draftintro ')]" mode="MAKE_BOOKMARK" priority="2">
@@ -303,9 +320,9 @@ E-mail : info@antennahouse.com
     </xsl:template>
         
     <!-- 
-     function:	Notices templates
-     param:		none
-     return:	descendant topic contents
+     function:  Notices templates
+     param:     none
+     return:    descendant topic contents
      note:		
      -->
     <xsl:template match="*[contains(@class,' bookmap/notices ')]" mode="MAKE_BOOKMARK" priority="2">
@@ -316,9 +333,9 @@ E-mail : info@antennahouse.com
         
     
     <!-- 
-     function:	Preface templates
-     param:		none
-     return:	descendant topic contents
+     function:  Preface templates
+     param:     none
+     return:    descendant topic contents
      note:		
      -->
     <xsl:template match="*[contains(@class,' bookmap/preface ')]" mode="MAKE_BOOKMARK" priority="2">
@@ -328,9 +345,9 @@ E-mail : info@antennahouse.com
     </xsl:template>
         
     <!-- 
-     function:	Frontmatter
-     param:		none
-     return:	descendant topic contents
+     function:  Frontmatter
+     param:     none
+     return:    descendant topic contents
      note:		
      -->
     <xsl:template match="*[contains(@class,' bookmap/backmatter ')]" mode="MAKE_BOOKMARK" priority="2" >
@@ -338,8 +355,8 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <!-- 
-     function:	Amendments templates
-     param:		none
+     function:  Amendments templates
+     param:     none
      return:	
      note:		
      -->
@@ -357,8 +374,8 @@ E-mail : info@antennahouse.com
     
     
     <!-- 
-     function:	Part templates
-     param:		none
+     function:  Part templates
+     param:     none
      return:	
      note:		
      -->
@@ -386,10 +403,10 @@ E-mail : info@antennahouse.com
     <xsl:template match="*[contains(@class,' map/reltable ')]" mode="MAKE_BOOKMARK" />
     
     <!-- 
-     function:	General topiref template for bookmark
-     param:		none
-     return:	fo:bookmark
-     note:		Skip outputclass="coverN" & toc="no".
+     function:  General topiref template for bookmark
+     param:     none
+     return:    fo:bookmark
+     note:      Skip outputclass="coverN" & toc="no".
      -->
     <xsl:template match="*[contains(@class,' map/topicref ')][ahf:isCoverTopicRef(.)]" mode="MAKE_BOOKMARK" priority="2"/>
     <xsl:template match="*[contains(@class,' map/topicref ')][not(ahf:isToc(.))]" mode="MAKE_BOOKMARK"/>
@@ -461,9 +478,9 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <!-- 
-     function:	Generate title of bookmark
-     param:		prmTopicRef, prmDefaultTitle
-     return:	title string
+     function:  Generate title of bookmark
+     param:     prmTopicRef, prmDefaultTitle
+     return:    title string
      note:		
      -->
     <xsl:template name="genTitle" as="text()*">
@@ -524,10 +541,10 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <!-- 
-     function:	Generate title of topic descendant of part
-     param:		prmTopicRef
-     return:	title string
-     note:		none
+     function:  Generate title of topic descendant of part
+     param:     prmTopicRef
+     return:    title string
+     note:      none
      -->
     <xsl:template name="genPartDescendantTitle" as="text()*">
         <xsl:param name="prmTopicRef" required="yes" as="element()"/>
@@ -537,10 +554,10 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <!-- 
-     function:	Generate title of topic descendant of chapter
-     param:		prmTopicRef
-     return:	title string
-     note:		none
+     function:  Generate title of topic descendant of chapter
+     param:     prmTopicRef
+     return:    title string
+     note:      none
      -->
     <xsl:template name="genChapterDescendantTitle" as="text()*">
         <xsl:param name="prmTopicRef" required="yes" as="element()"/>
@@ -583,10 +600,10 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <!-- 
-     function:	Generate title of appendix ( and their descendant topic)
-     param:		prmTopicRef
-     return:	title text nodes
-     note:		none
+     function:  Generate title of appendix ( and their descendant topic)
+     param:     prmTopicRef
+     return:    title text nodes
+     note:      none
      -->
     <xsl:template name="genAppendixDescendantTitle" as="text()*">
         <xsl:param name="prmTopicRef" required="yes" as="element()"/>
@@ -596,10 +613,10 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <!-- 
-     function:	Generate title of topic descendant of map
-     param:		prmTopicRef
-     return:	title string
-     note:		none
+     function:  Generate title of topic descendant of map
+     param:     prmTopicRef
+     return:    title string
+     note:      none
      -->
     <xsl:template name="genMapDescendantTitle" as="text()*">
         <xsl:param name="prmTopicRef" required="yes" as="element()"/>
@@ -630,10 +647,10 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <!-- 
-     function:	Generate glossarylist bookmark
-     param:		none
-     return:	fo:bookmark
-     note:		Current is booklists/glossarylist
+     function:  Generate glossarylist bookmark
+     param:     none
+     return:    fo:bookmark
+     note:      Current is booklists/glossarylist
     -->
     <xsl:template name="genGlossaryListBookMark">
         <xsl:variable name="topicRef" as="element()" select="."/>
@@ -728,10 +745,10 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <!-- 
-        function:	Process topicref of the glossary list for sorting
-        param:		none
-        return:	    glossentry topic
-        note:		none
+        function:   Process topicref of the glossary list for sorting
+        param:      none
+        return:     glossentry topic
+        note:       none
     -->
     <xsl:template match="*[contains(@class,' map/topicref ')][@href]" mode="MAKE_BOOKMARK_TOPICREF_IN_TEMPORARY_TREE">
         
@@ -790,9 +807,9 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <!-- 
-     function:	Generate bookmark title for tablelist, glossarylist, figurelist, etc...
-     param:		$prmTopicRef, $prmDefaultTitle
-     return:	Text nodes
+     function:  Generate bookmark title for tablelist, glossarylist, figurelist, etc...
+     param:     $prmTopicRef, $prmDefaultTitle
+     return:    Text nodes
      note:		
     -->
     <xsl:template name="genBookmarkTitle" as="text()*">
@@ -819,9 +836,9 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <!-- 
-        function:	Generate bookmark for tablelist, glossarylist, figurelist, etc...
-        param:		$prmTopicRef, $prmDefaultTitle, $prmInternalDest, $prmStartingState
-        return:	    fo:bookmark
+        function:   Generate bookmark for tablelist, glossarylist, figurelist, etc...
+        param:      $prmTopicRef, $prmDefaultTitle, $prmInternalDest, $prmStartingState
+        return:     fo:bookmark
         note:		
     -->
     <xsl:template name="genBookmark">

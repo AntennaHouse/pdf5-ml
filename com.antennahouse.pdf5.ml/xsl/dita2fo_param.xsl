@@ -336,5 +336,11 @@ E-mail : info@antennahouse.com
      -->
     <xsl:param name="PRM_ENABLE_LANDSCAPE_PAGE" required="no" as="xs:string" select="$cNo"/>
     <xsl:variable name="pEnableLandscapePage" as="xs:boolean" select="$PRM_ENABLE_LANDSCAPE_PAGE eq $cYes"/>
+
+    <!-- Add map title to top of the bookmark
+         2020-09-21 t.makita
+     -->
+    <xsl:param name="PRM_ADD_MAP_TITLE_TO_BOOKMARK" required="no" as="xs:string" select="$cNo"/>
+    <xsl:variable name="pAddMapTitleToBookmark" as="xs:boolean" select="$PRM_ADD_MAP_TITLE_TO_BOOKMARK eq $cYes"/>
     
 </xsl:stylesheet>
