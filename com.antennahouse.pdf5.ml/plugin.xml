@@ -146,6 +146,10 @@
       <val default="true">yes</val>
       <val>no</val>
     </param>
+    <param name="add.map.title.to.bookmark" desc="Add map title to top of the bookmark" type="enum">
+      <val>yes</val>
+      <val default="true">no</val>
+    </param>
     <param name="ahf.dir" desc="Specifies AH Formatter directory" type="string"/>
     <param name="ahf.opt" desc="Specifies AH Formatter option setting file" type="file"/>
   </transtype>

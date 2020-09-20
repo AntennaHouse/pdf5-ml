@@ -1,13 +1,13 @@
 <?xml version='1.0' encoding="UTF-8" ?>
 <!--
-****************************************************************
-DITA to XSL-FO Stylesheet
-Module: Generate cover
-Copyright © 2009-2009 Antenna House, Inc. All rights reserved.
-Antenna House is a trademark of Antenna House, Inc.
-URL    : http://www.antennahouse.com/
-E-mail : info@antennahouse.com
-****************************************************************
+    ****************************************************************
+    DITA to XSL-FO Stylesheet
+    Module: Generate cover
+    Copyright © 2009-2020 Antenna House, Inc. All rights reserved.
+    Antenna House is a trademark of Antenna House, Inc.
+    URL    : http://www.antennahouse.com/
+    E-mail : info@antennahouse.com
+    ****************************************************************
 -->
 <xsl:stylesheet version="2.0" 
  xmlns:fo="http://www.w3.org/1999/XSL/Format" 
@@ -18,13 +18,15 @@ E-mail : info@antennahouse.com
 >
 
     <!-- 
-     function:	cover generate template
-     param:		none
-     return:	fo:page-sequence
-     note:		Current context is "/". 
+     function:  cover generate template
+     param:     none
+     return:    fo:page-sequence
+     note:      Current context is "/".
+                Added @id to page-sequence to enable linking from bookmark.
+                2020-09-20 t.makita
      -->
     <xsl:template name="genCover">
-        <fo:page-sequence master-reference="pmsPageSeqCover">
+        <fo:page-sequence master-reference="pmsPageSeqCover" id="{$cCoverId}">
             <xsl:copy-of select="ahf:getAttributeSet('atsPageSeqBase')"/>
             <fo:flow flow-name="xsl-region-body">
                 <fo:block-container>
