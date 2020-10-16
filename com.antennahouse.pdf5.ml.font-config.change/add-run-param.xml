@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<param xmlns:if="ant:if">
+    <env key="${ahf.font.config.env}" value="${ahf.font.config.file}" if:set="ahf.font.config.file"/>
+</param>
