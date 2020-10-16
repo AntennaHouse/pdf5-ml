@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin id="com.antennahouse.pdf5.ml.font-config.change">
+    <require plugin="com.antennahouse.pdf5.ml"/>
+    <transtype name="com.antennahouse.pdf.ml" extends="pdf">
+        <param name="ahf.font.config.env" desc="Specifies AH Formatter font-config.xml environment variable." type="string"/>
+        <param name="ahf.font.config.file" desc="Specifies AH Formatter font-config file path." type="string"/>
+    </transtype>
+    <feature extension="build.com.antennahouse.pdf5.ml.ahf.build.inclusion" file="add-build.xml"/>
+    <feature extension="build.com.antennahouse.pdf5.ml.ahf.run.param.inclusion" file="add-run-param.xml"/>
+</plugin>
