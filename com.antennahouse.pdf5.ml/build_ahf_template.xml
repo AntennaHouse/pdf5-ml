@@ -1,0 +1,193 @@
+<?xml version="1.0"?>
+<!-- Build file for AH Formatter
+     Revision History
+     - Newly created. 2015-05-07 t.makita
+     [Parameter] 
+     prmInputFile:  XSL-FO file path
+     prmOutputFile: PDF file path
+     prmMultiVol:   Multi-volume parameter     
+     - Add extension point "build.com.antennahouse.pdf5.ml.ahf.build.inclusion" and "build.com.antennahouse.pdf5.ml.ahf.run.param.inclusion".
+       2020-10-15 t.makita
+  -->
+<project name="build.ahf" xmlns:dita="http://dita-ot.sourceforge.net" xmlns:if="ant:if">
+    
+    <!-- Traget of XSL-FO⇒PDF -->
+    <target name="transform.fo2pdf" unless="${skip.pdf.generation}">
+
+        <!-- AH Formatter Option file -->
+        <condition property="ahf.opt" value="${env.AHF_OPT}">
+            <or>
+                <and>
+                    <available file="${env.AHF_OPT}"/>
+                    <not>
+                        <equals arg1="${env.AHF_OPT}" arg2=""/>
+                    </not>
+                    <not>
+                        <isset property="ahf.opt"/>
+                    </not>
+                </and>
+            </or>
+        </condition>
+        
+        <!-- Check AH Formatter Environment -->
+        <condition property="has.ahf.option">
+            <isset property="ahf.opt"/>
+        </condition>
+        
+        <condition property="ahf.dir" value="${env.AHF_DIR}">
+            <and>
+                <available file="${env.AHF_DIR}"/>
+                <not>
+                    <equals arg1="${env.AHF_DIR}" arg2=""/>
+                </not>
+                <not>
+                    <isset property="ahf.dir"/>
+                </not>
+            </and>
+        </condition>
+        
+        <!-- Set executable -->
+        <condition property="ahf.cmd" value="run.sh">
+            <available file="${ahf.dir}/run.sh"/>
+        </condition>
+        
+        <condition property="ahf.cmd" value="AHFCmd.exe">
+            <and>
+                <not>
+                    <isset property="ahf.cmd"/>
+                </not>
+                <available file="${ahf.dir}/AHFCmd.exe"/>
+            </and>
+        </condition>
+        
+        <condition property="ahf.cmd" value="XSLCmd.exe">
+            <and>
+                <not>
+                    <isset property="ahf.cmd"/>
+                </not>
+                <available file="${ahf.dir}/XSLCmd.exe"/>
+            </and>
+        </condition>
+        
+        <!-- Formatter execution condition -->
+        <condition property="option.and.multivol">
+            <and>
+                <isset property="has.ahf.option"/>
+                <equals arg1="${prmMultiVol}" arg2="yes"/>
+                <!--isset property="multivol"/-->
+            </and>
+        </condition>
+        
+        <condition property="option.and.nomultivol">
+            <and>
+                <isset property="has.ahf.option"/>
+                <not>
+                    <equals arg1="${prmMultiVol}" arg2="yes"/>
+                </not>
+            </and>
+        </condition>
+        
+        <condition property="nooption.and.multivol">
+            <and>
+                <not>
+                    <isset property="has.ahf.option"/>
+                </not>
+                <equals arg1="${prmMultiVol}" arg2="yes"/>
+            </and>
+        </condition>
+        
+        <condition property="nooption.and.nomultivol">
+            <and>
+                <not>
+                    <isset property="has.ahf.option"/>
+                </not>
+                <not>
+                    <equals arg1="${prmMultiVol}" arg2="yes"/>
+                </not>
+            </and>
+        </condition>
+
+        <echo>$prmMultiVol=${prmMultiVol}</echo>
+
+        <dita:extension id="build.com.antennahouse.pdf5.ml.ahf.build.inclusion" behavior="org.dita.dost.platform.InsertAction"/>
+        
+        <antcall target="transform.fo2pdf.impl">
+            <param name="prmInputFile" value="${prmInputFile}"/>
+            <param name="prmOutputFile" value="${prmOutputFile}"/>
+        </antcall>
+    </target>
+
+    <target name="transform.fo2pdf.impl" depends="transform.fo2pdf.ahf.check, transform.fo2pdf.option.and.multivol, transform.fo2pdf.ahf.option.and.nomultivol, transform.fo2pdf.nooption.and.multivol, transform.fo2pdf.ahf.nooption.and.nomultivol"/>
+    
+    <target name="transform.fo2pdf.ahf.check">
+        <fail unless="ahf.dir" message="ahf.dir folder does not exist or AHF_DIR environment variable is missing."/>
+        <fail unless="ahf.cmd" message="Missing AH Formatter commandline executable (Windows) or shell (Linux) file at ahf.dir folder."/>
+        <echo>ahf.dir="${ahf.dir}"</echo>
+        <echo>ahf.opt="${ahf.opt}"</echo>
+        <echo>Execute command="${ahf.cmd}"</echo>
+        <echo>Output PDF="${prmOutputFile}"</echo>
+    </target>
+    
+    <target name="transform.fo2pdf.option.and.multivol" if="option.and.multivol">
+        <exec executable="${ahf.dir}/${ahf.cmd}" logerror="true" failonerror="true">
+            <arg value="-d"/>
+            <arg value="${prmInputFile}"/>
+            <arg value="-o"/>
+            <arg value="${prmOutputFile}"/>
+            <arg value="-p"/>
+            <arg value="@PDF"/>
+            <arg value="-extlevel"/>
+            <arg value="4"/>
+            <arg value="-i"/>
+            <arg value="${ahf.opt}"/>
+            <arg value="-multivol"/>
+            <dita:extension id="build.com.antennahouse.pdf5.ml.ahf.run.param.inclusion" behavior="org.dita.dost.platform.InsertAction"/>
+        </exec>
+    </target>
+    
+    <target name="transform.fo2pdf.ahf.option.and.nomultivol" if="option.and.nomultivol">
+        <exec executable="${ahf.dir}/${ahf.cmd}" logerror="true" failonerror="true">
+            <arg value="-d"/>
+            <arg value="${prmInputFile}"/>
+            <arg value="-p"/>
+            <arg value="@PDF"/>
+            <arg value="-o"/>
+            <arg value="${prmOutputFile}"/>
+            <arg value="-extlevel"/>
+            <arg value="4"/>
+            <arg value="-i"/>
+            <arg value="${ahf.opt}"/>
+            <dita:extension id="build.com.antennahouse.pdf5.ml.ahf.run.param.inclusion" behavior="org.dita.dost.platform.InsertAction"/>
+        </exec>
+    </target>
+
+    <target name="transform.fo2pdf.nooption.and.multivol" if="nooption.and.multivol">
+        <exec executable="${ahf.dir}/${ahf.cmd}" logerror="true" failonerror="true">
+            <arg value="-d"/>
+            <arg value="${prmInputFile}"/>
+            <arg value="-o"/>
+            <arg value="${prmOutputFile}"/>
+            <arg value="-p"/>
+            <arg value="@PDF"/>
+            <arg value="-extlevel"/>
+            <arg value="4"/>
+            <arg value="-multivol"/>
+            <dita:extension id="build.com.antennahouse.pdf5.ml.ahf.run.param.inclusion" behavior="org.dita.dost.platform.InsertAction"/>
+        </exec>
+    </target>
+    
+    <target name="transform.fo2pdf.ahf.nooption.and.nomultivol" if="nooption.and.nomultivol">
+        <exec executable="${ahf.dir}/${ahf.cmd}" logerror="true" failonerror="true">
+            <arg value="-d"/>
+            <arg value="${prmInputFile}"/>
+            <arg value="-p"/>
+            <arg value="@PDF"/>
+            <arg value="-o"/>
+            <arg value="${prmOutputFile}"/>
+            <arg value="-extlevel"/>
+            <arg value="4"/>
+            <dita:extension id="build.com.antennahouse.pdf5.ml.ahf.run.param.inclusion" behavior="org.dita.dost.platform.InsertAction"/>
+        </exec>
+    </target>
+    
+</project>
