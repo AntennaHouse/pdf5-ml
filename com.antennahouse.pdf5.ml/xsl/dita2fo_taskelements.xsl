@@ -105,7 +105,7 @@ E-mail : info@antennahouse.com
     
     <xsl:template name="processStep">
         <xsl:param name="prmNumberFormat" tunnel="yes" required="yes" as="xs:string"/>
-        <xsl:param name="prmHasFloatFigLeft" tunnel="yes" required="yes" as="xs:boolean"/>
+        <xsl:param name="prmHasFloatFigLeft" tunnel="yes" required="no" as="xs:boolean" select="false()"/>
         
         <xsl:variable name="step" as="element()" select="."/>
         <xsl:variable name="steps" as="element()" select="$step/parent::*"/>
