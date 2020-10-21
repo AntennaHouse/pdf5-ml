@@ -360,10 +360,12 @@ URL : http://www.antennahouse.com/
         <variable name="optXrefToFigTitleAndPage">title-page</variable>
         <variable name="optXrefToFigTitleOnly">title-only</variable>
         <variable name="optXrefToFigPageOnly">page-only</variable>
+        <variable name="optXrefToFigTitlePrefixOnly">title-prefix-only</variable>
         
         <variable name="optXrefToTableTitleAndPage">title-page</variable>
         <variable name="optXrefToTableTitleOnly">title-only</variable>
         <variable name="optXrefToTablePageOnly">page-only</variable>
+        <variable name="optXrefToTableTitlePrefixOnly">title-prefix-only</variable>
         
         <variable name="optXrefToEquationBlockNumberAndPage">number-page</variable>
         <variable name="optXrefToEquationBlockNumberOnly">number-only</variable>

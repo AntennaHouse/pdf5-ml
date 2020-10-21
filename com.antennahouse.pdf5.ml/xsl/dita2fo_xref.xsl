@@ -1218,6 +1218,8 @@ E-mail : info@antennahouse.com
     <xsl:variable name="optXrefToFigTitleAndPage" as="xs:string" select="ahf:getVarValue('optXrefToFigTitleAndPage')"/>
     <xsl:variable name="optXrefToFigTitleOnly" as="xs:string" select="ahf:getVarValue('optXrefToFigTitleOnly')"/>
     <xsl:variable name="optXrefToFigPageOnly" as="xs:string" select="ahf:getVarValue('optXrefToFigPageOnly')"/>
+    <!-- Currently not used: reserved for user customization -->
+    <xsl:variable name="optXrefToFigTitlePrefixOnly" as="xs:string" select="ahf:getVarValue('optXrefToFigTitlePrefixOnly')"/>
     
     <xsl:function name="ahf:getXrefToFigOption" as="xs:string*">
         <xsl:param name="prmXref" as="element()"/>
@@ -1231,6 +1233,9 @@ E-mail : info@antennahouse.com
             <xsl:when test="ahf:hasOutputClassValue($prmXref,$optXrefToFigPageOnly)">
                 <xsl:sequence select="$optXrefToFigPageOnly"/>
             </xsl:when>
+            <xsl:when test="ahf:hasOutputClassValue($prmXref,$optXrefToFigTitlePrefixOnly)">
+                <xsl:sequence select="$optXrefToFigTitlePrefixOnly"/>
+            </xsl:when>
             <xsl:otherwise>
                 <xsl:sequence select="()"/>
             </xsl:otherwise>
@@ -1243,9 +1248,11 @@ E-mail : info@antennahouse.com
         return:	  xs:string
         note:		Customizing this function make it possible to specify your own xref output option values.
     -->
-    <xsl:variable name="optXrefToTableTitleAndPage" as="xs:string" select="'title-page'"/>
-    <xsl:variable name="optXrefToTableTitleOnly" as="xs:string" select="'title-only'"/>
-    <xsl:variable name="optXrefToTablePageOnly" as="xs:string" select="'page-only'"/>
+    <xsl:variable name="optXrefToTableTitleAndPage" as="xs:string" select="ahf:getVarValue('optXrefToTableTitleAndPage')"/>
+    <xsl:variable name="optXrefToTableTitleOnly" as="xs:string" select="ahf:getVarValue('optXrefToTableTitleOnly')"/>
+    <xsl:variable name="optXrefToTablePageOnly" as="xs:string" select="ahf:getVarValue('optXrefToTablePageOnly')"/>
+    <!-- Currently not used: reserved for user customization -->
+    <xsl:variable name="optXrefToTableTitlePrefixOnly" as="xs:string" select="ahf:getVarValue('optXrefToTableTitlePrefixOnly')"/>
     
     <xsl:function name="ahf:getXrefToTableOption" as="xs:string*">
         <xsl:param name="prmXref" as="element()"/>
@@ -1259,6 +1266,9 @@ E-mail : info@antennahouse.com
             <xsl:when test="ahf:hasOutputClassValue($prmXref,$optXrefToTablePageOnly)">
                 <xsl:sequence select="$optXrefToTablePageOnly"/>
             </xsl:when>
+            <xsl:when test="ahf:hasOutputClassValue($prmXref,$optXrefToTableTitlePrefixOnly)">
+                <xsl:sequence select="$optXrefToTableTitlePrefixOnly"/>
+            </xsl:when>
             <xsl:otherwise>
                 <xsl:sequence select="()"/>
             </xsl:otherwise>
@@ -1271,9 +1281,9 @@ E-mail : info@antennahouse.com
         return:	  xs:string
         note:		Customizing this function make it possible to specify your own xref output option values.
     -->
-    <xsl:variable name="optXrefToEquationBlockNumberAndPage" as="xs:string" select="'number-page'"/>
-    <xsl:variable name="optXrefToEquationBlockNumberOnly" as="xs:string" select="'number-only'"/>
-    <xsl:variable name="optXrefToEquationBlockPageOnly" as="xs:string" select="'page-only'"/>
+    <xsl:variable name="optXrefToEquationBlockNumberAndPage" as="xs:string" select="ahf:getVarValue('optXrefToEquationBlockNumberAndPage')"/>
+    <xsl:variable name="optXrefToEquationBlockNumberOnly" as="xs:string" select="ahf:getVarValue('optXrefToEquationBlockNumberOnly')"/>
+    <xsl:variable name="optXrefToEquationBlockPageOnly" as="xs:string" select="ahf:getVarValue('optXrefToEquationBlockPageOnly')"/>
 
     <xsl:function name="ahf:getXrefToEquationBlockOption" as="xs:string*">
         <xsl:param name="prmXref" as="element()"/>
