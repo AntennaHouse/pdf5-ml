@@ -588,19 +588,31 @@ E-mail : info@antennahouse.com
                 </fo:inline>
             </xsl:when>
             <xsl:when test="$prmDestElement/*[contains(@class, ' topic/title ')]">
-                <xsl:variable name="tableTitle" as="node()*">
-                    <xsl:apply-templates select="$prmDestElement/*[contains(@class, ' topic/title ')]" mode="GET_CONTENTS"/>
-                </xsl:variable>
+                <xsl:variable name="opt" as="xs:string*" select="ahf:getXrefToTableOption($prmXref)"/>
                 <xsl:variable name="tableTitleHeading"
                     select="ahf:getTableTitlePrefix($prmTitleTopicRef,$prmDestElement)" 
                     as="xs:string"/>
-                <fo:inline>
-                    <xsl:copy-of select="$tableTitlePrefix"/>
-                    <xsl:value-of select="$tableTitleHeading"/>
-                    <xsl:text>&#x00A0;</xsl:text>
-                    <xsl:copy-of select="$tableTitle"/>
-                    <xsl:copy-of select="$tableTitleSuffix"/>
-                </fo:inline>
+                <xsl:choose>
+                    <xsl:when test="$opt = $optXrefToTableTitlePrefixOnly">
+                        <fo:inline>
+                            <xsl:copy-of select="$tableTitlePrefix"/>
+                            <xsl:value-of select="$tableTitleHeading"/>
+                            <xsl:copy-of select="$tableTitleSuffix"/>
+                        </fo:inline>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:variable name="tableTitle" as="node()*">
+                            <xsl:apply-templates select="$prmDestElement/*[contains(@class, ' topic/title ')]" mode="GET_CONTENTS"/>
+                        </xsl:variable>
+                        <fo:inline>
+                            <xsl:copy-of select="$tableTitlePrefix"/>
+                            <xsl:value-of select="$tableTitleHeading"/>
+                            <xsl:text>&#x00A0;</xsl:text>
+                            <xsl:copy-of select="$tableTitle"/>
+                            <xsl:copy-of select="$tableTitleSuffix"/>
+                        </fo:inline>
+                    </xsl:otherwise>
+                </xsl:choose>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:call-template name="warningContinue">
@@ -643,20 +655,31 @@ E-mail : info@antennahouse.com
                 </fo:inline>
             </xsl:when>
             <xsl:when test="$prmDestElement/*[contains(@class, ' topic/title ')]">
-                <xsl:variable name="figTitle" as="node()*">
-                    <xsl:apply-templates select="$prmDestElement/*[contains(@class, ' topic/title ')]" mode="GET_CONTENTS"/>
-                </xsl:variable>
-                
+                <xsl:variable name="opt" as="xs:string*" select="ahf:getXrefToFigOption($prmXref)"/>
                 <xsl:variable name="figTitleHeading"
                     select="ahf:getFigTitlePrefix($prmTitleTopicRef,$prmDestElement)" 
                     as="xs:string"/>
-                <fo:inline>
-                    <xsl:copy-of select="$figTitlePrefix"/>
-                    <xsl:value-of select="$figTitleHeading"/>
-                    <xsl:text>&#x00A0;</xsl:text>
-                    <xsl:copy-of select="$figTitle"/>
-                    <xsl:copy-of select="$figTitleSuffix"/>
-                </fo:inline>
+                <xsl:choose>
+                    <xsl:when test="$opt = $optXrefToTableTitlePrefixOnly">
+                        <fo:inline>
+                            <xsl:copy-of select="$figTitlePrefix"/>
+                            <xsl:value-of select="$figTitleHeading"/>
+                            <xsl:copy-of select="$figTitleSuffix"/>
+                        </fo:inline>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:variable name="figTitle" as="node()*">
+                            <xsl:apply-templates select="$prmDestElement/*[contains(@class, ' topic/title ')]" mode="GET_CONTENTS"/>
+                        </xsl:variable>
+                        <fo:inline>
+                            <xsl:copy-of select="$figTitlePrefix"/>
+                            <xsl:value-of select="$figTitleHeading"/>
+                            <xsl:text>&#x00A0;</xsl:text>
+                            <xsl:copy-of select="$figTitle"/>
+                            <xsl:copy-of select="$figTitleSuffix"/>
+                        </fo:inline>
+                    </xsl:otherwise>
+                </xsl:choose>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:call-template name="warningContinue">
@@ -1087,7 +1110,10 @@ E-mail : info@antennahouse.com
                                 <xsl:with-param name="prmVarName" select="'Xref_Suffix_Page_Only'"/>
                                 <xsl:with-param name="prmElem" select="$prmXref"/>
                             </xsl:call-template>
-                        </xsl:when>    
+                        </xsl:when>
+                        <xsl:when test="$opt = $optXrefToTableTitlePrefixOnly">
+                            <xsl:copy-of  select="$prmXrefTitle"/>
+                        </xsl:when>
                     </xsl:choose>
                 </fo:inline>
             </xsl:when>
@@ -1126,6 +1152,9 @@ E-mail : info@antennahouse.com
                                 <xsl:with-param name="prmElem" select="$prmXref"/>
                             </xsl:call-template>
                         </xsl:when>    
+                        <xsl:when test="$opt = $optXrefToFigTitlePrefixOnly">
+                            <xsl:copy-of  select="$prmXrefTitle"/>
+                        </xsl:when>
                     </xsl:choose>
                 </fo:inline>
             </xsl:when>
