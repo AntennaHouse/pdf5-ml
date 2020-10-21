@@ -1446,7 +1446,6 @@ E-mail : info@antennahouse.com
     <xsl:variable name="optXrefToFigTitleAndPage" as="xs:string" select="ahf:getVarValue('optXrefToFigTitleAndPage')"/>
     <xsl:variable name="optXrefToFigTitleOnly" as="xs:string" select="ahf:getVarValue('optXrefToFigTitleOnly')"/>
     <xsl:variable name="optXrefToFigPageOnly" as="xs:string" select="ahf:getVarValue('optXrefToFigPageOnly')"/>
-    <!-- Currently not used: reserved for user customization -->
     <xsl:variable name="optXrefToFigTitlePrefixOnly" as="xs:string" select="ahf:getVarValue('optXrefToFigTitlePrefixOnly')"/>
     
     <xsl:function name="ahf:getXrefToFigOption" as="xs:string*">
@@ -1479,7 +1478,6 @@ E-mail : info@antennahouse.com
     <xsl:variable name="optXrefToTableTitleAndPage" as="xs:string" select="ahf:getVarValue('optXrefToTableTitleAndPage')"/>
     <xsl:variable name="optXrefToTableTitleOnly" as="xs:string" select="ahf:getVarValue('optXrefToTableTitleOnly')"/>
     <xsl:variable name="optXrefToTablePageOnly" as="xs:string" select="ahf:getVarValue('optXrefToTablePageOnly')"/>
-    <!-- Currently not used: reserved for user customization -->
     <xsl:variable name="optXrefToTableTitlePrefixOnly" as="xs:string" select="ahf:getVarValue('optXrefToTableTitlePrefixOnly')"/>
     
     <xsl:function name="ahf:getXrefToTableOption" as="xs:string*">
