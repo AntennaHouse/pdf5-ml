@@ -130,7 +130,8 @@ E-mail : info@antennahouse.com
                   prmDestElement: target of the xref
      return:      fo:inline (title string)
      note:		THIS TEMPLATE DOES NOT GENERATE @id ATTRIBUTE
-                  
+                  This template has been divided into sub-templates that handles each xref target.
+                  2020-10-21 t.makita
      -->
     <xsl:template name="getXrefTitle" as="node()*">
         <xsl:param name="prmTitleTopicRef" required="yes" as="element()?"/>
@@ -164,482 +165,680 @@ E-mail : info@antennahouse.com
                  2019-05-01 t.makita
               -->
             <xsl:when test="$prmDestElement[contains(@class, ' topic/topic ')]">
-                <xsl:variable name="titleMode" select="ahf:getTitleMode($prmTitleTopicRef,$prmDestElement)"/>
-                <xsl:variable name="topicTitleHeading" as="xs:string">
-                    <xsl:choose>
-                        <xsl:when test="$titleMode eq $cSquareBulletTitleMode">
-                            <xsl:call-template name="getVarValueWithLang">
-                                <xsl:with-param name="prmVarName" select="'Level4_Label_Char'"/>
-                                <xsl:with-param name="prmElem" select="$prmDestElement"/>
-                            </xsl:call-template>
-                        </xsl:when>
-                        <xsl:when test="$titleMode eq $cRoundBulletTitleMode">
-                            <xsl:call-template name="getVarValueWithLang">
-                                <xsl:with-param name="prmVarName" select="'Level5_Label_Char'"/>
-                                <xsl:with-param name="prmElem" select="$prmDestElement"/>
-                            </xsl:call-template>
-                        </xsl:when>
-                        <xsl:when test="$pAddNumberingTitlePrefix">
-                            <xsl:call-template name="genTitlePrefix">
-                                <xsl:with-param name="prmTopicRef" select="$prmTitleTopicRef"/>
-                            </xsl:call-template>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <xsl:sequence select="''"/>
-                        </xsl:otherwise>
-                    </xsl:choose>
-                </xsl:variable>
-                <xsl:variable name="topicTitleBody" as="node()*">
-                    <xsl:apply-templates select="$prmDestElement/*[contains(@class, ' topic/title ')]" mode="GET_CONTENTS"/>
-                </xsl:variable>
-                <xsl:variable name="topicTitlePrefix" as="text()?">
-                    <xsl:call-template name="getVarValueWithLangAsText">
-                        <xsl:with-param name="prmVarName" select="'Xref_Title_Prefix'"/>
-                        <xsl:with-param name="prmElem" select="$prmXref"/>
-                    </xsl:call-template>
-                </xsl:variable>
-                <xsl:variable name="topicTitleSuffix" as="text()?">
-                    <xsl:call-template name="getVarValueWithLangAsText">
-                        <xsl:with-param name="prmVarName" select="'Xref_Title_Suffix'"/>
-                        <xsl:with-param name="prmElem" select="$prmXref"/>
-                    </xsl:call-template>
-                </xsl:variable>
-                <xsl:choose>
-                    <xsl:when test="$hasUserContent">
-                        <fo:inline>
-                            <xsl:copy-of select="$topicTitlePrefix"/>
-                            <xsl:copy-of select="$userContent"/>
-                            <xsl:copy-of select="$topicTitleSuffix"/>
-                        </fo:inline>
-                    </xsl:when>
-                    <xsl:when test="string($topicTitleHeading)">
-                        <fo:inline>
-                            <xsl:copy-of select="$topicTitlePrefix"/>
-                            <xsl:value-of select="$topicTitleHeading"/>
-                            <xsl:text>&#x00A0;</xsl:text>
-                            <xsl:copy-of select="$topicTitleBody"/>
-                            <xsl:copy-of select="$topicTitleSuffix"/>
-                        </fo:inline>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <fo:inline>
-                            <xsl:copy-of select="$topicTitlePrefix"/>
-                            <xsl:copy-of select="$topicTitleBody"/>
-                            <xsl:copy-of select="$topicTitleSuffix"/>
-                        </fo:inline>
-                    </xsl:otherwise>
-                </xsl:choose>
+                <xsl:call-template name="getXrefTitleTopic">
+                    <xsl:with-param name="prmTitleTopicRef" select="$prmTitleTopicRef"/>
+                    <xsl:with-param name="prmTopicRef"      select="$prmTopicRef"/>
+                    <xsl:with-param name="prmXref"          select="$prmXref"/>
+                    <xsl:with-param name="prmDestElement"   select="$prmDestElement"/>
+                </xsl:call-template>
             </xsl:when>
             
             <!-- section -->
             <xsl:when test="$prmDestElement[contains(@class, ' topic/section ')]">
-                <xsl:variable name="sectionTitlePrefix" as="text()?">
-                    <xsl:call-template name="getVarValueWithLangAsText">
-                        <xsl:with-param name="prmVarName" select="'Xref_Title_Prefix'"/>
-                        <xsl:with-param name="prmElem" select="$prmXref"/>
-                    </xsl:call-template>
-                </xsl:variable>
-                <xsl:variable name="sectionTitleSuffix" as="text()?">
-                    <xsl:call-template name="getVarValueWithLangAsText">
-                        <xsl:with-param name="prmVarName" select="'Xref_Title_Suffix'"/>
-                        <xsl:with-param name="prmElem" select="$prmXref"/>
-                    </xsl:call-template>
-                </xsl:variable>
-                <xsl:choose>
-                    <xsl:when test="$hasUserContent">
-                        <fo:inline>
-                            <xsl:copy-of select="$sectionTitlePrefix"/>
-                            <xsl:copy-of select="$userContent"/>
-                            <xsl:copy-of select="$sectionTitleSuffix"/>
-                        </fo:inline>
-                    </xsl:when>
-                    <xsl:when test="$prmDestElement/*[contains(@class, ' topic/title ')]">
-                        <xsl:variable name="sectionTitle" as="node()*">
-                            <xsl:apply-templates select="$prmDestElement/*[contains(@class, ' topic/title ')]" mode="GET_CONTENTS"/>
-                        </xsl:variable>
-                        <fo:inline>
-                            <xsl:copy-of select="$sectionTitlePrefix"/>
-                            <xsl:call-template name="getVarValueWithLangAsText">
-                                <xsl:with-param name="prmVarName" select="'Level5_Label_Char'"/>
-                                <xsl:with-param name="prmElem" select="$prmDestElement"/>
-                            </xsl:call-template>
-                            <xsl:text>&#x00A0;</xsl:text>
-                            <xsl:copy-of select="$sectionTitle"/>
-                            <xsl:copy-of select="$sectionTitleSuffix"/>
-                        </fo:inline>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:call-template name="warningContinue">
-                            <xsl:with-param name="prmMes" 
-                                select="ahf:replace($stMes031,('%id','%file'),(string($prmDestElement/@id),string($prmDestElement/@xtrf)))"/>
-                        </xsl:call-template>
-                        <xsl:sequence select="()"/>
-                    </xsl:otherwise>
-                </xsl:choose>
+                <xsl:call-template name="getXrefTitleSection">
+                    <xsl:with-param name="prmTitleTopicRef" select="$prmTitleTopicRef"/>
+                    <xsl:with-param name="prmTopicRef"      select="$prmTopicRef"/>
+                    <xsl:with-param name="prmXref"          select="$prmXref"/>
+                    <xsl:with-param name="prmDestElement"   select="$prmDestElement"/>
+                </xsl:call-template>
             </xsl:when>
             
             <!-- example -->
             <xsl:when test="$prmDestElement[contains(@class, ' topic/example ')]">
-                <xsl:variable name="exampleTitlePrefix" as="text()?">
-                    <xsl:call-template name="getVarValueWithLangAsText">
-                        <xsl:with-param name="prmVarName" select="'Xref_Title_Prefix'"/>
-                        <xsl:with-param name="prmElem" select="$prmXref"/>
-                    </xsl:call-template>
-                </xsl:variable>
-                <xsl:variable name="exampleTitleSuffix" as="text()?">
-                    <xsl:call-template name="getVarValueWithLangAsText">
-                        <xsl:with-param name="prmVarName" select="'Xref_Title_Suffix'"/>
-                        <xsl:with-param name="prmElem" select="$prmXref"/>
-                    </xsl:call-template>
-                </xsl:variable>
-                <xsl:choose>
-                    <xsl:when test="$hasUserContent">
-                        <fo:inline>
-                            <xsl:copy-of select="$exampleTitlePrefix"/>
-                            <xsl:copy-of select="$userContent"/>
-                            <xsl:copy-of select="$exampleTitleSuffix"/>
-                        </fo:inline>
-                    </xsl:when>
-                    <xsl:when test="$prmDestElement/*[contains(@class, ' topic/title ')]">
-                        <xsl:variable name="exampleTitle" as="node()*">
-                            <xsl:apply-templates select="$prmDestElement/*[contains(@class, ' topic/title ')]" mode="GET_CONTENTS"/>
-                        </xsl:variable>
-                        <fo:inline>
-                            <xsl:copy-of select="$exampleTitlePrefix"/>
-                            <xsl:call-template name="getVarValueWithLangAsText">
-                                <xsl:with-param name="prmVarName" select="'Level5_Label_Char'"/>
-                                <xsl:with-param name="prmElem" select="$prmDestElement"/>
-                            </xsl:call-template>
-                            <xsl:text>&#x00A0;</xsl:text>
-                            <xsl:copy-of select="$exampleTitle"/>
-                            <xsl:copy-of select="$exampleTitleSuffix"/>
-                        </fo:inline>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:call-template name="warningContinue">
-                            <xsl:with-param name="prmMes" 
-                                select="ahf:replace($stMes032,('%id','%file'),(string($prmDestElement/@id),string($prmDestElement/@xtrf)))"/>
-                        </xsl:call-template>
-                        <xsl:sequence select="()"/>
-                    </xsl:otherwise>
-                </xsl:choose>
+                <xsl:call-template name="getXrefTitleExample">
+                    <xsl:with-param name="prmTitleTopicRef" select="$prmTitleTopicRef"/>
+                    <xsl:with-param name="prmTopicRef"      select="$prmTopicRef"/>
+                    <xsl:with-param name="prmXref"          select="$prmXref"/>
+                    <xsl:with-param name="prmDestElement"   select="$prmDestElement"/>
+                </xsl:call-template>
             </xsl:when>
             
             <!-- step/substep -->
             <xsl:when test="$prmDestElement[ahf:seqContains(@class, (' task/step ',' task/substep '))][ancestor::*[contains(@class,' task/steps ')]]">
-                <xsl:choose>
-                    <xsl:when test="$hasUserContent">
-                        <xsl:copy-of select="$userContent"/>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <!-- Prefix of step: "step" -->
-                        <xsl:variable name="stepHeading" as="xs:string">
-                            <xsl:call-template name="getVarValueWithLang">
-                                <xsl:with-param name="prmVarName" select="'Xref_Step_Prefix'"/>
-                                <xsl:with-param name="prmElem" select="$prmDestElement"/>
-                            </xsl:call-template>
-                        </xsl:variable>
-                        <xsl:variable name="stepsNumberFormat" as="xs:string+">
-                            <xsl:call-template name="getVarValueWithLangAsStringSequence">
-                                <xsl:with-param name="prmVarName" select="'Step_Number_Formats_For_Xref'"/>
-                            </xsl:call-template>
-                        </xsl:variable>
-                        <xsl:choose>
-                            <xsl:when test="$prmDestElement[contains(@class, ' task/step ')]">
-                                <xsl:variable name="numberFormat" select="ahf:getOlNumberFormat($prmDestElement/parent::*,$stepsNumberFormat)" as="xs:string"/>
-                                <fo:inline>
-                                    <xsl:copy-of select="$stepHeading"/>
-                                    <xsl:number format="{$numberFormat}" value="ahf:getStepNumber($prmDestElement)"/>
-                                </fo:inline>
-                            </xsl:when>
-                            <xsl:otherwise>
-                                <xsl:variable name="thisStepsNumberFormat" select="ahf:getOlNumberFormat($prmDestElement/parent::*/parent::*/parent::*,$stepsNumberFormat)" as="xs:string"/>
-                                <xsl:variable name="thisSubStepsNumberFormat" select="ahf:getOlNumberFormat($prmDestElement/parent::*,$stepsNumberFormat)" as="xs:string"/>
-                                <xsl:variable name="stepSubstepSeparator" as="text()?">
-                                    <xsl:call-template name="getVarValueWithLangAsText">
-                                        <xsl:with-param name="prmVarName" select="'Xref_Step_Substep_Separator'"/>
-                                        <xsl:with-param name="prmElem" select="$prmDestElement"/>
-                                    </xsl:call-template>
-                                </xsl:variable>
-                                <fo:inline>
-                                    <xsl:copy-of select="$stepHeading"/>
-                                    <xsl:number format="{$thisStepsNumberFormat}" value="ahf:getStepNumber($prmDestElement/parent::*/parent::*)"/>
-                                    <xsl:copy-of select="$stepSubstepSeparator"/>
-                                    <xsl:number format="{$thisSubStepsNumberFormat}" value="ahf:getStepNumber($prmDestElement)"/>
-                                </fo:inline>
-                            </xsl:otherwise>
-                        </xsl:choose>
-                    </xsl:otherwise>
-                </xsl:choose>
+                <xsl:call-template name="getXrefTitleStep">
+                    <xsl:with-param name="prmTitleTopicRef" select="$prmTitleTopicRef"/>
+                    <xsl:with-param name="prmTopicRef"      select="$prmTopicRef"/>
+                    <xsl:with-param name="prmXref"          select="$prmXref"/>
+                    <xsl:with-param name="prmDestElement"   select="$prmDestElement"/>
+                </xsl:call-template>
             </xsl:when>
             
             <!-- ol/li -->
             <xsl:when test="$prmDestElement[contains(@class, ' topic/li ')][parent::*[contains(@class,' topic/ol ')]]">
-                <xsl:choose>
-                    <xsl:when test="$hasUserContent">
-                        <xsl:copy-of select="$userContent"/>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <!-- Prefix of ol -->
-                        <xsl:variable name="olNumberFormat" as="xs:string*">
-                            <xsl:variable name="olNumberFormats" as="xs:string">
-                                <xsl:call-template name="getVarValueWithLang">
-                                    <xsl:with-param name="prmVarName" select="'Ol_Number_Formats_For_Xref'"/>
-                                    <xsl:with-param name="prmElem" select="$prmDestElement"/>
-                                </xsl:call-template>
-                            </xsl:variable>
-                            <xsl:for-each select="tokenize($olNumberFormats, '[\s]+')">
-                                <xsl:sequence select="."/>
-                            </xsl:for-each>
-                        </xsl:variable>
-                        <xsl:variable name="olFormat" as="xs:string" select="ahf:getOlNumberFormat($prmDestElement,$olNumberFormat)"/>
-                        <fo:inline>
-                            <xsl:number format="{$olFormat}" 
-                                value="count($prmDestElement | $prmDestElement/preceding-sibling::*[contains(@class, ' topic/li ')])"/>
-                        </fo:inline>
-                    </xsl:otherwise>
-                </xsl:choose>
+                <xsl:call-template name="getXrefTitleOlLi">
+                    <xsl:with-param name="prmTitleTopicRef" select="$prmTitleTopicRef"/>
+                    <xsl:with-param name="prmTopicRef"      select="$prmTopicRef"/>
+                    <xsl:with-param name="prmXref"          select="$prmXref"/>
+                    <xsl:with-param name="prmDestElement"   select="$prmDestElement"/>
+                </xsl:call-template>
             </xsl:when>
             
             <!-- table -->
             <xsl:when test="$prmDestElement[contains(@class, ' topic/table ')]">
-                <xsl:variable name="tableTitlePrefix" as="text()?">
-                    <xsl:call-template name="getVarValueWithLangAsText">
-                        <xsl:with-param name="prmVarName" select="'Xref_Title_Prefix'"/>
-                        <xsl:with-param name="prmElem" select="$prmXref"/>
-                    </xsl:call-template>
-                </xsl:variable>
-                <xsl:variable name="tableTitleSuffix" as="text()?">
-                    <xsl:call-template name="getVarValueWithLangAsText">
-                        <xsl:with-param name="prmVarName" select="'Xref_Title_Suffix'"/>
-                        <xsl:with-param name="prmElem" select="$prmXref"/>
-                    </xsl:call-template>
-                </xsl:variable>
-                <xsl:choose>
-                    <xsl:when test="$hasUserContent">
-                        <fo:inline>
-                            <xsl:copy-of select="$tableTitlePrefix"/>
-                            <xsl:copy-of select="$userContent"/>
-                            <xsl:copy-of select="$tableTitleSuffix"/>
-                        </fo:inline>
-                    </xsl:when>
-                    <xsl:when test="$prmDestElement/*[contains(@class, ' topic/title ')]">
-                        <xsl:variable name="tableTitle" as="node()*">
-                            <xsl:apply-templates select="$prmDestElement/*[contains(@class, ' topic/title ')]" mode="GET_CONTENTS"/>
-                        </xsl:variable>
-                        <xsl:variable name="tableTitleHeading"
-                            select="ahf:getTableTitlePrefix($prmTitleTopicRef,$prmDestElement)" 
-                            as="xs:string"/>
-                        <fo:inline>
-                            <xsl:copy-of select="$tableTitlePrefix"/>
-                            <xsl:value-of select="$tableTitleHeading"/>
-                            <xsl:text>&#x00A0;</xsl:text>
-                            <xsl:copy-of select="$tableTitle"/>
-                            <xsl:copy-of select="$tableTitleSuffix"/>
-                        </fo:inline>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:call-template name="warningContinue">
-                            <xsl:with-param name="prmMes"
-                                select="ahf:replace($stMes033,('%id','%file'),(string($prmDestElement/@id),string($prmDestElement/@xtrf)))"/>
-                        </xsl:call-template>
-                        <xsl:sequence select="()"/>
-                    </xsl:otherwise>
-                </xsl:choose>
+                <xsl:call-template name="getXrefTitleTable">
+                    <xsl:with-param name="prmTitleTopicRef" select="$prmTitleTopicRef"/>
+                    <xsl:with-param name="prmTopicRef"      select="$prmTopicRef"/>
+                    <xsl:with-param name="prmXref"          select="$prmXref"/>
+                    <xsl:with-param name="prmDestElement"   select="$prmDestElement"/>
+                </xsl:call-template>
             </xsl:when>
             
             <!-- fig -->
             <xsl:when test="$prmDestElement[contains(@class, ' topic/fig ')]">
-                <xsl:variable name="figTitlePrefix" as="text()?">
-                    <xsl:call-template name="getVarValueWithLangAsText">
-                        <xsl:with-param name="prmVarName" select="'Xref_Title_Prefix'"/>
-                        <xsl:with-param name="prmElem" select="$prmXref"/>
-                    </xsl:call-template>
-                </xsl:variable>
-                <xsl:variable name="figTitleSuffix" as="text()?">
-                    <xsl:call-template name="getVarValueWithLangAsText">
-                        <xsl:with-param name="prmVarName" select="'Xref_Title_Suffix'"/>
-                        <xsl:with-param name="prmElem" select="$prmXref"/>
-                    </xsl:call-template>
-                </xsl:variable>
-                <xsl:choose>
-                    <xsl:when test="$hasUserContent">
-                        <fo:inline>
-                            <xsl:copy-of select="$figTitlePrefix"/>
-                            <xsl:copy-of select="$userContent"/>
-                            <xsl:copy-of select="$figTitleSuffix"/>
-                        </fo:inline>
-                    </xsl:when>
-                    <xsl:when test="$prmDestElement/*[contains(@class, ' topic/title ')]">
-                        <xsl:variable name="figTitle" as="node()*">
-                            <xsl:apply-templates select="$prmDestElement/*[contains(@class, ' topic/title ')]" mode="GET_CONTENTS"/>
-                        </xsl:variable>
-                        
-                        <xsl:variable name="figTitleHeading"
-                            select="ahf:getFigTitlePrefix($prmTitleTopicRef,$prmDestElement)" 
-                            as="xs:string"/>
-                        <fo:inline>
-                            <xsl:copy-of select="$figTitlePrefix"/>
-                            <xsl:value-of select="$figTitleHeading"/>
-                            <xsl:text>&#x00A0;</xsl:text>
-                            <xsl:copy-of select="$figTitle"/>
-                            <xsl:copy-of select="$figTitleSuffix"/>
-                        </fo:inline>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:call-template name="warningContinue">
-                            <xsl:with-param name="prmMes"
-                                select="ahf:replace($stMes034,('%id','%file'),(string($prmDestElement/@id),string($prmDestElement/@xtrf)))"/>
-                        </xsl:call-template>
-                        <xsl:sequence select="()"/>
-                    </xsl:otherwise>
-                </xsl:choose>
+                <xsl:call-template name="getXrefTitleFig">
+                    <xsl:with-param name="prmTitleTopicRef" select="$prmTitleTopicRef"/>
+                    <xsl:with-param name="prmTopicRef"      select="$prmTopicRef"/>
+                    <xsl:with-param name="prmXref"          select="$prmXref"/>
+                    <xsl:with-param name="prmDestElement"   select="$prmDestElement"/>
+                </xsl:call-template>
             </xsl:when>
 
             <!-- equation-block -->
             <xsl:when test="$prmDestElement[contains(@class, ' equation-d/equation-block ')]">
-                <xsl:variable name="equationNumber" as="element()?" select="($prmDestElement/*[contains(@class, ' equation-d/equation-number ')])[1]"/>
-                <xsl:variable name="equtionNumberResult" as="node()*">
-                    <xsl:choose>
-                        <xsl:when test="$hasUserContent">
-                            <xsl:copy-of select="$userContent"/>
-                        </xsl:when>
-                        <xsl:when test="$pNumberEquationBlockUnconditionally and empty($equationNumber)">
-                            <xsl:variable name="autoEquationNumber" as="xs:string">
-                                <xsl:call-template name="ahf:getAutoEquationNumber">
-                                    <xsl:with-param name="prmTopicRef" tunnel="yes" select="$prmTitleTopicRef"/>
-                                    <xsl:with-param name="prmEquationNumber" select="$prmDestElement"/>
-                                </xsl:call-template>
-                            </xsl:variable>
-                            <xsl:call-template name="getVarValueWithLangAsText">
-                                <xsl:with-param name="prmVarName" select="'Equation_Number_Ref_Prefix'"/>
-                                <xsl:with-param name="prmElem" select="$prmDestElement"/>
-                            </xsl:call-template>
-                            <xsl:call-template name="getVarValueWithLangAsText">
-                                <xsl:with-param name="prmVarName" select="'Equation_Number_Prefix'"/>
-                                <xsl:with-param name="prmElem" select="$prmDestElement"/>
-                            </xsl:call-template>
-                            <xsl:value-of select="$autoEquationNumber"/>
-                            <xsl:call-template name="getVarValueWithLangAsText">
-                                <xsl:with-param name="prmVarName" select="'Equation_Number_Suffix'"/>
-                                <xsl:with-param name="prmElem" select="$prmDestElement"/>
-                            </xsl:call-template>
-                        </xsl:when>
-                        <xsl:when test="$prmDestElement/*[contains(@class, ' equation-d/equation-number ')]">
-                            <xsl:call-template name="getVarValueWithLangAsText">
-                                <xsl:with-param name="prmVarName" select="'Equation_Number_Ref_Prefix'"/>
-                                <xsl:with-param name="prmElem" select="$equationNumber"/>
-                            </xsl:call-template>
-                            <xsl:call-template name="getVarValueWithLangAsText">
-                                <xsl:with-param name="prmVarName" select="'Equation_Number_Prefix'"/>
-                                <xsl:with-param name="prmElem" select="$equationNumber"/>
-                            </xsl:call-template>
-                            <xsl:choose>
-                                <xsl:when test="ahf:isAutoEquationNumber($equationNumber)">
-                                    <xsl:variable name="autoEquationNumber" as="xs:string">
-                                        <xsl:call-template name="ahf:getAutoEquationNumber">
-                                            <xsl:with-param name="prmTopicRef" tunnel="yes" select="$prmTitleTopicRef"/>
-                                            <xsl:with-param name="prmEquationNumber" select="$equationNumber"/>
-                                        </xsl:call-template>
-                                    </xsl:variable>
-                                    <xsl:value-of select="$autoEquationNumber"/>
-                                </xsl:when>
-                                <xsl:otherwise>
-                                    <xsl:apply-templates select="$equationNumber" mode="GET_CONTENTS"/>
-                                </xsl:otherwise>
-                            </xsl:choose>
-                            <xsl:call-template name="getVarValueWithLangAsText">
-                                <xsl:with-param name="prmVarName" select="'Equation_Number_Suffix'"/>
-                                <xsl:with-param name="prmElem" select="$equationNumber"/>
-                            </xsl:call-template>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <!-- equation-block without equation-number -->
-                            <xsl:apply-templates select="$prmXref" mode="GET_CONTENTS"/>
-                        </xsl:otherwise>
-                    </xsl:choose>    
-                </xsl:variable>
-                <fo:inline>
-                    <xsl:copy-of select="$equtionNumberResult"/>
-                </fo:inline>
+                <xsl:call-template name="getXrefTitleEquationBlock">
+                    <xsl:with-param name="prmTitleTopicRef" select="$prmTitleTopicRef"/>
+                    <xsl:with-param name="prmTopicRef"      select="$prmTopicRef"/>
+                    <xsl:with-param name="prmXref"          select="$prmXref"/>
+                    <xsl:with-param name="prmDestElement"   select="$prmDestElement"/>
+                </xsl:call-template>
             </xsl:when>
             
             <!-- fn -->
             <xsl:when test="$prmDestElement[contains(@class, ' topic/fn ')]">
-                <xsl:variable name="fnTitle" as="xs:string" select="ahf:getFootnotePrefix($prmDestElement, $prmTitleTopicRef)"/>
-                <fo:inline>
-                    <xsl:value-of select="$fnTitle"/>
-                </fo:inline>
+                <xsl:call-template name="getXrefTitleFn">
+                    <xsl:with-param name="prmTitleTopicRef" select="$prmTitleTopicRef"/>
+                    <xsl:with-param name="prmTopicRef"      select="$prmTopicRef"/>
+                    <xsl:with-param name="prmXref"          select="$prmXref"/>
+                    <xsl:with-param name="prmDestElement"   select="$prmDestElement"/>
+                </xsl:call-template>
             </xsl:when>
             
             <!-- Other elements that have title -->
             <xsl:when test="$prmDestElement[child::*[contains(@class, ' topic/title ')]]">
-                <xsl:variable name="otherTitlePrefix" as="text()?">
-                    <xsl:call-template name="getVarValueWithLangAsText">
-                        <xsl:with-param name="prmVarName" select="'Xref_Title_Prefix'"/>
-                        <xsl:with-param name="prmElem" select="$prmXref"/>
-                    </xsl:call-template>
-                </xsl:variable>
-                <xsl:variable name="otherTitleSuffix" as="text()?">
-                    <xsl:call-template name="getVarValueWithLangAsText">
-                        <xsl:with-param name="prmVarName" select="'Xref_Title_Suffix'"/>
-                        <xsl:with-param name="prmElem" select="$prmXref"/>
-                    </xsl:call-template>
-                </xsl:variable>
-                <xsl:choose>
-                    <xsl:when test="$hasUserContent">
-                        <xsl:copy-of select="$otherTitlePrefix"/>
-                        <xsl:copy-of select="$userContent"/>
-                        <xsl:copy-of select="$otherTitleSuffix"/>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:variable name="title" as="node()*">
-                            <xsl:apply-templates select="$prmDestElement/*[contains(@class, ' topic/title ')]" mode="GET_CONTENTS"/>
-                        </xsl:variable>
-                         <fo:inline>
-                            <xsl:copy-of select="$otherTitlePrefix"/>
-                            <xsl:copy-of select="$title"/>
-                            <xsl:copy-of select="$otherTitleSuffix"/>
-                        </fo:inline>
-                    </xsl:otherwise>
-                </xsl:choose>
+                <xsl:call-template name="getXrefTitleOther1">
+                    <xsl:with-param name="prmTitleTopicRef" select="$prmTitleTopicRef"/>
+                    <xsl:with-param name="prmTopicRef"      select="$prmTopicRef"/>
+                    <xsl:with-param name="prmXref"          select="$prmXref"/>
+                    <xsl:with-param name="prmDestElement"   select="$prmDestElement"/>
+                </xsl:call-template>
             </xsl:when>
             
             <!-- Others: Adopt the content of xref itself if user supplied text exists.
                          Otherwise adopt the destination element content
              -->
             <xsl:otherwise>
-                <xsl:variable name="otherTitlePrefix" as="text()?">
+                <xsl:call-template name="getXrefTitleOther2">
+                    <xsl:with-param name="prmTitleTopicRef" select="$prmTitleTopicRef"/>
+                    <xsl:with-param name="prmTopicRef"      select="$prmTopicRef"/>
+                    <xsl:with-param name="prmXref"          select="$prmXref"/>
+                    <xsl:with-param name="prmDestElement"   select="$prmDestElement"/>
+                </xsl:call-template>
+            </xsl:otherwise>
+        </xsl:choose>
+
+    </xsl:template>
+
+    <xsl:template name="getXrefTitleTopic">
+        <xsl:param name="prmTitleTopicRef" required="yes" as="element()?"/>
+        <xsl:param name="prmTopicRef"      required="yes" as="element()?"/>
+        <xsl:param name="prmXref"          required="yes" as="element()"/>
+        <xsl:param name="prmDestElement"   required="yes" as="element()?"/>
+
+        <xsl:variable name="hasUserContent" as="xs:boolean" select="exists($prmXref/node()[1][self::processing-instruction(ditaot)][string(.) eq 'usertext'])"/>
+        <xsl:variable name="userContent" as="node()*">
+            <xsl:apply-templates select="$prmXref/node() except *[contains(@class,' topic/desc ')]" mode="GET_CONTENTS"/>
+        </xsl:variable>
+        <xsl:variable name="titleMode" select="ahf:getTitleMode($prmTitleTopicRef,$prmDestElement)"/>
+        <xsl:variable name="topicTitleHeading" as="xs:string">
+            <xsl:choose>
+                <xsl:when test="$titleMode eq $cSquareBulletTitleMode">
+                    <xsl:call-template name="getVarValueWithLang">
+                        <xsl:with-param name="prmVarName" select="'Level4_Label_Char'"/>
+                        <xsl:with-param name="prmElem" select="$prmDestElement"/>
+                    </xsl:call-template>
+                </xsl:when>
+                <xsl:when test="$titleMode eq $cRoundBulletTitleMode">
+                    <xsl:call-template name="getVarValueWithLang">
+                        <xsl:with-param name="prmVarName" select="'Level5_Label_Char'"/>
+                        <xsl:with-param name="prmElem" select="$prmDestElement"/>
+                    </xsl:call-template>
+                </xsl:when>
+                <xsl:when test="$pAddNumberingTitlePrefix">
+                    <xsl:call-template name="genTitlePrefix">
+                        <xsl:with-param name="prmTopicRef" select="$prmTitleTopicRef"/>
+                    </xsl:call-template>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:sequence select="''"/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:variable name="topicTitleBody" as="node()*">
+            <xsl:apply-templates select="$prmDestElement/*[contains(@class, ' topic/title ')]" mode="GET_CONTENTS"/>
+        </xsl:variable>
+        <xsl:variable name="topicTitlePrefix" as="text()?">
+            <xsl:call-template name="getVarValueWithLangAsText">
+                <xsl:with-param name="prmVarName" select="'Xref_Title_Prefix'"/>
+                <xsl:with-param name="prmElem" select="$prmXref"/>
+            </xsl:call-template>
+        </xsl:variable>
+        <xsl:variable name="topicTitleSuffix" as="text()?">
+            <xsl:call-template name="getVarValueWithLangAsText">
+                <xsl:with-param name="prmVarName" select="'Xref_Title_Suffix'"/>
+                <xsl:with-param name="prmElem" select="$prmXref"/>
+            </xsl:call-template>
+        </xsl:variable>
+        <xsl:choose>
+            <xsl:when test="$hasUserContent">
+                <fo:inline>
+                    <xsl:copy-of select="$topicTitlePrefix"/>
+                    <xsl:copy-of select="$userContent"/>
+                    <xsl:copy-of select="$topicTitleSuffix"/>
+                </fo:inline>
+            </xsl:when>
+            <xsl:when test="string($topicTitleHeading)">
+                <fo:inline>
+                    <xsl:copy-of select="$topicTitlePrefix"/>
+                    <xsl:value-of select="$topicTitleHeading"/>
+                    <xsl:text>&#x00A0;</xsl:text>
+                    <xsl:copy-of select="$topicTitleBody"/>
+                    <xsl:copy-of select="$topicTitleSuffix"/>
+                </fo:inline>
+            </xsl:when>
+            <xsl:otherwise>
+                <fo:inline>
+                    <xsl:copy-of select="$topicTitlePrefix"/>
+                    <xsl:copy-of select="$topicTitleBody"/>
+                    <xsl:copy-of select="$topicTitleSuffix"/>
+                </fo:inline>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+
+    <xsl:template name="getXrefTitleSection">
+        <xsl:param name="prmTitleTopicRef" required="yes" as="element()?"/>
+        <xsl:param name="prmTopicRef"      required="yes" as="element()?"/>
+        <xsl:param name="prmXref"          required="yes" as="element()"/>
+        <xsl:param name="prmDestElement"   required="yes" as="element()?"/>
+        
+        <xsl:variable name="hasUserContent" as="xs:boolean" select="exists($prmXref/node()[1][self::processing-instruction(ditaot)][string(.) eq 'usertext'])"/>
+        <xsl:variable name="userContent" as="node()*">
+            <xsl:apply-templates select="$prmXref/node() except *[contains(@class,' topic/desc ')]" mode="GET_CONTENTS"/>
+        </xsl:variable>
+        <xsl:variable name="sectionTitlePrefix" as="text()?">
+            <xsl:call-template name="getVarValueWithLangAsText">
+                <xsl:with-param name="prmVarName" select="'Xref_Title_Prefix'"/>
+                <xsl:with-param name="prmElem" select="$prmXref"/>
+            </xsl:call-template>
+        </xsl:variable>
+        <xsl:variable name="sectionTitleSuffix" as="text()?">
+            <xsl:call-template name="getVarValueWithLangAsText">
+                <xsl:with-param name="prmVarName" select="'Xref_Title_Suffix'"/>
+                <xsl:with-param name="prmElem" select="$prmXref"/>
+            </xsl:call-template>
+        </xsl:variable>
+        <xsl:choose>
+            <xsl:when test="$hasUserContent">
+                <fo:inline>
+                    <xsl:copy-of select="$sectionTitlePrefix"/>
+                    <xsl:copy-of select="$userContent"/>
+                    <xsl:copy-of select="$sectionTitleSuffix"/>
+                </fo:inline>
+            </xsl:when>
+            <xsl:when test="$prmDestElement/*[contains(@class, ' topic/title ')]">
+                <xsl:variable name="sectionTitle" as="node()*">
+                    <xsl:apply-templates select="$prmDestElement/*[contains(@class, ' topic/title ')]" mode="GET_CONTENTS"/>
+                </xsl:variable>
+                <fo:inline>
+                    <xsl:copy-of select="$sectionTitlePrefix"/>
                     <xsl:call-template name="getVarValueWithLangAsText">
-                        <xsl:with-param name="prmVarName" select="'Xref_Title_Prefix'"/>
-                        <xsl:with-param name="prmElem" select="$prmXref"/>
+                        <xsl:with-param name="prmVarName" select="'Level5_Label_Char'"/>
+                        <xsl:with-param name="prmElem" select="$prmDestElement"/>
+                    </xsl:call-template>
+                    <xsl:text>&#x00A0;</xsl:text>
+                    <xsl:copy-of select="$sectionTitle"/>
+                    <xsl:copy-of select="$sectionTitleSuffix"/>
+                </fo:inline>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:call-template name="warningContinue">
+                    <xsl:with-param name="prmMes" 
+                        select="ahf:replace($stMes031,('%id','%file'),(string($prmDestElement/@id),string($prmDestElement/@xtrf)))"/>
+                </xsl:call-template>
+                <xsl:sequence select="()"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+
+    <xsl:template name="getXrefTitleExample">
+        <xsl:param name="prmTitleTopicRef" required="yes" as="element()?"/>
+        <xsl:param name="prmTopicRef"      required="yes" as="element()?"/>
+        <xsl:param name="prmXref"          required="yes" as="element()"/>
+        <xsl:param name="prmDestElement"   required="yes" as="element()?"/>
+        
+        <xsl:variable name="hasUserContent" as="xs:boolean" select="exists($prmXref/node()[1][self::processing-instruction(ditaot)][string(.) eq 'usertext'])"/>
+        <xsl:variable name="userContent" as="node()*">
+            <xsl:apply-templates select="$prmXref/node() except *[contains(@class,' topic/desc ')]" mode="GET_CONTENTS"/>
+        </xsl:variable>
+        <xsl:variable name="exampleTitlePrefix" as="text()?">
+            <xsl:call-template name="getVarValueWithLangAsText">
+                <xsl:with-param name="prmVarName" select="'Xref_Title_Prefix'"/>
+                <xsl:with-param name="prmElem" select="$prmXref"/>
+            </xsl:call-template>
+        </xsl:variable>
+        <xsl:variable name="exampleTitleSuffix" as="text()?">
+            <xsl:call-template name="getVarValueWithLangAsText">
+                <xsl:with-param name="prmVarName" select="'Xref_Title_Suffix'"/>
+                <xsl:with-param name="prmElem" select="$prmXref"/>
+            </xsl:call-template>
+        </xsl:variable>
+        <xsl:choose>
+            <xsl:when test="$hasUserContent">
+                <fo:inline>
+                    <xsl:copy-of select="$exampleTitlePrefix"/>
+                    <xsl:copy-of select="$userContent"/>
+                    <xsl:copy-of select="$exampleTitleSuffix"/>
+                </fo:inline>
+            </xsl:when>
+            <xsl:when test="$prmDestElement/*[contains(@class, ' topic/title ')]">
+                <xsl:variable name="exampleTitle" as="node()*">
+                    <xsl:apply-templates select="$prmDestElement/*[contains(@class, ' topic/title ')]" mode="GET_CONTENTS"/>
+                </xsl:variable>
+                <fo:inline>
+                    <xsl:copy-of select="$exampleTitlePrefix"/>
+                    <xsl:call-template name="getVarValueWithLangAsText">
+                        <xsl:with-param name="prmVarName" select="'Level5_Label_Char'"/>
+                        <xsl:with-param name="prmElem" select="$prmDestElement"/>
+                    </xsl:call-template>
+                    <xsl:text>&#x00A0;</xsl:text>
+                    <xsl:copy-of select="$exampleTitle"/>
+                    <xsl:copy-of select="$exampleTitleSuffix"/>
+                </fo:inline>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:call-template name="warningContinue">
+                    <xsl:with-param name="prmMes" 
+                        select="ahf:replace($stMes032,('%id','%file'),(string($prmDestElement/@id),string($prmDestElement/@xtrf)))"/>
+                </xsl:call-template>
+                <xsl:sequence select="()"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+
+    <xsl:template name="getXrefTitleStep">
+        <xsl:param name="prmTitleTopicRef" required="yes" as="element()?"/>
+        <xsl:param name="prmTopicRef"      required="yes" as="element()?"/>
+        <xsl:param name="prmXref"          required="yes" as="element()"/>
+        <xsl:param name="prmDestElement"   required="yes" as="element()?"/>
+        
+        <xsl:variable name="hasUserContent" as="xs:boolean" select="exists($prmXref/node()[1][self::processing-instruction(ditaot)][string(.) eq 'usertext'])"/>
+        <xsl:variable name="userContent" as="node()*">
+            <xsl:apply-templates select="$prmXref/node() except *[contains(@class,' topic/desc ')]" mode="GET_CONTENTS"/>
+        </xsl:variable>
+        <xsl:choose>
+            <xsl:when test="$hasUserContent">
+                <xsl:copy-of select="$userContent"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <!-- Prefix of step: "step" -->
+                <xsl:variable name="stepHeading" as="xs:string">
+                    <xsl:call-template name="getVarValueWithLang">
+                        <xsl:with-param name="prmVarName" select="'Xref_Step_Prefix'"/>
+                        <xsl:with-param name="prmElem" select="$prmDestElement"/>
                     </xsl:call-template>
                 </xsl:variable>
-                <xsl:variable name="otherTitleSuffix" as="text()?">
-                    <xsl:call-template name="getVarValueWithLangAsText">
-                        <xsl:with-param name="prmVarName" select="'Xref_Title_Suffix'"/>
-                        <xsl:with-param name="prmElem" select="$prmXref"/>
+                <xsl:variable name="stepsNumberFormat" as="xs:string+">
+                    <xsl:call-template name="getVarValueWithLangAsStringSequence">
+                        <xsl:with-param name="prmVarName" select="'Step_Number_Formats_For_Xref'"/>
                     </xsl:call-template>
                 </xsl:variable>
                 <xsl:choose>
-                    <xsl:when test="$hasUserContent">
-                        <xsl:copy-of select="$otherTitlePrefix"/>
-                        <xsl:copy-of select="$userContent"/>
-                        <xsl:copy-of select="$otherTitleSuffix"/>
+                    <xsl:when test="$prmDestElement[contains(@class, ' task/step ')]">
+                        <xsl:variable name="numberFormat" select="ahf:getOlNumberFormat($prmDestElement/parent::*,$stepsNumberFormat)" as="xs:string"/>
+                        <fo:inline>
+                            <xsl:copy-of select="$stepHeading"/>
+                            <xsl:number format="{$numberFormat}" value="ahf:getStepNumber($prmDestElement)"/>
+                        </fo:inline>
                     </xsl:when>
                     <xsl:otherwise>
-                        <xsl:call-template name="warningContinue">
-                            <xsl:with-param name="prmMes"
-                                select="ahf:replace($stMes035,('%id','%elem','%file'),(string($prmDestElement/@id),name($prmDestElement),string($prmDestElement/@xtrf)))"/>
-                        </xsl:call-template>
-                        <xsl:copy-of select="$otherTitlePrefix"/>
-                        <xsl:apply-templates select="$prmDestElement" mode="GET_CONTENTS"/>
-                        <xsl:copy-of select="$otherTitleSuffix"/>
+                        <xsl:variable name="thisStepsNumberFormat" select="ahf:getOlNumberFormat($prmDestElement/parent::*/parent::*/parent::*,$stepsNumberFormat)" as="xs:string"/>
+                        <xsl:variable name="thisSubStepsNumberFormat" select="ahf:getOlNumberFormat($prmDestElement/parent::*,$stepsNumberFormat)" as="xs:string"/>
+                        <xsl:variable name="stepSubstepSeparator" as="text()?">
+                            <xsl:call-template name="getVarValueWithLangAsText">
+                                <xsl:with-param name="prmVarName" select="'Xref_Step_Substep_Separator'"/>
+                                <xsl:with-param name="prmElem" select="$prmDestElement"/>
+                            </xsl:call-template>
+                        </xsl:variable>
+                        <fo:inline>
+                            <xsl:copy-of select="$stepHeading"/>
+                            <xsl:number format="{$thisStepsNumberFormat}" value="ahf:getStepNumber($prmDestElement/parent::*/parent::*)"/>
+                            <xsl:copy-of select="$stepSubstepSeparator"/>
+                            <xsl:number format="{$thisSubStepsNumberFormat}" value="ahf:getStepNumber($prmDestElement)"/>
+                        </fo:inline>
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:otherwise>
         </xsl:choose>
+    </xsl:template>
 
+    <xsl:template name="getXrefTitleOlLi">
+        <xsl:param name="prmTitleTopicRef" required="yes" as="element()?"/>
+        <xsl:param name="prmTopicRef"      required="yes" as="element()?"/>
+        <xsl:param name="prmXref"          required="yes" as="element()"/>
+        <xsl:param name="prmDestElement"   required="yes" as="element()?"/>
+        
+        <xsl:variable name="hasUserContent" as="xs:boolean" select="exists($prmXref/node()[1][self::processing-instruction(ditaot)][string(.) eq 'usertext'])"/>
+        <xsl:variable name="userContent" as="node()*">
+            <xsl:apply-templates select="$prmXref/node() except *[contains(@class,' topic/desc ')]" mode="GET_CONTENTS"/>
+        </xsl:variable>
+        <xsl:choose>
+            <xsl:when test="$hasUserContent">
+                <xsl:copy-of select="$userContent"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <!-- Prefix of ol -->
+                <xsl:variable name="olNumberFormat" as="xs:string*">
+                    <xsl:variable name="olNumberFormats" as="xs:string">
+                        <xsl:call-template name="getVarValueWithLang">
+                            <xsl:with-param name="prmVarName" select="'Ol_Number_Formats_For_Xref'"/>
+                            <xsl:with-param name="prmElem" select="$prmDestElement"/>
+                        </xsl:call-template>
+                    </xsl:variable>
+                    <xsl:for-each select="tokenize($olNumberFormats, '[\s]+')">
+                        <xsl:sequence select="."/>
+                    </xsl:for-each>
+                </xsl:variable>
+                <xsl:variable name="olFormat" as="xs:string" select="ahf:getOlNumberFormat($prmDestElement,$olNumberFormat)"/>
+                <fo:inline>
+                    <xsl:number format="{$olFormat}" 
+                        value="count($prmDestElement | $prmDestElement/preceding-sibling::*[contains(@class, ' topic/li ')])"/>
+                </fo:inline>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+
+    <xsl:template name="getXrefTitleTable">
+        <xsl:param name="prmTitleTopicRef" required="yes" as="element()?"/>
+        <xsl:param name="prmTopicRef"      required="yes" as="element()?"/>
+        <xsl:param name="prmXref"          required="yes" as="element()"/>
+        <xsl:param name="prmDestElement"   required="yes" as="element()?"/>
+        
+        <xsl:variable name="hasUserContent" as="xs:boolean" select="exists($prmXref/node()[1][self::processing-instruction(ditaot)][string(.) eq 'usertext'])"/>
+        <xsl:variable name="userContent" as="node()*">
+            <xsl:apply-templates select="$prmXref/node() except *[contains(@class,' topic/desc ')]" mode="GET_CONTENTS"/>
+        </xsl:variable>
+        <xsl:variable name="tableTitlePrefix" as="text()?">
+            <xsl:call-template name="getVarValueWithLangAsText">
+                <xsl:with-param name="prmVarName" select="'Xref_Title_Prefix'"/>
+                <xsl:with-param name="prmElem" select="$prmXref"/>
+            </xsl:call-template>
+        </xsl:variable>
+        <xsl:variable name="tableTitleSuffix" as="text()?">
+            <xsl:call-template name="getVarValueWithLangAsText">
+                <xsl:with-param name="prmVarName" select="'Xref_Title_Suffix'"/>
+                <xsl:with-param name="prmElem" select="$prmXref"/>
+            </xsl:call-template>
+        </xsl:variable>
+        <xsl:choose>
+            <xsl:when test="$hasUserContent">
+                <fo:inline>
+                    <xsl:copy-of select="$tableTitlePrefix"/>
+                    <xsl:copy-of select="$userContent"/>
+                    <xsl:copy-of select="$tableTitleSuffix"/>
+                </fo:inline>
+            </xsl:when>
+            <xsl:when test="$prmDestElement/*[contains(@class, ' topic/title ')]">
+                <xsl:variable name="tableTitle" as="node()*">
+                    <xsl:apply-templates select="$prmDestElement/*[contains(@class, ' topic/title ')]" mode="GET_CONTENTS"/>
+                </xsl:variable>
+                <xsl:variable name="tableTitleHeading"
+                    select="ahf:getTableTitlePrefix($prmTitleTopicRef,$prmDestElement)" 
+                    as="xs:string"/>
+                <fo:inline>
+                    <xsl:copy-of select="$tableTitlePrefix"/>
+                    <xsl:value-of select="$tableTitleHeading"/>
+                    <xsl:text>&#x00A0;</xsl:text>
+                    <xsl:copy-of select="$tableTitle"/>
+                    <xsl:copy-of select="$tableTitleSuffix"/>
+                </fo:inline>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:call-template name="warningContinue">
+                    <xsl:with-param name="prmMes"
+                        select="ahf:replace($stMes033,('%id','%file'),(string($prmDestElement/@id),string($prmDestElement/@xtrf)))"/>
+                </xsl:call-template>
+                <xsl:sequence select="()"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+
+    <xsl:template name="getXrefTitleFig">
+        <xsl:param name="prmTitleTopicRef" required="yes" as="element()?"/>
+        <xsl:param name="prmTopicRef"      required="yes" as="element()?"/>
+        <xsl:param name="prmXref"          required="yes" as="element()"/>
+        <xsl:param name="prmDestElement"   required="yes" as="element()?"/>
+        
+        <xsl:variable name="hasUserContent" as="xs:boolean" select="exists($prmXref/node()[1][self::processing-instruction(ditaot)][string(.) eq 'usertext'])"/>
+        <xsl:variable name="userContent" as="node()*">
+            <xsl:apply-templates select="$prmXref/node() except *[contains(@class,' topic/desc ')]" mode="GET_CONTENTS"/>
+        </xsl:variable>
+        <xsl:variable name="figTitlePrefix" as="text()?">
+            <xsl:call-template name="getVarValueWithLangAsText">
+                <xsl:with-param name="prmVarName" select="'Xref_Title_Prefix'"/>
+                <xsl:with-param name="prmElem" select="$prmXref"/>
+            </xsl:call-template>
+        </xsl:variable>
+        <xsl:variable name="figTitleSuffix" as="text()?">
+            <xsl:call-template name="getVarValueWithLangAsText">
+                <xsl:with-param name="prmVarName" select="'Xref_Title_Suffix'"/>
+                <xsl:with-param name="prmElem" select="$prmXref"/>
+            </xsl:call-template>
+        </xsl:variable>
+        <xsl:choose>
+            <xsl:when test="$hasUserContent">
+                <fo:inline>
+                    <xsl:copy-of select="$figTitlePrefix"/>
+                    <xsl:copy-of select="$userContent"/>
+                    <xsl:copy-of select="$figTitleSuffix"/>
+                </fo:inline>
+            </xsl:when>
+            <xsl:when test="$prmDestElement/*[contains(@class, ' topic/title ')]">
+                <xsl:variable name="figTitle" as="node()*">
+                    <xsl:apply-templates select="$prmDestElement/*[contains(@class, ' topic/title ')]" mode="GET_CONTENTS"/>
+                </xsl:variable>
+                
+                <xsl:variable name="figTitleHeading"
+                    select="ahf:getFigTitlePrefix($prmTitleTopicRef,$prmDestElement)" 
+                    as="xs:string"/>
+                <fo:inline>
+                    <xsl:copy-of select="$figTitlePrefix"/>
+                    <xsl:value-of select="$figTitleHeading"/>
+                    <xsl:text>&#x00A0;</xsl:text>
+                    <xsl:copy-of select="$figTitle"/>
+                    <xsl:copy-of select="$figTitleSuffix"/>
+                </fo:inline>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:call-template name="warningContinue">
+                    <xsl:with-param name="prmMes"
+                        select="ahf:replace($stMes034,('%id','%file'),(string($prmDestElement/@id),string($prmDestElement/@xtrf)))"/>
+                </xsl:call-template>
+                <xsl:sequence select="()"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    
+    <xsl:template name="getXrefTitleEquationBlock">
+        <xsl:param name="prmTitleTopicRef" required="yes" as="element()?"/>
+        <xsl:param name="prmTopicRef"      required="yes" as="element()?"/>
+        <xsl:param name="prmXref"          required="yes" as="element()"/>
+        <xsl:param name="prmDestElement"   required="yes" as="element()?"/>
+
+        <xsl:variable name="hasUserContent" as="xs:boolean" select="exists($prmXref/node()[1][self::processing-instruction(ditaot)][string(.) eq 'usertext'])"/>
+        <xsl:variable name="userContent" as="node()*">
+            <xsl:apply-templates select="$prmXref/node() except *[contains(@class,' topic/desc ')]" mode="GET_CONTENTS"/>
+        </xsl:variable>
+        <xsl:variable name="equationNumber" as="element()?" select="($prmDestElement/*[contains(@class, ' equation-d/equation-number ')])[1]"/>
+        <xsl:variable name="equtionNumberResult" as="node()*">
+            <xsl:choose>
+                <xsl:when test="$hasUserContent">
+                    <xsl:copy-of select="$userContent"/>
+                </xsl:when>
+                <xsl:when test="$pNumberEquationBlockUnconditionally and empty($equationNumber)">
+                    <xsl:variable name="autoEquationNumber" as="xs:string">
+                        <xsl:call-template name="ahf:getAutoEquationNumber">
+                            <xsl:with-param name="prmTopicRef" tunnel="yes" select="$prmTitleTopicRef"/>
+                            <xsl:with-param name="prmEquationNumber" select="$prmDestElement"/>
+                        </xsl:call-template>
+                    </xsl:variable>
+                    <xsl:call-template name="getVarValueWithLangAsText">
+                        <xsl:with-param name="prmVarName" select="'Equation_Number_Ref_Prefix'"/>
+                        <xsl:with-param name="prmElem" select="$prmDestElement"/>
+                    </xsl:call-template>
+                    <xsl:call-template name="getVarValueWithLangAsText">
+                        <xsl:with-param name="prmVarName" select="'Equation_Number_Prefix'"/>
+                        <xsl:with-param name="prmElem" select="$prmDestElement"/>
+                    </xsl:call-template>
+                    <xsl:value-of select="$autoEquationNumber"/>
+                    <xsl:call-template name="getVarValueWithLangAsText">
+                        <xsl:with-param name="prmVarName" select="'Equation_Number_Suffix'"/>
+                        <xsl:with-param name="prmElem" select="$prmDestElement"/>
+                    </xsl:call-template>
+                </xsl:when>
+                <xsl:when test="$prmDestElement/*[contains(@class, ' equation-d/equation-number ')]">
+                    <xsl:call-template name="getVarValueWithLangAsText">
+                        <xsl:with-param name="prmVarName" select="'Equation_Number_Ref_Prefix'"/>
+                        <xsl:with-param name="prmElem" select="$equationNumber"/>
+                    </xsl:call-template>
+                    <xsl:call-template name="getVarValueWithLangAsText">
+                        <xsl:with-param name="prmVarName" select="'Equation_Number_Prefix'"/>
+                        <xsl:with-param name="prmElem" select="$equationNumber"/>
+                    </xsl:call-template>
+                    <xsl:choose>
+                        <xsl:when test="ahf:isAutoEquationNumber($equationNumber)">
+                            <xsl:variable name="autoEquationNumber" as="xs:string">
+                                <xsl:call-template name="ahf:getAutoEquationNumber">
+                                    <xsl:with-param name="prmTopicRef" tunnel="yes" select="$prmTitleTopicRef"/>
+                                    <xsl:with-param name="prmEquationNumber" select="$equationNumber"/>
+                                </xsl:call-template>
+                            </xsl:variable>
+                            <xsl:value-of select="$autoEquationNumber"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:apply-templates select="$equationNumber" mode="GET_CONTENTS"/>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                    <xsl:call-template name="getVarValueWithLangAsText">
+                        <xsl:with-param name="prmVarName" select="'Equation_Number_Suffix'"/>
+                        <xsl:with-param name="prmElem" select="$equationNumber"/>
+                    </xsl:call-template>
+                </xsl:when>
+                <xsl:otherwise>
+                    <!-- equation-block without equation-number -->
+                    <xsl:apply-templates select="$prmXref" mode="GET_CONTENTS"/>
+                </xsl:otherwise>
+            </xsl:choose>    
+        </xsl:variable>
+        <fo:inline>
+            <xsl:copy-of select="$equtionNumberResult"/>
+        </fo:inline>
+    </xsl:template>
+
+    <xsl:template name="getXrefTitleFn">
+        <xsl:param name="prmTitleTopicRef" required="yes" as="element()?"/>
+        <xsl:param name="prmTopicRef"      required="yes" as="element()?"/>
+        <xsl:param name="prmXref"          required="yes" as="element()"/>
+        <xsl:param name="prmDestElement"   required="yes" as="element()?"/>
+        
+        <xsl:variable name="hasUserContent" as="xs:boolean" select="exists($prmXref/node()[1][self::processing-instruction(ditaot)][string(.) eq 'usertext'])"/>
+        <xsl:variable name="userContent" as="node()*">
+            <xsl:apply-templates select="$prmXref/node() except *[contains(@class,' topic/desc ')]" mode="GET_CONTENTS"/>
+        </xsl:variable>
+        <xsl:variable name="fnTitle" as="xs:string" select="ahf:getFootnotePrefix($prmDestElement, $prmTitleTopicRef)"/>
+        <fo:inline>
+            <xsl:value-of select="$fnTitle"/>
+        </fo:inline>
+    </xsl:template>
+
+    <xsl:template name="getXrefTitleOther1">
+        <xsl:param name="prmTitleTopicRef" required="yes" as="element()?"/>
+        <xsl:param name="prmTopicRef"      required="yes" as="element()?"/>
+        <xsl:param name="prmXref"          required="yes" as="element()"/>
+        <xsl:param name="prmDestElement"   required="yes" as="element()?"/>
+        
+        <xsl:variable name="hasUserContent" as="xs:boolean" select="exists($prmXref/node()[1][self::processing-instruction(ditaot)][string(.) eq 'usertext'])"/>
+        <xsl:variable name="userContent" as="node()*">
+            <xsl:apply-templates select="$prmXref/node() except *[contains(@class,' topic/desc ')]" mode="GET_CONTENTS"/>
+        </xsl:variable>
+        <xsl:variable name="otherTitlePrefix" as="text()?">
+            <xsl:call-template name="getVarValueWithLangAsText">
+                <xsl:with-param name="prmVarName" select="'Xref_Title_Prefix'"/>
+                <xsl:with-param name="prmElem" select="$prmXref"/>
+            </xsl:call-template>
+        </xsl:variable>
+        <xsl:variable name="otherTitleSuffix" as="text()?">
+            <xsl:call-template name="getVarValueWithLangAsText">
+                <xsl:with-param name="prmVarName" select="'Xref_Title_Suffix'"/>
+                <xsl:with-param name="prmElem" select="$prmXref"/>
+            </xsl:call-template>
+        </xsl:variable>
+        <xsl:choose>
+            <xsl:when test="$hasUserContent">
+                <xsl:copy-of select="$otherTitlePrefix"/>
+                <xsl:copy-of select="$userContent"/>
+                <xsl:copy-of select="$otherTitleSuffix"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:variable name="title" as="node()*">
+                    <xsl:apply-templates select="$prmDestElement/*[contains(@class, ' topic/title ')]" mode="GET_CONTENTS"/>
+                </xsl:variable>
+                <fo:inline>
+                    <xsl:copy-of select="$otherTitlePrefix"/>
+                    <xsl:copy-of select="$title"/>
+                    <xsl:copy-of select="$otherTitleSuffix"/>
+                </fo:inline>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+
+    <xsl:template name="getXrefTitleOther2">
+        <xsl:param name="prmTitleTopicRef" required="yes" as="element()?"/>
+        <xsl:param name="prmTopicRef"      required="yes" as="element()?"/>
+        <xsl:param name="prmXref"          required="yes" as="element()"/>
+        <xsl:param name="prmDestElement"   required="yes" as="element()?"/>
+        
+        <xsl:variable name="hasUserContent" as="xs:boolean" select="exists($prmXref/node()[1][self::processing-instruction(ditaot)][string(.) eq 'usertext'])"/>
+        <xsl:variable name="userContent" as="node()*">
+            <xsl:apply-templates select="$prmXref/node() except *[contains(@class,' topic/desc ')]" mode="GET_CONTENTS"/>
+        </xsl:variable>
+        <xsl:variable name="otherTitlePrefix" as="text()?">
+            <xsl:call-template name="getVarValueWithLangAsText">
+                <xsl:with-param name="prmVarName" select="'Xref_Title_Prefix'"/>
+                <xsl:with-param name="prmElem" select="$prmXref"/>
+            </xsl:call-template>
+        </xsl:variable>
+        <xsl:variable name="otherTitleSuffix" as="text()?">
+            <xsl:call-template name="getVarValueWithLangAsText">
+                <xsl:with-param name="prmVarName" select="'Xref_Title_Suffix'"/>
+                <xsl:with-param name="prmElem" select="$prmXref"/>
+            </xsl:call-template>
+        </xsl:variable>
+        <xsl:choose>
+            <xsl:when test="$hasUserContent">
+                <xsl:copy-of select="$otherTitlePrefix"/>
+                <xsl:copy-of select="$userContent"/>
+                <xsl:copy-of select="$otherTitleSuffix"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:call-template name="warningContinue">
+                    <xsl:with-param name="prmMes"
+                        select="ahf:replace($stMes035,('%id','%elem','%file'),(string($prmDestElement/@id),name($prmDestElement),string($prmDestElement/@xtrf)))"/>
+                </xsl:call-template>
+                <xsl:copy-of select="$otherTitlePrefix"/>
+                <xsl:apply-templates select="$prmDestElement" mode="GET_CONTENTS"/>
+                <xsl:copy-of select="$otherTitleSuffix"/>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
 
     <!-- 
