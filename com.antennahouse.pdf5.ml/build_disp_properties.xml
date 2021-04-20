@@ -49,6 +49,7 @@
     <echo message="com.innodata.i18n.home=${i18n.home}"/>
     <echo message="use.i18n.index.lib=${use.i18n.index.lib}"/>
     <echo message="use.saxon.transform=${use.saxon.transform}"/>
+    <echo message="otversion=${otversion}"/>
     <echo message="*----------------------------------------------------------------*"/>
   </target>
 </project>
