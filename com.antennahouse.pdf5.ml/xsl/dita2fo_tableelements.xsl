@@ -134,10 +134,10 @@
     <xsl:function name="ahf:outputContinuedWordInTableTitle" as="xs:boolean">
         <xsl:param name="prmTable" as="element()"/>
         <xsl:choose>
-            <xsl:when test="$prmTable/*[contains-token(@class, 'topic/title')] => empty()">
+            <xsl:when test="empty($prmTable/*[contains(@class, ' topic/title' )])">
                 <xsl:sequence select="false()"/>
             </xsl:when>
-            <xsl:when test="exists($prmTable/ancestor::*[ahf:seqContains(string(@class),(' topic/entry',' topic/stentry '))])">
+            <xsl:when test="exists($prmTable/ancestor::*[ahf:seqContains(string(@class),(' topic/entry ',' topic/stentry '))])">
                 <xsl:sequence select="false()"/>
             </xsl:when>
             <xsl:when test="$pOutputTableTitleContinued and not(ahf:hasOutputClassValue($prmTable,$ocNoTableTitleContinued))">
