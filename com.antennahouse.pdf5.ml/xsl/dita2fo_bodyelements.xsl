@@ -1380,7 +1380,7 @@ E-mail : info@antennahouse.com
         </xsl:variable>
         
         <xsl:variable name="figCurrentAmount" as="xs:integer">
-            <xsl:sequence select="count($topic//*[contains(@class,' topic/fig ')][empty(ancestor::*[contains(@class,' topic/fig ')])][not(ahf:isFloatFigure(.))][. &lt;&lt; $prmFig]|$prmFig)"/>
+            <xsl:sequence select="count($topic//*[contains(@class,' topic/fig ')][exists(*[contains(@class,' topic/title ')])][not(contains(@class,' pr-d/syntaxdiagram '))][empty(ancestor::*[contains(@class,' topic/fig ')])][not(ahf:isFloatFigure(.))][. &lt;&lt; $prmFig]|$prmFig)"/>
         </xsl:variable>
         <xsl:variable name="figNumber" select="$figPreviousAmount + $figCurrentAmount" as="xs:integer"/>
         
