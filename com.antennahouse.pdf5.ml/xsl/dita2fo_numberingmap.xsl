@@ -226,7 +226,7 @@ E-mail : info@antennahouse.com
         <xsl:variable name="figureCount" as="xs:integer">
             <xsl:choose>
                 <xsl:when test="exists($targetTopic)">
-                    <xsl:variable name="figures" as="element()*" select="$targetTopic/descendant::*[contains(@class,' topic/fig ')][exists(*[contains(@class,' topic/title ')])][not(contains(@class,' pr-d/syntaxdiagram '))][empty(ancestor::*[contains(@class,' topic/fig ')])][not(ahf:isFloatFigure(.))]"/>
+                    <xsl:variable name="figures" as="element()*" select="$targetTopic/descendant::*[contains(@class,' topic/fig ')][exists(*[contains(@class,' topic/title ')])][empty(ancestor::*[contains(@class,' topic/fig ')])][not(ahf:isFloatFigure(.))]"/>
                     <xsl:sequence select="count($figures)"/>
                 </xsl:when>
                 <xsl:otherwise>
