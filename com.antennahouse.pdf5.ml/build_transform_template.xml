@@ -196,6 +196,7 @@
             <arg line='-o:"${prmOutputFile}"'/>
             <arg line='-s:"${prmInputFile}"'/>
             <arg line='-xsl:"${prmStylesheetFile}"'/>
+            <arg line='-catalog:"${dita.dir}${file.separator}catalog-dita.xml"'/>
             <arg line='"PRM_STYLE_DEF_FILE=${style.def.file}"' if:set="style.def.file"/>
             <arg line='"PRM_INCLUDE_FRONTMATTER_TO_TOC=${include.frontmatter.to.toc}"' if:set="include.frontmatter.to.toc"/>
             <arg line='"PRM_ADD_NUMBERING_TITLE_PREFIX=${add.numbering.title.prefix}"' if:set="add.numbering.title.prefix"/>
@@ -246,7 +247,6 @@
             <sysproperty key="com.innodata.i18n.home" value="${i18n.home}"/>
             <sysproperty key="use.i18n.index.lib" value="${use.i18n.index.lib}"/>
             <sysproperty key="ot.version" value="${otversion}"/>
-            <xmlcatalog refid="dita.catalog"/>
         </java>
     </target>
 
