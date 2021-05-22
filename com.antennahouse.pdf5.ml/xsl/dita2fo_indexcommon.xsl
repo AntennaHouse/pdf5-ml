@@ -497,22 +497,7 @@ E-mail : info@antennahouse.com
     	</xsl:if>
     
         <xsl:if test="$pDebugIndex">
-            <xsl:call-template name="warningContinue">
-                <xsl:with-param name="prmMes" select="$stMes601"/>
-            </xsl:call-template>
-            <xsl:result-document href="{concat($pOutputDirUrl,$pInputMapName,'_index_input.xml')}" encoding="UTF-8" byte-order-mark="no" indent="yes">
-                <index-input>
-                    <xsl:copy-of select="$indextermOrigin"/>
-                </index-input>
-            </xsl:result-document>
-            <xsl:result-document href="{concat($pOutputDirUrl,$pInputMapName,'_index_out.xml')}" encoding="UTF-8" byte-order-mark="no" indent="yes">
-                <index-output>
-                    <xsl:apply-templates select="$indextermSorted/*" mode="MODE_INDEX_DEBUG"/>
-                </index-output>
-            </xsl:result-document>
-            <xsl:call-template name="warningContinue">
-                <xsl:with-param name="prmMes" select="$stMes602"/>
-            </xsl:call-template>
+            <xsl:call-template name="indexDump"/>
         </xsl:if>
     	
         <xsl:if test="$pOutputIndex and ($indextermSortedCount &gt; 0)">
@@ -1757,7 +1742,9 @@ E-mail : info@antennahouse.com
 	     note:
 	  -->
     <xsl:template name="indexDump">
-        <xsl:message>[indexDump] Saving $indextermOrigin, $indextermSorted to file.</xsl:message>
+        <xsl:call-template name="warningContinue">
+            <xsl:with-param name="prmMes" select="$stMes601"/>
+        </xsl:call-template>
         
         <!-- $indextermOrigin -->
         <xsl:result-document 
@@ -1780,6 +1767,10 @@ E-mail : info@antennahouse.com
                 <xsl:copy-of select="$indextermSorted"/>
             </root>
         </xsl:result-document>
+
+        <xsl:call-template name="warningContinue">
+            <xsl:with-param name="prmMes" select="$stMes602"/>
+        </xsl:call-template>
         
     </xsl:template>
     
