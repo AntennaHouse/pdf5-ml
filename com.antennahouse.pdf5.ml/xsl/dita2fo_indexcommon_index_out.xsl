@@ -16,7 +16,7 @@
      xmlns:axf="http://www.antennahouse.com/names/XSL/Extensions"
      xmlns:ahf="http://www.antennahouse.com/names/XSLT/Functions/Document"
      xmlns:psmi="http://www.CraneSoftwrights.com/resources/psmi"
-     exclude-result-prefixes="xs ahf axf"
+     exclude-result-prefixes="xs ahf axf psmi"
     >
     <!-- *************************************** 
             Keys
