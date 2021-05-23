@@ -418,6 +418,14 @@ URL : http://www.antennahouse.co.jp/
     <xsl:variable name="stMes660">
         <xsl:text>[ahf:getEntryAttr 660W] Authoring error! entry/@namest or @ nameend is invalid. @namest="%namest" @nameend="%nameend" file="%xtrf".</xsl:text>
     </xsl:variable>
+
+    <xsl:variable name="stMes662">
+        <xsl:text>[index-see 662W] Authoring error! The target of index-see does not found. The link to indexterm will become invalid. see key="%see-key".</xsl:text>
+    </xsl:variable>
+
+    <xsl:variable name="stMes664">
+        <xsl:text>[index-see-also 664W] Authoring error! The target of index-see-also does not found. The link to indexterm will become invalid. see-also key="%see-also-key".</xsl:text>
+    </xsl:variable>
     
     <xsl:variable name="stMes700">
         <xsl:text>[makeChapterMap 700W] Illegal class is found in topicref. class='%class' file=%file.</xsl:text>

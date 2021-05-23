@@ -24,6 +24,7 @@
     <!-- index-see, index-see-also key -->
     <xsl:key name="indextermBySee" match="$indextermSorted/index-data" use="@seekey"/>
     <xsl:key name="indextermBySeeAlso" match="$indextermSorted/index-data" use="@seealsokey"/>
+    <xsl:key name="indextermByIndexKeyForSee" match="$indextermSorted/index-data" use="@indexkeyForSee"/>
     
     <!-- *************************************** 
             Index related
@@ -706,6 +707,20 @@
         <xsl:variable name="seeAlsoKey" select="ahf:getSeeAlsoKey($prmFromId)" as="xs:string"/>
         <xsl:variable name="seeAlsoId"  select="ahf:indexKeyToIdValue($seeAlsoKey)" as="xs:string"/>
         <xsl:variable name="seeAlso"    select="ahf:getSeeAlso($prmFromId)" as="xs:string"/>
+
+        <!-- Check see-also destination
+             2021-05-23 t.makita
+         -->
+        <!--xsl:variable name="indexData" as="element()" select="$indextermSorted/index-data[@id => string() eq $prmFromId]"/-->
+        <xsl:variable name="seeAlsoTargetIndexterm" as="element()*" select="key('indextermByIndexKeyForSee', $seeAlsoKey, $indextermSorted)"/>
+        <!--xsl:message select="'$seeAlsoKey=', $seeAlsoKey"/>
+        <xsl:message select="'$seeAlsoTargetIndexterm=', $seeAlsoTargetIndexterm"/-->
+        <xsl:if test="$seeAlsoTargetIndexterm => empty()">
+            <xsl:call-template name="warningContinue">
+                <xsl:with-param name="prmMes" 
+                    select="ahf:replace($stMes664,('%see-also-key'),($seeAlsoKey))"/>
+            </xsl:call-template>
+        </xsl:if>
         
         <!-- next SeeAlso key -->
         <xsl:variable name="nextSeeAlso" as="xs:string">
@@ -824,6 +839,20 @@
                 <xsl:variable name="seeKey" select="ahf:getSeeKey($prmFromId)" as="xs:string"/>
                 <xsl:variable name="seeKeyId" select="ahf:indexKeyToIdValue($seeKey)" as="xs:string"/>
                 <xsl:variable name="see" select="ahf:getSee($prmFromId)" as="xs:string"/>
+
+                <!-- Check see destination
+                     2021-05-23 t.makita
+                 -->
+                <xsl:variable name="indexData" as="element()" select="$indextermSorted/index-data[@id => string() eq $prmFromId]"/>
+                <xsl:variable name="seeTargetIndexterm" as="element()*" select="key('indextermByIndexKeyForSee', $seeKey, $indextermSorted)"/>
+                <!--xsl:message select="'$seeKey=', $seeKey"/>
+                <xsl:message select="'$seeTargetIndexterm=', $seeTargetIndexterm"/-->
+                <xsl:if test="$seeTargetIndexterm => empty()">
+                    <xsl:call-template name="warningContinue">
+                        <xsl:with-param name="prmMes" 
+                            select="ahf:replace($stMes662,('%see-key'),($seeKey))"/>
+                    </xsl:call-template>
+                </xsl:if>
     
                 <!-- next See -->
                 <xsl:variable name="nextSee" as="xs:string">
