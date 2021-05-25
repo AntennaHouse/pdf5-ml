@@ -584,7 +584,7 @@
         <xsl:variable name="seeKeyId" as="xs:string" select="$seeKey => ahf:indexKeyToIdValue()"/>
         <xsl:variable name="seeFO" as="node()*" select="$prmIndexData/indexseefo/node()"/>
     
-        <xsl:message select="'[outSeeDetailLine] $seeKey=' || $seeKey || ' $startLevel=' || $startLevel => string()"/>
+        <!--xsl:message select="'[outSeeDetailLine] $seeKey=' || $seeKey || ' $startLevel=' || $startLevel => string()"/-->
 
         <!-- Check see destination
              2021-05-23 t.makita
