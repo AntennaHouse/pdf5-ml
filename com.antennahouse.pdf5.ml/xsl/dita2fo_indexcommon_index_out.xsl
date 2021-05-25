@@ -384,8 +384,8 @@
     -->
     <xsl:function name="ahf:getIndextermSignificance" as="xs:integer+">
         <xsl:param name="prmIndexDataGroupDoc" as="document-node()"/>
-        <xsl:variable name="significancePreferred" as="xs:integer" select="$prmIndexDataGroupDoc/*/@significance[. eq 'preferred'] => count()"/>
-        <xsl:variable name="significanceNormal" as="xs:integer" select="$prmIndexDataGroupDoc/*/@significance[. eq 'normal'] => count()"/>
+        <xsl:variable name="significancePreferred" as="xs:integer" select="$prmIndexDataGroupDoc/*[@significance => string() eq 'preferred'] => count()"/>
+        <xsl:variable name="significanceNormal" as="xs:integer" select="$prmIndexDataGroupDoc/*[@significance => string() eq 'normal'] => count()"/>
         <xsl:sequence select="($significanceNormal, $significancePreferred)"/>
     </xsl:function>
 
@@ -399,7 +399,7 @@
         
         <xsl:variable name="currentIndexKeyForSee" as="xs:string" select="$prmIndexData/@indexkeyForSee => xs:string()"/>
         <xsl:variable name="isReferenced" as="xs:boolean" select="key('indextermBySee', $currentIndexKeyForSee, $indextermSorted) => exists() or key('indextermBySeeAlso', $currentIndexKeyForSee, $indextermSorted) => exists()"/>
-        <xsl:variable name="isFirstOccurence" as="xs:boolean" select="$prmIndexData/preceding-sibling::index-data[@indexkeyForSee  => string() eq $currentIndexKeyForSee] => empty()"/>
+        <xsl:variable name="isFirstOccurence" as="xs:boolean" select="$indextermSorted/*[@id => string() eq $prmIndexData/@id => string()][1]/preceding-sibling::index-data[@indexkeyForSee  => string() eq $currentIndexKeyForSee] => empty()"/>
         <xsl:variable name="shouldGenerateId" as="xs:boolean" select="$pMakeSeeLink and $isReferenced and $isFirstOccurence"/>
         <xsl:sequence select="$shouldGenerateId"/>
     </xsl:function>
@@ -408,12 +408,14 @@
             param:    prmIndexData, prmStartLevel, prmsignificancePreferred, prmSignificanceNormal
             return:   fo:block
             note:     Common template for indexterm output
+                      Don't generate fo:index-page-citation-list for index-see
     -->
     <xsl:template name="outIndextermDetailLineImpl">
         <xsl:param name="prmIndexData" as="element()" required="yes"/>
         <xsl:param name="prmStartLevel" as="xs:integer" required="yes"/>
         <xsl:param name="prmSignificance" as="xs:integer+" required="yes"/>
         <xsl:param name="prmShouldGenerateId" as="xs:boolean" required="yes"/>
+        <xsl:param name="prmIsSeeIndexterm" as="xs:boolean" required="no" select="false()"></xsl:param>
         
         <xsl:variable name="currentLevel" as="xs:integer" select="$prmIndexData/@level => xs:integer()"/>
 
@@ -421,10 +423,10 @@
             <xsl:variable name="levelPosition" select="position()"/>
             <xsl:if test="$levelPosition ge $prmStartLevel">
                 <xsl:variable name="indexterm" as="element()" select="."/>
-                <xsl:variable name="indextermFO" as="node()+" select="$indexterm/indextermfo"/>
+                <xsl:variable name="indextermFO" as="node()+" select="$indexterm/indextermfo/node()"/>
                 <xsl:variable name="indexKeyForSee" as="xs:string" select="$indexterm/@indexkeyForSee => string()"/>
                 <xsl:choose>
-                    <xsl:when test="$levelPosition le $currentLevel">
+                    <xsl:when test="$levelPosition lt $currentLevel">
                         <!-- This line is only indexterm title 
                              Do not set id for See, SeeAlso reference.
                           -->
@@ -434,62 +436,77 @@
                         </fo:block>
                     </xsl:when>
                     <xsl:when test="$currentLevel eq $levelPosition">
-                        <!-- This line is title and fo:index-citation-list -->
-                        <fo:block>
-                            <xsl:copy-of select="ahf:getAttributeSetReplacing('atsIndexLine',('%level'),(string($levelPosition)))"/>
-                            <fo:inline>
-                                <!-- Generate @id only when it is referenced via index-see or index-see-also
-                                     2021-05-22 t.makita
-                                  -->
-                                <xsl:if test="$prmShouldGenerateId">
-                                    <!-- Make @id from @indexKeyForSee, because it has no index-sort-as content.
-                                         2019-11-03 t.makita
-                                     -->
-                                    <xsl:attribute name="id">
-                                        <xsl:value-of select="$indexterm/@indexKeyForSee => string() => ahf:indexKeyToIdValue()"/>
-                                    </xsl:attribute>
-                                </xsl:if>
-                                <xsl:copy-of select="$indextermFO"/>
-                            </fo:inline>
-                            <fo:leader>
-                                <xsl:copy-of select="ahf:getAttributeSet('atsIndexLeader1')"/>
-                            </fo:leader>
-                            <fo:inline>
-                                <xsl:copy-of select="ahf:getAttributeSet('atsIndex2ndLeaderInline')"/>
-                                <fo:leader>
-                                    <xsl:copy-of select="ahf:getAttributeSet('atsIndexLeader2')"/>
-                                </fo:leader>
-                            </fo:inline>
-                            <fo:index-page-citation-list>
-                                <fo:index-page-citation-list-separator>
-                                    <xsl:value-of select="$cIndexPageCitationListSeparator"/>
-                                </fo:index-page-citation-list-separator>
-                                <fo:index-page-citation-range-separator>
-                                    <xsl:value-of select="$cIndexPageCitationRangeSeparator"/>
-                                </fo:index-page-citation-range-separator>
-                                <xsl:if test="$prmSignificance[$cSignificancePrefeered] gt 0">
-                                    <xsl:variable name="preferredIndexKey">
-                                        <xsl:value-of select="$prmIndexData/@indexKey"/>
-                                        <xsl:value-of select="$indexKeySep"/>
-                                        <xsl:value-of select="$KEY_PREFERRED"/>
-                                    </xsl:variable>
-                                    <fo:index-key-reference ref-index-key="{$preferredIndexKey}"> 
-                                        <xsl:copy-of select="ahf:getAttributeSet('atsIndexKeyReference atsIndexPreferred')"/>
-                                    </fo:index-key-reference>
-                                </xsl:if>
-                                <xsl:if test="$prmSignificance[$cSignificanceNormal] gt 0">
-                                    <fo:index-key-reference ref-index-key="{$prmIndexData/@indexKey}">
-                                        <xsl:copy-of select="ahf:getAttributeSet('atsIndexKeyReference')"/>
-                                    </fo:index-key-reference>
-                                </xsl:if>
-                            </fo:index-page-citation-list>
-                        </fo:block>
+                        <xsl:choose>
+                            <xsl:when test="$prmIsSeeIndexterm">
+                                <!-- Last indexterm of index-see -->
+                                <fo:block>
+                                    <xsl:copy-of select="ahf:getAttributeSetReplacing('atsIndexLine',('%level'),(string($levelPosition)))"/>
+                                    <xsl:copy-of select="ahf:getAttributeSet('atsIndexLineWoPageRef')"/>
+                                    <fo:inline>
+                                        <!-- Generate @id only when it is referenced via index-see or index-see-also
+                                             2021-05-22 t.makita
+                                          -->
+                                        <xsl:if test="$prmShouldGenerateId">
+                                            <xsl:attribute name="id">
+                                                <xsl:value-of select="$indexterm/@indexkeyForSee => string() => ahf:indexKeyToIdValue()"/>
+                                            </xsl:attribute>
+                                        </xsl:if>
+                                        <xsl:copy-of select="$indextermFO"/>
+                                    </fo:inline>
+                                </fo:block>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <!-- This line is title and fo:index-citation-list for last indexterm -->
+                                <fo:block>
+                                    <xsl:copy-of select="ahf:getAttributeSetReplacing('atsIndexLine',('%level'),(string($levelPosition)))"/>
+                                    <fo:inline>
+                                        <!-- Generate @id only when it is referenced via index-see or index-see-also
+                                             2021-05-22 t.makita
+                                          -->
+                                        <xsl:if test="$prmShouldGenerateId">
+                                            <xsl:attribute name="id">
+                                                <xsl:value-of select="$indexterm/@indexkeyForSee => string() => ahf:indexKeyToIdValue()"/>
+                                            </xsl:attribute>
+                                        </xsl:if>
+                                        <xsl:copy-of select="$indextermFO"/>
+                                    </fo:inline>
+                                    <fo:leader>
+                                        <xsl:copy-of select="ahf:getAttributeSet('atsIndexLeader1')"/>
+                                    </fo:leader>
+                                    <fo:inline>
+                                        <xsl:copy-of select="ahf:getAttributeSet('atsIndex2ndLeaderInline')"/>
+                                        <fo:leader>
+                                            <xsl:copy-of select="ahf:getAttributeSet('atsIndexLeader2')"/>
+                                        </fo:leader>
+                                    </fo:inline>
+                                    <fo:index-page-citation-list>
+                                        <fo:index-page-citation-list-separator>
+                                            <xsl:value-of select="$cIndexPageCitationListSeparator"/>
+                                        </fo:index-page-citation-list-separator>
+                                        <fo:index-page-citation-range-separator>
+                                            <xsl:value-of select="$cIndexPageCitationRangeSeparator"/>
+                                        </fo:index-page-citation-range-separator>
+                                        <xsl:if test="$prmSignificance[$cSignificancePrefeered] gt 0">
+                                            <xsl:variable name="preferredIndexKey" as="xs:string" select="$prmIndexData/@indexkey => string() || $indexKeySep ||$KEY_PREFERRED"/>
+                                            <fo:index-key-reference ref-index-key="{$preferredIndexKey}"> 
+                                                <xsl:copy-of select="ahf:getAttributeSet('atsIndexKeyReference atsIndexPreferred')"/>
+                                            </fo:index-key-reference>
+                                        </xsl:if>
+                                        <xsl:if test="$prmSignificance[$cSignificanceNormal] gt 0">
+                                            <xsl:variable name="normalIndexKey" as="xs:string" select="$prmIndexData/@indexkey => string()"/>
+                                            <fo:index-key-reference ref-index-key="{$normalIndexKey}">
+                                                <xsl:copy-of select="ahf:getAttributeSet('atsIndexKeyReference')"/>
+                                            </fo:index-key-reference>
+                                        </xsl:if>
+                                    </fo:index-page-citation-list>
+                                </fo:block>
+                            </xsl:otherwise>
+                        </xsl:choose>
                     </xsl:when>
                 </xsl:choose>
             </xsl:if>
         </xsl:for-each>
     </xsl:template>
-    
 
     <!--    function: Output index-see detail line
             param:    See below
@@ -518,11 +535,23 @@
             <xsl:with-param name="prmStartLevel" select="$startLevel"/>
             <xsl:with-param name="prmSignificance" select="$significance"/>
             <xsl:with-param name="prmShouldGenerateId" select="$shouldGenerateId"/>
+            <xsl:with-param name="prmIsSeeIndexterm" select="true()"/>
         </xsl:call-template>
 
-        <xsl:variable name="seeKey" as="xs:string" select="$prmIndexData/@seeKey => string()"/>
+        <xsl:variable name="seeKey" as="xs:string" select="$prmIndexData/@seekey => string()"/>
         <xsl:variable name="seeKeyId" as="xs:string" select="$seeKey => ahf:indexKeyToIdValue()"/>
         <xsl:variable name="seeFO" as="node()*" select="$prmIndexData/indexseefo/node()"/>
+        
+        <!-- Check see destination
+             2021-05-23 t.makita
+         -->
+        <xsl:variable name="seeTargetIndexterm" as="element()*" select="key('indextermByIndexKeyForSee', $seeKey, $indextermSorted)"/>
+        <xsl:if test="$seeTargetIndexterm => empty()">
+            <xsl:call-template name="warningContinue">
+                <xsl:with-param name="prmMes" 
+                    select="ahf:replace($stMes662,('%see-key'),($seeKey))"/>
+            </xsl:call-template>
+        </xsl:if>
         
         <!-- See entry as indented-->
         <fo:block>
@@ -577,7 +606,7 @@
             </xsl:call-template>
         </xsl:if>
         
-        <!-- Output see also block -->
+        <!-- Output see-also block -->
         <fo:block>
             <xsl:copy-of select="ahf:getAttributeSetReplacing('atsIndexLineSee',('%level'),(string($startLevel)))"/>
             <fo:inline>
