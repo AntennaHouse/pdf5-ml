@@ -415,9 +415,9 @@
         <xsl:variable name="prevLowerLevelMax" as="xs:integer" select="$prevLowerLevel => max()"/>
         <xsl:variable name="prevLowerLevelIndexPos" as="xs:integer" select="index-of($prevLowerLevel,$prevLowerLevelMax)[1]"/>
         <xsl:variable name="prevLowerLevelIndexData" as="element()" select="$prevLowerIndexData[$prevLowerLevelIndexPos]"/>
-        <xsl:message select="'$prmIndexData/@indexkeyForSee=' || $prmIndexData/@indexkeyForSee => string()"/>
+        <!--xsl:message select="'$prmIndexData/@indexkeyForSee=' || $prmIndexData/@indexkeyForSee => string()"/>
         <xsl:message select="'$prevLowerLevelMax=',$prevLowerLevelMax"/>
-        <xsl:message select="'$prevLowerLevelIndexData=',$prevLowerLevelIndexData"/>
+        <xsl:message select="'$prevLowerLevelIndexData=',$prevLowerLevelIndexData"/-->
         <xsl:sequence select="$prevLowerLevelMax + 1"/>
     </xsl:function>
 
@@ -463,7 +463,7 @@
         <xsl:param name="prmIsSeeIndexterm" as="xs:boolean" required="no" select="false()"></xsl:param>
         
         <xsl:variable name="currentLevel" as="xs:integer" select="$prmIndexData/@level => xs:integer()"/>
-        <xsl:message select="'[outIndextermDetailLineImpl] $indexkeyForSee=' || $prmIndexData/@indexkeyForSee => string() ||' $prmStartLevel=' || $prmStartLevel => string() || ' $currentLevel=' || $currentLevel => string()"/>
+        <!--xsl:message select="'[outIndextermDetailLineImpl] $indexkeyForSee=' || $prmIndexData/@indexkeyForSee => string() ||' $prmStartLevel=' || $prmStartLevel => string() || ' $currentLevel=' || $currentLevel => string()"/-->
         <xsl:for-each select="$prmIndexData/indexterm">
             <xsl:variable name="levelPosition" select="position()"/>
             <xsl:if test="$levelPosition ge $prmStartLevel">

@@ -1289,6 +1289,7 @@ URL : http://www.antennahouse.com/
             </attribute-set>
             
             <attribute-set name="atsIndexLineWoPageRef">
+                <attribute name="axf:text-align-first">left</attribute>
                 <attribute name="text-align">left</attribute>
                 <attribute name="text-align-last">left</attribute>
             </attribute-set>
