@@ -357,7 +357,7 @@
                         </xsl:when>
                         <xsl:otherwise>
                             <!-- Same level and different key --> 
-                            <xsl:sequence select="$prevLevel"/>
+                            <xsl:sequence select="ahf:getIndextermStartLevelFromPrev($prmIndexData, $prmIndexDataGroupDoc)"/>
                         </xsl:otherwise>
                     </xsl:choose>
                 </xsl:when>
@@ -368,26 +368,10 @@
                             <xsl:sequence select="1"/>
                         </xsl:when>
                         <xsl:otherwise>
-                            <!-- ???? -->
-                            <xsl:variable name="prevLowerLevelIndexData" as="element()?" select="$prmIndexDataGroupDoc/*[@id => string() eq $prmIndexData/@id => string()]/preceding-sibling::index-data[@level => xs:integer() le $currentLevel][1]"/>
-                            <xsl:variable name="prevLowerLevel" as="xs:integer">
-                                <xsl:variable name="lowerLevel" as="xs:integer?" select="if ($prevLowerLevelIndexData => exists()) then $prevLowerLevelIndexData/@level => xs:integer() - 1 else ()"/>
-                                <xsl:choose>
-                                    <xsl:when test="$lowerLevel => empty()">
-                                        <xsl:sequence select="2"/>
-                                    </xsl:when>
-                                    <xsl:when test="$lowerLevel gt 1">
-                                        <xsl:sequence select="$lowerLevel"/>
-                                    </xsl:when>
-                                    <xsl:when test="$lowerLevel le 1">
-                                        <xsl:call-template name="warningContinue">
-                                            <xsl:with-param name="prmMes" select="ahf:replace('[genIndex/startLevel] Invalid indexterm sequence. key=''%key''',('%key'),($prmIndexData/@indexkeyForSee))"/>
-                                        </xsl:call-template>
-                                        <xsl:sequence select="2"/>
-                                    </xsl:when>
-                                </xsl:choose>
-                            </xsl:variable>
-                            <xsl:sequence select="$prevLowerLevel"/>
+                            <!-- Beginning of new key
+                                 Search relevant start level
+                             -->
+                            <xsl:sequence select="ahf:getIndextermStartLevelFromPrev($prmIndexData, $prmIndexDataGroupDoc)"/>
                         </xsl:otherwise>
                     </xsl:choose>
                 </xsl:when>
@@ -395,6 +379,48 @@
         </xsl:variable>
         <xsl:sequence select="$startLevel"/>
     </xsl:function>
+
+    <!--    function: Get indexterm max start level
+            param:    prmIndexData, prmIndexDataGroup
+            return:   Start level of indexterm that can be obtained from prmIndexDataGroup
+            note:     See $indextermSorted.xml in output folder by specifying debug.index="yes" in DITA-OT build.
+    -->
+    <xsl:function name="ahf:getIndextermStartLevelFromPrev" as="xs:integer">
+        <xsl:param name="prmIndexData" as="element()"/>
+        <xsl:param name="prmIndexDataGroupDoc" as="document-node()"/>
+        
+        <xsl:variable name="indexDataInGroup" as="element()" select="$prmIndexDataGroupDoc/*[@id => string() eq $prmIndexData/@id => string()]"/>
+        <xsl:variable name="prevLowerLevel" as="xs:integer+">
+            <xsl:for-each select="$prmIndexData/indexterm">
+                <xsl:variable name="indexterm" as="element()" select="."/>
+                <xsl:variable name="indexkeyForSee" as="xs:string" select="$indexterm/@indexkeyForSee => string()"/>
+                <xsl:variable name="level" as="xs:integer" select="position()"/>
+                <xsl:variable name="matchedPrevIndexData" as="element()?" select="$indexDataInGroup/preceding-sibling::index-data[child::indexterm[$level][@indexkeyForSee => string() eq $indexkeyForSee]][last()]"/>
+                <xsl:if test="$matchedPrevIndexData => exists()">
+                    <xsl:sequence select="$level"/>
+                </xsl:if>
+            </xsl:for-each>
+        </xsl:variable>
+        <xsl:variable name="prevLowerIndexData" as="element()+">
+            <xsl:for-each select="$prmIndexData/indexterm">
+                <xsl:variable name="indexterm" as="element()" select="."/>
+                <xsl:variable name="indexkeyForSee" as="xs:string" select="$indexterm/@indexkeyForSee => string()"/>
+                <xsl:variable name="level" as="xs:integer" select="position()"/>
+                <xsl:variable name="matchedPrevIndexData" as="element()?" select="$indexDataInGroup/preceding-sibling::index-data[child::indexterm[$level][@indexkeyForSee => string() eq $indexkeyForSee]][last()]"/>
+                <xsl:if test="$matchedPrevIndexData => exists()">
+                    <xsl:sequence select="$matchedPrevIndexData"/>
+                </xsl:if>
+            </xsl:for-each>
+        </xsl:variable>
+        <xsl:variable name="prevLowerLevelMax" as="xs:integer" select="$prevLowerLevel => max()"/>
+        <xsl:variable name="prevLowerLevelIndexPos" as="xs:integer" select="index-of($prevLowerLevel,$prevLowerLevelMax)[1]"/>
+        <xsl:variable name="prevLowerLevelIndexData" as="element()" select="$prevLowerIndexData[$prevLowerLevelIndexPos]"/>
+        <xsl:message select="'$prmIndexData/@indexkeyForSee=' || $prmIndexData/@indexkeyForSee => string()"/>
+        <xsl:message select="'$prevLowerLevelMax=',$prevLowerLevelMax"/>
+        <xsl:message select="'$prevLowerLevelIndexData=',$prevLowerLevelIndexData"/>
+        <xsl:sequence select="$prevLowerLevelMax + 1"/>
+    </xsl:function>
+
 
     <!--    function: Get significance of the indexterm group
             param:    prmIndexDataGroup
@@ -437,7 +463,7 @@
         <xsl:param name="prmIsSeeIndexterm" as="xs:boolean" required="no" select="false()"></xsl:param>
         
         <xsl:variable name="currentLevel" as="xs:integer" select="$prmIndexData/@level => xs:integer()"/>
-
+        <xsl:message select="'[outIndextermDetailLineImpl] $indexkeyForSee=' || $prmIndexData/@indexkeyForSee => string() ||' $prmStartLevel=' || $prmStartLevel => string() || ' $currentLevel=' || $currentLevel => string()"/>
         <xsl:for-each select="$prmIndexData/indexterm">
             <xsl:variable name="levelPosition" select="position()"/>
             <xsl:if test="$levelPosition ge $prmStartLevel">
