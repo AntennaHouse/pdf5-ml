@@ -21,7 +21,7 @@
             Index related
          ***************************************-->
     <!-- index-key separator -->
-    <xsl:variable name="indexKeySep" select="':'"/>
+    <xsl:variable name="indexKeySep" select="'&#x0A;'"/>
     
     <!-- 
      function:	Process indexterm in metadata
