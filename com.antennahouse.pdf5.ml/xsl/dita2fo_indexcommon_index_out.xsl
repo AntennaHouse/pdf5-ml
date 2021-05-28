@@ -291,6 +291,12 @@
         <xsl:param name="prmIndexTermFo"  as="element()"  required="yes"/>
         <xsl:param name="prmLevel"        as="xs:integer" required="yes"/>
         
+        <xsl:variable name="indexDataSeqDoc" as="document-node()">
+            <xsl:document>
+                <xsl:copy-of select="$prmIndexDataSeq"/>
+            </xsl:document>
+        </xsl:variable>
+        
         <xsl:for-each select="$prmIndexDataSeq">
             <xsl:variable name="indexData" as="element()" select="."/>
             <xsl:variable name="see" as="attribute()?" select="$indexData/@see"/>
@@ -301,6 +307,7 @@
                         <xsl:with-param name="prmIndexData" select="$indexData"/>
                         <xsl:with-param name="prmIndexTermFo" select="$prmIndexTermFo"/>
                         <xsl:with-param name="prmLevel"     select="$prmLevel"/>
+                        <xsl:with-param name="prmIndexDataSeqDoc" select="$indexDataSeqDoc"/>
                     </xsl:call-template>
                 </xsl:when>
                 <xsl:when test="$seeAlso => exists()">
@@ -415,22 +422,28 @@
             note:     index-see is always with indexterm
     -->
     <xsl:template name="outSeeDetailLine">
-        <xsl:param name="prmIndexData" as="element()" required="yes"/>
-        <xsl:param name="prmLevel" as="xs:integer" required="yes"/>
-        <xsl:param name="prmIndexTermFo"  as="element()"  required="yes"/>
+        <xsl:param name="prmIndexData"       as="element()"  required="yes"/>
+        <xsl:param name="prmLevel"           as="xs:integer" required="yes"/>
+        <xsl:param name="prmIndexTermFo"     as="element()"  required="yes"/>
+        <xsl:param name="prmIndexDataSeqDoc" as="document-node()" required="yes"/>
         
         <!-- Requirement for generating @id for current index-data -->
         <xsl:variable name="shouldGenerateId" as="xs:boolean" select="ahf:getIdRequirementForIndexterm($prmIndexData)"/>
+
+        <xsl:variable name="indexTermDetailNotExists" as="xs:boolean" select="$prmIndexDataSeqDoc/*[@see => empty()][@seealso => empty()] => empty()"/>
+        <xsl:variable name="isFirstSee" as="xs:boolean" select="$prmIndexDataSeqDoc/*[@id => string() eq $prmIndexData/@id => string()]/preceding-sibling::*[@see => exists()] => empty()"/>
         
-        <fo:block>
-            <xsl:copy-of select="ahf:getAttributeSetReplacing('atsIndexLineOnly',('%level'),(string($prmLevel)))"/>
-            <xsl:if test="$shouldGenerateId">
-                <xsl:attribute name="id">
-                    <xsl:value-of select="$prmIndexData/@indexkeyForSee => string() => ahf:indexKeyToIdValue()"/>
-                </xsl:attribute>
-            </xsl:if>
-            <fo:inline><xsl:copy-of select="$prmIndexTermFo/*"/></fo:inline>
-        </fo:block>
+        <xsl:if test="$indexTermDetailNotExists and $isFirstSee">
+            <fo:block>
+                <xsl:copy-of select="ahf:getAttributeSetReplacing('atsIndexLineOnly',('%level'),(string($prmLevel)))"/>
+                <xsl:if test="$shouldGenerateId">
+                    <xsl:attribute name="id">
+                        <xsl:value-of select="$prmIndexData/@indexkeyForSee => string() => ahf:indexKeyToIdValue()"/>
+                    </xsl:attribute>
+                </xsl:if>
+                <fo:inline><xsl:copy-of select="$prmIndexTermFo/*"/></fo:inline>
+            </fo:block>
+        </xsl:if>
 
         <xsl:variable name="seeKey" as="xs:string" select="$prmIndexData/@seekey => string()"/>
         <xsl:variable name="seeKeyId" as="xs:string" select="$seeKey => ahf:indexKeyToIdValue()"/>
@@ -443,7 +456,7 @@
         <xsl:if test="$seeTargetIndexterm => empty()">
             <xsl:call-template name="warningContinue">
                 <xsl:with-param name="prmMes" 
-                    select="ahf:replace($stMes662,('%see-key'),($seeKey))"/>
+                    select="ahf:replace($stMes662,('%see-key'),(ahf:replace($seeKey,($indexKeySep),(':'))))"/>
             </xsl:call-template>
         </xsl:if>
         
@@ -494,7 +507,7 @@
         <xsl:if test="$seeAlsoTargetIndexterm => empty()">
             <xsl:call-template name="warningContinue">
                 <xsl:with-param name="prmMes" 
-                    select="ahf:replace($stMes664,('%see-also-key'),($seeAlsoKey))"/>
+                    select="ahf:replace($stMes664,('%see-also-key'),(ahf:replace($seeAlsoKey,($indexKeySep),(':'))))"/>
             </xsl:call-template>
         </xsl:if>
         
