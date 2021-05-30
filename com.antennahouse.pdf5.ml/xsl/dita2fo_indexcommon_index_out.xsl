@@ -432,8 +432,12 @@
 
         <xsl:variable name="indexTermDetailNotExists" as="xs:boolean" select="$prmIndexDataSeqDoc/*[@see => empty()][@seealso => empty()] => empty()"/>
         <xsl:variable name="isFirstSee" as="xs:boolean" select="$prmIndexDataSeqDoc/*[@id => string() eq $prmIndexData/@id => string()]/preceding-sibling::*[@see => exists()] => empty()"/>
+        <xsl:variable name="hasOnlyOneSee" as="xs:boolean" select="$prmIndexDataSeqDoc/*[@see => exists()] => count() eq 1"/>
+        <xsl:variable name="hasMultipleSee" as="xs:boolean" select="$hasOnlyOneSee => not()"/>
+        <xsl:variable name="outputSeeWithSameLine" as="xs:boolean"  select="$indexTermDetailNotExists and $hasOnlyOneSee and $prmLevel eq 1"/>
+        <xsl:variable name="outputSeeInAnotherLine" as="xs:boolean" select="$indexTermDetailNotExists and not($outputSeeWithSameLine) and $isFirstSee"/>
         
-        <xsl:if test="$indexTermDetailNotExists and $isFirstSee">
+        <xsl:if test="$outputSeeInAnotherLine">
             <fo:block>
                 <xsl:copy-of select="ahf:getAttributeSetReplacing('atsIndexLineOnly',('%level'),(string($prmLevel)))"/>
                 <xsl:if test="$shouldGenerateId">
@@ -462,10 +466,20 @@
         
         <!-- See entry as indented-->
         <fo:block>
-            <xsl:copy-of select="ahf:getAttributeSetReplacing('atsIndexLineSee',('%level'),(string($prmLevel + 1)))"/>
+            <xsl:copy-of select="ahf:getAttributeSetReplacing('atsIndexLineSee',('%level'),(if ($outputSeeWithSameLine) then string($prmLevel) else string($prmLevel + 1)))"/>
+            <xsl:if test="$outputSeeWithSameLine">
+                <fo:inline>
+                    <xsl:if test="$shouldGenerateId">
+                        <xsl:attribute name="id">
+                            <xsl:value-of select="$prmIndexData/@indexkeyForSee => string() => ahf:indexKeyToIdValue()"/>
+                        </xsl:attribute>
+                    </xsl:if>
+                    <xsl:copy-of select="$prmIndexTermFo/*"/>
+                </fo:inline>
+            </xsl:if>
             <fo:inline>
                 <xsl:copy-of select="ahf:getAttributeSet('atsSeePrefix')"/>
-                <xsl:value-of select="$cSeePrefixLevel2"/>
+                <xsl:value-of select="if ($outputSeeWithSameLine) then $cSeePrefixLevel1 else $cSeePrefixLevel2"/>
             </fo:inline>
             <xsl:choose>
                 <xsl:when test="$pMakeSeeLink">
@@ -481,7 +495,7 @@
             </xsl:choose>
             <fo:inline>
                 <xsl:copy-of select="ahf:getAttributeSet('atsSeeSuffix')"/>
-                <xsl:value-of select="$cSeeSuffixLevel2"/>
+                <xsl:value-of select="if ($outputSeeWithSameLine) then $cSeeSuffixLevel1 else $cSeeSuffixLevel2"/>
             </fo:inline>
         </fo:block>
     </xsl:template>
