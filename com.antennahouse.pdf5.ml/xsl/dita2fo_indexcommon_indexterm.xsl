@@ -20,8 +20,12 @@
     <!-- *************************************** 
             Index related
          ***************************************-->
-    <!-- index-key separator -->
-    <xsl:variable name="indexKeySep" select="':'"/>
+    <!-- index-key separator
+         Changed from ":" or "&#x0A;" to get accurate token from key variables that uses this $indexKeySep
+         "&#x0A;" is useless, it is replaced to "&#x20;" when applying normalize-space() function.
+         2021-05-28 t.makita
+     -->
+    <xsl:variable name="indexKeySep" select="'&#xFFFD;'"/>
     
     <!-- 
      function:	Process indexterm in metadata

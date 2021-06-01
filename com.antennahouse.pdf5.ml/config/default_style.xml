@@ -1287,6 +1287,12 @@ URL : http://www.antennahouse.com/
                 <attribute name="text-indent">($Index_Indent_Value) * -1</attribute>
                 <attribute name="start-indent">($Index_Indent_Value) * %level</attribute>
             </attribute-set>
+            
+            <attribute-set name="atsIndexLineWoPageRef">
+                <attribute name="axf:text-align-first">left</attribute>
+                <attribute name="text-align">left</attribute>
+                <attribute name="text-align-last">left</attribute>
+            </attribute-set>
 
             <!-- Index leader1 -->
             <attribute-set name="atsIndexLeader1">
