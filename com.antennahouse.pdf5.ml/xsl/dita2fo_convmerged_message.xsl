@@ -8,7 +8,7 @@ File Name : dita2fo_convmerged_message.xsl
 **************************************************************
 Copyright © 2009 2009 Antenna House, Inc.All rights reserved.
 Antenna House is a trademark of Antenna House, Inc.
-URL : http://www.antennahouse.co.jp/
+URL : http://www.antennahouse.com/
 **************************************************************
 -->
 
