@@ -9,6 +9,7 @@
   <extension-point id="depend.com.antennahouse.pdf5.ml.convmerged.post" name="Convert merged middle file post-target"/>
   <extension-point id="depend.com.antennahouse.pdf5.ml.format.pre" name="Formatting pre-target"/>
   <extension-point id="depend.com.antennahouse.pdf5.ml.format.post" name="Formatting post-target"/>
+  <extension-point id="build.com.antennahouse.pdf5.ml.inclusion" name="Inclusion for build.xml."/>
   <extension-point id="build.com.antennahouse.pdf5.ml.format.inclusion" name="Inclusion for build_transoform_template.xml for above 'depends.～' targets."/>
   <extension-point id="build.com.antennahouse.pdf5.ml.ahf.build.inclusion" name="Inclusion for build_ahf_template.xml."/>
   <extension-point id="build.com.antennahouse.pdf5.ml.ahf.run.param.inclusion" name="Inclusion for AF Formatter execution parameter."/>
@@ -155,6 +156,7 @@
     <param name="ahf.dir" desc="Specifies AH Formatter directory" type="string"/>
     <param name="ahf.opt" desc="Specifies AH Formatter option setting file" type="file"/>
   </transtype>
+  <template file="build_template.xml"/>
   <template file="build_transform_template.xml"/>
   <template file="build_ahf_template.xml"/>
   <template file="xsl/dita2fo_shell_template.xsl"/>

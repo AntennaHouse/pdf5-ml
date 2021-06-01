@@ -1,0 +1,240 @@
+<?xml version="1.0"?>
+<!-- Notes:
+    2014-01-02
+    Changed for I18n Index Library plug-in integration.
+    If you don't install I18n Index Library plug-in, there is no consideration needed for it.
+    - Default value for property use.i18n.index.lib is "no".
+      If you use I18n Index Library, set this property explicitly to "yes" in DITA-OT command-line.
+      -Duse.i18n.index.lib=yes
+      If I18n Index Library is not installed in DITA-OT, do not set property use.i18n.index.lib to "yes". 
+    - If I18n Index Library plug-in is installed, following property are passed from [DITA-OT]/build.xml.
+      com.antennahouse.i18n.home
+      com.antennahouse.i18n_index.plugin.lib
+  -->
+<project name="com.antennahouse.pdf5.build"  xmlns:dita="http://dita-ot.sourceforge.net" basedir="." xmlns:if="ant:if">
+    <import file="build_transform.xml"/>
+    <import file="build_disp_properties.xml"/>
+    
+    <dita:extension id="build.com.antennahouse.pdf5.ml.inclusion" behavior="org.dita.dost.platform.InsertAction"/>
+    
+    <!-- Set property -->
+    <property name="merged.file" value="${dita.map.filename.root}_MERGED.xml" />
+    <property name="converted.merged.file" value="${dita.map.filename.root}_CONVERTED.xml" />
+    <property name="xsl.dir" value="${basedir}${file.separator}xsl"/>
+    <property name="use.saxon.transform" value="no"/>
+
+    <!-- I18n Index LIbrary Settings -->
+    <property name="use.i18n.index.lib" value="no"/>
+    <condition property="i18n.home" value="${com.antennahouse.i18n.home}">
+        <isset property="com.antennahouse.i18n.home"/>
+    </condition>
+    
+    <!-- I18n Index Library Path
+         - Available only when I18n Index Library is installed in DITA-OT as plugin.
+      -->
+    <path id="i18n_index.class.path">
+        <!--pathelement location="${com.antennahouse.i18n_index.plugin.lib}${file.separator}i18n_support${file.separator}lib${file.separator}icu4j-4_8.jar"/>
+        <pathelement location="${com.antennahouse.i18n_index.plugin.lib}${file.separator}ah_i18n_index.jar"/>
+        <pathelement location="${com.antennahouse.i18n_index.plugin.lib}${file.separator}i18n_support.jar"/-->
+        <fileset dir="${com.antennahouse.i18n_index.plugin.lib}${file.separator}i18n_support${file.separator}lib">
+            <include name="*.jar"/>
+        </fileset>
+        <fileset dir="${com.antennahouse.i18n_index.plugin.lib}">
+            <include name="*.jar"/>
+        </fileset>
+    </path>
+
+    <condition property="use.18n_index.class.path">
+        <and>
+            <equals arg1="${use.i18n.index.lib}" arg2="yes"/>
+            <isset property="com.antennahouse.i18n_index.plugin.lib"/>
+        </and>
+    </condition>
+    
+    <!-- XML catalog -->
+    <xmlcatalog id="dita.catalog">
+        <catalogpath path="${dita.dir}${file.separator}plugins${file.separator}org.dita.base${file.separator}catalog-dita.xml"/>
+    </xmlcatalog>
+    
+    <!-- Logical check -->
+    <fail message="[com.antennahouse.pdf5.ml] I18n Index Library plug-in is needed if use.i18n.index.lib is 'yes'.">
+        <condition>
+            <and>
+                <equals arg1="${use.i18n.index.lib}" arg2="yes"/>
+                <not>
+                    <isset property="com.antennahouse.i18n_index.plugin.lib"/>
+                </not>
+            </and>
+        </condition>
+    </fail>
+    
+    <!-- Copy resource paramter
+         Set "true" if you want copy resources into output.dir.
+         Resource is authored as below: 
+         <topicref href="[Relative path to reource]" processing-role="resource-only" format="any type such as pdf, docx or xlsx " outputclass="link-target"/>
+     -->
+    <property name="copy.link.target.to.output.dir" value="false"/>
+    <property name="link.target.output.class" value="link-target"/>
+    
+    <!-- XSLT parameter
+         Set initial value only when ${use.saxon.transform}="yes"
+         If you use JAXP transform, the stylesheet initial value is used.
+     -->
+    <condition property="style.def.file" value="config/default_style.xml">
+        <equals arg1="${use.saxon.transform}" arg2="yes"/> 
+    </condition>
+    <condition property="assume.sortas.pinyin" value="no" >
+        <equals arg1="${use.saxon.transform}" arg2="yes"/> 
+    </condition>
+    <condition property="make.see.link" value="yes">
+        <equals arg1="${use.saxon.transform}" arg2="yes"/> 
+    </condition>
+    <condition property="include.frontmatter.to.toc" value="no">
+        <equals arg1="${use.saxon.transform}" arg2="yes"/> 
+    </condition>
+    <condition property="add.numbering.title.prefix" value="yes" >
+        <equals arg1="${use.saxon.transform}" arg2="yes"/> 
+    </condition>
+    <condition property="add.part.to.title" value="yes" >
+        <equals arg1="${use.saxon.transform}" arg2="yes"/> 
+    </condition>
+    <condition property="add.thumbnail.index" value="yes" >
+        <equals arg1="${use.saxon.transform}" arg2="yes"/> 
+    </condition>
+    <condition property="xml.lang" value="''" >
+        <equals arg1="${use.saxon.transform}" arg2="yes"/> 
+    </condition>
+    <property name="output.pdf" value="${dita.map.filename.root}.pdf"/>
+    <condition property="output.draft.comment" value="no">
+        <equals arg1="${use.saxon.transform}" arg2="yes"/> 
+    </condition>
+    <condition property="output.required.cleanup" value="no">
+        <equals arg1="${use.saxon.transform}" arg2="yes"/> 
+    </condition>
+    <condition property="use.oid" value="no">
+        <equals arg1="${use.saxon.transform}" arg2="yes"/> 
+    </condition>
+    <condition property="format.dl.as.block" value="yes">
+        <equals arg1="${use.saxon.transform}" arg2="yes"/> 
+    </condition>
+    <condition property="debug.style" value="no">
+        <equals arg1="${use.saxon.transform}" arg2="yes"/> 
+    </condition>
+    <!--condition property="apply.toc.attr" value="yes">
+        <equals arg1="${use.saxon.transform}" arg2="yes"/> 
+    </condition-->
+    <!--condition property="online.pdf" value="yes">
+        <equals arg1="${use.saxon.transform}" arg2="yes"/> 
+    </condition-->
+    <condition property="sort.glossentry" value="yes">
+        <equals arg1="${use.saxon.transform}" arg2="yes"/> 
+    </condition>
+    <condition property="output.start.message" value="yes">
+        <equals arg1="${use.saxon.transform}" arg2="yes"/> 
+    </condition>
+    <condition property="auto.scale.down.to.fit" value="yes">
+        <equals arg1="${use.saxon.transform}" arg2="yes"/> 
+    </condition>
+    <condition property="make.toc.for.map" value="yes">
+        <equals arg1="${use.saxon.transform}" arg2="yes"/> 
+    </condition>
+    <condition property="make.index.for.map" value="yes">
+        <equals arg1="${use.saxon.transform}" arg2="yes"/> 
+    </condition>
+    <condition property="make.alt.txt" value="no">
+        <equals arg1="${use.saxon.transform}" arg2="yes"/> 
+    </condition>
+    <condition property="paper.size" value="Letter">
+        <equals arg1="${use.saxon.transform}" arg2="yes"/> 
+    </condition>
+    <condition property="image.in.output.folder" value="no">
+        <isset property="preprocess.copy-image.skip"/>
+    </condition>
+    <condition property="image.in.output.folder" value="yes">
+        <not>
+            <isset property="preprocess.copy-image.skip"/>
+        </not>
+    </condition>
+    <condition property="output.crop.region" value="no">
+        <equals arg1="${use.saxon.transform}" arg2="yes"/> 
+    </condition>
+
+    <property name="output.type" value="web"/>
+
+    <condition property="exclude.cover.from.counting.page" value="yes">
+        <equals arg1="${use.saxon.transform}" arg2="yes"/> 
+    </condition>
+    <condition property="number.equation.block.unconditionally" value="no">
+        <equals arg1="${use.saxon.transform}" arg2="yes"/> 
+    </condition>
+    <condition property="exclude.auto.numbering.from.equation.figure" value="yes">
+        <equals arg1="${use.saxon.transform}" arg2="yes"/> 
+    </condition>
+    
+    <condition property="debug.index" value="no">
+        <equals arg1="${use.saxon.transform}" arg2="yes"/> 
+    </condition>
+
+    <property name="skip.pdf.generation" value="no"/>
+
+    <condition property="output.index" value="yes">
+        <equals arg1="${use.saxon.transform}" arg2="yes"/> 
+    </condition>
+
+    <!-- Make absolute path for temporary directory -->
+    <available property="build.temp.dir" value="${dita.temp.dir}" file="${dita.temp.dir}" type="dir"/>
+    <condition property="build.temp.dir" value="${caller.basedir}${file.separator}${dita.temp.dir}">
+        <not>
+            <isset property="build.temp.dir"/>
+        </not>
+    </condition>
+
+    <!-- Make URL for input directory -->
+    <dirname property="user.input.dir" file="${args.input}"/>
+    <makeurl property="user.input.dir.url" file="${user.input.dir}"/>
+    
+    <!-- Make URL for output directory -->
+    <makeurl property="output.dir.url" file="${dita.map.output.dir}"/>
+
+    <!-- Make URL for temporary directory -->
+    <makeurl property="temp.dir.url" file="${dita.temp.dir}"/>
+    
+    <!-- Main target -->
+    <target name="merged2pdf">
+    	<echo message="dita.temp.dir=${dita.temp.dir} build.temp.dir=${build.temp.dir}"/>
+    	<echo message="dita.dir=${dita.dir}"/>
+    	<echo message="basedir=${basedir}"/>
+    	<echo message="outputFile=${dita.map.output.dir}${file.separator}${output.pdf}"/>
+        <antcall target="build.disp.property"/>
+        <antcall target="copy.link.target.file" if:true="${copy.link.target.to.output.dir}"/>
+        <antcall target="transform.merged2pdf.impl">
+            <param name="prmInputFile"  value="${build.temp.dir}${file.separator}${merged.file}"/>
+            <param name="prmOutputFile" value="${dita.map.output.dir}${file.separator}${output.pdf}"/>
+        </antcall>
+    </target>
+    
+    <!-- Copy link target resource files into output directory -->
+    <target name="copy.link.target.file">
+        <property name="map.property" value="map.property.xml"/>
+        <dirname property="dita.input.dir" file="${args.input}"/>
+        <!-- generate XML property file -->
+        <xslt processor="trax" in="${dita.temp.dir}${file.separator}${dita.input.filename}" out="${dita.temp.dir}${file.separator}${map.property}" style="${basedir}${file.separator}xsl${file.separator}dita2fo_bookmap_to_xml_property.xsl" force="true" failonerror="true">
+            <factory name="net.sf.saxon.TransformerFactoryImpl">
+                <attribute name="http://saxon.sf.net/feature/timing" value="true"/>
+            </factory>
+            <param name="PRM_LINK_TARGET_OUTPUT_CLASS" expression="${link.target.output.class}" if:set="link.target.output.class"/>
+            <xmlcatalog>
+                <catalogpath path="${dita.plugin.org.dita.base.dir}/catalog-dita.xml"/>
+            </xmlcatalog>
+        </xslt>
+        <!-- Make property from XML -->
+        <xmlproperty file="${dita.temp.dir}${file.separator}${map.property}" keeproot="true" collapseAttributes="true" semanticAttributes="true"/>
+        <echo message="Target file:${map.link-target}"/>
+        <!-- Copy them into output dir -->
+        <copy todir="${dita.output.dir}">
+            <mapper type="flatten"/>
+            <filelist dir="${dita.input.dir}" files="${map.link-target}"/>
+        </copy>
+    </target>
+    
+</project>
