@@ -22,9 +22,9 @@
             Keys
          ***************************************-->
     <!-- index-see, index-see-also key -->
-    <xsl:key name="indextermBySee" match="$indextermSorted/index-data" use="@seekey"/>
-    <xsl:key name="indextermBySeeAlso" match="$indextermSorted/index-data" use="@seealsokey"/>
-    <xsl:key name="indextermByIndexKeyForSee" match="$indextermSorted/index-data" use="@indexkeyForSee"/>
+    <xsl:key name="indextermBySee"            match="$indextermSorted/index-data" use="@seekey"/>
+    <xsl:key name="indextermBySeeAlso"        match="$indextermSorted/index-data" use="@seealsokey"/>
+    <xsl:key name="indextermByIndexKeyForSee" match="$indextermFinalSortedTree/descendant::index-group[(@level => string() eq '1') or (@isLast => string() eq 'yes')]" use="@indexkeyForSee"/>
     
     <!-- *************************************** 
             Index related
@@ -244,7 +244,8 @@
             <xsl:when test="$prmIndexGroup/index-group => exists() and
                             $prmIndexGroup/index-data => empty()">
                 <xsl:call-template name="outIndexTermTitleOnlyLine">
-                    <xsl:with-param name="prmIndexTermFo" select="$prmIndexGroup/indextermfo" as="element()"/>
+                    <xsl:with-param name="prmIndexGroup"  select="$prmIndexGroup"/>
+                    <xsl:with-param name="prmIndexTermFo" select="$prmIndexGroup/indextermfo"/>
                     <xsl:with-param name="prmLevel"       select="$prmLevel"/>
                 </xsl:call-template>
                 <xsl:for-each select="$prmIndexGroup/index-group">
@@ -270,13 +271,19 @@
             param:    prmIndextermFo, prmLevel
             return:   fo:block
             note:     Output indexterm title only line 
-                      Do not set id for See, SeeAlso reference.
+                      Set id if this group is level1 and referenced from index-see or index-see-also.
      -->
     <xsl:template name="outIndexTermTitleOnlyLine">
-        <xsl:param name="prmIndexTermFo" as="element()" required="yes"/>
-        <xsl:param name="prmLevel" as="xs:integer" required="yes"/>
+        <xsl:param name="prmIndexGroup"  as="element()"  required="yes"/>
+        <xsl:param name="prmIndexTermFo" as="element()"  required="yes"/>
+        <xsl:param name="prmLevel"       as="xs:integer" required="yes"/>
+        
+        <xsl:variable name="shouldGenerateId" as="xs:boolean" select="ahf:getIdRequirementForIndexDataGroup($prmIndexGroup)"/>
         <fo:block>
             <xsl:copy-of select="ahf:getAttributeSetReplacing('atsIndexLineOnly',('%level'),(string($prmLevel)))"/>
+            <xsl:if test="$shouldGenerateId">
+                <xsl:attribute name="id" select="$prmIndexGroup/@indexkeyForSee => string() => ahf:indexKeyToIdValue()"/>
+            </xsl:if>
             <fo:inline><xsl:copy-of select="$prmIndexTermFo/node()"/></fo:inline>
         </fo:block>
     </xsl:template>
@@ -338,7 +345,7 @@
         <xsl:param name="prmIndexTermFo"  as="element()"  required="yes"/>
             
         <!-- Requirement for generating @id for current index-data -->
-        <xsl:variable name="shouldGenerateId" as="xs:boolean" select="ahf:getIdRequirementForIndexterm($prmIndexData)"/>
+        <xsl:variable name="shouldGenerateId" as="xs:boolean" select="ahf:getIdRequirementForIndexData($prmIndexData)"/>
 
         <xsl:call-template name="outIndextermDetailLineImpl">
             <xsl:with-param name="prmIndexData" select="$prmIndexData"/>
@@ -349,21 +356,40 @@
 
     </xsl:template>
 
-    <!--    function: Get requirement to generate @id for indexterm
-            param:    prmIndexDataGroup
-            return:   significanceNormal, significancePreferred
+    <!--    function: Get requirement to generate @id for index-data
+            param:    prmIndexData
+            return:   xs:boolean
             note:     If the key of prmIndexData is referenced from index-see or index-see-also, return true.
+                      Check using index-group:
+                      If index-group/@isLast="yes" or index-group/@level="1" then @id should be generated if it is first occurrence.
      -->
-    <xsl:function name="ahf:getIdRequirementForIndexterm" as="xs:boolean">
+    <xsl:function name="ahf:getIdRequirementForIndexData" as="xs:boolean">
         <xsl:param name="prmIndexData" as="element()"/>
         
+        <xsl:variable name="indexGroup" as="element()" select="$prmIndexData/parent::index-group"/>
         <xsl:variable name="currentIndexKeyForSee" as="xs:string" select="$prmIndexData/@indexkeyForSee => xs:string()"/>
         <xsl:variable name="isReferenced" as="xs:boolean" select="key('indextermBySee', $currentIndexKeyForSee, $indextermSorted) => exists() or key('indextermBySeeAlso', $currentIndexKeyForSee, $indextermSorted) => exists()"/>
-        <xsl:variable name="isFirstOccurence" as="xs:boolean" select="$indextermSorted/*[@id => string() eq $prmIndexData/@id => string()][1]/preceding-sibling::index-data[@indexkeyForSee  => string() eq $currentIndexKeyForSee] => empty()"/>
+        <xsl:variable name="isFirstOccurence" as="xs:boolean">
+            <xsl:variable name="sameKeyIndexGroup" as="element()*" select="key('indextermByIndexKeyForSee',$currentIndexKeyForSee,$indextermFinalSortedTree)"/>
+            <xsl:sequence select="$sameKeyIndexGroup[. &lt;&lt; $indexGroup] => empty()"/>
+        </xsl:variable>
         <xsl:variable name="shouldGenerateId" as="xs:boolean" select="$pMakeSeeLink and $isReferenced and $isFirstOccurence"/>
         <xsl:sequence select="$shouldGenerateId"/>
     </xsl:function>
 
+    <xsl:function name="ahf:getIdRequirementForIndexDataGroup" as="xs:boolean">
+        <xsl:param name="prmIndexGroup" as="element()"/>
+        
+        <xsl:variable name="currentIndexKeyForSee" as="xs:string" select="$prmIndexGroup/@indexkeyForSee => xs:string()"/>
+        <xsl:variable name="isReferenced" as="xs:boolean" select="key('indextermBySee', $currentIndexKeyForSee, $indextermSorted) => exists() or key('indextermBySeeAlso', $currentIndexKeyForSee, $indextermSorted) => exists()"/>
+        <xsl:variable name="isFirstOccurence" as="xs:boolean">
+            <xsl:variable name="sameKeyIndexGroup" as="element()*" select="key('indextermByIndexKeyForSee',$currentIndexKeyForSee,$indextermFinalSortedTree)"/>
+            <xsl:sequence select="$sameKeyIndexGroup[. &lt;&lt; $prmIndexGroup] => empty()"/>
+        </xsl:variable>
+        <xsl:variable name="shouldGenerateId" as="xs:boolean" select="$pMakeSeeLink and $isReferenced and $isFirstOccurence"/>
+        <xsl:sequence select="$shouldGenerateId"/>
+    </xsl:function>
+    
     <!--    function: Output indexterm detail line
             param:    prmIndexData, prmStartLevel, prmsignificancePreferred, prmSignificanceNormal
             return:   fo:block
@@ -385,9 +411,7 @@
                      2021-05-22 t.makita
                   -->
                 <xsl:if test="$prmShouldGenerateId">
-                    <xsl:attribute name="id">
-                        <xsl:value-of select="$prmIndexData/@indexkeyForSee => string() => ahf:indexKeyToIdValue()"/>
-                    </xsl:attribute>
+                    <xsl:attribute name="id" select="$prmIndexData/@indexkeyForSee => string() => ahf:indexKeyToIdValue()"/>
                 </xsl:if>
                 <xsl:copy-of select="$prmIndexTermFo/*"/>
             </fo:inline>
@@ -428,7 +452,7 @@
         <xsl:param name="prmIndexDataSeqDoc" as="document-node()" required="yes"/>
         
         <!-- Requirement for generating @id for current index-data -->
-        <xsl:variable name="shouldGenerateId" as="xs:boolean" select="ahf:getIdRequirementForIndexterm($prmIndexData)"/>
+        <xsl:variable name="shouldGenerateId" as="xs:boolean" select="ahf:getIdRequirementForIndexData($prmIndexData)"/>
 
         <xsl:variable name="indexTermDetailNotExists" as="xs:boolean" select="$prmIndexDataSeqDoc/*[@see => empty()][@seealso => empty()] => empty()"/>
         <xsl:variable name="isFirstSee" as="xs:boolean" select="$prmIndexDataSeqDoc/*[@id => string() eq $prmIndexData/@id => string()]/preceding-sibling::*[@see => exists()] => empty()"/>
@@ -441,9 +465,7 @@
             <fo:block>
                 <xsl:copy-of select="ahf:getAttributeSetReplacing('atsIndexLineOnly',('%level'),(string($prmLevel)))"/>
                 <xsl:if test="$shouldGenerateId">
-                    <xsl:attribute name="id">
-                        <xsl:value-of select="$prmIndexData/@indexkeyForSee => string() => ahf:indexKeyToIdValue()"/>
-                    </xsl:attribute>
+                    <xsl:attribute name="id" select="$prmIndexData/@indexkeyForSee => string() => ahf:indexKeyToIdValue()"/>
                 </xsl:if>
                 <fo:inline><xsl:copy-of select="$prmIndexTermFo/*"/></fo:inline>
             </fo:block>
@@ -456,7 +478,7 @@
         <!-- Check see destination
              2021-05-23 t.makita
          -->
-        <xsl:variable name="seeTargetIndexterm" as="element()*" select="key('indextermByIndexKeyForSee', $seeKey, $indextermSorted)"/>
+        <xsl:variable name="seeTargetIndexterm" as="element()*" select="key('indextermByIndexKeyForSee', $seeKey, $indextermFinalSortedTree)"/>
         <xsl:if test="$seeTargetIndexterm => empty()">
             <xsl:call-template name="warningContinue">
                 <xsl:with-param name="prmMes" 
@@ -470,9 +492,7 @@
             <xsl:if test="$outputSeeWithSameLine">
                 <fo:inline>
                     <xsl:if test="$shouldGenerateId">
-                        <xsl:attribute name="id">
-                            <xsl:value-of select="$prmIndexData/@indexkeyForSee => string() => ahf:indexKeyToIdValue()"/>
-                        </xsl:attribute>
+                        <xsl:attribute name="id" select="$prmIndexData/@indexkeyForSee => string() => ahf:indexKeyToIdValue()"/>
                     </xsl:if>
                     <xsl:copy-of select="$prmIndexTermFo/*"/>
                 </fo:inline>
@@ -517,7 +537,7 @@
         <!-- Check see-also destination
              2021-05-23 t.makita
          -->
-        <xsl:variable name="seeAlsoTargetIndexterm" as="element()*" select="key('indextermByIndexKeyForSee', $seeAlsoKey, $indextermSorted)"/>
+        <xsl:variable name="seeAlsoTargetIndexterm" as="element()*" select="key('indextermByIndexKeyForSee', $seeAlsoKey, $indextermFinalSortedTree)"/>
         <xsl:if test="$seeAlsoTargetIndexterm => empty()">
             <xsl:call-template name="warningContinue">
                 <xsl:with-param name="prmMes" 

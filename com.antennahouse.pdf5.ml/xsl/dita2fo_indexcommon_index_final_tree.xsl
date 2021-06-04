@@ -73,18 +73,23 @@
          Function: Group index-data by it's Nth indexterm's indexkey
          Param:    $prmIndexData
          Return:   element()* 
-         Note:     
+         Note:     Add @indexkeyForSee and @level to <index-group>
       -->
     <xsl:template name="groupIndexDataByNthIndexKey" as="element()*">
         <xsl:param name="prmIndexData" as="element()*" required="yes"/>
         <xsl:param name="prmIndexKeyLevel" as="xs:integer" required="yes"/>
         <xsl:for-each-group select="$prmIndexData" group-adjacent="ahf:getNthIndexKeyFromIndexTerm(.,$prmIndexKeyLevel)">
+            <xsl:variable name="indexDataGroup" as="element()+" select="current-group()"/>
+            <xsl:variable name="hasLevelPlusOneIndexData" select="some $indexData in $indexDataGroup satisfies ahf:hasNthIndexKeyInIndexTerm($indexData,$prmIndexKeyLevel + 1)"/>
             <index-group>
                 <xsl:attribute name="group-key" select="current-grouping-key()"/>
-                <xsl:copy-of select="current-group()[1]/indexterm[$prmIndexKeyLevel]/indextermfo"/>
+                <xsl:attribute name="level" select="$prmIndexKeyLevel => string()"/>
+                <xsl:attribute name="indexkeyForSee" select="ahf:getNthLevelIndexKey($indexDataGroup[1]/@indexkeyForSee => string(), $prmIndexKeyLevel)"/>
+                <xsl:attribute name="isLast" select="if ($hasLevelPlusOneIndexData) then 'no' else 'yes'"/>
+                <xsl:copy-of select="$indexDataGroup[1]/indexterm[$prmIndexKeyLevel]/indextermfo"/>
                 <xsl:choose>
-                    <xsl:when test="some $indexterm in current-group() satisfies ahf:hasNthIndexKeyInIndexTerm($indexterm,$prmIndexKeyLevel + 1)">
-                        <xsl:for-each-group select="current-group()" group-adjacent="ahf:hasNthIndexKeyInIndexTerm(.,$prmIndexKeyLevel + 1)">
+                    <xsl:when test="$hasLevelPlusOneIndexData">
+                        <xsl:for-each-group select="$indexDataGroup" group-adjacent="ahf:hasNthIndexKeyInIndexTerm(.,$prmIndexKeyLevel + 1)">
                             <xsl:variable name="hasNPlus1Key" as="xs:boolean" select="current-grouping-key()"/>
                             <xsl:choose>
                                 <xsl:when test="$hasNPlus1Key">
@@ -112,29 +117,50 @@
     </xsl:template>
     
     <!-- 
-         Function: Get Nth indexkey fro indexterm (index-data element)
-         Param:    $prmIndexTerm
+         Function: Get Nth indexkey from index-data element
+         Param:    $prmIndexData
          Return:   xs:string 
          Note:     
       -->
     <xsl:function name="ahf:getNthIndexKeyFromIndexTerm" as="xs:string">
-        <xsl:param name="prmIndexTerm" as="element()"/>
+        <xsl:param name="prmIndexData" as="element()"/>
         <xsl:param name="prmNth" as="xs:integer"/>
-        <xsl:variable name="indexKey" as="xs:string" select="$prmIndexTerm/@indexkey => string()"/>
+        <xsl:variable name="indexKey" as="xs:string" select="$prmIndexData/@indexkey => string()"/>
         <xsl:variable name="indexKeys" as="xs:string*" select="tokenize($indexKey,$indexKeySep)"/>
         <xsl:variable name="result" as="xs:string?" select="$indexKeys[$prmNth]"/>
         <xsl:sequence select="if ($result => empty()) then '' else $result"/>
     </xsl:function>
     
     <xsl:function name="ahf:hasNthIndexKeyInIndexTerm" as="xs:boolean">
-        <xsl:param name="prmIndexTerm" as="element()"/>
+        <xsl:param name="prmIndexData" as="element()"/>
         <xsl:param name="prmNth" as="xs:integer"/>
-        <xsl:variable name="indexKey" as="xs:string" select="$prmIndexTerm/@indexkey => string()"/>
+        <xsl:variable name="indexKey" as="xs:string" select="$prmIndexData/@indexkey => string()"/>
         <xsl:variable name="indexKeys" as="xs:string*" select="tokenize($indexKey,$indexKeySep)"/>
         <xsl:variable name="result" as="xs:string?" select="$indexKeys[$prmNth]"/>
         <xsl:sequence select="if ($result => empty()) then false() else true()"/>
     </xsl:function>
-    
+
+    <!-- 
+         Function: Get Nth level indexkeyForSee from @indexkeyForSee
+         Param:    prmIndexKey, prmLevel
+         Return:   xs:string 
+         Note:     prmIndexKey is delimited by indexKeySep
+      -->
+    <xsl:function name="ahf:getNthLevelIndexKey" as="xs:string">
+        <xsl:param name="prmIndexKey" as="xs:string"/>
+        <xsl:param name="prmLevel"    as="xs:integer"/>
+        <xsl:choose>
+            <xsl:when test="$prmLevel eq 1 and contains($prmIndexKey,$indexKeySep) => not()">
+                <xsl:sequence select="$prmIndexKey"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:variable name="indexKeys" as="xs:string+" select="tokenize($prmIndexKey,$indexKeySep)"/>
+                <xsl:variable name="result" as="xs:string" select="$indexKeys[position() le $prmLevel] => string-join($indexKeySep)"/>
+                <xsl:sequence select="$result"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:function>
+
     <!-- 
          Function: Group index-data by @see and @seealso and combine them one index-data
          Param:    $prmIndexTerms
