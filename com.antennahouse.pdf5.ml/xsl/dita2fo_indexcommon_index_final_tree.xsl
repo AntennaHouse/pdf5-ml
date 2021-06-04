@@ -78,9 +78,9 @@
     <xsl:template name="groupIndexDataByNthIndexKey" as="element()*">
         <xsl:param name="prmIndexData" as="element()*" required="yes"/>
         <xsl:param name="prmIndexKeyLevel" as="xs:integer" required="yes"/>
-        <xsl:for-each-group select="$prmIndexData" group-adjacent="ahf:getNthIndexKeyFromIndexTerm(.,$prmIndexKeyLevel)">
+        <xsl:for-each-group select="$prmIndexData" group-adjacent="ahf:getNthIndexKeyFromIndexData(.,$prmIndexKeyLevel)">
             <xsl:variable name="indexDataGroup" as="element()+" select="current-group()"/>
-            <xsl:variable name="hasLevelPlusOneIndexData" select="some $indexData in $indexDataGroup satisfies ahf:hasNthIndexKeyInIndexTerm($indexData,$prmIndexKeyLevel + 1)"/>
+            <xsl:variable name="hasLevelPlusOneIndexData" select="some $indexData in $indexDataGroup satisfies ahf:hasNthIndexKeyInIndexData($indexData,$prmIndexKeyLevel + 1)"/>
             <index-group>
                 <xsl:attribute name="group-key" select="current-grouping-key()"/>
                 <xsl:attribute name="level" select="$prmIndexKeyLevel => string()"/>
@@ -89,7 +89,7 @@
                 <xsl:copy-of select="$indexDataGroup[1]/indexterm[$prmIndexKeyLevel]/indextermfo"/>
                 <xsl:choose>
                     <xsl:when test="$hasLevelPlusOneIndexData">
-                        <xsl:for-each-group select="$indexDataGroup" group-adjacent="ahf:hasNthIndexKeyInIndexTerm(.,$prmIndexKeyLevel + 1)">
+                        <xsl:for-each-group select="$indexDataGroup" group-adjacent="ahf:hasNthIndexKeyInIndexData(.,$prmIndexKeyLevel + 1)">
                             <xsl:variable name="hasNPlus1Key" as="xs:boolean" select="current-grouping-key()"/>
                             <xsl:choose>
                                 <xsl:when test="$hasNPlus1Key">
@@ -122,7 +122,7 @@
          Return:   xs:string 
          Note:     
       -->
-    <xsl:function name="ahf:getNthIndexKeyFromIndexTerm" as="xs:string">
+    <xsl:function name="ahf:getNthIndexKeyFromIndexData" as="xs:string">
         <xsl:param name="prmIndexData" as="element()"/>
         <xsl:param name="prmNth" as="xs:integer"/>
         <xsl:variable name="indexKey" as="xs:string" select="$prmIndexData/@indexkey => string()"/>
@@ -131,7 +131,7 @@
         <xsl:sequence select="if ($result => empty()) then '' else $result"/>
     </xsl:function>
     
-    <xsl:function name="ahf:hasNthIndexKeyInIndexTerm" as="xs:boolean">
+    <xsl:function name="ahf:hasNthIndexKeyInIndexData" as="xs:boolean">
         <xsl:param name="prmIndexData" as="element()"/>
         <xsl:param name="prmNth" as="xs:integer"/>
         <xsl:variable name="indexKey" as="xs:string" select="$prmIndexData/@indexkey => string()"/>
