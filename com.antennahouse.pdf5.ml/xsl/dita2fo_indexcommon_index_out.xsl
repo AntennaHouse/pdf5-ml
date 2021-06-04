@@ -22,9 +22,9 @@
             Keys
          ***************************************-->
     <!-- index-see, index-see-also key -->
-    <xsl:key name="indextermBySee"            match="$indextermSorted/index-data" use="@seekey"/>
-    <xsl:key name="indextermBySeeAlso"        match="$indextermSorted/index-data" use="@seealsokey"/>
-    <xsl:key name="indextermByIndexKeyForSee" match="$indextermFinalSortedTree/descendant::index-group[(@level => string() eq '1') or (@isLast => string() eq 'yes')]" use="@indexkeyForSee"/>
+    <xsl:key name="indexDataBySee"            match="$indextermSorted/index-data" use="@seekey"/>
+    <xsl:key name="indexDataBySeeAlso"        match="$indextermSorted/index-data" use="@seealsokey"/>
+    <xsl:key name="indexDataByIndexKeyForSee" match="$indextermFinalSortedTree/descendant::index-group[(@level => string() eq '1') or (@isLast => string() eq 'yes')]" use="@indexkeyForSee"/>
     
     <!-- *************************************** 
             Index related
@@ -368,9 +368,9 @@
         
         <xsl:variable name="indexGroup" as="element()" select="$prmIndexData/parent::index-group"/>
         <xsl:variable name="currentIndexKeyForSee" as="xs:string" select="$prmIndexData/@indexkeyForSee => xs:string()"/>
-        <xsl:variable name="isReferenced" as="xs:boolean" select="key('indextermBySee', $currentIndexKeyForSee, $indextermSorted) => exists() or key('indextermBySeeAlso', $currentIndexKeyForSee, $indextermSorted) => exists()"/>
+        <xsl:variable name="isReferenced" as="xs:boolean" select="key('indexDataBySee', $currentIndexKeyForSee, $indextermSorted) => exists() or key('indexDataBySeeAlso', $currentIndexKeyForSee, $indextermSorted) => exists()"/>
         <xsl:variable name="isFirstOccurence" as="xs:boolean">
-            <xsl:variable name="sameKeyIndexGroup" as="element()*" select="key('indextermByIndexKeyForSee',$currentIndexKeyForSee,$indextermFinalSortedTree)"/>
+            <xsl:variable name="sameKeyIndexGroup" as="element()*" select="key('indexDataByIndexKeyForSee',$currentIndexKeyForSee,$indextermFinalSortedTree)"/>
             <xsl:sequence select="$sameKeyIndexGroup[. &lt;&lt; $indexGroup] => empty()"/>
         </xsl:variable>
         <xsl:variable name="shouldGenerateId" as="xs:boolean" select="$pMakeSeeLink and $isReferenced and $isFirstOccurence"/>
@@ -381,9 +381,9 @@
         <xsl:param name="prmIndexGroup" as="element()"/>
         
         <xsl:variable name="currentIndexKeyForSee" as="xs:string" select="$prmIndexGroup/@indexkeyForSee => xs:string()"/>
-        <xsl:variable name="isReferenced" as="xs:boolean" select="key('indextermBySee', $currentIndexKeyForSee, $indextermSorted) => exists() or key('indextermBySeeAlso', $currentIndexKeyForSee, $indextermSorted) => exists()"/>
+        <xsl:variable name="isReferenced" as="xs:boolean" select="key('indexDataBySee', $currentIndexKeyForSee, $indextermSorted) => exists() or key('indexDataBySeeAlso', $currentIndexKeyForSee, $indextermSorted) => exists()"/>
         <xsl:variable name="isFirstOccurence" as="xs:boolean">
-            <xsl:variable name="sameKeyIndexGroup" as="element()*" select="key('indextermByIndexKeyForSee',$currentIndexKeyForSee,$indextermFinalSortedTree)"/>
+            <xsl:variable name="sameKeyIndexGroup" as="element()*" select="key('indexDataByIndexKeyForSee',$currentIndexKeyForSee,$indextermFinalSortedTree)"/>
             <xsl:sequence select="$sameKeyIndexGroup[. &lt;&lt; $prmIndexGroup] => empty()"/>
         </xsl:variable>
         <xsl:variable name="shouldGenerateId" as="xs:boolean" select="$pMakeSeeLink and $isReferenced and $isFirstOccurence"/>
@@ -478,7 +478,7 @@
         <!-- Check see destination
              2021-05-23 t.makita
          -->
-        <xsl:variable name="seeTargetIndexterm" as="element()*" select="key('indextermByIndexKeyForSee', $seeKey, $indextermFinalSortedTree)"/>
+        <xsl:variable name="seeTargetIndexterm" as="element()*" select="key('indexDataByIndexKeyForSee', $seeKey, $indextermFinalSortedTree)"/>
         <xsl:if test="$seeTargetIndexterm => empty()">
             <xsl:call-template name="warningContinue">
                 <xsl:with-param name="prmMes" 
@@ -537,7 +537,7 @@
         <!-- Check see-also destination
              2021-05-23 t.makita
          -->
-        <xsl:variable name="seeAlsoTargetIndexterm" as="element()*" select="key('indextermByIndexKeyForSee', $seeAlsoKey, $indextermFinalSortedTree)"/>
+        <xsl:variable name="seeAlsoTargetIndexterm" as="element()*" select="key('indexDataByIndexKeyForSee', $seeAlsoKey, $indextermFinalSortedTree)"/>
         <xsl:if test="$seeAlsoTargetIndexterm => empty()">
             <xsl:call-template name="warningContinue">
                 <xsl:with-param name="prmMes" 
