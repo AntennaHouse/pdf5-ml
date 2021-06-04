@@ -22,8 +22,8 @@
             Keys
          ***************************************-->
     <!-- index-see, index-see-also key -->
-    <xsl:key name="indexDataBySee"            match="$indextermSorted/index-data" use="@seekey"/>
-    <xsl:key name="indexDataBySeeAlso"        match="$indextermSorted/index-data" use="@seealsokey"/>
+    <xsl:key name="indexDataBySee"            match="$indextermFinalSortedTree/descendant::index-data" use="@seekey"/>
+    <xsl:key name="indexDataBySeeAlso"        match="$indextermFinalSortedTree/descendant::index-data" use="@seealsokey"/>
     <xsl:key name="indexDataByIndexKeyForSee" match="$indextermFinalSortedTree/descendant::index-group[(@level => string() eq '1') or (@isLast => string() eq 'yes')]" use="@indexkeyForSee"/>
     
     <!-- *************************************** 
@@ -368,7 +368,7 @@
         
         <xsl:variable name="indexGroup" as="element()" select="$prmIndexData/parent::index-group"/>
         <xsl:variable name="currentIndexKeyForSee" as="xs:string" select="$prmIndexData/@indexkeyForSee => xs:string()"/>
-        <xsl:variable name="isReferenced" as="xs:boolean" select="key('indexDataBySee', $currentIndexKeyForSee, $indextermSorted) => exists() or key('indexDataBySeeAlso', $currentIndexKeyForSee, $indextermSorted) => exists()"/>
+        <xsl:variable name="isReferenced" as="xs:boolean" select="key('indexDataBySee', $currentIndexKeyForSee, $indextermFinalSortedTree) => exists() or key('indexDataBySeeAlso', $currentIndexKeyForSee, $indextermFinalSortedTree) => exists()"/>
         <xsl:variable name="isFirstOccurence" as="xs:boolean">
             <xsl:variable name="sameKeyIndexGroup" as="element()*" select="key('indexDataByIndexKeyForSee',$currentIndexKeyForSee,$indextermFinalSortedTree)"/>
             <xsl:sequence select="$sameKeyIndexGroup[. &lt;&lt; $indexGroup] => empty()"/>
@@ -381,7 +381,7 @@
         <xsl:param name="prmIndexGroup" as="element()"/>
         
         <xsl:variable name="currentIndexKeyForSee" as="xs:string" select="$prmIndexGroup/@indexkeyForSee => xs:string()"/>
-        <xsl:variable name="isReferenced" as="xs:boolean" select="key('indexDataBySee', $currentIndexKeyForSee, $indextermSorted) => exists() or key('indexDataBySeeAlso', $currentIndexKeyForSee, $indextermSorted) => exists()"/>
+        <xsl:variable name="isReferenced" as="xs:boolean" select="key('indexDataBySee', $currentIndexKeyForSee, $indextermFinalSortedTree) => exists() or key('indexDataBySeeAlso', $currentIndexKeyForSee, $indextermFinalSortedTree) => exists()"/>
         <xsl:variable name="isFirstOccurence" as="xs:boolean">
             <xsl:variable name="sameKeyIndexGroup" as="element()*" select="key('indexDataByIndexKeyForSee',$currentIndexKeyForSee,$indextermFinalSortedTree)"/>
             <xsl:sequence select="$sameKeyIndexGroup[. &lt;&lt; $prmIndexGroup] => empty()"/>
