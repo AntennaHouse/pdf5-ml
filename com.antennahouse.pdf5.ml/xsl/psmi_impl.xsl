@@ -55,7 +55,7 @@ FOR A PARTICULAR PURPOSE.
   <!-- Set of fo:page-sequence, fo:flow[@flow-name="xsl-region-body"], psmi:page-sequence and next element of psmi:page-sequence
        They are the trigger to generate fo:page-sequence.
    -->
-  <xsl:variable name="flowOrPsmiPageSeqOrNext" as="element()+" select="/descendant::fo:flow[@flow-name eq 'xsl-region-body'][exists(parent::*/psmi:page-sequence)]/*[1] | /descendant::fo:page-sequence | /descendant::psmi:page-sequence | descendant::psmi:page-sequence/following-sibling::*[1][empty(self::psmi:page-sequence)]"/>
+  <xsl:variable name="flowOrPsmiPageSeqOrNext" as="element()+" select="/descendant::fo:flow[@flow-name eq 'xsl-region-body'][exists(parent::*/psmi:page-sequence)]/*[1] | /descendant::fo:page-sequence[empty(descendant::psmi:page-sequence)] | /descendant::psmi:page-sequence | descendant::psmi:page-sequence/following-sibling::*[1][empty(self::psmi:page-sequence)]"/>
   <xsl:variable name="lastElemOfFlowOrPsmiPageSeqOrNext" as="element()" select="$flowOrPsmiPageSeqOrNext[last() - $gpLastPageSeqOffset]"/>
   
   <xsl:template match="/">
