@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?><!--
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
  psmi.xsl
 
  Interpret the Page Sequence Master Interleave formatting semantic described
@@ -14,8 +15,9 @@ ANY WARRANTY THAT THE USE OF THE INFORMATION HEREIN WILL NOT INFRINGE
 ANY RIGHTS OR ANY IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS 
 FOR A PARTICULAR PURPOSE.
 
---><xsl:stylesheet xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="2.0">
+-->
+<xsl:stylesheet xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="2.0">
   <xsl:import href="psmi_impl.xsl"/>
-  
-  <xsl:import xmlns:dita="http://dita-ot.sourceforge.net" href="../customization/psmi_custom.xsl"/>
+  <dita:extension id="com.antennahouse.pdf5.ml.psmi.xsl" behavior="org.dita.dost.platform.ImportXSLAction" xmlns:dita="http://dita-ot.sourceforge.net"/>
+  <xsl:import href="../customization/psmi_custom.xsl"/>
 </xsl:stylesheet>

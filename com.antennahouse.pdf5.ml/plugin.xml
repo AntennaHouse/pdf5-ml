@@ -5,6 +5,7 @@
   <extension-point id="com.antennahouse.pdf5.ml.psmi.param" name="PDF XSLT parameters (PSMI)"/>
   <extension-point id="com.antennahouse.pdf5.ml.convmerged.xsl" name="PDF XSLT stylesheet (convert merged middle file) inclusion"/>
   <extension-point id="com.antennahouse.pdf5.ml.xsl" name="PDF XSLT stylesheet inclusion"/>
+  <extension-point id="com.antennahouse.pdf5.ml.psmi.xsl" name="PSMI XSLT stylesheet inclusion"/>
   <extension-point id="depend.com.antennahouse.pdf5.ml.convmerged.pre" name="Convert merged middle file pre-target"/>
   <extension-point id="depend.com.antennahouse.pdf5.ml.convmerged.post" name="Convert merged middle file post-target"/>
   <extension-point id="depend.com.antennahouse.pdf5.ml.format.pre" name="Formatting pre-target"/>
@@ -155,10 +156,13 @@
     </param>
     <param name="ahf.dir" desc="Specifies AH Formatter directory" type="string"/>
     <param name="ahf.opt" desc="Specifies AH Formatter option setting file" type="file"/>
+    <param name="last.pageseq.id" desc="Specifies the last fo:page-sequence/@id value" type="string"/>
+    <param name="last.pageseq.offset" desc="Specifies the last fo:page-sequence minus offset" type="string"/>
   </transtype>
   <template file="build_template.xml"/>
   <template file="build_transform_template.xml"/>
   <template file="build_ahf_template.xml"/>
   <template file="xsl/dita2fo_shell_template.xsl"/>
   <template file="xsl/dita2fo_convmerged_shell_template.xsl"/>
+  <template file="xsl/psmi_template.xsl"/>
 </plugin>

@@ -256,6 +256,8 @@
     <target name="transform.psmi2fo">
         <property name="stylesheet" value="${xsl.dir}${file.separator}psmi.xsl"/>
         <xslt processor="trax" in="${prmInputFile}" out="${prmOutputFile}" style="${stylesheet}">
+            <param name="PRM_LAST_PAGESEQ_ID" expression="${last.pageseq.id}" if:set="last.pageseq.id"/>
+            <param name="PRM_LAST_PAGESEQ_OFFSET" expression="${last.pageseq.offset}" if:set="last.pageseq.offset"/>
             <dita:extension id="com.antennahouse.pdf5.ml.psmi.param" behavior="org.dita.dost.platform.InsertAction"/>
             <xmlcatalog refid="dita.catalog"/>
         </xslt>
