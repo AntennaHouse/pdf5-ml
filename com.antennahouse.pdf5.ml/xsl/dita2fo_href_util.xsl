@@ -43,7 +43,12 @@ URL : http://www.antennahouse.com/
         <xsl:param name="prmHref" as="xs:string" required="yes"/>
         <xsl:param name="prmElem" as="element()" required="yes"/>
         <xsl:param name="prmTopicRef" required="yes" as="element()?"/>
+        <xsl:param name="prmGetContent" as="xs:boolean" tunnel="yes" required="no" select="false()"/>
+        
         <xsl:choose>
+            <xsl:when test="$prmGetContent">
+                <xsl:sequence select="()"/>
+            </xsl:when>
             <xsl:when test="not(string($prmHref))">
                 <xsl:sequence select="()"/>
             </xsl:when>
