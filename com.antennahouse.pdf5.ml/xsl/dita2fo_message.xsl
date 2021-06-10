@@ -136,7 +136,7 @@ URL : http://www.antennahouse.com/
     </xsl:variable>
     
     <xsl:variable name="stMes072">
-        <xsl:text>[processLocalXref 072F] Xref target is not contained in map. href='%href' ohref='%ohref' file=%file</xsl:text>
+        <xsl:text>[getInternalDestinationAttr 072F] Xref target is not contained in map. href='%href' ohref='%ohref' file=%file</xsl:text>
     </xsl:variable>
     
     <xsl:variable name="stMes074">
