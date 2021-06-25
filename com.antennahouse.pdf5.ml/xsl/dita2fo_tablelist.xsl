@@ -118,6 +118,15 @@ E-mail : info@antennahouse.com
     
     <xsl:template match="text()" mode="MAKE_TABLE_LIST"/>
     <xsl:template match="*[contains(@class, ' bookmap/bookmeta ')]" mode="MAKE_TABLE_LIST"/>
+
+    <!-- Part/Chapter -->
+    <xsl:template match="*[contains(@class,' bookmap/part ')]" mode="MAKE_TABLE_LIST" priority="2" >
+        <xsl:apply-templates mode="#current"/>
+    </xsl:template>
+    
+    <xsl:template match="*[contains(@class,' bookmap/chapter ')]" mode="MAKE_TABLE_LIST" priority="2" >
+        <xsl:apply-templates mode="#current"/>
+    </xsl:template>
     
     <!-- Frontmatter -->
     <xsl:template match="*[contains(@class,' bookmap/frontmatter ')]" mode="MAKE_TABLE_LIST" priority="2" >
