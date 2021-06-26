@@ -113,7 +113,7 @@ E-mail : info@antennahouse.com
      note:		none
      -->
     <xsl:template match="*" mode="MAKE_TABLE_LIST">
-        <xsl:apply-templates mode="MAKE_TABLE_LIST"/>
+        <xsl:apply-templates mode="#current"/>
     </xsl:template>
     
     <xsl:template match="text()" mode="MAKE_TABLE_LIST"/>
@@ -121,11 +121,11 @@ E-mail : info@antennahouse.com
 
     <!-- Part/Chapter -->
     <xsl:template match="*[contains(@class,' bookmap/part ')]" mode="MAKE_TABLE_LIST" priority="2" >
-        <xsl:apply-templates mode="#current"/>
+        <xsl:next-match/>
     </xsl:template>
     
     <xsl:template match="*[contains(@class,' bookmap/chapter ')]" mode="MAKE_TABLE_LIST" priority="2" >
-        <xsl:apply-templates mode="#current"/>
+        <xsl:next-match/>
     </xsl:template>
     
     <!-- Frontmatter -->

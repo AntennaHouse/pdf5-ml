@@ -124,11 +124,11 @@ E-mail : info@antennahouse.com
 
     <!-- Part/Chapter -->
     <xsl:template match="*[contains(@class,' bookmap/part ')]" mode="MAKE_FIGURE_LIST" priority="2" >
-        <xsl:apply-templates mode="#current"/>
+        <xsl:next-match/>
     </xsl:template>
     
     <xsl:template match="*[contains(@class,' bookmap/chapter ')]" mode="MAKE_FIGURE_LIST" priority="2" >
-        <xsl:apply-templates mode="#current"/>
+        <xsl:next-match/>
     </xsl:template>
     
     <!-- Frontmatter -->
