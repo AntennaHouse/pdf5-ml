@@ -233,6 +233,7 @@ E-mail : info@antennahouse.com
                 <xsl:with-param name="prmId"    select="$tableId"/>
                 <xsl:with-param name="prmTitle" select="$tableTitle"/>
                 <xsl:with-param name="prmTitleElem" select="$table/*[contains(@class,' topic/title ')][1]"/>
+                <xsl:with-param name="prmTopicRef" tunnel="yes" select="$topicRef"/>
             </xsl:call-template>
         </xsl:for-each>
         <!-- Navigate to lower level -->
