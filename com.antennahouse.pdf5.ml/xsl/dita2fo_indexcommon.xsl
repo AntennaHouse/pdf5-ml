@@ -23,31 +23,31 @@ E-mail : info@antennahouse.com
     <!-- *************************************** 
             Index related
          ***************************************-->
-    <xsl:variable name="cIndexSymbolLabel" select="ahf:getVarValue('Index_Symbol_Label')" as="xs:string"/>
-    <xsl:variable name="cSeePrefixLevel1"  select="ahf:getVarValue('See_Prefix_Level1')" as="xs:string"/>
-    <xsl:variable name="cSeeSuffixLevel1"  select="ahf:getVarValue('See_Suffix_Level1')" as="xs:string"/>
-    <xsl:variable name="cSeePrefixLevel2"  select="ahf:getVarValue('See_Prefix_Level2')" as="xs:string"/>
-    <xsl:variable name="cSeeSuffixLevel2"  select="ahf:getVarValue('See_Suffix_Level2')" as="xs:string"/>
+    <xsl:variable name="cIndexSymbolLabel" as="xs:string" select="ahf:getVarValue('Index_Symbol_Label')"/>
+    <xsl:variable name="cSeePrefixLevel1" as="xs:string"  select="ahf:getVarValue('See_Prefix_Level1')"/>
+    <xsl:variable name="cSeeSuffixLevel1" as="xs:string"  select="ahf:getVarValue('See_Suffix_Level1')"/>
+    <xsl:variable name="cSeePrefixLevel2" as="xs:string"  select="ahf:getVarValue('See_Prefix_Level2')"/>
+    <xsl:variable name="cSeeSuffixLevel2" as="xs:string"  select="ahf:getVarValue('See_Suffix_Level2')"/>
     
     <!-- Index See Also prefix and suffix -->
-    <xsl:variable name="cSeeAlsoPrefix" select="ahf:getVarValue('See_Also_Prefix')" as="xs:string"/>
-    <xsl:variable name="cSeeAlsoSuffix" select="ahf:getVarValue('See_Also_Suffix')" as="xs:string"/>
+    <xsl:variable name="cSeeAlsoPrefix" as="xs:string" select="ahf:getVarValue('See_Also_Prefix')"/>
+    <xsl:variable name="cSeeAlsoSuffix" as="xs:string" select="ahf:getVarValue('See_Also_Suffix')"/>
     
     <!-- Index page citation -->
-    <xsl:variable name="cIndexPageCitationListSeparator" select="ahf:getVarValue('Index_Page_Citation_List_Separator')" as="xs:string"/>
-    <xsl:variable name="cIndexPageCitationRangeSeparator" select="ahf:getVarValue('Index_Page_Citation_Range_Separator')" as="xs:string"/>
+    <xsl:variable name="cIndexPageCitationListSeparator" as="xs:string" select="ahf:getVarValue('Index_Page_Citation_List_Separator')"/>
+    <xsl:variable name="cIndexPageCitationRangeSeparator" as="xs:string" select="ahf:getVarValue('Index_Page_Citation_Range_Separator')"/>
 
     <!-- indexkey for @significance="preferred" (DocBook Only) -->
-    <xsl:variable name="KEY_PREFERRED" select="'__KEY_PREFERRED'" as="xs:string"/>
+    <xsl:variable name="KEY_PREFERRED" as="xs:string" select="'__KEY_PREFERRED'"/>
     
     <!-- Sort key max length (When stylesheet does not use I18n Index Library) -->
-    <xsl:variable name="cIndexSortKeyMaxLen" select="128" as="xs:integer"/>
+    <xsl:variable name="cIndexSortKeyMaxLen" as="xs:integer" select="128"/>
     
     <!-- index-key separator -->
-    <xsl:variable name="indexKeySep" select="':'"/>
+    <xsl:variable name="indexKeySep" as="xs:string" select="':'"/>
     
     <!-- index id prefix -->
-    <xsl:variable name="cIndexKeyPrefix" select="'__indexkey'"/>
+    <xsl:variable name="cIndexKeyPrefix" as="xs:string" select="'__indexkey'"/>
     
     <!-- Moved from dita2fo_common.xsl -->
     <!-- 

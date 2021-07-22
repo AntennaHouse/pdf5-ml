@@ -385,12 +385,11 @@ URL : http://www.antennahouse.com/
         <!-- Trade Mark -->
         <variable name="Tm_Symbol_Tm">&#x2122;</variable>
         <variable name="Tm_Symbol_Reg">&#x00AE;</variable>
-        <variable name="Tm_Symbol_Service">SM</variable>
-        <!-- &#x2120; -->
+        <variable name="Tm_Symbol_Service">&#x2120;</variable>
 
-        <variable name="Tm_Symbol_Tm_Text">(TM)</variable>
-        <variable name="Tm_Symbol_Reg_Text">(R)</variable>
-        <variable name="Tm_Symbol_Service_Text">(SM)</variable>
+        <variable name="Tm_Symbol_Tm_Text">&#x2122;</variable>
+        <variable name="Tm_Symbol_Reg_Text">&#x00AE;</variable>
+        <variable name="Tm_Symbol_Service_Text">&#x2120;</variable>
 
         <!-- Required-cleanup -->
         <variable name="Required_Cleanup_Title_Prefix">[REQUIRED-CLEANUP </variable>

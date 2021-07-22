@@ -257,6 +257,7 @@
                 </xsl:for-each>
             </xsl:when>
             <xsl:otherwise>
+                <xsl:assert test="$prmIndexGroup/indextermfo => exists()" select="'[processIndexGroup] indexGroup/indextermfo is empty. @group-key=' ||  $prmIndexGroup/@group-key"/>
                 <xsl:call-template name="processIndexDataSeq">
                     <xsl:with-param name="prmIndexDataSeq" select="$prmIndexGroup/index-data"/>
                     <xsl:with-param name="prmIndexTermFo"  select="$prmIndexGroup/indextermfo"/>

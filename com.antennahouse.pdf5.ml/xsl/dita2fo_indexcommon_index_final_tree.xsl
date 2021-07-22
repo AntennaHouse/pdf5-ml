@@ -122,10 +122,14 @@
          Return:   xs:string 
          Note:     
       -->
+    <!-- zh-CN index-sort-as replacing char -->
+    <xsl:variable name="indexKeyReplaceChar" as="xs:string" select="'&#xFFFD;'"/>
+    <xsl:variable name="indexKeyReplaceCharLiteral" as="xs:string" select="'%FFFD;'"/>
+
     <xsl:function name="ahf:getNthIndexKeyFromIndexData" as="xs:string">
         <xsl:param name="prmIndexData" as="element()"/>
         <xsl:param name="prmNth" as="xs:integer"/>
-        <xsl:variable name="indexKey" as="xs:string" select="$prmIndexData/@indexkey => string()"/>
+        <xsl:variable name="indexKey" as="xs:string" select="$prmIndexData/@indexkey => string() => translate($indexKeyReplaceChar, $indexKeyReplaceCharLiteral)"/>
         <xsl:variable name="indexKeys" as="xs:string*" select="tokenize($indexKey,$indexKeySep)"/>
         <xsl:variable name="result" as="xs:string?" select="$indexKeys[$prmNth]"/>
         <xsl:sequence select="if ($result => empty()) then '' else $result"/>
@@ -134,7 +138,7 @@
     <xsl:function name="ahf:hasNthIndexKeyInIndexData" as="xs:boolean">
         <xsl:param name="prmIndexData" as="element()"/>
         <xsl:param name="prmNth" as="xs:integer"/>
-        <xsl:variable name="indexKey" as="xs:string" select="$prmIndexData/@indexkey => string()"/>
+        <xsl:variable name="indexKey" as="xs:string" select="$prmIndexData/@indexkey => string() => translate($indexKeyReplaceChar, $indexKeyReplaceCharLiteral)"/>
         <xsl:variable name="indexKeys" as="xs:string*" select="tokenize($indexKey,$indexKeySep)"/>
         <xsl:variable name="result" as="xs:string?" select="$indexKeys[$prmNth]"/>
         <xsl:sequence select="if ($result => empty()) then false() else true()"/>
