@@ -154,6 +154,9 @@
       <val>yes</val>
       <val default="true">no</val>
     </param>
+    <param name="use.index.common.xslt3" desc="Specifies the XSLT 3.0 index common build." type="string">
+      <val default="true" desc="Defaults no">no</val>
+    </param>
     <param name="ahf.dir" desc="Specifies AH Formatter directory" type="string"/>
     <param name="ahf.opt" desc="Specifies AH Formatter option setting file" type="file"/>
     <param name="last.pageseq.id" desc="Specifies the last fo:page-sequence/@id value" type="string"/>
