@@ -467,7 +467,10 @@ URL : http://www.antennahouse.com/
         <xsl:text>[variable 906F] Illegal attribute found in variable element in style definition. variable name='%variable-name' attribute='%attribute'.</xsl:text>
     </xsl:variable>
     
-
+    <xsl:variable name="stMes910">
+        <xsl:text>[reviseFileUrl 910F] Bad file URL. '%url'.</xsl:text>
+    </xsl:variable>
+    
     <xsl:variable name="stMes1500">
         <xsl:text>[parameter 1500F] Paper size parameter is invalid. Parameter=%param Supported value=%sptval.</xsl:text>
     </xsl:variable>

@@ -285,10 +285,10 @@ E-mail : info@antennahouse.com
     <xsl:variable name="pAssumeEquationNumberAsAuto" as="xs:boolean" select="$PRM_ASSUME_EQUATION_NUMBER_AS_AUTO eq $cYes"/>
     
     <!-- Output directory URL
-         2016-01-11 t.makita
+         2021-07-24 t.makita
      -->
     <xsl:param name="PRM_OUTPUT_DIR_URL" required="yes" as="xs:string"/>
-    <xsl:variable name="pOutputDirUrl" as="xs:string" select="$PRM_OUTPUT_DIR_URL"/>
+    <xsl:variable name="pOutputDirUrl" as="xs:string" select="ahf:reviseFileUrl($PRM_OUTPUT_DIR_URL)"/>
 
     <!-- DITA input file name (wo directory & extension)
          2016-01-11 t.makita
@@ -303,10 +303,10 @@ E-mail : info@antennahouse.com
     <xsl:variable name="pOutputIndex" as="xs:boolean" select="$PRM_OUTPUT_INDEX eq $cYes"/>
 
     <!-- Temporary folder URL
-         2018-03-22 t.makita
+         2021-07-24 t.makita
      -->
     <xsl:param name="PRM_TEMP_DIR_URL" required="yes" as="xs:string"/>
-    <xsl:variable name="pTempDirUrl" as="xs:string" select="$PRM_TEMP_DIR_URL"/>
+    <xsl:variable name="pTempDirUrl" as="xs:string" select="ahf:reviseFileUrl($PRM_TEMP_DIR_URL)"/>
     
     <!-- Add continue word to table title or table footer-->
     <!-- Add "Continued" to fo:table-header -->
