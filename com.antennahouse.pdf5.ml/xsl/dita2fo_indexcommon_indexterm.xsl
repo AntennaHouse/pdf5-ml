@@ -24,8 +24,11 @@
          Changed from ":" or "&#x0A;" to get accurate token from key variables that uses this $indexKeySep
          "&#x0A;" is useless, it is replaced to "&#x20;" when applying normalize-space() function.
          2021-05-28 t.makita
+         Chnaged from U+FFFD to U+F8FF (last character of BMP PUA) because the former is used in zh-CN pinyin input as non-Hanzi character.
+         2021-07-24 t.makita
      -->
-    <xsl:variable name="indexKeySep" select="'&#xFFFD;'"/>
+    <!--xsl:variable name="indexKeySep" select="'&#xFFFD;'"/-->
+    <xsl:variable name="indexKeySep" select="'&#xF8FF;'"/>
     
     <!-- 
      function:	Process indexterm in metadata
