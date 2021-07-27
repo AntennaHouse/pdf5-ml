@@ -480,10 +480,16 @@ E-mail : info@antennahouse.com
                 <xsl:copy-of select="$userContent"/>
             </xsl:when>
             <xsl:otherwise>
-                <!-- Prefix of step: "step" -->
-                <xsl:variable name="stepHeading" as="xs:string">
+                <!-- Prefix/Suffix of step: "step", "" -->
+                <xsl:variable name="stepPrefix" as="xs:string">
                     <xsl:call-template name="getVarValueWithLang">
                         <xsl:with-param name="prmVarName" select="'Xref_Step_Prefix'"/>
+                        <xsl:with-param name="prmElem" select="$prmDestElement"/>
+                    </xsl:call-template>
+                </xsl:variable>
+                <xsl:variable name="stepSuffix" as="xs:string">
+                    <xsl:call-template name="getVarValueWithLang">
+                        <xsl:with-param name="prmVarName" select="'Xref_Step_Suffix'"/>
                         <xsl:with-param name="prmElem" select="$prmDestElement"/>
                     </xsl:call-template>
                 </xsl:variable>
@@ -496,8 +502,9 @@ E-mail : info@antennahouse.com
                     <xsl:when test="$prmDestElement[contains(@class, ' task/step ')]">
                         <xsl:variable name="numberFormat" select="ahf:getOlNumberFormat($prmDestElement/parent::*,$stepsNumberFormat)" as="xs:string"/>
                         <fo:inline>
-                            <xsl:copy-of select="$stepHeading"/>
+                            <xsl:value-of select="$stepPrefix"/>
                             <xsl:number format="{$numberFormat}" value="ahf:getStepNumber($prmDestElement)"/>
+                            <xsl:value-of select="$stepSuffix"/>
                         </fo:inline>
                     </xsl:when>
                     <xsl:otherwise>
@@ -510,10 +517,11 @@ E-mail : info@antennahouse.com
                             </xsl:call-template>
                         </xsl:variable>
                         <fo:inline>
-                            <xsl:copy-of select="$stepHeading"/>
+                            <xsl:value-of select="$stepPrefix"/>
                             <xsl:number format="{$thisStepsNumberFormat}" value="ahf:getStepNumber($prmDestElement/parent::*/parent::*)"/>
                             <xsl:copy-of select="$stepSubstepSeparator"/>
                             <xsl:number format="{$thisSubStepsNumberFormat}" value="ahf:getStepNumber($prmDestElement)"/>
+                            <xsl:value-of select="$stepSuffix"/>
                         </fo:inline>
                     </xsl:otherwise>
                 </xsl:choose>
@@ -1010,7 +1018,21 @@ E-mail : info@antennahouse.com
                 <fo:inline>
                     <xsl:choose>
                         <xsl:when test="$opt = $optXrefToStepNumberAndPage">
-                            <xsl:copy-of  select="$prmXrefTitle"/>
+                            <!-- Implement Hungarian page-title order by using $adoptTitlePageOrder
+                                 2021-07-28 t.makita
+                             -->
+                            <xsl:variable name="adoptTitlePageOrder" as="xs:boolean">
+                                <xsl:variable name="tempAdoptTitlePageOrder" as="xs:string">
+                                    <xsl:call-template name="getVarValueWithLang">
+                                        <xsl:with-param name="prmVarName" select="'Xref_Adopt_Title_Page_Order'"/>
+                                        <xsl:with-param name="prmElem" select="$prmXref"/>
+                                    </xsl:call-template>
+                                </xsl:variable>
+                                <xsl:sequence select="not($tempAdoptTitlePageOrder eq $false)"/>
+                            </xsl:variable>
+                            <xsl:if test="$adoptTitlePageOrder">
+                                <xsl:copy-of  select="$prmXrefTitle"/>
+                            </xsl:if>
                             <xsl:call-template name="getVarValueWithLangAsText">
                                 <xsl:with-param name="prmVarName" select="'Xref_Prefix_Title_Page'"/>
                                 <xsl:with-param name="prmElem" select="$prmXref"/>
@@ -1020,6 +1042,9 @@ E-mail : info@antennahouse.com
                                 <xsl:with-param name="prmVarName" select="'Xref_Suffix_Title_Page'"/>
                                 <xsl:with-param name="prmElem" select="$prmXref"/>
                             </xsl:call-template>
+                            <xsl:if test="not($adoptTitlePageOrder)">
+                                <xsl:copy-of  select="$prmXrefTitle"/>
+                            </xsl:if>
                         </xsl:when>
                         <xsl:when test="($opt = $optXrefToStepNumberOnly) or empty($opt)">
                             <xsl:copy-of  select="$prmXrefTitle"/>
