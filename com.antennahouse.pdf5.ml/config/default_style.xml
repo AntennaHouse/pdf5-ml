@@ -323,7 +323,7 @@ URL : http://www.antennahouse.com/
         <variable name="Xref_Prefix"> on page </variable>
         <variable name="Xref_Suffix"/>
 
-        
+        <variable name="Xref_Adopt_Title_Page_Order">true</variable>
         <variable name="Xref_Prefix_Title_Page"> on page </variable>
         <variable name="Xref_Suffix_Title_Page"/>
         
@@ -334,6 +334,7 @@ URL : http://www.antennahouse.com/
         <variable name="Xref_Title_Suffix"></variable>
 
         <variable name="Xref_Step_Prefix">step&#xA0;</variable>
+        <variable name="Xref_Step_Suffix"></variable>
         <variable name="Xref_Step_Substep_Separator">.</variable>
         
         <!-- Xref output option -->
