@@ -8,7 +8,7 @@ File Name : dita2fo_message.xsl
 **************************************************************
 Copyright © 2009 2009 Antenna House, Inc.All rights reserved.
 Antenna House is a trademark of Antenna House, Inc.
-URL : http://www.antennahouse.co.jp/
+URL : http://www.antennahouse.com/
 **************************************************************
 -->
 
@@ -136,7 +136,7 @@ URL : http://www.antennahouse.co.jp/
     </xsl:variable>
     
     <xsl:variable name="stMes072">
-        <xsl:text>[processLocalXref 072F] Xref target is not contained in map. href='%href' ohref='%ohref' file=%file</xsl:text>
+        <xsl:text>[getInternalDestinationAttr 072F] Xref target is not contained in map. href='%href' ohref='%ohref' file=%file</xsl:text>
     </xsl:variable>
     
     <xsl:variable name="stMes074">
@@ -418,6 +418,14 @@ URL : http://www.antennahouse.co.jp/
     <xsl:variable name="stMes660">
         <xsl:text>[ahf:getEntryAttr 660W] Authoring error! entry/@namest or @ nameend is invalid. @namest="%namest" @nameend="%nameend" file="%xtrf".</xsl:text>
     </xsl:variable>
+
+    <xsl:variable name="stMes662">
+        <xsl:text>[index-see 662W] Authoring error! The target of index-see does not found. The link to indexterm will become invalid. see key="%see-key".</xsl:text>
+    </xsl:variable>
+
+    <xsl:variable name="stMes664">
+        <xsl:text>[index-see-also 664W] Authoring error! The target of index-see-also does not found. The link to indexterm will become invalid. see-also key="%see-also-key".</xsl:text>
+    </xsl:variable>
     
     <xsl:variable name="stMes700">
         <xsl:text>[makeChapterMap 700W] Illegal class is found in topicref. class='%class' file=%file.</xsl:text>
@@ -459,7 +467,10 @@ URL : http://www.antennahouse.co.jp/
         <xsl:text>[variable 906F] Illegal attribute found in variable element in style definition. variable name='%variable-name' attribute='%attribute'.</xsl:text>
     </xsl:variable>
     
-
+    <xsl:variable name="stMes910">
+        <xsl:text>[reviseFileUrl 910F] Bad file URL. '%url'.</xsl:text>
+    </xsl:variable>
+    
     <xsl:variable name="stMes1500">
         <xsl:text>[parameter 1500F] Paper size parameter is invalid. Parameter=%param Supported value=%sptval.</xsl:text>
     </xsl:variable>

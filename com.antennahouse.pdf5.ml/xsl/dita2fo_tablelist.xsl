@@ -113,11 +113,20 @@ E-mail : info@antennahouse.com
      note:		none
      -->
     <xsl:template match="*" mode="MAKE_TABLE_LIST">
-        <xsl:apply-templates mode="MAKE_TABLE_LIST"/>
+        <xsl:apply-templates mode="#current"/>
     </xsl:template>
     
     <xsl:template match="text()" mode="MAKE_TABLE_LIST"/>
     <xsl:template match="*[contains(@class, ' bookmap/bookmeta ')]" mode="MAKE_TABLE_LIST"/>
+
+    <!-- Part/Chapter -->
+    <xsl:template match="*[contains(@class,' bookmap/part ')]" mode="MAKE_TABLE_LIST" priority="2" >
+        <xsl:next-match/>
+    </xsl:template>
+    
+    <xsl:template match="*[contains(@class,' bookmap/chapter ')]" mode="MAKE_TABLE_LIST" priority="2" >
+        <xsl:next-match/>
+    </xsl:template>
     
     <!-- Frontmatter -->
     <xsl:template match="*[contains(@class,' bookmap/frontmatter ')]" mode="MAKE_TABLE_LIST" priority="2" >
@@ -224,6 +233,7 @@ E-mail : info@antennahouse.com
                 <xsl:with-param name="prmId"    select="$tableId"/>
                 <xsl:with-param name="prmTitle" select="$tableTitle"/>
                 <xsl:with-param name="prmTitleElem" select="$table/*[contains(@class,' topic/title ')][1]"/>
+                <xsl:with-param name="prmTopicRef" tunnel="yes" select="$topicRef"/>
             </xsl:call-template>
         </xsl:for-each>
         <!-- Navigate to lower level -->

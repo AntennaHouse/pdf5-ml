@@ -323,7 +323,7 @@ URL : http://www.antennahouse.com/
         <variable name="Xref_Prefix"> on page </variable>
         <variable name="Xref_Suffix"/>
 
-        
+        <variable name="Xref_Adopt_Title_Page_Order">true</variable>
         <variable name="Xref_Prefix_Title_Page"> on page </variable>
         <variable name="Xref_Suffix_Title_Page"/>
         
@@ -334,6 +334,7 @@ URL : http://www.antennahouse.com/
         <variable name="Xref_Title_Suffix"></variable>
 
         <variable name="Xref_Step_Prefix">step&#xA0;</variable>
+        <variable name="Xref_Step_Suffix"></variable>
         <variable name="Xref_Step_Substep_Separator">.</variable>
         
         <!-- Xref output option -->
@@ -385,12 +386,11 @@ URL : http://www.antennahouse.com/
         <!-- Trade Mark -->
         <variable name="Tm_Symbol_Tm">&#x2122;</variable>
         <variable name="Tm_Symbol_Reg">&#x00AE;</variable>
-        <variable name="Tm_Symbol_Service">SM</variable>
-        <!-- &#x2120; -->
+        <variable name="Tm_Symbol_Service">&#x2120;</variable>
 
-        <variable name="Tm_Symbol_Tm_Text">(TM)</variable>
-        <variable name="Tm_Symbol_Reg_Text">(R)</variable>
-        <variable name="Tm_Symbol_Service_Text">(SM)</variable>
+        <variable name="Tm_Symbol_Tm_Text">&#x2122;</variable>
+        <variable name="Tm_Symbol_Reg_Text">&#x00AE;</variable>
+        <variable name="Tm_Symbol_Service_Text">&#x2120;</variable>
 
         <!-- Required-cleanup -->
         <variable name="Required_Cleanup_Title_Prefix">[REQUIRED-CLEANUP </variable>
@@ -1286,6 +1286,12 @@ URL : http://www.antennahouse.com/
                 <attribute name="text-align-last">justify</attribute>
                 <attribute name="text-indent">($Index_Indent_Value) * -1</attribute>
                 <attribute name="start-indent">($Index_Indent_Value) * %level</attribute>
+            </attribute-set>
+            
+            <attribute-set name="atsIndexLineWoPageRef">
+                <attribute name="axf:text-align-first">left</attribute>
+                <attribute name="text-align">left</attribute>
+                <attribute name="text-align-last">left</attribute>
             </attribute-set>
 
             <!-- Index leader1 -->

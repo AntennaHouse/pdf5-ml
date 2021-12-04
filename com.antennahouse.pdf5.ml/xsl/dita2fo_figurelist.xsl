@@ -121,6 +121,15 @@ E-mail : info@antennahouse.com
     
     <xsl:template match="text()" mode="MAKE_FIGURE_LIST"/>
     <xsl:template match="*[contains(@class, ' bookmap/bookmeta ')]" mode="MAKE_FIGURE_LIST"/>
+
+    <!-- Part/Chapter -->
+    <xsl:template match="*[contains(@class,' bookmap/part ')]" mode="MAKE_FIGURE_LIST" priority="2" >
+        <xsl:next-match/>
+    </xsl:template>
+    
+    <xsl:template match="*[contains(@class,' bookmap/chapter ')]" mode="MAKE_FIGURE_LIST" priority="2" >
+        <xsl:next-match/>
+    </xsl:template>
     
     <!-- Frontmatter -->
     <xsl:template match="*[contains(@class,' bookmap/frontmatter ')]" mode="MAKE_FIGURE_LIST" priority="2" >
@@ -228,6 +237,7 @@ E-mail : info@antennahouse.com
                 <xsl:with-param name="prmId"    select="$figId"/>
                 <xsl:with-param name="prmTitle" select="$figTitle"/>
                 <xsl:with-param name="prmTitleElem" select="$fig/*[contains(@class,' topic/title ')][1]"/>
+                <xsl:with-param name="prmTopicRef" tunnel="yes" select="$topicRef"/>
             </xsl:call-template>
         </xsl:for-each>
         <!-- Navigate to lower level -->

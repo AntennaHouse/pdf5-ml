@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project version="22.1">
+<project>
     <meta>
         <filters directoryPatterns="" filePatterns="" positiveFilePatterns="" showHiddenFiles="false"/>
         <options>
-            <serialized version="22.1" xml:space="preserve">
+            <serialized xml:space="preserve">
                 <serializableOrderedMap>
                     <entry>
                         <String>catalogs.v5</String>
@@ -37,7 +37,9 @@
                                     </list>
                                 </field>
                                 <field name="scenarioStorageLocations">
-                                    <list/>
+                                    <list>
+                                        <Byte>2</Byte>
+                                    </list>
                                 </field>
                             </scenarioAssociation>
                             <scenarioAssociation>
@@ -55,7 +57,9 @@
                                     </list>
                                 </field>
                                 <field name="scenarioStorageLocations">
-                                    <list/>
+                                    <list>
+                                        <Byte>2</Byte>
+                                    </list>
                                 </field>
                             </scenarioAssociation>
                             <scenarioAssociation>
@@ -73,7 +77,9 @@
                                     </list>
                                 </field>
                                 <field name="scenarioStorageLocations">
-                                    <list/>
+                                    <list>
+                                        <Byte>2</Byte>
+                                    </list>
                                 </field>
                             </scenarioAssociation>
                             <scenarioAssociation>
@@ -91,7 +97,9 @@
                                     </list>
                                 </field>
                                 <field name="scenarioStorageLocations">
-                                    <list/>
+                                    <list>
+                                        <Byte>2</Byte>
+                                    </list>
                                 </field>
                             </scenarioAssociation>
                             <scenarioAssociation>
@@ -109,7 +117,9 @@
                                     </list>
                                 </field>
                                 <field name="scenarioStorageLocations">
-                                    <list/>
+                                    <list>
+                                        <Byte>2</Byte>
+                                    </list>
                                 </field>
                             </scenarioAssociation>
                             <scenarioAssociation>
@@ -127,7 +137,9 @@
                                     </list>
                                 </field>
                                 <field name="scenarioStorageLocations">
-                                    <list/>
+                                    <list>
+                                        <Byte>2</Byte>
+                                    </list>
                                 </field>
                             </scenarioAssociation>
                             <scenarioAssociation>
@@ -145,7 +157,9 @@
                                     </list>
                                 </field>
                                 <field name="scenarioStorageLocations">
-                                    <list/>
+                                    <list>
+                                        <Byte>2</Byte>
+                                    </list>
                                 </field>
                             </scenarioAssociation>
                             <scenarioAssociation>
@@ -163,7 +177,9 @@
                                     </list>
                                 </field>
                                 <field name="scenarioStorageLocations">
-                                    <list/>
+                                    <list>
+                                        <Byte>2</Byte>
+                                    </list>
                                 </field>
                             </scenarioAssociation>
                             <scenarioAssociation>
@@ -181,7 +197,9 @@
                                     </list>
                                 </field>
                                 <field name="scenarioStorageLocations">
-                                    <list/>
+                                    <list>
+                                        <Byte>2</Byte>
+                                    </list>
                                 </field>
                             </scenarioAssociation>
                             <scenarioAssociation>
@@ -199,7 +217,9 @@
                                     </list>
                                 </field>
                                 <field name="scenarioStorageLocations">
-                                    <list/>
+                                    <list>
+                                        <Byte>2</Byte>
+                                    </list>
                                 </field>
                             </scenarioAssociation>
                         </scenarioAssociation-array>
@@ -5223,7 +5243,9 @@
                                     </list>
                                 </field>
                                 <field name="scenarioStorageLocations">
-                                    <list/>
+                                    <list>
+                                        <Byte>2</Byte>
+                                    </list>
                                 </field>
                             </scenarioAssociation>
                             <scenarioAssociation>
@@ -5241,7 +5263,9 @@
                                     </list>
                                 </field>
                                 <field name="scenarioStorageLocations">
-                                    <list/>
+                                    <list>
+                                        <Byte>2</Byte>
+                                    </list>
                                 </field>
                             </scenarioAssociation>
                             <scenarioAssociation>
@@ -5259,7 +5283,9 @@
                                     </list>
                                 </field>
                                 <field name="scenarioStorageLocations">
-                                    <list/>
+                                    <list>
+                                        <Byte>2</Byte>
+                                    </list>
                                 </field>
                             </scenarioAssociation>
                             <scenarioAssociation>
@@ -5277,7 +5303,9 @@
                                     </list>
                                 </field>
                                 <field name="scenarioStorageLocations">
-                                    <list/>
+                                    <list>
+                                        <Byte>2</Byte>
+                                    </list>
                                 </field>
                             </scenarioAssociation>
                             <scenarioAssociation>
@@ -5295,7 +5323,9 @@
                                     </list>
                                 </field>
                                 <field name="scenarioStorageLocations">
-                                    <list/>
+                                    <list>
+                                        <Byte>2</Byte>
+                                    </list>
                                 </field>
                             </scenarioAssociation>
                             <scenarioAssociation>
@@ -5313,7 +5343,9 @@
                                     </list>
                                 </field>
                                 <field name="scenarioStorageLocations">
-                                    <list/>
+                                    <list>
+                                        <Byte>2</Byte>
+                                    </list>
                                 </field>
                             </scenarioAssociation>
                             <scenarioAssociation>
@@ -5331,7 +5363,9 @@
                                     </list>
                                 </field>
                                 <field name="scenarioStorageLocations">
-                                    <list/>
+                                    <list>
+                                        <Byte>2</Byte>
+                                    </list>
                                 </field>
                             </scenarioAssociation>
                             <scenarioAssociation>
@@ -5349,7 +5383,9 @@
                                     </list>
                                 </field>
                                 <field name="scenarioStorageLocations">
-                                    <list/>
+                                    <list>
+                                        <Byte>2</Byte>
+                                    </list>
                                 </field>
                             </scenarioAssociation>
                             <scenarioAssociation>
@@ -5367,7 +5403,9 @@
                                     </list>
                                 </field>
                                 <field name="scenarioStorageLocations">
-                                    <list/>
+                                    <list>
+                                        <Byte>2</Byte>
+                                    </list>
                                 </field>
                             </scenarioAssociation>
                         </scenarioAssociation-array>

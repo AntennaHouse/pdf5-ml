@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
+<?xml version="1.0" encoding="UTF-8"?><!--
   ****************************************************************
   DITA to XSL-FO Stylesheet 
   Module: Shell Stylesheet.
@@ -8,9 +7,9 @@
   URL    : http://www.antennahouse.com/
   E-mail : info@antennahouse.com
   ****************************************************************
- -->
-<xsl:stylesheet xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="2.0">
+ --><xsl:stylesheet xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="2.0">
   <xsl:import href="dita2fo_import.xsl"/>
-  <xsl:import href="../customization/dita2fo_custom.xsl"/>
+  
+  <xsl:import xmlns:dita="http://dita-ot.sourceforge.net" href="../customization/dita2fo_custom.xsl"/>
   <xsl:strip-space elements="menucascade uicontrol abstract"/>
 </xsl:stylesheet>

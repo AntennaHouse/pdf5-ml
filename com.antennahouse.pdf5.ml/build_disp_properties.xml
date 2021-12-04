@@ -3,26 +3,25 @@
      Revision History
      - Newly created
        2015-05-07
+     - Adopt newly added property
+       2021-06-08
   -->
 <project name="Dispaly properties for this build">
   <target name="build.disp.property">
     <echo message="*-- Plug-in Parameters -----------------------------------------*"/>
     <echo message="style.def.file=${style.def.file}"/>
-    <echo message="assume.sortas.pinyin=${assume.sortas.pinyin}"/>
-    <echo message="make.see.link=${make.see.link}"/>
     <echo message="include.frontmatter.to.toc=${include.frontmatter.to.toc}"/>
     <echo message="add.numbering.title.prefix=${add.numbering.title.prefix}"/>
     <echo message="add.part.to.title=${add.part.to.title}"/>
     <echo message="add.thumbnail.index=${add.thumbnail.index}"/>
+    <echo message="assume.sortas.pinyin=${assume.sortas.pinyin}"/>
     <echo message="xml.lang=${xml.lang}"/>
-    <echo message="output.pdf=${output.pdf}"/>
+    <echo message="make.see.link=${make.see.link}"/>
     <echo message="output.draft.comment=${output.draft.comment}"/>
     <echo message="output.required.cleanup=${output.required.cleanup}"/>
     <echo message="use.oid=${use.oid}"/>
     <echo message="format.dl.as.block=${format.dl.as.block}"/>
     <echo message="debug.style=${debug.style}"/>
-    <!--echo message="apply.toc.attr=${apply.toc.attr}"/-->
-    <!--echo message="online.pdf=${online.pdf}"/-->
     <echo message="sort.glossentry=${sort.glossentry}"/>
     <echo message="output.start.message=${output.start.message}"/>
     <echo message="auto.scale.down.to.fit=${auto.scale.down.to.fit}"/>
@@ -33,23 +32,35 @@
     <echo message="image.in.output.folder=${image.in.output.folder}"/>
     <echo message="output.crop.region=${output.crop.region}"/>
     <echo message="output.type=${output.type}"/>
+    <echo message="doc.type=${doc.type}"/>
+    <echo message="brand.type=${brand.type}"/>
     <echo message="exclude.cover.from.counting.page=${exclude.cover.from.counting.page}"/>
     <echo message="number.equation.block.unconditionally=${number.equation.block.unconditionally}"/>
     <echo message="exclude.auto.numbering.from.equation.figure=${exclude.auto.numbering.from.equation.figure}"/>
     <echo message="assume.equation.number.as.auto=${assume.equation.number.as.auto}"/>
-    <echo message="debug.index.sort.result=${debug.index.sort.result}"/>
-    <echo message="skip.pdf.generation=${skip.pdf.generation}"/>
-    <echo message="output.index=${output.index}"/>
     <echo message="display.fn.at.end.of.topic=${display.fn.at.end.of.topic}"/>
+    <echo message="adopt.mathml.alttext=${adopt.mathml.alttext}"/>
+    <echo message="enable.landscape.page=${enable.landscape.page}"/>
+    <echo message="output.table.title.continued=${output.table.title.continued}"/>
+    <echo message="output.table.footer.continued=${output.table.footer.continued}"/>
+    <echo message="add.map.title.to.bookmark=${add.map.title.to.bookmark}"/>
+    <echo message="use.i18n.index.lib=${use.i18n.index.lib}"/>
+    <echo message="user.input.dir.url=${user.input.dir.url}"/>
+    <echo message="output.dir.url=${output.dir.url}"/>
+    <echo message="dita.map.filename.root=${dita.map.filename.root}"/>
+    <echo message="debug.index=${debug.index}"/>
+    <echo message="output.index=${output.index}"/>
+    <echo message="otversion=${otversion}"/>
+    <echo message="temp.dir.url=${temp.dir.url}"/>
+    <echo message="i18n.home=${i18n.home}"/>
+    <echo message="use.i18n.index.lib=${use.i18n.index.lib}"/>
+    <echo message="use.index.common.xslt3=${use.index.common.xslt3}"/>
+    <echo message="last.pageseq.id=${last.pageseq.id}"/>
+    <echo message="last.pageseq.offset=${last.pageseq.offset}"/>
       
     <echo message="ahf.dir=${ahf.dir}"/>
     <echo message="ahf.opt=${ahf.opt}"/>
-    <echo message="user.input.dir.url=${user.input.dir.url}"/>
-    <echo message="dita.map.filename.root=${dita.map.filename.root}"/>
-    <echo message="com.innodata.i18n.home=${i18n.home}"/>
-    <echo message="use.i18n.index.lib=${use.i18n.index.lib}"/>
     <echo message="use.saxon.transform=${use.saxon.transform}"/>
-    <echo message="otversion=${otversion}"/>
     <echo message="*----------------------------------------------------------------*"/>
   </target>
 </project>

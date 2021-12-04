@@ -8,7 +8,7 @@ File Name : dita2fo_util.xsl
 **************************************************************
 Copyright © 2009 2009 Antenna House, Inc. All rights reserved.
 Antenna House is a trademark of Antenna House, Inc.
-URL : http://www.antennahouse.co.jp/
+URL : http://www.antennahouse.com/
 **************************************************************
 -->
 
@@ -453,6 +453,35 @@ URL : http://www.antennahouse.co.jp/
         <xsl:param name="prmSearchStrings" as="xs:string*"/>
         <xsl:sequence select="some $searchString in $prmSearchStrings satisfies contains($prmSrcString,$searchString)"/>
     </xsl:function>
+
+    <!-- Additional URL function -->
+
+    <!--
+     function:   Correct file URL both for Windows & Linux
+     param:      prmUrl
+     return:     xs:string
+     note:       In some Linux environment, "mkurl" returns "file://" and using this URL in XSLT stylesheet as doc() or xsl:result-document/@href
+                 causes fatal I/O error. In all cases, the file URL should be "file:/" in XSLT.
+                 This function fixes this file URL error.
+                 2021-07-24 t.makita
+    -->
+    <xsl:function name="ahf:reviseFileUrl" as="xs:string">
+        <xsl:param name="prmUrl" as="xs:string"/>
+        <xsl:choose>
+            <xsl:when test="starts-with($prmUrl, 'file://')">
+                <xsl:sequence select="concat('file:/', substring($prmUrl, 8))"/>
+            </xsl:when>
+            <xsl:when test="starts-with($prmUrl, 'file:/')">
+                <xsl:sequence select="$prmUrl"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:call-template name="warningContinue">
+                    <xsl:with-param name="prmMes" select="ahf:replace($stMes910,('%url'),($prmUrl))"/>
+                </xsl:call-template>
+                <xsl:sequence select="$prmUrl"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:function>     
 
     <!-- end of stylesheet -->
 </xsl:stylesheet>

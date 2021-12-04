@@ -2,9 +2,48 @@
 
                  Antenna House PDF5-ML Plug-in Revision Notes
 
-      Copyright (C) 2009-2020 Antenna House, Inc. All rights reserved.
+      Copyright (C) 2009-2021 Antenna House, Inc. All rights reserved.
              Antenna House is a trademark of Antenna House, Inc.
 _______________________________________________________________________________
+
+Dec. 2021
+V1.0.8
+- Implement Hungarian xref to step. 
+  https://github.com/AntennaHouse/pdf5-ml/pull/211
+- Changed indexKey separator from U+FFFD to U+F8FF because the former is used in zh-CN pinyin input as non-Hanzi character replacement in index-sort-as.
+- Implement file URL correction.
+- Fix index sorting bug in zh-CN when using pinyin for index-sort-as.
+  • Change <tm> text literal from "(R)" to "®".
+  • Consider &#xFFFD; when grouping indexterm.
+  • Add xsl:assert to check index grouping.
+- Avoid error "Avoid "[xslt] [WARNING][processLocalXref 072F] Xref target is not contained in map"
+  https://github.com/AntennaHouse/pdf5-ml/pull/208
+- Add PRM_LAST_PAGESEQ_ID and PRM_LAST_PAGESEQ_OFFSET to psmi.xsl
+  You can get the final page ID by setting these parameters.
+- Add existence checking for index-see and index-see-also target.
+- Radically refined index outputting module.
+  If can be used when specifying use.index.common.xslt3="yes" and DITA-OT version should be greater than "3.4".
+  This function needs XSLT 3.0 Saxon implementation.
+- Fix fig counting bug (without syntaxdiagram).
+- Enable xref to table with prefix only output.
+- Add com.antennahouse.pdf5.ml.font-config.change plug-in
+- Add build_ahf_template.xml
+- Add map title to bookmark
+  https://github.com/AntennaHouse/pdf5-ml/pull/179
+- Fix 172
+  https://github.com/AntennaHouse/pdf5-ml/issues/172
+- Fix 166
+  https://github.com/AntennaHouse/pdf5-ml/issues/166
+- Make it enable to control "output.table.title.continued" and "output.table.footer.continued" property in build_transform.xml
+  https://github.com/AntennaHouse/pdf5-ml/pull/169
+- Implement landscape page.
+  https://github.com/AntennaHouse/pdf5-ml/pull/167 
+- Implement resource file copy.
+  https://github.com/AntennaHouse/pdf5-ml/pull/161
+- Fix 158
+  https://github.com/AntennaHouse/pdf5-ml/issues/158
+- Fix 155
+  https://github.com/AntennaHouse/pdf5-ml/issues/155
 
 Jul. 2020
 V1.0.7

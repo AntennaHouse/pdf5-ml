@@ -1,2 +1,8 @@
 
 com.antennahouse.pdf5.ml/build_ahf.xml
+com.antennahouse.pdf5.ml/build_transorm.xml
+com.antennahouse.pdf5.ml/build.xml
+com.antennahouse.pdf5.ml/xsl/dita2fo_convmerged_shell.xsl
+com.antennahouse.pdf5.ml/xsl/dita2fo_shell.xsl
+com.antennahouse.pdf5.ml/xsl/psmi.xsl
+

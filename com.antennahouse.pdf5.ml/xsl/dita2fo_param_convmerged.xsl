@@ -15,10 +15,10 @@ E-mail : info@antennahouse.com
     exclude-result-prefixes="xs ahf">
 
     <!-- Map directory
-         2012-11-11 t.makita
+         2021-07-24 t.makita
      -->
     <xsl:param name="PRM_MAP_DIR_URL" required="yes" as="xs:string"/>
-    <xsl:variable name="pMapDirUrl" as="xs:string" select="$PRM_MAP_DIR_URL"/>
+    <xsl:variable name="pMapDirUrl" as="xs:string" select="ahf:reviseFileUrl($PRM_MAP_DIR_URL)"/>
     
     <!-- FO property name now defined as parameter!
          2019-12-21 t.makita
