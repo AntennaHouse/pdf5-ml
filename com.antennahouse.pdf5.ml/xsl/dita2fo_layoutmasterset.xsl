@@ -64,7 +64,7 @@
                 <xsl:copy-of select="ahf:getAttributeSetWithPageVariables('atsCommonCropAndPrintMark')"/>
             </xsl:if>
             <fo:region-body region-name="rgnCoverBlankBody">
-                <xsl:copy-of select="ahf:getAttributeSet('atsCommonRegionBodyLeft')"/>
+                <xsl:copy-of select="ahf:getAttributeSet('atsCommonRegionBlankBodyLeft')"/>
             </fo:region-body>
         </fo:simple-page-master>
     
@@ -135,7 +135,7 @@
                 <xsl:copy-of select="ahf:getAttributeSetWithPageVariables('atsCommonCropAndPrintMark')"/>
             </xsl:if>
             <fo:region-body region-name="rgnFrontmatterBlankBody">
-                <xsl:copy-of select="ahf:getAttributeSet('atsFrontmatterRegionBodyLeft')"/>
+                <xsl:copy-of select="ahf:getAttributeSet('atsFrontmatterRegionBlankBodyLeft')"/>
             </fo:region-body>
         </fo:simple-page-master>
 
@@ -145,7 +145,7 @@
                 <xsl:copy-of select="ahf:getAttributeSetWithPageVariables('atsCommonCropAndPrintMark')"/>
             </xsl:if>
             <fo:region-body region-name="rgnFrontmatterBlankBody">
-                <xsl:copy-of select="ahf:getAttributeSet('atsFrontmatterRegionBodyRight')"/>
+                <xsl:copy-of select="ahf:getAttributeSet('atsFrontmatterRegionBlankBodyRight')"/>
             </fo:region-body>
         </fo:simple-page-master>
         
@@ -200,7 +200,7 @@
                     <xsl:copy-of select="ahf:getAttributeSetWithPageVariables('atsCommonCropAndPrintMark')"/>
                 </xsl:if>
                 <fo:region-body region-name="rgnFrontmatterBlankBody">
-                    <xsl:copy-of select="ahf:getAttributeSet('atsFrontmatterRegionBodyLeft')"/>
+                    <xsl:copy-of select="ahf:getAttributeSet('atsFrontmatterRegionBlankBodyLeft')"/>
                 </fo:region-body>
             </fo:simple-page-master>
             
@@ -210,7 +210,7 @@
                     <xsl:copy-of select="ahf:getAttributeSetWithPageVariables('atsCommonCropAndPrintMark')"/>
                 </xsl:if>
                 <fo:region-body region-name="rgnFrontmatterBlankBody">
-                    <xsl:copy-of select="ahf:getAttributeSet('atsFrontmatterRegionBodyRight')"/>
+                    <xsl:copy-of select="ahf:getAttributeSet('atsFrontmatterRegionBlankBodyRight')"/>
                 </fo:region-body>
             </fo:simple-page-master>
         </xsl:if>
@@ -269,7 +269,7 @@
                 <xsl:copy-of select="ahf:getAttributeSetWithPageVariables('atsCommonCropAndPrintMark')"/>
             </xsl:if>
             <fo:region-body region-name="rgnChapterBlankBody">
-                <xsl:copy-of select="ahf:getAttributeSet('atsChapterRegionBodyLeft')"/>
+                <xsl:copy-of select="ahf:getAttributeSet('atsChapterRegionBlankBodyLeft')"/>
             </fo:region-body>
         </fo:simple-page-master>
 
@@ -279,7 +279,7 @@
                 <xsl:copy-of select="ahf:getAttributeSetWithPageVariables('atsCommonCropAndPrintMark')"/>
             </xsl:if>
             <fo:region-body region-name="rgnChapterBlankBody">
-                <xsl:copy-of select="ahf:getAttributeSet('atsChapterRegionBodyRight')"/>
+                <xsl:copy-of select="ahf:getAttributeSet('atsChapterRegionBlankBodyRight')"/>
             </fo:region-body>
         </fo:simple-page-master>
 
@@ -334,7 +334,7 @@
                     <xsl:copy-of select="ahf:getAttributeSetWithPageVariables('atsCommonCropAndPrintMark')"/>
                 </xsl:if>
                 <fo:region-body region-name="rgnChapterBlankBody">
-                    <xsl:copy-of select="ahf:getAttributeSet('atsChapterRegionBodyLeft')"/>
+                    <xsl:copy-of select="ahf:getAttributeSet('atsChapterRegionBlankBodyLeft')"/>
                 </fo:region-body>
             </fo:simple-page-master>
             
@@ -344,7 +344,7 @@
                     <xsl:copy-of select="ahf:getAttributeSetWithPageVariables('atsCommonCropAndPrintMark')"/>
                 </xsl:if>
                 <fo:region-body region-name="rgnChapterBlankBody">
-                    <xsl:copy-of select="ahf:getAttributeSet('atsChapterRegionBodyRight')"/>
+                    <xsl:copy-of select="ahf:getAttributeSet('atsChapterRegionBlankBodyRight')"/>
                 </fo:region-body>
             </fo:simple-page-master>
         </xsl:if>
@@ -539,7 +539,7 @@
                 <xsl:copy-of select="ahf:getAttributeSetWithPageVariables('atsCommonCropAndPrintMark')"/>
             </xsl:if>
             <fo:region-body region-name="rgnBackmatterBlankBody">
-                <xsl:copy-of select="ahf:getAttributeSet('atsBackmatterRegionBodyLeft')"/>
+                <xsl:copy-of select="ahf:getAttributeSet('atsBackmatterRegionBlankBodyLeft')"/>
             </fo:region-body>
         </fo:simple-page-master>
         
@@ -549,7 +549,7 @@
                 <xsl:copy-of select="ahf:getAttributeSetWithPageVariables('atsCommonCropAndPrintMark')"/>
             </xsl:if>
             <fo:region-body region-name="rgnBackmatterBlankBody">
-                <xsl:copy-of select="ahf:getAttributeSet('atsBackmatterRegionBodyRight')"/>
+                <xsl:copy-of select="ahf:getAttributeSet('atsBackmatterRegionBlankBodyRight')"/>
             </fo:region-body>
         </fo:simple-page-master>
 
@@ -604,7 +604,7 @@
                     <xsl:copy-of select="ahf:getAttributeSetWithPageVariables('atsCommonCropAndPrintMark')"/>
                 </xsl:if>
                 <fo:region-body region-name="rgnBackmatterBlankBody">
-                    <xsl:copy-of select="ahf:getAttributeSet('atsBackmatterRegionBodyLeft')"/>
+                    <xsl:copy-of select="ahf:getAttributeSet('atsBackmatterRegionBlankBodyLeft')"/>
                 </fo:region-body>
             </fo:simple-page-master>
             
@@ -614,7 +614,7 @@
                     <xsl:copy-of select="ahf:getAttributeSetWithPageVariables('atsCommonCropAndPrintMark')"/>
                 </xsl:if>
                 <fo:region-body region-name="rgnBackmatterBlankBody">
-                    <xsl:copy-of select="ahf:getAttributeSet('atsBackmatterRegionBodyRight')"/>
+                    <xsl:copy-of select="ahf:getAttributeSet('atsBackmatterRegionBlankBodyRight')"/>
                 </fo:region-body>
             </fo:simple-page-master>
         </xsl:if>

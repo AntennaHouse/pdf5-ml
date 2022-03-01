@@ -629,6 +629,14 @@ URL : http://www.antennahouse.com/
                 <attribute name="overflow">error-if-overflow</attribute>
             </attribute-set>
 
+            <attribute-set name="atsCommonRegionBlankBodyLeft">
+                <attribute name="margin-top">$General_Margin_Top</attribute>
+                <attribute name="margin-bottom">$General_Margin_Bottom</attribute>
+                <attribute name="margin-left">$General_Margin_Left_For_Left_Page</attribute>
+                <attribute name="margin-right">$General_Margin_Right_For_Left_Page</attribute>
+                <attribute name="overflow">error-if-overflow</attribute>
+            </attribute-set>
+            
             <attribute-set name="atsCommonRegionBodyRight">
                 <attribute name="margin-top">$General_Margin_Top</attribute>
                 <attribute name="margin-bottom">$General_Margin_Bottom</attribute>
@@ -687,7 +695,9 @@ URL : http://www.antennahouse.com/
             <attribute-set name="atsFrontmatterPageLeftLandscape" use-attribute-sets="atsCommonPageLeftLandscape"/>
             <attribute-set name="atsFrontmatterPageRightLandscape" use-attribute-sets="atsCommonPageRightLandscape"/>
             <attribute-set name="atsFrontmatterRegionBodyLeft" use-attribute-sets="atsCommonRegionBodyLeft"/>
+            <attribute-set name="atsFrontmatterRegionBlankBodyLeft" use-attribute-sets="atsCommonRegionBodyLeft"/>
             <attribute-set name="atsFrontmatterRegionBodyRight" use-attribute-sets="atsCommonRegionBodyRight"/>
+            <attribute-set name="atsFrontmatterRegionBlankBodyRight" use-attribute-sets="atsCommonRegionBodyRight"/>
             <attribute-set name="atsFrontmatterRegionBefore" use-attribute-sets="atsCommonRegionBefore"/>
             <attribute-set name="atsFrontmatterRegionAfter" use-attribute-sets="atsCommonRegionAfter"/>
             <attribute-set name="atsFrontmatterRegionStartLeft" use-attribute-sets="atsCommonRegionStartLeft"/>
@@ -711,7 +721,9 @@ URL : http://www.antennahouse.com/
             <attribute-set name="atsChapterPageLeftLandscape" use-attribute-sets="atsCommonPageLeftLandscape"/>
             <attribute-set name="atsChapterPageRightLandscape" use-attribute-sets="atsCommonPageRightLandscape"/>
             <attribute-set name="atsChapterRegionBodyLeft" use-attribute-sets="atsCommonRegionBodyLeft"/>
+            <attribute-set name="atsChapterRegionBlankBodyLeft" use-attribute-sets="atsCommonRegionBodyLeft"/>
             <attribute-set name="atsChapterRegionBodyRight" use-attribute-sets="atsCommonRegionBodyRight"/>
+            <attribute-set name="atsChapterRegionBlankBodyRight" use-attribute-sets="atsCommonRegionBodyRight"/>
             <attribute-set name="atsChapterRegionBefore" use-attribute-sets="atsCommonRegionBefore"/>
             <attribute-set name="atsChapterRegionAfter" use-attribute-sets="atsCommonRegionAfter"/>
             <attribute-set name="atsChapterRegionStartLeft" use-attribute-sets="atsCommonRegionStartLeft"/>
@@ -767,7 +779,9 @@ URL : http://www.antennahouse.com/
             <attribute-set name="atsBackmatterPageLeftLandscape" use-attribute-sets="atsCommonPageLeftLandscape"/>
             <attribute-set name="atsBackmatterPageRightLandscape" use-attribute-sets="atsCommonPageRightLandscape"/>
             <attribute-set name="atsBackmatterRegionBodyLeft" use-attribute-sets="atsCommonRegionBodyLeft"/>
+            <attribute-set name="atsBackmatterRegionBlankBodyLeft" use-attribute-sets="atsCommonRegionBodyLeft"/>
             <attribute-set name="atsBackmatterRegionBodyRight" use-attribute-sets="atsCommonRegionBodyRight"/>
+            <attribute-set name="atsBackmatterRegionBlankBodyRight" use-attribute-sets="atsCommonRegionBodyRight"/>
             <attribute-set name="atsBackmatterRegionBefore" use-attribute-sets="atsCommonRegionBefore"/>
             <attribute-set name="atsBackmatterRegionAfter" use-attribute-sets="atsCommonRegionAfter"/>
             <attribute-set name="atsBackmatterRegionStartLeft" use-attribute-sets="atsCommonRegionStartLeft"/>
