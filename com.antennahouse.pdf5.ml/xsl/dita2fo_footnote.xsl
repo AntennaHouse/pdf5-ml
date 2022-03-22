@@ -22,12 +22,16 @@ E-mail : info@antennahouse.com
      param:     prmTopicRef, prmTopicContent
      return:    footnote lists
      note:      $prmTopicContent is any element.
-                This template outputs post-note that is descendant of $prmTopicContent. 2011-07-28 t.makita
+                This template outputs post-note that is descendant of $prmTopicContent. 
+                2011-07-28 t.makita
+                Remove fn that is descendant of xref.
+                This situation occurs when table/desc illegally contains fn as desc/ph/fn and the xref in another table references this table.
+                2022-03-22 t.makita
      -->
     <xsl:template name="makePostNote">
         <xsl:param name="prmTopicRef" required="yes" as="element()"/>
         <xsl:param name="prmTopicContent" required="yes" as="element()?"/>
-        <xsl:variable name="noteCount" select="if (exists($prmTopicContent)) then count($prmTopicContent/descendant::*[contains(@class,' topic/fn ')][not(contains(@class,' pr-d/synnote '))]) else 0"/>
+        <xsl:variable name="noteCount" select="if (exists($prmTopicContent)) then count($prmTopicContent/descendant::*[contains(@class,' topic/fn ')][ahf:isValidFn(.)]) else 0"/>
         <xsl:if test="$noteCount gt 0">
             <xsl:call-template name="makePostNoteSub">
                 <xsl:with-param name="prmTopicRef" select="$prmTopicRef"/>
@@ -97,7 +101,7 @@ E-mail : info@antennahouse.com
         
         <fo:list-block>
             <xsl:copy-of select="ahf:getAttributeSet('atsPostnoteListBlock')"/>
-            <xsl:for-each select="$prmTopicContent/descendant::*[contains(@class,' topic/fn ')]">
+            <xsl:for-each select="$prmTopicContent/descendant::*[contains(@class,' topic/fn ')][ahf:isValidFn(.)]">
                 <xsl:variable name="fn" select="."/>
                 <fo:list-item>
                     <xsl:call-template name="getAttributeSetWithLang">
@@ -142,6 +146,8 @@ E-mail : info@antennahouse.com
                          2019-03-01 t.makita
                 BUG-FIX: Change $prmElement type from element() to element()+ to include footnotes in table/desc.
                          2019-03-26 t.makita
+                BUG-FIX: Reject fn that is descendant of xref.
+                         2022-03-22 t.makita
      -->
     <xsl:template name="makeFootNote">
         <xsl:param name="prmElement"  required="yes" as="element()+"/>
@@ -159,7 +165,7 @@ E-mail : info@antennahouse.com
                     $elemExceptDesc/ancestor::*[contains(@class, ' glossentry/glossdef ')]"/>
             </xsl:for-each>
         </xsl:variable>
-        <xsl:variable name="fnCount" select="count($prmElement/descendant::*[contains(@class,' topic/fn ')][not(contains(@class,' pr-d/synnote '))])"/>
+        <xsl:variable name="fnCount" select="count($prmElement/descendant::*[contains(@class,' topic/fn ')][ahf:isValidFn(.)])"/>
         <xsl:if test="empty($upperElements) and $fnCount gt 0">
             <xsl:call-template name="makeFootNoteSub">
                 <xsl:with-param name="prmElement" select="$prmElement"/>
@@ -204,9 +210,11 @@ E-mail : info@antennahouse.com
     <xsl:template name="processFootNote">
         <xsl:param name="prmElement" required="yes" as="element()+"/>
         
+        <xsl:message select="'[processFootNote]'"/>
         <fo:list-block>
             <xsl:copy-of select="ahf:getAttributeSet('atsPostnoteListBlock')"/>
-            <xsl:for-each select="$prmElement/descendant::*[contains(@class,' topic/fn ')]">
+            <xsl:variable name="fnSeq" as="element()*" select="$prmElement/descendant::*[contains(@class,' topic/fn ')][ahf:isValidFn(.)]"/>
+            <xsl:for-each select="$fnSeq">
                 <xsl:variable name="fn" select="."/>
                 <fo:list-item>
                     <xsl:call-template name="getAttributeSetWithLang">
@@ -242,5 +250,17 @@ E-mail : info@antennahouse.com
             </xsl:for-each>
         </fo:list-block>
     </xsl:template>
-    
+
+    <!-- 
+     function:  Judge valid footnote
+     param:     prmFn
+     return:    xs:boolean
+     note:      Return $prmFn is target one or not.
+     -->
+    <xsl:function name="ahf:isValidFn" as="xs:boolean">
+        <xsl:param name="prmFn" as="element()"/>
+        <xsl:variable name="isValidFn" as="xs:boolean" select="empty($prmFn[contains(@class,' pr-d/synnote ')]) and empty($prmFn/ancestor::*[contains(@class,' topic/xref ')])"/>
+        <xsl:sequence select="$isValidFn"/>
+    </xsl:function>
+
 </xsl:stylesheet>
