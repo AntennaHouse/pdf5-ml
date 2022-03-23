@@ -18,7 +18,7 @@
 			<step>
 				<cmd>Divide them into small peaces of topic.</cmd>
 				<info>
-					<floatfig float="right">
+					<floatfig float="left">
 						<image placement="break" href="image/colorful-folders-pack.svg"/>
 					</floatfig>
 					You should select appropriate topic size, not too small and not too big.
@@ -39,7 +39,7 @@
 			<step>
 				<cmd>Make templates for authoring based on information type.</cmd>
 				<info>
-					<floatfig float="right">
+					<floatfig float="left">
 						<image placement="break" href="image/template.svg"/>
 					</floatfig>
 					Current authoring tool supports making your own templates for inexperienced users.
@@ -57,7 +57,7 @@
 			<step>
 				<cmd>Discuss with team until approved.</cmd>
 				<info>
-					<floatfig float="right">
+					<floatfig float="left">
 						<image placement="break" href="image/top-view-of-business-meeting.svg"/>
 					</floatfig>
 					There may be heated discussions because users does not practice DITA architecture at this moment.
@@ -78,7 +78,7 @@
 			<step>
 				<cmd>Evaluate the modeling work and go ahead if it is succeeded.</cmd>
 				<info>
-					<floatfig float="right">
+					<floatfig float="left">
 						<image placement="break" href="image/businessman-being-throwing-up-by-his-teamwork.svg"/>
 					</floatfig>
 				</info>
