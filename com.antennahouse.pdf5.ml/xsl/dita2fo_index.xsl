@@ -44,27 +44,27 @@ E-mail : info@antennahouse.com
     
     <!-- Indexterm nodeset sorted result -->
     <xsl:variable name="indextermSorted">
-    	<xsl:choose>
-    	<xsl:when test="count($indextermOrigin/*) gt 0">
-            <xsl:variable name="tempSortResult">
-                <xsl:call-template name="indexSort">
-                    <xsl:with-param name="prmIndexterm" select="$indextermOrigin"/>
-                </xsl:call-template>
-            </xsl:variable>
-            <xsl:document>
-                <xsl:for-each select="$tempSortResult/*">
-                    <xsl:copy>
-                        <xsl:copy-of select="@*"/>
-                        <xsl:attribute name="id" select="ahf:generateHistoryId(.)"/>
-                        <xsl:copy-of select="*"/>
-                    </xsl:copy>
-                </xsl:for-each>
-            </xsl:document>
-    	</xsl:when>
-    	    <xsl:otherwise>
-    	        <xsl:document/>
-    	    </xsl:otherwise>
-    	</xsl:choose>
+        <xsl:choose>
+            <xsl:when test="count($indextermOrigin/*) gt 0">
+                <xsl:variable name="tempSortResult">
+                    <xsl:call-template name="indexSort">
+                        <xsl:with-param name="prmIndexterm" select="$indextermOrigin"/>
+                    </xsl:call-template>
+                </xsl:variable>
+                <xsl:document>
+                    <xsl:for-each select="$tempSortResult/*">
+                        <xsl:copy>
+                            <xsl:copy-of select="@*"/>
+                            <xsl:attribute name="id" select="ahf:generateHistoryId(.)"/>
+                            <xsl:copy-of select="*"/>
+                        </xsl:copy>
+                    </xsl:for-each>
+                </xsl:document>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:document/>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:variable>
     
     <!-- counts -->

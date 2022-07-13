@@ -592,37 +592,37 @@
             <xsl:with-param name="prmMes" select="$stMes601"/>
         </xsl:call-template>
         
-        <!-- $indextermOrigin -->
+        <!-- $indexterm-origin.xml -->
         <xsl:result-document 
             method="xml" 
             encoding="UTF-8" 
             byte-order-mark="no"
             indent="yes"
-            href="{concat($pOutputDirUrl,'$indextermOrigin.xml')}">
+            href="{concat($pOutputDirUrl,'$',$documentLang,'-indexterm-origin.xml')}">
             <root>
                 <xsl:copy-of select="$indextermOrigin"/>
             </root>
         </xsl:result-document>
 
-        <!-- $indextermSorted -->
+        <!-- $indexterm-sorted.xml -->
         <xsl:result-document 
             method="xml" 
             encoding="UTF-8" 
             byte-order-mark="no"
             indent="yes"
-            href="{concat($pOutputDirUrl,'$indextermSorted.xml')}">
+            href="{concat($pOutputDirUrl,'$',$documentLang,'-indexterm-sorted.xml')}">
             <root>
                 <xsl:copy-of select="$indextermSorted"/>
             </root>
         </xsl:result-document>
 
-        <!-- $indextermFinalSortedTree -->
+        <!-- $indexterm-final-sorted-tree.xml -->
         <xsl:result-document 
             method="xml" 
             encoding="UTF-8" 
             byte-order-mark="no"
             indent="yes"
-            href="{concat($pOutputDirUrl,'$indextermFinalSortedTree.xml')}">
+            href="{concat($pOutputDirUrl,'$',$documentLang,'-indexterm-final-sorted-tree.xml')}">
             <root>
                 <xsl:copy-of select="$indextermFinalSortedTree"/>
             </root>

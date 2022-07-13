@@ -1752,7 +1752,7 @@ E-mail : info@antennahouse.com
             encoding="UTF-8" 
             byte-order-mark="no"
             indent="yes"
-            href="{concat($pOutputDirUrl,'$indextermOrigin.xml')}">
+            href="{concat($pOutputDirUrl,'$',$documentLang,'-indexterm-origin.xml')}">
             <root>
                 <xsl:copy-of select="$indextermOrigin"/>
             </root>
@@ -1762,7 +1762,7 @@ E-mail : info@antennahouse.com
             encoding="UTF-8" 
             byte-order-mark="no"
             indent="yes"
-            href="{concat($pOutputDirUrl,'$indextermSorted.xml')}">
+            href="{concat($pOutputDirUrl,'$',$documentLang,'-indexterm-sorted.xml')}">
             <root>
                 <xsl:copy-of select="$indextermSorted"/>
             </root>

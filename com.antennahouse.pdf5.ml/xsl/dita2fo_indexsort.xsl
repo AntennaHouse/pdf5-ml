@@ -19,7 +19,7 @@ E-mail : info@antennahouse.com
 >
 
     <!-- ======================================================================== 
-        This code is converterd from XSLT1.0 to XSLT 2.0 from following example:
+        This code is converted from XSLT1.0 to XSLT 2.0 from following example:
         [xsl] Sorting with unknown number of sort keys (Was: Re: Sort question)
         http://www.biglist.com/lists/xsl-list/archives/200303/msg00007.html
         Thank you Dimitre Novatchev.
