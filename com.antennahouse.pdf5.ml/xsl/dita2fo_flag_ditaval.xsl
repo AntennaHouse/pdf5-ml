@@ -287,13 +287,13 @@ E-mail : info@antennahouse.com
      return:	generate inline image
      note:		This template is intended to apply inline level elements without xref or image.
      -->
-    <xsl:template match="*[contains(@class, ' ditaot-d/ditaval-startprop ')]" priority="10">
+    <xsl:template match="*[contains(@class, ' ditaot-d/ditaval-startprop ')][empty(ancestor::*[. is $map])]" priority="10">
         <xsl:call-template name="genInlineLevelImageOrTextForFlagging">
             <xsl:with-param name="prmFlagElem" select="*[self::prop or self::revprop]/startflag"/>
         </xsl:call-template>
     </xsl:template>
 
-    <xsl:template match="*[contains(@class, ' ditaot-d/ditaval-endprop ')]" priority="10">
+    <xsl:template match="*[contains(@class, ' ditaot-d/ditaval-endprop ')][empty(ancestor::*[. is $map])]" priority="10">
         <xsl:call-template name="genInlineLevelImageOrTextForFlagging">
             <xsl:with-param name="prmFlagElem" select="*[self::prop or self::revprop]/endflag"/>
         </xsl:call-template>
