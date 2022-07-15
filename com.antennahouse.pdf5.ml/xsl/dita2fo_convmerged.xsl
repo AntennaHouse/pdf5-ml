@@ -18,7 +18,7 @@ E-mail : info@antennahouse.com
     <!-- dita2fo_convmerged.xsl
          1. remove topicref/@print="no" and its descendant.
          2. remove topicgroup
-         3. Handle falgging using dita2fo_flag_ditaval.xsl.
+         3. Handle flagging using dita2fo_flag_ditaval.xsl.
          4. Clone topic that is referenced from map multiple times.
      -->
     
