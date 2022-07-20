@@ -108,25 +108,34 @@ E-mail : info@antennahouse.com
      param:       none
      return:      copied result
      note:        Clone multiply referenced topic using another topic/@id
+                  Pass topicref's .ditaval flag condiion to corresponding topic.
+                  2022-07-20 t.makita
      -->
     <xsl:template name="outputTopic">
         <xsl:for-each select="$normalTopicIds">
             <xsl:variable name="topicId" as="xs:string" select="."/>
             <xsl:if test="string($topicId)">
                 <xsl:variable name="position" as="xs:integer" select="position()"/>
-                <xsl:variable name="topicref" as="element()" select="$normalTopicRefs[$position]"/>
+                <xsl:variable name="topicRef" as="element()" select="$normalTopicRefs[$position]"/>
                 <xsl:variable name="prevTopicIds" as="xs:string*" select="subsequence($normalTopicIds,1,$position - 1)"/>
                 <xsl:variable name="duplicateCount" as="xs:integer" select="count($prevTopicIds[. eq $topicId])"/>
                 <xsl:variable name="topic" as="element()?" select="key('topicById',$topicId,$root)"/>
+                <!-- Take into consideration with topicref's ditaval condition -->
+                <xsl:variable name="ditaValPropOrRevProp" as="element()*" select="ahf:getGrandChildDitavalPropOrRevProp($topicRef)"/>
+                <xsl:variable name="ditaValFlagStyle" as="xs:string" select="ahf:getDitaValFlagStyle($ditaValPropOrRevProp)"/>
+                <xsl:variable name="ditaValRevProp" as="element()*" select="ahf:getGrandChildDitavalRevProp($topicRef)"/>
+                <xsl:variable name="ditaValChangeBarStyle" as="xs:string" select="ahf:getDitaValChangeBarStyle($ditaValRevProp)"/>
                 <xsl:choose>
                     <xsl:when test="exists($topic)">
                         <xsl:apply-templates select="$topic">
                             <xsl:with-param name="prmTopicRefNo" tunnel="yes" select="$duplicateCount"/>
+                            <xsl:with-param name="prmDitaValFlagStyle" tunnel="yes" select="$ditaValFlagStyle"/>
+                            <xsl:with-param name="prmDitaValChangeBarStyle" tunnel="yes" select="$ditaValChangeBarStyle"/>
                         </xsl:apply-templates>
                     </xsl:when>
                     <xsl:otherwise>
                         <xsl:call-template name="warningContinue">
-                            <xsl:with-param name="prmMes" select="ahf:replace($stMes1009,('%href','%xtrc'),(concat('#',$topicId),string($topicref/@xtrc)))"/>
+                            <xsl:with-param name="prmMes" select="ahf:replace($stMes1009,('%href','%xtrc'),(concat('#',$topicId),string($topicRef/@xtrc)))"/>
                         </xsl:call-template>
                     </xsl:otherwise>
                 </xsl:choose>
