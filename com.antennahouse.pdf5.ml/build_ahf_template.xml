@@ -125,6 +125,7 @@
         <echo>ahf.dir="${ahf.dir}"</echo>
         <echo>ahf.opt="${ahf.opt}"</echo>
         <echo>Execute command="${ahf.cmd}"</echo>
+        <echo>Input XSL-FO="${prmInputFile}"</echo>
         <echo>Output PDF="${prmOutputFile}"</echo>
     </target>
     

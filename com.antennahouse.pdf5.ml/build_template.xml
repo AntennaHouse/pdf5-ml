@@ -68,7 +68,7 @@
         </condition>
     </fail>
     
-    <!-- Copy resource paramter
+    <!-- Copy resource parameter
          Set "true" if you want copy resources into output.dir.
          Resource is authored as below: 
          <topicref href="[Relative path to reource]" processing-role="resource-only" format="any type such as pdf, docx or xlsx " outputclass="link-target"/>
