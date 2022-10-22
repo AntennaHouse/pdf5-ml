@@ -578,12 +578,12 @@ E-mail : info@antennahouse.com
      -->
     <xsl:function name="ahf:getDitaValImageStartFlag" as="xs:string">
         <xsl:param name="prmElem" as="element()"/>
-        <xsl:sequence select="ahf:replace(string($prmElem/prop[1]/startflag[1]/@imageref),'../file:/','file:/')"/>
+        <xsl:sequence select="ahf:replace(string($prmElem/prop[1]/startflag[1]/@imageref),('../file:/', '../'),('file:/', './'))"/>
     </xsl:function>
 
     <xsl:function name="ahf:getDitaValImageEndFlag" as="xs:string">
         <xsl:param name="prmElem" as="element()"/>
-        <xsl:sequence select="ahf:replace(string($prmElem/prop[1]/endflag[1]/@imageref),'../file:/','file:/')"/>
+        <xsl:sequence select="ahf:replace(string($prmElem/prop[1]/endflag[1]/@imageref),('../file:/', '../'),('file:/', './'))"/>
     </xsl:function>
 
     <!-- 
