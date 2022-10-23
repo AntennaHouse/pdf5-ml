@@ -34,12 +34,14 @@
     <target name="build.project.class.path"
         depends="build.project.class.path.wo.plugin,build.project.class.path.with.plugin"/>
 
-    <target name="transform.merged2pdf.impl">
-
-        <!-- Final FO file location -->
+    <!-- Final FO file location -->
+    <target name="build.fo.folder">
         <property name="fo.in.output.folder" value="yes"/>
         <property name="final.fo.file" value="${dita.map.output.dir}${file.separator}${dita.map.filename.root}.fo" if:true="${fo.in.output.folder}"/>
         <property name="final.fo.file" value="${build.temp.dir}${file.separator}${dita.map.filename.root}.fo" unless:true="${fo.in.output.folder}"/>
+    </target>
+    
+    <target name="transform.merged2pdf.impl" depends="build.fo.folder">
         
         <antcall target="transform.merged">
             <param name="prmInputFile" value="${prmInputFile}"/>

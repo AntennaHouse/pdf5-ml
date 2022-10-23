@@ -159,7 +159,7 @@
       <val>yes</val>
     </param>
     <param name="fo.in.output.folder" desc="Specifies the final FO file location. The default value is output folder, otherwise it is in temporary folder." type="enum">
-      <val default="true">yes</val>
+      <val>yes</val>
       <val>no</val>
     </param>
     <param name="ahf.dir" desc="Specifies AH Formatter directory" type="string"/>
