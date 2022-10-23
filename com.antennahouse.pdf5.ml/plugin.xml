@@ -14,6 +14,8 @@
   <extension-point id="build.com.antennahouse.pdf5.ml.format.inclusion" name="Inclusion for build_transoform_template.xml for above 'depends.～' targets."/>
   <extension-point id="build.com.antennahouse.pdf5.ml.ahf.build.inclusion" name="Inclusion for build_ahf_template.xml."/>
   <extension-point id="build.com.antennahouse.pdf5.ml.ahf.run.param.inclusion" name="Inclusion for AF Formatter execution parameter."/>
+  <extension-point id="depend.com.antennahouse.pdf5.ml.transform.fo.pdf.pre" name="Convert XSL-FO to PDF pre-target"/>
+  <extension-point id="depend.com.antennahouse.pdf5.ml.transform.fo.pdf.post" name="Convert XSL-FO to PDF post-target"/>
   <feature extension="dita.conductor.target.relative" value="integrator.xml" type="file"/>
   <transtype name="pdf5.ml" desc="PDF">
     <param name="style.def.file" desc="Style definition file" type="file"/>
