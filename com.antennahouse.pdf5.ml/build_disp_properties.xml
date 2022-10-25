@@ -61,6 +61,7 @@
     <echo message="ahf.dir=${ahf.dir}"/>
     <echo message="ahf.opt=${ahf.opt}"/>
     <echo message="use.saxon.transform=${use.saxon.transform}"/>
+    <echo message="fo.in.output.folder=${fo.in.output.folder}"/>
     <echo message="*----------------------------------------------------------------*"/>
   </target>
 </project>

@@ -117,7 +117,7 @@
         </antcall>
     </target>
 
-    <target name="transform.fo2pdf.impl" depends="transform.fo2pdf.ahf.check, transform.fo2pdf.option.and.multivol, transform.fo2pdf.ahf.option.and.nomultivol, transform.fo2pdf.nooption.and.multivol, transform.fo2pdf.ahf.nooption.and.nomultivol"/>
+    <target name="transform.fo2pdf.impl" dita:extension="depends org.dita.dost.platform.InsertDependsAction" dita:depends="transform.fo2pdf.ahf.check, {depend.com.antennahouse.pdf5.ml.transform.fo.pdf.pre}, transform.fo2pdf.option.and.multivol, transform.fo2pdf.ahf.option.and.nomultivol, transform.fo2pdf.nooption.and.multivol, transform.fo2pdf.ahf.nooption.and.nomultivol,{depend.com.antennahouse.pdf5.ml.transform.fo.pdf.post}"/>
     
     <target name="transform.fo2pdf.ahf.check">
         <fail unless="ahf.dir" message="ahf.dir folder does not exist or AHF_DIR environment variable is missing."/>
@@ -125,6 +125,7 @@
         <echo>ahf.dir="${ahf.dir}"</echo>
         <echo>ahf.opt="${ahf.opt}"</echo>
         <echo>Execute command="${ahf.cmd}"</echo>
+        <echo>Input XSL-FO="${prmInputFile}"</echo>
         <echo>Output PDF="${prmOutputFile}"</echo>
     </target>
     

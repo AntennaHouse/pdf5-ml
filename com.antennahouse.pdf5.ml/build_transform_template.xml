@@ -9,7 +9,7 @@
      prmInputFile:  Merged middle file path
      prmOutputFile: PDF file path
   -->
-<project name="build.transform" xmlns:dita="http://dita-ot.sourceforge.net" xmlns:if="ant:if">
+<project name="build.transform" xmlns:dita="http://dita-ot.sourceforge.net" xmlns:if="ant:if" xmlns:unless="ant:unless">
     <import file="build_ahf.xml"/>
 
     <!-- Genarate XSL-FO & PDF from merged middle file.
@@ -34,8 +34,15 @@
     <target name="build.project.class.path"
         depends="build.project.class.path.wo.plugin,build.project.class.path.with.plugin"/>
 
-    <target name="transform.merged2pdf.impl">
-
+    <!-- Final FO file location -->
+    <target name="build.fo.folder">
+        <property name="fo.in.output.folder" value="yes"/>
+        <property name="final.fo.file" value="${dita.map.output.dir}${file.separator}${dita.map.filename.root}.fo" if:true="${fo.in.output.folder}"/>
+        <property name="final.fo.file" value="${build.temp.dir}${file.separator}${dita.map.filename.root}.fo" unless:true="${fo.in.output.folder}"/>
+    </target>
+    
+    <target name="transform.merged2pdf.impl" depends="build.fo.folder">
+        
         <antcall target="transform.merged">
             <param name="prmInputFile" value="${prmInputFile}"/>
             <param name="prmOutputFile"
@@ -52,13 +59,11 @@
         <antcall target="transform.psmi2fo">
             <param name="prmInputFile"
                 value="${build.temp.dir}${file.separator}${dita.map.filename.root}_psmi.fo"/>
-            <param name="prmOutputFile"
-                value="${dita.map.output.dir}${file.separator}${dita.map.filename.root}.fo"/>
+            <param name="prmOutputFile" value="${final.fo.file}"/>
         </antcall>
 
         <antcall target="transform.fo2pdf">
-            <param name="prmInputFile"
-                value="${dita.map.output.dir}${file.separator}${dita.map.filename.root}.fo"/>
+            <param name="prmInputFile" value="${final.fo.file}"/>
             <param name="prmOutputFile" value="${prmOutputFile}"/>
             <param name="prmMultiVol" value="no"/>
         </antcall>
