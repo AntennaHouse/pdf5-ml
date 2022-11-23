@@ -3,31 +3,37 @@
   <property name="pdf5.ml.plugin.folder" value="com.antennahouse.pdf5.ml"/>
   <property name="pdf5.ml.dir" value="plugins"/>
 
-  <!-- Set property not to copy image unless ${copy.image.to.output.folder} = "yes" -->
-  <condition property="preprocess.copy-image.skip">
-    <and>
-      <not>
-        <equals arg1="${copy.image.to.output.folder}" arg2="yes" casesensitive="false"/>
-      </not>
-      <equals arg1="${transtype}" arg2="pdf5.ml" casesensitive="false"/>
-    </and>
-  </condition>
-
-  <condition property="preprocess.copy-html.skip">
-    <and>
-      <not>
-        <equals arg1="${copy.image.to.output.folder}" arg2="yes" casesensitive="false"/>
-      </not>
-      <equals arg1="${transtype}" arg2="pdf5.ml" casesensitive="false"/>
-    </and>
-  </condition>
+  <taskdef name="version.comp" classname="com.antennahouse.ant_utils.VersionComp"/>
   
-  <!-- Set property not to process chunking -->
-  <condition property="preprocess.chunk.skip">
-    <equals arg1="${transtype}" arg2="pdf5.ml" casesensitive="false"/>
-  </condition>
+  <target name="dita2pdf5.ml.init">
+    <property name="src.version" value="${otversion}"/>
+    <property name="dst.version" value="4.0.0"/>
+    <property name="operator" value="lt"/>
+    <property name="delim" value="."/>
+    <property name="result" value="ot.version.less.than.4"/>
+    <version.comp src="${src.version}" 
+      dst="${dst.version}"
+      operator="${operator}"
+      delim="${delim}" 
+      result="${result}"/>
+    
+    <condition property="build-step.copy-image" value="false" xmlns:unless="ant:unless" unless:true="${ot.version.less.than.4}">
+      <isfalse value="${copy.image.to.output.folder}"/>
+    </condition>
+    <condition property="build-step.copy-html" value="false" xmlns:unless="ant:unless" unless:true="${ot.version.less.than.4}">
+      <isfalse value="${copy.image.to.output.folder}"/>
+    </condition>
+    <condition property="build-step.chunk" value="false" xmlns:unless="ant:unless" unless:true="${ot.version.less.than.4}"/>
+    <condition property="preprocess.copy-image.skip" value="true" xmlns:if="ant:if" if:true="${ot.version.less.than.4}">
+      <isfalse value="${copy.image.to.output.folder}"/>
+    </condition>
+    <condition property="preprocess.copy-html.skip" value="true" xmlns:if="ant:if" if:true="${ot.version.less.than.4}">
+      <isfalse value="${copy.image.to.output.folder}"/>
+    </condition>
+    <condition property="preprocess.chunk.skip" value="true" xmlns:if="ant:if" if:true="${ot.version.less.than.4}"/>
+  </target>
   
-  <target name="dita2pdf5.ml" depends="build-init, preprocess, map2pdf5.ml, topic2pdf5.ml"/> 
+  <target name="dita2pdf5.ml" depends="dita2pdf5.ml.init, build-init, preprocess, map2pdf5.ml, topic2pdf5.ml"/> 
   
   <target name="topic2pdf5.ml" if="noMap" depends="preprocess">
 	<echo message="[pdf5.ml] This plugin does not support topic formatting. Use map or bookmap!"/>

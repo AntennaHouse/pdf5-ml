@@ -4,15 +4,22 @@
     <property name="jp.acme-corporation.pdf.ml.dir" value="plugins"/>
     
     <!-- Set property not to copy image -->
-    <condition property="preprocess.copy-image.skip" value="true">
+    <!--
+    <condition property="build-step.copy-image" value="false">
         <equals arg1="${transtype}" arg2="acme-corporation.pdf.ml" casesensitive="false"/>
     </condition>
     
-    <condition property="preprocess.copy-html.skip" value="true">
+    <condition property="build-step.copy-html" value="false">
         <equals arg1="${transtype}" arg2="acme-corporation.pdf.ml" casesensitive="false"/>
     </condition>
+    -->
     
-    <target name="dita2acme-corporation.pdf.ml" depends="build-init, preprocess, map2acme-corporation.pdf.ml, topic2acme-corporation.pdf.ml"/> 
+    <target name="dita2acme-corporation.pdf.ml.init">
+        <echo message="$otversion=${otversion}"/>
+        <echo message="$dita.dir=${dita.dir}"/>
+    </target>
+    
+    <target name="dita2acme-corporation.pdf.ml" depends="dita2acme-corporation.pdf.ml.init, build-init, preprocess, map2acme-corporation.pdf.ml, topic2acme-corporation.pdf.ml"/> 
     
     <target name="topic2acme-corporation.pdf.ml" if="noMap" depends="preprocess">
         <echo message="[acme.pdf] This plugin does not support topic formatting. Use map or bookmap!"/>
