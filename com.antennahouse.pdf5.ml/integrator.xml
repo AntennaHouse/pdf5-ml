@@ -23,14 +23,14 @@
     <condition property="build-step.copy-html" value="false" xmlns:unless="ant:unless" unless:true="${ot.version.less.than.4}">
       <isfalse value="${copy.image.to.output.folder}"/>
     </condition>
-    <condition property="build-step.chunk" value="false" xmlns:unless="ant:unless" unless:true="${ot.version.less.than.4}"/>
+    <property name="build-step.chunk" value="false" xmlns:unless="ant:unless" unless:true="${ot.version.less.than.4}"/>
     <condition property="preprocess.copy-image.skip" value="true" xmlns:if="ant:if" if:true="${ot.version.less.than.4}">
       <isfalse value="${copy.image.to.output.folder}"/>
     </condition>
     <condition property="preprocess.copy-html.skip" value="true" xmlns:if="ant:if" if:true="${ot.version.less.than.4}">
       <isfalse value="${copy.image.to.output.folder}"/>
     </condition>
-    <condition property="preprocess.chunk.skip" value="true" xmlns:if="ant:if" if:true="${ot.version.less.than.4}"/>
+    <property name="preprocess.chunk.skip" value="true" xmlns:if="ant:if" if:true="${ot.version.less.than.4}"/>
   </target>
   
   <target name="dita2pdf5.ml" depends="dita2pdf5.ml.init, build-init, preprocess, map2pdf5.ml, topic2pdf5.ml"/> 
