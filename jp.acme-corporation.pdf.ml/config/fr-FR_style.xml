@@ -3,7 +3,7 @@
     ************************************************************
     DITA to XSL-FO Style Definition 
     ************************************************************
-    File Name : en-US_style.xml
+    File Name : fr-FR_style.xml
     ************************************************************
     Copyright © 2009 2012 Antenna House, Inc.
     Antenna House is a trademark of Antenna House, Inc.
@@ -14,9 +14,9 @@
     xmlns:axf="http://www.antennahouse.com/names/XSL/Extensions"
     xmlns="http://www.antennahouse.com/names/XSLT/Document/Layout">
     
-    <variable name="Warninng_Icon">url(%plug-in-path%common-graphic/warning-en-us.svg)</variable>
+    <variable name="Warninng_Icon">url(%plug-in-path%common-graphic/warning-fr-fr.svg)</variable>
 
-    <variable name="Note_Warning">WARNING</variable>
+    <variable name="Note_Warning">AVERTISSEMENT</variable>
 
 </style-definition>
 

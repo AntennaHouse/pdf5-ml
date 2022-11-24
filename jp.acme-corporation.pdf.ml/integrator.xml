@@ -3,16 +3,35 @@
     <property name="jp.acme-corporation.pdf.ml.plugin.folder" value="jp.acme-corporation.pdf.ml"/>
     <property name="jp.acme-corporation.pdf.ml.dir" value="plugins"/>
     
-    <!-- Set property not to copy image -->
-    <condition property="preprocess.copy-image.skip" value="true">
-        <equals arg1="${transtype}" arg2="acme-corporation.pdf.ml" casesensitive="false"/>
-    </condition>
+    <target name="dita2acme-corporation.pdf.ml.init">
+        <property name="src.version" value="${otversion}"/>
+        <property name="dst.version" value="4.0.0"/>
+        <property name="operator" value="lt"/>
+        <property name="delim" value="."/>
+        <property name="result" value="ot.version.less.than.4"/>
+        <version.comp src="${src.version}" 
+            dst="${dst.version}"
+            operator="${operator}"
+            delim="${delim}" 
+            result="${result}"/>
+        
+        <condition property="build-step.copy-image" value="false" xmlns:unless="ant:unless" unless:true="${ot.version.less.than.4}">
+            <isfalse value="${copy.image.to.output.folder}"/>
+        </condition>
+        <condition property="build-step.copy-html" value="false" xmlns:unless="ant:unless" unless:true="${ot.version.less.than.4}">
+            <isfalse value="${copy.image.to.output.folder}"/>
+        </condition>
+        <property name="build-step.chunk" value="false" xmlns:unless="ant:unless" unless:true="${ot.version.less.than.4}"/>
+        <condition property="preprocess.copy-image.skip" value="true" xmlns:if="ant:if" if:true="${ot.version.less.than.4}">
+            <isfalse value="${copy.image.to.output.folder}"/>
+        </condition>
+        <condition property="preprocess.copy-html.skip" value="true" xmlns:if="ant:if" if:true="${ot.version.less.than.4}">
+            <isfalse value="${copy.image.to.output.folder}"/>
+        </condition>
+        <property name="preprocess.chunk.skip" value="true" xmlns:if="ant:if" if:true="${ot.version.less.than.4}"/>
+    </target>
     
-    <condition property="preprocess.copy-html.skip" value="true">
-        <equals arg1="${transtype}" arg2="acme-corporation.pdf.ml" casesensitive="false"/>
-    </condition>
-    
-    <target name="dita2acme-corporation.pdf.ml" depends="build-init, preprocess, map2acme-corporation.pdf.ml, topic2acme-corporation.pdf.ml"/> 
+    <target name="dita2acme-corporation.pdf.ml" depends="dita2acme-corporation.pdf.ml.init, build-init, preprocess, map2acme-corporation.pdf.ml, topic2acme-corporation.pdf.ml"/> 
     
     <target name="topic2acme-corporation.pdf.ml" if="noMap" depends="preprocess">
         <echo message="[acme.pdf] This plugin does not support topic formatting. Use map or bookmap!"/>
