@@ -29,7 +29,7 @@ E-mail : info@antennahouse.com
         <!-- Plug-in name and version -->
         <xsl:variable name="pluginAuthor" as="xs:string" select="'Antenna House'"/>
         <xsl:variable name="pluginName" as="xs:string" select="'PDF5-ML'"/>
-        <xsl:variable name="pluginVersion" as="xs:string" select="'1.0.8'"/>
+        <xsl:variable name="pluginVersion" as="xs:string" select="'1.0.9'"/>
         <xsl:message select="concat($pluginAuthor,' ',$pluginName,' plug-in Version: ',$pluginVersion)"/>
         <!-- XSLT processor information -->
         <xsl:variable name="vendor" as="xs:string" select="system-property('xsl:vendor')"/>
