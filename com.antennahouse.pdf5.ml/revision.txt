@@ -2,10 +2,33 @@
 
                  Antenna House PDF5-ML Plug-in Revision Notes
 
-      Copyright (C) 2009-2021 Antenna House, Inc. All rights reserved.
+      Copyright (C) 2009-2022 Antenna House, Inc. All rights reserved.
              Antenna House is a trademark of Antenna House, Inc.
 _______________________________________________________________________________
-
+Nov. 2022
+V1.0.9
+- Fix 218
+  Enhancement Request/Fix: Separate Attribute-Sets for all Blank Pages
+  https://github.com/AntennaHouse/pdf5-ml/issues/218
+- Fix 220
+  Unexpected footnote appears when table contains xref to table
+  https://github.com/AntennaHouse/pdf5-ml/issues/220
+- Update the index debugging code
+- Fix #232 #33
+  Is it possible to delete the resulting .fo file in the output folder?
+  https://github.com/AntennaHouse/pdf5-ml/issues/232
+  Enhancement Request: Add extension point for post PDF processing
+  https://github.com/AntennaHouse/pdf5-ml/issues/233   
+  Added two extension points.
+  <extension-point id="depend.com.antennahouse.pdf5.ml.transform.fo.pdf.pre" name="Convert XSL-FO to PDF pre-target"/>
+  <extension-point id="depend.com.antennahouse.pdf5.ml.transform.fo.pdf.post" name="Convert XSL-FO to PDF post-target"/>
+- Update jp.acme-corporation.pdf.ml plugin example
+- Fix #236
+  Build error in DITA-OT 4.0
+  https://github.com/AntennaHouse/pdf5-ml/issues/236
+  Now PDF5-ML works with DITA-OT 4.0.
+  Added Java code for building versioncomp-0.1.jar
+   
 Dec. 2021
 V1.0.8
 - Implement Hungarian xref to step. 
