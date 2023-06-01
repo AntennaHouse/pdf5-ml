@@ -76,12 +76,12 @@ E-mail : info@antennahouse.com
        		<xsl:call-template name="genBookmarkTree"/>
             
             <!-- Make cover -->
-    	    <xsl:if test="not($hasCover)">
+    	    <xsl:if test="not($hasCover) and $pBuildMap">
     	        <xsl:call-template name="genCover"/>
     	    </xsl:if>
             
             <!-- Make toc for map -->
-    	    <xsl:if test="$isMap and $pMakeTocForMap">
+    	    <xsl:if test="$isMap and $pMakeTocForMap and $pBuildMap">
     	        <xsl:call-template name="genMapToc"/>
     	    </xsl:if>
             
