@@ -36,12 +36,35 @@
   <target name="dita2pdf5.ml" depends="dita2pdf5.ml.init, build-init, preprocess, map2pdf5.ml, topic2pdf5.ml"/> 
   
   <target name="topic2pdf5.ml" if="noMap" depends="preprocess">
-	<echo message="[pdf5.ml] This plugin does not support topic formatting. Use map or bookmap!"/>
+    <!-- Generate merged middle file from topic -->
+    <echo message="[pdf5.ml] Start generating merged middle file from topic."/>
+    <makeurl file="${dita.temp.dir}${file.separator}${user.input.file}" property="topic.url" validate="yes"/>
+    <xslt processor="trax" 
+      in="${dita.dir}${file.separator}${pdf5.ml.dir}${file.separator}${pdf5.ml.plugin.folder}${file.separator}config${file.separator}topic-only-prototype.xml" 
+      out="${dita.temp.dir}${file.separator}${dita.topic.filename.root}_MERGED.xml"
+      style="${dita.dir}${file.separator}${pdf5.ml.dir}${file.separator}${pdf5.ml.plugin.folder}${file.separator}xsl${file.separator}dita2fo_gen_merged_shell.xsl" 
+      force="true">
+      <factory name="net.sf.saxon.TransformerFactoryImpl">
+        <attribute name="http://saxon.sf.net/feature/timing" value="true"/>
+        <!-- Suppress namespace warning -->
+        <!--attribute name="http://saxon.sf.net/feature/suppressXsltNamespaceCheck" value="true"/-->
+        <!--Assert-->
+        <!--attribute name="http://saxon.sf.net/feature/enableAssertions" value="true"/-->
+        <!-- Trace -->
+        <!--attribute name="http://saxon.sf.net/feature/traceListenerClass" value="net.sf.saxon.trace.XSLTTraceListener"/-->
+      </factory>
+      <param name="PRM_TOPIC_FILE_URL" expression="${topic.url}"/>
+    </xslt>
+    
+    <!-- Merged middle file to PDF -->
+    <ant dir="${dita.dir}${file.separator}${pdf5.ml.dir}${file.separator}${pdf5.ml.plugin.folder}" target="merged2pdf">
+      <property name="caller.basedir" value="${basedir}"/>
+    </ant>
   </target>
 
   <target name="map2pdf5.ml" unless="noMap" depends="preprocess">
     <!-- Call Java TopicMerge -->
-    <echo message="Start generating merged middle file."/>
+    <echo message="[pdf5.ml] Start generating merged middle file."/>
   	<dirname property="dita.temp.dir.fullpath" file="${dita.temp.dir}${file.separator}dummy.file"/>
     <pipeline message="topicmerge" 
               inputmap="${dita.temp.dir.fullpath}${file.separator}${user.input.file}"
