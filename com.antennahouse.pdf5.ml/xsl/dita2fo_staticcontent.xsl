@@ -128,7 +128,7 @@ E-mail : info@antennahouse.com
          2014-09-14 t.makita
      -->
     <xsl:template name="chapterEndRight">
-        <xsl:if test="$pAddThumbnailIndex">
+        <xsl:if test="$pAddThumbnailIndex and $pBuildMap">
             <xsl:call-template name="genThumbIndex">
                 <xsl:with-param name="prmId" select="ahf:generateId(.,())"/>
                 <xsl:with-param name="prmClass">
