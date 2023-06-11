@@ -100,7 +100,7 @@ E-mail : info@antennahouse.com
             </xsl:choose>
             
     	    <!-- Make index for map -->
-    	    <xsl:if test="$isMap and $pMakeIndexForMap and $pOutputIndex">
+            <xsl:if test="$isMap and $pMakeIndexForMap and $pOutputIndex and $pBuildMap">
     	        <xsl:call-template name="genMapIndex"/>
     	    </xsl:if>
     
