@@ -128,17 +128,55 @@
         <xsl:copy>
             <xsl:variable name="id" as="xs:string" select="@id => string()"/>
             <xsl:apply-templates select="@*">
-                <xsl:with-param name="prmId" select="$id"/>
+                <xsl:with-param name="prmId" tunnel="yes" select="$id"/>
             </xsl:apply-templates>
-            <xsl:apply-templates/>
+            <xsl:apply-templates>
+                <xsl:with-param name="prmId" tunnel="yes" as="xs:string" select="$id"/>
+            </xsl:apply-templates>
         </xsl:copy>
     </xsl:template>
 
     <xsl:template match="*[@class => contains-token('topic/topic')][ancestor::*[@class => contains-token('topic/topic')] => empty()]/@id" priority="10">
-        <xsl:param name="prmId" as="xs:string" required="yes"/>
+        <xsl:param name="prmId" as="xs:string" tunnel="yes" required="yes"/>
         <!--xsl:message select="'[@id] Match!'"/-->
         <xsl:attribute name="id" select="'unique_1'"/>
         <xsl:attribute name="oid" select="$prmId"/>
+    </xsl:template>
+
+    <xsl:template match="*[@class => contains-token('topic/xref')]/@href" priority="10">
+        <xsl:param name="prmId" as="xs:string" tunnel="yes" required="yes"/>
+        <xsl:variable name="href" as="xs:string" select="string(.)"/>
+        <xsl:variable name="topicId" as="xs:string?">
+            <xsl:choose>
+                <xsl:when test="starts-with($href,'#')">
+                    <xsl:variable name="idAndElementIdPart" select="substring($href,2)"/>
+                    <xsl:choose>
+                        <xsl:when test="contains($idAndElementIdPart,'/')">
+                            <xsl:sequence select="substring-before($idAndElementIdPart,'/')"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:sequence select="$idAndElementIdPart"/>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:sequence select="()"/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:choose>
+            <xsl:when test="$topicId => empty()">
+                <xsl:copy/>
+            </xsl:when>
+            <xsl:when test="$prmId  eq $topicId">
+                <xsl:attribute name="href">
+                    <xsl:value-of select="ahf:replace($href,('#'||$topicId),('#unique_1'))"/>
+                </xsl:attribute>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:copy/>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     
 </xsl:stylesheet>

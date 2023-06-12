@@ -23,10 +23,10 @@
          This styleshhet is intended to use XSLT 3.0 rather than XSLT 2.0.
          Use appropriate DITA-OT versions that support XSLT 3.0 XSLT stylesheet.
      -->
-    <!--xsl:include href="dita2fo_error_util.xsl"/>
     <xsl:include href="dita2fo_util.xsl"/>
-    <xsl:include href="dita2fo_dita_class.xsl"/>
-    <xsl:include href="dita2fo_common.xsl"/-->
+    <xsl:include href="dita2fo_error_util.xsl"/>
+    <xsl:include href="dita2fo_constants.xsl"/>
+    <xsl:include href="dita2fo_message.xsl"/>
     
     <xsl:include href="dita2fo_gen_merged_main.xsl"/>
     <xsl:include href="dita2fo_gen_merged_param.xsl"/>
