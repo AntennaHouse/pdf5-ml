@@ -349,5 +349,6 @@ E-mail : info@antennahouse.com
      -->
     <xsl:param name="PRM_BUILD_MAP" required="yes" as="xs:string"/>
     <xsl:variable name="pBuildMap" as="xs:boolean" select="$PRM_BUILD_MAP eq $cYes"/>
+    <xsl:variable name="pBuildTopic" as="xs:boolean" select="not($pBuildMap)"/>
     
 </xsl:stylesheet>
