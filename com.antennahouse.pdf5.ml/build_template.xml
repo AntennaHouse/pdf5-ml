@@ -190,8 +190,8 @@
     </condition>
 
     <!-- Make URL for input directory -->
-    <dirname property="user.input.dir" file="${args.input}"/>
-    <makeurl property="user.input.dir.url" file="${user.input.dir}"/>
+    <dirname property="input.file.dir" file="${args.input}"/>
+    <makeurl property="user.input.dir.url" file="${input.file.dir}"/>
     
     <!-- Make URL for output directory -->
     <makeurl property="output.dir.url" file="${dita.map.output.dir}"/>

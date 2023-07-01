@@ -43,7 +43,7 @@
     </xsl:template>
 
     <xsl:template name="genBookmarkTreeSub">
-        <xsl:if test="$isMap and $pMakeTocForMap">
+        <xsl:if test="$isMap and $pMakeTocForMap and $pBuildMap">
             <xsl:call-template name="genMapTocBookmark"/>
         </xsl:if>
         <xsl:apply-templates select="$map" mode="MAKE_BOOKMARK"/>

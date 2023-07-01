@@ -177,6 +177,7 @@
             <param name="PRM_OUTPUT_INDEX" expression="${output.index}" if:set="output.index"/>
             <param name="PRM_OT_VERSION" expression="${otversion}" if:set="otversion"/>
             <param name="PRM_TEMP_DIR_URL" expression="${temp.dir.url}" if:set="temp.dir.url"/>
+            <param name="PRM_BUILD_MAP" expression="${build.map}" if:set="build.map"/>
             
             <dita:extension id="com.antennahouse.pdf5.ml.param" behavior="org.dita.dost.platform.InsertAction"/>
             <sysproperty key="com.innodata.i18n.home" value="${i18n.home}"/>
@@ -248,6 +249,7 @@
             <arg line='"PRM_OUTPUT_INDEX=${output.index}"' if:set="output.index"/>
             <arg line='"PRM_OT_VERSION=${otversion}"' if:set="otversion"/>
             <arg line='"PRM_TEMP_DIR_URL=${temp.dir.url}"' if:set="temp.dir.url"/> 
+            <arg line='"PRM_BUILD_MAP=${build.map}"' if:set="build.map"/> 
             
             <dita:extension id="com.antennahouse.pdf5.ml.saxon.param" behavior="org.dita.dost.platform.InsertAction"/>
             <sysproperty key="com.innodata.i18n.home" value="${i18n.home}"/>

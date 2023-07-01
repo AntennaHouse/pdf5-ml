@@ -29,7 +29,7 @@ E-mail : info@antennahouse.com
         <!-- Plug-in name and version -->
         <xsl:variable name="pluginAuthor" as="xs:string" select="'Antenna House'"/>
         <xsl:variable name="pluginName" as="xs:string" select="'PDF5-ML'"/>
-        <xsl:variable name="pluginVersion" as="xs:string" select="'1.0.9'"/>
+        <xsl:variable name="pluginVersion" as="xs:string" select="'1.1.0'"/>
         <xsl:message select="concat($pluginAuthor,' ',$pluginName,' plug-in Version: ',$pluginVersion)"/>
         <!-- XSLT processor information -->
         <xsl:variable name="vendor" as="xs:string" select="system-property('xsl:vendor')"/>
@@ -76,12 +76,12 @@ E-mail : info@antennahouse.com
        		<xsl:call-template name="genBookmarkTree"/>
             
             <!-- Make cover -->
-    	    <xsl:if test="not($hasCover)">
+    	    <xsl:if test="not($hasCover) and $pBuildMap">
     	        <xsl:call-template name="genCover"/>
     	    </xsl:if>
             
             <!-- Make toc for map -->
-    	    <xsl:if test="$isMap and $pMakeTocForMap">
+    	    <xsl:if test="$isMap and $pMakeTocForMap and $pBuildMap">
     	        <xsl:call-template name="genMapToc"/>
     	    </xsl:if>
             
@@ -100,7 +100,7 @@ E-mail : info@antennahouse.com
             </xsl:choose>
             
     	    <!-- Make index for map -->
-    	    <xsl:if test="$isMap and $pMakeIndexForMap and $pOutputIndex">
+            <xsl:if test="$isMap and $pMakeIndexForMap and $pOutputIndex and $pBuildMap">
     	        <xsl:call-template name="genMapIndex"/>
     	    </xsl:if>
     
