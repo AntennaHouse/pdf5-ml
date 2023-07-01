@@ -50,6 +50,7 @@
    <xsl:include href="dita2fo_thumbindexmap.xsl"/>
    <xsl:include href="dita2fo_common.xsl"/>
    <xsl:include href="dita2fo_util.xsl"/>
+   <xsl:include href="dita2fo_util_node.xsl"/>
    <xsl:include href="dita2fo_dita_util.xsl"/>
    <xsl:include href="dita2fo_dita_class.xsl"/>
    <xsl:include href="dita2fo_style_set.xsl"/>

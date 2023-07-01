@@ -342,5 +342,13 @@ E-mail : info@antennahouse.com
      -->
     <xsl:param name="PRM_ADD_MAP_TITLE_TO_BOOKMARK" required="no" as="xs:string" select="$cNo"/>
     <xsl:variable name="pAddMapTitleToBookmark" as="xs:boolean" select="$PRM_ADD_MAP_TITLE_TO_BOOKMARK eq $cYes"/>
+
+    <!-- Build map
+        If the value is "yes" then build map or bookmap.
+        If the value is not "yes" then build topic other than map.
+     -->
+    <xsl:param name="PRM_BUILD_MAP" required="yes" as="xs:string"/>
+    <xsl:variable name="pBuildMap" as="xs:boolean" select="$PRM_BUILD_MAP eq $cYes"/>
+    <xsl:variable name="pBuildTopic" as="xs:boolean" select="not($pBuildMap)"/>
     
 </xsl:stylesheet>

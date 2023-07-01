@@ -80,6 +80,11 @@ E-mail : info@antennahouse.com
                 </fo:list-block>
             </xsl:otherwise>
         </xsl:choose>
+        <xsl:if test="not($pDisplayFnAtEndOfTopic)">
+            <xsl:call-template name="makeFootNote">
+                <xsl:with-param name="prmElement"  select="."/>
+            </xsl:call-template>
+        </xsl:if>
     </xsl:template>
     
     <!-- 

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dita-merge xmlns:dita-ot="http://dita-ot.sourceforge.net/ns/201007/dita-ot"
+            xmlns:ditaarch="http://dita.oasis-open.org/architecture/2005/">
+   <?workdir /dummy?>
+   <?workdir-uri file:/dummy/?>
+   <?path2project?>
+   <?path2project-uri ./?>
+   <?path2rootmap-uri ./?>
+   <?doctype-public -//OASIS//DTD DITA Map//EN?>
+   <?doctype-system map.dtd?>
+   <map cascade="merge"
+        class="- map/map "
+        ditaarch:DITAArchVersion="1.3"
+        domain="(map mapgroup-d) (topic abbrev-d) (topic delay-d) a(props deliveryTarget) (map ditavalref-d) (map glossref-d) (topic hazard-d) (topic hi-d) (topic indexing-d) (topic markup-d) (topic pr-d) (topic relmgmt-d) (topic sw-d) (topic ui-d) (topic ut-d) (topic markup-d xml-d)"
+        specializations="@props/deliveryTarget"
+        xtrc="map:1;1:1"
+        xtrf="file:/dummy.ditamap">
+      <title class="- topic/title "
+             xtrc="title:1;1:1"
+             xtrf="file:/dummy.ditamap">Dummy</title>
+      <?ditaot gentext?>
+      <topicref class="- map/topicref "
+                first_topic_id="#unique_1"
+                href="#unique_1"
+                ohref="dummy-topic.dita"
+                type="topic"
+                xtrc="topicref:1;1:1"
+                xtrf="file:/dummy.ditamap">
+         <!--topicmeta class="- map/topicmeta ">
+            <navtitle class="- topic/navtitle "><?pdf5.ml insert-navtitle?></navtitle>
+            <?ditaot gentext?>
+            <linktext class="- map/linktext "><?pdf5.ml insert-linktext?></linktext>
+         </topicmeta-->
+      </topicref>
+   </map>
+   <!-- Topic information from here! -->
+   <!-- Set @id="unique_1", @oid="@id" -->
+</dita-merge>

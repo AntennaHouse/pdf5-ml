@@ -908,7 +908,20 @@ E-mail : info@antennahouse.com
             </xsl:choose>
         </xsl:variable>
         
-        <xsl:variable name="result" select="if ($pAddPartToTitle) then concat($prefixPart,$numberPart,$suffixPart) else $numberPart"/>
+        <xsl:variable name="result" as="xs:string">
+            <xsl:choose>
+                <xsl:when test="not($pBuildMap)">
+                    <xsl:sequence select="''"/>
+                </xsl:when>
+                <xsl:when test="$pAddPartToTitle">
+                    <xsl:sequence select="concat($prefixPart,$numberPart,$suffixPart)"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:sequence select="$numberPart"/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        
         <xsl:sequence select="$result"/>
     </xsl:template>
 

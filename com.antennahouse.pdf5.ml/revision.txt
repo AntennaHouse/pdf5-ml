@@ -2,9 +2,17 @@
 
                  Antenna House PDF5-ML Plug-in Revision Notes
 
-      Copyright (C) 2009-2022 Antenna House, Inc. All rights reserved.
+      Copyright (C) 2009-2023 Antenna House, Inc. All rights reserved.
              Antenna House is a trademark of Antenna House, Inc.
 _______________________________________________________________________________
+Jul. 2023
+V1.1.0
+- Introduce dita2fo_util_node.xsl
+- Ignore empty shortdesc, abstract, body
+- Implement the topic only output 
+  Now you can specify topic file as input via dita command "-i [your topic file path]" 
+  or ant command-line "-Dargs.input=[your topic file path]".
+
 Nov. 2022
 V1.0.9
 - Fix 218

@@ -22,54 +22,67 @@ E-mail : info@antennahouse.com
     <!-- relatedlink is implemented in dita2fo_relatedlinks.xsl -->
 
     <!-- 
-     function:	topic template to get style
+     function:  topic template to get style
      param:	    
-     return:	style name
-     note:		This template is common for topic/task/concept/reference
+     return:    style name
+     note:      This template is common for topic/task/concept/reference
      -->
     <xsl:template match="*[contains(@class, ' topic/topic ')]" mode="MODE_GET_STYLE" as="xs:string*">
         <xsl:sequence select="'atsBase'"/>
     </xsl:template>    
     
     <!-- 
-     function:	titlealts template
+     function:  titlealts template
      param:	    
-     return:	none
-     note:		none
+     return:    none
+     note:      none
      -->
     <xsl:template match="*[contains(@class, ' topic/titlealts ')]">
     </xsl:template>
     <!-- 
-     function:	navtitle template
+     function:  navtitle template
      param:	    
-     return:	none
-     note:		none
+     return:    none
+     note:      none
      -->
     <xsl:template match="*[contains(@class, ' topic/navtitle ')]">
         <xsl:apply-templates/>
     </xsl:template>
     
     <!-- 
-     function:	searchtitle template
+     function:  searchtitle template
      param:	    
-     return:	none
-     note:		none
+     return:    none
+     note:      none
      -->
     <xsl:template match="*[contains(@class, ' topic/searchtitle ')]">
     </xsl:template>
     
     <!-- 
-     function:	abstract template
-     param:	    prmTopicRef, prmNeedId
+     function:  abstract template
+     param:     prmTopicRef, prmNeedId
      return:	
-     note:		xsl:strip-space is applied for this element.
+     note:      xsl:strip-space is applied for this element.
                 Make fo:block unconditionally. (2011-09-07 t.makita)
                 Call "processAbstarct" for easy override.
                 2015-08-25 t.makita
+                Ignore empty abstract.
+                2023-05-10 t.makita
      -->
     <xsl:template match="*[contains(@class, ' topic/abstract ')]" mode="MODE_GET_STYLE" as="xs:string*">
         <xsl:sequence select="'atsAbstract'"/>
     </xsl:template>    
+
+    <xsl:template match="*[contains(@class, ' topic/abstract ')][ahf:isEmptyElement(.)]" priority="2">
+        <xsl:variable name="abstract" as="element()" select="."/>
+        <xsl:if test="@id">
+            <fo:wrapper>
+                <xsl:call-template name="ahf:getIdAtts">
+                    <xsl:with-param name="prmElement" select="$abstract"/>
+                </xsl:call-template>
+            </fo:wrapper>
+        </xsl:if>
+    </xsl:template>
 
     <xsl:template match="*[contains(@class, ' topic/abstract ')]">
         <xsl:call-template name="processAbstract"/>
@@ -85,10 +98,13 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <!-- 
-     function:	shortdesc template
+     function:  shortdesc template
      param:	    
-     return:	fo:block or descendant generated fo objects
-     note:		Abstract can contain shortdesc as inline or block level objects.
+     return:    fo:block or descendant generated fo objects
+     note:      Abstract can contain shortdesc as inline or block level objects.
+                Ignore empty shortdesc.
+                2023-05-10 t.makita
+
      -->
     <xsl:template match="*[contains(@class, ' topic/shortdesc ')]" mode="MODE_GET_STYLE" as="xs:string*">
         <xsl:choose>
@@ -100,6 +116,17 @@ E-mail : info@antennahouse.com
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>    
+
+    <xsl:template match="*[contains(@class, ' topic/shortdesc ')][empty(parent::*[contains(@class, ' topic/abstract ')])][ahf:isEmptyElement(.)]" priority="2">
+        <xsl:variable name="shortdesc" as="element()" select="."/>
+        <xsl:if test="@id">
+            <fo:wrapper>
+                <xsl:call-template name="ahf:getIdAtts">
+                    <xsl:with-param name="prmElement" select="$shortdesc"/>
+                </xsl:call-template>
+            </fo:wrapper>
+        </xsl:if>
+    </xsl:template>
 
     <xsl:template match="*[contains(@class, ' topic/shortdesc ')]">
         <xsl:choose>
@@ -124,15 +151,28 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <!-- 
-     function:	body template
-     param:	    prmTopicRef, prmNeedId
-     return:	fo:block
-     note:		Generate fo:block instead of fo:wrapper because it is sometimes needed for debugging generated areas.
+     function:  body template
+     param:     prmTopicRef, prmNeedId
+     return:    fo:block
+     note:      Generate fo:block instead of fo:wrapper because it is sometimes needed for debugging generated areas.
                 2016-09-23 t.makita
+                Ignore empty body.
+                2023-05-10 t.makita
      -->
     <xsl:template match="*[contains(@class, ' topic/body ')]" mode="MODE_GET_STYLE" as="xs:string*">
         <xsl:sequence select="'atsBody'"/>
     </xsl:template>    
+
+    <xsl:template match="*[contains(@class, ' topic/body ')][ahf:isEmptyElement(.)]" priority="2">
+        <xsl:variable name="body" as="element()" select="."/>
+        <xsl:if test="@id">
+            <fo:wrapper>
+                <xsl:call-template name="ahf:getIdAtts">
+                    <xsl:with-param name="prmElement" select="$body"/>
+                </xsl:call-template>
+            </fo:wrapper>
+        </xsl:if>
+    </xsl:template>
     
     <xsl:template match="*[contains(@class, ' topic/body ')]">
         <xsl:variable name="body" select="."/>
@@ -153,9 +193,9 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <!-- 
-        function:	bodydiv template
-        param:	    prmTopicRef, prmNeedId
-        return:	    fo:wrapper
+        function:   bodydiv template
+        param:      prmTopicRef, prmNeedId
+        return:     fo:block
         note:       Bodydiv needs no special formattings. (2011-10-25 t.makita)		
     -->
     <xsl:template match="*[contains(@class, ' topic/bodydiv ')]">
