@@ -10,6 +10,8 @@ V1.1.0
 - Introduce dita2fo_util_node.xsl
 - Ignore empty shortdesc, abstract, body
 - Implement the topic only output 
+  Now you can specify topic file as input via dita command "-i [your topic file path]" 
+  or ant command-line "-Dargs.input=[your topic file path]".
 
 Nov. 2022
 V1.0.9
