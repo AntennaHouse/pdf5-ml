@@ -12,6 +12,10 @@ V1.1.0
 - Implement the topic only output 
   Now you can specify topic file as input via dita command "-i [your topic file path]" 
   or ant command-line "-Dargs.input=[your topic file path]".
+- Important notice:
+  XSLT codes written in this rerelase and later are move to XSLT 3.0.
+  You should choose XSLT 3.0 enabled DITA-OT for use these functionality.
+  (At least DITA-OT 2.x is no longer supported.)
 
 Nov. 2022
 V1.0.9
