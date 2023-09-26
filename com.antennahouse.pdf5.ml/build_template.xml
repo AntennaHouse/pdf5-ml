@@ -74,6 +74,14 @@
          <topicref href="[Relative path to reource]" processing-role="resource-only" format="any type such as pdf, docx or xlsx " outputclass="link-target"/>
      -->
     <property name="copy.link.target.to.output.dir" value="false"/>
+    <condition property="copy.link.target.to.output.dir.confirm" value="true" else="false">
+        <and>
+            <istrue value="${copy.link.target.to.output.dir}"/>
+            <not>
+                <isset property="noMap"/>
+            </not>
+        </and>        
+    </condition>
     <property name="link.target.output.class" value="link-target"/>
     
     <!-- XSLT parameter
@@ -206,7 +214,7 @@
     	<echo message="basedir=${basedir}"/>
     	<echo message="outputFile=${dita.map.output.dir}${file.separator}${output.pdf}"/>
         <antcall target="build.disp.property"/>
-        <antcall target="copy.link.target.file" if:true="${copy.link.target.to.output.dir}"/>
+        <antcall target="copy.link.target.file" if:true="${copy.link.target.to.output.dir.confirm}"/>
         <antcall target="transform.merged2pdf.impl">
             <param name="prmInputFile"  value="${build.temp.dir}${file.separator}${merged.file}"/>
             <param name="prmOutputFile" value="${dita.map.output.dir}${file.separator}${output.pdf}"/>
