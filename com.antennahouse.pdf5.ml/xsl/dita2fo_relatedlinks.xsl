@@ -125,6 +125,7 @@ E-mail : info@antennahouse.com
                     <xsl:with-param name="prmAttrSetName" select="'atsRelatedLinkBlock'"/>
                     <xsl:with-param name="prmElem" select="if (exists($topicTitle)) then $topicTitle else $link"/>
                 </xsl:call-template>
+                <xsl:copy-of select="ahf:getFoStyleAndProperty($link)"/>
                 <fo:inline>
                     <xsl:choose>
                         <xsl:when test="$isLinkInside">
