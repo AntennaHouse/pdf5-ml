@@ -128,9 +128,12 @@ E-mail : info@antennahouse.com
          2014-09-14 t.makita
      -->
     <xsl:template name="chapterEndRight">
+        <xsl:variable name="topicRef" as="element()" select="."/>
+        <xsl:variable name="map" as="element()" select="$topicRef/ancestor-or-self::*[contains(@class,' map/map ')]"/>
+        <xsl:variable name="chapter" as="element()" select="$topicRef/ancestor-or-self::*[. &gt;&gt; $map][last()]"/>
         <xsl:if test="$pAddThumbnailIndex and $pBuildMap">
             <xsl:call-template name="genThumbIndex">
-                <xsl:with-param name="prmId" select="ahf:generateId(.,())"/>
+                <xsl:with-param name="prmId" select="ahf:generateId($chapter,())"/>
                 <xsl:with-param name="prmClass">
                     <xsl:choose>
                         <xsl:when test="ancestor-or-self::*[contains(@class, ' bookmap/part ')]">
