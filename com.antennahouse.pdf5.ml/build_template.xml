@@ -83,11 +83,15 @@
         </and>        
     </condition>
     <property name="link.target.output.class" value="link-target"/>
+
+    <!-- Output PDF -->
+    <property name="output.pdf" value="${dita.map.filename.root}.pdf"/>
     
     <!-- XSLT parameter
          Set initial value only when ${use.saxon.transform}="yes"
          If you use JAXP transform, the stylesheet initial value is used.
      -->
+    <!--
     <condition property="style.def.file" value="config/default_style.xml">
         <equals arg1="${use.saxon.transform}" arg2="yes"/> 
     </condition>
@@ -128,12 +132,12 @@
     <condition property="debug.style" value="no">
         <equals arg1="${use.saxon.transform}" arg2="yes"/> 
     </condition>
-    <!--condition property="apply.toc.attr" value="yes">
+    <!-/-condition property="apply.toc.attr" value="yes">
         <equals arg1="${use.saxon.transform}" arg2="yes"/> 
-    </condition-->
-    <!--condition property="online.pdf" value="yes">
+    </condition-/->
+    <!-/-condition property="online.pdf" value="yes">
         <equals arg1="${use.saxon.transform}" arg2="yes"/> 
-    </condition-->
+    </condition-/->
     <condition property="sort.glossentry" value="yes">
         <equals arg1="${use.saxon.transform}" arg2="yes"/> 
     </condition>
@@ -188,6 +192,7 @@
     <condition property="output.index" value="yes">
         <equals arg1="${use.saxon.transform}" arg2="yes"/> 
     </condition>
+    -->
 
     <!-- Make absolute path for temporary directory -->
     <available property="build.temp.dir" value="${dita.temp.dir}" file="${dita.temp.dir}" type="dir"/>
@@ -202,22 +207,25 @@
     <makeurl property="user.input.dir.url" file="${input.file.dir}"/>
     
     <!-- Make URL for output directory -->
-    <makeurl property="output.dir.url" file="${dita.map.output.dir}"/>
+    <makeurl property="output.dir.url" file="${output.dir}"/>
 
     <!-- Make URL for temporary directory -->
     <makeurl property="temp.dir.url" file="${dita.temp.dir}"/>
+
+    <!-- Make URL for .job.xml in temporary directory -->
+    <makeurl property="job.xml.url" file="${dita.temp.dir}${file.separator}.job.xml"/>
     
     <!-- Main target -->
     <target name="merged2pdf">
     	<echo message="dita.temp.dir=${dita.temp.dir} build.temp.dir=${build.temp.dir}"/>
     	<echo message="dita.dir=${dita.dir}"/>
     	<echo message="basedir=${basedir}"/>
-    	<echo message="outputFile=${dita.map.output.dir}${file.separator}${output.pdf}"/>
+    	<echo message="outputFile=${output.dir}${file.separator}${output.pdf}"/>
         <antcall target="build.disp.property"/>
         <antcall target="copy.link.target.file" if:true="${copy.link.target.to.output.dir.confirm}"/>
         <antcall target="transform.merged2pdf.impl">
             <param name="prmInputFile"  value="${build.temp.dir}${file.separator}${merged.file}"/>
-            <param name="prmOutputFile" value="${dita.map.output.dir}${file.separator}${output.pdf}"/>
+            <param name="prmOutputFile" value="${output.dir}${file.separator}${output.pdf}"/>
         </antcall>
     </target>
     

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration xmlns="http://saxon.sf.net/ns/configuration"
+    edition="HE"
+    label="Some label">
+    <global
+        allowExternalFunctions="true"
+    />
+    
+    <xslt
+        enableAssertions="true"
+    >
+        <!--extensionElement namespace="http://saxon.sf.net/sql" 
+            factory="net.sf.saxon.option.sql.SQLElementFactory"/-->
+    </xslt>
+    
+    <!--xsltPackages>
+        <package name="http://package.one/" version="1.0" sourceLocation="packageOne.xsl" 
+            exportLocation="packageOne.sef"/>
+        <package name="http://package.one/" version="2.0-beta" sourceLocation="2.0beta/packageOne.xsl" 
+            exportLocation="2.0beta/packageOne.sef"/>
+        <package name="http://package.two/" version="8.6.3" sourceLocation="packageTwo.xsl">
+            <withParam name="debug" select="true()"/>
+            <withParam name="maxTransactions" select="300"/>
+        </package>
+    </xsltPackages-->  
+    
+    <!--xquery
+        allowUpdate="true"
+        constructionMode="preserve"
+        defaultElementNamespace=""
+        defaultFunctionNamespace="http://www.w3.org/2005/xpath-functions"
+        emptyLeast="true"
+        inheritNamespaces="true"
+        moduleUriResolver="net.sf.saxon.lib.StandardModuleURIResolver"
+        multipleModuleImports="true"
+        preserveBoundarySpace="false"
+        preserveNamespaces="true"
+        requiredContextItemType="document-node()"
+        schemaAware="false"
+        staticErrorListener=""
+    /-->
+    
+    <!--xsd
+        allowUnresolvedSchemaComponents="false"
+        assertionsCanSeeComments="false"
+        implicitSchemaImports="false"
+        multipleSchemaImports="false"
+        occurrenceLimits="100,250"
+        schemaUriResolver=""
+        useXsiSchemaLocation="false"
+        version="1.1"
+    /-->
+    
+    <!--serialization
+        method="xml"
+        indent="yes"
+        saxon:indent-spaces="8"
+        xmlns:saxon="http://saxon.sf.net/"/-->
+    
+    <!--localizations defaultLanguage="en" defaultCountry="US">
+        <localization lang="da" class="net.sf.saxon.option.local.Numberer_da"/>
+        <localization lang="de" class="net.sf.saxon.option.local.Numberer_de"/>
+    </localizations-->
+    
+    <resources>
+        <!--externalObjectModel>net.sf.saxon.option.xom.XOMObjectModel</externalObjectModel-->
+        <extensionFunction>com.antennahouse.xslt.extension.RelUriUtilFunctionDefinition</extensionFunction>
+        <!--fileExtension extension="xq" mediaType="text/plain"/>
+        <schemaDocument>file:///c:/MyJava/samples/data/books.xsd</schemaDocument>
+        <schemaComponentModel/-->
+    </resources>
+    
+    <!--collations>
+        <collation uri="http://www.w3.org/2005/xpath-functions/collation/codepoint" 
+            class="net.sf.saxon.expr.sort.CodepointCollator"/>
+        <collation uri="http://www.microsoft.com/collation/caseblind" 
+            class="net.sf.saxon.expr.sort.CodepointCollator"/>
+        <collation uri="http://example.com/french" lang="fr" ignore-case="yes"/>
+    </collations-->  
+</configuration>

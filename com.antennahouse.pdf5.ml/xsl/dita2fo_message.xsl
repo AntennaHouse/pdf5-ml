@@ -14,7 +14,8 @@ URL : http://www.antennahouse.com/
 
 <xsl:stylesheet version="2.0" 
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
->
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    >
     <!--
     ===============================================
     Message Definition
@@ -491,5 +492,16 @@ URL : http://www.antennahouse.com/
         <xsl:text>[getFigPreviousAmount 1606F] topic target does not found in $figureNumberingMap. id='%id'</xsl:text>
     </xsl:variable>
     
-
+    <xsl:variable name="stMes5010" as="xs:string">
+        <xsl:text>[convmerged2 5010F] Access to .job.xml has been denied.URL="%url"</xsl:text>
+    </xsl:variable>
+    
+    <xsl:variable name="stMes5030" as="xs:string">
+        <xsl:text>[inputMapUri 5030F] DITA-OTの生成する.job.xmlに'InputMapDir.uri'のエントリーがありません．URL=%url</xsl:text>
+    </xsl:variable>
+    
+    <xsl:variable name="stMes5032" as="xs:string">
+        <xsl:text>[imageUri 5032F] DITA-OTの生成する.job.xmlに"%image-url"のエントリーがありません．URL=%url</xsl:text>
+    </xsl:variable>
+    
 </xsl:stylesheet>

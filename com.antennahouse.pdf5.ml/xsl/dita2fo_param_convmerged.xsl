@@ -39,4 +39,31 @@ E-mail : info@antennahouse.com
     <xsl:variable name="pOutputRequiredCleanup" select="boolean($PRM_OUTPUT_REQUIRED_CLEANUP eq $cYes)"
         as="xs:boolean"/>
 
+    <!-- Adopt preprocess2
+     -->
+    <xsl:param name="PRM_ADOPT_PREPROCESS2" required="no" as="xs:string" select="$cNo"/>
+    <xsl:variable name="pAdoptPreprocess2" as="xs:boolean" select="$PRM_ADOPT_PREPROCESS2 eq $cYes"/>
+    
+    <!-- .job.xml URL
+         Needed in preprocess2
+     -->
+    <xsl:param name="PRM_JOB_XML_URL" required="yes" as="xs:string"/>
+    <xsl:variable name="pJobXmlUrl" as="xs:string" select="ahf:reviseFileUrl($PRM_JOB_XML_URL)"/>
+    <xsl:variable name="pJobXmlDoc" as="document-node()?">
+        <xsl:choose>
+            <xsl:when test="doc-available($pJobXmlUrl)">
+                <xsl:sequence select="doc($pJobXmlUrl)"/>
+            </xsl:when>
+            <xsl:when test="$pAdoptPreprocess2 => not()">
+                <xsl:sequence select="()"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:call-template name="errorExit">
+                    <xsl:with-param name="prmMes" select="ahf:replace($stMes5010,('%url'),($PRM_JOB_XML_URL))"/>
+                </xsl:call-template>
+                <xsl:sequence select="()"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:variable>
+    
 </xsl:stylesheet>
