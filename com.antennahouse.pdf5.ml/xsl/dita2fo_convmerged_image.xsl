@@ -53,7 +53,7 @@
      function:    image
      param:       none
      return:      self and descendant element
-     note:        preprocess2の場合image/@hrefをメインマップに対する相対パスで置き換える．
+     note:        If preprocess2 is adopted, replace image/@href to relative path to main map.
      -->
     <xsl:template match="*[contains-token(@class,'topic/image')][$pAdoptPreprocess2]" priority="10">
         <xsl:variable name="image" as="element()" select="."/>
