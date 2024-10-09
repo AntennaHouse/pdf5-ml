@@ -442,7 +442,13 @@ E-mail : info@antennahouse.com
         </xsl:choose>
     </xsl:template>
     
-    <xsl:template name="ahf:processImage" as="element()*">
+    <!--
+     function:    common image processing template
+     param:       prmImage
+     return:      element()
+     note:        
+     -->
+    <xsl:template name="ahf:processImage" as="element()">
         <xsl:param name="prmImage"    required="no" as="element()" select="."/>
         <xsl:choose>
             <xsl:when test="$prmImage/@longdescref">
@@ -465,10 +471,16 @@ E-mail : info@antennahouse.com
         </xsl:choose>
     </xsl:template>
     
+    <!--
+     function:    get image URL
+     param:       prmImage
+     return:      xs:string
+     note:        
+     -->
     <xsl:function name="ahf:getImageUrl" as="xs:string">
         <xsl:param name="prmImage" as="element()"/>
         <xsl:choose>
-            <xsl:when test="string($prmImage/@scope) eq 'external'">
+            <xsl:when test="string($prmImage/@scope) eq 'external' or  ahf:isAbsoluteImage($prmImage)">
                 <xsl:sequence select="concat('url(',string($prmImage/@href),')')"/>
             </xsl:when>
             <xsl:when test="$pImageInOutputFolder">
@@ -480,6 +492,24 @@ E-mail : info@antennahouse.com
         </xsl:choose>
     </xsl:function>
     
+    <!--
+     function:    return image/@href is absolute
+     param:       prmImage
+     return:      xs:boolean
+     note:        
+     -->
+    <xsl:function name="ahf:isAbsoluteImage" as="xs:boolean">
+        <xsl:param name="prmImage" as="element()"/>
+        <xsl:variable name="href" as="xs:string" select="$prmImage/@href => string()"/>
+        <xsl:sequence select="some $prefix in ('/', 'file:') satisfies starts-with($href, $prefix) or contains($href, '://')"/>
+    </xsl:function>
+    
+    <!--
+     function:    Get image common attributes
+     param:       prmImage
+     return:      attribute()*
+     note:        
+     -->
     <xsl:function name="ahf:getImageCommonAttr" as="attribute()*">
         <xsl:param name="prmImage" as="element()"/>
     
@@ -544,6 +574,12 @@ E-mail : info@antennahouse.com
 
     </xsl:function>
     
+    <!--
+     function:    Get length function
+     param:       prmLen
+     return:      xs:string
+     note:        if no unit of measure is specified, adopt 'px'.
+     -->
     <xsl:function name="ahf:getLength" as="xs:string">
         <xsl:param name="prmLen" as="xs:string"/>
         
@@ -563,6 +599,12 @@ E-mail : info@antennahouse.com
         </xsl:choose>
     </xsl:function>
     
+    <!--
+     function:    Get block image attribute
+     param:       prmImage
+     return:      attribute()*
+     note:        
+     -->
     <xsl:function name="ahf:getImageBlockAttr" as="attribute()*">
         <xsl:param name="prmImage" as="element()"/>
         <xsl:if test="exists($prmImage/@align)">
