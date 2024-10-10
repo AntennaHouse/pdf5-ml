@@ -52,16 +52,16 @@
   
   <target name="dita2pdf5.ml" depends="dita2pdf5.ml.init, build-init, dita2pdf5.ml.preprocess, map2pdf5.ml, topic2pdf5.ml"/> 
   
-  <target name="dita2pdf5.ml.preprocess">
-    <antcall target="dita2pdf5.ml.preprocess2.impl"/>
-    <antcall target="dita2pdf5.ml.preprocess.impl"/>
+  <target name="dita2pdf5.ml.preprocess" xmlns:if="ant:if" xmlns:unless="ant:unless">
+    <antcall target="dita2pdf5.ml.preprocess2.impl" if:true="${adopt.preprocess2}"/>
+    <antcall target="dita2pdf5.ml.preprocess.impl"  unless:true="${adopt.preprocess2}"/>
   </target>
   
-  <target name="dita2pdf5.ml.preprocess2.impl" xmlns:if="ant:if" xmlns:unless="ant:unless" if:true="${adopt.preprocess2}">
+  <target name="dita2pdf5.ml.preprocess2.impl">
     <antcall target="preprocess2"/>
   </target>
   
-  <target name="dita2pdf5.ml.preprocess.impl" xmlns:if="ant:if" xmlns:unless="ant:unless" unless:true="${adopt.preprocess2}">
+  <target name="dita2pdf5.ml.preprocess.impl">
     <antcall target="preprocess"/>
   </target>
   

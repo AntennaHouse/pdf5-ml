@@ -34,7 +34,7 @@
         </xsl:map>
     </xsl:variable>
     
-    <xsl:variable name="inputMapUri" as="xs:string">
+    <!--xsl:variable name="inputMapUri" as="xs:string">
         <xsl:variable name="string" as="element()?" select="$pJobXmlDoc/job/property[@name eq 'InputMapDir.uri']/string"/>
         <xsl:choose>
             <xsl:when test="exists($string)">
@@ -47,7 +47,7 @@
                 <xsl:sequence select="''"/>
             </xsl:otherwise>
         </xsl:choose>
-    </xsl:variable>
+    </xsl:variable-->
     
     <!--
      function:    image
@@ -63,14 +63,14 @@
             <xsl:copy-of select="@* except @href"/>
             <xsl:choose>
                 <xsl:when test="$scope eq 'external' or ahf:isAbsoluteImage($image)">
-                    <xsl:apply-templates select="@href"/>
+                    <xsl:copy-of select="@href"/>
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:variable name="imageUri" as="xs:string?" select="map:get($imageHrefToFileUriMap, $href)"/>
                     <xsl:choose>
                         <xsl:when test="$imageUri => exists()">
-                            <xsl:variable name="relativePath" as="xs:string" select="uriutil:getRelativePath($imageUri, $inputMapUri)"/>
-                            <xsl:attribute name="href" select="$relativePath"/>
+                            <!--xsl:variable name="relativePath" as="xs:string" select="uriutil:getRelativePath($imageUri, $inputMapUri)"/-->
+                            <xsl:attribute name="href" select="$imageUri"/>
                         </xsl:when>
                         <xsl:otherwise>
                             <xsl:call-template name="errorExit">

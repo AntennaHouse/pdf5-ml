@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Only a sample. Unused now -->
 <configuration xmlns="http://saxon.sf.net/ns/configuration"
     edition="HE"
     label="Some label">
@@ -64,7 +65,7 @@
     
     <resources>
         <!--externalObjectModel>net.sf.saxon.option.xom.XOMObjectModel</externalObjectModel-->
-        <extensionFunction>com.antennahouse.xslt.extension.RelUriUtilFunctionDefinition</extensionFunction>
+        <!--extensionFunction>com.antennahouse.xslt.extension.RelUriUtilFunctionDefinition</extensionFunction-->
         <!--fileExtension extension="xq" mediaType="text/plain"/>
         <schemaDocument>file:///c:/MyJava/samples/data/books.xsd</schemaDocument>
         <schemaComponentModel/-->

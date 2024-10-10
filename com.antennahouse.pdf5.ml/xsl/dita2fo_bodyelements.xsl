@@ -475,7 +475,8 @@ E-mail : info@antennahouse.com
      function:    get image URL
      param:       prmImage
      return:      xs:string
-     note:        
+     note:        - If preprocess2 is adopted, image/@href is passed as URI format. As a result, it is treated as absolute URI image.
+                  - If preprocess is adopted, image/@href is usually passed as relative path to main map.
      -->
     <xsl:function name="ahf:getImageUrl" as="xs:string">
         <xsl:param name="prmImage" as="element()"/>

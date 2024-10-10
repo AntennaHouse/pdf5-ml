@@ -18,7 +18,7 @@
   <extension-point id="depend.com.antennahouse.pdf5.ml.transform.fo.pdf.post" name="Convert XSL-FO to PDF post-target"/>
   <feature extension="dita.conductor.target.relative" value="integrator.xml" type="file"/>
   <feature extension="dita.conductor.lib.import" file="lib/versioncomp-0.1.jar"/>
-  <feature extension="dita.conductor.lib.import" file="lib/rel-uri-util-0.1.jar"/>
+  <!--feature extension="dita.conductor.lib.import" file="lib/rel-uri-util-0.1.jar"/-->
   <transtype name="pdf5.ml" desc="PDF">
     <param name="style.def.file" desc="Style definition file" type="file"/>
     <param name="include.frontmatter.to.toc" desc="Specifies whether to include frontmatter topicref in toc." type="enum">

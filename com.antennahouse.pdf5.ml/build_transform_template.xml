@@ -132,7 +132,8 @@
                 <!--attribute name="http://saxon.sf.net/feature/enableAssertions" value="true"/-->
                 <!-- Trace -->
                 <!--attribute name="http://saxon.sf.net/feature/traceListenerClass" value="net.sf.saxon.trace.XSLTTraceListener"/-->
-                <attribute name="http://saxon.sf.net/feature/configuration-file" value="${basedir}${file.separator}config${file.separator}saxon-config.xml"/>
+                <!-- Configuration file -->
+                <!--attribute name="http://saxon.sf.net/feature/configuration-file" value="${basedir}${file.separator}config${file.separator}saxon-config.xml"/-->
             </factory>
             <param name="PRM_STYLE_DEF_FILE" expression="${style.def.file}" if:set="style.def.file"/>
             <param name="PRM_INCLUDE_FRONTMATTER_TO_TOC" expression="${include.frontmatter.to.toc}" if:set="include.frontmatter.to.toc"/>
