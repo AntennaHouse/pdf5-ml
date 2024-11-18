@@ -30,7 +30,6 @@
         <xsl:param name="prmElem" as="element()"/>
         <xsl:sequence select="ahf:getFoStyle($prmElem)"/>
         <xsl:sequence select="ahf:getFoProperty($prmElem)"/>
-        <xsl:sequence select="$prmElem/@axf:*"/>
     </xsl:function>
 
     <!-- 
