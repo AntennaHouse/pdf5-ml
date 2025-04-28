@@ -8,6 +8,8 @@
      - Remove Saxon transform, adopt only JAXP transform.
        Add Saxon configuration file for library call in preprocess2.
        2024-10-03 t.makita
+     - Add indent final XSL-FO target
+       2025-04-28
      [Parameter] 
      prmInputFile:  Merged middle file path
      prmOutputFile: PDF file path
@@ -42,6 +44,8 @@
         <property name="fo.in.output.folder" value="yes"/>
         <property name="final.fo.file" value="${output.dir}${file.separator}${dita.map.filename.root}.fo" if:true="${fo.in.output.folder}"/>
         <property name="final.fo.file" value="${build.temp.dir}${file.separator}${dita.map.filename.root}.fo" unless:true="${fo.in.output.folder}"/>
+        <property name="final.fo.indent.file" value="${output.dir}${file.separator}${dita.map.filename.root}_indent.fo" if:true="${fo.in.output.folder}"/>
+        <property name="final.fo.indent.file" value="${build.temp.dir}${file.separator}${dita.map.filename.root}_indent.fo" unless:true="${fo.in.output.folder}"/>
     </target>
     
     <target name="transform.merged2pdf.impl" depends="build.fo.folder">
@@ -64,6 +68,11 @@
                 value="${build.temp.dir}${file.separator}${dita.map.filename.root}_psmi.fo"/>
             <param name="prmOutputFile" value="${final.fo.file}"/>
         </antcall>
+
+        <antcall target="output.fo.indented" if:true="${debug.fo}">
+            <param name="prmInputFile" value="${final.fo.file}"/>
+            <param name="prmOutputFile" value="${final.fo.indent.file}"/>
+        </antcall>            
 
         <antcall target="transform.fo2pdf">
             <param name="prmInputFile" value="${final.fo.file}"/>
@@ -274,6 +283,14 @@
             <param name="PRM_LAST_PAGESEQ_ID" expression="${last.pageseq.id}" if:set="last.pageseq.id"/>
             <param name="PRM_LAST_PAGESEQ_OFFSET" expression="${last.pageseq.offset}" if:set="last.pageseq.offset"/>
             <dita:extension id="com.antennahouse.pdf5.ml.psmi.param" behavior="org.dita.dost.platform.InsertAction"/>
+            <xmlcatalog refid="dita.catalog"/>
+        </xslt>
+    </target>
+
+    <!-- Indent XSL-FO -->
+    <target name="output.fo.indented">
+        <property name="stylesheet" value="${xsl.dir}${file.separator}indent.xsl"/>
+        <xslt processor="trax" in="${prmInputFile}" out="${prmOutputFile}" style="${stylesheet}">
             <xmlcatalog refid="dita.catalog"/>
         </xslt>
     </target>
