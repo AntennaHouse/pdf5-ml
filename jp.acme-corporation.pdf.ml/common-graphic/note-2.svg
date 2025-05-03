@@ -14,7 +14,7 @@
    sodipodi:docname="note-2.svg"
    width="58.916348"
    height="59.42271">
-  <metadata
+  <!--metadata
      id="metadata30">
     <rdf:RDF>
       <cc:Work
@@ -25,10 +25,10 @@
         <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
-  </metadata>
+  </metadata-->
   <defs
      id="defs28" />
-  <sodipodi:namedview
+  <!--sodipodi:namedview
      pagecolor="#ffffff"
      bordercolor="#666666"
      borderopacity="1"
@@ -51,7 +51,7 @@
      inkscape:window-x="702"
      inkscape:window-y="182"
      inkscape:window-maximized="0"
-     inkscape:current-layer="svg2" />
+     inkscape:current-layer="svg2" /-->
   <g
      id="g3358"
      transform="translate(-0.72079823,-0.58780729)">
