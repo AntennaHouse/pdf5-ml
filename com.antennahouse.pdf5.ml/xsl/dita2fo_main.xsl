@@ -65,6 +65,7 @@ E-mail : info@antennahouse.com
         <xsl:call-template name="documentCheck"/>
         <fo:root>
             <xsl:copy-of select="ahf:getAttributeSet('atsRoot')"/>
+            <xsl:copy-of select="ahf:getFoStyleAndProperty($map)"/>
             
             <!-- Complement xml:lang -->
             <xsl:attribute name="xml:lang" select="$documentLang"/>
