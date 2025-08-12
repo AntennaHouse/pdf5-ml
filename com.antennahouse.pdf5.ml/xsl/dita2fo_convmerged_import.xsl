@@ -9,7 +9,7 @@
   E-mail : info@antennahouse.com
   ****************************************************************
  -->
-<xsl:stylesheet xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="2.0">
+<xsl:stylesheet xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="3.0">
 
   <xsl:include href="dita2fo_constants.xsl"/>
   <xsl:include href="dita2fo_param_convmerged.xsl"/>

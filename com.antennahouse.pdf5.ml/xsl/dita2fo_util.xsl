@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!--
-**************************************************************
-DITA to XSL-FO Stylesheet
-Utility Templates
-**************************************************************
-File Name : dita2fo_util.xsl
-**************************************************************
-Copyright © 2009 2009 Antenna House, Inc. All rights reserved.
-Antenna House is a trademark of Antenna House, Inc.
-URL : http://www.antennahouse.com/
-**************************************************************
+    **************************************************************
+    DITA to XSL-FO Stylesheet
+    Utility Templates
+    **************************************************************
+    File Name : dita2fo_util.xsl
+    **************************************************************
+    Copyright © 2009 2009 Antenna House, Inc. All rights reserved.
+    Antenna House is a trademark of Antenna House, Inc.
+    URL : http://www.antennahouse.com/
+    **************************************************************
 -->
 
-<xsl:stylesheet version="2.0" 
+<xsl:stylesheet version="3.0" 
 	xmlns:fo="http://www.w3.org/1999/XSL/Format" 
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
 	xmlns:xs="http://www.w3.org/2001/XMLSchema"
