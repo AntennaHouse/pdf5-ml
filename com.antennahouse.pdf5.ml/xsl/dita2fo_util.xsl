@@ -411,6 +411,30 @@
         </xsl:choose>
     </xsl:function>
 
+    <xsl:function name="ahf:seqContainsToken" as="xs:boolean">
+        <xsl:param name="prmStr" as="xs:string?"/>
+        <xsl:param name="prmDstStrSeq" as="xs:string*"/>
+        <xsl:choose>
+            <xsl:when test="empty($prmStr)">
+                <xsl:sequence select="false()"/>
+            </xsl:when>
+            <xsl:when test="count($prmDstStrSeq) ge 1">
+                <xsl:variable name="dstStr" as="xs:string" select="$prmDstStrSeq[1]"/>
+                <xsl:choose>
+                    <xsl:when test="contains-token($prmStr,$dstStr)">
+                        <xsl:sequence select="true()"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:sequence select="ahf:seqContainsToken($prmStr,$prmDstStrSeq[position() gt 1])"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:sequence select="false()"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:function>
+    
     <!-- 
         function:	Return true() if $prmStr starts with the given $prmDstStrSeq[N].
         param:	    prmStr, prmDstStrSeq

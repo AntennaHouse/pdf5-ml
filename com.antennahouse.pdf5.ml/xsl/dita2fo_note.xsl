@@ -23,11 +23,11 @@
      return:	fo:block 
      note:		Treat empty(@type) as @type="note" (2011-11-04 t.makita)
      -->
-    <xsl:template match="*[contains(@class, ' topic/note ')]" mode="MODE_GET_STYLE" as="xs:string*">
+    <xsl:template match="*[contains-token(@class, 'topic/note')]" mode="MODE_GET_STYLE" as="xs:string*">
         <xsl:sequence select="'atsNote'"/>
     </xsl:template>
     
-    <xsl:template match="*[contains(@class, ' topic/note ')]">
+    <xsl:template match="*[contains-token(@class, 'topic/note')]">
         <xsl:variable name="type" as="xs:string" select="string(@type)"/>
         <fo:block>
             <xsl:call-template name="getAttributeSetWithLang">

@@ -129,7 +129,7 @@
         
         <xsl:choose>
             <!-- topicref -->
-            <xsl:when test="contains($prmElement/@class, ' map/topicref ') and $prmNeedId">
+            <xsl:when test="contains-token($prmElement/@class, 'map/topicref') and $prmNeedId">
                 <xsl:choose>
                     <xsl:when test="$prmElement/@id">
                         <xsl:attribute name="id">
@@ -149,7 +149,7 @@
                 <!-- topicRefCount: Count of topicref that refers this topic -->
                 <xsl:variable name="topicRefCount" as="xs:integer" select="if (exists($prmTopicRef)) then ahf:countTopicRef($prmTopicRef) else 1"/>
                 <xsl:choose>
-                    <xsl:when test="contains($prmElement/@class, ' topic/topic ')">
+                    <xsl:when test="contains-token($prmElement/@class, 'topic/topic')">
                         <!-- Topic 
                          -->
                         <xsl:choose>
@@ -212,11 +212,11 @@
                               * However the parser does not report error when duplicate id exist in one topic.
                              
                         -->
-                        <xsl:variable name="parentTopic" select="$prmElement/ancestor::*[contains(@class, ' topic/topic ')][1]" as="element()?"/>
+                        <xsl:variable name="parentTopic" select="$prmElement/ancestor::*[contains-token(@class, 'topic/topic')][1]" as="element()?"/>
                         <xsl:variable name="idCount" as="xs:integer">
                             <xsl:choose>
                                 <xsl:when test="exists($parentTopic)">
-                                    <xsl:number select="$prmElement" level="any" count="*[string(@id) eq string($id)]" from="*[contains(@class,' topic/topic ')]"/>
+                                    <xsl:number select="$prmElement" level="any" count="*[string(@id) eq string($id)]" from="*[contains-token(@class, 'topic/topic')]"/>
                                 </xsl:when>
                                 <xsl:otherwise>
                                     <xsl:sequence select="1"/>
@@ -227,7 +227,7 @@
                             <xsl:when test="$pUseOid">
                                 <!-- add topic/oid to every id as prefix to make it unique -->
                                 <xsl:variable name="topicOid" 
-                                    select="string($prmElement/ancestor::*[contains(@class, ' topic/topic ')][1]/@oid)" as="xs:string"/>
+                                    select="string($prmElement/ancestor::*[contains-token(@class, 'topic/topic')][1]/@oid)" as="xs:string"/>
                                 <xsl:choose>
                                     <xsl:when test="$topicRefCount eq 1">
                                         <!-- normal pattern -->
@@ -261,7 +261,7 @@
                             </xsl:when>
                             <xsl:otherwise>
                                 <xsl:variable name="topicId" 
-                                    select="string($prmElement/ancestor::*[contains(@class, ' topic/topic ')][1]/@id)" as="xs:string"/>
+                                    select="string($prmElement/ancestor::*[contains-token(@class, 'topic/topic')][1]/@id)" as="xs:string"/>
                                 <xsl:choose>
                                     <xsl:when test="$topicRefCount eq 1">
                                         <!-- normal pattern -->
@@ -402,8 +402,8 @@
             <xsl:variable name="frame" as="xs:string" select="string($prmElement/@frame)"/>
             
             <xsl:choose>
-                <xsl:when test="contains($prmElement/@class, ' topic/simpletable ')
-                             or contains($prmElement/@class, ' topic/table ')">
+                <xsl:when test="contains-token($prmElement/@class, 'topic/simpletable')
+                             or contains-token($prmElement/@class, 'topic/table')">
                     <xsl:choose>
                         <xsl:when test="$frame eq 'top'">
                             <xsl:call-template name="getAttributeSet">
@@ -645,7 +645,7 @@
         <xsl:param name="prmTopicRef" tunnel="yes" required="yes" as="element()?"/>
         
         <xsl:choose>
-            <xsl:when test="$prmElement/ancestor::*[contains(@class,' map/map ')]">
+            <xsl:when test="$prmElement/ancestor::*[contains-token(@class, 'map/map')]">
                 <xsl:sequence select="ahf:generateHistoryId($prmElement)"/>
             </xsl:when>
             <xsl:otherwise>

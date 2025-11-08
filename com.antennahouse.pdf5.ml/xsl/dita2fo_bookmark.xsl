@@ -94,7 +94,7 @@
     
     <xsl:template match="text()" mode="MAKE_BOOKMARK"/>
     
-    <xsl:template match="*[contains(@class, ' bookmap/bookmeta ')]" mode="MAKE_BOOKMARK"/>
+    <xsl:template match="*[contains-token(@class, 'bookmap/bookmeta')]" mode="MAKE_BOOKMARK"/>
     
     <!-- 
      function:  Frontmatter
@@ -102,7 +102,7 @@
      return:    see below
      note:		
      -->
-    <xsl:template match="*[contains(@class,' bookmap/frontmatter ')]" mode="MAKE_BOOKMARK" priority="2" >
+    <xsl:template match="*[contains-token(@class, 'bookmap/frontmatter')]" mode="MAKE_BOOKMARK" priority="2" >
         <xsl:apply-templates mode="#current"/>
     </xsl:template>
         
@@ -112,10 +112,10 @@
      return:    see below
      note:		
      -->
-    <xsl:template match="*[contains(@class,' bookmap/bookabstract ')][empty(@href)]" mode="MAKE_BOOKMARK" priority="2">
+    <xsl:template match="*[contains-token(@class, 'bookmap/bookabstract')][empty(@href)]" mode="MAKE_BOOKMARK" priority="2">
     </xsl:template>
     
-    <xsl:template match="*[contains(@class,' bookmap/bookabstract ')][exists(@href)]" mode="MAKE_BOOKMARK" priority="2">
+    <xsl:template match="*[contains-token(@class, 'bookmap/bookabstract')][exists(@href)]" mode="MAKE_BOOKMARK" priority="2">
         <xsl:next-match/>
     </xsl:template>
     
@@ -125,10 +125,10 @@
      return:    see below
      note:		
      -->
-    <xsl:template match="*[contains(@class,' bookmap/colophon ')][empty(@href)]" mode="MAKE_BOOKMARK" priority="2">
+    <xsl:template match="*[contains-token(@class, 'bookmap/colophon')][empty(@href)]" mode="MAKE_BOOKMARK" priority="2">
     </xsl:template>
     
-    <xsl:template match="*[contains(@class,' bookmap/colophon ')][exists(@href)]" mode="MAKE_BOOKMARK" priority="2">
+    <xsl:template match="*[contains-token(@class, 'bookmap/colophon')][exists(@href)]" mode="MAKE_BOOKMARK" priority="2">
         <xsl:next-match/>
     </xsl:template>
         
@@ -138,7 +138,7 @@
      return:    see below
      note:		
      -->
-    <xsl:template match="*[contains(@class,' bookmap/booklists ')]" mode="MAKE_BOOKMARK" priority="2">
+    <xsl:template match="*[contains-token(@class, 'bookmap/booklists')]" mode="MAKE_BOOKMARK" priority="2">
         <xsl:apply-templates mode="#current"/>
     </xsl:template>
         
@@ -148,11 +148,11 @@
      return:    see below
      note:		
      -->
-    <xsl:template match="*[contains(@class,' bookmap/abbrevlist ')][exists(@href)]" mode="MAKE_BOOKMARK" priority="2">
+    <xsl:template match="*[contains-token(@class, 'bookmap/abbrevlist')][exists(@href)]" mode="MAKE_BOOKMARK" priority="2">
         <xsl:next-match/>
     </xsl:template>
     
-    <xsl:template match="*[contains(@class,' bookmap/abbrevlist ')][empty(@href)]" mode="MAKE_BOOKMARK" priority="2">
+    <xsl:template match="*[contains-token(@class, 'bookmap/abbrevlist')][empty(@href)]" mode="MAKE_BOOKMARK" priority="2">
     </xsl:template>
         
     <!-- 
@@ -161,11 +161,11 @@
      return:    see below
      note:		
      -->
-     <xsl:template match="*[contains(@class,' bookmap/bibliolist ')][exists(@href)]" mode="MAKE_BOOKMARK" priority="2">
+     <xsl:template match="*[contains-token(@class, 'bookmap/bibliolist')][exists(@href)]" mode="MAKE_BOOKMARK" priority="2">
         <xsl:next-match/>
     </xsl:template>
     
-    <xsl:template match="*[contains(@class,' bookmap/bibliolist ')][empty(@href)]" mode="MAKE_BOOKMARK" priority="2">
+    <xsl:template match="*[contains-token(@class, 'bookmap/bibliolist')][empty(@href)]" mode="MAKE_BOOKMARK" priority="2">
     </xsl:template>
         
     <!-- 
@@ -174,11 +174,11 @@
      return:    see below
      note:		
      -->
-    <xsl:template match="*[contains(@class,' bookmap/booklist ')][exists(@href)]" mode="MAKE_BOOKMARK" priority="2">
+    <xsl:template match="*[contains-token(@class, 'bookmap/booklist')][exists(@href)]" mode="MAKE_BOOKMARK" priority="2">
         <xsl:next-match/>
     </xsl:template>
     
-    <xsl:template match="*[contains(@class,' bookmap/booklist ')][empty(@href)]" mode="MAKE_BOOKMARK" priority="2">
+    <xsl:template match="*[contains-token(@class, 'bookmap/booklist')][empty(@href)]" mode="MAKE_BOOKMARK" priority="2">
     </xsl:template>
         
     <!-- 
@@ -187,11 +187,11 @@
      return:    Figurelist link
      note:		
      -->
-    <xsl:template match="*[contains(@class,' bookmap/figurelist ')][exists(@href)]" mode="MAKE_BOOKMARK" priority="2">
+    <xsl:template match="*[contains-token(@class, 'bookmap/figurelist')][exists(@href)]" mode="MAKE_BOOKMARK" priority="2">
         <xsl:next-match/>
     </xsl:template>
     
-    <xsl:template match="*[contains(@class,' bookmap/figurelist ')][empty(@href)][ahf:isToc(.)]" mode="MAKE_BOOKMARK" priority="2" >
+    <xsl:template match="*[contains-token(@class, 'bookmap/figurelist')][empty(@href)][ahf:isToc(.)]" mode="MAKE_BOOKMARK" priority="2" >
         <xsl:if test="$figureExists">
             <xsl:variable name="topicRef" as="element()" select="."/>
             <xsl:variable name="id" as="xs:string" select="string(ahf:getIdAtts($topicRef,$topicRef,true())[1])"/>
@@ -210,7 +210,7 @@
      return:    glossary list contents
      note:		
     -->
-    <xsl:template match="*[contains(@class,' bookmap/glossarylist ')][ahf:isToc(.)]" mode="MAKE_BOOKMARK" priority="2" >
+    <xsl:template match="*[contains-token(@class, 'bookmap/glossarylist')][ahf:isToc(.)]" mode="MAKE_BOOKMARK" priority="2" >
         <xsl:call-template name="genGlossaryListBookMark"/>
     </xsl:template>
     
@@ -222,11 +222,11 @@
      note:      This template will not be executed because this plug-in treats index in frontmatter as error.
                 2012-03-29 t.makita
      -->
-    <xsl:template match="*[contains(@class,' bookmap/indexlist ')][exists(@href)]" mode="MAKE_BOOKMARK" priority="2">
+    <xsl:template match="*[contains-token(@class, 'bookmap/indexlist')][exists(@href)]" mode="MAKE_BOOKMARK" priority="2">
         <xsl:next-match/>
     </xsl:template>
     
-    <xsl:template match="*[contains(@class,' bookmap/indexlist ')][empty(@href)][ahf:isToc(.)]" mode="MAKE_BOOKMARK" priority="2">
+    <xsl:template match="*[contains-token(@class, 'bookmap/indexlist')][empty(@href)][ahf:isToc(.)]" mode="MAKE_BOOKMARK" priority="2">
         <xsl:if test="$pOutputIndex and ($indextermSortedCount gt 0)">
             <xsl:variable name="topicRef" as="element()" select="."/>
             <xsl:variable name="id" as="xs:string" select="string(ahf:getIdAtts($topicRef,$topicRef,true())[1])"/>
@@ -245,11 +245,11 @@
      return:    Table list content
      note:		
      -->
-    <xsl:template match="*[contains(@class,' bookmap/tablelist ')][exists(@href)]" mode="MAKE_BOOKMARK" priority="2">
+    <xsl:template match="*[contains-token(@class, 'bookmap/tablelist')][exists(@href)]" mode="MAKE_BOOKMARK" priority="2">
         <xsl:next-match/>
     </xsl:template>
     
-    <xsl:template match="*[contains(@class,' bookmap/tablelist ')][not(@href)][ahf:isToc(.)]" mode="MAKE_BOOKMARK" priority="2" >
+    <xsl:template match="*[contains-token(@class, 'bookmap/tablelist')][not(@href)][ahf:isToc(.)]" mode="MAKE_BOOKMARK" priority="2" >
         <xsl:if test="$tableExists">
             <xsl:variable name="topicRef" as="element()" select="."/>
             <xsl:variable name="id" as="xs:string" select="string(ahf:getIdAtts($topicRef,$topicRef,true())[1])"/>
@@ -268,11 +268,11 @@
      return:    none
      note:		
      -->
-    <xsl:template match="*[contains(@class,' bookmap/trademarklist ')][exists(@href)]" mode="MAKE_BOOKMARK" priority="2">
+    <xsl:template match="*[contains-token(@class, 'bookmap/trademarklist')][exists(@href)]" mode="MAKE_BOOKMARK" priority="2">
         <xsl:next-match/>
     </xsl:template>
     
-    <xsl:template match="*[contains(@class,' bookmap/trademarklist ')][not(@href)]" mode="MAKE_BOOKMARK" priority="2" >
+    <xsl:template match="*[contains-token(@class, 'bookmap/trademarklist')][not(@href)]" mode="MAKE_BOOKMARK" priority="2" >
     </xsl:template>
         
     <!-- 
@@ -281,11 +281,11 @@
      return:    toc contents
      note:		
      -->
-    <xsl:template match="*[contains(@class,' bookmap/toc ')][exists(@href)]" mode="MAKE_BOOKMARK" priority="2">
+    <xsl:template match="*[contains-token(@class, 'bookmap/toc')][exists(@href)]" mode="MAKE_BOOKMARK" priority="2">
         <xsl:next-match/>
     </xsl:template>
     
-    <xsl:template match="*[contains(@class,' bookmap/toc ')][empty(@href)][ahf:isToc(.)]" mode="MAKE_BOOKMARK" priority="2">
+    <xsl:template match="*[contains-token(@class, 'bookmap/toc')][empty(@href)][ahf:isToc(.)]" mode="MAKE_BOOKMARK" priority="2">
         <xsl:variable name="topicRef" as="element()" select="."/>
         <xsl:variable name="id" as="xs:string" select="string(ahf:getIdAtts($topicRef,$topicRef,true())[1])"/>
         <xsl:call-template name="genBookmark">
@@ -302,10 +302,10 @@
      return:    descendant topic contents
      note:		
      -->
-    <xsl:template match="*[contains(@class,' bookmap/dedication ')][empty(@href)]" mode="MAKE_BOOKMARK" priority="2">
+    <xsl:template match="*[contains-token(@class, 'bookmap/dedication')][empty(@href)]" mode="MAKE_BOOKMARK" priority="2">
     </xsl:template>
     
-    <xsl:template match="*[contains(@class,' bookmap/dedication ')][exists(@href)]" mode="MAKE_BOOKMARK" priority="2">
+    <xsl:template match="*[contains-token(@class, 'bookmap/dedication')][exists(@href)]" mode="MAKE_BOOKMARK" priority="2">
         <xsl:next-match/>
     </xsl:template>
         
@@ -315,7 +315,7 @@
      return:    descendant topic contents
      note:		
      -->
-    <xsl:template match="*[contains(@class,' bookmap/draftintro ')]" mode="MAKE_BOOKMARK" priority="2">
+    <xsl:template match="*[contains-token(@class, 'bookmap/draftintro')]" mode="MAKE_BOOKMARK" priority="2">
         <xsl:next-match/>
     </xsl:template>
         
@@ -325,7 +325,7 @@
      return:    descendant topic contents
      note:		
      -->
-    <xsl:template match="*[contains(@class,' bookmap/notices ')]" mode="MAKE_BOOKMARK" priority="2">
+    <xsl:template match="*[contains-token(@class, 'bookmap/notices')]" mode="MAKE_BOOKMARK" priority="2">
         <xsl:next-match>
             <xsl:with-param name="prmDefaultTitle" select="$cNoticeTitle"/>
         </xsl:next-match>
@@ -338,7 +338,7 @@
      return:    descendant topic contents
      note:		
      -->
-    <xsl:template match="*[contains(@class,' bookmap/preface ')]" mode="MAKE_BOOKMARK" priority="2">
+    <xsl:template match="*[contains-token(@class, 'bookmap/preface')]" mode="MAKE_BOOKMARK" priority="2">
         <xsl:next-match>
             <xsl:with-param name="prmDefaultTitle" select="$cPrefaceTitle"/>
         </xsl:next-match>
@@ -350,7 +350,7 @@
      return:    descendant topic contents
      note:		
      -->
-    <xsl:template match="*[contains(@class,' bookmap/backmatter ')]" mode="MAKE_BOOKMARK" priority="2" >
+    <xsl:template match="*[contains-token(@class, 'bookmap/backmatter')]" mode="MAKE_BOOKMARK" priority="2" >
         <xsl:apply-templates mode="#current"/>
     </xsl:template>
     
@@ -360,10 +360,10 @@
      return:	
      note:		
      -->
-    <xsl:template match="*[contains(@class,' bookmap/amendments  ')][empty(@href)]" mode="MAKE_BOOKMARK" priority="2">
+    <xsl:template match="*[contains-token(@class, 'bookmap/amendments')][empty(@href)]" mode="MAKE_BOOKMARK" priority="2">
     </xsl:template>
     
-    <xsl:template match="*[contains(@class,' bookmap/amendments ')][exists(@href)]" mode="MAKE_BOOKMARK" priority="2">
+    <xsl:template match="*[contains-token(@class, 'bookmap/amendments')][exists(@href)]" mode="MAKE_BOOKMARK" priority="2">
         <xsl:next-match/>
     </xsl:template>
     
@@ -379,7 +379,7 @@
      return:	
      note:		
      -->
-    <xsl:template match="*[contains(@class,' bookmap/part ')]" mode="MAKE_BOOKMARK" priority="2">
+    <xsl:template match="*[contains-token(@class, 'bookmap/part')]" mode="MAKE_BOOKMARK" priority="2">
         <xsl:next-match/>
     </xsl:template>
     
@@ -388,7 +388,7 @@
          Changed to generate no title because appendices is only a wrapper of appendix in bookmap.
          2014-09-14 t.makita
      -->
-     <xsl:template match="*[contains(@class,' bookmap/appendices ')][ahf:isToc(.)]" mode="MAKE_BOOKMARK" priority="2" >
+     <xsl:template match="*[contains-token(@class, 'bookmap/appendices')][ahf:isToc(.)]" mode="MAKE_BOOKMARK" priority="2" >
          <xsl:apply-templates mode="#current"/>
          <!--xsl:variable name="topicRef" as="element()" select="."/>
          <xsl:call-template name="genBookmark">
@@ -400,7 +400,7 @@
      </xsl:template>
     
     <!-- Ignore reltable contents -->
-    <xsl:template match="*[contains(@class,' map/reltable ')]" mode="MAKE_BOOKMARK" />
+    <xsl:template match="*[contains-token(@class, 'map/reltable')]" mode="MAKE_BOOKMARK" />
     
     <!-- 
      function:  General topiref template for bookmark
@@ -408,10 +408,10 @@
      return:    fo:bookmark
      note:      Skip outputclass="coverN" & toc="no".
      -->
-    <xsl:template match="*[contains(@class,' map/topicref ')][ahf:isCoverTopicRef(.)]" mode="MAKE_BOOKMARK" priority="2"/>
-    <xsl:template match="*[contains(@class,' map/topicref ')][not(ahf:isToc(.))]" mode="MAKE_BOOKMARK"/>
+    <xsl:template match="*[contains-token(@class, 'map/topicref')][ahf:isCoverTopicRef(.)]" mode="MAKE_BOOKMARK" priority="2"/>
+    <xsl:template match="*[contains-token(@class, 'map/topicref')][not(ahf:isToc(.))]" mode="MAKE_BOOKMARK"/>
     
-    <xsl:template match="*[contains(@class,' map/topicref ')][ahf:isToc(.)]" mode="MAKE_BOOKMARK">
+    <xsl:template match="*[contains-token(@class, 'map/topicref')][ahf:isToc(.)]" mode="MAKE_BOOKMARK">
         <xsl:param name="prmDefaultTitle" as="xs:string" required="no" select="''"/>
         <xsl:variable name="topicRef" select="."/>
         <xsl:call-template name="genBookMark">
@@ -437,10 +437,10 @@
             </xsl:choose>
         </xsl:variable>
         <xsl:variable name="nestedTopicCount" as="xs:integer">
-            <xsl:sequence select="count(ancestor-or-self::*[contains(@class, ' map/topicref ')]
-                                                           [not(contains(@class, ' bookmap/frontmatter '))]
-                                                           [not(contains(@class, ' bookmap/backmatter '))]
-                                                           [not(contains(@class, ' bookmap/appendices '))]
+            <xsl:sequence select="count(ancestor-or-self::*[contains-token(@class, 'map/topicref')]
+                                                           [not(contains-token(@class, 'bookmap/frontmatter'))]
+                                                           [not(contains-token(@class, 'bookmap/backmatter'))]
+                                                           [not(contains-token(@class, 'bookmap/appendices'))]
                                                            )"/>
         </xsl:variable>
     
@@ -491,39 +491,39 @@
         <xsl:choose>
             <xsl:when test="$isBookMap">
                 <xsl:choose>
-                    <xsl:when test="$prmTopicRef/ancestor-or-self::*[contains(@class, ' bookmap/frontmatter ')]">
+                    <xsl:when test="$prmTopicRef/ancestor-or-self::*[contains-token(@class, 'bookmap/frontmatter')]">
                         <!-- frontmatter -->
                         <xsl:call-template name="genBookmarkTitle">
                             <xsl:with-param name="prmTopicRef" select="$prmTopicRef"/>
                             <xsl:with-param name="prmDefaultTitle" select="$prmDefaultTitle"/>
                         </xsl:call-template>
                     </xsl:when>
-                    <xsl:when test="$prmTopicRef/ancestor-or-self::*[contains(@class, ' bookmap/backmatter ')]">
+                    <xsl:when test="$prmTopicRef/ancestor-or-self::*[contains-token(@class, 'bookmap/backmatter')]">
                         <!-- backmatter -->
                         <xsl:call-template name="genBookmarkTitle">
                             <xsl:with-param name="prmTopicRef" select="$prmTopicRef"/>
                             <xsl:with-param name="prmDefaultTitle" select="$prmDefaultTitle"/>
                         </xsl:call-template>
                     </xsl:when>
-                    <xsl:when test="$prmTopicRef/ancestor-or-self::*[contains(@class, ' bookmap/part ')]">
+                    <xsl:when test="$prmTopicRef/ancestor-or-self::*[contains-token(@class, 'bookmap/part')]">
                         <!-- part -->
                         <xsl:call-template name="genPartDescendantTitle">
                             <xsl:with-param name="prmTopicRef" select="$prmTopicRef"/>
                         </xsl:call-template>
                     </xsl:when>
-                    <xsl:when test="$prmTopicRef/ancestor-or-self::*[contains(@class, ' bookmap/chapter ')]">
+                    <xsl:when test="$prmTopicRef/ancestor-or-self::*[contains-token(@class, 'bookmap/chapter')]">
                         <!-- chapter -->
                         <xsl:call-template name="genChapterDescendantTitle">
                             <xsl:with-param name="prmTopicRef" select="$prmTopicRef"/>
                         </xsl:call-template>
                     </xsl:when>
-                    <xsl:when test="$prmTopicRef/ancestor-or-self::*[contains(@class, ' bookmap/appendix ')]">
+                    <xsl:when test="$prmTopicRef/ancestor-or-self::*[contains-token(@class, 'bookmap/appendix')]">
                         <!-- appendix -->
                         <xsl:call-template name="genAppendixDescendantTitle">
                             <xsl:with-param name="prmTopicRef" select="$prmTopicRef"/>
                         </xsl:call-template>
                     </xsl:when>
-                    <xsl:when test="$prmTopicRef[contains(@class, ' bookmap/appendices ')]">
+                    <xsl:when test="$prmTopicRef[contains-token(@class, 'bookmap/appendices')]">
                         <!-- appendices -->
                         <xsl:call-template name="genBookmarkTitle">
                             <xsl:with-param name="prmTopicRef" select="$prmTopicRef"/>
@@ -577,10 +577,10 @@
         <xsl:variable name="title" as="text()*">
             <xsl:choose>
                 <xsl:when test="exists($topicContent)">
-                    <xsl:apply-templates select="$topicContent/child::*[contains(@class, ' topic/title ')]" mode="TEXT_ONLY"/>
+                    <xsl:apply-templates select="$topicContent/child::*[contains-token(@class, 'topic/title')]" mode="TEXT_ONLY"/>
                 </xsl:when>
-                <xsl:when test="$prmTopicRef/*[contains(@class,' map/topicmeta ')]/*[contains(@class,' topic/navtitle ')]">
-                    <xsl:apply-templates select="$prmTopicRef/*[contains(@class,' map/topicmeta ')]/*[contains(@class,' topic/navtitle ')]" mode="TEXT_ONLY"/>
+                <xsl:when test="$prmTopicRef/*[contains-token(@class, 'map/topicmeta')]/*[contains-token(@class, 'topic/navtitle')]">
+                    <xsl:apply-templates select="$prmTopicRef/*[contains-token(@class, 'map/topicmeta')]/*[contains-token(@class, 'topic/navtitle')]" mode="TEXT_ONLY"/>
                 </xsl:when>
                 <xsl:when test="$prmTopicRef/@navtitle">
                     <xsl:value-of select="$prmTopicRef/@navtitle"/>        
@@ -685,7 +685,7 @@
                     <!-- Original glossentry nodeset -->
                     <xsl:variable name="glossEntries" as="document-node()">
                         <xsl:document>
-                            <xsl:apply-templates select="child::*[contains(@class,' map/topicref ')]" mode="MAKE_BOOKMARK_TOPICREF_IN_TEMPORARY_TREE">
+                            <xsl:apply-templates select="child::*[contains-token(@class, 'map/topicref')]" mode="MAKE_BOOKMARK_TOPICREF_IN_TEMPORARY_TREE">
                             </xsl:apply-templates>
                         </xsl:document>
                     </xsl:variable>
@@ -704,11 +704,11 @@
                         </xsl:document>
                     </xsl:variable>
                     <!-- Format the sorted glossentry -->
-                    <xsl:for-each select="$glossEntrySorted/*[contains(@class,' glossentry/glossentry ')]">
+                    <xsl:for-each select="$glossEntrySorted/*[contains-token(@class, 'glossentry/glossentry')]">
                         <xsl:variable name="glossEntry" select="."/>
                         <xsl:variable name="topicRefId" select="string($glossEntry/@topicRefId)" as="xs:string"/>
                         <!--xsl:variable name="topicRef" select="key('topicrefByGenerateId',$topicRefId)" as="element()*"/-->
-                        <xsl:variable name="topicRef" select="$map//*[contains(@class, 'map/topicref')][ahf:generateId(.,()) eq $topicRefId][1]" as="element()?"/>
+                        <xsl:variable name="topicRef" select="$map//*[contains-token(@class, 'map/topicref')][ahf:generateId(.,()) eq $topicRefId][1]" as="element()?"/>
                         <!--xsl:message select="'$editStatus=',$editStatus,'$topicRefId=',$topicRefId,'class=',@class"/-->
                         <xsl:choose>
                             <xsl:when test="exists($topicRef)">
@@ -738,7 +738,7 @@
                     </xsl:for-each>
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:apply-templates select="child::*[contains(@class,' map/topicref ')]" mode="MAKE_BOOKMARK"/>
+                    <xsl:apply-templates select="child::*[contains-token(@class, 'map/topicref')]" mode="MAKE_BOOKMARK"/>
                 </xsl:otherwise>
             </xsl:choose>
         </fo:bookmark>
@@ -750,7 +750,7 @@
         return:     glossentry topic
         note:       none
     -->
-    <xsl:template match="*[contains(@class,' map/topicref ')][@href]" mode="MAKE_BOOKMARK_TOPICREF_IN_TEMPORARY_TREE">
+    <xsl:template match="*[contains-token(@class, 'map/topicref')][@href]" mode="MAKE_BOOKMARK_TOPICREF_IN_TEMPORARY_TREE">
         
         <xsl:variable name="topicRef" as="element()" select="."/>
         <!-- get topic from @href -->
@@ -770,15 +770,15 @@
                 </xsl:call-template>
             </xsl:otherwise>
         </xsl:choose>
-        <xsl:apply-templates select="*[contains(@class,' map/topicref ')]" mode="#current"/>
+        <xsl:apply-templates select="*[contains-token(@class, 'map/topicref')]" mode="#current"/>
     </xsl:template>
     
-    <xsl:template match="*[contains(@class,' map/topicref ')][not(@href)]" mode="MAKE_BOOKMARK_TOPICREF_IN_TEMPORARY_TREE">
-        <xsl:apply-templates select="*[contains(@class,' map/topicref ')]" mode="#current"/>
+    <xsl:template match="*[contains-token(@class, 'map/topicref')][not(@href)]" mode="MAKE_BOOKMARK_TOPICREF_IN_TEMPORARY_TREE">
+        <xsl:apply-templates select="*[contains-token(@class, 'map/topicref')]" mode="#current"/>
     </xsl:template>
     
     <!-- Templates for sorting -->
-    <xsl:template match="*[contains(@class,' glossentry/glossentry ')]" mode="MAKE_BOOKMARK_GLOSSENTRY_IN_TEMPORARY_TREE">
+    <xsl:template match="*[contains-token(@class, 'glossentry/glossentry')]" mode="MAKE_BOOKMARK_GLOSSENTRY_IN_TEMPORARY_TREE">
         <xsl:param name="prmTopicRef" as="element()" required="yes"/>
         
         <xsl:variable name="sortKey" as="xs:string" select="ahf:getGlossarySortKey(.)"/>
@@ -797,11 +797,11 @@
         </xsl:copy>
     </xsl:template>
     
-    <xsl:template match="*[contains(@class,' glossgroup/glossgroup ')]" mode="MAKE_BOOKMARK_GLOSSENTRY_IN_TEMPORARY_TREE">
+    <xsl:template match="*[contains-token(@class, 'glossgroup/glossgroup')]" mode="MAKE_BOOKMARK_GLOSSENTRY_IN_TEMPORARY_TREE">
         <xsl:param name="prmTopicRef" as="element()" required="yes"/>
         
         <!-- glossgroup or glossentry -->
-        <xsl:apply-templates select="*[contains(@class, ' glossgroup/glossgroup ')] | *[contains(@class, ' glossentry/glossentry ')]" mode="#current">
+        <xsl:apply-templates select="*[contains-token(@class, 'glossgroup/glossgroup')] | *[contains-token(@class, 'glossentry/glossentry')]" mode="#current">
             <xsl:with-param name="prmTopicRef" select="$prmTopicRef"/>
         </xsl:apply-templates>
     </xsl:template>
@@ -821,10 +821,10 @@
         
         <xsl:choose>
             <xsl:when test="exists($topicContent)">
-                <xsl:apply-templates select="$topicContent/*[contains(@class,' topic/title ')]" mode="TEXT_ONLY"/>
+                <xsl:apply-templates select="$topicContent/*[contains-token(@class, 'topic/title')]" mode="TEXT_ONLY"/>
             </xsl:when>
-            <xsl:when test="$prmTopicRef/*[contains(@class,' map/topicmeta ')]/*[contains(@class,' topic/navtitle ')]">
-                <xsl:apply-templates select="$prmTopicRef/*[contains(@class,' map/topicmeta ')]/*[contains(@class,' topic/navtitle ')]" mode="TEXT_ONLY"/>
+            <xsl:when test="$prmTopicRef/*[contains-token(@class, 'map/topicmeta')]/*[contains-token(@class, 'topic/navtitle')]">
+                <xsl:apply-templates select="$prmTopicRef/*[contains-token(@class, 'map/topicmeta')]/*[contains-token(@class, 'topic/navtitle')]" mode="TEXT_ONLY"/>
             </xsl:when>
             <xsl:when test="$prmTopicRef/@navtitle">
                 <xsl:value-of select="string($prmTopicRef/@navtitle)"/>
@@ -854,10 +854,10 @@
         <xsl:variable name="title" as="node()">
             <xsl:choose>
                 <xsl:when test="exists($topicContent)">
-                    <xsl:apply-templates select="$topicContent/*[contains(@class,' topic/title ')]" mode="TEXT_ONLY"/>
+                    <xsl:apply-templates select="$topicContent/*[contains-token(@class, 'topic/title')]" mode="TEXT_ONLY"/>
                 </xsl:when>
-                <xsl:when test="$prmTopicRef/*[contains(@class,' map/topicmeta ')]/*[contains(@class,' topic/navtitle ')]">
-                    <xsl:apply-templates select="$prmTopicRef/*[contains(@class,' map/topicmeta ')]/*[contains(@class,' topic/navtitle ')]" mode="TEXT_ONLY"/>
+                <xsl:when test="$prmTopicRef/*[contains-token(@class, 'map/topicmeta')]/*[contains-token(@class, 'topic/navtitle')]">
+                    <xsl:apply-templates select="$prmTopicRef/*[contains-token(@class, 'map/topicmeta')]/*[contains-token(@class, 'topic/navtitle')]" mode="TEXT_ONLY"/>
                 </xsl:when>
                 <xsl:when test="$prmTopicRef/@navtitle">
                     <xsl:value-of select="string($prmTopicRef/@navtitle)"/>
@@ -874,7 +874,7 @@
                 <xsl:when test="string($prmInternalDest)">
                     <xsl:attribute name="internal-destination" select="$prmInternalDest"/>
                 </xsl:when>
-                <xsl:when test="exists($topicId) and exists($topicContent/*[contains(@class,' topic/body ')])">
+                <xsl:when test="exists($topicId) and exists($topicContent/*[contains-token(@class, 'topic/body')])">
                     <xsl:attribute name="internal-destination" select="string($topicId[1])"/>
                 </xsl:when>
                 <xsl:otherwise/>
@@ -883,7 +883,7 @@
                 <xsl:value-of select="$title"/>
             </fo:bookmark-title>
             <xsl:if test="$prmProcessChild">
-                <xsl:apply-templates select="child::*[contains(@class,' map/topicref ')]" mode="MAKE_BOOKMARK"/>
+                <xsl:apply-templates select="child::*[contains-token(@class, 'map/topicref')]" mode="MAKE_BOOKMARK"/>
             </xsl:if>        
         </fo:bookmark>
     </xsl:template>    

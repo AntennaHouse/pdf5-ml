@@ -24,8 +24,8 @@
      return:	related-links fo objects
      note:		As noted in DITA specification, this stylesheet adopts links that have @role='friend'.
      -->
-    <xsl:template match="*[contains(@class, ' topic/related-links ')]">
-        <xsl:variable name="linkCount" select="count(descendant::*[contains(@class,' topic/link ')][ahf:isTargetLink(.)])" as="xs:integer"/>
+    <xsl:template match="*[contains-token(@class, 'topic/related-links')]">
+        <xsl:variable name="linkCount" select="count(descendant::*[contains-token(@class, 'topic/link')][ahf:isTargetLink(.)])" as="xs:integer"/>
         <xsl:if test="$linkCount gt 0">
             <xsl:call-template name="makeRelatedLink">
                 <xsl:with-param name="prmRelatedLinks" select="."/>
@@ -107,7 +107,7 @@
     <xsl:template name="processLink">
         <xsl:param name="prmRelatedLinks" required="yes" as="element()"/>
         
-        <xsl:for-each select="$prmRelatedLinks/descendant::*[contains(@class,' topic/link ')]
+        <xsl:for-each select="$prmRelatedLinks/descendant::*[contains-token(@class, 'topic/link')]
                                                                [ahf:isTargetLink(.)]">
             <xsl:variable name="link" select="." as="element()"/>
             <xsl:variable name="href" select="string($link/@href)" as="xs:string"/>
@@ -119,7 +119,7 @@
             <xsl:variable name="isLinkInside" as="xs:boolean" select="starts-with($href,'#')"/>
             <xsl:variable name="topicContent" as="element()?" select="if ($isLinkInside) then ahf:getTopicFromLink($link) else ()"/>
             <xsl:variable name="topicRef" as="element()?" select="if (exists($topicContent)) then ahf:getTopicRef($topicContent) else ()"/>
-            <xsl:variable name="topicTitle" as="element()?" select="if (exists($topicContent)) then $topicContent/child::*[contains(@class,' topic/title ')][1] else ()"/>
+            <xsl:variable name="topicTitle" as="element()?" select="if (exists($topicContent)) then $topicContent/child::*[contains-token(@class, 'topic/title')][1] else ()"/>
             <fo:block>
                 <xsl:call-template name="getAttributeSetWithLang">
                     <xsl:with-param name="prmAttrSetName" select="'atsRelatedLinkBlock'"/>
@@ -169,7 +169,7 @@
      return:	linktext contents
      note:		This template will be never called!
      -->
-    <!--xsl:template match="*[contains(@class, ' map/linktext ')] | *[contains(@class, ' topic/linktext ')]">
+    <!--xsl:template match="*[contains-token(@class, 'map/linktext')] | *[contains-token(@class, 'topic/linktext')]">
         <xsl:param name="prmTopicRef" required="yes"  as="element()?"/>
         <xsl:param name="prmNeedId"   required="yes"  as="xs:boolean"/>
         
@@ -183,7 +183,7 @@
         </fo:inline>
     </xsl:template-->
     
-    <xsl:template match="*[contains(@class, ' map/linktext ')] | *[contains(@class, ' topic/linktext ')]">
+    <xsl:template match="*[contains-token(@class, 'map/linktext')] | *[contains-token(@class, 'topic/linktext')]">
         <fo:inline>
             <xsl:call-template name="getAttributeSetWithLang">
                 <xsl:with-param name="prmAttrSetName" select="'atsLinkText'"/>
@@ -212,7 +212,7 @@
         <xsl:variable name="titleMode" select="ahf:getTitleMode($prmTopicRef,$prmTopicContent)" as="xs:integer"/>
         
         <xsl:variable name="title" as="element()">
-            <xsl:sequence select="$prmTopicContent/child::*[contains(@class, ' topic/title ')][1]"/>
+            <xsl:sequence select="$prmTopicContent/child::*[contains-token(@class, 'topic/title')][1]"/>
         </xsl:variable>
         
         <xsl:variable name="titleContent" as="node()*">

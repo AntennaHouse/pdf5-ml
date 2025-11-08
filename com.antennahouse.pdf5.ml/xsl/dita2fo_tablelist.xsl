@@ -29,10 +29,10 @@
         <xsl:if test="$tableExists">
             <psmi:page-sequence>
                 <xsl:choose>
-                    <xsl:when test="ancestor::*[contains(@class,' bookmap/frontmatter ')]">
+                    <xsl:when test="ancestor::*[contains-token(@class, 'bookmap/frontmatter')]">
                         <xsl:copy-of select="ahf:getAttributeSet('atsPageSeqFrontmatter')"/>
                         <xsl:if test="not(preceding-sibling::*) and 
-                                      not(parent::*/preceding-sibling::*[contains(@class,' map/topicref ')])">
+                                      not(parent::*/preceding-sibling::*[contains-token(@class, 'map/topicref')])">
                             <xsl:attribute name="initial-page-number" select="'1'"/>
                         </xsl:if>
                         <fo:static-content flow-name="rgnFrontmatterBeforeLeft">
@@ -117,98 +117,98 @@
     </xsl:template>
     
     <xsl:template match="text()" mode="MAKE_TABLE_LIST"/>
-    <xsl:template match="*[contains(@class, ' bookmap/bookmeta ')]" mode="MAKE_TABLE_LIST"/>
+    <xsl:template match="*[contains-token(@class, 'bookmap/bookmeta')]" mode="MAKE_TABLE_LIST"/>
 
     <!-- Part/Chapter -->
-    <xsl:template match="*[contains(@class,' bookmap/part ')]" mode="MAKE_TABLE_LIST" priority="2" >
+    <xsl:template match="*[contains-token(@class, 'bookmap/part')]" mode="MAKE_TABLE_LIST" priority="2" >
         <xsl:next-match/>
     </xsl:template>
     
-    <xsl:template match="*[contains(@class,' bookmap/chapter ')]" mode="MAKE_TABLE_LIST" priority="2" >
+    <xsl:template match="*[contains-token(@class, 'bookmap/chapter')]" mode="MAKE_TABLE_LIST" priority="2" >
         <xsl:next-match/>
     </xsl:template>
     
     <!-- Frontmatter -->
-    <xsl:template match="*[contains(@class,' bookmap/frontmatter ')]" mode="MAKE_TABLE_LIST" priority="2" >
+    <xsl:template match="*[contains-token(@class, 'bookmap/frontmatter')]" mode="MAKE_TABLE_LIST" priority="2" >
         <xsl:apply-templates mode="#current"/>
     </xsl:template>
     
     <!-- Backmatter -->
-    <xsl:template match="*[contains(@class,' bookmap/backmatter ')]" mode="MAKE_TABLE_LIST" priority="2" >
+    <xsl:template match="*[contains-token(@class, 'bookmap/backmatter')]" mode="MAKE_TABLE_LIST" priority="2" >
         <xsl:apply-templates mode="#current"/>
     </xsl:template>
     
     <!-- frontmatter/backmatter contents -->
     
-    <xsl:template match="*[contains(@class,' bookmap/booklists ')]" mode="MAKE_TABLE_LIST" priority="2" >
+    <xsl:template match="*[contains-token(@class, 'bookmap/booklists')]" mode="MAKE_TABLE_LIST" priority="2" >
         <xsl:apply-templates mode="#current"/>
     </xsl:template>
     
-    <xsl:template match="*[contains(@class,' bookmap/toc ')][not(@href)]" mode="MAKE_TABLE_LIST" priority="2" >
+    <xsl:template match="*[contains-token(@class, 'bookmap/toc')][not(@href)]" mode="MAKE_TABLE_LIST" priority="2" >
         <!--Ignore TOC -->
     </xsl:template>
     
-    <xsl:template match="*[contains(@class,' bookmap/figurelist ')][not(@href)]" mode="MAKE_TABLE_LIST" priority="2" >
+    <xsl:template match="*[contains-token(@class, 'bookmap/figurelist')][not(@href)]" mode="MAKE_TABLE_LIST" priority="2" >
     </xsl:template>
     
-    <xsl:template match="*[contains(@class,' bookmap/tablelist ')][not(@href)]" mode="MAKE_TABLE_LIST" priority="2" >
+    <xsl:template match="*[contains-token(@class, 'bookmap/tablelist')][not(@href)]" mode="MAKE_TABLE_LIST" priority="2" >
     </xsl:template>
     
-    <xsl:template match="*[contains(@class,' bookmap/abbrevlist ')][not(@href)]" mode="MAKE_TABLE_LIST" priority="2" >
+    <xsl:template match="*[contains-token(@class, 'bookmap/abbrevlist')][not(@href)]" mode="MAKE_TABLE_LIST" priority="2" >
         <!-- Abbrevlist should have a href attribute. -->
     </xsl:template>
     
-    <xsl:template match="*[contains(@class,' bookmap/trademarklist ')][not(@href)]" mode="MAKE_TABLE_LIST" priority="2" >
+    <xsl:template match="*[contains-token(@class, 'bookmap/trademarklist')][not(@href)]" mode="MAKE_TABLE_LIST" priority="2" >
         <!-- Trademarklist should have a href attribute. -->
     </xsl:template>
     
-    <xsl:template match="*[contains(@class,' bookmap/bibliolist ')][not(@href)]" mode="MAKE_TABLE_LIST" priority="2" >
+    <xsl:template match="*[contains-token(@class, 'bookmap/bibliolist')][not(@href)]" mode="MAKE_TABLE_LIST" priority="2" >
         <!-- Bibliolist should have a href attribute. -->
     </xsl:template>
     
-    <xsl:template match="*[contains(@class,' bookmap/glossarylist ')][not(@href)]" mode="MAKE_TABLE_LIST" priority="2" >
+    <xsl:template match="*[contains-token(@class, 'bookmap/glossarylist')][not(@href)]" mode="MAKE_TABLE_LIST" priority="2" >
         <!-- Glossarylist have topicref child element. -->
         <xsl:apply-templates mode="#current"/>
     </xsl:template>
     
-    <xsl:template match="*[contains(@class,' bookmap/indexlist ')][not(@href)]" mode="MAKE_TABLE_LIST" priority="2" >
+    <xsl:template match="*[contains-token(@class, 'bookmap/indexlist')][not(@href)]" mode="MAKE_TABLE_LIST" priority="2" >
         <!-- Index line -->
     </xsl:template>
     
-    <xsl:template match="*[contains(@class,' bookmap/booklist ')][not(@href)]" mode="MAKE_TABLE_LIST" priority="2" >
+    <xsl:template match="*[contains-token(@class, 'bookmap/booklist')][not(@href)]" mode="MAKE_TABLE_LIST" priority="2" >
         <!-- Booklist should have a href attribute. -->
     </xsl:template>
     
-    <xsl:template match="*[contains(@class,' bookmap/notices ')][not(@href)]" mode="MAKE_TABLE_LIST" priority="2" >
+    <xsl:template match="*[contains-token(@class, 'bookmap/notices')][not(@href)]" mode="MAKE_TABLE_LIST" priority="2" >
         <!-- Notices have topicref child element. -->
         <xsl:apply-templates mode="#current"/>
     </xsl:template>
     
-    <xsl:template match="*[contains(@class,' bookmap/preface ')][not(@href)]" mode="MAKE_TABLE_LIST" priority="2" >
+    <xsl:template match="*[contains-token(@class, 'bookmap/preface')][not(@href)]" mode="MAKE_TABLE_LIST" priority="2" >
         <!-- Preface has topicref child element. -->
         <xsl:apply-templates mode="#current"/>
     </xsl:template>
     
-    <xsl:template match="*[contains(@class,' bookmap/dedication ')][not(@href)]" mode="MAKE_TABLE_LIST" priority="2" >
+    <xsl:template match="*[contains-token(@class, 'bookmap/dedication')][not(@href)]" mode="MAKE_TABLE_LIST" priority="2" >
         <!-- Dedication should have a href attribute. -->
     </xsl:template>
     
-    <xsl:template match="*[contains(@class,' bookmap/colophon ')][not(@href)]" mode="MAKE_TABLE_LIST" priority="2" >
+    <xsl:template match="*[contains-token(@class, 'bookmap/colophon')][not(@href)]" mode="MAKE_TABLE_LIST" priority="2" >
         <!-- Colophon should have a href attribute. -->
     </xsl:template>
     
-    <xsl:template match="*[contains(@class,' bookmap/amendments ')][not(@href)]" mode="MAKE_TABLE_LIST" priority="2" >
+    <xsl:template match="*[contains-token(@class, 'bookmap/amendments')][not(@href)]" mode="MAKE_TABLE_LIST" priority="2" >
         <!-- Aamendments should have a href attribute. -->
     </xsl:template>
     
     <!-- topicgroup is skipped in dita2fo_convmerged.xsl -->
-    <xsl:template match="*[contains(@class,' mapgroup-d/topicgroup ')]" mode="MAKE_TABLE_LIST" priority="2" >
+    <xsl:template match="*[contains-token(@class, 'mapgroup-d/topicgroup')]" mode="MAKE_TABLE_LIST" priority="2" >
         <!-- topicgroup create group without affecting the hierarchy. -->
         <xsl:apply-templates mode="#current"/>
     </xsl:template>
     
     <!-- Ignore reltable contents -->
-    <xsl:template match="*[contains(@class,' map/reltable ')]" mode="MAKE_TABLE_LIST" />
+    <xsl:template match="*[contains-token(@class, 'map/reltable')]" mode="MAKE_TABLE_LIST" />
     
     <!-- 
      function:	templates for topicref
@@ -216,15 +216,15 @@
      return:	Table list line
      note:		Process all of the map/topicref contents.
      -->
-    <xsl:template match="*[contains(@class,' map/topicref ')][@href]" mode="MAKE_TABLE_LIST">
+    <xsl:template match="*[contains-token(@class, 'map/topicref')][@href]" mode="MAKE_TABLE_LIST">
         <xsl:variable name="topicRef" select="."/>
         <xsl:variable name="topicContent" select="ahf:getTopicFromTopicRef($topicRef)" as="element()?"/>
     
-        <xsl:for-each select="$topicContent/descendant::*[contains(@class, ' topic/table ')][child::*[contains(@class, ' topic/title ')]]">
+        <xsl:for-each select="$topicContent/descendant::*[contains-token(@class, 'topic/table')][child::*[contains-token(@class, 'topic/title')]]">
             <xsl:variable name="table" select="."/>
             <xsl:variable name="tableId" select="if (@id) then string(ahf:getIdAtts($table,$topicRef,true())) else ahf:generateId($table,$topicRef)" as="xs:string"/>
             <xsl:variable name="tableTitle" as="node()*">
-                <xsl:apply-templates select="$table/*[contains(@class,' topic/title ')]" mode="#current">
+                <xsl:apply-templates select="$table/*[contains-token(@class, 'topic/title')]" mode="#current">
                     <xsl:with-param name="prmTopicRef"  tunnel="yes"  select="$topicRef"/>
                     <xsl:with-param name="prmNeedId"    tunnel="yes"  select="false()"/>
                 </xsl:apply-templates>
@@ -232,7 +232,7 @@
             <xsl:call-template name="makeTableListLine">
                 <xsl:with-param name="prmId"    select="$tableId"/>
                 <xsl:with-param name="prmTitle" select="$tableTitle"/>
-                <xsl:with-param name="prmTitleElem" select="$table/*[contains(@class,' topic/title ')][1]"/>
+                <xsl:with-param name="prmTitleElem" select="$table/*[contains-token(@class, 'topic/title')][1]"/>
                 <xsl:with-param name="prmTopicRef" tunnel="yes" select="$topicRef"/>
             </xsl:call-template>
         </xsl:for-each>
@@ -246,7 +246,7 @@
         return:	    fo:inline * 2
         note:		This template must return exactly 2 <fo:inline> elements.
     -->
-    <xsl:template match="*[contains(@class, ' topic/table ')]/*[contains(@class, ' topic/title ')]" priority="2" mode="MAKE_TABLE_LIST">
+    <xsl:template match="*[contains-token(@class, 'topic/table')]/*[contains-token(@class, 'topic/title')]" priority="2" mode="MAKE_TABLE_LIST">
         <fo:inline>
             <xsl:call-template name="ahf:getTableTitlePrefix">
                 <xsl:with-param name="prmTable" select="parent::*"/>

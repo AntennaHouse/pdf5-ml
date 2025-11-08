@@ -53,9 +53,9 @@
             <xsl:choose>
                 <xsl:when test="exists($prmTopicContent)">
                     <xsl:choose>
-                        <xsl:when test="$prmTopicContent/ancestor::*[contains(@class,' topic/topic ')]"/>
+                        <xsl:when test="$prmTopicContent/ancestor::*[contains-token(@class, 'topic/topic')]"/>
                         <xsl:otherwise>
-                            <xsl:apply-templates select="$prmTopicRef/child::*[contains(@class, ' map/topicmeta ')]/*[contains(@class, ' topic/keywords ')]/*[contains(@class, ' topic/indexterm ')]">
+                            <xsl:apply-templates select="$prmTopicRef/child::*[contains-token(@class, 'map/topicmeta')]/*[contains-token(@class, 'topic/keywords')]/*[contains-token(@class, 'topic/indexterm')]">
                                 <xsl:with-param name="prmTopicRef" tunnel="yes" select="()"/>
                                 <xsl:with-param name="prmNeedId"   tunnel="yes" select="false()"/>
                                 <xsl:with-param name="prmMakeKeyAndStart" tunnel="yes" select="true()"/>
@@ -64,7 +64,7 @@
                     </xsl:choose>            
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:apply-templates select="$prmTopicRef/child::*[contains(@class, ' map/topicmeta ')]/*[contains(@class, ' topic/keywords ')]/*[contains(@class, ' topic/indexterm ')]">
+                    <xsl:apply-templates select="$prmTopicRef/child::*[contains-token(@class, 'map/topicmeta')]/*[contains-token(@class, 'topic/keywords')]/*[contains-token(@class, 'topic/indexterm')]">
                         <xsl:with-param name="prmTopicRef" tunnel="yes" select="()"/>
                         <xsl:with-param name="prmNeedId"   tunnel="yes" select="false()"/>
                         <xsl:with-param name="prmMakeKeyAndStart" tunnel="yes" select="true()"/>
@@ -74,7 +74,7 @@
             
             <!-- Make @index-key and start FO object for topic/prolog/metadata/keywords/indexterm -->
             <xsl:if test="exists($prmTopicContent)">
-                <xsl:apply-templates select="$prmTopicContent/child::*[contains(@class, ' topic/prolog ')]/child::*[contains(@class, ' topic/metadata ')]/*[contains(@class, ' topic/keywords ')]/*[contains(@class, ' topic/indexterm ')]">
+                <xsl:apply-templates select="$prmTopicContent/child::*[contains-token(@class, 'topic/prolog')]/child::*[contains-token(@class, 'topic/metadata')]/*[contains-token(@class, 'topic/keywords')]/*[contains-token(@class, 'topic/indexterm')]">
                     <xsl:with-param name="prmTopicRef" tunnel="yes" select="$prmTopicRef"/>
                     <xsl:with-param name="prmNeedId"   tunnel="yes" select="false()"/>
                     <xsl:with-param name="prmMakeKeyAndStart" tunnel="yes" select="true()"/>
@@ -95,7 +95,7 @@
         
         <xsl:variable name="indextermRangeEnd" as="element()*">
             <!-- topicref/topicmeta/keywords/indexterm -->
-            <xsl:apply-templates select="$prmTopicRef/child::*[contains(@class, ' map/topicmeta ')]/*[contains(@class, ' topic/keywords ')]/*[contains(@class, ' topic/indexterm ')]">
+            <xsl:apply-templates select="$prmTopicRef/child::*[contains-token(@class, 'map/topicmeta')]/*[contains-token(@class, 'topic/keywords')]/*[contains-token(@class, 'topic/indexterm')]">
                 <xsl:with-param name="prmTopicRef" tunnel="yes" select="()"/>
                 <xsl:with-param name="prmNeedId"   tunnel="yes" select="false()"/>
                 <xsl:with-param name="prmMakeEnd"  tunnel="yes" select="true()"/>
@@ -103,7 +103,7 @@
             
             <!-- topic/prolog/metadata/keywords/indexterm -->
             <xsl:if test="exists($prmTopicContent)">
-                <xsl:apply-templates select="$prmTopicContent/descendant-or-self::*[contains(@class,' topic/topic ')]/child::*[contains(@class, ' topic/prolog ')]/child::*[contains(@class, ' topic/metadata ')]/*[contains(@class, ' topic/keywords ')]/*[contains(@class, ' topic/indexterm ')]">
+                <xsl:apply-templates select="$prmTopicContent/descendant-or-self::*[contains-token(@class, 'topic/topic')]/child::*[contains-token(@class, 'topic/prolog')]/child::*[contains-token(@class, 'topic/metadata')]/*[contains-token(@class, 'topic/keywords')]/*[contains-token(@class, 'topic/indexterm')]">
                     <xsl:with-param name="prmTopicRef" tunnel="yes" select="$prmTopicRef"/>
                     <xsl:with-param name="prmNeedId"   tunnel="yes" select="false()"/>
                     <xsl:with-param name="prmMakeEnd"  tunnel="yes" select="true()"/>
@@ -114,7 +114,7 @@
                 <!-- Make fo:index-range-end FO object for topic/prolog/metadata/keywords/indexterm 
                      that has @start but has no corresponding @end indexterm
                  -->
-                <xsl:apply-templates select="$prmTopicContent/descendant-or-self::*[contains(@class,' topic/topic ')]/child::*[contains(@class, ' topic/prolog ')]/child::*[contains(@class, ' topic/metadata ')]/*[contains(@class, ' topic/keywords ')]/*[contains(@class, ' topic/indexterm ')]">
+                <xsl:apply-templates select="$prmTopicContent/descendant-or-self::*[contains-token(@class, 'topic/topic')]/child::*[contains-token(@class, 'topic/prolog')]/child::*[contains-token(@class, 'topic/metadata')]/*[contains-token(@class, 'topic/keywords')]/*[contains-token(@class, 'topic/indexterm')]">
                     <xsl:with-param name="prmTopicRef" tunnel="yes" select="$prmTopicRef"/>
                     <xsl:with-param name="prmNeedId"   tunnel="yes" select="false()"/>
                     <xsl:with-param name="prmMakeComplementEnd" tunnel="yes" select="true()"/>
@@ -126,9 +126,9 @@
                  that has @start but has no corresponding @end indexterm
              -->
             <xsl:if test="$prmTopicRef is $lastTopicRef">
-                <xsl:for-each select="$map/descendant::*[contains(@class,' map/topicref ')]">
+                <xsl:for-each select="$map/descendant::*[contains-token(@class, 'map/topicref')]">
                     <xsl:variable name="topicRef" select="."/>
-                    <xsl:apply-templates select="$topicRef/child::*[contains(@class, ' map/topicmeta ')]/*[contains(@class, ' topic/keywords ')]/*[contains(@class, ' topic/indexterm ')]">
+                    <xsl:apply-templates select="$topicRef/child::*[contains-token(@class, 'map/topicmeta')]/*[contains-token(@class, 'topic/keywords')]/*[contains-token(@class, 'topic/indexterm')]">
                         <xsl:with-param name="prmTopicRef" tunnel="yes" select="$topicRef"/>
                         <xsl:with-param name="prmNeedId"   tunnel="yes" select="false()"/>
                         <xsl:with-param name="prmMakeComplementEnd" tunnel="yes" select="true()"/>
@@ -158,7 +158,7 @@
         
         <xsl:variable name="indextermRangeEnd" as="element()*">
             <!-- topic/title -->
-            <xsl:apply-templates select="$prmTopicContent/child::*[contains(@class, ' topic/title ')]//*[contains(@class, ' topic/indexterm ')]">
+            <xsl:apply-templates select="$prmTopicContent/child::*[contains-token(@class, 'topic/title')]//*[contains-token(@class, 'topic/indexterm')]">
                 <xsl:with-param name="prmTopicRef" tunnel="yes" select="$prmTopicRef"/>
                 <xsl:with-param name="prmNeedId"   tunnel="yes" select="false()"/>
                 <xsl:with-param name="prmMakeComplementEnd" tunnel="yes" select="true()"/>
@@ -166,14 +166,14 @@
             </xsl:apply-templates>
             
             <!-- topic/shortdesc,abstract -->
-            <xsl:apply-templates select="$prmTopicContent/child::*[contains(@class, ' topic/shortdesc ')]//*[contains(@class, ' topic/indexterm ')]">
+            <xsl:apply-templates select="$prmTopicContent/child::*[contains-token(@class, 'topic/shortdesc')]//*[contains-token(@class, 'topic/indexterm')]">
                 <xsl:with-param name="prmTopicRef" tunnel="yes" select="$prmTopicRef"/>
                 <xsl:with-param name="prmNeedId"   tunnel="yes" select="false()"/>
                 <xsl:with-param name="prmMakeComplementEnd" tunnel="yes" select="true()"/>
                 <xsl:with-param name="prmRangeElem" tunnel="yes" select="$prmTopicContent"/>
             </xsl:apply-templates>
             
-            <xsl:apply-templates select="$prmTopicContent/child::*[contains(@class, ' topic/abstract ')]//*[contains(@class, ' topic/indexterm ')]">
+            <xsl:apply-templates select="$prmTopicContent/child::*[contains-token(@class, 'topic/abstract')]//*[contains-token(@class, 'topic/indexterm')]">
                 <xsl:with-param name="prmTopicRef" tunnel="yes" select="$prmTopicRef"/>
                 <xsl:with-param name="prmNeedId"   tunnel="yes" select="false()"/>
                 <xsl:with-param name="prmMakeComplementEnd" tunnel="yes" select="true()"/>
@@ -181,7 +181,7 @@
             </xsl:apply-templates>
             
             <!-- topic/body -->
-            <xsl:apply-templates select="$prmTopicContent/child::*[contains(@class, ' topic/body ')]//*[contains(@class, ' topic/indexterm ')]">
+            <xsl:apply-templates select="$prmTopicContent/child::*[contains-token(@class, 'topic/body')]//*[contains-token(@class, 'topic/indexterm')]">
                 <xsl:with-param name="prmTopicRef" tunnel="yes" select="$prmTopicRef"/>
                 <xsl:with-param name="prmNeedId"   tunnel="yes" select="false()"/>
                 <xsl:with-param name="prmMakeComplementEnd" tunnel="yes" select="true()"/>
@@ -202,7 +202,7 @@
      note:     Refer to text() template in dita2fo_common.xsl.
     -->
     <!-- indexterm -->
-    <xsl:template match="*[contains(@class, ' topic/indexterm ')]" mode="TEXT_ONLY">
+    <xsl:template match="*[contains-token(@class, 'topic/indexterm')]" mode="TEXT_ONLY">
         <xsl:param name="prmGetIndextermText" required="no" tunnel="yes" as="xs:boolean" select="false()"/>
         <xsl:param name="prmGetIndextermKey"  required="no" tunnel="yes" as="xs:boolean" select="false()"/>
         <xsl:param name="prmGetIndexSeeText"  required="no" tunnel="yes" as="xs:boolean" select="false()"/>
@@ -235,9 +235,9 @@
     </xsl:template> 
     
     <!-- index-see,index-see-also,index-base -->
-    <xsl:template match="*[contains(@class, ' indexing-d/index-see ')]
-                        |*[contains(@class, ' indexing-d/index-see-also ')]
-                        |*[contains(@class, ' topic/index-base ')]"
+    <xsl:template match="*[contains-token(@class, 'indexing-d/index-see')]
+                        |*[contains-token(@class, 'indexing-d/index-see-also')]
+                        |*[contains-token(@class, 'topic/index-base')]"
                   mode="TEXT_ONLY">
         <xsl:param name="prmGetIndextermText" required="no" tunnel="yes" as="xs:boolean" select="false()"/>
         <xsl:param name="prmGetIndextermKey"  required="no" tunnel="yes" as="xs:boolean" select="false()"/>
@@ -267,7 +267,7 @@
     </xsl:template> 
     
     <!-- index-sort-as -->
-    <xsl:template match="*[contains(@class, ' indexing-d/index-sort-as ')]"
+    <xsl:template match="*[contains-token(@class, 'indexing-d/index-sort-as')]"
                   mode="TEXT_ONLY"
                   priority="2">
         <xsl:param name="prmGetIndextermText" required="no" tunnel="yes" as="xs:boolean" select="false()"/>
@@ -319,7 +319,7 @@
      note:     none
     -->
     <!-- indexterm -->
-    <xsl:template match="*[contains(@class, ' topic/indexterm ')]">
+    <xsl:template match="*[contains-token(@class, 'topic/indexterm')]">
         <xsl:param name="prmGetIndextermFO" required="no" tunnel="yes" as="xs:boolean" select="false()"/>
         <xsl:param name="prmGetIndexSeeFO"  required="no" tunnel="yes" as="xs:boolean" select="false()"/>
         <xsl:param name="prmMakeCover"      required="no" tunnel="yes" as="xs:boolean" select="false()"/>
@@ -349,7 +349,7 @@
             </xsl:when>
             <xsl:otherwise>
                 <xsl:choose>
-                    <xsl:when test="ancestor::*[contains(@class, ' topic/indexterm ')]">
+                    <xsl:when test="ancestor::*[contains-token(@class, 'topic/indexterm')]">
                         <!-- IGNORE -->
                     </xsl:when>
                     <xsl:otherwise>
@@ -367,9 +367,9 @@
     </xsl:template> 
     
     <!-- index-see,index-see-also,index-sort-as,index-base -->
-    <xsl:template match="*[contains(@class, ' indexing-d/index-see ')]
-                        |*[contains(@class, ' indexing-d/index-see-also ')]
-                        |*[contains(@class, ' topic/index-base ')]">
+    <xsl:template match="*[contains-token(@class, 'indexing-d/index-see')]
+                        |*[contains-token(@class, 'indexing-d/index-see-also')]
+                        |*[contains-token(@class, 'topic/index-base')]">
         <xsl:param name="prmGetIndextermFO" required="no" tunnel="yes" as="xs:boolean" select="false()"/>
         <xsl:param name="prmGetIndexSeeFO"  required="no" tunnel="yes" as="xs:boolean" select="false()"/>
     
@@ -389,7 +389,7 @@
     </xsl:template> 
     
     <!-- index-sort-as -->
-    <xsl:template match="*[contains(@class, ' indexing-d/index-sort-as ')]"
+    <xsl:template match="*[contains-token(@class, 'indexing-d/index-sort-as')]"
                   priority="2">
         <xsl:param name="prmGetIndextermFO" required="no" tunnel="yes" as="xs:boolean" select="false()"/>
         <xsl:param name="prmGetIndexSeeFO"  required="no" tunnel="yes" as="xs:boolean" select="false()"/>
@@ -414,7 +414,7 @@
         <xsl:param name="prmIndexterm" as="element()" required="yes"/>
         <xsl:variable name="indextermKeyWoSortAs" as="xs:string">
             <xsl:variable name="tempIndextermKeyWoSortAs" as="xs:string*">
-                <xsl:apply-templates select="$prmIndexterm/node() except $prmIndexterm/*[contains(@class,' indexing-d/index-sort-as ')]" mode="TEXT_ONLY">
+                <xsl:apply-templates select="$prmIndexterm/node() except $prmIndexterm/*[contains-token(@class, 'indexing-d/index-sort-as')]" mode="TEXT_ONLY">
                     <xsl:with-param name="prmGetIndextermKey" tunnel="yes" select="true()"/>
                 </xsl:apply-templates>
             </xsl:variable>
@@ -422,7 +422,7 @@
         </xsl:variable>
         <xsl:variable name="indextermKeySortAs" as="xs:string">
             <xsl:variable name="tempIndextermKeySortAs" as="xs:string*">
-                <xsl:apply-templates select="$prmIndexterm/*[contains(@class,$CLASS_INDEX_SORTAS)]" mode="TEXT_ONLY">
+                <xsl:apply-templates select="$prmIndexterm/*[contains-token(@class,$CLASS_INDEX_SORTAS)]" mode="TEXT_ONLY">
                     <xsl:with-param name="prmGetIndextermKey" tunnel="yes" select="true()"/>
                 </xsl:apply-templates>
             </xsl:variable>
@@ -449,7 +449,7 @@
         <xsl:param name="prmIndexterm" as="element()" required="yes"/>
         <xsl:variable name="indextermKeyWoSortAs" as="xs:string">
             <xsl:variable name="tempIndextermKeyWoSortAs" as="xs:string*">
-                <xsl:apply-templates select="$prmIndexterm/node() except $prmIndexterm/*[contains(@class,$CLASS_INDEX_SORTAS)]" mode="TEXT_ONLY">
+                <xsl:apply-templates select="$prmIndexterm/node() except $prmIndexterm/*[contains-token(@class,$CLASS_INDEX_SORTAS)]" mode="TEXT_ONLY">
                     <xsl:with-param name="prmGetIndextermKey" tunnel="yes" select="true()"/>
                 </xsl:apply-templates>
             </xsl:variable>

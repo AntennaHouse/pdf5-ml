@@ -21,7 +21,7 @@
      return:	
      note:		This template will be never called.
      -->
-    <xsl:template match="*[contains(@class, ' topic/prolog ')]">
+    <xsl:template match="*[contains-token(@class, 'topic/prolog')]">
     </xsl:template>
 
 

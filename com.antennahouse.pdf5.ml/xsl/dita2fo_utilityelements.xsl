@@ -28,11 +28,11 @@
      return:	fo:block
      note:		none
      -->
-    <xsl:template match="*[contains(@class, ' ut-d/imagemap ')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
+    <xsl:template match="*[contains-token(@class, 'ut-d/imagemap')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
         <xsl:sequence select="'atsImageMap'"/>
     </xsl:template>    
     
-    <xsl:template match="*[contains(@class,' ut-d/imagemap ')]" priority="2">
+    <xsl:template match="*[contains-token(@class, 'ut-d/imagemap')]" priority="2">
         <xsl:variable name="imageMapAttr" as="attribute()*">
             <xsl:call-template name="getAttributeSetWithLang"/>
         </xsl:variable>
@@ -52,7 +52,7 @@
      note:		none
      -->
     
-    <xsl:template match="*[contains(@class,' ut-d/area ')]" priority="2">
+    <xsl:template match="*[contains-token(@class, 'ut-d/area')]" priority="2">
         <fo:wrapper>
             <xsl:call-template name="ahf:getUnivAtts"/>
             <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
@@ -66,7 +66,7 @@
      return:	fo:wrapper
      note:		none
      -->
-    <xsl:template match="*[contains(@class,' ut-d/shape ')]" priority="2">
+    <xsl:template match="*[contains-token(@class, 'ut-d/shape')]" priority="2">
         <fo:wrapper>
             <xsl:call-template name="ahf:getIdAtts"/>
             <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
@@ -80,7 +80,7 @@
      return:	fo:wrapper
      note:		none
      -->
-    <xsl:template match="*[contains(@class,' ut-d/coords ')]" priority="2">
+    <xsl:template match="*[contains-token(@class, 'ut-d/coords')]" priority="2">
         <fo:wrapper>
             <xsl:call-template name="ahf:getIdAtts"/>
             <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
@@ -94,7 +94,7 @@
      return:	fo:wrapper
      note:		none
      -->
-    <xsl:template match="*[contains(@class,' ut-d/area ')]/*[contains(@class,' topic/xref ')]" priority="2">
+    <xsl:template match="*[contains-token(@class, 'ut-d/area')]/*[contains-token(@class, 'topic/xref')]" priority="2">
         <fo:wrapper>
             <xsl:call-template name="ahf:getIdAtts"/>
             <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
@@ -108,7 +108,7 @@
      return:	none
      note:		none
      -->
-    <xsl:template match="*[contains(@class,' ut-d/sort-as ')]" priority="2">
+    <xsl:template match="*[contains-token(@class, 'ut-d/sort-as')]" priority="2">
     </xsl:template>
     
 

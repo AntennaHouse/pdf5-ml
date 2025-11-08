@@ -99,22 +99,22 @@
             <xsl:when test="$isMap">
                 <xsl:sequence select="1"/>
             </xsl:when>
-            <xsl:when test="$topElem[contains(@class,' bookmap/part ')]">
+            <xsl:when test="$topElem[contains-token(@class, 'bookmap/part')]">
                 <xsl:sequence select="2"/>
             </xsl:when>
-            <xsl:when test="$topElem[contains(@class,' bookmap/chapter ')]">
+            <xsl:when test="$topElem[contains-token(@class, 'bookmap/chapter')]">
                 <xsl:sequence select="1"/>
             </xsl:when>
-            <xsl:when test="$topElem[contains(@class,' bookmap/appendix ')]">
+            <xsl:when test="$topElem[contains-token(@class, 'bookmap/appendix')]">
                 <xsl:sequence select="1"/>
             </xsl:when>
-            <xsl:when test="$topElem[contains(@class,' bookmap/appendices ')]">
+            <xsl:when test="$topElem[contains-token(@class, 'bookmap/appendices')]">
                 <xsl:sequence select="2"/>
             </xsl:when>
-            <xsl:when test="$topElem[contains(@class,' bookmap/frontmatter ')]">
+            <xsl:when test="$topElem[contains-token(@class, 'bookmap/frontmatter')]">
                 <xsl:sequence select="1"/>
             </xsl:when>
-            <xsl:when test="$topElem[contains(@class,' bookmap/backmatter ')]">
+            <xsl:when test="$topElem[contains-token(@class, 'bookmap/backmatter')]">
                 <xsl:sequence select="1"/>
             </xsl:when>
             <xsl:otherwise>
@@ -130,16 +130,16 @@
      note:        count only titled table
      -->
     <xsl:template name="makeTableCount" as="element()*">
-        <xsl:apply-templates select="$map/*[contains(@class, ' map/topicref ')]" mode="MODE_TABLE_COUNT"/>
+        <xsl:apply-templates select="$map/*[contains-token(@class, 'map/topicref')]" mode="MODE_TABLE_COUNT"/>
     </xsl:template>
     
-    <xsl:template match="*[contains(@class, ' map/topicref ')]" mode="MODE_TABLE_COUNT" as="element()">
+    <xsl:template match="*[contains-token(@class, 'map/topicref')]" mode="MODE_TABLE_COUNT" as="element()">
         <xsl:variable name="topicRef" as="element()" select="."/>
         <xsl:variable name="targetTopic" as="element()?" select="ahf:getTopicFromTopicRef($topicRef)"/>
         <xsl:variable name="tableCount" as="xs:integer">
             <xsl:choose>
                 <xsl:when test="exists($targetTopic)">
-                    <xsl:variable name="tables" as="element()*" select="$targetTopic/descendant::*[contains(@class,' topic/table ')][exists(*[contains(@class,' topic/title ')])]"/>
+                    <xsl:variable name="tables" as="element()*" select="$targetTopic/descendant::*[contains-token(@class, 'topic/table')][exists(*[contains-token(@class, 'topic/title')])]"/>
                     <xsl:sequence select="count($tables)"/>
                 </xsl:when>
                 <xsl:otherwise>
@@ -167,7 +167,7 @@
             <xsl:attribute name="id" select="$topicId"/>
             <xsl:attribute name="count" select="$tableCount"/>
             <xsl:copy-of select="@class"/>
-            <xsl:apply-templates select="*[contains(@class, ' map/topicref ')]" mode="#current"/>
+            <xsl:apply-templates select="*[contains-token(@class, 'map/topicref')]" mode="#current"/>
         </xsl:element>
     </xsl:template>
     
@@ -217,16 +217,16 @@
                   2020-03-22 t.makita
      -->
     <xsl:template name="makeFigureCount" as="element()*">
-        <xsl:apply-templates select="$map/*[contains(@class, ' map/topicref ')]" mode="MODE_FIGURE_COUNT"/>
+        <xsl:apply-templates select="$map/*[contains-token(@class, 'map/topicref')]" mode="MODE_FIGURE_COUNT"/>
     </xsl:template>
     
-    <xsl:template match="*[contains(@class, ' map/topicref ')]" mode="MODE_FIGURE_COUNT" as="element()">
+    <xsl:template match="*[contains-token(@class, 'map/topicref')]" mode="MODE_FIGURE_COUNT" as="element()">
         <xsl:variable name="topicRef" as="element()" select="."/>
         <xsl:variable name="targetTopic" as="element()?" select="ahf:getTopicFromTopicRef($topicRef)"/>
         <xsl:variable name="figureCount" as="xs:integer">
             <xsl:choose>
                 <xsl:when test="exists($targetTopic)">
-                    <xsl:variable name="figures" as="element()*" select="$targetTopic/descendant::*[contains(@class,' topic/fig ')][exists(*[contains(@class,' topic/title ')])][empty(ancestor::*[contains(@class,' topic/fig ')])][not(ahf:isFloatFigure(.))]"/>
+                    <xsl:variable name="figures" as="element()*" select="$targetTopic/descendant::*[contains-token(@class, 'topic/fig')][exists(*[contains-token(@class, 'topic/title')])][empty(ancestor::*[contains-token(@class, 'topic/fig')])][not(ahf:isFloatFigure(.))]"/>
                     <xsl:sequence select="count($figures)"/>
                 </xsl:when>
                 <xsl:otherwise>
@@ -254,7 +254,7 @@
             <xsl:attribute name="id" select="$topicId"/>
             <xsl:attribute name="count" select="$figureCount"/>
             <xsl:copy-of select="@class"/>
-            <xsl:apply-templates select="*[contains(@class, ' map/topicref ')]" mode="#current"/>
+            <xsl:apply-templates select="*[contains-token(@class, 'map/topicref')]" mode="#current"/>
         </xsl:element>
     </xsl:template>
     
@@ -307,16 +307,16 @@
      note:		
      -->
     <xsl:template name="makeFootnoteCount" as="element()*">
-        <xsl:apply-templates select="$map/*[contains(@class, ' map/topicref ')]" mode="MODE_FOOTNOTE_COUNT"/>
+        <xsl:apply-templates select="$map/*[contains-token(@class, 'map/topicref')]" mode="MODE_FOOTNOTE_COUNT"/>
     </xsl:template>
     
-    <xsl:template match="*[contains(@class, ' map/topicref ')]" mode="MODE_FOOTNOTE_COUNT" as="element()*">
+    <xsl:template match="*[contains-token(@class, 'map/topicref')]" mode="MODE_FOOTNOTE_COUNT" as="element()*">
         <xsl:variable name="topicRef" as="element()" select="."/>
         <xsl:variable name="targetTopic" as="element()?" select="ahf:getTopicFromTopicRef($topicRef)"/>
         <xsl:variable name="figureCount" as="xs:integer">
             <xsl:choose>
                 <xsl:when test="exists($targetTopic)">
-                    <xsl:variable name="footnotes" as="element()*" select="$targetTopic//*[contains(@class,' topic/fn ')][not(contains(@class,' pr-d/synnote '))][not(@callout)]"/>
+                    <xsl:variable name="footnotes" as="element()*" select="$targetTopic//*[contains-token(@class, 'topic/fn')][not(contains-token(@class, 'pr-d/synnote'))][not(@callout)]"/>
                     <xsl:sequence select="count($footnotes)"/>
                 </xsl:when>
                 <xsl:otherwise>
@@ -344,7 +344,7 @@
             <xsl:attribute name="id" select="$topicId"/>
             <xsl:attribute name="count" select="$figureCount"/>
             <xsl:copy-of select="@class"/>
-            <xsl:apply-templates select="*[contains(@class, ' map/topicref ')]" mode="#current"/>
+            <xsl:apply-templates select="*[contains-token(@class, 'map/topicref')]" mode="#current"/>
         </xsl:element>
     </xsl:template>
     

@@ -73,10 +73,10 @@
      note:		
      -->
     <xsl:template name="makeEquationBlockCount" as="element()*">
-        <xsl:apply-templates select="$map/*[contains(@class, ' map/topicref ')]" mode="MODE_EQUATION_BLCOK_COUNT"/>
+        <xsl:apply-templates select="$map/*[contains-token(@class, 'map/topicref')]" mode="MODE_EQUATION_BLCOK_COUNT"/>
     </xsl:template>
     
-    <xsl:template match="*[contains(@class, ' map/topicref ')]" mode="MODE_EQUATION_BLCOK_COUNT" as="element()">
+    <xsl:template match="*[contains-token(@class, 'map/topicref')]" mode="MODE_EQUATION_BLCOK_COUNT" as="element()">
         <xsl:variable name="topicRef" as="element()" select="."/>
         <xsl:variable name="targetTopic" as="element()?" select="ahf:getTopicFromTopicRef($topicRef)"/>
         <xsl:variable name="equationBlockCount" as="xs:integer">
@@ -116,7 +116,7 @@
         <xsl:element name="equation-block-count">
             <xsl:attribute name="id" select="$topicId"/>
             <xsl:attribute name="count" select="$equationBlockCount"/>
-            <xsl:apply-templates select="*[contains(@class, ' map/topicref ')]" mode="#current"/>
+            <xsl:apply-templates select="*[contains-token(@class, 'map/topicref')]" mode="#current"/>
         </xsl:element>
     </xsl:template>
     
@@ -133,26 +133,26 @@
         <xsl:variable name="equationBlockElem" as="element()*">
             <xsl:choose>
                 <xsl:when test="$pNumberEquationBlockUnconditionally and not($pExcludeAutoNumberingFromEquationFigure)">
-                    <xsl:sequence select="$prmTopic//*[contains(@class,' equation-d/equation-block ')]
-                                                       [not(ancestor::*[contains(@class,' topic/related-links ')])]
+                    <xsl:sequence select="$prmTopic//*[contains-token(@class, 'equation-d/equation-block')]
+                                                       [not(ancestor::*[contains-token(@class, 'topic/related-links')])]
                                                        [ahf:hasAutoEquationNumber(.) or ahf:hasNoEquationNumber(.)]"/>
                 </xsl:when>
                 <xsl:when test="$pNumberEquationBlockUnconditionally and $pExcludeAutoNumberingFromEquationFigure">
                     <xsl:variable name="equationBlockCountOutsideEquationFigure" as="element()*" 
-                            select="$prmTopic//*[contains(@class,' equation-d/equation-block ')]
-                                                 [not(ancestor::*[contains(@class,' topic/related-links ')])]
+                            select="$prmTopic//*[contains-token(@class, 'equation-d/equation-block')]
+                                                 [not(ancestor::*[contains-token(@class, 'topic/related-links')])]
                                                  [ahf:hasNoEquationNumber(.) or ahf:hasAutoEquationNumber(.) ]
-                                                 [empty(ancestor::*[contains(@class,' equation-d/equation-figure ')])]"/>
+                                                 [empty(ancestor::*[contains-token(@class, 'equation-d/equation-figure')])]"/>
                     <xsl:variable name="equationBlockCountInsideEquationFigure" as="element()*"
-                            select="$prmTopic//*[contains(@class,' equation-d/equation-block ')]
-                                                 [not(ancestor::*[contains(@class,' topic/related-links ')])]
+                            select="$prmTopic//*[contains-token(@class, 'equation-d/equation-block')]
+                                                 [not(ancestor::*[contains-token(@class, 'topic/related-links')])]
                                                  [ahf:hasEquationNumber(.) and ahf:hasAutoEquationNumber(.) ]
-                                                 [exists(ancestor::*[contains(@class,' equation-d/equation-figure ')])]"/>
+                                                 [exists(ancestor::*[contains-token(@class, 'equation-d/equation-figure')])]"/>
                     <xsl:sequence select="$equationBlockCountOutsideEquationFigure | $equationBlockCountInsideEquationFigure"/>
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:sequence select="$prmTopic//*[contains(@class,' equation-d/equation-block ')]
-                                                       [not(ancestor::*[contains(@class,' topic/related-links ')])]
+                    <xsl:sequence select="$prmTopic//*[contains-token(@class, 'equation-d/equation-block')]
+                                                       [not(ancestor::*[contains-token(@class, 'topic/related-links')])]
                                                        [ahf:hasAutoEquationNumber(.)]"/>
                 </xsl:otherwise>
             </xsl:choose>

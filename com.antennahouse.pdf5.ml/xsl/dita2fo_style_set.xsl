@@ -86,7 +86,7 @@
 		<xsl:variable name="xmlLang" as="xs:string*">
 			<xsl:sequence select="$documentLang"/>
 			<xsl:for-each select="$map/descendant-or-self::*/@xml:lang
-								| $root//*[contains(@class,' topic/topic ')]/descendant-or-self::*/@xml:lang">
+								| $root//*[contains-token(@class, 'topic/topic')]/descendant-or-self::*/@xml:lang">
 				<xsl:sequence select="ahf:nomalizeXmlLang(string(.))"/>
 			</xsl:for-each>
 		</xsl:variable>

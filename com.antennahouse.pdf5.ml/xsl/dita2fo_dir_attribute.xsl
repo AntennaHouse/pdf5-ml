@@ -87,31 +87,31 @@
         <xsl:variable name="class" as="xs:string" select="string($prmElem/@class)"/>
         <xsl:variable name="result" as="xs:boolean">
             <xsl:choose>
-                <xsl:when test="contains($class,' topic/colspec ')">
+                <xsl:when test="contains-token($class,'topic/colspec')">
                     <xsl:sequence select="false()"/>
                 </xsl:when>
-                <xsl:when test="contains($class,' topic/thead ')">
+                <xsl:when test="contains-token($class,'topic/thead')">
                     <xsl:sequence select="false()"/>
                 </xsl:when>
-                <xsl:when test="contains($class,' topic/tbody ')">
+                <xsl:when test="contains-token($class,'topic/tbody')">
                     <xsl:sequence select="false()"/>
                 </xsl:when>
-                <xsl:when test="contains($class,' topic/row ')">
+                <xsl:when test="contains-token($class,'topic/row')">
                     <xsl:sequence select="false()"/>
                 </xsl:when>
-                <xsl:when test="contains($class,' topic/entry ')">
+                <xsl:when test="contains-token($class,'topic/entry')">
                     <xsl:sequence select="false()"/>
                 </xsl:when>
-                <xsl:when test="contains($class,' topic/sthead ')">
+                <xsl:when test="contains-token($class,'topic/sthead')">
                     <xsl:sequence select="false()"/>
                 </xsl:when>
-                <xsl:when test="contains($class,' topic/strow ')">
+                <xsl:when test="contains-token($class,'topic/strow')">
                     <xsl:sequence select="false()"/>
                 </xsl:when>
-                <xsl:when test="contains($class,' topic/stentry ')">
+                <xsl:when test="contains-token($class,'topic/stentry')">
                     <xsl:sequence select="false()"/>
                 </xsl:when>
-                <xsl:when test="contains($class,' topic/topic ')">
+                <xsl:when test="contains-token($class,'topic/topic')">
                     <xsl:sequence select="false()"/>
                 </xsl:when>
                 <xsl:otherwise>

@@ -24,8 +24,8 @@
      note:      Hazardstatement is specialized from note
                 Only @type="caution/warning/danger" are supported.
      -->
-    <xsl:template match="*[contains(@class, ' hazard-d/hazardstatement ')]" priority="2">
-        <xsl:variable name="hazardSymbolCount" as="xs:integer" select="count(*[contains(@class,' hazard-d/hazardsymbol ')])"/>
+    <xsl:template match="*[contains-token(@class, 'hazard-d/hazardstatement')]" priority="2">
+        <xsl:variable name="hazardSymbolCount" as="xs:integer" select="count(*[contains-token(@class, 'hazard-d/hazardsymbol')])"/>
         <xsl:choose>
             <xsl:when test="$hazardSymbolCount gt 0">
                 <fo:table>
@@ -83,8 +83,8 @@
                     </fo:table-header>
                     <fo:table-body>
                         <xsl:copy-of select="ahf:getAttributeSet('atsHazardStatementTableBody')"/>
-                        <xsl:variable name="hazardSymbols" select="*[contains(@class,' hazard-d/hazardsymbol ')]" as="element()*"/>
-                        <xsl:variable name="hazardMessagePanel" select="*[contains(@class,' hazard-d/messagepanel ')]" as="element()*"/>
+                        <xsl:variable name="hazardSymbols" select="*[contains-token(@class, 'hazard-d/hazardsymbol')]" as="element()*"/>
+                        <xsl:variable name="hazardMessagePanel" select="*[contains-token(@class, 'hazard-d/messagepanel')]" as="element()*"/>
                         <!-- Contens of hazardstatement -->
                         <xsl:for-each select="$hazardMessagePanel">
                             <fo:table-row>
@@ -150,7 +150,7 @@
                     </fo:table-header>
                     <fo:table-body>
                         <xsl:copy-of select="ahf:getAttributeSet('atsHazardStatementTableBody')"/>
-                        <xsl:variable name="hazardMessagePanel" select="*[contains(@class,' hazard-d/messagepanel ')]" as="element()*"/>
+                        <xsl:variable name="hazardMessagePanel" select="*[contains-token(@class, 'hazard-d/messagepanel')]" as="element()*"/>
                         <!-- Contens of hazardstatement -->
                         <xsl:for-each select="$hazardMessagePanel">
                             <fo:table-row>
@@ -173,7 +173,7 @@
      return:    fo:external-graphic with fo:block/fo:block-container
      note:	
      -->
-    <xsl:template match="*[contains(@class, ' hazard-d/hazardsymbol ')]" priority="2">
+    <xsl:template match="*[contains-token(@class, 'hazard-d/hazardsymbol')]" priority="2">
         <xsl:choose>
             <xsl:when test="$pAutoScaleDownToFit">
                 <fo:block-container>

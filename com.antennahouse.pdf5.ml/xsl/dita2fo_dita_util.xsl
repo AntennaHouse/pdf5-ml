@@ -107,7 +107,7 @@
                 <!-- invalid parameter -->
                 <xsl:sequence select="()"/>
             </xsl:when>
-            <xsl:when test="not(contains($prmTopic/@class, ' topic/topic '))">
+            <xsl:when test="not(contains-token($prmTopic/@class, 'topic/topic'))">
                 <!-- It is not a topic! -->
                 <xsl:sequence select="()"/>
             </xsl:when>
@@ -118,9 +118,9 @@
                     <xsl:when test="exists($topicRef)">
                         <xsl:sequence select="$topicRef"/>
                     </xsl:when>
-                    <xsl:when test="$prmTopic/ancestor::*[contains(@class, ' topic/topic ')]">
+                    <xsl:when test="$prmTopic/ancestor::*[contains-token(@class, 'topic/topic')]">
                         <!-- search ancestor -->
-                        <xsl:sequence select="ahf:getTopicRef($prmTopic/ancestor::*[contains(@class, ' topic/topic ')][position()=last()])"/>
+                        <xsl:sequence select="ahf:getTopicRef($prmTopic/ancestor::*[contains-token(@class, 'topic/topic')][position()=last()])"/>
                     </xsl:when>
                     <xsl:otherwise>
                         <!-- not found -->
@@ -172,8 +172,8 @@
         <xsl:variable name="topicRefCount" as="xs:integer">
             <xsl:number select="$prmTopicRef"
                 level="any"
-                count="*[contains(@class,' map/topicref ')][string(@href) eq $href]"
-                from="*[contains(@class,' map/map ')]"
+                count="*[contains-token(@class, 'map/topicref')][string(@href) eq $href]"
+                from="*[contains-token(@class, 'map/map')]"
                 format="1"/>
         </xsl:variable>
         <xsl:sequence select="$topicRefCount"/>

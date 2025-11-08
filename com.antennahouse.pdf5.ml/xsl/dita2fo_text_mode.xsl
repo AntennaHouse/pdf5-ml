@@ -54,11 +54,11 @@
     </xsl:template>
     
     <!-- fn -->
-    <xsl:template match="*[contains(@class,' topic/fn ')]" mode="TEXT_ONLY">
+    <xsl:template match="*[contains-token(@class, 'topic/fn')]" mode="TEXT_ONLY">
     </xsl:template>
     
     <!-- tm -->
-    <xsl:template match="*[contains(@class,' topic/tm ')]" mode="TEXT_ONLY">
+    <xsl:template match="*[contains-token(@class, 'topic/tm')]" mode="TEXT_ONLY">
         <xsl:apply-templates mode="TEXT_ONLY"/>
         <xsl:variable name="tmType" as="xs:string" select="string(@tmtype)"/>
         <xsl:choose>
@@ -90,39 +90,39 @@
     </xsl:template>
     
     <!-- data-about -->
-    <xsl:template match="*[contains(@class,' topic/data-about ')]" mode="TEXT_ONLY">
+    <xsl:template match="*[contains-token(@class, 'topic/data-about')]" mode="TEXT_ONLY">
     </xsl:template>
     
     <!-- data -->
-    <xsl:template match="*[contains(@class,' topic/data ')]" mode="TEXT_ONLY">
+    <xsl:template match="*[contains-token(@class, 'topic/data')]" mode="TEXT_ONLY">
     </xsl:template>
     
     <!-- foreign -->
-    <xsl:template match="*[contains(@class,' topic/foreign ')]" mode="TEXT_ONLY">
+    <xsl:template match="*[contains-token(@class, 'topic/foreign')]" mode="TEXT_ONLY">
     </xsl:template>
     
     <!-- unknown -->
-    <xsl:template match="*[contains(@class,' topic/unknown ')]" mode="TEXT_ONLY">
+    <xsl:template match="*[contains-token(@class, 'topic/unknown')]" mode="TEXT_ONLY">
     </xsl:template>
     
     <!-- no-topic-nesting -->
-    <xsl:template match="*[contains(@class,' topic/no-topic-nesting ')]" mode="TEXT_ONLY">
+    <xsl:template match="*[contains-token(@class, 'topic/no-topic-nesting')]" mode="TEXT_ONLY">
     </xsl:template>
     
     <!-- indexterm is coded in dita2fo_indexcommon.xsl -->
     
     <!-- required-cleanup -->
-    <xsl:template match="*[contains(@class,' topic/required-cleanup ')]" mode="TEXT_ONLY"/>
+    <xsl:template match="*[contains-token(@class, 'topic/required-cleanup')]" mode="TEXT_ONLY"/>
     
     <!-- state -->
-    <xsl:template match="*[contains(@class,' topic/state ')]" mode="TEXT_ONLY">
+    <xsl:template match="*[contains-token(@class, 'topic/state')]" mode="TEXT_ONLY">
         <xsl:value-of select="@name"/>
         <xsl:text>=</xsl:text>
         <xsl:value-of select="@value"/>
     </xsl:template>
     
     <!-- boolean -->
-    <xsl:template match="*[contains(@class,' topic/boolean ')]" mode="TEXT_ONLY">
+    <xsl:template match="*[contains-token(@class, 'topic/boolean')]" mode="TEXT_ONLY">
         <xsl:value-of select="@state"/>
     </xsl:template>
     
@@ -130,7 +130,7 @@
          Adopt m:math/@alttext as text-mode template result.
          2019-12-27 t.makita
      -->
-    <xsl:template match="*[contains(@class,' mathml-d/mathml ')]" mode="TEXT_ONLY" priority="5">
+    <xsl:template match="*[contains-token(@class, 'mathml-d/mathml')]" mode="TEXT_ONLY" priority="5">
         <xsl:choose>
             <xsl:when test="exists(child::m:math/@alttext) and $pAdoptMathMlAltText">
                 <xsl:value-of select="m:math/@alttext"/>

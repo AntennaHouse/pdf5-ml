@@ -24,7 +24,7 @@
      return:	fo:wrapper
      note:		svg-container is only a container of SVG itself or svgref
      -->
-    <xsl:template match="*[contains(@class, ' svg-d/svg-container ')]" priority="2">
+    <xsl:template match="*[contains-token(@class, 'svg-d/svg-container')]" priority="2">
         <fo:wrapper>
             <xsl:call-template name="ahf:getUnivAtts"/>
             <xsl:apply-templates/>
@@ -54,7 +54,7 @@
      note:		svg-ref may only exits as the child of svg-container.
                 So ahf:getFoStyleAndProperty() is applied here.
      -->
-    <xsl:template match="*[contains(@class, ' svg-d/svgref ')]" priority="2">
+    <xsl:template match="*[contains-token(@class, 'svg-d/svgref')]" priority="2">
         <fo:external-graphic>
             <xsl:call-template name="ahf:getUnivAtts"/>
             <xsl:attribute name="src" select="ahf:getImageUrl(.)"/>

@@ -70,7 +70,7 @@
      return:    fo:bloc-container
      note:      Table will be lotated by 90 degrees counterclockwise from the text flow.
      -->
-    <xsl:template match="*[contains(@class, ' topic/table ')][string(@orient) eq 'land']" priority="4">
+    <xsl:template match="*[contains-token(@class, 'topic/table')][string(@orient) eq 'land']" priority="4">
         <fo:block-container>
             <xsl:call-template name="getAttributeSet">
                 <xsl:with-param name="prmAttrSetName" select="'atsBlockContainerForLandscapeTable'"/>
@@ -88,7 +88,7 @@
                 See also ahf:getTablePgwideAttr.
                 2016-09-23 t.makita
      -->
-    <xsl:template match="*[contains(@class, ' topic/table ')][string(@pgwide) eq '1']" priority="2">
+    <xsl:template match="*[contains-token(@class, 'topic/table')][string(@pgwide) eq '1']" priority="2">
         <fo:block-container>
             <xsl:call-template name="getAttributeSet">
                 <xsl:with-param name="prmAttrSetName" select="'atsBlockContainerForPgWideTable'"/>
@@ -105,22 +105,22 @@
                       Remove footnote generation. Instead it is moved to tgroup template
                       2018-01-05 t.makita
      -->
-    <xsl:template match="*[contains(@class, ' topic/table ')]">
+    <xsl:template match="*[contains-token(@class, 'topic/table')]">
         <xsl:variable name="tableAttr" select="ahf:getTableAttr(.)" as="element()"/>
         <xsl:variable name="outputContinuedWordInTableTitle" as="xs:boolean" select="ahf:outputContinuedWordInTableTitle(.)"/>
         <xsl:variable name="outputContinuedWordInTableFooter" as="xs:boolean" select="ahf:outputContinuedWordInTableFooter(.)"/>
         <fo:wrapper>
             <xsl:call-template name="ahf:getUnivAtts"/>
-            <xsl:if test="empty(@id) and child::*[contains(@class, ' topic/title ')]">
+            <xsl:if test="empty(@id) and child::*[contains-token(@class, 'topic/title')]">
                 <xsl:call-template name="ahf:generateIdAttr"/>
             </xsl:if>
-            <xsl:apply-templates select="*[contains(@class, ' topic/tgroup ')]">
+            <xsl:apply-templates select="*[contains-token(@class, 'topic/tgroup')]">
                 <xsl:with-param name="prmTable" tunnel="yes" select="."/>
                 <xsl:with-param name="prmTableAttr" tunnel="yes" select="$tableAttr"/>
                 <xsl:with-param name="prmOutputContinuedWordInTableTitle" tunnel="yes" select="$outputContinuedWordInTableTitle"/>
                 <xsl:with-param name="prmOutputContinuedWordInTableFooter" tunnel="yes" select="$outputContinuedWordInTableFooter"/>
-                <xsl:with-param name="prmTableTitle" tunnel="yes" select="*[contains(@class,' topic/title ')]"/>
-                <xsl:with-param name="prmTableDesc" tunnel="yes" select="*[contains(@class,' topic/desc ')]"/>
+                <xsl:with-param name="prmTableTitle" tunnel="yes" select="*[contains-token(@class, 'topic/title')]"/>
+                <xsl:with-param name="prmTableDesc" tunnel="yes" select="*[contains-token(@class, 'topic/desc')]"/>
             </xsl:apply-templates>
         </fo:wrapper>
     </xsl:template>
@@ -134,10 +134,10 @@
     <xsl:function name="ahf:outputContinuedWordInTableTitle" as="xs:boolean">
         <xsl:param name="prmTable" as="element()"/>
         <xsl:choose>
-            <xsl:when test="empty($prmTable/*[contains(@class, ' topic/title' )])">
+            <xsl:when test="empty($prmTable/*[contains-token(@class, 'topic/title')])">
                 <xsl:sequence select="false()"/>
             </xsl:when>
-            <xsl:when test="exists($prmTable/ancestor::*[ahf:seqContains(string(@class),(' topic/entry ',' topic/stentry '))])">
+            <xsl:when test="exists($prmTable/ancestor::*[ahf:seqContainsToken(string(@class),('topic/entry','topic/stentry'))])">
                 <xsl:sequence select="false()"/>
             </xsl:when>
             <xsl:when test="$pOutputTableTitleContinued and not(ahf:hasOutputClassValue($prmTable,$ocNoTableTitleContinued))">
@@ -155,7 +155,7 @@
     <xsl:function name="ahf:outputContinuedWordInTableFooter" as="xs:boolean">
         <xsl:param name="prmTable" as="element()"/>
         <xsl:choose>
-            <xsl:when test="exists($prmTable/ancestor::*[ahf:seqContains(string(@class),(' topic/entry',' topic/stentry '))])">
+            <xsl:when test="exists($prmTable/ancestor::*[ahf:seqContainsToken(string(@class),('topic/entry','topic/stentry'))])">
                 <xsl:sequence select="false()"/>
             </xsl:when>
             <xsl:when test="$pOutputTableFooterContinued and not(ahf:hasOutputClassValue($prmTable,$ocNoTableFooterContinued))">
@@ -196,11 +196,11 @@
      note:      Set $prmDoInherit=true() for getAttributeSetWithLang to avoid thead style inheritance when adding "Continued" word in table title.
                 2019-02-13 t.makita
      -->
-    <xsl:template match="*[contains(@class, ' topic/table ')]/*[contains(@class, ' topic/desc ')]" mode="MODE_GET_STYLE" as="xs:string*">
+    <xsl:template match="*[contains-token(@class, 'topic/table')]/*[contains-token(@class, 'topic/desc')]" mode="MODE_GET_STYLE" as="xs:string*">
         <xsl:sequence select="'atsTableDesc'"/>
     </xsl:template>    
 
-    <xsl:template match="*[contains(@class, ' topic/table ')]/*[contains(@class, ' topic/desc ')]">
+    <xsl:template match="*[contains-token(@class, 'topic/table')]/*[contains-token(@class, 'topic/desc')]">
         <fo:block>
             <xsl:call-template name="getAttributeSetWithLang">
                 <xsl:with-param name="prmDoInherit" select="true()"/>
@@ -220,11 +220,11 @@
                 Set $prmDoInherit=true() for getAttributeSetWithLang to avoid thead style inheritance when adding "Continued" word in table title.
                 2019-02-13 t.makita
      -->
-    <xsl:template match="*[contains(@class, ' topic/table ')]/*[contains(@class, ' topic/title ')]" mode="MODE_GET_STYLE" as="xs:string*">
+    <xsl:template match="*[contains-token(@class, 'topic/table')]/*[contains-token(@class, 'topic/title')]" mode="MODE_GET_STYLE" as="xs:string*">
         <xsl:sequence select="'atsTableTitle'"/>
     </xsl:template>
 
-    <xsl:template match="*[contains(@class, ' topic/table ')]/*[contains(@class, ' topic/title ')]" priority="2">
+    <xsl:template match="*[contains-token(@class, 'topic/table')]/*[contains-token(@class, 'topic/title')]" priority="2">
         <xsl:param name="prmOutputContinuedWordInTableTitle" tunnel="yes" as="xs:boolean"/>
         <xsl:param name="prmGenContinuedWord" as="xs:boolean" required="no" select="false()"/>
         <xsl:variable name="tableTitlePrefix" as="xs:string">
@@ -286,11 +286,11 @@
                 tgroup→fo:table
                 2020-05-24 t.makita
      -->
-    <xsl:template match="*[contains(@class, ' topic/tgroup ')]" mode="MODE_GET_STYLE" as="xs:string*">
+    <xsl:template match="*[contains-token(@class, 'topic/tgroup')]" mode="MODE_GET_STYLE" as="xs:string*">
         <xsl:sequence select="'atsTable'"/>
     </xsl:template>    
 
-    <xsl:template match="*[contains(@class, ' topic/tgroup ')]">
+    <xsl:template match="*[contains-token(@class, 'topic/tgroup')]">
         <xsl:param name="prmTableAttr" required="yes" tunnel="yes" as="element()"/>
         <xsl:param name="prmOutputContinuedWordInTableTitle" required="yes" tunnel="yes" as="xs:boolean"/>
         <xsl:param name="prmOutputContinuedWordInTableFooter" required="yes" tunnel="yes" as="xs:boolean"/>
@@ -299,10 +299,10 @@
         
         <xsl:variable name="tgroup" as="element()" select="."/>
         <xsl:variable name="table" as="element()" select="$tgroup/parent::*"/>
-        <xsl:variable name="isFirstTgroup" as="xs:boolean" select="empty(preceding-sibling::*[contains(@class, ' topic/tgroup ')])"/>
+        <xsl:variable name="isFirstTgroup" as="xs:boolean" select="empty(preceding-sibling::*[contains-token(@class, 'topic/tgroup')])"/>
         <xsl:variable name="tgroupAttr" select="ahf:addTgroupAttr($tgroup, $prmTableAttr)" as="element()"/>
         <xsl:variable name="colSpec" as="element()*">
-            <xsl:apply-templates select="child::*[contains(@class, ' topic/colspec ')]"/>
+            <xsl:apply-templates select="child::*[contains-token(@class, 'topic/colspec')]"/>
         </xsl:variable>
         <xsl:variable name="tableAttr" as="attribute()*">
             <xsl:call-template name="getAttributeSetWithLang"/>
@@ -351,8 +351,8 @@
                 <!-- Copy fo:table-column -->
                 <xsl:apply-templates select="$colSpec" mode="MODE_COPY_COLSPEC"/>
                 <xsl:choose>
-                    <xsl:when test="*[contains(@class,' topic/thead ')]">
-                        <xsl:apply-templates select="*[contains(@class, ' topic/thead ')]">
+                    <xsl:when test="*[contains-token(@class, 'topic/thead')]">
+                        <xsl:apply-templates select="*[contains-token(@class, 'topic/thead')]">
                             <xsl:with-param name="prmTgroup"     tunnel="yes" select="$tgroup"/>
                             <xsl:with-param name="prmTgroupAttr" tunnel="yes" select="$tgroupAttr"/>
                             <xsl:with-param name="prmColSpec"    tunnel="yes" select="$colSpec"/>
@@ -373,7 +373,7 @@
                         <xsl:with-param name="prmTgroupAttr" tunnel="yes" select="$tgroupAttr"/>
                     </xsl:call-template>
                 </xsl:if>
-                <xsl:apply-templates select="*[contains(@class, ' topic/tbody ')]">
+                <xsl:apply-templates select="*[contains-token(@class, 'topic/tbody')]">
                     <xsl:with-param name="prmTgroup"     tunnel="yes" select="$tgroup"/>
                     <xsl:with-param name="prmTgroupAttr" tunnel="yes" select="$tgroupAttr"/>
                     <xsl:with-param name="prmColSpec"    tunnel="yes" select="$colSpec"/>
@@ -384,8 +384,8 @@
         <xsl:if test="not($pDisplayFnAtEndOfTopic)">
             <xsl:call-template name="makeFootNote">
                 <xsl:with-param name="prmElement" as="element()+">
-                    <xsl:if test="$tgroup is $tgroup/parent::*[contains(@class,' topic/table ')]/*[contains(@class,' topic/tgroup ')][1]">
-                        <xsl:sequence select="$tgroup/parent::*[contains(@class,' topic/table ')]/*[contains(@class,' topic/desc ')]"/>
+                    <xsl:if test="$tgroup is $tgroup/parent::*[contains-token(@class, 'topic/table')]/*[contains-token(@class, 'topic/tgroup')][1]">
+                        <xsl:sequence select="$tgroup/parent::*[contains-token(@class, 'topic/table')]/*[contains-token(@class, 'topic/desc')]"/>
                     </xsl:if>
                     <xsl:sequence select="$tgroup"/>
                 </xsl:with-param>
@@ -541,7 +541,7 @@
      return:    fo:table-column
      note:      Added border style "atsTableColumn" to set default border width. 2014-01-03 t.makita
      -->
-    <xsl:template match="*[contains(@class, ' topic/colspec ')]">
+    <xsl:template match="*[contains-token(@class, 'topic/colspec')]">
         <fo:table-column>
             <xsl:copy-of select="ahf:getAttributeSet('atsTableColumn')"/>
             <xsl:copy-of select="ahf:getColSpecAttr(.)"/>
@@ -571,7 +571,7 @@
                 <xsl:attribute name="column-number" select="string($prmColSpec/@colnum)"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:attribute name="column-number" select="string(count($prmColSpec | $prmColSpec/preceding-sibling::*[contains(@class,' topic/colspec ')]))"/>
+                <xsl:attribute name="column-number" select="string(count($prmColSpec | $prmColSpec/preceding-sibling::*[contains-token(@class, 'topic/colspec')]))"/>
             </xsl:otherwise>
         </xsl:choose>
     
@@ -647,15 +647,15 @@
                  The tunnel parameter $prmOutputContinuedWordInTableTitle does not exist if mode="MODE_GET_STYLE" template
                  is called from multiple language support in dita2fo_style_get.xsl.
      -->
-    <xsl:template match="*[contains(@class, ' topic/thead ')]" mode="MODE_GET_STYLE" as="xs:string*">
+    <xsl:template match="*[contains-token(@class, 'topic/thead')]" mode="MODE_GET_STYLE" as="xs:string*">
         <xsl:sequence select="'atsThead'"/>
-        <xsl:variable name="outputContinuedWordInTableTitle" as="xs:boolean" select="ahf:outputContinuedWordInTableTitle(ancestor::*[contains(@class, ' topic/table ')][1])"/>
+        <xsl:variable name="outputContinuedWordInTableTitle" as="xs:boolean" select="ahf:outputContinuedWordInTableTitle(ancestor::*[contains-token(@class, 'topic/table')][1])"/>
         <xsl:if test="$outputContinuedWordInTableTitle">
             <xsl:sequence select="'atsBgTransparent'"/>
         </xsl:if>
     </xsl:template>    
 
-    <xsl:template match="*[contains(@class, ' topic/thead ')]">
+    <xsl:template match="*[contains-token(@class, 'topic/thead')]">
         <xsl:param name="prmTgroupAttr" required="yes" tunnel="yes" as="element()"/>
         <xsl:param name="prmColSpec" required="yes" tunnel="yes" as="element()*"/>
         <xsl:param name="prmOutputContinuedWordInTableTitle" required="yes" tunnel="yes" as="xs:boolean"/>
@@ -693,7 +693,7 @@
                     </fo:table-cell>
                 </fo:table-row>
             </xsl:if>
-            <xsl:apply-templates select="*[contains(@class, ' topic/row ')]">
+            <xsl:apply-templates select="*[contains-token(@class, 'topic/row')]">
                 <xsl:with-param name="prmThead"        tunnel="yes" select="$thead"/>
                 <xsl:with-param name="prmRowUpperAttr" tunnel="yes" select="$theadAttr"/>
                 <xsl:with-param name="prmColSpec"      tunnel="yes" select="$prmColSpec"/>
@@ -723,11 +723,11 @@
      return:    fo:table-body
      note:		
      -->
-    <xsl:template match="*[contains(@class, ' topic/tbody ')]" mode="MODE_GET_STYLE" as="xs:string*">
+    <xsl:template match="*[contains-token(@class, 'topic/tbody')]" mode="MODE_GET_STYLE" as="xs:string*">
         <xsl:sequence select="'atsTbody'"/>
     </xsl:template>    
 
-    <xsl:template match="*[contains(@class, ' topic/tbody ')]">
+    <xsl:template match="*[contains-token(@class, 'topic/tbody')]">
         <xsl:param name="prmTgroupAttr" required="yes" tunnel="yes" as="element()"/>
         <xsl:param name="prmColSpec" required="yes" tunnel="yes" as="element()*"/>
     
@@ -737,7 +737,7 @@
             <xsl:call-template name="getAttributeSetWithLang"/>
             <xsl:call-template name="ahf:getUnivAtts"/>
             <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
-            <xsl:apply-templates select="*[contains(@class, ' topic/row ')]">
+            <xsl:apply-templates select="*[contains-token(@class, 'topic/row')]">
                 <xsl:with-param name="prmTbody"        tunnel="yes" select="$tbody"/>
                 <xsl:with-param name="prmRowUpperAttr" tunnel="yes" select="$tbodyAttr"/>
                 <xsl:with-param name="prmColSpec"      tunnel="yes" select="$prmColSpec"/>
@@ -767,10 +767,10 @@
      return:    fo:table-row
      note:      SPEC: If row belongs thead and output "Continued" word in table title, set thead background color to row.
      -->
-    <xsl:template match="*[contains(@class, ' topic/row ')]" mode="MODE_GET_STYLE" as="xs:string*">
+    <xsl:template match="*[contains-token(@class, 'topic/row')]" mode="MODE_GET_STYLE" as="xs:string*">
         <xsl:sequence select="'atsRow'"/>
-        <xsl:variable name="isInThead" as="xs:boolean" select="exists(ancestor::*[contains(@class, ' topic/thead ')])"/>
-        <xsl:variable name="outputContinuedWordInTableTitle" as="xs:boolean" select="ahf:outputContinuedWordInTableTitle(ancestor::*[contains(@class, ' topic/table ')][1])"/>
+        <xsl:variable name="isInThead" as="xs:boolean" select="exists(ancestor::*[contains-token(@class, 'topic/thead')])"/>
+        <xsl:variable name="outputContinuedWordInTableTitle" as="xs:boolean" select="ahf:outputContinuedWordInTableTitle(ancestor::*[contains-token(@class, 'topic/table')][1])"/>
         <xsl:if test="$outputContinuedWordInTableTitle">
             <xsl:sequence select="'atsBgTransparent'"/>
         </xsl:if>
@@ -779,7 +779,7 @@
         </xsl:if>
     </xsl:template>    
 
-    <xsl:template match="*[contains(@class, ' topic/row ')]">
+    <xsl:template match="*[contains-token(@class, 'topic/row')]">
         <xsl:param name="prmRowUpperAttr" required="yes" tunnel="yes" as="element()"/>
         <xsl:param name="prmColSpec" required="yes" tunnel="yes" as="element()*"/>
         <xsl:param name="prmOutputContinuedWordInTableTitle" required="yes" tunnel="yes" as="xs:boolean"/>
@@ -800,7 +800,7 @@
                 <xsl:attribute name="height" select="concat(string($rowHeight),'em')"/>
             </xsl:if>
             <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
-            <xsl:apply-templates select="*[contains(@class, ' topic/entry ')]">
+            <xsl:apply-templates select="*[contains-token(@class, 'topic/entry')]">
                 <xsl:with-param name="prmRow"        tunnel="yes" select="$row"/>
                 <xsl:with-param name="prmRowAttr"    tunnel="yes" select="$rowAttr"/>
                 <xsl:with-param name="prmColSpec"    tunnel="yes" select="$prmColSpec"/>
@@ -835,7 +835,7 @@
     <xsl:template name="getRowHeight" as="xs:double">
         <xsl:param name="prmRow" as="element()" required="yes"/>
         <xsl:param name="prmRowAttr" as="element()" required="yes"/>
-        <xsl:variable name="rotatedEntries" as="element()*" select="$prmRow/*[contains(@class,' topic/entry ')][string(@rotate) eq '1']"/>
+        <xsl:variable name="rotatedEntries" as="element()*" select="$prmRow/*[contains-token(@class, 'topic/entry')][string(@rotate) eq '1']"/>
         <xsl:choose>
             <xsl:when test="exists($rotatedEntries)">
                 <!-- Average character width in table cell -->
@@ -905,11 +905,11 @@
      note:      Honor the entry attribute than colspec attribute. 2011-08-29 t.makita
                 $prmRowHeight is needed for entry/@rotate="1" when specifying fo:block-container/@width
      -->
-    <xsl:template match="*[contains(@class,' topic/thead ')]/*[contains(@class,' topic/row ')]/*[contains(@class,' topic/entry ')]" mode="MODE_GET_STYLE" as="xs:string*">
+    <xsl:template match="*[contains-token(@class, 'topic/thead')]/*[contains-token(@class, 'topic/row')]/*[contains-token(@class, 'topic/entry')]" mode="MODE_GET_STYLE" as="xs:string*">
         <xsl:sequence select="'atsTableHeaderCell'"/>
     </xsl:template>    
     
-    <xsl:template match="*[contains(@class,' topic/thead ')]/*[contains(@class,' topic/row ')]/*[contains(@class,' topic/entry ')]">
+    <xsl:template match="*[contains-token(@class, 'topic/thead')]/*[contains-token(@class, 'topic/row')]/*[contains-token(@class, 'topic/entry')]">
         <xsl:param name="prmRowAttr" required="yes" tunnel="yes" as="element()"/>
         <xsl:param name="prmColSpec" required="yes" tunnel="yes" as="element()*"/>
         <xsl:param name="prmRowHeight" required="yes" tunnel="yes" as="xs:double"/>
@@ -950,11 +950,11 @@
                 SPEC: generate fo:marker if table needs "Continued" word in header or footer.
                       2018-01-06 t.makita
      -->
-    <xsl:template match="*[contains(@class,' topic/tbody ')]/*[contains(@class,' topic/row ')]/*[contains(@class,' topic/entry ')]" mode="MODE_GET_STYLE" as="xs:string*">
+    <xsl:template match="*[contains-token(@class, 'topic/tbody')]/*[contains-token(@class, 'topic/row')]/*[contains-token(@class, 'topic/entry')]" mode="MODE_GET_STYLE" as="xs:string*">
         <xsl:sequence select="'atsTableBodyCell'"/>
     </xsl:template>    
 
-    <xsl:template match="*[contains(@class,' topic/tbody ')]/*[contains(@class,' topic/row ')]/*[contains(@class,' topic/entry ')]">
+    <xsl:template match="*[contains-token(@class, 'topic/tbody')]/*[contains-token(@class, 'topic/row')]/*[contains-token(@class, 'topic/entry')]">
         <xsl:param name="prmRowAttr" required="yes" tunnel="yes" as="element()"/>
         <xsl:param name="prmColSpec" required="yes" tunnel="yes" as="element()*"/>
         <xsl:param name="prmRowHeight" required="yes" tunnel="yes" as="xs:double"/>
@@ -1019,10 +1019,10 @@
         <xsl:param name="prmOutputContinuedWordInTableTitle" required="yes" tunnel="yes" as="xs:boolean"/>
         <xsl:param name="prmOutputContinuedWordInTableFooter" required="yes" tunnel="yes" as="xs:boolean"/>
 
-        <xsl:variable name="isFirstRow" as="xs:boolean" select="empty($prmRow/preceding-sibling::*[contains(@class,' topic/row ')])"/>
-        <xsl:variable name="isSecondRow" as="xs:boolean" select="count($prmRow/preceding-sibling::*[contains(@class,' topic/row ')]) eq 1"/>
-        <xsl:variable name="isLastRow" as="xs:boolean" select="empty($prmRow/following-sibling::*[contains(@class,' topic/row ')])"/>
-        <xsl:variable name="isFirstCell" as="xs:boolean" select="empty($prmEntry/preceding-sibling::*[contains(@class,' topic/entry ')])"/>
+        <xsl:variable name="isFirstRow" as="xs:boolean" select="empty($prmRow/preceding-sibling::*[contains-token(@class, 'topic/row')])"/>
+        <xsl:variable name="isSecondRow" as="xs:boolean" select="count($prmRow/preceding-sibling::*[contains-token(@class, 'topic/row')]) eq 1"/>
+        <xsl:variable name="isLastRow" as="xs:boolean" select="empty($prmRow/following-sibling::*[contains-token(@class, 'topic/row')])"/>
+        <xsl:variable name="isFirstCell" as="xs:boolean" select="empty($prmEntry/preceding-sibling::*[contains-token(@class, 'topic/entry')])"/>
         <xsl:if test="$isFirstRow and $isFirstCell and $prmOutputContinuedWordInTableTitle">
             <fo:marker marker-class-name="{$mcTableHeaderContinuedWord}"/>
             <xsl:if test="exists($prmTableDesc)">
@@ -1304,11 +1304,11 @@
      return:    fo:table
      note:		
      -->
-    <xsl:template match="*[contains(@class, ' topic/simpletable ')]" mode="MODE_GET_STYLE" as="xs:string*">
+    <xsl:template match="*[contains-token(@class, 'topic/simpletable')]" mode="MODE_GET_STYLE" as="xs:string*">
         <xsl:sequence select="'atsSimpleTable'"/>
     </xsl:template>    
 
-    <xsl:template match="*[contains(@class, ' topic/simpletable ')]">
+    <xsl:template match="*[contains-token(@class, 'topic/simpletable')]">
         <xsl:variable name="keyCol" select="ahf:getKeyCol(.)" as="xs:integer"/>
         <xsl:variable name="simpleTableAttr" as="attribute()*">
             <xsl:call-template name="getAttributeSetWithLang"/>
@@ -1327,14 +1327,14 @@
                         <xsl:with-param name="prmTable" select="."/>
                     </xsl:call-template>
                 </xsl:if>
-                <xsl:apply-templates select="*[contains(@class,' topic/sthead ')]">
+                <xsl:apply-templates select="*[contains-token(@class, 'topic/sthead')]">
                     <xsl:with-param name="prmKeyCol" tunnel="yes" select="$keyCol"/>
                 </xsl:apply-templates>
                 <fo:table-body>
                     <xsl:call-template name="getAttributeSetWithLang">
                         <xsl:with-param name="prmAttrSetName" select="'atsSimpleTableBody'"/>
                     </xsl:call-template>
-                    <xsl:apply-templates select="*[contains(@class,' topic/strow ')]">
+                    <xsl:apply-templates select="*[contains-token(@class, 'topic/strow')]">
                         <xsl:with-param name="prmKeyCol" tunnel="yes" select="$keyCol"/>
                     </xsl:apply-templates>
                 </fo:table-body>
@@ -1354,11 +1354,11 @@
      note:      sthead is optional.
                 This stylesheet apply bold for sthead if simpletable/@keycol is not defined.
      -->
-    <xsl:template match="*[contains(@class, ' topic/sthead ')]" mode="MODE_GET_STYLE" as="xs:string*">
+    <xsl:template match="*[contains-token(@class, 'topic/sthead')]" mode="MODE_GET_STYLE" as="xs:string*">
         <xsl:sequence select="'atsSimpleTableHeader'"/>
     </xsl:template>    
 
-    <xsl:template match="*[contains(@class, ' topic/sthead ')]">
+    <xsl:template match="*[contains-token(@class, 'topic/sthead')]">
         <xsl:param name="prmKeyCol"  required="yes" tunnel="yes" as="xs:integer"/>
         
         <fo:table-header>
@@ -1382,16 +1382,16 @@
      return:    stentry contents (fo:table-cell)
      note:      none
      -->
-    <xsl:template match="*[contains(@class, ' topic/sthead ')]/*[contains(@class, ' topic/stentry ')]" mode="MODE_GET_STYLE" as="xs:string*">
+    <xsl:template match="*[contains-token(@class, 'topic/sthead')]/*[contains-token(@class, 'topic/stentry')]" mode="MODE_GET_STYLE" as="xs:string*">
         <xsl:sequence select="'atsSimpleTableHeaderCell'"/>
     </xsl:template>    
 
-    <xsl:template match="*[contains(@class, ' topic/sthead ')]/*[contains(@class, ' topic/stentry ')]">
+    <xsl:template match="*[contains-token(@class, 'topic/sthead')]/*[contains-token(@class, 'topic/stentry')]">
         <xsl:param name="prmKeyCol"   required="yes" tunnel="yes" as="xs:integer"/>
         <fo:table-cell>
             <xsl:call-template name="getAttributeSetWithLang"/>
             <xsl:choose>
-                <xsl:when test="$prmKeyCol = count(preceding-sibling::*[contains(@class, ' topic/stentry ')]) + 1">
+                <xsl:when test="$prmKeyCol = count(preceding-sibling::*[contains-token(@class, 'topic/stentry')]) + 1">
                     <xsl:call-template name="getAttributeSetWithLang">
                         <xsl:with-param name="prmAttrSetName" select="'atsPropertyTableKeyCol'"/>
                     </xsl:call-template>
@@ -1410,16 +1410,16 @@
         </fo:table-cell>
     </xsl:template>
     
-    <xsl:template match="*[contains(@class, ' topic/strow ')]/*[contains(@class, ' topic/stentry ')]" mode="MODE_GET_STYLE" as="xs:string*">
+    <xsl:template match="*[contains-token(@class, 'topic/strow')]/*[contains-token(@class, 'topic/stentry')]" mode="MODE_GET_STYLE" as="xs:string*">
         <xsl:sequence select="'atsSimpleTableBodyCell'"/>
     </xsl:template>    
 
-    <xsl:template match="*[contains(@class, ' topic/strow ')]/*[contains(@class, ' topic/stentry ')]">
+    <xsl:template match="*[contains-token(@class, 'topic/strow')]/*[contains-token(@class, 'topic/stentry')]">
         <xsl:param name="prmKeyCol"   required="yes" tunnel="yes" as="xs:integer"/>
         <fo:table-cell>
             <xsl:call-template name="getAttributeSetWithLang"/>
             <xsl:choose>
-                <xsl:when test="$prmKeyCol = count(preceding-sibling::*[contains(@class, ' topic/stentry ')]) + 1">
+                <xsl:when test="$prmKeyCol = count(preceding-sibling::*[contains-token(@class, 'topic/stentry')]) + 1">
                     <xsl:call-template name="getAttributeSetWithLang">
                         <xsl:with-param name="prmAttrSetName" select="'atsPropertyTableKeyCol'"/>
                     </xsl:call-template>
@@ -1445,11 +1445,11 @@
      return:    fo:table-row
      note:      none
      -->
-    <xsl:template match="*[contains(@class, ' topic/strow ')]" mode="MODE_GET_STYLE" as="xs:string*">
+    <xsl:template match="*[contains-token(@class, 'topic/strow')]" mode="MODE_GET_STYLE" as="xs:string*">
         <xsl:sequence select="'atsSimpleTableRow'"/>
     </xsl:template>    
 
-    <xsl:template match="*[contains(@class, ' topic/strow ')]">
+    <xsl:template match="*[contains-token(@class, 'topic/strow')]">
         <xsl:param name="prmKeyCol"   required="yes" tunnel="yes" as="xs:integer"/>
         <fo:table-row>
             <xsl:call-template name="getAttributeSetWithLang"/>
@@ -1621,14 +1621,14 @@
             </xsl:choose>
         </xsl:variable>
         
-        <xsl:variable name="topic" select="$prmTable/ancestor::*[contains(@class, ' topic/topic ')][position() eq last()]"/>
+        <xsl:variable name="topic" select="$prmTable/ancestor::*[contains-token(@class, 'topic/topic')][position() eq last()]"/>
         
         <xsl:variable name="tablePreviousAmount" as="xs:integer">
             <xsl:sequence select="ahf:getTablePreviousAmount($topic,$prmTopicRef)"/>
         </xsl:variable>
         
         <xsl:variable name="tableCurrentAmount"  as="xs:integer">
-            <xsl:sequence select="count($topic//*[contains(@class,' topic/table ')][child::*[contains(@class, ' topic/title ')]][. &lt;&lt; $prmTable]|$prmTable)"/>
+            <xsl:sequence select="count($topic//*[contains-token(@class, 'topic/table')][child::*[contains-token(@class, 'topic/title')]][. &lt;&lt; $prmTable]|$prmTable)"/>
         </xsl:variable>
         
         <xsl:variable name="tableNumber" select="$tablePreviousAmount + $tableCurrentAmount" as="xs:integer"/>

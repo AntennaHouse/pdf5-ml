@@ -83,7 +83,7 @@
         <xsl:variable name="topicId" as="xs:string" select="if (string($destElementId)) then substring-before(substring-after($prmHref,'#'), '/') else (substring-after($prmHref,'#'))"/>
         <xsl:variable name="topicElement" as="element()?" select="key('topicById', $topicId,$root)[1]"/>
         <xsl:variable name="destElement" as="element()?" select="if (string($destElementId) and exists($topicElement)) then key('elementById',$destElementId,$topicElement)[1] else ()"/>
-        <xsl:variable name="localTopicId" as="xs:string" select="string($prmElem/ancestor::*[contains(@class,' topic/topic ')][last()]/@id)"/>
+        <xsl:variable name="localTopicId" as="xs:string" select="string($prmElem/ancestor::*[contains-token(@class, 'topic/topic')][last()]/@id)"/>
         <xsl:variable name="topicRef" as="element()?" select="if ($topicId eq $localTopicId) then $prmTopicRef else ahf:getTopicRef($topicElement)"/>
         <xsl:choose>
             <xsl:when test="empty($topicRef)">
@@ -148,7 +148,7 @@
         <xsl:variable name="topicId" as="xs:string" select="if (string($destElementId)) then substring-before(substring-after($prmHref,'#'), '/') else (substring-after($prmHref,'#'))"/>
         <xsl:variable name="topicElement" as="element()?" select="key('topicById', $topicId,$root)[1]"/>
         <xsl:variable name="destElement" as="element()?" select="if (string($destElementId) and exists($topicElement)) then key('elementById',$destElementId,$topicElement)[1] else ()"/>
-        <xsl:variable name="localTopicId" as="xs:string" select="string($prmElem/ancestor::*[contains(@class,' topic/topic ')][last()]/@id)"/>
+        <xsl:variable name="localTopicId" as="xs:string" select="string($prmElem/ancestor::*[contains-token(@class, 'topic/topic')][last()]/@id)"/>
         <xsl:variable name="topicRef" as="element()?" select="if ($topicId eq $localTopicId) then $prmTopicRef else ahf:getTopicRef($topicElement)"/>
         <xsl:choose>
             <xsl:when test="not(ahf:isLocalHref($prmHref))">

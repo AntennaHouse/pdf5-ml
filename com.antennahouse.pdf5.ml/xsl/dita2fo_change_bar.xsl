@@ -25,13 +25,13 @@
                 If this template is overrided by other plug-in it should set $prmChnageBarAlreadyProcessed value to true()
                 to avoid multiple fo:chage-bar-begin/end generation.
      -->
-    <xsl:template match="*[exists(ancestor::*[contains(@class,' topic/topic ')])]
-                          [empty(ancestor::*[contains(@class,' topic/prolog ')])]
-                          [empty(ancestor::*[contains(@class,' topic/related-links ')])]
-                          [empty(self::*[contains(@class,' topic/indexterm ')])]
-                          [empty(self::*[contains(@class,' topic/index-base ')])]
-                          [empty(self::*[contains(@class,' topic/fn ')])]
-                          [empty(self::*[contains(@class, ' topic/colspec ')])]
+    <xsl:template match="*[exists(ancestor::*[contains-token(@class, 'topic/topic')])]
+                          [empty(ancestor::*[contains-token(@class, 'topic/prolog')])]
+                          [empty(ancestor::*[contains-token(@class, 'topic/related-links')])]
+                          [empty(self::*[contains-token(@class, 'topic/indexterm')])]
+                          [empty(self::*[contains-token(@class, 'topic/index-base')])]
+                          [empty(self::*[contains-token(@class, 'topic/fn')])]
+                          [empty(self::*[contains-token(@class, 'topic/colspec')])]
                           " priority="50">
         <xsl:param name="prmChnageBarAlreadyProcessed" tunnel="yes" required="no" as="xs:boolean" select="false()"/>
         <xsl:choose>

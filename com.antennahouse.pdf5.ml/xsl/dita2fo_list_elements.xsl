@@ -28,16 +28,16 @@
                 Generate fo:list-blck per li.
                 2019-05-08 t.makita
      -->
-    <xsl:template match="*[contains(@class, ' topic/ol ')]" mode="MODE_GET_STYLE" as="xs:string*">
+    <xsl:template match="*[contains-token(@class, 'topic/ol')]" mode="MODE_GET_STYLE" as="xs:string*">
         <xsl:sequence select="'atsOl'"/>
     </xsl:template>
 
-    <xsl:template match="*[contains(@class,' topic/ol ')]">
+    <xsl:template match="*[contains-token(@class, 'topic/ol')]">
         <xsl:call-template name="processOl"/>
     </xsl:template>
     
     <xsl:template name="processOl">
-        <xsl:variable name="hasFloatFigLeft" as="xs:boolean" select="exists(*[contains(@class,' topic/li ')]//*[ahf:isFloatFigure(.)][ahf:getFloatSpec(.) = 'left'])"/>
+        <xsl:variable name="hasFloatFigLeft" as="xs:boolean" select="exists(*[contains-token(@class, 'topic/li')]//*[ahf:isFloatFigure(.)][ahf:getFloatSpec(.) = 'left'])"/>
         <!-- Prefix of ol -->
         <xsl:variable name="olNumberFormat" as="xs:string+">
             <xsl:call-template name="getVarValueWithLangAsStringSequence">
@@ -87,8 +87,8 @@
                 Implement GET_CONTENT mode to prevent missing required parameter in processOlLi.
                 2019-09-27 t.makita
      -->
-    <xsl:template match="*[contains(@class, ' topic/ol ')]/*[contains(@class,' topic/li ')]" mode="MODE_GET_STYLE" as="xs:string*">
-        <xsl:variable name="hasFloatFigLeft" as="xs:boolean" select="exists(parent::*/*[contains(@class,' topic/li ')]//*[ahf:isFloatFigure(.)][ahf:getFloatSpec(.) = 'left'])"/>
+    <xsl:template match="*[contains-token(@class, 'topic/ol')]/*[contains-token(@class, 'topic/li')]" mode="MODE_GET_STYLE" as="xs:string*">
+        <xsl:variable name="hasFloatFigLeft" as="xs:boolean" select="exists(parent::*/*[contains-token(@class, 'topic/li')]//*[ahf:isFloatFigure(.)][ahf:getFloatSpec(.) = 'left'])"/>
         <xsl:sequence select="'atsOlItem'"/>
         <xsl:if test="$hasFloatFigLeft">
             <xsl:sequence select="'atsOlItemClearNone'"/>
@@ -96,7 +96,7 @@
         </xsl:if>
     </xsl:template>
     
-    <xsl:template match="*[contains(@class,' topic/ol ')]/*[contains(@class,' topic/li ')]">
+    <xsl:template match="*[contains-token(@class, 'topic/ol')]/*[contains-token(@class, 'topic/li')]">
         <xsl:call-template name="processOlLi"/>
     </xsl:template>
 
@@ -202,7 +202,7 @@
      -->
     <xsl:function name="ahf:countLi" as="xs:integer">
         <xsl:param name="prmLi" as="element()"/>
-        <xsl:sequence select="count($prmLi | $prmLi/preceding-sibling::*[contains(@class,' topic/li ')][not(contains(@class,' task/stepsection '))])"/>
+        <xsl:sequence select="count($prmLi | $prmLi/preceding-sibling::*[contains-token(@class, 'topic/li')][not(contains-token(@class, 'task/stepsection'))])"/>
     </xsl:function>
 
     <!-- 
@@ -211,7 +211,7 @@
      return:    none
      note:      Ignore if exists left float figure.
      -->
-    <xsl:template match="*[contains(@class,' topic/ol ')][exists(*[contains(@class,' topic/li ')]//*[ahf:isFloatFigure(.)][ahf:getFloatSpec(.) = 'left'])]//*[ahf:isFloatFigure(.)]" priority="4"/>
+    <xsl:template match="*[contains-token(@class, 'topic/ol')][exists(*[contains-token(@class, 'topic/li')]//*[ahf:isFloatFigure(.)][ahf:getFloatSpec(.) = 'left'])]//*[ahf:isFloatFigure(.)]" priority="4"/>
     
     <!-- 
      function:  Get ol number format
@@ -237,15 +237,15 @@
         <xsl:param name="prmElement" as="element()"/>
         <xsl:param name="prmCount" as="xs:integer"/>
     
-        <xsl:variable name="count" select="if ($prmElement[contains(@class, ' topic/ol ')]) then ($prmCount+1) else $prmCount"/>
+        <xsl:variable name="count" select="if ($prmElement[contains-token(@class, 'topic/ol')]) then ($prmCount+1) else $prmCount"/>
         <xsl:choose>
-            <xsl:when test="$prmElement[ahf:seqContains(@class, (' topic/entry ',' topic/stentry '))]">
+            <xsl:when test="$prmElement[ahf:seqContainsToken(@class, ('topic/entry','topic/stentry'))]">
                 <xsl:sequence select="$count"/>
             </xsl:when>
-            <xsl:when test="$prmElement[contains(@class, ' topic/note ')]">
+            <xsl:when test="$prmElement[contains-token(@class, 'topic/note')]">
                 <xsl:sequence select="$count"/>
             </xsl:when>
-            <xsl:when test="$prmElement[contains(@class, ' topic/topic ')]">
+            <xsl:when test="$prmElement[contains-token(@class, 'topic/topic')]">
                 <xsl:sequence select="$count"/>
             </xsl:when>
             <xsl:when test="$prmElement/parent::*">
@@ -267,16 +267,16 @@
                 Generate fo:list-blck per li.
                 2019-05-08 t.makita
      -->
-    <xsl:template match="*[contains(@class, ' topic/ul ')]" mode="MODE_GET_STYLE" as="xs:string*">
+    <xsl:template match="*[contains-token(@class, 'topic/ul')]" mode="MODE_GET_STYLE" as="xs:string*">
         <xsl:sequence select="'atsUl'"/>
     </xsl:template>
 
-    <xsl:template match="*[contains(@class,' topic/ul ')]">
+    <xsl:template match="*[contains-token(@class, 'topic/ul')]">
         <xsl:call-template name="processUl"/>
     </xsl:template>
     
     <xsl:template name="processUl">
-        <xsl:variable name="hasFloatFigLeft" as="xs:boolean" select="exists(*[contains(@class,' topic/li ')]//*[ahf:isFloatFigure(.)][ahf:getFloatSpec(.) = 'left'])"/>
+        <xsl:variable name="hasFloatFigLeft" as="xs:boolean" select="exists(*[contains-token(@class, 'topic/li')]//*[ahf:isFloatFigure(.)][ahf:getFloatSpec(.) = 'left'])"/>
         <!-- Ul bullet -->
         <xsl:variable name="ulLabelChars" as="xs:string+">
             <xsl:call-template name="getVarValueWithLangAsStringSequence">
@@ -327,8 +327,8 @@
                 Implement GET_CONTENT mode to prevent missing required parameter in processUlLi.
                 2019-09-27 t.makita
      -->
-    <xsl:template match="*[contains(@class, ' topic/ul ')]/*[contains(@class,' topic/li ')]" mode="MODE_GET_STYLE" as="xs:string*">
-        <xsl:variable name="hasFloatFigLeft" as="xs:boolean" select="exists(parent::*/*[contains(@class,' topic/li ')]//*[ahf:isFloatFigure(.)][ahf:getFloatSpec(.) = 'left'])"/>
+    <xsl:template match="*[contains-token(@class, 'topic/ul')]/*[contains-token(@class, 'topic/li')]" mode="MODE_GET_STYLE" as="xs:string*">
+        <xsl:variable name="hasFloatFigLeft" as="xs:boolean" select="exists(parent::*/*[contains-token(@class, 'topic/li')]//*[ahf:isFloatFigure(.)][ahf:getFloatSpec(.) = 'left'])"/>
         <xsl:sequence select="'atsUlItem'"/>
         <xsl:if test="$hasFloatFigLeft">
             <xsl:sequence select="'atsUlItemClearNone'"/>
@@ -336,7 +336,7 @@
         </xsl:if>
     </xsl:template>
 
-    <xsl:template match="*[contains(@class,' topic/ul ')]/*[contains(@class,' topic/li ')]">
+    <xsl:template match="*[contains-token(@class, 'topic/ul')]/*[contains-token(@class, 'topic/li')]">
         <xsl:call-template name="processUlLi"/>
     </xsl:template>
 
@@ -441,7 +441,7 @@
      return:    none
      note:      Ignore if exists left float figure.
      -->
-    <xsl:template match="*[contains(@class,' topic/ul ')][exists(*[contains(@class,' topic/li ')]//*[ahf:isFloatFigure(.)][ahf:getFloatSpec(.) = 'left'])]//*[ahf:isFloatFigure(.)]" priority="4"/>
+    <xsl:template match="*[contains-token(@class, 'topic/ul')][exists(*[contains-token(@class, 'topic/li')]//*[ahf:isFloatFigure(.)][ahf:getFloatSpec(.) = 'left'])]//*[ahf:isFloatFigure(.)]" priority="4"/>
     
     <!-- 
      function:  Get ul label char
@@ -474,15 +474,15 @@
         <xsl:param name="prmElem" as="element()"/>
         <xsl:param name="prmCount" as="xs:integer"/>
         
-        <xsl:variable name="count" select="if ($prmElem[contains(@class, ' topic/ul ')]) then ($prmCount + 1) else $prmCount"/>
+        <xsl:variable name="count" select="if ($prmElem[contains-token(@class, 'topic/ul')]) then ($prmCount + 1) else $prmCount"/>
         <xsl:choose>
-            <xsl:when test="$prmElem[ahf:seqContains(@class, (' topic/entry ',' topic/stentry '))]">
+            <xsl:when test="$prmElem[ahf:seqContainsToken(@class, ('topic/entry','topic/stentry'))]">
                 <xsl:sequence select="$count"/>
             </xsl:when>
-            <xsl:when test="$prmElem[contains(@class, ' topic/note ')]">
+            <xsl:when test="$prmElem[contains-token(@class, 'topic/note')]">
                 <xsl:sequence select="$count"/>
             </xsl:when>
-            <xsl:when test="$prmElem[contains(@class, ' topic/topic ')]">
+            <xsl:when test="$prmElem[contains-token(@class, 'topic/topic')]">
                 <xsl:sequence select="$count"/>
             </xsl:when>
             <xsl:when test="exists($prmElem/parent::*)">
@@ -501,11 +501,11 @@
      note:      Implement GET_CONTENT mode to prevent missing required parameter in processSlSli.
                 2019-09-27 t.makita
      -->
-    <xsl:template match="*[contains(@class, ' topic/sl ')]" mode="MODE_GET_STYLE" as="xs:string*">
+    <xsl:template match="*[contains-token(@class, 'topic/sl')]" mode="MODE_GET_STYLE" as="xs:string*">
         <xsl:sequence select="'atsSl'"/>
     </xsl:template>
 
-    <xsl:template match="*[contains(@class,' topic/sl ')]">
+    <xsl:template match="*[contains-token(@class, 'topic/sl')]">
         <xsl:variable name="doCompact" select="string(@compact) eq 'yes'" as="xs:boolean"/>
         <fo:list-block>
             <xsl:call-template name="getAttributeSetWithLang"/>
@@ -517,11 +517,11 @@
         </fo:list-block>
     </xsl:template>
 
-    <xsl:template match="*[contains(@class,' topic/sl ')]/*[contains(@class,' topic/sli ')]">
+    <xsl:template match="*[contains-token(@class, 'topic/sl')]/*[contains-token(@class, 'topic/sli')]">
         <xsl:call-template name="processSlSli"/>
     </xsl:template>
     
-    <xsl:template match="*[contains(@class, ' topic/sl ')]/*[contains(@class,' topic/sli ')]" mode="MODE_GET_STYLE" as="xs:string*">
+    <xsl:template match="*[contains-token(@class, 'topic/sl')]/*[contains-token(@class, 'topic/sli')]" mode="MODE_GET_STYLE" as="xs:string*">
         <xsl:sequence select="'atsSlItem'"/>
     </xsl:template>
     
@@ -561,28 +561,28 @@
      -->
     <xsl:function name="ahf:formatDlAsTable" as="xs:boolean">
         <xsl:param name="prmDlElem" as="element()"/>
-        <xsl:sequence select="exists($prmDlElem/ancestor-or-self::*[contains(@class,' topic/dl ')][1]/*[contains(@class,' topic/dlhead ')])"/>
+        <xsl:sequence select="exists($prmDlElem/ancestor-or-self::*[contains-token(@class, 'topic/dl')][1]/*[contains-token(@class, 'topic/dlhead')])"/>
     </xsl:function>
     
-    <xsl:template match="*[contains(@class, ' topic/dl ')][ahf:formatDlAsTable(.)]" mode="MODE_GET_STYLE" as="xs:string*">
+    <xsl:template match="*[contains-token(@class, 'topic/dl')][ahf:formatDlAsTable(.)]" mode="MODE_GET_STYLE" as="xs:string*">
         <xsl:sequence select="'atsDlTable'"/>
     </xsl:template>
 
-    <xsl:template match="*[contains(@class, ' topic/dl ')][not(ahf:formatDlAsTable(.))]" mode="MODE_GET_STYLE" as="xs:string*">
+    <xsl:template match="*[contains-token(@class, 'topic/dl')][not(ahf:formatDlAsTable(.))]" mode="MODE_GET_STYLE" as="xs:string*">
     </xsl:template>
 
-    <xsl:template match="*[contains(@class, ' topic/dl ')][ahf:formatDlAsTable(.)]">
+    <xsl:template match="*[contains-token(@class, 'topic/dl')][ahf:formatDlAsTable(.)]">
         <xsl:variable name="doCompact" select="string(@compact) eq 'yes'" as="xs:boolean"/>
         <fo:table>
             <xsl:call-template name="getAttributeSetWithLang"/>
             <xsl:call-template name="ahf:getUnivAtts"/>
             <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
-            <xsl:apply-templates select="*[contains(@class, ' topic/dlhead ')]">
+            <xsl:apply-templates select="*[contains-token(@class, 'topic/dlhead')]">
                 <xsl:with-param name="prmDoCompact" tunnel="yes" select="$doCompact"/>
             </xsl:apply-templates>
             <fo:table-body>
                 <xsl:copy-of select="ahf:getAttributeSet('atsDlbody')"/>
-                <xsl:apply-templates select="*[contains(@class, ' topic/dlentry ')]">
+                <xsl:apply-templates select="*[contains-token(@class, 'topic/dlentry')]">
                     <xsl:with-param name="prmDoCompact" tunnel="yes" select="$doCompact"/>
                 </xsl:apply-templates>
             </fo:table-body>
@@ -594,15 +594,15 @@
         </xsl:if>
     </xsl:template>
     
-    <xsl:template match="*[contains(@class, ' topic/dl ')][not(ahf:formatDlAsTable(.))]">
+    <xsl:template match="*[contains-token(@class, 'topic/dl')][not(ahf:formatDlAsTable(.))]">
         <xsl:variable name="doCompact" select="string(@compact) eq 'yes'" as="xs:boolean"/>
         <fo:block>
             <xsl:call-template name="ahf:getUnivAtts"/>
             <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
-            <xsl:apply-templates select="*[contains(@class, ' topic/dlhead ')]">
+            <xsl:apply-templates select="*[contains-token(@class, 'topic/dlhead')]">
                 <xsl:with-param name="prmDoCompact" tunnel="yes" select="$doCompact"/>
             </xsl:apply-templates>
-            <xsl:apply-templates select="*[contains(@class, ' topic/dlentry ')]">
+            <xsl:apply-templates select="*[contains-token(@class, 'topic/dlentry')]">
                 <xsl:with-param name="prmDoCompact" tunnel="yes" select="$doCompact"/>
             </xsl:apply-templates>
             <xsl:if test="not($pDisplayFnAtEndOfTopic)">
@@ -613,11 +613,11 @@
         </fo:block>
     </xsl:template>
 
-    <xsl:template match="*[contains(@class, ' topic/dlhead ')]" mode="MODE_GET_STYLE" as="xs:string*">
+    <xsl:template match="*[contains-token(@class, 'topic/dlhead')]" mode="MODE_GET_STYLE" as="xs:string*">
         <xsl:sequence select="'atsDlhead'"/>
     </xsl:template>
     
-    <xsl:template match="*[contains(@class, ' topic/dlhead ')]">
+    <xsl:template match="*[contains-token(@class, 'topic/dlhead')]">
         <fo:table-header>
             <xsl:call-template name="getAttributeSetWithLang"/>
             <xsl:call-template name="ahf:getUnivAtts"/>
@@ -628,11 +628,11 @@
         </fo:table-header>
     </xsl:template>
 
-    <xsl:template match="*[contains(@class, ' topic/dthd ')]" mode="MODE_GET_STYLE" as="xs:string*">
+    <xsl:template match="*[contains-token(@class, 'topic/dthd')]" mode="MODE_GET_STYLE" as="xs:string*">
         <xsl:sequence select="'atsDthd'"/>
     </xsl:template>
     
-    <xsl:template match="*[contains(@class, ' topic/dthd ')]">
+    <xsl:template match="*[contains-token(@class, 'topic/dthd')]">
         <xsl:param name="prmDoCompact" required="yes" tunnel="yes" as="xs:boolean"/>
         
         <fo:table-cell>
@@ -652,11 +652,11 @@
         </fo:table-cell>
     </xsl:template>
     
-    <xsl:template match="*[contains(@class, ' topic/ddhd ')]" mode="MODE_GET_STYLE" as="xs:string*">
+    <xsl:template match="*[contains-token(@class, 'topic/ddhd')]" mode="MODE_GET_STYLE" as="xs:string*">
         <xsl:sequence select="'atsDdhd'"/>
     </xsl:template>
     
-    <xsl:template match="*[contains(@class, ' topic/ddhd ')]">
+    <xsl:template match="*[contains-token(@class, 'topic/ddhd')]">
         <xsl:param name="prmDoCompact" required="yes" tunnel="yes" as="xs:boolean"/>
         
         <fo:table-cell>
@@ -676,15 +676,15 @@
         </fo:table-cell>
     </xsl:template>
     
-    <xsl:template match="*[contains(@class, ' topic/dlentry ')][ahf:formatDlAsTable(.)]" mode="MODE_GET_STYLE" as="xs:string*">
+    <xsl:template match="*[contains-token(@class, 'topic/dlentry')][ahf:formatDlAsTable(.)]" mode="MODE_GET_STYLE" as="xs:string*">
         <xsl:sequence select="'atsDlentryTable'"/>
     </xsl:template>
 
-    <xsl:template match="*[contains(@class, ' topic/dlentry ')][not(ahf:formatDlAsTable(.))]" mode="MODE_GET_STYLE" as="xs:string*">
+    <xsl:template match="*[contains-token(@class, 'topic/dlentry')][not(ahf:formatDlAsTable(.))]" mode="MODE_GET_STYLE" as="xs:string*">
         <xsl:sequence select="'atsDlentryBlock'"/>
     </xsl:template>
 
-    <xsl:template match="*[contains(@class, ' topic/dlentry ')][ahf:formatDlAsTable(.)]">
+    <xsl:template match="*[contains-token(@class, 'topic/dlentry')][ahf:formatDlAsTable(.)]">
         <xsl:param name="prmDoCompact" required="yes" tunnel="yes" as="xs:boolean"/>
         
         <fo:table-row>
@@ -693,34 +693,34 @@
             <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
             <fo:table-cell>
                 <xsl:call-template name="getAttributeSetWithLang">
-                    <xsl:with-param name="prmElem" select="*[contains(@class, ' topic/dt ')][1]"/>
+                    <xsl:with-param name="prmElem" select="*[contains-token(@class, 'topic/dt')][1]"/>
                 </xsl:call-template>
                 <xsl:if test="$prmDoCompact">
                     <xsl:call-template name="applyCompact">
-                        <xsl:with-param name="prmElem" select="*[contains(@class, ' topic/dt ')][1]"/>
+                        <xsl:with-param name="prmElem" select="*[contains-token(@class, 'topic/dt')][1]"/>
                         <xsl:with-param name="prmCompactRatioVarName" select="'Dl_Compact_Ratio_Table'"/>
                         <xsl:with-param name="prmCompactAttrName" select="'Dl_Compact_Attr_Table'"/>
                     </xsl:call-template>
                 </xsl:if>
-                <xsl:apply-templates select="*[contains(@class, ' topic/dt ')]"/>
+                <xsl:apply-templates select="*[contains-token(@class, 'topic/dt')]"/>
             </fo:table-cell>
             <fo:table-cell>
                 <xsl:call-template name="getAttributeSetWithLang">
-                    <xsl:with-param name="prmElem" select="*[contains(@class, ' topic/dd ')][1]"/>
+                    <xsl:with-param name="prmElem" select="*[contains-token(@class, 'topic/dd')][1]"/>
                 </xsl:call-template>
                 <xsl:if test="$prmDoCompact">
                     <xsl:call-template name="applyCompact">
-                        <xsl:with-param name="prmElem" select="*[contains(@class, ' topic/dd ')][1]"/>
+                        <xsl:with-param name="prmElem" select="*[contains-token(@class, 'topic/dd')][1]"/>
                         <xsl:with-param name="prmCompactRatioVarName" select="'Dl_Compact_Ratio_Table'"/>
                         <xsl:with-param name="prmCompactAttrName" select="'Dl_Compact_Attr_Table'"/>
                     </xsl:call-template>
                 </xsl:if>
-                <xsl:apply-templates select="*[contains(@class, ' topic/dd ')]"/>
+                <xsl:apply-templates select="*[contains-token(@class, 'topic/dd')]"/>
             </fo:table-cell>
         </fo:table-row>
     </xsl:template>
     
-    <xsl:template match="*[contains(@class, ' topic/dlentry ')][not(ahf:formatDlAsTable(.))]">
+    <xsl:template match="*[contains-token(@class, 'topic/dlentry')][not(ahf:formatDlAsTable(.))]">
         <fo:block>
             <xsl:call-template name="getAttributeSetWithLang"/>
             <xsl:call-template name="ahf:getUnivAtts"/>
@@ -729,15 +729,15 @@
         </fo:block>
     </xsl:template>
     
-    <xsl:template match="*[contains(@class, ' topic/dt ')][ahf:formatDlAsTable(.)]" mode="MODE_GET_STYLE" as="xs:string*">
+    <xsl:template match="*[contains-token(@class, 'topic/dt')][ahf:formatDlAsTable(.)]" mode="MODE_GET_STYLE" as="xs:string*">
         <xsl:sequence select="'atsDtTableCell'"/>
     </xsl:template>
 
-    <xsl:template match="*[contains(@class, ' topic/dt ')][not(ahf:formatDlAsTable(.))]" mode="MODE_GET_STYLE" as="xs:string*">
+    <xsl:template match="*[contains-token(@class, 'topic/dt')][not(ahf:formatDlAsTable(.))]" mode="MODE_GET_STYLE" as="xs:string*">
         <xsl:sequence select="'atsDtBlock'"/>
     </xsl:template>
 
-    <xsl:template match="*[contains(@class, ' topic/dt ')][ahf:formatDlAsTable(.)]">
+    <xsl:template match="*[contains-token(@class, 'topic/dt')][ahf:formatDlAsTable(.)]">
         <xsl:param name="prmDoCompact" required="yes" tunnel="yes" as="xs:boolean"/>
         
         <fo:block>
@@ -747,7 +747,7 @@
         </fo:block>
     </xsl:template>
 
-    <xsl:template match="*[contains(@class, ' topic/dt ')][not(ahf:formatDlAsTable(.))]" name="processDtBlock">
+    <xsl:template match="*[contains-token(@class, 'topic/dt')][not(ahf:formatDlAsTable(.))]" name="processDtBlock">
         <xsl:param name="prmDoCompact" required="yes" tunnel="yes" as="xs:boolean"/>
         
         <fo:block>
@@ -765,15 +765,15 @@
         </fo:block>
     </xsl:template>
     
-    <xsl:template match="*[contains(@class, ' topic/dd ')][ahf:formatDlAsTable(.)]" mode="MODE_GET_STYLE" as="xs:string*">
+    <xsl:template match="*[contains-token(@class, 'topic/dd')][ahf:formatDlAsTable(.)]" mode="MODE_GET_STYLE" as="xs:string*">
         <xsl:sequence select="'atsDdTableCell'"/>
     </xsl:template>
 
-    <xsl:template match="*[contains(@class, ' topic/dd ')][not(ahf:formatDlAsTable(.))]" mode="MODE_GET_STYLE" as="xs:string*">
+    <xsl:template match="*[contains-token(@class, 'topic/dd')][not(ahf:formatDlAsTable(.))]" mode="MODE_GET_STYLE" as="xs:string*">
         <xsl:sequence select="'atsDdBlock'"/>
     </xsl:template>
 
-    <xsl:template match="*[contains(@class, ' topic/dd ')][ahf:formatDlAsTable(.)]">
+    <xsl:template match="*[contains-token(@class, 'topic/dd')][ahf:formatDlAsTable(.)]">
         <fo:block>
             <xsl:call-template name="ahf:getUnivAtts"/>
             <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
@@ -781,7 +781,7 @@
         </fo:block>
     </xsl:template>
     
-    <xsl:template match="*[contains(@class, ' topic/dd ')][not(ahf:formatDlAsTable(.))]" name="processDdBlock">
+    <xsl:template match="*[contains-token(@class, 'topic/dd')][not(ahf:formatDlAsTable(.))]" name="processDdBlock">
         <xsl:param name="prmDoCompact" required="yes" tunnel="yes" as="xs:boolean"/>
         
         <fo:block>

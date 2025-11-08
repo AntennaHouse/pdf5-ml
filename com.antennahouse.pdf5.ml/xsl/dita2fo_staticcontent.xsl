@@ -129,17 +129,17 @@
      -->
     <xsl:template name="chapterEndRight">
         <xsl:variable name="topicRef" as="element()" select="."/>
-        <xsl:variable name="map" as="element()" select="$topicRef/ancestor-or-self::*[contains(@class,' map/map ')]"/>
+        <xsl:variable name="map" as="element()" select="$topicRef/ancestor-or-self::*[contains-token(@class, 'map/map')]"/>
         <xsl:variable name="chapter" as="element()" select="$topicRef/ancestor-or-self::*[. &gt;&gt; $map][last()]"/>
         <xsl:if test="$pAddThumbnailIndex and $pBuildMap">
             <xsl:call-template name="genThumbIndex">
                 <xsl:with-param name="prmId" select="ahf:generateId($chapter,())"/>
                 <xsl:with-param name="prmClass">
                     <xsl:choose>
-                        <xsl:when test="ancestor-or-self::*[contains(@class, ' bookmap/part ')]">
+                        <xsl:when test="ancestor-or-self::*[contains-token(@class, 'bookmap/part')]">
                             <xsl:value-of select="$cClassPart"/>
                         </xsl:when>
-                        <xsl:when test="ancestor-or-self::*[contains(@class, ' bookmap/appendix ')]">
+                        <xsl:when test="ancestor-or-self::*[contains-token(@class, 'bookmap/appendix')]">
                             <xsl:value-of select="$cClassAppendix"/>
                         </xsl:when>
                         <xsl:otherwise>

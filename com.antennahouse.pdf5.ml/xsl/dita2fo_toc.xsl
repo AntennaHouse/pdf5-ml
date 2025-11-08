@@ -28,10 +28,10 @@
     <xsl:template name="genToc" >
         <psmi:page-sequence>
             <xsl:choose>
-                <xsl:when test="ancestor::*[contains(@class,' bookmap/frontmatter ')]">
+                <xsl:when test="ancestor::*[contains-token(@class, 'bookmap/frontmatter')]">
                     <xsl:copy-of select="ahf:getAttributeSet('atsPageSeqFrontmatter')"/>
                     <xsl:if test="not(preceding-sibling::*) and 
-                                  not(parent::*/preceding-sibling::*[contains(@class,' map/topicref ')])">
+                                  not(parent::*/preceding-sibling::*[contains-token(@class, 'map/topicref')])">
                         <xsl:attribute name="initial-page-number" select="'1'"/>
                     </xsl:if>
                     <fo:static-content flow-name="rgnFrontmatterBeforeLeft">
@@ -88,7 +88,7 @@
         <fo:page-sequence>
             <xsl:copy-of select="ahf:getAttributeSet('atsPageSeqFrontmatter')"/>
             <xsl:if test="not(preceding-sibling::*) and 
-                not(parent::*/preceding-sibling::*[contains(@class,' map/topicref ')])">
+                not(parent::*/preceding-sibling::*[contains-token(@class, 'map/topicref')])">
                 <xsl:attribute name="initial-page-number" select="'1'"/>
             </xsl:if>
             <fo:static-content flow-name="rgnFrontmatterBeforeLeft">
@@ -124,9 +124,9 @@
         <xsl:variable name="id" as="xs:string" select="string(ahf:getIdAtts($topicRef,$topicRef,true())[1])"/>
         <xsl:variable name="title" as="xs:string">
             <xsl:choose>
-                <xsl:when test="$topicRef/*[contains(@class,' map/topicmeta ')]/*[contains(@class,' topic/navtitle ')]">
+                <xsl:when test="$topicRef/*[contains-token(@class, 'map/topicmeta')]/*[contains-token(@class, 'topic/navtitle')]">
                     <xsl:variable name="navTitle" as="xs:string*">
-                        <xsl:apply-templates select="$topicRef/*[contains(@class,' map/topicmeta ')]/*[contains(@class,' topic/navtitle ')]" mode="TEXT_ONLY"/>
+                        <xsl:apply-templates select="$topicRef/*[contains-token(@class, 'map/topicmeta')]/*[contains-token(@class, 'topic/navtitle')]" mode="TEXT_ONLY"/>
                     </xsl:variable>
                     <xsl:sequence select="string-join($navTitle,'')"/>
                 </xsl:when>
@@ -188,11 +188,11 @@
     </xsl:template>
     
     <xsl:template match="text()" mode="MAKE_TOC"/>
-    <xsl:template match="*[contains(@class, ' bookmap/bookmeta ')]" mode="MAKE_TOC"/>
+    <xsl:template match="*[contains-token(@class, 'bookmap/bookmeta')]" mode="MAKE_TOC"/>
     
     
     <!-- Frontmatter -->
-    <xsl:template match="*[contains(@class,' bookmap/frontmatter ')][ahf:isToc(.)]" mode="MAKE_TOC" priority="2">
+    <xsl:template match="*[contains-token(@class, 'bookmap/frontmatter')][ahf:isToc(.)]" mode="MAKE_TOC" priority="2">
         <!--xsl:message>[Frontmatter] $pIncludeFrontmatterToToc=<xsl:value-of select="$pIncludeFrontmatterToToc"/></xsl:message-->
         <xsl:if test="$pIncludeFrontmatterToToc">
             <xsl:apply-templates mode="#current"/>
@@ -200,58 +200,58 @@
     </xsl:template>
     
     <!-- Backmatter -->
-    <xsl:template match="*[contains(@class,' bookmap/backmatter ')][ahf:isToc(.)]" mode="MAKE_TOC" priority="2">
+    <xsl:template match="*[contains-token(@class, 'bookmap/backmatter')][ahf:isToc(.)]" mode="MAKE_TOC" priority="2">
         <xsl:apply-templates mode="#current"/>
     </xsl:template>
     
     <!-- Frontmatter/backmatter contents -->
     
     <!-- Bookabstract -->
-    <xsl:template match="*[contains(@class,' bookmap/bookabstract ')][exists(@href)][ahf:isToc(.)]" mode="MAKE_TOC" priority="2" >
+    <xsl:template match="*[contains-token(@class, 'bookmap/bookabstract')][exists(@href)][ahf:isToc(.)]" mode="MAKE_TOC" priority="2" >
         <xsl:next-match/>
     </xsl:template>
-    <xsl:template match="*[contains(@class,' bookmap/bookabstract ')][empty(@href)][ahf:isToc(.)]" mode="MAKE_TOC" priority="2" >
+    <xsl:template match="*[contains-token(@class, 'bookmap/bookabstract')][empty(@href)][ahf:isToc(.)]" mode="MAKE_TOC" priority="2" >
     </xsl:template>
         
     <!-- Booklists -->
-    <xsl:template match="*[contains(@class,' bookmap/booklists ')][ahf:isToc(.)]" mode="MAKE_TOC" priority="2">
+    <xsl:template match="*[contains-token(@class, 'bookmap/booklists')][ahf:isToc(.)]" mode="MAKE_TOC" priority="2">
         <xsl:apply-templates mode="#current"/>
     </xsl:template>
     
     <!-- Abbrevlist -->
-    <xsl:template match="*[contains(@class,' bookmap/abbrevlist ')][exists(@href)][ahf:isToc(.)]" mode="MAKE_TOC" priority="2" >
+    <xsl:template match="*[contains-token(@class, 'bookmap/abbrevlist')][exists(@href)][ahf:isToc(.)]" mode="MAKE_TOC" priority="2" >
         <xsl:next-match>
             <xsl:with-param name="prmProcessChild" select="false()"/>
         </xsl:next-match>
     </xsl:template>
-    <xsl:template match="*[contains(@class,' bookmap/abbrevlist ')][empty(@href)][ahf:isToc(.)]" mode="MAKE_TOC" priority="2" >
+    <xsl:template match="*[contains-token(@class, 'bookmap/abbrevlist')][empty(@href)][ahf:isToc(.)]" mode="MAKE_TOC" priority="2" >
     </xsl:template>
         
     <!-- Bibliolist -->
-    <xsl:template match="*[contains(@class,' bookmap/bibliolist ')][exists(@href)][ahf:isToc(.)]" mode="MAKE_TOC" priority="2" >
+    <xsl:template match="*[contains-token(@class, 'bookmap/bibliolist')][exists(@href)][ahf:isToc(.)]" mode="MAKE_TOC" priority="2" >
         <xsl:next-match>
             <xsl:with-param name="prmProcessChild" select="false()"/>
         </xsl:next-match>
     </xsl:template>
-    <xsl:template match="*[contains(@class,' bookmap/bibliolist ')][empty(@href)][ahf:isToc(.)]" mode="MAKE_TOC" priority="2" >
+    <xsl:template match="*[contains-token(@class, 'bookmap/bibliolist')][empty(@href)][ahf:isToc(.)]" mode="MAKE_TOC" priority="2" >
     </xsl:template>
         
     <!-- Booklist -->
-    <xsl:template match="*[contains(@class,' bookmap/booklist ')][exists(@href)][ahf:isToc(.)]" mode="MAKE_TOC" priority="2" >
+    <xsl:template match="*[contains-token(@class, 'bookmap/booklist')][exists(@href)][ahf:isToc(.)]" mode="MAKE_TOC" priority="2" >
         <xsl:next-match>
             <xsl:with-param name="prmProcessChild" select="false()"/>
         </xsl:next-match>
     </xsl:template>
-    <xsl:template match="*[contains(@class,' bookmap/booklist ')][empty(@href)][ahf:isToc(.)]" mode="MAKE_TOC" priority="2" >
+    <xsl:template match="*[contains-token(@class, 'bookmap/booklist')][empty(@href)][ahf:isToc(.)]" mode="MAKE_TOC" priority="2" >
     </xsl:template>
         
     <!-- Figurelist -->
-    <xsl:template match="*[contains(@class,' bookmap/figurelist ')][exists(@href)][ahf:isToc(.)]" mode="MAKE_TOC" priority="2" >
+    <xsl:template match="*[contains-token(@class, 'bookmap/figurelist')][exists(@href)][ahf:isToc(.)]" mode="MAKE_TOC" priority="2" >
         <xsl:next-match>
             <xsl:with-param name="prmProcessChild" select="false()"/>
         </xsl:next-match>
     </xsl:template>
-    <xsl:template match="*[contains(@class,' bookmap/figurelist ')][empty(@href)][ahf:isToc(.)]" mode="MAKE_TOC" priority="2" >
+    <xsl:template match="*[contains-token(@class, 'bookmap/figurelist')][empty(@href)][ahf:isToc(.)]" mode="MAKE_TOC" priority="2" >
         <xsl:if test="$figureExists">
             <xsl:next-match>
                 <xsl:with-param name="prmDefaultTitle" select="$cFigureListTitle"/>
@@ -261,13 +261,13 @@
     </xsl:template>
         
     <!-- Glossarylist -->
-    <xsl:template match="*[contains(@class,' bookmap/glossarylist ')][exists(@href)][ahf:isToc(.)]" mode="MAKE_TOC" priority="2" >
+    <xsl:template match="*[contains-token(@class, 'bookmap/glossarylist')][exists(@href)][ahf:isToc(.)]" mode="MAKE_TOC" priority="2" >
         <xsl:next-match>
             <xsl:with-param name="prmProcessChild" select="false()"/>
         </xsl:next-match>
     </xsl:template>
-    <xsl:template match="*[contains(@class,' bookmap/glossarylist ')][empty(@href)][ahf:isToc(.)]" mode="MAKE_TOC" priority="2" >
-        <xsl:if test="child::*[contains(@class, ' map/topicref ')][exists(@href)]">
+    <xsl:template match="*[contains-token(@class, 'bookmap/glossarylist')][empty(@href)][ahf:isToc(.)]" mode="MAKE_TOC" priority="2" >
+        <xsl:if test="child::*[contains-token(@class, 'map/topicref')][exists(@href)]">
             <xsl:next-match>
                 <xsl:with-param name="prmDefaultTitle" select="$cGlossaryListTitle"/>
                 <xsl:with-param name="prmProcessChild" select="false()"/>
@@ -276,13 +276,13 @@
     </xsl:template>
         
     <!-- Indexlist -->
-    <xsl:template match="*[contains(@class,' bookmap/indexlist ')][exists(@href)][ahf:isToc(.)]" mode="MAKE_TOC" priority="2" >
+    <xsl:template match="*[contains-token(@class, 'bookmap/indexlist')][exists(@href)][ahf:isToc(.)]" mode="MAKE_TOC" priority="2" >
         <xsl:next-match>
             <xsl:with-param name="prmDefaultTitle" select="$cIndexTitle"/>
             <xsl:with-param name="prmProcessChild" select="false()"/>
         </xsl:next-match>
     </xsl:template>
-    <xsl:template match="*[contains(@class,' bookmap/indexlist ')][empty(@href)][ahf:isToc(.)]" mode="MAKE_TOC" priority="2" >
+    <xsl:template match="*[contains-token(@class, 'bookmap/indexlist')][empty(@href)][ahf:isToc(.)]" mode="MAKE_TOC" priority="2" >
         <xsl:if test="$pOutputIndex and ($indextermSortedCount gt 0)">
             <xsl:next-match>
                 <xsl:with-param name="prmDefaultTitle" select="$cIndexTitle"/>
@@ -292,13 +292,13 @@
     </xsl:template>
     
     <!-- Tablelist -->
-    <xsl:template match="*[contains(@class,' bookmap/tablelist ')][exists(@href)][ahf:isToc(.)]" mode="MAKE_TOC" priority="2" >
+    <xsl:template match="*[contains-token(@class, 'bookmap/tablelist')][exists(@href)][ahf:isToc(.)]" mode="MAKE_TOC" priority="2" >
         <xsl:next-match>
             <xsl:with-param name="prmDefaultTitle" select="$cTableListTitle"/>
             <xsl:with-param name="prmProcessChild" select="false()"/>
         </xsl:next-match>
     </xsl:template>
-    <xsl:template match="*[contains(@class,' bookmap/tablelist ')][empty(@href)][ahf:isToc(.)]" mode="MAKE_TOC" priority="2" >
+    <xsl:template match="*[contains-token(@class, 'bookmap/tablelist')][empty(@href)][ahf:isToc(.)]" mode="MAKE_TOC" priority="2" >
         <xsl:if test="$tableExists">
             <xsl:next-match>
                 <xsl:with-param name="prmDefaultTitle" select="$cTableListTitle"/>
@@ -308,48 +308,48 @@
     </xsl:template>
         
     <!-- Trademarklist -->
-    <xsl:template match="*[contains(@class,' bookmap/trademarklist ')][exists(@href)][ahf:isToc(.)]" mode="MAKE_TOC" priority="2" >
+    <xsl:template match="*[contains-token(@class, 'bookmap/trademarklist')][exists(@href)][ahf:isToc(.)]" mode="MAKE_TOC" priority="2" >
         <xsl:next-match>
             <xsl:with-param name="prmProcessChild" select="false()"/>
         </xsl:next-match>
     </xsl:template>
-    <xsl:template match="*[contains(@class,' bookmap/trademarklist ')][empty(@href)][ahf:isToc(.)]" mode="MAKE_TOC" priority="2" >
+    <xsl:template match="*[contains-token(@class, 'bookmap/trademarklist')][empty(@href)][ahf:isToc(.)]" mode="MAKE_TOC" priority="2" >
     </xsl:template>
         
     <!-- Toc
          Ignore!
          2019-12-27 t.makita
      -->
-    <xsl:template match="*[contains(@class,' bookmap/toc ')][ahf:isToc(.)]" mode="MAKE_TOC" priority="2" />
+    <xsl:template match="*[contains-token(@class, 'bookmap/toc')][ahf:isToc(.)]" mode="MAKE_TOC" priority="2" />
         
     <!-- Colophon -->
-    <xsl:template match="*[contains(@class,' bookmap/colophon ')][exists(@href)][ahf:isToc(.)]" mode="MAKE_TOC" priority="2" >
+    <xsl:template match="*[contains-token(@class, 'bookmap/colophon')][exists(@href)][ahf:isToc(.)]" mode="MAKE_TOC" priority="2" >
         <xsl:next-match/>
     </xsl:template>
-    <xsl:template match="*[contains(@class,' bookmap/colophon ')][empty(@href)][ahf:isToc(.)]" mode="MAKE_TOC" priority="2" >
+    <xsl:template match="*[contains-token(@class, 'bookmap/colophon')][empty(@href)][ahf:isToc(.)]" mode="MAKE_TOC" priority="2" >
     </xsl:template>
         
     <!-- Dedication -->
-    <xsl:template match="*[contains(@class,' bookmap/dedication ')][exists(@href)][ahf:isToc(.)]" mode="MAKE_TOC" priority="2" >
+    <xsl:template match="*[contains-token(@class, 'bookmap/dedication')][exists(@href)][ahf:isToc(.)]" mode="MAKE_TOC" priority="2" >
         <xsl:next-match/>
     </xsl:template>
-    <xsl:template match="*[contains(@class,' bookmap/dedication ')][empty(@href)][ahf:isToc(.)]" mode="MAKE_TOC" priority="2" >
+    <xsl:template match="*[contains-token(@class, 'bookmap/dedication')][empty(@href)][ahf:isToc(.)]" mode="MAKE_TOC" priority="2" >
     </xsl:template>
         
     <!-- Draftintro -->
-    <xsl:template match="*[contains(@class,' bookmap/draftintro ')][ahf:isToc(.)]" mode="MAKE_TOC" priority="2" >
+    <xsl:template match="*[contains-token(@class, 'bookmap/draftintro')][ahf:isToc(.)]" mode="MAKE_TOC" priority="2" >
         <xsl:apply-templates mode="#current"/>
     </xsl:template>
         
     <!-- Notices -->
-    <xsl:template match="*[contains(@class,' bookmap/notices ')][ahf:isToc(.)]" mode="MAKE_TOC" priority="2" >
+    <xsl:template match="*[contains-token(@class, 'bookmap/notices')][ahf:isToc(.)]" mode="MAKE_TOC" priority="2" >
         <xsl:next-match>
             <xsl:with-param name="prmDefaultTitle" select="$cNoticeTitle"/>
         </xsl:next-match>
     </xsl:template>
         
     <!-- Preface -->
-    <xsl:template match="*[contains(@class,' bookmap/preface ')][ahf:isToc(.)]" mode="MAKE_TOC" priority="2" >
+    <xsl:template match="*[contains-token(@class, 'bookmap/preface')][ahf:isToc(.)]" mode="MAKE_TOC" priority="2" >
         <xsl:next-match>
             <xsl:with-param name="prmDefaultTitle" select="$cPrefaceTitle"/>
         </xsl:next-match>
@@ -358,9 +358,9 @@
     <!-- Backmatter contents -->
     
     <!-- Amendments -->
-    <xsl:template match="*[contains(@class,' bookmap/amendments ')][empty(@href)][ahf:isToc(.)]" mode="MAKE_TOC" priority="2" >
+    <xsl:template match="*[contains-token(@class, 'bookmap/amendments')][empty(@href)][ahf:isToc(.)]" mode="MAKE_TOC" priority="2" >
     </xsl:template>
-    <xsl:template match="*[contains(@class,' bookmap/amendments ')][exists(@href)][ahf:isToc(.)]" mode="MAKE_TOC" priority="2" >
+    <xsl:template match="*[contains-token(@class, 'bookmap/amendments')][exists(@href)][ahf:isToc(.)]" mode="MAKE_TOC" priority="2" >
         <xsl:next-match/>
     </xsl:template>
     
@@ -368,7 +368,7 @@
          Changed not to generate toc title because appendice is only a wrapper of appendix in bookmap.
          2014-09-15 t.makita
       -->
-    <xsl:template match="*[contains(@class,' bookmap/appendices ')]" mode="MAKE_TOC" priority="2" >
+    <xsl:template match="*[contains-token(@class, 'bookmap/appendices')]" mode="MAKE_TOC" priority="2" >
         <!--xsl:next-match>
             <xsl:with-param name="prmDefaultTitle" select="$cAppendicesTitle"/>
         </xsl:next-match-->
@@ -376,7 +376,7 @@
     </xsl:template>
     
     <!-- Ignore reltable contents -->
-    <xsl:template match="*[contains(@class,' map/reltable ')]" mode="MAKE_TOC" />
+    <xsl:template match="*[contains-token(@class, 'map/reltable')]" mode="MAKE_TOC" />
     
     <!-- 
      function:	templates for topicref
@@ -385,10 +385,10 @@
      note:		Process all of the map/topicref contents.
                 Skip outputclass="coverN" & toc="no".
      -->
-    <xsl:template match="*[contains(@class,' map/topicref ')][ahf:isCoverTopicRef(.)]" mode="MAKE_TOC" priority="2"/>
-    <xsl:template match="*[contains(@class,' map/topicref ')][not(ahf:isToc(.))]" mode="MAKE_TOC"/>
+    <xsl:template match="*[contains-token(@class, 'map/topicref')][ahf:isCoverTopicRef(.)]" mode="MAKE_TOC" priority="2"/>
+    <xsl:template match="*[contains-token(@class, 'map/topicref')][not(ahf:isToc(.))]" mode="MAKE_TOC"/>
             
-    <xsl:template match="*[contains(@class,' map/topicref ')][ahf:isToc(.)]" mode="MAKE_TOC">
+    <xsl:template match="*[contains-token(@class, 'map/topicref')][ahf:isToc(.)]" mode="MAKE_TOC">
         <xsl:param name="prmDefaultTitle" as="xs:string" required="no" select="''"/>
         <xsl:param name="prmProcessChild" as="xs:boolean" required="no" select="true()"/>
         <xsl:call-template name="makeTocDetailLine">
@@ -409,11 +409,11 @@
         <xsl:variable name="topicRefId" select="ahf:getIdAtts($topicRef,$topicRef,true())" as="attribute()*"/>
         <xsl:variable name="navtitle" select="normalize-space(@navtitle)"/>
         <xsl:variable name="nestedTopicCount" as="xs:integer">
-            <xsl:sequence select="count(ancestor-or-self::*[contains(@class, ' map/topicref ')]
-                                                           [not(contains(@class, ' bookmap/frontmatter '))]
-                                                           [not(contains(@class, ' bookmap/backmatter '))]
-                                                           [not(contains(@class, ' bookmap/booklists '))]
-                                                           [not(contains(@class, ' bookmap/appendices '))]
+            <xsl:sequence select="count(ancestor-or-self::*[contains-token(@class, 'map/topicref')]
+                                                           [not(contains-token(@class, 'bookmap/frontmatter'))]
+                                                           [not(contains-token(@class, 'bookmap/backmatter'))]
+                                                           [not(contains-token(@class, 'bookmap/booklists'))]
+                                                           [not(contains-token(@class, 'bookmap/appendices'))]
                                                            )"/>
         </xsl:variable>
     
@@ -422,7 +422,7 @@
                 <xsl:when test="$nestedTopicCount gt $cTocNestMax">
                     <xsl:sequence select="false()"/>
                 </xsl:when>
-                <xsl:when test="ancestor-or-self::*[contains(@class, ' map/topicref ')][@toc='no']">
+                <xsl:when test="ancestor-or-self::*[contains-token(@class, 'map/topicref')][@toc='no']">
                     <!-- Descendant of toc="no" topicref --> 
                     <xsl:sequence select="false()"/>
                 </xsl:when>
@@ -499,10 +499,10 @@
         <xsl:variable name="titleNode" as="node()*">
             <xsl:choose>
                 <xsl:when test="exists($prmLinkContent)">
-                    <xsl:apply-templates select="$prmLinkContent/*[contains(@class, ' topic/title ')]" mode="GET_CONTENTS"/>
+                    <xsl:apply-templates select="$prmLinkContent/*[contains-token(@class, 'topic/title')]" mode="GET_CONTENTS"/>
                 </xsl:when>
-                <xsl:when test="$prmTopicRef/*[contains(@class,' map/topicmeta ')]/*[contains(@class,' topic/navtitle ')]">
-                    <xsl:apply-templates select="$prmTopicRef/*[contains(@class,' map/topicmeta ')]/*[contains(@class,' topic/navtitle ')]" mode="GET_CONTENTS"/>
+                <xsl:when test="$prmTopicRef/*[contains-token(@class, 'map/topicmeta')]/*[contains-token(@class, 'topic/navtitle')]">
+                    <xsl:apply-templates select="$prmTopicRef/*[contains-token(@class, 'map/topicmeta')]/*[contains-token(@class, 'topic/navtitle')]" mode="GET_CONTENTS"/>
                 </xsl:when>
                 <xsl:when test="$prmTopicRef/@navtitle">
                     <fo:inline><xsl:value-of select="string($prmTopicRef/@navtitle)"/></fo:inline>

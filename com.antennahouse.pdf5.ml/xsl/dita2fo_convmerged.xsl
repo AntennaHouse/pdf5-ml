@@ -24,10 +24,10 @@
     
     <!-- map or bookmap: Already defined in dita2fo_global.xsl -->
     <xsl:variable name="root"  as="element()" select="/*[1]"/>
-    <xsl:variable name="map" as="element()" select="$root/*[contains(@class,' map/map ')][1]"/>
+    <xsl:variable name="map" as="element()" select="$root/*[contains-token(@class, 'map/map')][1]"/>
     
     <!-- All topiref-->
-    <xsl:variable name="allTopicRefs" as="element()*" select="$map//*[contains(@class,' map/topicref ')][not(ancestor::*[contains(@class,' map/reltable ')])]"/>
+    <xsl:variable name="allTopicRefs" as="element()*" select="$map//*[contains-token(@class, 'map/topicref')][not(ancestor::*[contains-token(@class, 'map/reltable')])]"/>
     
     <!-- topicref that has @print="no"-->
     <xsl:variable name="noPrintTopicRefs" as="element()*" select="$allTopicRefs[ancestor-or-self::*[string(@print) eq 'no']]"/>
@@ -87,7 +87,7 @@
     </xsl:variable>
 
     <!-- topic access key -->
-    <xsl:key name="topicById"  match="/*//*[contains(@class, ' topic/topic')]" use="@id"/>
+    <xsl:key name="topicById"  match="/*//*[contains-token(@class, 'topic/topic')]" use="@id"/>
 
     <!-- 
      function:    root element template
@@ -166,7 +166,7 @@
      note:        An topicgroup is redundant for document structure.
                   It sometimes bothers counting the nesting level of topicref.
      -->
-    <xsl:template match="*[contains(@class, ' mapgroup-d/topicgroup ')]" priority="5">
+    <xsl:template match="*[contains-token(@class, 'mapgroup-d/topicgroup')]" priority="5">
         <xsl:apply-templates/>
     </xsl:template>
     
@@ -176,11 +176,11 @@
      return:      self and descendant element or none
      note:        if @print="no", ignore it.
      -->
-    <xsl:template match="*[contains(@class,' map/topicref ')]" as="element()?">
+    <xsl:template match="*[contains-token(@class, 'map/topicref')]" as="element()?">
         <xsl:variable name="topicRef" as="element()" select="."/>
         <xsl:choose>
             <xsl:when test="string(@print) eq 'no'" >
-                <xsl:for-each select="descendant-or-self::*[contains(@class,' map/topicref ')]">
+                <xsl:for-each select="descendant-or-self::*[contains-token(@class, 'map/topicref')]">
                     <xsl:if test="exists(@href)">
                         <xsl:call-template name="warningContinue">
                             <xsl:with-param name="prmMes" select="ahf:replace($stMes1001,('%href','%ohref'),(string(@href),string(@ohref)))"/>
@@ -188,7 +188,7 @@
                     </xsl:if>
                 </xsl:for-each>
             </xsl:when>
-            <xsl:when test="empty(ancestor::*[contains(@class,' map/reltable ')]) and $duplicateTopicRefs[. is $topicRef]">
+            <xsl:when test="empty(ancestor::*[contains-token(@class, 'map/reltable')]) and $duplicateTopicRefs[. is $topicRef]">
                 <xsl:variable name="href" as="xs:string" select="string(@href)"/>
                 <xsl:variable name="duplicateCount" as="xs:integer" select="count($allTopicRefs[. &lt;&lt; $topicRef][string(@href) eq $href])"/>
                 <xsl:copy>
@@ -228,7 +228,7 @@
                         change topic/@id according to referenced number.
                         2019-01-13 t.makita
      -->
-    <xsl:template match="*[contains(@class,' topic/topic ')]">
+    <xsl:template match="*[contains-token(@class, 'topic/topic')]">
         <xsl:param name="prmTopicRefNo" tunnel="yes" required="yes" as="xs:integer"/>
         <xsl:param name="prmDitaValFlagStyle" tunnel="yes" required="no" select="''"/>
         <xsl:param name="prmDitaValChangeBarStyle" tunnel="yes" required="no" select="''"/>
@@ -253,13 +253,13 @@
     </xsl:template>
 
     <!-- template for topic/@id,@oid -->
-    <xsl:template match="*[contains(@class,' topic/topic ')]/@id">
+    <xsl:template match="*[contains-token(@class, 'topic/topic')]/@id">
         <xsl:param name="prmTopicRefNo" required="yes" as="xs:integer"/>
         <xsl:variable name="id" as="xs:string" select="string(.)"/>
         <xsl:attribute name="id" select="if ($prmTopicRefNo gt 0) then concat($id,'_',string($prmTopicRefNo)) else $id"/>
     </xsl:template>
     
-    <xsl:template match="*[contains(@class,' topic/topic ')]/@oid">
+    <xsl:template match="*[contains-token(@class, 'topic/topic')]/@oid">
         <xsl:param name="prmTopicRefNo" required="yes" as="xs:integer"/>
         <xsl:variable name="oid" as="xs:string" select="string(.)"/>
         <xsl:attribute name="oid" select="if ($prmTopicRefNo gt 0) then concat($oid,'_',string($prmTopicRefNo)) else $oid"/>
@@ -271,7 +271,7 @@
      return:      self and descendant element or none
      note:        if link@href points to the topicref that has print="no", ignore it.
      -->
-    <xsl:template match="*[contains(@class,' topic/link ')]">
+    <xsl:template match="*[contains-token(@class, 'topic/link')]">
         <xsl:param name="prmDitaValFlagStyle" tunnel="yes" required="no" select="''"/>
         <xsl:param name="prmDitaValChangeBarStyle" tunnel="yes" required="no" select="''"/>
         <xsl:variable name="href" as="xs:string" select="string(@href)"/>
@@ -305,7 +305,7 @@
      return:       self and descendant element or none
      note:         if xref@href points to the topic that has print="no", output warning message.
      -->
-    <xsl:template match="*[contains(@class,' topic/xref ')][starts-with(string(@href),'#')]">
+    <xsl:template match="*[contains-token(@class, 'topic/xref')][starts-with(string(@href),'#')]">
         <xsl:param name="prmDitaValFlagStyle" tunnel="yes" required="no" select="''"/>
         <xsl:param name="prmDitaValChangeBarStyle" tunnel="yes" required="no" select="''"/>
         <xsl:param name="prmTopicRefNo" required="no" tunnel="yes" as="xs:integer" select="0"/>
@@ -338,18 +338,18 @@
 
         <xsl:variable name="refTopicId" as="xs:string" select="substring-after($refTopicHref,'#')"/>
         <xsl:variable name="refElemId" as="xs:string" select="if (contains($href,'/')) then substring-after($href,'/') else ''"/>
-        <xsl:variable name="topIds" as="xs:string*" select="for $id in $xref/ancestor::*[contains(@class,' topic/topic ')][last()]/descendant-or-self::*[contains(@class,' topic/topic ')]/@id return string($id)"/>
+        <xsl:variable name="topIds" as="xs:string*" select="for $id in $xref/ancestor::*[contains-token(@class, 'topic/topic')][last()]/descendant-or-self::*[contains-token(@class, 'topic/topic')]/@id return string($id)"/>
         <xsl:variable name="topicIdsExperimental">
             <xsl:choose>
                 <!-- xref exists inside topic -->
-                <xsl:when test="$xref/ancestor::*[contains(@class,' topic/topic ')]">
-                    <xsl:sequence select="for $id in $xref/ancestor::*[contains(@class,' topic/topic ')][last()]/descendant-or-self::*[contains(@class,' topic/topic ')]/@id return string($id)"/>
+                <xsl:when test="$xref/ancestor::*[contains-token(@class, 'topic/topic')]">
+                    <xsl:sequence select="for $id in $xref/ancestor::*[contains-token(@class, 'topic/topic')][last()]/descendant-or-self::*[contains-token(@class, 'topic/topic')]/@id return string($id)"/>
                 </xsl:when>
                 <!-- xref exists inside topicref/topicmeta/navtitle
                      In this case DITA-OT 3.3 does not maintain the topic destination portion of xref/@href
                  -->
-                <xsl:when test="$xref/ancestor::*[contains(@class,' map/topicmeta ')]/ancestor::*[contains(@class,' map/topicref ')][@href]">
-                    <xsl:variable name="href" as="xs:string" select="$xref/ancestor::*[contains(@class,' map/topicmeta ')]/ancestor::*[contains(@class,' map/topicref ')]/@href/string(.)"/>
+                <xsl:when test="$xref/ancestor::*[contains-token(@class, 'map/topicmeta')]/ancestor::*[contains-token(@class, 'map/topicref')][@href]">
+                    <xsl:variable name="href" as="xs:string" select="$xref/ancestor::*[contains-token(@class, 'map/topicmeta')]/ancestor::*[contains-token(@class, 'map/topicref')]/@href/string(.)"/>
                     <xsl:variable name="topicId" as="xs:string" select="substring-after($href,'#')"/>
                     <xsl:sequence select="$topicId"/>
                 </xsl:when>
@@ -402,7 +402,7 @@
         </xsl:copy>
     </xsl:template>
 
-    <xsl:template match="*[contains(@class,' topic/xref ')]/@href">
+    <xsl:template match="*[contains-token(@class, 'topic/xref')]/@href">
         <xsl:param name="prmNewXrefHref" required="no" as="xs:string" select="''"/>
         <xsl:choose>
             <xsl:when test="string($prmNewXrefHref)">
@@ -420,7 +420,7 @@
      return:       empty
      note:         DITA DTD allows empty strow, but it is redundant.
      -->
-    <xsl:template match="*[contains(@class,' topic/strow ')][empty(*[contains(@class,' topic/stentry ')])]"/>
+    <xsl:template match="*[contains-token(@class, 'topic/strow')][empty(*[contains-token(@class, 'topic/stentry')])]"/>
     
     <!-- 
      function:     comment template
@@ -448,7 +448,7 @@
      return:      none or itself 
      note:        If not output required-cleanup, remove it at this template.
      -->
-    <xsl:template match="*[contains(@class,' topic/required-cleanup ')][not($pOutputRequiredCleanup)]"/>
+    <xsl:template match="*[contains-token(@class, 'topic/required-cleanup')][not($pOutputRequiredCleanup)]"/>
     
     <!-- 
      function:    draft-comment template
@@ -456,7 +456,7 @@
      return:      none or itself 
      note:        If not output draft-comment, remove it at this template.
      -->
-    <xsl:template match="*[contains(@class,' topic/draft-comment ')][not($pOutputDraftComment)]"/>
+    <xsl:template match="*[contains-token(@class, 'topic/draft-comment')][not($pOutputDraftComment)]"/>
 
     <!-- 
      function:    Check $prmAttr has $prmValue

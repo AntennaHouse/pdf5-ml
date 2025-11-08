@@ -25,7 +25,7 @@
         return:	    fo:warapper
         note:		Only process child elements.
     -->
-    <xsl:template match="*[contains(@class, ' mathml-d/mathml ')]" priority="2">
+    <xsl:template match="*[contains-token(@class, 'mathml-d/mathml')]" priority="2">
         <fo:wrapper>
             <xsl:call-template name="ahf:getUnivAtts"/>
             <xsl:apply-templates/>
@@ -38,7 +38,7 @@
         return:	    fo:instream-foreign-object
         note:		none
     -->
-    <xsl:template match="*[contains(@class, ' mathml-d/mathml ')]/m:math">
+    <xsl:template match="*[contains-token(@class, 'mathml-d/mathml')]/m:math">
         <fo:instream-foreign-object>
             <xsl:copy>
                 <xsl:copy-of select="@*"/>
@@ -53,7 +53,7 @@
         return:	    fo:external-graphic
         note:		none
     -->
-    <xsl:template match="*[contains(@class, ' mathml-d/mathmlref ')]" priority="2">
+    <xsl:template match="*[contains-token(@class, 'mathml-d/mathmlref')]" priority="2">
         <fo:external-graphic content-type="content-type:application/mathml+xml">
             <xsl:attribute name="src" select="ahf:getImageUrl(.)"/>
         </fo:external-graphic>

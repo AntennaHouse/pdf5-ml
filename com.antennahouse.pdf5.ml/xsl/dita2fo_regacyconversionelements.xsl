@@ -27,7 +27,7 @@
     <xsl:variable name="requiredCleanupRemap"       select="ahf:getVarValue('Required_Cleanup_Remap')"/>
     <xsl:variable name="requiredCleanupTitleSuffix" select="ahf:getVarValue('Required_Cleanup_Title_Suffix')"/>
     
-    <xsl:template match="*[contains(@class,' topic/required-cleanup ')]">
+    <xsl:template match="*[contains-token(@class, 'topic/required-cleanup')]">
         <fo:block>
             <xsl:copy-of select="ahf:getAttributeSet('atsRequiredCleanup')"/>
             <xsl:call-template name="ahf:getIdAtts"/>

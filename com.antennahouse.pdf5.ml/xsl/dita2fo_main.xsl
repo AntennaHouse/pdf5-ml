@@ -89,14 +89,14 @@
             <!-- Process main contents -->
             <xsl:choose>
                 <xsl:when test="$isBookMap">
-                    <xsl:apply-templates select="$map/*[contains(@class, ' bookmap/frontmatter ')]"/>
-                    <xsl:apply-templates select="$map/*[contains(@class, ' bookmap/part ') or contains(@class, ' bookmap/chapter ')]"/>
-                    <xsl:apply-templates select="$map/*[contains(@class, ' bookmap/appendices ')]/*[contains(@class, ' bookmap/appendix ')]"/>
-                    <xsl:apply-templates select="$map/*[contains(@class, ' bookmap/appendix ')]"/>
-                    <xsl:apply-templates select="$map/*[contains(@class, ' bookmap/backmatter ')]"/>
+                    <xsl:apply-templates select="$map/*[contains-token(@class, 'bookmap/frontmatter')]"/>
+                    <xsl:apply-templates select="$map/*[contains-token(@class, 'bookmap/part') or contains-token(@class, 'bookmap/chapter')]"/>
+                    <xsl:apply-templates select="$map/*[contains-token(@class, 'bookmap/appendices')]/*[contains-token(@class, 'bookmap/appendix')]"/>
+                    <xsl:apply-templates select="$map/*[contains-token(@class, 'bookmap/appendix')]"/>
+                    <xsl:apply-templates select="$map/*[contains-token(@class, 'bookmap/backmatter')]"/>
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:apply-templates select="$map/*[contains(@class, ' map/topicref ')]"/>
+                    <xsl:apply-templates select="$map/*[contains-token(@class, 'map/topicref')]"/>
                 </xsl:otherwise>
             </xsl:choose>
             

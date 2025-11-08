@@ -30,11 +30,11 @@
      note:		div is used for only grouping the contents
                 It has no intended style
      -->
-    <xsl:template match="*[contains(@class, ' topic/div ')]" mode="MODE_GET_STYLE" as="xs:string*">
+    <xsl:template match="*[contains-token(@class, 'topic/div')]" mode="MODE_GET_STYLE" as="xs:string*">
         <xsl:sequence select="'atsDiv'"/>
     </xsl:template>
     
-    <xsl:template match="*[contains(@class, ' topic/div ')]">
+    <xsl:template match="*[contains-token(@class, 'topic/div')]">
         <fo:wrapper>
             <xsl:call-template name="getAttributeSetWithLang"/>
             <xsl:call-template name="ahf:getUnivAtts"/>
@@ -49,11 +49,11 @@
      return:	fo:block with p's contents
      note:		none
      -->
-    <xsl:template match="*[contains(@class, ' topic/p ')]" mode="MODE_GET_STYLE" as="xs:string*">
+    <xsl:template match="*[contains-token(@class, 'topic/p')]" mode="MODE_GET_STYLE" as="xs:string*">
         <xsl:sequence select="'atsP'"/>
     </xsl:template>
 
-    <xsl:template match="*[contains(@class, ' topic/p ')]">
+    <xsl:template match="*[contains-token(@class, 'topic/p')]">
         <fo:block>
             <xsl:call-template name="getAttributeSetWithLang"/>
             <xsl:call-template name="ahf:getUnivAtts"/>
@@ -70,11 +70,11 @@
                 Call "processPh" for overriding from other plug-ins.
                 2015-08-25 t.makita
      -->
-    <xsl:template match="*[contains(@class, ' topic/ph ')]" mode="MODE_GET_STYLE" as="xs:string*">
+    <xsl:template match="*[contains-token(@class, 'topic/ph')]" mode="MODE_GET_STYLE" as="xs:string*">
         <xsl:sequence select="'atsPh'"/>
     </xsl:template>
 
-    <xsl:template match="*[contains(@class, ' topic/ph ')]">
+    <xsl:template match="*[contains-token(@class, 'topic/ph')]">
         <xsl:call-template name="processPh"/>
     </xsl:template>
     
@@ -97,11 +97,11 @@
                   Add DITA-OT generated @href processing.
                   2020-02-12 t.makita
      -->
-    <xsl:template match="*[contains(@class, ' topic/keyword ')]" mode="MODE_GET_STYLE" as="xs:string*">
+    <xsl:template match="*[contains-token(@class, 'topic/keyword')]" mode="MODE_GET_STYLE" as="xs:string*">
         <xsl:sequence select="'atsKeyword'"/>
     </xsl:template>
 
-    <xsl:template match="*[contains(@class, ' topic/keyword ')]">
+    <xsl:template match="*[contains-token(@class, 'topic/keyword')]">
         <xsl:call-template name="processKeyword"/>
     </xsl:template>
     
@@ -151,11 +151,11 @@
         note:		Call "processSection" for overriding from other plug-ins.
                     2015-08-25 t.makita
     -->
-    <xsl:template match="*[contains(@class, ' topic/section ')]" mode="MODE_GET_STYLE" as="xs:string*">
+    <xsl:template match="*[contains-token(@class, 'topic/section')]" mode="MODE_GET_STYLE" as="xs:string*">
         <xsl:sequence select="'atsSection'"/>
     </xsl:template>
 
-    <xsl:template match="*[contains(@class, ' topic/section ')]">
+    <xsl:template match="*[contains-token(@class, 'topic/section')]">
         <xsl:call-template name="processSection"/>
     </xsl:template>
     
@@ -174,11 +174,11 @@
         return:	    Section title list
         note:		
     -->
-    <xsl:template match="*[contains(@class, ' topic/section ')]/*[contains(@class, ' topic/title ')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
+    <xsl:template match="*[contains-token(@class, 'topic/section')]/*[contains-token(@class, 'topic/title')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
         <xsl:sequence select="'atsHeader5Body'"/>
     </xsl:template>
 
-    <xsl:template match="*[contains(@class, ' topic/section ')]/*[contains(@class, ' topic/title ')]" priority="2">
+    <xsl:template match="*[contains-token(@class, 'topic/section')]/*[contains-token(@class, 'topic/title')]" priority="2">
         
         <fo:list-block>
             <xsl:call-template name="getAttributeSetWithLang">
@@ -214,10 +214,10 @@
         return:	    fo:wrapper
         note:		2011-10-27 t.makita
     -->
-    <xsl:template match="*[contains(@class, ' topic/sectiondiv ')]" mode="MODE_GET_STYLE" as="xs:string*">
+    <xsl:template match="*[contains-token(@class, 'topic/sectiondiv')]" mode="MODE_GET_STYLE" as="xs:string*">
     </xsl:template>
 
-    <xsl:template match="*[contains(@class, ' topic/sectiondiv ')]">
+    <xsl:template match="*[contains-token(@class, 'topic/sectiondiv')]">
         
         <fo:wrapper>
             <xsl:call-template name="getAttributeSetWithLang"/>
@@ -233,11 +233,11 @@
         return:	    Example contents
         note:		
     -->
-    <xsl:template match="*[contains(@class, ' topic/example ')]" mode="MODE_GET_STYLE" as="xs:string*">
+    <xsl:template match="*[contains-token(@class, 'topic/example')]" mode="MODE_GET_STYLE" as="xs:string*">
         <xsl:sequence select="'atsExample'"/>
     </xsl:template>
     
-    <xsl:template match="*[contains(@class, ' topic/example ')]">
+    <xsl:template match="*[contains-token(@class, 'topic/example')]">
         <fo:block>
             <xsl:call-template name="getAttributeSetWithLang"/>
             <xsl:call-template name="ahf:getUnivAtts"/>
@@ -253,11 +253,11 @@
         return:	    Example title list
         note:		
     -->
-    <xsl:template match="*[contains(@class, ' topic/example ')]/*[contains(@class, ' topic/title ')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
+    <xsl:template match="*[contains-token(@class, 'topic/example')]/*[contains-token(@class, 'topic/title')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
         <xsl:sequence select="'atsHeader5List'"/>
     </xsl:template>
 
-    <xsl:template match="*[contains(@class, ' topic/example ')]/*[contains(@class, ' topic/title ')]" priority="2">
+    <xsl:template match="*[contains-token(@class, 'topic/example')]/*[contains-token(@class, 'topic/title')]" priority="2">
         
         <fo:list-block>
             <xsl:call-template name="getAttributeSetWithLang"/>
@@ -294,11 +294,11 @@
      return:	fo:block
      note:		Generate id attribute for figure list.
      -->
-    <xsl:template match="*[contains(@class, ' topic/fig ')]" mode="MODE_GET_STYLE" as="xs:string*">
+    <xsl:template match="*[contains-token(@class, 'topic/fig')]" mode="MODE_GET_STYLE" as="xs:string*">
         <xsl:sequence select="'atsFig'"/>
     </xsl:template>
 
-    <xsl:template match="*[contains(@class, ' topic/fig ')]">
+    <xsl:template match="*[contains-token(@class, 'topic/fig')]">
         <xsl:variable name="figAttrs" as="attribute()*">
             <xsl:call-template name="getAttributeSetWithLang"/>
         </xsl:variable>
@@ -306,23 +306,23 @@
             <xsl:copy-of select="$figAttrs"/>
             <xsl:copy-of select="ahf:getDisplayAtts(.,$figAttrs)"/>
             <xsl:call-template name="ahf:getUnivAtts"/>
-            <xsl:if test="empty(@id) and child::*[contains(@class, ' topic/title ')]">
+            <xsl:if test="empty(@id) and child::*[contains-token(@class, 'topic/title')]">
                 <xsl:call-template name="ahf:generateIdAttr"/>
             </xsl:if>
             <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
-            <xsl:apply-templates select="*[contains(@class,' topic/desc ')]"/>
-            <xsl:apply-templates select="*[not(contains(@class,' topic/title '))][not(contains(@class,' topic/desc '))]"/>
+            <xsl:apply-templates select="*[contains-token(@class, 'topic/desc')]"/>
+            <xsl:apply-templates select="*[not(contains-token(@class, 'topic/title'))][not(contains-token(@class, 'topic/desc'))]"/>
         </fo:block>
         <!-- process title last -->
-        <xsl:apply-templates select="*[contains(@class,' topic/title ')]"/>
+        <xsl:apply-templates select="*[contains-token(@class, 'topic/title')]"/>
     </xsl:template>
     
     <!-- fig/desc -->
-    <xsl:template match="*[contains(@class, ' topic/fig ')]/*[contains(@class, ' topic/desc ')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
+    <xsl:template match="*[contains-token(@class, 'topic/fig')]/*[contains-token(@class, 'topic/desc')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
         <xsl:sequence select="'atsFigDesc'"/>
     </xsl:template>
 
-    <xsl:template match="*[contains(@class, ' topic/fig ')]/*[contains(@class, ' topic/desc ')]" priority="2">
+    <xsl:template match="*[contains-token(@class, 'topic/fig')]/*[contains-token(@class, 'topic/desc')]" priority="2">
         <fo:block>
             <xsl:call-template name="getAttributeSetWithLang"/>
             <xsl:call-template name="ahf:getUnivAtts"/>
@@ -332,11 +332,11 @@
     </xsl:template>
     
     <!-- fig/title -->
-    <xsl:template match="*[contains(@class, ' topic/fig ')]/*[contains(@class, ' topic/title ')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
+    <xsl:template match="*[contains-token(@class, 'topic/fig')]/*[contains-token(@class, 'topic/title')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
         <xsl:sequence select="'atsFigTitle'"/>
     </xsl:template>
 
-    <xsl:template match="*[contains(@class, ' topic/fig ')]/*[contains(@class, ' topic/title ')]" priority="2">
+    <xsl:template match="*[contains-token(@class, 'topic/fig')]/*[contains-token(@class, 'topic/title')]" priority="2">
         <xsl:variable name="figTitlePrefix" as="xs:string">
             <xsl:call-template name="ahf:getFigTitlePrefix">
                 <xsl:with-param name="prmFig" select="parent::*[1]"/>
@@ -359,14 +359,14 @@
      return:	fo:block
      note:		
      -->
-    <xsl:template match="*[contains(@class, ' topic/figgroup ')]" mode="MODE_GET_STYLE" as="xs:string*">
-        <xsl:variable name="isFiggroupInTable" as="xs:boolean" select="exists(ancestor::*[contains(@class,' topic/entry ')])"/>
+    <xsl:template match="*[contains-token(@class, 'topic/figgroup')]" mode="MODE_GET_STYLE" as="xs:string*">
+        <xsl:variable name="isFiggroupInTable" as="xs:boolean" select="exists(ancestor::*[contains-token(@class, 'topic/entry')])"/>
         <xsl:sequence select="if ($isFiggroupInTable) then 'atsFiggroupInTable' else 'atsFiggroup'"/>
     </xsl:template>
 
-    <xsl:template match="*[contains(@class, ' topic/figgroup ')]">
+    <xsl:template match="*[contains-token(@class, 'topic/figgroup')]">
         <xsl:variable name="figgroup" as="element()" select="."/>
-        <xsl:variable name="isLastFiggroup"  as="xs:boolean" select="exists(ancestor::*[contains(@class,' topic/fig ')][(@frame='all') or (@frame='bottom') or (@frame='topbot')]/child::*[position() eq last()]/descendant-or-self::*[contains(@class, ' topic/figgroup ')][. is $figgroup][not(child::*[contains(@class,' topic/title ')])])"/>
+        <xsl:variable name="isLastFiggroup"  as="xs:boolean" select="exists(ancestor::*[contains-token(@class, 'topic/fig')][(@frame='all') or (@frame='bottom') or (@frame='topbot')]/child::*[position() eq last()]/descendant-or-self::*[contains-token(@class, 'topic/figgroup')][. is $figgroup][not(child::*[contains-token(@class, 'topic/title')])])"/>
         <fo:block>
             <xsl:call-template name="getAttributeSetWithLang"/>
             <xsl:call-template name="ahf:getUnivAtts"/>
@@ -377,20 +377,20 @@
                 </xsl:call-template>
             </xsl:if>
             <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
-            <xsl:apply-templates select="*[not(contains(@class,' topic/title '))]"/>
+            <xsl:apply-templates select="*[not(contains-token(@class, 'topic/title'))]"/>
         </fo:block>
         <!-- process title last -->
-        <xsl:apply-templates select="*[contains(@class,' topic/title ')]"/>
+        <xsl:apply-templates select="*[contains-token(@class, 'topic/title')]"/>
     </xsl:template>
     
-    <xsl:template match="*[contains(@class, ' topic/figgroup ')]/*[contains(@class, ' topic/title ')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
-        <xsl:variable name="isFiggroupInTable" as="xs:boolean" select="exists(ancestor::*[contains(@class,' topic/entry ')])"/>
+    <xsl:template match="*[contains-token(@class, 'topic/figgroup')]/*[contains-token(@class, 'topic/title')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
+        <xsl:variable name="isFiggroupInTable" as="xs:boolean" select="exists(ancestor::*[contains-token(@class, 'topic/entry')])"/>
         <xsl:sequence select="if ($isFiggroupInTable) then 'atsFiggroupTitleInTable' else 'atsFiggroupTitle'"/>
     </xsl:template>
 
-    <xsl:template match="*[contains(@class, ' topic/figgroup ')]/*[contains(@class, ' topic/title ')]" priority="2">
+    <xsl:template match="*[contains-token(@class, 'topic/figgroup')]/*[contains-token(@class, 'topic/title')]" priority="2">
         <xsl:variable name="title" as="element()" select="."/>
-        <xsl:variable name="isLastFiggroupTitle" select="exists(ancestor::*[contains(@class,' topic/fig ')][string(@frame) = ('all','bottom','topbot')]/child::*[position()=last()]/descendant::*[contains(@class, ' topic/title ')][. is $title])"/>
+        <xsl:variable name="isLastFiggroupTitle" select="exists(ancestor::*[contains-token(@class, 'topic/fig')][string(@frame) = ('all','bottom','topbot')]/child::*[position()=last()]/descendant::*[contains-token(@class, 'topic/title')][. is $title])"/>
         <fo:block>
             <xsl:call-template name="getAttributeSetWithLang"/>
             <xsl:call-template name="ahf:getUnivAtts"/>
@@ -410,7 +410,7 @@
      note:		Add block/inline specific attribute-set.
                 2015-06-04 t.makita
      -->
-    <xsl:template match="*[contains(@class, ' topic/image ')]">
+    <xsl:template match="*[contains-token(@class, 'topic/image')]">
         <xsl:choose>
             <xsl:when test="string(@placement) eq 'break'">
                 <!-- block level image -->
@@ -557,10 +557,10 @@
         </xsl:choose>
         
         <!-- alt -->
-        <xsl:if test="$prmImage/*[contains(@class, ' topic/alt ')] and $pMakeAltText">
+        <xsl:if test="$prmImage/*[contains-token(@class, 'topic/alt')] and $pMakeAltText">
             <xsl:variable name="altText" as="xs:string">
                 <xsl:variable name="tempAltText" as="xs:string*">
-                    <xsl:apply-templates select="$prmImage/*[contains(@class, ' topic/alt ')]" mode="TEXT_ONLY"/>
+                    <xsl:apply-templates select="$prmImage/*[contains-token(@class, 'topic/alt')]" mode="TEXT_ONLY"/>
                 </xsl:variable>
                 <xsl:sequence select="string-join($tempAltText,'')"/>
             </xsl:variable>
@@ -634,7 +634,7 @@
      return:	none
      note:		alt is handled in ahf:getImageCommonAttr
      -->
-    <xsl:template match="*[contains(@class, ' topic/alt ')]">
+    <xsl:template match="*[contains-token(@class, 'topic/alt')]">
     </xsl:template>
     
     <!-- 
@@ -647,7 +647,7 @@
                    Content type of foreign is ANY. However this means
                    DITA DTD needs SVG, MathML, etc DTDs.
      -->
-    <xsl:template match="*[contains(@class, ' topic/object ')]">
+    <xsl:template match="*[contains-token(@class, 'topic/object')]">
         <xsl:call-template name="warningContinue">
             <xsl:with-param name="prmMes">
                 <xsl:value-of select="ahf:replace($stMes041,('%file','%class'),(string(@xtrf),string(@classid)))"/>
@@ -662,7 +662,7 @@
      return:	none
      note:		This template will not be activated.
      -->
-    <xsl:template match="*[contains(@class, ' topic/param ')]">
+    <xsl:template match="*[contains-token(@class, 'topic/param')]">
     </xsl:template>
     
     <!-- 
@@ -672,11 +672,11 @@
      note:		Call "processPre" for overriding from other plug-ins.
                 2015-08-25 t.makita
      -->
-    <xsl:template match="*[contains(@class, ' topic/pre ')]" mode="MODE_GET_STYLE" as="xs:string*">
+    <xsl:template match="*[contains-token(@class, 'topic/pre')]" mode="MODE_GET_STYLE" as="xs:string*">
         <xsl:sequence select="'atsPre'"/>
     </xsl:template>    
     
-    <xsl:template match="*[contains(@class, ' topic/pre ')]">
+    <xsl:template match="*[contains-token(@class, 'topic/pre')]">
         <xsl:call-template name="processPre"/>
     </xsl:template>
     
@@ -699,11 +699,11 @@
      return:	fo:block
      note:		
      -->
-    <xsl:template match="*[contains(@class, ' topic/lines ')]" mode="MODE_GET_STYLE" as="xs:string*">
+    <xsl:template match="*[contains-token(@class, 'topic/lines')]" mode="MODE_GET_STYLE" as="xs:string*">
         <xsl:sequence select="'atsLines'"/>
     </xsl:template>    
 
-    <xsl:template match="*[contains(@class, ' topic/lines ')]">
+    <xsl:template match="*[contains-token(@class, 'topic/lines')]">
         <xsl:variable name="linesAttr" as="attribute()*">
             <xsl:call-template name="getAttributeSetWithLang"/>
         </xsl:variable>
@@ -722,11 +722,11 @@
      return:	fo:inline
      note:		
      -->
-    <xsl:template match="*[contains(@class, ' topic/cite ')]" mode="MODE_GET_STYLE" as="xs:string*">
+    <xsl:template match="*[contains-token(@class, 'topic/cite')]" mode="MODE_GET_STYLE" as="xs:string*">
         <xsl:sequence select="'atsCite'"/>
     </xsl:template>    
 
-    <xsl:template match="*[contains(@class, ' topic/cite ')]">
+    <xsl:template match="*[contains-token(@class, 'topic/cite')]">
         <xsl:variable name="citePrefix" as="xs:string">
             <xsl:call-template name="getVarValueWithLang">
                 <xsl:with-param name="prmVarName" select="'Cite_Prefix'"/>
@@ -763,13 +763,13 @@
                 As DITA-OT doesn't maintain longdescref/@href, it is no longer used.
                 2014-11-10 t.makita
      -->
-    <xsl:template match="*[contains(@class, ' topic/lq ')]" mode="MODE_GET_STYLE" as="xs:string*">
+    <xsl:template match="*[contains-token(@class, 'topic/lq')]" mode="MODE_GET_STYLE" as="xs:string*">
         <xsl:sequence select="'atsLq'"/>
     </xsl:template>    
 
-    <xsl:template match="*[contains(@class, ' topic/lq ')]">
+    <xsl:template match="*[contains-token(@class, 'topic/lq')]">
         <xsl:param name="prmTopicRef" tunnel="yes" required="yes"  as="element()?"/>
-        <xsl:variable name="longQuoteRef" select="child::*[contains(@class,' topic/longquoteref ')]" as="element()?"/>
+        <xsl:variable name="longQuoteRef" select="child::*[contains-token(@class, 'topic/longquoteref')]" as="element()?"/>
         
         <xsl:variable name="type"   select="if (exists($longQuoteRef)) then string($longQuoteRef/@type) else string(@type)" as="xs:string"/>
         <xsl:variable name="scope"  select="if (exists($longQuoteRef)) then string($longQuoteRef/@scope) else string(@scope)" as="xs:string"/>
@@ -864,7 +864,7 @@
         return:	    none
         note:		Ignore in normal context.
     -->
-    <xsl:template match="*[contains(@class, ' topic/longquoteref ')]">
+    <xsl:template match="*[contains-token(@class, 'topic/longquoteref')]">
     </xsl:template>
         
     
@@ -874,11 +874,11 @@
      return:      fo:inline
      note:		
      -->
-    <xsl:template match="*[contains(@class, ' topic/q ')]" mode="MODE_GET_STYLE" as="xs:string*">
+    <xsl:template match="*[contains-token(@class, 'topic/q')]" mode="MODE_GET_STYLE" as="xs:string*">
         <xsl:sequence select="'atsQ'"/>
     </xsl:template>    
 
-    <xsl:template match="*[contains(@class, ' topic/q ')]">
+    <xsl:template match="*[contains-token(@class, 'topic/q')]">
         <xsl:variable name="qPrefix" as="xs:string">
             <xsl:call-template name="getVarValueWithLang">
                 <xsl:with-param name="prmVarName" select="'Q_Prefix'"/>
@@ -905,7 +905,7 @@
         return:	    Nothing
         note:		Longdescref is for HTML output. (2011-10-26 t.makita)
     -->
-    <xsl:template match="*[contains(@class, ' topic/longdescref ')]">
+    <xsl:template match="*[contains-token(@class, 'topic/longdescref')]">
     </xsl:template>
         
     <!-- 
@@ -914,11 +914,11 @@
         return:     fo:block
         note:       This template does not support multi-language.
     -->
-    <xsl:template match="*[contains(@class, ' topic/draft-comment ')]" mode="MODE_GET_STYLE" as="xs:string*">
+    <xsl:template match="*[contains-token(@class, 'topic/draft-comment')]" mode="MODE_GET_STYLE" as="xs:string*">
         <xsl:sequence select="'atsDraftComment'"/>
     </xsl:template>    
     
-    <xsl:template match="*[contains(@class,' topic/draft-comment ')]">
+    <xsl:template match="*[contains-token(@class, 'topic/draft-comment')]">
         <xsl:variable name="draftCommentTitlePrefix" as="xs:string">
             <xsl:call-template name="getVarValueWithLang">
                 <xsl:with-param name="prmVarName" select="'Draft_Comment_Title_Prefix'"/>
@@ -977,7 +977,7 @@
         note:		BUG-FIX: Don't generate any element if @id exists.
                     2015-05-26 t.makita
     -->
-    <xsl:template match="*[contains(@class,' topic/fn ')]">
+    <xsl:template match="*[contains-token(@class, 'topic/fn')]">
         <xsl:param name="prmMakeCover" required="no" as="xs:boolean" select="false()"/>
         <xsl:param name="prmGetContent" required="no" tunnel="yes" as="xs:boolean" select="false()"/>
         
@@ -1024,7 +1024,7 @@
         <xsl:param name="prmFn" required="no" as="element()" select="."/>
         <xsl:param name="prmTopicRef" tunnel="yes" required="yes" as="element()?"/>
         
-        <xsl:variable name="isGlossEntry" as="xs:boolean" select="exists($prmFn/ancestor::*[contains(@class,' glossentry/glossentry ')])"/>
+        <xsl:variable name="isGlossEntry" as="xs:boolean" select="exists($prmFn/ancestor::*[contains-token(@class, 'glossentry/glossentry')])"/>
         <xsl:variable name="footnoteTagPrefix" as="xs:string">
             <xsl:call-template name="getVarValueWithLang">
                 <xsl:with-param name="prmVarName" select="'Footnote_Tag_Prefix'"/>
@@ -1042,7 +1042,7 @@
                 <xsl:sequence select="string($prmFn/@callout)"/>
             </xsl:when>
             <xsl:when test="$pDisplayFnAtEndOfTopic">
-                <xsl:variable name="topic" as="element()" select="$prmFn/ancestor::*[contains(@class, ' topic/topic ')][position() eq last()]"/>
+                <xsl:variable name="topic" as="element()" select="$prmFn/ancestor::*[contains-token(@class, 'topic/topic')][position() eq last()]"/>
                 <xsl:variable name="fnPreviousAmount" as="xs:integer">
                     <xsl:variable name="topicId" select="ahf:generateId($topic,$prmTopicRef)"/>
                     <xsl:choose>
@@ -1058,13 +1058,13 @@
                     </xsl:choose>
                 </xsl:variable>
                 <xsl:variable name="fnCurrentAmount" as="xs:integer">
-                    <xsl:variable name="parentTopic" select="$prmFn/ancestor::*[contains(@class, ' topic/topic ')][1]"/>
+                    <xsl:variable name="parentTopic" select="$prmFn/ancestor::*[contains-token(@class, 'topic/topic')][1]"/>
                     <xsl:choose>
                         <xsl:when test="$isGlossEntry">
-                            <xsl:sequence select="count($parentTopic//*[contains(@class,' topic/fn ')][not(contains(@class,' pr-d/synnote '))][not(@callout)][. &lt;&lt; $prmFn]|$prmFn)"/>
+                            <xsl:sequence select="count($parentTopic//*[contains-token(@class, 'topic/fn')][not(contains-token(@class, 'pr-d/synnote'))][not(@callout)][. &lt;&lt; $prmFn]|$prmFn)"/>
                         </xsl:when>
                         <xsl:otherwise>
-                            <xsl:sequence select="count($topic//*[contains(@class,' topic/fn ')][not(contains(@class,' pr-d/synnote '))][not(@callout)][. &lt;&lt; $prmFn]|$prmFn)"/>
+                            <xsl:sequence select="count($topic//*[contains-token(@class, 'topic/fn')][not(contains-token(@class, 'pr-d/synnote'))][not(@callout)][. &lt;&lt; $prmFn]|$prmFn)"/>
                         </xsl:otherwise>
                     </xsl:choose>
                 </xsl:variable>
@@ -1078,29 +1078,29 @@
                      3. simpletable
                      4. lists (ol, ul, dl)
                  -->
-                <xsl:variable name="ancestorTopic"  select="$prmFn/ancestor::*[contains(@class, ' topic/topic ')][1]" as="element()"/>
+                <xsl:variable name="ancestorTopic"  select="$prmFn/ancestor::*[contains-token(@class, 'topic/topic')][1]" as="element()"/>
                 <xsl:variable name="parentElements" as="element()*">
                     <xsl:choose>
-                        <xsl:when test="$prmFn/ancestor::*[contains(@class, ' glossentry/glossdef ')]">
-                            <xsl:sequence select="$prmFn/ancestor::*[contains(@class, ' glossentry/glossdef ')][1]"/>
+                        <xsl:when test="$prmFn/ancestor::*[contains-token(@class, 'glossentry/glossdef')]">
+                            <xsl:sequence select="$prmFn/ancestor::*[contains-token(@class, 'glossentry/glossdef')][1]"/>
                         </xsl:when>
-                        <xsl:when test="$prmFn/ancestor::*[contains(@class, ' topic/tgroup ')][. &gt;&gt; $ancestorTopic][position() eq last()]">
-                            <xsl:variable name="tgroup" as="element()" select="$prmFn/ancestor::*[contains(@class, ' topic/tgroup ')][. &gt;&gt; $ancestorTopic][position() eq last()]"/>
-                            <xsl:if test="$tgroup is $tgroup/parent::*[contains(@class,' topic/table ')]/*[contains(@class, ' topic/tgroup ')][1]">
-                                <xsl:sequence select="$tgroup/parent::*[contains(@class,' topic/table ')]/*[contains(@class, ' topic/desc ')]"/>
+                        <xsl:when test="$prmFn/ancestor::*[contains-token(@class, 'topic/tgroup')][. &gt;&gt; $ancestorTopic][position() eq last()]">
+                            <xsl:variable name="tgroup" as="element()" select="$prmFn/ancestor::*[contains-token(@class, 'topic/tgroup')][. &gt;&gt; $ancestorTopic][position() eq last()]"/>
+                            <xsl:if test="$tgroup is $tgroup/parent::*[contains-token(@class, 'topic/table')]/*[contains-token(@class, 'topic/tgroup')][1]">
+                                <xsl:sequence select="$tgroup/parent::*[contains-token(@class, 'topic/table')]/*[contains-token(@class, 'topic/desc')]"/>
                             </xsl:if>
                             <xsl:sequence select="$tgroup"/>
                         </xsl:when>
-                        <xsl:when test="$prmFn/ancestor::*[contains(@class, ' topic/desc ')][parent::*[contains(@class,' topic/table ')]][. &gt;&gt; $ancestorTopic][position() eq last()]">
-                            <xsl:variable name="desc" as="element()" select="$prmFn/ancestor::*[contains(@class, ' topic/desc ')][parent::*[contains(@class,' topic/table ')]][. &gt;&gt; $ancestorTopic][position() eq last()]"/>
+                        <xsl:when test="$prmFn/ancestor::*[contains-token(@class, 'topic/desc')][parent::*[contains-token(@class, 'topic/table')]][. &gt;&gt; $ancestorTopic][position() eq last()]">
+                            <xsl:variable name="desc" as="element()" select="$prmFn/ancestor::*[contains-token(@class, 'topic/desc')][parent::*[contains-token(@class, 'topic/table')]][. &gt;&gt; $ancestorTopic][position() eq last()]"/>
                             <xsl:sequence select="$desc"/>
-                            <xsl:sequence select="$desc/parent::*[contains(@class,' topic/table ')]/*[contains(@class,' topic/tgroup ')][1]"/>
+                            <xsl:sequence select="$desc/parent::*[contains-token(@class, 'topic/table')]/*[contains-token(@class, 'topic/tgroup')][1]"/>
                         </xsl:when>
-                        <xsl:when test="$prmFn/ancestor::*[contains(@class, ' topic/simpletable ')][. &gt;&gt; $ancestorTopic][position() eq last()]">
-                            <xsl:sequence select="$prmFn/ancestor::*[contains(@class, ' topic/simpletable ')][. &gt;&gt; $ancestorTopic][position() eq last()]"/>
+                        <xsl:when test="$prmFn/ancestor::*[contains-token(@class, 'topic/simpletable')][. &gt;&gt; $ancestorTopic][position() eq last()]">
+                            <xsl:sequence select="$prmFn/ancestor::*[contains-token(@class, 'topic/simpletable')][. &gt;&gt; $ancestorTopic][position() eq last()]"/>
                         </xsl:when>
-                        <xsl:when test="$prmFn/ancestor::*[ahf:seqContains(@class, (' topic/ul ',' topic/ol ',' topic/dl '))][. &gt;&gt; $ancestorTopic][position() eq last()]">
-                            <xsl:sequence select="$prmFn/ancestor::*[ahf:seqContains(@class, (' topic/ul ',' topic/ol ',' topic/dl '))][. &gt;&gt; $ancestorTopic][position() eq last()]"/>
+                        <xsl:when test="$prmFn/ancestor::*[ahf:seqContainsToken(@class, ('topic/ul','topic/ol','topic/dl'))][. &gt;&gt; $ancestorTopic][position() eq last()]">
+                            <xsl:sequence select="$prmFn/ancestor::*[ahf:seqContainsToken(@class, ('topic/ul','topic/ol','topic/dl'))][. &gt;&gt; $ancestorTopic][position() eq last()]"/>
                         </xsl:when>
                         <xsl:otherwise>
                             <xsl:sequence select="()"/>
@@ -1180,7 +1180,7 @@
         <xsl:variable name="fnNumbers" as="xs:integer+">
             <xsl:for-each select="$prmParentElem">
                 <xsl:variable name="parent" as="element()" select="."/>
-                <xsl:sequence select="count((if ($prmFn/ancestor::*[. is $parent]) then $prmFn else (),$parent//*[contains(@class,' topic/fn ')][not(contains(@class,' pr-d/synnote '))][not(@callout)][. &lt;&lt; $prmFn]))"/>
+                <xsl:sequence select="count((if ($prmFn/ancestor::*[. is $parent]) then $prmFn else (),$parent//*[contains-token(@class, 'topic/fn')][not(contains-token(@class, 'pr-d/synnote'))][not(@callout)][. &lt;&lt; $prmFn]))"/>
             </xsl:for-each>
         </xsl:variable>
         <xsl:variable name="fnNumber" as="xs:integer" select="sum($fnNumbers)"/>
@@ -1196,11 +1196,11 @@
                      Add DITA-OT generated @href processing.
                      2020-02-12 t.makita
     -->
-    <xsl:template match="*[contains(@class, ' topic/term ')]" mode="MODE_GET_STYLE" as="xs:string*">
+    <xsl:template match="*[contains-token(@class, 'topic/term')]" mode="MODE_GET_STYLE" as="xs:string*">
         <xsl:sequence select="'atsTerm'"/>
     </xsl:template>    
 
-    <xsl:template match="*[contains(@class,' topic/term ')]">
+    <xsl:template match="*[contains-token(@class, 'topic/term')]">
         <xsl:call-template name="processTerm"/>
     </xsl:template>
     
@@ -1249,7 +1249,7 @@
         note:        Text is only a container for text.
                      Generate a fo:wrapper. (2011-10-27 t.makita)
     -->
-    <xsl:template match="*[contains(@class,' topic/text ')]">
+    <xsl:template match="*[contains-token(@class, 'topic/text')]">
         <fo:wrapper>
             <xsl:call-template name="ahf:getUnivAtts"/>
             <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
@@ -1263,11 +1263,11 @@
         return:	  fo:inline
         note:		none
     -->
-    <xsl:template match="*[contains(@class, ' topic/tm ')]" mode="MODE_GET_STYLE" as="xs:string*">
+    <xsl:template match="*[contains-token(@class, 'topic/tm')]" mode="MODE_GET_STYLE" as="xs:string*">
         <xsl:sequence select="'atsTm'"/>
     </xsl:template>    
     
-    <xsl:template match="*[contains(@class,' topic/tm ')]">
+    <xsl:template match="*[contains-token(@class, 'topic/tm')]">
         <fo:inline>
             <xsl:call-template name="getAttributeSetWithLang"/>
             <xsl:call-template name="ahf:getUnivAtts"/>
@@ -1416,14 +1416,14 @@
             </xsl:choose>
         </xsl:variable>
         
-        <xsl:variable name="topic" as="element()" select="$prmFig/ancestor::*[contains(@class, ' topic/topic ')][position()=last()]"/>
+        <xsl:variable name="topic" as="element()" select="$prmFig/ancestor::*[contains-token(@class, 'topic/topic')][position()=last()]"/>
         
         <xsl:variable name="figPreviousAmount" as="xs:integer">
             <xsl:sequence select="ahf:getFigPreviousAmount($topic,$prmTopicRef)"/>
         </xsl:variable>
         
         <xsl:variable name="figCurrentAmount" as="xs:integer">
-            <xsl:sequence select="count($topic//*[contains(@class,' topic/fig ')][exists(*[contains(@class,' topic/title ')])][empty(ancestor::*[contains(@class,' topic/fig ')])][not(ahf:isFloatFigure(.))][. &lt;&lt; $prmFig]|$prmFig)"/>
+            <xsl:sequence select="count($topic//*[contains-token(@class, 'topic/fig')][exists(*[contains-token(@class, 'topic/title')])][empty(ancestor::*[contains-token(@class, 'topic/fig')])][not(ahf:isFloatFigure(.))][. &lt;&lt; $prmFig]|$prmFig)"/>
         </xsl:variable>
         <xsl:variable name="figNumber" select="$figPreviousAmount + $figCurrentAmount" as="xs:integer"/>
         

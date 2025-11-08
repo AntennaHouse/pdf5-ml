@@ -24,7 +24,7 @@
      return:	fo:basic-link or fo:inline
      note:		none
      -->
-    <xsl:template match="*[contains(@class, ' topic/xref ')]">
+    <xsl:template match="*[contains-token(@class, 'topic/xref')]">
         <xsl:param name="prmTopicRef" tunnel="yes" required="yes"  as="element()?"/>
         <xsl:param name="prmNeedId" tunnel="yes" required="no"  as="xs:boolean" select="true()"/>
         
@@ -141,7 +141,7 @@
         
         <xsl:variable name="hasUserContent" as="xs:boolean" select="exists($prmXref/node()[1][self::processing-instruction(ditaot)][string(.) eq 'usertext'])"/>
         <xsl:variable name="userContent" as="node()*">
-            <xsl:apply-templates select="$prmXref/node() except *[contains(@class,' topic/desc ')]" mode="GET_CONTENTS"/>
+            <xsl:apply-templates select="$prmXref/node() except *[contains-token(@class, 'topic/desc')]" mode="GET_CONTENTS"/>
         </xsl:variable>
         
         <xsl:choose>
@@ -164,7 +164,7 @@
                  Added $topicTitlePrefix/Suffix and user text handling.
                  2019-05-01 t.makita
               -->
-            <xsl:when test="$prmDestElement[contains(@class, ' topic/topic ')]">
+            <xsl:when test="$prmDestElement[contains-token(@class, 'topic/topic')]">
                 <xsl:call-template name="getXrefTitleTopic">
                     <xsl:with-param name="prmTitleTopicRef" select="$prmTitleTopicRef"/>
                     <xsl:with-param name="prmTopicRef"      select="$prmTopicRef"/>
@@ -174,7 +174,7 @@
             </xsl:when>
             
             <!-- section -->
-            <xsl:when test="$prmDestElement[contains(@class, ' topic/section ')]">
+            <xsl:when test="$prmDestElement[contains-token(@class, 'topic/section')]">
                 <xsl:call-template name="getXrefTitleSection">
                     <xsl:with-param name="prmTitleTopicRef" select="$prmTitleTopicRef"/>
                     <xsl:with-param name="prmTopicRef"      select="$prmTopicRef"/>
@@ -184,7 +184,7 @@
             </xsl:when>
             
             <!-- example -->
-            <xsl:when test="$prmDestElement[contains(@class, ' topic/example ')]">
+            <xsl:when test="$prmDestElement[contains-token(@class, 'topic/example')]">
                 <xsl:call-template name="getXrefTitleExample">
                     <xsl:with-param name="prmTitleTopicRef" select="$prmTitleTopicRef"/>
                     <xsl:with-param name="prmTopicRef"      select="$prmTopicRef"/>
@@ -194,7 +194,7 @@
             </xsl:when>
             
             <!-- step/substep -->
-            <xsl:when test="$prmDestElement[ahf:seqContains(@class, (' task/step ',' task/substep '))][ancestor::*[contains(@class,' task/steps ')]]">
+            <xsl:when test="$prmDestElement[ahf:seqContainsToken(@class, ('task/step ','task/substep'))][ancestor::*[contains-token(@class, 'task/steps')]]">
                 <xsl:call-template name="getXrefTitleStep">
                     <xsl:with-param name="prmTitleTopicRef" select="$prmTitleTopicRef"/>
                     <xsl:with-param name="prmTopicRef"      select="$prmTopicRef"/>
@@ -204,7 +204,7 @@
             </xsl:when>
             
             <!-- ol/li -->
-            <xsl:when test="$prmDestElement[contains(@class, ' topic/li ')][parent::*[contains(@class,' topic/ol ')]]">
+            <xsl:when test="$prmDestElement[contains-token(@class, 'topic/li')][parent::*[contains-token(@class, 'topic/ol')]]">
                 <xsl:call-template name="getXrefTitleOlLi">
                     <xsl:with-param name="prmTitleTopicRef" select="$prmTitleTopicRef"/>
                     <xsl:with-param name="prmTopicRef"      select="$prmTopicRef"/>
@@ -214,7 +214,7 @@
             </xsl:when>
             
             <!-- table -->
-            <xsl:when test="$prmDestElement[contains(@class, ' topic/table ')]">
+            <xsl:when test="$prmDestElement[contains-token(@class, 'topic/table')]">
                 <xsl:call-template name="getXrefTitleTable">
                     <xsl:with-param name="prmTitleTopicRef" select="$prmTitleTopicRef"/>
                     <xsl:with-param name="prmTopicRef"      select="$prmTopicRef"/>
@@ -224,7 +224,7 @@
             </xsl:when>
             
             <!-- fig -->
-            <xsl:when test="$prmDestElement[contains(@class, ' topic/fig ')]">
+            <xsl:when test="$prmDestElement[contains-token(@class, 'topic/fig')]">
                 <xsl:call-template name="getXrefTitleFig">
                     <xsl:with-param name="prmTitleTopicRef" select="$prmTitleTopicRef"/>
                     <xsl:with-param name="prmTopicRef"      select="$prmTopicRef"/>
@@ -234,7 +234,7 @@
             </xsl:when>
 
             <!-- equation-block -->
-            <xsl:when test="$prmDestElement[contains(@class, ' equation-d/equation-block ')]">
+            <xsl:when test="$prmDestElement[contains-token(@class, 'equation-d/equation-block')]">
                 <xsl:call-template name="getXrefTitleEquationBlock">
                     <xsl:with-param name="prmTitleTopicRef" select="$prmTitleTopicRef"/>
                     <xsl:with-param name="prmTopicRef"      select="$prmTopicRef"/>
@@ -244,7 +244,7 @@
             </xsl:when>
             
             <!-- fn -->
-            <xsl:when test="$prmDestElement[contains(@class, ' topic/fn ')]">
+            <xsl:when test="$prmDestElement[contains-token(@class, 'topic/fn')]">
                 <xsl:call-template name="getXrefTitleFn">
                     <xsl:with-param name="prmTitleTopicRef" select="$prmTitleTopicRef"/>
                     <xsl:with-param name="prmTopicRef"      select="$prmTopicRef"/>
@@ -254,7 +254,7 @@
             </xsl:when>
             
             <!-- Other elements that have title -->
-            <xsl:when test="$prmDestElement[child::*[contains(@class, ' topic/title ')]]">
+            <xsl:when test="$prmDestElement[child::*[contains-token(@class, 'topic/title')]]">
                 <xsl:call-template name="getXrefTitleOther1">
                     <xsl:with-param name="prmTitleTopicRef" select="$prmTitleTopicRef"/>
                     <xsl:with-param name="prmTopicRef"      select="$prmTopicRef"/>
@@ -286,7 +286,7 @@
 
         <xsl:variable name="hasUserContent" as="xs:boolean" select="exists($prmXref/node()[1][self::processing-instruction(ditaot)][string(.) eq 'usertext'])"/>
         <xsl:variable name="userContent" as="node()*">
-            <xsl:apply-templates select="$prmXref/node() except *[contains(@class,' topic/desc ')]" mode="GET_CONTENTS"/>
+            <xsl:apply-templates select="$prmXref/node() except *[contains-token(@class, 'topic/desc')]" mode="GET_CONTENTS"/>
         </xsl:variable>
         <xsl:variable name="titleMode" select="ahf:getTitleMode($prmTitleTopicRef,$prmDestElement)"/>
         <xsl:variable name="topicTitleHeading" as="xs:string">
@@ -314,7 +314,7 @@
             </xsl:choose>
         </xsl:variable>
         <xsl:variable name="topicTitleBody" as="node()*">
-            <xsl:apply-templates select="$prmDestElement/*[contains(@class, ' topic/title ')]" mode="GET_CONTENTS"/>
+            <xsl:apply-templates select="$prmDestElement/*[contains-token(@class, 'topic/title')]" mode="GET_CONTENTS"/>
         </xsl:variable>
         <xsl:variable name="topicTitlePrefix" as="text()?">
             <xsl:call-template name="getVarValueWithLangAsText">
@@ -363,7 +363,7 @@
         
         <xsl:variable name="hasUserContent" as="xs:boolean" select="exists($prmXref/node()[1][self::processing-instruction(ditaot)][string(.) eq 'usertext'])"/>
         <xsl:variable name="userContent" as="node()*">
-            <xsl:apply-templates select="$prmXref/node() except *[contains(@class,' topic/desc ')]" mode="GET_CONTENTS"/>
+            <xsl:apply-templates select="$prmXref/node() except *[contains-token(@class, 'topic/desc')]" mode="GET_CONTENTS"/>
         </xsl:variable>
         <xsl:variable name="sectionTitlePrefix" as="text()?">
             <xsl:call-template name="getVarValueWithLangAsText">
@@ -385,9 +385,9 @@
                     <xsl:copy-of select="$sectionTitleSuffix"/>
                 </fo:inline>
             </xsl:when>
-            <xsl:when test="$prmDestElement/*[contains(@class, ' topic/title ')]">
+            <xsl:when test="$prmDestElement/*[contains-token(@class, 'topic/title')]">
                 <xsl:variable name="sectionTitle" as="node()*">
-                    <xsl:apply-templates select="$prmDestElement/*[contains(@class, ' topic/title ')]" mode="GET_CONTENTS"/>
+                    <xsl:apply-templates select="$prmDestElement/*[contains-token(@class, 'topic/title')]" mode="GET_CONTENTS"/>
                 </xsl:variable>
                 <fo:inline>
                     <xsl:copy-of select="$sectionTitlePrefix"/>
@@ -418,7 +418,7 @@
         
         <xsl:variable name="hasUserContent" as="xs:boolean" select="exists($prmXref/node()[1][self::processing-instruction(ditaot)][string(.) eq 'usertext'])"/>
         <xsl:variable name="userContent" as="node()*">
-            <xsl:apply-templates select="$prmXref/node() except *[contains(@class,' topic/desc ')]" mode="GET_CONTENTS"/>
+            <xsl:apply-templates select="$prmXref/node() except *[contains-token(@class, 'topic/desc')]" mode="GET_CONTENTS"/>
         </xsl:variable>
         <xsl:variable name="exampleTitlePrefix" as="text()?">
             <xsl:call-template name="getVarValueWithLangAsText">
@@ -440,9 +440,9 @@
                     <xsl:copy-of select="$exampleTitleSuffix"/>
                 </fo:inline>
             </xsl:when>
-            <xsl:when test="$prmDestElement/*[contains(@class, ' topic/title ')]">
+            <xsl:when test="$prmDestElement/*[contains-token(@class, 'topic/title')]">
                 <xsl:variable name="exampleTitle" as="node()*">
-                    <xsl:apply-templates select="$prmDestElement/*[contains(@class, ' topic/title ')]" mode="GET_CONTENTS"/>
+                    <xsl:apply-templates select="$prmDestElement/*[contains-token(@class, 'topic/title')]" mode="GET_CONTENTS"/>
                 </xsl:variable>
                 <fo:inline>
                     <xsl:copy-of select="$exampleTitlePrefix"/>
@@ -473,7 +473,7 @@
         
         <xsl:variable name="hasUserContent" as="xs:boolean" select="exists($prmXref/node()[1][self::processing-instruction(ditaot)][string(.) eq 'usertext'])"/>
         <xsl:variable name="userContent" as="node()*">
-            <xsl:apply-templates select="$prmXref/node() except *[contains(@class,' topic/desc ')]" mode="GET_CONTENTS"/>
+            <xsl:apply-templates select="$prmXref/node() except *[contains-token(@class, 'topic/desc')]" mode="GET_CONTENTS"/>
         </xsl:variable>
         <xsl:choose>
             <xsl:when test="$hasUserContent">
@@ -499,7 +499,7 @@
                     </xsl:call-template>
                 </xsl:variable>
                 <xsl:choose>
-                    <xsl:when test="$prmDestElement[contains(@class, ' task/step ')]">
+                    <xsl:when test="$prmDestElement[contains-token(@class, 'task/step')]">
                         <xsl:variable name="numberFormat" select="ahf:getOlNumberFormat($prmDestElement/parent::*,$stepsNumberFormat)" as="xs:string"/>
                         <fo:inline>
                             <xsl:value-of select="$stepPrefix"/>
@@ -537,7 +537,7 @@
         
         <xsl:variable name="hasUserContent" as="xs:boolean" select="exists($prmXref/node()[1][self::processing-instruction(ditaot)][string(.) eq 'usertext'])"/>
         <xsl:variable name="userContent" as="node()*">
-            <xsl:apply-templates select="$prmXref/node() except *[contains(@class,' topic/desc ')]" mode="GET_CONTENTS"/>
+            <xsl:apply-templates select="$prmXref/node() except *[contains-token(@class, 'topic/desc')]" mode="GET_CONTENTS"/>
         </xsl:variable>
         <xsl:choose>
             <xsl:when test="$hasUserContent">
@@ -559,7 +559,7 @@
                 <xsl:variable name="olFormat" as="xs:string" select="ahf:getOlNumberFormat($prmDestElement,$olNumberFormat)"/>
                 <fo:inline>
                     <xsl:number format="{$olFormat}" 
-                        value="count($prmDestElement | $prmDestElement/preceding-sibling::*[contains(@class, ' topic/li ')])"/>
+                        value="count($prmDestElement | $prmDestElement/preceding-sibling::*[contains-token(@class, 'topic/li')])"/>
                 </fo:inline>
             </xsl:otherwise>
         </xsl:choose>
@@ -573,7 +573,7 @@
         
         <xsl:variable name="hasUserContent" as="xs:boolean" select="exists($prmXref/node()[1][self::processing-instruction(ditaot)][string(.) eq 'usertext'])"/>
         <xsl:variable name="userContent" as="node()*">
-            <xsl:apply-templates select="$prmXref/node() except *[contains(@class,' topic/desc ')]" mode="GET_CONTENTS"/>
+            <xsl:apply-templates select="$prmXref/node() except *[contains-token(@class, 'topic/desc')]" mode="GET_CONTENTS"/>
         </xsl:variable>
         <xsl:variable name="tableTitlePrefix" as="text()?">
             <xsl:call-template name="getVarValueWithLangAsText">
@@ -595,7 +595,7 @@
                     <xsl:copy-of select="$tableTitleSuffix"/>
                 </fo:inline>
             </xsl:when>
-            <xsl:when test="$prmDestElement/*[contains(@class, ' topic/title ')]">
+            <xsl:when test="$prmDestElement/*[contains-token(@class, 'topic/title')]">
                 <xsl:variable name="opt" as="xs:string*" select="ahf:getXrefToTableOption($prmXref)"/>
                 <xsl:variable name="tableTitleHeading"
                     select="ahf:getTableTitlePrefix($prmTitleTopicRef,$prmDestElement)" 
@@ -610,7 +610,7 @@
                     </xsl:when>
                     <xsl:otherwise>
                         <xsl:variable name="tableTitle" as="node()*">
-                            <xsl:apply-templates select="$prmDestElement/*[contains(@class, ' topic/title ')]" mode="GET_CONTENTS"/>
+                            <xsl:apply-templates select="$prmDestElement/*[contains-token(@class, 'topic/title')]" mode="GET_CONTENTS"/>
                         </xsl:variable>
                         <fo:inline>
                             <xsl:copy-of select="$tableTitlePrefix"/>
@@ -640,7 +640,7 @@
         
         <xsl:variable name="hasUserContent" as="xs:boolean" select="exists($prmXref/node()[1][self::processing-instruction(ditaot)][string(.) eq 'usertext'])"/>
         <xsl:variable name="userContent" as="node()*">
-            <xsl:apply-templates select="$prmXref/node() except *[contains(@class,' topic/desc ')]" mode="GET_CONTENTS"/>
+            <xsl:apply-templates select="$prmXref/node() except *[contains-token(@class, 'topic/desc')]" mode="GET_CONTENTS"/>
         </xsl:variable>
         <xsl:variable name="figTitlePrefix" as="text()?">
             <xsl:call-template name="getVarValueWithLangAsText">
@@ -662,7 +662,7 @@
                     <xsl:copy-of select="$figTitleSuffix"/>
                 </fo:inline>
             </xsl:when>
-            <xsl:when test="$prmDestElement/*[contains(@class, ' topic/title ')]">
+            <xsl:when test="$prmDestElement/*[contains-token(@class, 'topic/title')]">
                 <xsl:variable name="opt" as="xs:string*" select="ahf:getXrefToFigOption($prmXref)"/>
                 <xsl:variable name="figTitleHeading"
                     select="ahf:getFigTitlePrefix($prmTitleTopicRef,$prmDestElement)" 
@@ -677,7 +677,7 @@
                     </xsl:when>
                     <xsl:otherwise>
                         <xsl:variable name="figTitle" as="node()*">
-                            <xsl:apply-templates select="$prmDestElement/*[contains(@class, ' topic/title ')]" mode="GET_CONTENTS"/>
+                            <xsl:apply-templates select="$prmDestElement/*[contains-token(@class, 'topic/title')]" mode="GET_CONTENTS"/>
                         </xsl:variable>
                         <fo:inline>
                             <xsl:copy-of select="$figTitlePrefix"/>
@@ -707,9 +707,9 @@
 
         <xsl:variable name="hasUserContent" as="xs:boolean" select="exists($prmXref/node()[1][self::processing-instruction(ditaot)][string(.) eq 'usertext'])"/>
         <xsl:variable name="userContent" as="node()*">
-            <xsl:apply-templates select="$prmXref/node() except *[contains(@class,' topic/desc ')]" mode="GET_CONTENTS"/>
+            <xsl:apply-templates select="$prmXref/node() except *[contains-token(@class, 'topic/desc')]" mode="GET_CONTENTS"/>
         </xsl:variable>
-        <xsl:variable name="equationNumber" as="element()?" select="($prmDestElement/*[contains(@class, ' equation-d/equation-number ')])[1]"/>
+        <xsl:variable name="equationNumber" as="element()?" select="($prmDestElement/*[contains-token(@class, 'equation-d/equation-number')])[1]"/>
         <xsl:variable name="equtionNumberResult" as="node()*">
             <xsl:choose>
                 <xsl:when test="$hasUserContent">
@@ -736,7 +736,7 @@
                         <xsl:with-param name="prmElem" select="$prmDestElement"/>
                     </xsl:call-template>
                 </xsl:when>
-                <xsl:when test="$prmDestElement/*[contains(@class, ' equation-d/equation-number ')]">
+                <xsl:when test="$prmDestElement/*[contains-token(@class, 'equation-d/equation-number')]">
                     <xsl:call-template name="getVarValueWithLangAsText">
                         <xsl:with-param name="prmVarName" select="'Equation_Number_Ref_Prefix'"/>
                         <xsl:with-param name="prmElem" select="$equationNumber"/>
@@ -783,7 +783,7 @@
         
         <xsl:variable name="hasUserContent" as="xs:boolean" select="exists($prmXref/node()[1][self::processing-instruction(ditaot)][string(.) eq 'usertext'])"/>
         <xsl:variable name="userContent" as="node()*">
-            <xsl:apply-templates select="$prmXref/node() except *[contains(@class,' topic/desc ')]" mode="GET_CONTENTS"/>
+            <xsl:apply-templates select="$prmXref/node() except *[contains-token(@class, 'topic/desc')]" mode="GET_CONTENTS"/>
         </xsl:variable>
         <xsl:variable name="fnTitle" as="xs:string" select="ahf:getFootnotePrefix($prmDestElement, $prmTitleTopicRef)"/>
         <fo:inline>
@@ -799,7 +799,7 @@
         
         <xsl:variable name="hasUserContent" as="xs:boolean" select="exists($prmXref/node()[1][self::processing-instruction(ditaot)][string(.) eq 'usertext'])"/>
         <xsl:variable name="userContent" as="node()*">
-            <xsl:apply-templates select="$prmXref/node() except *[contains(@class,' topic/desc ')]" mode="GET_CONTENTS"/>
+            <xsl:apply-templates select="$prmXref/node() except *[contains-token(@class, 'topic/desc')]" mode="GET_CONTENTS"/>
         </xsl:variable>
         <xsl:variable name="otherTitlePrefix" as="text()?">
             <xsl:call-template name="getVarValueWithLangAsText">
@@ -821,7 +821,7 @@
             </xsl:when>
             <xsl:otherwise>
                 <xsl:variable name="title" as="node()*">
-                    <xsl:apply-templates select="$prmDestElement/*[contains(@class, ' topic/title ')]" mode="GET_CONTENTS"/>
+                    <xsl:apply-templates select="$prmDestElement/*[contains-token(@class, 'topic/title')]" mode="GET_CONTENTS"/>
                 </xsl:variable>
                 <fo:inline>
                     <xsl:copy-of select="$otherTitlePrefix"/>
@@ -840,7 +840,7 @@
         
         <xsl:variable name="hasUserContent" as="xs:boolean" select="exists($prmXref/node()[1][self::processing-instruction(ditaot)][string(.) eq 'usertext'])"/>
         <xsl:variable name="userContent" as="node()*">
-            <xsl:apply-templates select="$prmXref/node() except *[contains(@class,' topic/desc ')]" mode="GET_CONTENTS"/>
+            <xsl:apply-templates select="$prmXref/node() except *[contains-token(@class, 'topic/desc')]" mode="GET_CONTENTS"/>
         </xsl:variable>
         <xsl:variable name="otherTitlePrefix" as="text()?">
             <xsl:call-template name="getVarValueWithLangAsText">
@@ -896,7 +896,7 @@
             </xsl:when>
             
             <!-- topic -->
-            <xsl:when test="$prmDestElement[contains(@class, ' topic/topic ')]">
+            <xsl:when test="$prmDestElement[contains-token(@class, 'topic/topic')]">
                 <xsl:variable name="opt" as="xs:string*" select="ahf:getXrefToTopicOption($prmXref)"/>
                 <xsl:copy-of select="ahf:getAttributeSet('atsXrefTopic')"/>
                 <xsl:copy-of select="ahf:getUnivAtts($prmXref,$prmTopicRef,$prmNeedId)"/>
@@ -934,7 +934,7 @@
             </xsl:when>
             
             <!-- section -->
-            <xsl:when test="$prmDestElement[contains(@class, ' topic/section ')]">
+            <xsl:when test="$prmDestElement[contains-token(@class, 'topic/section')]">
                 <xsl:variable name="opt" as="xs:string*" select="ahf:getXrefToSectionOption($prmXref)"/>
                 <xsl:copy-of select="ahf:getAttributeSet('atsXrefSection')"/>
                 <xsl:copy-of select="ahf:getUnivAtts($prmXref,$prmTopicRef,$prmNeedId)"/>
@@ -972,7 +972,7 @@
             </xsl:when>
 
             <!-- example -->
-            <xsl:when test="$prmDestElement[contains(@class, ' topic/example ')]">
+            <xsl:when test="$prmDestElement[contains-token(@class, 'topic/example')]">
                 <xsl:variable name="opt" as="xs:string*" select="ahf:getXrefToExampleOption($prmXref)"/>
                 <xsl:copy-of select="ahf:getAttributeSet('atsXrefExample')"/>
                 <xsl:copy-of select="ahf:getUnivAtts($prmXref,$prmTopicRef,$prmNeedId)"/>
@@ -1010,7 +1010,7 @@
             </xsl:when>
 
             <!-- steps/step, substep: Xref link color does not apply. -->
-            <xsl:when test="$prmDestElement[ahf:seqContains(@class, (' task/step ',' task/substep '))][ancestor::*[contains(@class,' task/steps ')]]">
+            <xsl:when test="$prmDestElement[ahf:seqContainsToken(@class, ('task/step','task/substep'))][ancestor::*[contains-token(@class, 'task/steps')]]">
                 <xsl:variable name="opt" as="xs:string*" select="ahf:getXrefToStepOption($prmXref)"/>
                 <xsl:copy-of select="ahf:getAttributeSet('atsXrefStep')"/>
                 <xsl:copy-of select="ahf:getUnivAtts($prmXref,$prmTopicRef,$prmNeedId)"/>
@@ -1065,7 +1065,7 @@
             </xsl:when>
 
             <!-- ol/li: Xref link color does not apply for ol/li. -->
-            <xsl:when test="$prmDestElement[contains(@class, ' topic/li ')][parent::*[contains(@class,' topic/ol ')]]">
+            <xsl:when test="$prmDestElement[contains-token(@class, 'topic/li')][parent::*[contains-token(@class, 'topic/ol')]]">
                 <xsl:variable name="opt" as="xs:string*" select="ahf:getXrefToLiOption($prmXref)"/>
                 <xsl:copy-of select="ahf:getAttributeSet('atsXrefOlLi')"/>
                 <xsl:copy-of select="ahf:getUnivAtts($prmXref,$prmTopicRef,$prmNeedId)"/>
@@ -1103,7 +1103,7 @@
             </xsl:when>
 
             <!-- table -->
-            <xsl:when test="$prmDestElement[contains(@class, ' topic/table ')]">
+            <xsl:when test="$prmDestElement[contains-token(@class, 'topic/table')]">
                 <xsl:variable name="opt" as="xs:string*" select="ahf:getXrefToTableOption($prmXref)"/>
                 <xsl:copy-of select="ahf:getAttributeSet('atsXrefTable')"/>
                 <xsl:copy-of select="ahf:getUnivAtts($prmXref,$prmTopicRef,$prmNeedId)"/>
@@ -1144,7 +1144,7 @@
             </xsl:when>
             
             <!-- fig -->
-            <xsl:when test="$prmDestElement[contains(@class, ' topic/fig ')]">
+            <xsl:when test="$prmDestElement[contains-token(@class, 'topic/fig')]">
                 <xsl:variable name="opt" as="xs:string*" select="ahf:getXrefToFigOption($prmXref)"/>
                 <xsl:copy-of select="ahf:getAttributeSet('atsXrefFig')"/>
                 <xsl:copy-of select="ahf:getUnivAtts($prmXref,$prmTopicRef,$prmNeedId)"/>
@@ -1185,7 +1185,7 @@
             </xsl:when>
             
             <!-- equation-block -->
-            <xsl:when test="$prmDestElement[contains(@class, ' equation-d/equation-block ')]">
+            <xsl:when test="$prmDestElement[contains-token(@class, 'equation-d/equation-block')]">
                 <xsl:variable name="opt" as="xs:string*" select="ahf:getXrefToEquationBlockOption($prmXref)"/>
                 <xsl:copy-of select="ahf:getAttributeSet('atsXrefEquationBlock')"/>
                 <xsl:copy-of select="ahf:getUnivAtts($prmXref,$prmTopicRef,$prmNeedId)"/>
@@ -1223,7 +1223,7 @@
             </xsl:when>
             
             <!-- fn: Apply fn style. No output options. -->
-            <xsl:when test="$prmDestElement[contains(@class, ' topic/fn ')]">
+            <xsl:when test="$prmDestElement[contains-token(@class, 'topic/fn')]">
                 <xsl:copy-of select="ahf:getUnivAtts($prmXref,$prmTopicRef,$prmNeedId)"/>
                 <xsl:copy-of select="ahf:getAttributeSet('atsFnPrefix')"/>
                 <xsl:copy-of select="ahf:getFoStyleAndProperty($prmXref)"/>
@@ -1231,7 +1231,7 @@
             </xsl:when>
             
             <!-- Other elements that have title: same as section -->
-            <xsl:when test="$prmDestElement[child::*[contains(@class, ' topic/title ')]]">
+            <xsl:when test="$prmDestElement[child::*[contains-token(@class, 'topic/title')]]">
                 <xsl:variable name="opt" as="xs:string*" select="ahf:getXrefToOtherOption($prmXref)"/>
                 <xsl:copy-of select="ahf:getAttributeSet('atsXrefAnyTitle')"/>
                 <xsl:copy-of select="ahf:getUnivAtts($prmXref,$prmTopicRef,$prmNeedId)"/>
@@ -1320,7 +1320,7 @@
         link/desc:    Ignored.
         linklist/desc:Ignored.
     -->
-    <xsl:template match="*[contains(@class, ' topic/xref ')]/*[contains(@class, ' topic/desc ')]"/>
+    <xsl:template match="*[contains-token(@class, 'topic/xref')]/*[contains-token(@class, 'topic/desc')]"/>
 
     <!-- 
         function:	get xref to topic output option

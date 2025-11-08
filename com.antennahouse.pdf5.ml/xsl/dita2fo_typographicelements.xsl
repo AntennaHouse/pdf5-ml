@@ -23,11 +23,11 @@
      return:	fo:inline
      note:		none
      -->
-    <xsl:template match="*[contains(@class, ' hi-d/b ')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
+    <xsl:template match="*[contains-token(@class, 'hi-d/b')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
         <xsl:sequence select="'atsB'"/>
     </xsl:template>    
 
-    <xsl:template match="*[contains(@class,' hi-d/b ')]" priority="2">
+    <xsl:template match="*[contains-token(@class, 'hi-d/b')]" priority="2">
         <fo:inline>
             <xsl:call-template name="getAttributeSetWithLang"/>
             <xsl:call-template name="ahf:getUnivAtts"/>
@@ -42,11 +42,11 @@
      return:	fo:inline
      note:		none
      -->
-    <xsl:template match="*[contains(@class, ' hi-d/i ')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
+    <xsl:template match="*[contains-token(@class, 'hi-d/i')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
         <xsl:sequence select="'atsI'"/>
     </xsl:template>    
 
-    <xsl:template match="*[contains(@class,' hi-d/i ')]" priority="2">
+    <xsl:template match="*[contains-token(@class, 'hi-d/i')]" priority="2">
         <fo:inline>
             <xsl:call-template name="getAttributeSetWithLang"/>
             <xsl:call-template name="ahf:getUnivAtts"/>
@@ -61,11 +61,11 @@
      return:	fo:inline
      note:		none
      -->
-    <xsl:template match="*[contains(@class, ' hi-d/u ')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
+    <xsl:template match="*[contains-token(@class, 'hi-d/u')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
         <xsl:sequence select="'atsU'"/>
     </xsl:template>    
 
-    <xsl:template match="*[contains(@class,' hi-d/u ')]" priority="2">
+    <xsl:template match="*[contains-token(@class, 'hi-d/u')]" priority="2">
         <fo:inline>
             <xsl:call-template name="getAttributeSetWithLang"/>
             <xsl:call-template name="ahf:getUnivAtts"/>
@@ -80,11 +80,11 @@
      return:	fo:inline
      note:		none
      -->
-    <xsl:template match="*[contains(@class, ' hi-d/tt ')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
+    <xsl:template match="*[contains-token(@class, 'hi-d/tt')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
         <xsl:sequence select="'atsTt'"/>
     </xsl:template>    
 
-    <xsl:template match="*[contains(@class,' hi-d/tt ')]" priority="2">
+    <xsl:template match="*[contains-token(@class, 'hi-d/tt')]" priority="2">
         <fo:inline>
             <xsl:call-template name="getAttributeSetWithLang"/>
             <xsl:call-template name="ahf:getUnivAtts"/>
@@ -99,11 +99,11 @@
      return:	fo:inline
      note:		none
      -->
-    <xsl:template match="*[contains(@class, ' hi-d/sup ')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
+    <xsl:template match="*[contains-token(@class, 'hi-d/sup')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
         <xsl:sequence select="'atsSup'"/>
     </xsl:template>    
     
-    <xsl:template match="*[contains(@class,' hi-d/sup ')]" priority="2">
+    <xsl:template match="*[contains-token(@class, 'hi-d/sup')]" priority="2">
         <fo:inline>
             <xsl:call-template name="getAttributeSetWithLang"/>
             <xsl:call-template name="ahf:getUnivAtts"/>
@@ -118,11 +118,11 @@
      return:	fo:inline
      note:		none
      -->
-    <xsl:template match="*[contains(@class, ' hi-d/sub ')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
+    <xsl:template match="*[contains-token(@class, 'hi-d/sub')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
         <xsl:sequence select="'atsSub'"/>
     </xsl:template>    
     
-    <xsl:template match="*[contains(@class,' hi-d/sub ')]" priority="2">
+    <xsl:template match="*[contains-token(@class, 'hi-d/sub')]" priority="2">
         <fo:inline>
             <xsl:call-template name="getAttributeSetWithLang"/>
             <xsl:call-template name="ahf:getUnivAtts"/>
@@ -137,11 +137,11 @@
      return:	fo:inline
      note:		none
      -->
-    <xsl:template match="*[contains(@class, ' hi-d/line-through ')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
+    <xsl:template match="*[contains-token(@class, 'hi-d/line-through')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
         <xsl:sequence select="'atsLineThrough'"/>
     </xsl:template>    
     
-    <xsl:template match="*[contains(@class,' hi-d/line-through ')]" priority="2">
+    <xsl:template match="*[contains-token(@class, 'hi-d/line-through')]" priority="2">
         <fo:inline>
             <xsl:call-template name="getAttributeSetWithLang"/>
             <xsl:call-template name="ahf:getUnivAtts"/>
@@ -156,11 +156,11 @@
      return:	fo:inline
      note:		none
      -->
-    <xsl:template match="*[contains(@class, ' hi-d/overline ')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
+    <xsl:template match="*[contains-token(@class, 'hi-d/overline')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
         <xsl:sequence select="'atsOverLine'"/>
     </xsl:template>    
     
-    <xsl:template match="*[contains(@class,' hi-d/hi-d/overline ')]" priority="2">
+    <xsl:template match="*[contains-token(@class, 'hi-d/hi-d/overline')]" priority="2">
         <fo:inline>
             <xsl:call-template name="getAttributeSetWithLang"/>
             <xsl:call-template name="ahf:getUnivAtts"/>

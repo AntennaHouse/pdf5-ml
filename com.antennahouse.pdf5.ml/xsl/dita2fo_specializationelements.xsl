@@ -26,7 +26,7 @@
      return:	Only apply-templates for child elements
      note:		
      -->
-    <xsl:template match="*[contains(@class,' topic/data-about ')]">
+    <xsl:template match="*[contains-token(@class, 'topic/data-about')]">
         <xsl:apply-templates/>
     </xsl:template>
 
@@ -38,7 +38,7 @@
                 Call "processData" for overriding from other plug-ins.
                 2015-08-25 t.makita
      -->
-    <xsl:template match="*[contains(@class,' topic/data ')]">
+    <xsl:template match="*[contains-token(@class, 'topic/data')]">
         <xsl:call-template name="processData"/>
     </xsl:template>
     
@@ -51,7 +51,7 @@
      return:	If content is MathML or SVG return fo:wrapper & fo:instream-foreign-object
      note:		Added 2011-08-22 t.makita
      -->
-    <xsl:template match="*[contains(@class, ' topic/foreign ')]">
+    <xsl:template match="*[contains-token(@class, 'topic/foreign')]">
         <xsl:variable name="childElem" select="child::*[1]" as="element()*"/>
     	<xsl:if test="exists($childElem)">
     		<fo:wrapper>
@@ -82,11 +82,11 @@
      return:	fo:block
      note:		none
      -->
-    <xsl:template match="*[contains(@class, ' topic/itemgroup ')]" mode="MODE_GET_STYLE" as="xs:string*">
+    <xsl:template match="*[contains-token(@class, 'topic/itemgroup')]" mode="MODE_GET_STYLE" as="xs:string*">
         <xsl:sequence select="'atsItemGroup'"/>
     </xsl:template>    
     
-    <xsl:template match="*[contains(@class,' topic/itemgroup ')]">
+    <xsl:template match="*[contains-token(@class, 'topic/itemgroup')]">
         <fo:block>
             <xsl:call-template name="getAttributeSetWithLang"/>
             <xsl:call-template name="ahf:getUnivAtts"/>
@@ -101,7 +101,7 @@
      return:	none
      note:		none
      -->
-    <xsl:template match="*[contains(@class,' topic/no-topic-nesting ')]">
+    <xsl:template match="*[contains-token(@class, 'topic/no-topic-nesting')]">
     </xsl:template>
     
     <!-- 
@@ -110,11 +110,11 @@
      return:      fo:inline
      note:		return @name=@value inline.
      -->
-    <xsl:template match="*[contains(@class, ' topic/state ')]" mode="MODE_GET_STYLE" as="xs:string*">
+    <xsl:template match="*[contains-token(@class, 'topic/state')]" mode="MODE_GET_STYLE" as="xs:string*">
         <xsl:sequence select="'atsState'"/>
     </xsl:template>    
     
-    <xsl:template match="*[contains(@class,' topic/state ')]">
+    <xsl:template match="*[contains-token(@class, 'topic/state')]">
         <fo:inline>
             <xsl:call-template name="getAttributeSetWithLang"/>
             <xsl:call-template name="ahf:getUnivAtts"/>
@@ -131,11 +131,11 @@
      return:      fo:inline
      note:		
      -->
-    <xsl:template match="*[contains(@class, ' topic/boolean ')]" mode="MODE_GET_STYLE" as="xs:string*">
+    <xsl:template match="*[contains-token(@class, 'topic/boolean')]" mode="MODE_GET_STYLE" as="xs:string*">
         <xsl:sequence select="'atsBoolean'"/>
     </xsl:template>    
 
-    <xsl:template match="*[contains(@class,' topic/boolean ')]">
+    <xsl:template match="*[contains-token(@class, 'topic/boolean')]">
         <fo:inline>
             <xsl:call-template name="getAttributeSetWithLang"/>
             <xsl:call-template name="ahf:getUnivAtts"/>
@@ -150,7 +150,7 @@
      return:	None
      note:		
      -->
-    <xsl:template match="*[contains(@class,' topic/unknown ')]">
+    <xsl:template match="*[contains-token(@class, 'topic/unknown')]">
     </xsl:template>
 
 </xsl:stylesheet>

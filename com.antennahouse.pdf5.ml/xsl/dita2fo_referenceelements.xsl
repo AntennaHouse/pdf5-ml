@@ -27,11 +27,11 @@
      return:	fo:table
      note:		MODE_GET_STYLE is defined only for properties in this version.
      -->
-    <xsl:template match="*[contains(@class, ' reference/properties ')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
+    <xsl:template match="*[contains-token(@class, 'reference/properties')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
         <xsl:sequence select="'atsPropertyTable'"/>
     </xsl:template>    
 
-    <xsl:template match="*[contains(@class, ' reference/properties ')]" priority="2">
+    <xsl:template match="*[contains-token(@class, 'reference/properties')]" priority="2">
         <xsl:variable name="keyCol" select="ahf:getKeyCol(.)" as="xs:integer"/>
         <xsl:variable name="propertiesAttr" as="attribute()*">
             <xsl:call-template name="getAttributeSetWithLang"/>
@@ -48,12 +48,12 @@
                     <xsl:with-param name="prmTable" select="."/>
                 </xsl:call-template>
             </xsl:if>
-            <xsl:apply-templates select="*[contains(@class,' reference/prophead ')]">
+            <xsl:apply-templates select="*[contains-token(@class, 'reference/prophead')]">
                 <xsl:with-param name="prmKeyCol" tunnel="yes" select="$keyCol"/>
             </xsl:apply-templates>
             <fo:table-body>
                 <xsl:copy-of select="ahf:getAttributeSet('atsPropertyTableBody')"/>
-                <xsl:apply-templates select="*[contains(@class,' reference/property ')]">
+                <xsl:apply-templates select="*[contains-token(@class, 'reference/property')]">
                     <xsl:with-param name="prmKeyCol" tunnel="yes" select="$keyCol"/>
                 </xsl:apply-templates>
             </fo:table-body>
@@ -68,7 +68,7 @@
                 proptypehd, propvaluehd, propvaluehd are all optional.
                 This stylesheet apply bold for prophead if properties/@keycol is not defined.
      -->
-    <xsl:template match="*[contains(@class, ' reference/prophead ')]" priority="2">
+    <xsl:template match="*[contains-token(@class, 'reference/prophead')]" priority="2">
         <xsl:param name="prmKeyCol"   required="yes" tunnel="yes" as="xs:integer"/>
         
         <fo:table-header>
@@ -78,7 +78,7 @@
             <fo:table-row>
                 <xsl:copy-of select="ahf:getAttributeSet('atsPropertyTableRow')"/>
                 <!-- proptypehd -->
-                <xsl:if test="exists(*[contains(@class, ' reference/proptypehd ')])">
+                <xsl:if test="exists(*[contains-token(@class, 'reference/proptypehd')])">
                     <fo:table-cell>
                         <xsl:copy-of select="ahf:getAttributeSet('atsPropertyTableHeaderCell')"/>
                         <xsl:choose>
@@ -89,11 +89,11 @@
                                 <xsl:copy-of select="ahf:getAttributeSet('atsPropertyTableNoKeyCol')"/>
                             </xsl:when>
                         </xsl:choose>
-                        <xsl:apply-templates select="*[contains(@class, ' reference/proptypehd ')]"/>
+                        <xsl:apply-templates select="*[contains-token(@class, 'reference/proptypehd')]"/>
                     </fo:table-cell>
                 </xsl:if>
                 <!-- propvaluehd -->
-                <xsl:if test="exists(*[contains(@class, ' reference/propvaluehd ')])">
+                <xsl:if test="exists(*[contains-token(@class, 'reference/propvaluehd')])">
                     <fo:table-cell>
                         <xsl:copy-of select="ahf:getAttributeSet('atsPropertyTableHeaderCell')"/>
                         <xsl:choose>
@@ -104,11 +104,11 @@
                                 <xsl:copy-of select="ahf:getAttributeSet('atsPropertyTableNoKeyCol')"/>
                             </xsl:when>
                         </xsl:choose>
-                        <xsl:apply-templates select="*[contains(@class, ' reference/propvaluehd ')]"/>
+                        <xsl:apply-templates select="*[contains-token(@class, 'reference/propvaluehd')]"/>
                     </fo:table-cell>
                 </xsl:if>
                 <!-- propvaluehd -->
-                <xsl:if test="exists(*[contains(@class, ' reference/propdeschd ')])">
+                <xsl:if test="exists(*[contains-token(@class, 'reference/propdeschd')])">
                     <fo:table-cell>
                         <xsl:copy-of select="ahf:getAttributeSet('atsPropertyTableHeaderCell')"/>
                         <xsl:choose>
@@ -119,7 +119,7 @@
                                 <xsl:copy-of select="ahf:getAttributeSet('atsPropertyTableNoKeyCol')"/>
                             </xsl:when>
                         </xsl:choose>
-                        <xsl:apply-templates select="*[contains(@class, ' reference/propdeschd ')]"/>
+                        <xsl:apply-templates select="*[contains-token(@class, 'reference/propdeschd')]"/>
                     </fo:table-cell>
                 </xsl:if>
             </fo:table-row>
@@ -132,7 +132,7 @@
      return:	proptypehd contents (fo:block)
      note:		none
      -->
-    <xsl:template match="*[contains(@class, ' reference/proptypehd ')]" priority="2">
+    <xsl:template match="*[contains-token(@class, 'reference/proptypehd')]" priority="2">
         <fo:block>
             <xsl:call-template name="ahf:getUnivAtts"/>
             <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
@@ -146,7 +146,7 @@
      return:	propvaluehd contents (fo:block)
      note:		none
      -->
-    <xsl:template match="*[contains(@class, ' reference/propvaluehd ')]" priority="2">
+    <xsl:template match="*[contains-token(@class, 'reference/propvaluehd')]" priority="2">
         <fo:block>
             <xsl:call-template name="ahf:getUnivAtts"/>
             <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
@@ -160,7 +160,7 @@
      return:	propdeschd contents (fo:block)
      note:		none
      -->
-    <xsl:template match="*[contains(@class, ' reference/propdeschd ')]" priority="2">
+    <xsl:template match="*[contains-token(@class, 'reference/propdeschd')]" priority="2">
         <fo:block>
             <xsl:call-template name="ahf:getUnivAtts"/>
             <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
@@ -174,14 +174,14 @@
      return:	fo:table-row
      note:		none
      -->
-    <xsl:template match="*[contains(@class, ' reference/property ')]" priority="2">
+    <xsl:template match="*[contains-token(@class, 'reference/property')]" priority="2">
         <xsl:param name="prmKeyCol"   required="yes" tunnel="yes" as="xs:integer"/>
         
         <fo:table-row>
             <xsl:copy-of select="ahf:getAttributeSet('atsPropertyTableRow')"/>
             <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
             <!-- proptype -->
-            <xsl:if test="exists(*[contains(@class, ' reference/proptype ')])">
+            <xsl:if test="exists(*[contains-token(@class, 'reference/proptype')])">
                 <fo:table-cell>
                     <xsl:copy-of select="ahf:getAttributeSet('atsPropertyTableBodyCell')"/>
                     <xsl:choose>
@@ -192,11 +192,11 @@
                             <xsl:copy-of select="ahf:getAttributeSet('atsPropertyTableNoKeyCol')"/>
                         </xsl:otherwise>
                     </xsl:choose>
-                    <xsl:apply-templates select="*[contains(@class, ' reference/proptype ')]"/>
+                    <xsl:apply-templates select="*[contains-token(@class, 'reference/proptype')]"/>
                 </fo:table-cell>
             </xsl:if>
             <!-- propvalue -->
-            <xsl:if test="exists(*[contains(@class, ' reference/propvalue ')])">
+            <xsl:if test="exists(*[contains-token(@class, 'reference/propvalue')])">
                 <fo:table-cell>
                     <xsl:copy-of select="ahf:getAttributeSet('atsPropertyTableBodyCell')"/>
                     <xsl:choose>
@@ -207,11 +207,11 @@
                             <xsl:copy-of select="ahf:getAttributeSet('atsPropertyTableNoKeyCol')"/>
                         </xsl:otherwise>
                     </xsl:choose>
-                    <xsl:apply-templates select="*[contains(@class, ' reference/propvalue ')]"/>
+                    <xsl:apply-templates select="*[contains-token(@class, 'reference/propvalue')]"/>
                 </fo:table-cell>
             </xsl:if>
             <!-- propdesc -->
-            <xsl:if test="exists(*[contains(@class, ' reference/propdesc ')])">
+            <xsl:if test="exists(*[contains-token(@class, 'reference/propdesc')])">
                 <fo:table-cell>
                     <xsl:copy-of select="ahf:getAttributeSet('atsPropertyTableBodyCell')"/>
                     <xsl:choose>
@@ -222,7 +222,7 @@
                             <xsl:copy-of select="ahf:getAttributeSet('atsPropertyTableNoKeyCol')"/>
                         </xsl:otherwise>
                     </xsl:choose>
-                    <xsl:apply-templates select="*[contains(@class, ' reference/propdesc ')]"/>
+                    <xsl:apply-templates select="*[contains-token(@class, 'reference/propdesc')]"/>
                 </fo:table-cell>
             </xsl:if>
         </fo:table-row>
@@ -234,7 +234,7 @@
      return:	proptype contents (fo:block)
      note:		none
      -->
-    <xsl:template match="*[contains(@class, ' reference/proptype ')]" priority="2">
+    <xsl:template match="*[contains-token(@class, 'reference/proptype')]" priority="2">
         <fo:block>
             <xsl:call-template name="ahf:getUnivAtts"/>
             <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
@@ -248,7 +248,7 @@
      return:	propvalue contents (fo:block)
      note:		none
      -->
-    <xsl:template match="*[contains(@class, ' reference/propvalue ')]" priority="2">
+    <xsl:template match="*[contains-token(@class, 'reference/propvalue')]" priority="2">
         <fo:block>
             <xsl:call-template name="ahf:getUnivAtts"/>
             <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
@@ -262,7 +262,7 @@
      return:	propdesc contents (fo:block)
      note:		none
      -->
-    <xsl:template match="*[contains(@class, ' reference/propdesc ')]" priority="2">
+    <xsl:template match="*[contains-token(@class, 'reference/propdesc')]" priority="2">
         <fo:block>
             <xsl:call-template name="ahf:getUnivAtts"/>
             <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>

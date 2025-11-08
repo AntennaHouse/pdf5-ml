@@ -23,11 +23,11 @@
      return:	fo:inline
      note:		none
      -->
-    <xsl:template match="*[contains(@class, ' sw-d/msgph ')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
+    <xsl:template match="*[contains-token(@class, 'sw-d/msgph')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
         <xsl:sequence select="'atsMsgPh'"/>
     </xsl:template>    
     
-    <xsl:template match="*[contains(@class,' sw-d/msgph ')]" priority="2">
+    <xsl:template match="*[contains-token(@class, 'sw-d/msgph')]" priority="2">
         <fo:inline>
             <xsl:call-template name="getAttributeSetWithLang"/>
             <xsl:call-template name="ahf:getUnivAtts"/>
@@ -42,11 +42,11 @@
      return:	fo:block
      note:		none
      -->
-    <xsl:template match="*[contains(@class, ' sw-d/msgblock ')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
+    <xsl:template match="*[contains-token(@class, 'sw-d/msgblock')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
         <xsl:sequence select="'atsMsgBlock'"/>
     </xsl:template>    
     
-    <xsl:template match="*[contains(@class,' sw-d/msgblock ')]" priority="2">
+    <xsl:template match="*[contains-token(@class, 'sw-d/msgblock')]" priority="2">
         <xsl:variable name="msgBlockAttr" as="attribute()*">
             <xsl:call-template name="getAttributeSetWithLang"/>
         </xsl:variable>
@@ -65,11 +65,11 @@
      return:	fo:inline
      note:		none
      -->
-    <xsl:template match="*[contains(@class, ' sw-d/msgnum ')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
+    <xsl:template match="*[contains-token(@class, 'sw-d/msgnum')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
         <xsl:sequence select="'atsMsgNum'"/>
     </xsl:template>    
     
-    <xsl:template match="*[contains(@class,' sw-d/msgnum ')]" priority="2">
+    <xsl:template match="*[contains-token(@class, 'sw-d/msgnum')]" priority="2">
         <fo:inline>
             <xsl:call-template name="getAttributeSetWithLang"/>
             <xsl:call-template name="ahf:getUnivAtts"/>
@@ -85,11 +85,11 @@
      return:	fo:inline
      note:		none
      -->
-    <xsl:template match="*[contains(@class, ' sw-d/cmdname ')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
+    <xsl:template match="*[contains-token(@class, 'sw-d/cmdname')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
         <xsl:sequence select="'atsCmdName'"/>
     </xsl:template>    
     
-    <xsl:template match="*[contains(@class,' sw-d/cmdname ')]" priority="2">
+    <xsl:template match="*[contains-token(@class, 'sw-d/cmdname')]" priority="2">
         <fo:inline>
             <xsl:call-template name="getAttributeSetWithLang"/>
             <xsl:call-template name="ahf:getUnivAtts"/>
@@ -104,11 +104,11 @@
      return:	fo:inline
      note:		none
      -->
-    <xsl:template match="*[contains(@class, ' sw-d/varname ')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
+    <xsl:template match="*[contains-token(@class, 'sw-d/varname')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
         <xsl:sequence select="'atsVarName'"/>
     </xsl:template>    
     
-    <xsl:template match="*[contains(@class,' sw-d/varname ')]" priority="2">
+    <xsl:template match="*[contains-token(@class, 'sw-d/varname')]" priority="2">
         <fo:inline>
             <xsl:call-template name="getAttributeSetWithLang"/>
             <xsl:call-template name="ahf:getUnivAtts"/>
@@ -123,11 +123,11 @@
      return:    fo:inline
      note:      none
      -->
-    <xsl:template match="*[contains(@class, ' sw-d/filepath ')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
+    <xsl:template match="*[contains-token(@class, 'sw-d/filepath')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
         <xsl:sequence select="'atsFilePath'"/>
     </xsl:template>    
 
-    <xsl:template match="*[contains(@class,' sw-d/filepath ')]" priority="2">
+    <xsl:template match="*[contains-token(@class, 'sw-d/filepath')]" priority="2">
         <fo:inline>
             <xsl:call-template name="getAttributeSetWithLang"/>
             <xsl:call-template name="ahf:getUnivAtts"/>
@@ -142,11 +142,11 @@
      return:	fo:inline
      note:		none
      -->
-    <xsl:template match="*[contains(@class, ' sw-d/userinput ')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
+    <xsl:template match="*[contains-token(@class, 'sw-d/userinput')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
         <xsl:sequence select="'atsUserInput'"/>
     </xsl:template>    
     
-    <xsl:template match="*[contains(@class,' sw-d/userinput ')]" priority="2">
+    <xsl:template match="*[contains-token(@class, 'sw-d/userinput')]" priority="2">
         <fo:inline>
             <xsl:call-template name="getAttributeSetWithLang"/>
             <xsl:call-template name="ahf:getUnivAtts"/>
@@ -161,11 +161,11 @@
      return:    fo:inline
      note:      none
      -->
-    <xsl:template match="*[contains(@class, ' sw-d/systemoutput ')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
+    <xsl:template match="*[contains-token(@class, 'sw-d/systemoutput')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
         <xsl:sequence select="'atsSystemOutput'"/>
     </xsl:template>    
     
-    <xsl:template match="*[contains(@class,' sw-d/systemoutput ')]" priority="2">
+    <xsl:template match="*[contains-token(@class, 'sw-d/systemoutput')]" priority="2">
         <fo:inline>
             <xsl:call-template name="getAttributeSetWithLang"/>
             <xsl:call-template name="ahf:getUnivAtts"/>

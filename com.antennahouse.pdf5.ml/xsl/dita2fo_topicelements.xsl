@@ -27,7 +27,7 @@
      return:    style name
      note:      This template is common for topic/task/concept/reference
      -->
-    <xsl:template match="*[contains(@class, ' topic/topic ')]" mode="MODE_GET_STYLE" as="xs:string*">
+    <xsl:template match="*[contains-token(@class, 'topic/topic')]" mode="MODE_GET_STYLE" as="xs:string*">
         <xsl:sequence select="'atsBase'"/>
     </xsl:template>    
     
@@ -37,7 +37,7 @@
      return:    none
      note:      none
      -->
-    <xsl:template match="*[contains(@class, ' topic/titlealts ')]">
+    <xsl:template match="*[contains-token(@class, 'topic/titlealts')]">
     </xsl:template>
     <!-- 
      function:  navtitle template
@@ -45,7 +45,7 @@
      return:    none
      note:      none
      -->
-    <xsl:template match="*[contains(@class, ' topic/navtitle ')]">
+    <xsl:template match="*[contains-token(@class, 'topic/navtitle')]">
         <xsl:apply-templates/>
     </xsl:template>
     
@@ -55,7 +55,7 @@
      return:    none
      note:      none
      -->
-    <xsl:template match="*[contains(@class, ' topic/searchtitle ')]">
+    <xsl:template match="*[contains-token(@class, 'topic/searchtitle')]">
     </xsl:template>
     
     <!-- 
@@ -69,11 +69,11 @@
                 Ignore empty abstract.
                 2023-05-10 t.makita
      -->
-    <xsl:template match="*[contains(@class, ' topic/abstract ')]" mode="MODE_GET_STYLE" as="xs:string*">
+    <xsl:template match="*[contains-token(@class, 'topic/abstract')]" mode="MODE_GET_STYLE" as="xs:string*">
         <xsl:sequence select="'atsAbstract'"/>
     </xsl:template>    
 
-    <xsl:template match="*[contains(@class, ' topic/abstract ')][ahf:isEmptyElement(.)]" priority="2">
+    <xsl:template match="*[contains-token(@class, 'topic/abstract')][ahf:isEmptyElement(.)]" priority="2">
         <xsl:variable name="abstract" as="element()" select="."/>
         <xsl:if test="@id">
             <fo:wrapper>
@@ -84,7 +84,7 @@
         </xsl:if>
     </xsl:template>
 
-    <xsl:template match="*[contains(@class, ' topic/abstract ')]">
+    <xsl:template match="*[contains-token(@class, 'topic/abstract')]">
         <xsl:call-template name="processAbstract"/>
     </xsl:template>
     
@@ -106,9 +106,9 @@
                 2023-05-10 t.makita
 
      -->
-    <xsl:template match="*[contains(@class, ' topic/shortdesc ')]" mode="MODE_GET_STYLE" as="xs:string*">
+    <xsl:template match="*[contains-token(@class, 'topic/shortdesc')]" mode="MODE_GET_STYLE" as="xs:string*">
         <xsl:choose>
-            <xsl:when test="parent::*[contains(@class, ' topic/abstract ')]">
+            <xsl:when test="parent::*[contains-token(@class, 'topic/abstract')]">
                 <xsl:sequence select="()"/>
             </xsl:when>
             <xsl:otherwise>
@@ -117,7 +117,7 @@
         </xsl:choose>
     </xsl:template>    
 
-    <xsl:template match="*[contains(@class, ' topic/shortdesc ')][empty(parent::*[contains(@class, ' topic/abstract ')])][ahf:isEmptyElement(.)]" priority="2">
+    <xsl:template match="*[contains-token(@class, 'topic/shortdesc')][empty(parent::*[contains-token(@class, 'topic/abstract')])][ahf:isEmptyElement(.)]" priority="2">
         <xsl:variable name="shortdesc" as="element()" select="."/>
         <xsl:if test="@id">
             <fo:wrapper>
@@ -128,9 +128,9 @@
         </xsl:if>
     </xsl:template>
 
-    <xsl:template match="*[contains(@class, ' topic/shortdesc ')]">
+    <xsl:template match="*[contains-token(@class, 'topic/shortdesc')]">
         <xsl:choose>
-            <xsl:when test="parent::*[contains(@class, ' topic/abstract ')]">
+            <xsl:when test="parent::*[contains-token(@class, 'topic/abstract')]">
                 <!-- Child of abstract -->
                 <fo:wrapper>
                     <xsl:call-template name="ahf:getUnivAtts"/>
@@ -159,11 +159,11 @@
                 Ignore empty body.
                 2023-05-10 t.makita
      -->
-    <xsl:template match="*[contains(@class, ' topic/body ')]" mode="MODE_GET_STYLE" as="xs:string*">
+    <xsl:template match="*[contains-token(@class, 'topic/body')]" mode="MODE_GET_STYLE" as="xs:string*">
         <xsl:sequence select="'atsBody'"/>
     </xsl:template>    
 
-    <xsl:template match="*[contains(@class, ' topic/body ')][ahf:isEmptyElement(.)]" priority="2">
+    <xsl:template match="*[contains-token(@class, 'topic/body')][ahf:isEmptyElement(.)]" priority="2">
         <xsl:variable name="body" as="element()" select="."/>
         <xsl:if test="@id">
             <fo:wrapper>
@@ -174,7 +174,7 @@
         </xsl:if>
     </xsl:template>
     
-    <xsl:template match="*[contains(@class, ' topic/body ')]">
+    <xsl:template match="*[contains-token(@class, 'topic/body')]">
         <xsl:variable name="body" select="."/>
         <fo:block>
             <xsl:call-template name="getAttributeSetWithLang"/>
@@ -184,7 +184,7 @@
             <!-- Make fo:index-range-end FO object that has @start 
                  but has no corresponding @end indexterm in body.
              -->
-            <xsl:apply-templates select="$body//*[contains(@class, ' topic/indexterm ')]">
+            <xsl:apply-templates select="$body//*[contains-token(@class, 'topic/indexterm')]">
                 <xsl:with-param name="prmNeedId" tunnel="yes" select="false()"/>
                 <xsl:with-param name="prmMakeComplementEnd" tunnel="yes" select="true()"/>
                 <xsl:with-param name="prmRangeElem" tunnel="yes" select="$body"/>
@@ -198,7 +198,7 @@
         return:     fo:block
         note:       Bodydiv needs no special formattings. (2011-10-25 t.makita)		
     -->
-    <xsl:template match="*[contains(@class, ' topic/bodydiv ')]">
+    <xsl:template match="*[contains-token(@class, 'topic/bodydiv')]">
         <fo:block>
             <xsl:call-template name="ahf:getUnivAtts"/>
             <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
