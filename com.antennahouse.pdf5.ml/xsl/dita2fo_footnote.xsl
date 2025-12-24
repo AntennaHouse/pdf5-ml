@@ -210,7 +210,6 @@
     <xsl:template name="processFootNote">
         <xsl:param name="prmElement" required="yes" as="element()+"/>
         
-        <xsl:message select="'[processFootNote]'"/>
         <fo:list-block>
             <xsl:copy-of select="ahf:getAttributeSet('atsPostnoteListBlock')"/>
             <xsl:variable name="fnSeq" as="element()*" select="$prmElement/descendant::*[contains-token(@class, 'topic/fn')][ahf:isValidFn(.)]"/>

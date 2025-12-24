@@ -59,8 +59,9 @@
 
         <xsl:choose>
             <xsl:when test="empty($topicElement)">
-                <xsl:call-template name="warningContinue">
-                    <xsl:with-param name="prmMes" select="ahf:replace($stMes092,('%keyref','%href','%file'),(string(@keyref),$href,string(@xtrf)))"/>
+                <xsl:call-template name="warningContinueWithFileInfo">
+                    <xsl:with-param name="prmMes" select="ahf:replace($stMes092,('%keyref','%href'),(string(@keyref),$href))"/>
+                    <xsl:with-param name="prmElem" select="."/>
                 </xsl:call-template>
             </xsl:when>
             <xsl:when test="not(contains-token($topicElement/@class,'glossentry/glossentry'))">

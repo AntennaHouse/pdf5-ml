@@ -87,9 +87,10 @@
         <xsl:variable name="topicRef" as="element()?" select="if ($topicId eq $localTopicId) then $prmTopicRef else ahf:getTopicRef($topicElement)"/>
         <xsl:choose>
             <xsl:when test="empty($topicRef)">
-                <xsl:call-template name="warningContinue">
+                <xsl:call-template name="warningContinueWithFileInfo">
                     <xsl:with-param name="prmMes" 
-                        select="ahf:replace($stMes072,('%href','%ohref','%file'),(string($prmElem/@href),string($prmElem/@ohref),string($prmElem/@xtrf)))"/>
+                        select="ahf:replace($stMes072,('%href','%ohref'),(string($prmElem/@href),string($prmElem/@ohref)))"/>
+                    <xsl:with-param name="prmElem" select="$prmElem"/>
                 </xsl:call-template>
                 <xsl:sequence select="()"/>
             </xsl:when>
@@ -104,9 +105,10 @@
                 <xsl:attribute name="internal-destination" select="$destId"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:call-template name="warningContinue">
+                <xsl:call-template name="warningContinueWithFileInfo">
                     <xsl:with-param name="prmMes"
-                        select="ahf:replace($stMes030,('%href','%ohref','%file'),(string($prmElem/@href),string($prmElem/@ohref),string($prmElem/@xtrf)))"/>
+                        select="ahf:replace($stMes030,('%href','%ohref'),(string($prmElem/@href),string($prmElem/@ohref)))"/>
+                    <xsl:with-param name="prmElem" select="$prmElem"/>
                 </xsl:call-template>
                 <xsl:sequence select="()"/>
             </xsl:otherwise>
@@ -155,9 +157,10 @@
                 <xsl:sequence select="()"/>
             </xsl:when>
             <xsl:when test="empty($topicRef)">
-                <xsl:call-template name="warningContinue">
+                <xsl:call-template name="warningContinueWithFileInfo">
                     <xsl:with-param name="prmMes" 
-                        select="ahf:replace($stMes072,('%href','%ohref','%file'),(string($prmElem/@href),string($prmElem/@ohref),string($prmElem/@xtrf)))"/>
+                        select="ahf:replace($stMes072,('%href','%ohref'),(string($prmElem/@href),string($prmElem/@ohref)))"/>
+                    <xsl:with-param name="prmElem" select="$prmElem"/>
                 </xsl:call-template>
                 <xsl:sequence select="()"/>
             </xsl:when>
@@ -170,9 +173,10 @@
                 <xsl:sequence select="$topicRef"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:call-template name="warningContinue">
+                <xsl:call-template name="warningContinueWithFileInfo">
                     <xsl:with-param name="prmMes"
-                        select="ahf:replace($stMes030,('%href','%ohref','%file'),(string($prmElem/@href),string($prmElem/@ohref),string($prmElem/@xtrf)))"/>
+                        select="ahf:replace($stMes030,('%href','%ohref'),(string($prmElem/@href),string($prmElem/@ohref)))"/>
+                    <xsl:with-param name="prmElem" select="$prmElem"/>
                 </xsl:call-template>
                 <xsl:sequence select="()"/>
             </xsl:otherwise>

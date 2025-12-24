@@ -75,9 +75,10 @@
                 </xsl:call-template>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:call-template name="warningContinue">
+                <xsl:call-template name="warningContinueWithFileInfo">
                     <xsl:with-param name="prmMes" 
-                        select="ahf:replace($stMes070,('%href','%file'),(string(@href),string(@xtrf)))"/>
+                        select="ahf:replace($stMes070,('%href'),(string(@href)))"/>
+                    <xsl:with-param name="prmElem" select="$topicRef"/>
                 </xsl:call-template>
             </xsl:otherwise>
         </xsl:choose>
@@ -428,9 +429,10 @@
                 </xsl:apply-templates>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:call-template name="warningContinue">
+                <xsl:call-template name="warningContinueWithFileInfo">
                     <xsl:with-param name="prmMes" 
-                     select="ahf:replace($stMes070,('%href','%file'),(string(@href),string(@xtrf)))"/>
+                     select="ahf:replace($stMes070,('%href'),(string(@href)))"/>
+                    <xsl:with-param name="prmElem" select="$topicRef"/>
                 </xsl:call-template>
             </xsl:otherwise>
         </xsl:choose>

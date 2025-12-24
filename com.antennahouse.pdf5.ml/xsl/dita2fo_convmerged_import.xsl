@@ -21,5 +21,5 @@
   <xsl:include href="dita2fo_convmerged_image.xsl"/>
   <xsl:include href="dita2fo_convmerged_message.xsl"/>
   <xsl:include href="dita2fo_generate_history_id.xsl"/>
-
+  
 </xsl:stylesheet>

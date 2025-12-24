@@ -29,9 +29,10 @@
      note:		
      -->
     <xsl:template match="*" priority="-3">
-        <xsl:call-template name="warningContinue">
+        <xsl:call-template name="warningContinueWithFileInfo">
             <xsl:with-param name="prmMes"
-             select="ahf:replace($stMes001,('%elem','%file'),(name(.),string(@xtrf)))"/>
+             select="ahf:replace($stMes001,('%elem'),(name(.)))"/>
+            <xsl:with-param name="prmElem" select="."/>
         </xsl:call-template>
         <xsl:apply-templates/>
     </xsl:template>

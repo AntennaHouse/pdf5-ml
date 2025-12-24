@@ -311,24 +311,27 @@
         
         <xsl:if test="(preceding-sibling::*[contains-token(@class, $CLASS_INDEX_SEE)]) 
                    or (following-sibling::*[contains-token(@class, $CLASS_INDEX_SEE)])">
-            <xsl:call-template name="warningContinue">
+            <xsl:call-template name="warningContinueWithFileInfo">
                 <xsl:with-param name="prmMes" 
-                 select="ahf:replace($stMes610,('%key','%file'),($prmCurrentIndexKey,string(@xtrf)))"/>
+                 select="ahf:replace($stMes610,('%key'),($prmCurrentIndexKey))"/>
+                <xsl:with-param name="prmElem" select="."/>
             </xsl:call-template>
         </xsl:if>
         <xsl:if test="(preceding-sibling::*[contains-token(@class, $CLASS_INDEX_SEEALSO)]) 
                    or (following-sibling::*[contains-token(@class, $CLASS_INDEX_SEEALSO)])">
-            <xsl:call-template name="warningContinue">
+            <xsl:call-template name="warningContinueWithFileInfo">
                 <xsl:with-param name="prmMes" 
-                 select="ahf:replace($stMes611,('%key','%file'),($prmCurrentIndexKey,string(@xtrf)))"/>
+                 select="ahf:replace($stMes611,('%key'),($prmCurrentIndexKey))"/>
+                <xsl:with-param name="prmElem" select="."/>
             </xsl:call-template>
         </xsl:if>
         <xsl:if test="(child::*[contains-token(@class, $CLASS_INDEX_SEE)]) 
                     and (child::*[contains-token(@class, $CLASS_INDEX_SEEALSO)])
                     and not(child::*[contains-token(@class, $CLASS_INDEXTERM)])">
-            <xsl:call-template name="warningContinue">
+            <xsl:call-template name="warningContinueWithFileInfo">
                 <xsl:with-param name="prmMes" 
-                 select="ahf:replace($stMes612,('%key','%file'),($prmCurrentIndexKey,string(@xtrf)))"/>
+                 select="ahf:replace($stMes612,('%key'),($prmCurrentIndexKey))"/>
+                <xsl:with-param name="prmElem" select="."/>
             </xsl:call-template>
         </xsl:if>
         <xsl:value-of select="$INDEX_CHECK_OK"/>
@@ -346,9 +349,10 @@
         
         <xsl:choose>
             <xsl:when test="not(string($prmIndextermText)) and not(string(@end))">
-                <xsl:call-template name="warningContinue">
+                <xsl:call-template name="warningContinueWithFileInfo">
                     <xsl:with-param name="prmMes" 
-                     select="ahf:replace($stMes620,('%key','%file'),($prmCurrentIndexKey,string(@xtrf)))"/>
+                     select="ahf:replace($stMes620,('%key'),($prmCurrentIndexKey))"/>
+                    <xsl:with-param name="prmElem" select="."/>
                 </xsl:call-template>
                 <xsl:value-of select="$INDEX_CHECK_IGNORE_ELEMENT"/>
             </xsl:when>
@@ -356,9 +360,10 @@
                 <xsl:value-of select="$INDEX_CHECK_OK"/>
             </xsl:when>
             <xsl:when test="string-length($prmIndextermText) &gt; $cIndexSortKeyMaxLen">
-                <xsl:call-template name="warningContinue">
+                <xsl:call-template name="warningContinueWithFileInfo">
                     <xsl:with-param name="prmMes" 
-                     select="ahf:replace($stMes621,('%max','%key','%file'),(string($cIndexSortKeyMaxLen),$prmCurrentIndexKey,string(@xtrf)))"/>
+                     select="ahf:replace($stMes621,('%max','%key'),(string($cIndexSortKeyMaxLen),$prmCurrentIndexKey))"/>
+                    <xsl:with-param name="prmElem" select="."/>
                 </xsl:call-template>
                 <xsl:value-of select="$INDEX_CHECK_OK"/>
             </xsl:when>
@@ -385,9 +390,10 @@
                 <xsl:choose>
                     <xsl:when test="string($prmIndextermStart)">
                         <!-- @start are specified in a nested indexterm multipully -->
-                        <xsl:call-template name="warningContinue">
+                        <xsl:call-template name="warningContinueWithFileInfo">
                             <xsl:with-param name="prmMes" 
-                             select="ahf:replace($stMes630,('%prev','%curr','%key','%file'),($prmIndextermStart,string(@start),$prmCurrentIndexKey,string(@xtrf)))"/>
+                             select="ahf:replace($stMes630,('%prev','%curr','%key'),($prmIndextermStart,string(@start),$prmCurrentIndexKey))"/>
+                            <xsl:with-param name="prmElem" select="."/>
                         </xsl:call-template>
                         <xsl:value-of select="$INDEX_CHECK_IGNORE_ELEMENT"/>
                     </xsl:when>
@@ -439,9 +445,10 @@
                 <xsl:variable name="correspondingStartIndexterm" select="key('KEY_INDEX_START',@end)"/>
                 <xsl:choose>
                     <xsl:when test="count($correspondingStartIndexterm)=0">
-                        <xsl:call-template name="warningContinue">
+                        <xsl:call-template name="warningContinueWithFileInfo">
                             <xsl:with-param name="prmMes" 
-                             select="ahf:replace($stMes640,('%end','%key','%file'),(string(@end),$prmCurrentIndexKey,string(@xtrf)))"/>
+                             select="ahf:replace($stMes640,('%end','%key'),(string(@end),$prmCurrentIndexKey))"/>
+                            <xsl:with-param name="prmElem" select="."/>
                         </xsl:call-template>
                         <xsl:value-of select="$INDEX_CHECK_IGNORE_ELEMENT"/>
                     </xsl:when>
@@ -449,9 +456,10 @@
                          2011-12-22 t.makita
                      -->
                     <xsl:when test="count($correspondingStartIndexterm[not(ancestor::*[contains-token(@class, 'topic/navtitle')])]) gt 1">
-                        <xsl:call-template name="warningContinue">
+                        <xsl:call-template name="warningContinueWithFileInfo">
                             <xsl:with-param name="prmMes" 
-                             select="ahf:replace($stMes641,('%end','%key','%file'),(string(@end),$prmCurrentIndexKey,string(@xtrf)))"/>
+                             select="ahf:replace($stMes641,('%end','%key'),(string(@end),$prmCurrentIndexKey))"/>
+                            <xsl:with-param name="prmElem" select="."/>
                         </xsl:call-template>
                         <!-- Temporary solution. DITA-OT BUG:2891736 "indexterm in topicref level are copied into topic/prolog" 
                              This bug is fixed in DITA-OT 1.5 M23. Treat it as error.
@@ -461,16 +469,18 @@
                         <xsl:value-of select="$INDEX_CHECK_IGNORE_ELEMENT"/>
                     </xsl:when>
                     <xsl:when test="ancestor::*[contains-token(@class, $CLASS_INDEXTERM)]">
-                        <xsl:call-template name="warningContinue">
+                        <xsl:call-template name="warningContinueWithFileInfo">
                             <xsl:with-param name="prmMes" 
-                             select="ahf:replace($stMes642,('%end','%key','%file'),(string(@end),$prmCurrentIndexKey,string(@xtrf)))"/>
+                             select="ahf:replace($stMes642,('%end','%key'),(string(@end),$prmCurrentIndexKey))"/>
+                            <xsl:with-param name="prmElem" select="."/>
                         </xsl:call-template>
                         <xsl:value-of select="$INDEX_CHECK_OK"/>
                     </xsl:when>
                     <xsl:when test="child::*[contains-token(@class, $CLASS_INDEXTERM)]">
-                        <xsl:call-template name="warningContinue">
+                        <xsl:call-template name="warningContinueWithFileInfo">
                             <xsl:with-param name="prmMes" 
-                             select="ahf:replace($stMes643,('%end','%key','%file'),(string(@end),$prmCurrentIndexKey,string(@xtrf)))"/>
+                             select="ahf:replace($stMes643,('%end','%key'),(string(@end),$prmCurrentIndexKey))"/>
+                            <xsl:with-param name="prmElem" select="."/>
                         </xsl:call-template>
                         <xsl:value-of select="$INDEX_CHECK_OK"/>
                     </xsl:when>
@@ -496,25 +506,28 @@
         
         <xsl:choose>
             <xsl:when test="string(@start) and string(@end)">
-                <xsl:call-template name="warningContinue">
+                <xsl:call-template name="warningContinueWithFileInfo">
                     <xsl:with-param name="prmMes" 
-                     select="ahf:replace($stMes650,('%start','%end','%key','%file'),(string(@start),string(@end),$prmCurrentIndexKey,string(@xtrf)))"/>
+                     select="ahf:replace($stMes650,('%start','%end','%key'),(string(@start),string(@end),$prmCurrentIndexKey))"/>
+                    <xsl:with-param name="prmElem" select="."/>
                 </xsl:call-template>
                 <xsl:value-of select="$INDEX_CHECK_IGNORE_ELEMENT"/>
             </xsl:when>
             <xsl:when test="string(@start) and string(descendant::*[contains-token(@class, $CLASS_INDEXTERM)][string(@end)][1]/@end)">
                 <xsl:variable name="end" select="string(descendant::*[contains-token(@class, $CLASS_INDEXTERM)][string(@end)][1]/@end)" as="xs:string"/>
-                <xsl:call-template name="warningContinue">
+                <xsl:call-template name="warningContinueWithFileInfo">
                     <xsl:with-param name="prmMes" 
-                     select="ahf:replace($stMes651,('%start','%end','%key','%file'),(string(@start),$end,$prmCurrentIndexKey,string(@xtrf)))"/>
+                     select="ahf:replace($stMes651,('%start','%end','%key'),(string(@start),$end,$prmCurrentIndexKey))"/>
+                    <xsl:with-param name="prmElem" select="."/>
                 </xsl:call-template>
                 <xsl:value-of select="$INDEX_CHECK_IGNORE_ELEMENT"/>
             </xsl:when>
             <xsl:when test="string(@end) and string(descendant::*[contains-token(@class, $CLASS_INDEXTERM)][string(@start)][1]/@start)">
                 <xsl:variable name="start" select="string(descendant::*[contains-token(@class, $CLASS_INDEXTERM)][string(@start)][1]/@start)" as="xs:string"/>
-                <xsl:call-template name="warningContinue">
+                <xsl:call-template name="warningContinueWithFileInfo">
                     <xsl:with-param name="prmMes" 
-                     select="ahf:replace($stMes652,('%start','%end','%key','%file'),($start,string(@end),$prmCurrentIndexKey,string(@xtrf)))"/>
+                     select="ahf:replace($stMes652,('%start','%end','%key'),($start,string(@end),$prmCurrentIndexKey))"/>
+                    <xsl:with-param name="prmElem" select="."/>
                 </xsl:call-template>
                 <xsl:value-of select="$INDEX_CHECK_IGNORE_ELEMENT"/>
             </xsl:when>

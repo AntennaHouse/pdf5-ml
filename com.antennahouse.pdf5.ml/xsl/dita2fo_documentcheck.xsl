@@ -66,9 +66,10 @@
     <xsl:function name="ahf:checkBookmap1" as="xs:boolean">
         <xsl:choose>
             <xsl:when test="$isPartExist and $isChapterExist">
-                <xsl:call-template name="warningContinue">
+                <xsl:call-template name="warningContinueWithFileInfo">
                     <xsl:with-param name="prmMes"
-                                    select="ahf:replace($stMes503,('%xtrf'),(string($map/@xtrf)))"/>
+                                    select="$stMes503"/>
+                    <xsl:with-param name="prmElem" select="$map"/>
                 </xsl:call-template>
                 <xsl:sequence select="true()"/>
             </xsl:when>
@@ -88,39 +89,9 @@
     <xsl:function name="ahf:checkBookmap2" as="xs:boolean">
         <xsl:choose>
             <xsl:when test="$isPartExist">
-                <!--xsl:choose>
-                    <!-\-xsl:when test="$map/*[contains-token(@class, 'bookmap/part')][@toc='no']"-\->
-                    <xsl:when test="$map/*[contains-token(@class, 'bookmap/part')][ahf:isTocNo(.)]">
-                        <xsl:for-each select="$map/*[contains-token(@class, 'bookmap/part')][@toc='no']">
-                            <xsl:call-template name="warningContinue">
-                                <xsl:with-param name="prmMes"
-                                 select="ahf:replace($stMes504,('%ohref','%xtrf'),(if (@ohref) then @ohref else ' ' ,string(@xtrf)))"/>
-                            </xsl:call-template>
-                        </xsl:for-each>
-                        <xsl:sequence select="true()"/>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:sequence select="false()"/>
-                    </xsl:otherwise>
-                </xsl:choose-->
                 <xsl:sequence select="false()"/>
             </xsl:when>
             <xsl:when test="$isChapterExist">
-                <!--xsl:choose>
-                    <!-\-xsl:when test="$map/*[contains-token(@class, 'bookmap/chapter')][@toc='no']"-\->
-                    <xsl:when test="$map/*[contains-token(@class, 'bookmap/chapter')][ahf:isTocNo(.)]">
-                        <xsl:for-each select="$map/*[contains-token(@class, 'bookmap/chapter')][@toc='no']">
-                            <xsl:call-template name="warningContinue">
-                                <xsl:with-param name="prmMes"
-                                 select="ahf:replace($stMes505,('%ohref','%xtrf'),(if (@ohref) then @ohref else ' ',string(@xtrf)))"/>
-                            </xsl:call-template>
-                        </xsl:for-each>
-                        <xsl:sequence select="true()"/>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:sequence select="false()"/>
-                    </xsl:otherwise>
-                </xsl:choose-->
                 <xsl:sequence select="false()"/>
             </xsl:when>
             <xsl:otherwise>
@@ -139,40 +110,11 @@
         <xsl:choose>
             <xsl:when test="$isBookMap">
                 <xsl:choose>
-                    <!-- Make them as obsolete
-                    <xsl:when test="count($map//*[contains-token(@class, 'bookmap/figurelist')][not(@href)]) &gt; 1">
-                        <xsl:call-template name="warningContinue">
-                            <xsl:with-param name="prmMes"
-                                            select="ahf:replace($stMes510,('%xtrf'),(string($map/@xtrf)))"/>
-                        </xsl:call-template>
-                        <xsl:sequence select="true()"/>
-                    </xsl:when>
-                    <xsl:when test="count($map//*[contains-token(@class, 'bookmap/tablelist')][not(@href)]) &gt; 1">
-                        <xsl:call-template name="warningContinue">
-                            <xsl:with-param name="prmMes"
-                                            select="ahf:replace($stMes511,('%xtrf'),(string($map/@xtrf)))"/>
-                        </xsl:call-template>
-                        <xsl:sequence select="true()"/>
-                    </xsl:when>
-                    <xsl:when test="count($map//*[contains-token(@class, 'bookmap/toc')][not(@href)]) &gt; 1">
-                        <xsl:call-template name="warningContinue">
-                            <xsl:with-param name="prmMes"
-                                            select="ahf:replace($stMes512,('%xtrf'),(string($map/@xtrf)))"/>
-                        </xsl:call-template>
-                        <xsl:sequence select="true()"/>
-                    </xsl:when>
-                    <xsl:when test="count($map//*[contains-token(@class, 'bookmap/indexlist')][not(@href)]) &gt; 1">
-                        <xsl:call-template name="warningContinue">
-                            <xsl:with-param name="prmMes"
-                                            select="ahf:replace($stMes513,('%xtrf'),(string($map/@xtrf)))"/>
-                        </xsl:call-template>
-                        <xsl:sequence select="true()"/>
-                    </xsl:when>
-                    -->
                     <xsl:when test="exists($map/*[contains-token(@class, 'bookmap/frontmatter')]//*[contains-token(@class, 'bookmap/indexlist')][not(@href)])">
-                        <xsl:call-template name="warningContinue">
+                        <xsl:call-template name="warningContinueWithFileInfo">
                             <xsl:with-param name="prmMes"
-                                select="ahf:replace($stMes514,('%xtrf'),(string($map/@xtrf)))"/>
+                                select="$stMes514"/>
+                            <xsl:with-param name="prmElem" select="$map"/>
                         </xsl:call-template>
                         <xsl:sequence select="true()"/>
                     </xsl:when>

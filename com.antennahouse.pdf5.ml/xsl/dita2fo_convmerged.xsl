@@ -125,8 +125,9 @@
                         </xsl:apply-templates>
                     </xsl:when>
                     <xsl:otherwise>
-                        <xsl:call-template name="warningContinue">
+                        <xsl:call-template name="warningContinueWithFileInfo">
                             <xsl:with-param name="prmMes" select="ahf:replace($stMes1009,('%href','%xtrc'),(concat('#',$topicId),string($topicref/@xtrc)))"/>
+                            <xsl:with-param name="prmElem" select="$topicref"/>
                         </xsl:call-template>
                     </xsl:otherwise>
                 </xsl:choose>
@@ -182,8 +183,9 @@
             <xsl:when test="string(@print) eq 'no'" >
                 <xsl:for-each select="descendant-or-self::*[contains-token(@class, 'map/topicref')]">
                     <xsl:if test="exists(@href)">
-                        <xsl:call-template name="warningContinue">
+                        <xsl:call-template name="warningContinueWithFileInfo">
                             <xsl:with-param name="prmMes" select="ahf:replace($stMes1001,('%href','%ohref'),(string(@href),string(@ohref)))"/>
+                            <xsl:with-param name="prmElem" select="$topicRef"/>
                         </xsl:call-template>
                     </xsl:if>
                 </xsl:for-each>
@@ -277,8 +279,9 @@
         <xsl:variable name="href" as="xs:string" select="string(@href)"/>
         <xsl:choose>
             <xsl:when test="exists(index-of($noPrintHrefs,$href)) and empty(index-of($normalHrefs,$href))">
-                <xsl:call-template name="warningContinue">
+                <xsl:call-template name="warningContinueWithFileInfo">
                     <xsl:with-param name="prmMes" select="ahf:replace($stMes1003,('%href'),($href))"/>
+                    <xsl:with-param name="prmElem" select="."/>
                 </xsl:call-template>
             </xsl:when>
             <xsl:otherwise>
@@ -331,8 +334,9 @@
         </xsl:variable>
         
         <xsl:if test="string($refTopicHref) and exists(index-of($noPrintHrefs,$refTopicHref)) and empty(index-of($normalHrefs,$refTopicHref))" >
-            <xsl:call-template name="warningContinue">
+            <xsl:call-template name="warningContinueWithFileInfo">
                 <xsl:with-param name="prmMes" select="ahf:replace($stMes1004,('%href'),($href))"/>
+                <xsl:with-param name="prmElem" select="$xref"/>
             </xsl:call-template>
         </xsl:if>
 

@@ -612,9 +612,10 @@
         
         <xsl:choose>
             <xsl:when test="string(number($prmPercent)) eq $NaN">
-                <xsl:call-template name="warningContinue">
+                <xsl:call-template name="warningContinueWithFileInfo">
                     <xsl:with-param name="prmMes" 
-                     select="ahf:replace($stMes028,('%scale','%elem','%file'),($prmPercent,name($prmElement),string($prmElement/@xtrf)))"/>
+                     select="ahf:replace($stMes028,('%scale','%elem'),($prmPercent,name($prmElement)))"/>
+                    <xsl:with-param name="prmElem" select="$prmElement"/>
                 </xsl:call-template>
                 <xsl:sequence select="1"/>
             </xsl:when>

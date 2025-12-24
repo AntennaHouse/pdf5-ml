@@ -131,15 +131,17 @@
                         <xsl:when test="$isLinkInside">
                             <xsl:choose>
                                 <xsl:when test="empty($topicContent)">
-                                    <xsl:call-template name="warningContinue">
+                                    <xsl:call-template name="warningContinueWithFileInfo">
                                         <xsl:with-param name="prmMes"
-                                                        select="ahf:replace($stMes062,('%file','%href'),($xtrf,$ohref))"/>
+                                                        select="ahf:replace($stMes062,('%href'),($ohref))"/>
+                                        <xsl:with-param name="prmElem" select="$link"/>
                                     </xsl:call-template>
                                 </xsl:when>
                                 <xsl:when test="empty($topicRef)">
-                                    <xsl:call-template name="warningContinue">
+                                    <xsl:call-template name="warningContinueWithFileInfo">
                                         <xsl:with-param name="prmMes"
-                                                        select="ahf:replace($stMes063,('%file','%href'),($xtrf,$ohref))"/>
+                                                        select="ahf:replace($stMes063,('%href'),($ohref))"/>
+                                        <xsl:with-param name="prmElem" select="$link"/>
                                     </xsl:call-template>
                                 </xsl:when>
                                 <xsl:otherwise>

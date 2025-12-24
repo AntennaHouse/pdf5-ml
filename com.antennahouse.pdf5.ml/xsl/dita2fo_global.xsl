@@ -185,10 +185,11 @@
                 <xsl:sequence select="$classMap"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:call-template name="errorExit">
+                <xsl:call-template name="errorExitWithFileInfo">
                     <xsl:with-param name="prmMes">
-                        <xsl:value-of select="ahf:replace($stMes100,('%class','%file'),(string($root/*[1]/@class),string($root/*[1]/@xtrf)))"/>
+                        <xsl:value-of select="ahf:replace($stMes100,('%class'),(string($root/*[1]/@class)))"/>
                     </xsl:with-param>
+                    <xsl:with-param name="prmElem" select="$root/*[1]"/>
                 </xsl:call-template>
             </xsl:otherwise>
         </xsl:choose>

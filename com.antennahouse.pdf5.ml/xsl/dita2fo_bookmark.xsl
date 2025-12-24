@@ -729,9 +729,10 @@
                                 </fo:bookmark>
                             </xsl:when>
                             <xsl:otherwise> 
-                                <xsl:call-template name="errorExit">
+                                <xsl:call-template name="errorExitWithFileInfo">
                                     <xsl:with-param name="prmMes" 
-                                        select="ahf:replace($stMes079,('%id','%file'),(string($topicRefId),string(@xtrf)))"/>
+                                        select="ahf:replace($stMes079,('%id'),(string($topicRefId)))"/>
+                                    <xsl:with-param name="prmElem" select="$glossEntry"/>
                                 </xsl:call-template>
                             </xsl:otherwise>
                         </xsl:choose>

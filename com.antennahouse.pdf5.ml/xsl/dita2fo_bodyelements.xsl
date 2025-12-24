@@ -648,10 +648,9 @@
                    DITA DTD needs SVG, MathML, etc DTDs.
      -->
     <xsl:template match="*[contains-token(@class, 'topic/object')]">
-        <xsl:call-template name="warningContinue">
-            <xsl:with-param name="prmMes">
-                <xsl:value-of select="ahf:replace($stMes041,('%file','%class'),(string(@xtrf),string(@classid)))"/>
-            </xsl:with-param>
+        <xsl:call-template name="warningContinueWithFileInfo">
+            <xsl:with-param name="prmMes" select="ahf:replace($stMes041,('%class'),(string(@classid)))"/>
+            <xsl:with-param name="prmElem" select="."/>
         </xsl:call-template>
     </xsl:template>
     
@@ -1111,8 +1110,9 @@
                     <xsl:when test="empty($parentElements)">
                         <!-- This case is error because <fn> does not have relevant parent element. -->
                         <xsl:variable name="fnContent" select="if (string-length(string($prmFn)) le 20) then string($prmFn) else concat(substring($prmFn,1,20),'...')"/>
-                        <xsl:call-template name="warningContinue">
-                            <xsl:with-param name="prmMes" select="ahf:replace($stMes037,('%cont','%file'),($fnContent,string($prmFn/@xtrf)))"/>
+                        <xsl:call-template name="warningContinueWithFileInfo">
+                            <xsl:with-param name="prmMes" select="ahf:replace($stMes037,('%cont'),($fnContent))"/>
+                            <xsl:with-param name="prmElem" select="$prmFn"/>
                         </xsl:call-template>
                         <xsl:sequence select="''"/>
                     </xsl:when>
@@ -1370,9 +1370,10 @@
                     <xsl:otherwise>
                         <!-- link to topic -->
                         <xsl:if test="empty($topicElement)">
-                            <xsl:call-template name="errorExit">
+                            <xsl:call-template name="errorExitWithFileInfo">
                                 <xsl:with-param name="prmMes"
-                                                select="ahf:replace($stMes074,('%href','%file', '%element'),($prmHref,string($prmElement/@xtrf), name($prmElement)))"/>
+                                                select="ahf:replace($stMes074,('%href','%element'),($prmHref,name($prmElement)))"/>
+                                <xsl:with-param name="prmElem" select="$prmElement"/>
                             </xsl:call-template>
                         </xsl:if>
                         <!-- get topic's id -->

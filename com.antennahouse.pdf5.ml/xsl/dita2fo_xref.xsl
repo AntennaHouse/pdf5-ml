@@ -401,9 +401,10 @@
                 </fo:inline>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:call-template name="warningContinue">
+                <xsl:call-template name="warningContinueWithFileInfo">
                     <xsl:with-param name="prmMes" 
-                        select="ahf:replace($stMes031,('%id','%file'),(string($prmDestElement/@id),string($prmDestElement/@xtrf)))"/>
+                        select="ahf:replace($stMes031,('%id'),(string($prmDestElement/@id)))"/>
+                    <xsl:with-param name="prmElem" select="$prmDestElement"/>
                 </xsl:call-template>
                 <xsl:sequence select="()"/>
             </xsl:otherwise>
@@ -456,9 +457,10 @@
                 </fo:inline>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:call-template name="warningContinue">
+                <xsl:call-template name="warningContinueWithFileInfo">
                     <xsl:with-param name="prmMes" 
-                        select="ahf:replace($stMes032,('%id','%file'),(string($prmDestElement/@id),string($prmDestElement/@xtrf)))"/>
+                        select="ahf:replace($stMes032,('%id'),(string($prmDestElement/@id)))"/>
+                    <xsl:with-param name="prmElem" select="$prmDestElement"/>
                 </xsl:call-template>
                 <xsl:sequence select="()"/>
             </xsl:otherwise>
@@ -623,9 +625,10 @@
                 </xsl:choose>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:call-template name="warningContinue">
+                <xsl:call-template name="warningContinueWithFileInfo">
                     <xsl:with-param name="prmMes"
-                        select="ahf:replace($stMes033,('%id','%file'),(string($prmDestElement/@id),string($prmDestElement/@xtrf)))"/>
+                        select="ahf:replace($stMes033,('%id'),(string($prmDestElement/@id)))"/>
+                    <xsl:with-param name="prmElem" select="$prmDestElement"/>
                 </xsl:call-template>
                 <xsl:sequence select="()"/>
             </xsl:otherwise>
@@ -690,9 +693,10 @@
                 </xsl:choose>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:call-template name="warningContinue">
+                <xsl:call-template name="warningContinueWithFileInfo">
                     <xsl:with-param name="prmMes"
-                        select="ahf:replace($stMes034,('%id','%file'),(string($prmDestElement/@id),string($prmDestElement/@xtrf)))"/>
+                        select="ahf:replace($stMes034,('%id'),(string($prmDestElement/@id)))"/>
+                    <xsl:with-param name="prmElem" select="$prmDestElement"/>
                 </xsl:call-template>
                 <xsl:sequence select="()"/>
             </xsl:otherwise>
@@ -861,9 +865,10 @@
                 <xsl:copy-of select="$otherTitleSuffix"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:call-template name="warningContinue">
+                <xsl:call-template name="warningContinueWithFileInfo">
                     <xsl:with-param name="prmMes"
-                        select="ahf:replace($stMes035,('%id','%elem','%file'),(string($prmDestElement/@id),name($prmDestElement),string($prmDestElement/@xtrf)))"/>
+                        select="ahf:replace($stMes035,('%id','%elem'),(string($prmDestElement/@id),name($prmDestElement)))"/>
+                    <xsl:with-param name="prmElem" select="$prmDestElement"/>
                 </xsl:call-template>
                 <xsl:copy-of select="$otherTitlePrefix"/>
                 <xsl:apply-templates select="$prmDestElement" mode="GET_CONTENTS"/>

@@ -617,10 +617,9 @@
         <xsl:choose>
             <xsl:when test="empty($synNoteElement)">
                 <!-- DITA-OT already outputs DOTX032E error in topicpull -->
-                <xsl:call-template name="warningContinue">
-                    <xsl:with-param name="prmMes">
-                        <xsl:value-of select="ahf:replace($stMes060,('%file','%trace','%href'),(string(@xtrf),string(@xtrc),string(@ohref)))"/>
-                    </xsl:with-param>
+                <xsl:call-template name="warningContinueWithFileInfo">
+                    <xsl:with-param name="prmMes" select="ahf:replace($stMes060,('%href'),(string(@ohref)))"/>
+                    <xsl:with-param name="prmElem" select="."/>
                 </xsl:call-template>
             </xsl:when>
             <xsl:otherwise>

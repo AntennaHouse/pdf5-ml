@@ -148,9 +148,10 @@
                     <xsl:sequence select="$cClassChapter"/>
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:call-template name="warningContinue">
+                    <xsl:call-template name="warningContinueWithFileInfo">
                         <xsl:with-param name="prmMes"
-                                        select="ahf:replace($stMes700,('%class','%file'),(string(@class),string(@xtrf)))"/>
+                                        select="ahf:replace($stMes700,('%class'),(string(@class)))"/>
+                        <xsl:with-param name="prmElem" select="."/>
                     </xsl:call-template>
                     <xsl:sequence select="$cClassChapter"/>
                 </xsl:otherwise>

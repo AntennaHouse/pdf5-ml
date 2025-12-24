@@ -75,9 +75,10 @@
                 </xsl:call-template>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:call-template name="warningContinue">
+                <xsl:call-template name="warningContinueWithFileInfo">
                     <xsl:with-param name="prmMes" 
-                        select="ahf:replace($stMes070,('%href','%file'),(string(@href),string(@xtrf)))"/>
+                        select="ahf:replace($stMes070,('%href'),(string(@href)))"/>
+                    <xsl:with-param name="prmElem" select="."/>
                 </xsl:call-template>
             </xsl:otherwise>
         </xsl:choose>
@@ -128,8 +129,9 @@
      note:		
      -->
     <xsl:template match="*[contains-token(@class, 'bookmap/bookabstract')][empty(@href)]" mode="PROCESS_FRONTMATTER" priority="2">
-        <xsl:call-template name="warningContinue">
-            <xsl:with-param name="prmMes" select="ahf:replace($stMes080,('%elem','%file'),(name(.),string(@xtrf)))"/>
+        <xsl:call-template name="warningContinueWithFileInfo">
+            <xsl:with-param name="prmMes" select="ahf:replace($stMes080,('%elem'),(name(.)))"/>
+            <xsl:with-param name="prmElem" select="."/>
         </xsl:call-template>
     </xsl:template>
         
@@ -144,8 +146,9 @@
      note:		
      -->
     <xsl:template match="*[contains-token(@class, 'bookmap/colophon')][empty(@href)]" mode="PROCESS_FRONTMATTER" priority="2">
-        <xsl:call-template name="warningContinue">
-            <xsl:with-param name="prmMes" select="ahf:replace($stMes080,('%elem','%file'),(name(.),string(@xtrf)))"/>
+        <xsl:call-template name="warningContinueWithFileInfo">
+            <xsl:with-param name="prmMes" select="ahf:replace($stMes080,('%elem'),(name(.)))"/>
+            <xsl:with-param name="prmElem" select="."/>
         </xsl:call-template>
     </xsl:template>
     
@@ -174,8 +177,9 @@
     </xsl:template>
     
     <xsl:template match="*[contains-token(@class, 'bookmap/abbrevlist')][empty(@href)]" mode="PROCESS_FRONTMATTER" priority="2">
-        <xsl:call-template name="warningContinue">
-            <xsl:with-param name="prmMes" select="ahf:replace($stMes082,('%elem','%file'),(name(.),string(@xtrf)))"/>
+        <xsl:call-template name="warningContinueWithFileInfo">
+            <xsl:with-param name="prmMes" select="ahf:replace($stMes082,('%elem'),(name(.)))"/>
+            <xsl:with-param name="prmElem" select="."/>
         </xsl:call-template>
     </xsl:template>
     
@@ -190,8 +194,9 @@
     </xsl:template>
     
     <xsl:template match="*[contains-token(@class, 'bookmap/bibliolist')][empty(@href)]" mode="PROCESS_FRONTMATTER" priority="2">
-        <xsl:call-template name="warningContinue">
+        <xsl:call-template name="warningContinueWithFileInfo">
             <xsl:with-param name="prmMes" select="ahf:replace($stMes082,('%elem','%file'),(name(.),string(@xtrf)))"/>
+            <xsl:with-param name="prmElem" select="."/>
         </xsl:call-template>
     </xsl:template>
     
@@ -206,8 +211,9 @@
     </xsl:template>
     
     <xsl:template match="*[contains-token(@class, 'bookmap/booklist')][empty(@href)]" mode="PROCESS_FRONTMATTER" priority="2">
-        <xsl:call-template name="warningContinue">
-            <xsl:with-param name="prmMes" select="ahf:replace($stMes082,('%elem','%file'),(name(.),string(@xtrf)))"/>
+        <xsl:call-template name="warningContinueWithFileInfo">
+            <xsl:with-param name="prmMes" select="ahf:replace($stMes082,('%elem'),(name(.)))"/>
+            <xsl:with-param name="prmElem" select="."/>
         </xsl:call-template>
     </xsl:template>
     
@@ -227,8 +233,9 @@
                 <xsl:call-template name="genFigureList"/>        
             </xsl:when>
             <xsl:otherwise>
-                <xsl:call-template name="warningContinue">
-                    <xsl:with-param name="prmMes" select="ahf:replace($stMes087,('%elem','%file'),(name(.),string(@xtrf)))"/>
+                <xsl:call-template name="warningContinueWithFileInfo">
+                    <xsl:with-param name="prmMes" select="ahf:replace($stMes087,('%elem'),(name(.)))"/>
+                    <xsl:with-param name="prmElem" select="."/>
                 </xsl:call-template>
             </xsl:otherwise>
         </xsl:choose>
@@ -275,8 +282,9 @@
                 <xsl:call-template name="genTableList"/>        
             </xsl:when>
             <xsl:otherwise>
-                <xsl:call-template name="warningContinue">
-                    <xsl:with-param name="prmMes" select="ahf:replace($stMes088,('%elem','%file'),(name(.),string(@xtrf)))"/>
+                <xsl:call-template name="warningContinueWithFileInfo">
+                    <xsl:with-param name="prmMes" select="ahf:replace($stMes088,('%elem'),(name(.)))"/>
+                    <xsl:with-param name="prmElem" select="."/>
                 </xsl:call-template>
             </xsl:otherwise>
         </xsl:choose>
@@ -293,8 +301,9 @@
     </xsl:template>
     
     <xsl:template match="*[contains-token(@class, 'bookmap/trademarklist')][not(@href)]" mode="PROCESS_FRONTMATTER" priority="2" >
-        <xsl:call-template name="warningContinue">
-            <xsl:with-param name="prmMes" select="ahf:replace($stMes082,('%elem','%file'),(name(.),string(@xtrf)))"/>
+        <xsl:call-template name="warningContinueWithFileInfo">
+            <xsl:with-param name="prmMes" select="ahf:replace($stMes082,('%elem'),(name(.)))"/>
+            <xsl:with-param name="prmElem" select="."/>
         </xsl:call-template>
     </xsl:template>
         
@@ -319,8 +328,9 @@
      note:		
      -->
     <xsl:template match="*[contains-token(@class, 'bookmap/dedication')][empty(@href)]" mode="PROCESS_FRONTMATTER" priority="2">
-        <xsl:call-template name="warningContinue">
-            <xsl:with-param name="prmMes" select="ahf:replace($stMes080,('%elem','%file'),(name(.),string(@xtrf)))"/>
+        <xsl:call-template name="warningContinueWithFileInfo">
+            <xsl:with-param name="prmMes" select="ahf:replace($stMes080,('%elem'),(name(.)))"/>
+            <xsl:with-param name="prmElem" select="."/>
         </xsl:call-template>
     </xsl:template>
     
@@ -503,9 +513,10 @@
                 </xsl:apply-templates>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:call-template name="warningContinue">
+                <xsl:call-template name="warningContinueWithFileInfo">
                     <xsl:with-param name="prmMes" 
-                     select="ahf:replace($stMes070,('%href','%file'),(string(@href),string(@xtrf)))"/>
+                     select="ahf:replace($stMes070,('%href'),(string(@href)))"/>
+                    <xsl:with-param name="prmElem" select="$topicRef"/>
                 </xsl:call-template>
             </xsl:otherwise>
         </xsl:choose>

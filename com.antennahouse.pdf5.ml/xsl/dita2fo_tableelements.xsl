@@ -1205,8 +1205,9 @@
                         <xsl:sequence select="$tempStartPos cast as xs:integer"/>
                     </xsl:when>
                     <xsl:otherwise>
-                        <xsl:call-template name="warningContinue">
+                        <xsl:call-template name="warningContinueWithFileInfo">
                             <xsl:with-param name="prmMes" select="ahf:replace($stMes654,('%namest','%xtrf'),(string($prmEntry/@namest),string($prmEntry/@xtrf)))"/>
+                            <xsl:with-param name="prmElem" select="$prmEntry"/>
                         </xsl:call-template>
                         <xsl:sequence select="0"/>
                     </xsl:otherwise>
@@ -1219,8 +1220,9 @@
                         <xsl:sequence select="$tempEndPos cast as xs:integer"/>
                     </xsl:when>
                     <xsl:otherwise>
-                        <xsl:call-template name="warningContinue">
+                        <xsl:call-template name="warningContinueWithFileInfo">
                             <xsl:with-param name="prmMes" select="ahf:replace($stMes656,('%nameend','%xtrf'),(string($prmEntry/@nameend),string($prmEntry/@xtrf)))"/>
+                            <xsl:with-param name="prmElem" select="$prmEntry"/>
                         </xsl:call-template>
                         <xsl:sequence select="0"/>
                     </xsl:otherwise>
@@ -1251,8 +1253,9 @@
                     <xsl:attribute name="number-rows-spanned" select="string(1 + $moreRows)"/>
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:call-template name="warningContinue">
+                    <xsl:call-template name="warningContinueWithFileInfo">
                         <xsl:with-param name="prmMes" select="ahf:replace($stMes658,('%morerows','%xtrf'),(string($prmEntry/@morerows),string($prmEntry/@xtrf)))"/>
+                        <xsl:with-param name="prmElem" select="$prmEntry"/>
                     </xsl:call-template>
                 </xsl:otherwise>
             </xsl:choose>
@@ -1482,18 +1485,20 @@
                         <xsl:sequence select="xs:integer($keyCol)"/>
                     </xsl:when>
                     <xsl:otherwise>
-                        <xsl:call-template name="warningContinue">
+                        <xsl:call-template name="warningContinueWithFileInfo">
                             <xsl:with-param name="prmMes" 
-                            select="ahf:replace($stMes050,('%file','%elem','%keycol'),(string($prmTable/@xtrf),name($prmTable),string($prmTable/@keycol)))"/>
+                            select="ahf:replace($stMes050,('%elem','%keycol'),(name($prmTable),string($prmTable/@keycol)))"/>
+                            <xsl:with-param name="prmElem" select="$prmTable"/>
                         </xsl:call-template>
                         <xsl:sequence select="0"/>
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:call-template name="warningContinue">
+                <xsl:call-template name="warningContinueWithFileInfo">
                     <xsl:with-param name="prmMes" 
-                    select="ahf:replace($stMes050,('%file','%elem','%keycol'),(string($prmTable/@xtrf),name($prmTable),string($prmTable/@keycol)))"/>
+                    select="ahf:replace($stMes050,('%elem','%keycol'),(name($prmTable),string($prmTable/@keycol)))"/>
+                    <xsl:with-param name="prmElem" select="$prmTable"/>
                 </xsl:call-template>
                 <xsl:sequence select="0"/>
             </xsl:otherwise>

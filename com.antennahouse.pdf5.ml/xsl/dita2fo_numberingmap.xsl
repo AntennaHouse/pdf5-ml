@@ -451,8 +451,9 @@
                 <xsl:sequence select="xs:integer($prevAmount)"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:call-template name="warningContinue">
+                <xsl:call-template name="warningContinueWithFileInfo">
                     <xsl:with-param name="prmMes" select="ahf:replace($stMes1604,('%id'),($topicId))"/>
+                    <xsl:with-param name="prmElem" select="$prmTopic"/>
                 </xsl:call-template>
                 <xsl:sequence select="0"/>
             </xsl:otherwise>
@@ -475,8 +476,9 @@
                 <xsl:sequence select="xs:integer($prevAmount)"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:call-template name="warningContinue">
+                <xsl:call-template name="warningContinueWithFileInfo">
                     <xsl:with-param name="prmMes" select="ahf:replace($stMes1606,('%id'),($topicId))"/>
+                    <xsl:with-param name="prmElem" select="$prmTopic"/>
                 </xsl:call-template>
                 <xsl:sequence select="0"/>
             </xsl:otherwise>
