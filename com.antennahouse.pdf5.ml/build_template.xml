@@ -213,7 +213,7 @@
     <makeurl property="temp.dir.url" file="${dita.temp.dir}"/>
 
     <!-- Make URL for .job.xml in temporary directory -->
-    <makeurl property="job.xml.url" file="${dita.temp.dir}${file.separator}.job.xml"/>
+    <makeurl property="job.xml.url" file="${dita.temp.dir}${file.separator}.job.xml" validate="no"/>
     
     <!-- Main target -->
     <target name="merged2pdf">
