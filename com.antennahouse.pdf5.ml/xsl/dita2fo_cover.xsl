@@ -9,7 +9,7 @@
     E-mail : info@antennahouse.com
     ****************************************************************
 -->
-<xsl:stylesheet version="2.0" 
+<xsl:stylesheet version="3.0" 
  xmlns:fo="http://www.w3.org/1999/XSL/Format" 
  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
  xmlns:axf="http://www.antennahouse.com/names/XSL/Extensions"
@@ -52,7 +52,7 @@
                     <xsl:copy-of select="ahf:getAttributeSet('atsCoverBookMetaBC')"/>
                     <fo:block>
                         <xsl:copy-of select="ahf:getAttributeSet('atsCoverBookMeta')"/>
-                        <xsl:apply-templates select="$map//*[contains(@class,' bookmap/bookmeta ')]" mode="cover"/>
+                        <xsl:apply-templates select="$map//*[contains-token(@class, 'bookmap/bookmeta')]" mode="cover"/>
                     </fo:block>
                 </fo:block-container>
             </fo:flow>
@@ -65,55 +65,55 @@
      return:	fo:block
      note:		none
      -->
-    <xsl:template match="*[contains(@class, ' bookmap/bookmeta ')]" mode="cover">
+    <xsl:template match="*[contains-token(@class, 'bookmap/bookmeta')]" mode="cover">
         <xsl:apply-templates mode="#current"/>
     </xsl:template>
     
-    <xsl:template match="*[contains(@class, ' xnal-d/namedetails ')]" mode="cover">
+    <xsl:template match="*[contains-token(@class, 'xnal-d/namedetails')]" mode="cover">
         <fo:block>
             <xsl:apply-templates mode="#current"/>
         </fo:block>
     </xsl:template>
     
-    <xsl:template match="*[contains(@class, ' xnal-d/addressdetails ')]" mode="cover">
+    <xsl:template match="*[contains-token(@class, 'xnal-d/addressdetails')]" mode="cover">
         <fo:block>
             <xsl:apply-templates mode="#current"/>
         </fo:block>
     </xsl:template>
     
-    <xsl:template match="*[contains(@class, ' xnal-d/contactnumbers ')]" mode="cover">
+    <xsl:template match="*[contains-token(@class, 'xnal-d/contactnumbers')]" mode="cover">
         <fo:block>
             <xsl:apply-templates mode="#current"/>
         </fo:block>
     </xsl:template>
     
-    <xsl:template match="*[contains(@class, ' xnal-d/emailaddresses ')]" mode="cover">
+    <xsl:template match="*[contains-token(@class, 'xnal-d/emailaddresses')]" mode="cover">
         <fo:block>
             <xsl:apply-templates mode="#current"/>
         </fo:block>
     </xsl:template>
     
-    <xsl:template match="*[contains(@class, ' topic/source ')]" mode="cover"/>
+    <xsl:template match="*[contains-token(@class, 'topic/source')]" mode="cover"/>
     
-    <xsl:template match="*[contains(@class, ' bookmap/publisherinformation ')]" mode="cover">
+    <xsl:template match="*[contains-token(@class, 'bookmap/publisherinformation')]" mode="cover">
         <fo:block>
             <xsl:apply-templates mode="#current"/>
         </fo:block>
     </xsl:template>
     
-    <xsl:template match="*[contains(@class, ' bookmap/bookmeta ')]//*[contains(@class, ' topic/category ')]" mode="cover"/>
+    <xsl:template match="*[contains-token(@class, 'bookmap/bookmeta')]//*[contains-token(@class, 'topic/category')]" mode="cover"/>
     
-    <xsl:template match="*[contains(@class, ' bookmap/bookmeta ')]//*[contains(@class, ' topic/keywords ')]" mode="cover"/>
+    <xsl:template match="*[contains-token(@class, 'bookmap/bookmeta')]//*[contains-token(@class, 'topic/keywords')]" mode="cover"/>
     
-    <xsl:template match="*[contains(@class, ' bookmap/bookmeta ')]//*[contains(@class, ' topic/prodinfo ')]" mode="cover"/>
+    <xsl:template match="*[contains-token(@class, 'bookmap/bookmeta')]//*[contains-token(@class, 'topic/prodinfo')]" mode="cover"/>
     
-    <xsl:template match="*[contains(@class, ' bookmap/bookid ')]" mode="cover">
+    <xsl:template match="*[contains-token(@class, 'bookmap/bookid')]" mode="cover">
         <fo:block>
             <xsl:apply-templates mode="#current"/>
         </fo:block>
     </xsl:template>
     
-    <xsl:template match="*[contains(@class, ' bookmap/bookrights ')]" mode="cover">
+    <xsl:template match="*[contains-token(@class, 'bookmap/bookrights')]" mode="cover">
         <fo:block>
             <xsl:apply-templates mode="#current"/>
         </fo:block>

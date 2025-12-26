@@ -1,15 +1,15 @@
 <?xml version='1.0' encoding="UTF-8" ?>
 <!--
-****************************************************************
-DITA to XSL-FO Stylesheet 
-Module: Note element stylesheet
-Copyright © 2009-2009 Antenna House, Inc. All rights reserved.
-Antenna House is a trademark of Antenna House, Inc.
-URL    : http://www.antennahouse.com/
-E-mail : info@antennahouse.com
-****************************************************************
+    ****************************************************************
+    DITA to XSL-FO Stylesheet 
+    Module: Note element stylesheet
+    Copyright © 2009-2009 Antenna House, Inc. All rights reserved.
+    Antenna House is a trademark of Antenna House, Inc.
+    URL    : http://www.antennahouse.com/
+    E-mail : info@antennahouse.com
+    ****************************************************************
 -->
-<xsl:stylesheet version="2.0" 
+<xsl:stylesheet version="3.0" 
     xmlns:fo="http://www.w3.org/1999/XSL/Format" 
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -23,11 +23,11 @@ E-mail : info@antennahouse.com
      return:	fo:block 
      note:		Treat empty(@type) as @type="note" (2011-11-04 t.makita)
      -->
-    <xsl:template match="*[contains(@class, ' topic/note ')]" mode="MODE_GET_STYLE" as="xs:string*">
+    <xsl:template match="*[contains-token(@class, 'topic/note')]" mode="MODE_GET_STYLE" as="xs:string*">
         <xsl:sequence select="'atsNote'"/>
     </xsl:template>
     
-    <xsl:template match="*[contains(@class, ' topic/note ')]">
+    <xsl:template match="*[contains-token(@class, 'topic/note')]">
         <xsl:variable name="type" as="xs:string" select="string(@type)"/>
         <fo:block>
             <xsl:call-template name="getAttributeSetWithLang">

@@ -9,7 +9,7 @@
     E-mail : info@antennahouse.com
     ****************************************************************
 -->
-<xsl:stylesheet version="2.0" 
+<xsl:stylesheet version="3.0" 
  xmlns:fo="http://www.w3.org/1999/XSL/Format" 
  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
  xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -127,9 +127,9 @@
          ***************************************-->
     <!-- Top level element -->
     <xsl:variable name="root" select="/*[1]" as="element()"/>
-    <xsl:variable name="map" select="$root/*[contains(@class,' map/map ')][1]" as="element()"/>
-    <xsl:variable name="indexList" as="element()?" select="($map//*[contains(@class,' bookmap/indexlist ')][empty(@href)])[last()]"/>
-    <xsl:variable name="glossaryList" as="element()?" select="($map//*[contains(@class,' bookmap/glossarylist ')][empty(@href)][child::*[contains(@class, ' glossentry/glossentry ')]][$pSortGlossEntry])[last()]"/>
+    <xsl:variable name="map" select="$root/*[contains-token(@class, 'map/map')][1]" as="element()"/>
+    <xsl:variable name="indexList" as="element()?" select="($map//*[contains-token(@class, 'bookmap/indexlist')][empty(@href)])[last()]"/>
+    <xsl:variable name="glossaryList" as="element()?" select="($map//*[contains-token(@class, 'bookmap/glossarylist')][empty(@href)][child::*[contains-token(@class, 'glossentry/glossentry')]][$pSortGlossEntry])[last()]"/>
     <!-- $lastTopicRef is used to generate fo:index-range-begin,fo:index-range-end, @index-key from topicref/topicmeta/keywords/indexterm
          Fixed the bug that $lastTopicRef is assigned to backmatter.
          2014-11-10 t.makita
@@ -137,22 +137,22 @@
     <xsl:variable name="lastTopicRef" as="element()">
         <xsl:choose>
             <xsl:when test="exists($indexList)">
-                <xsl:variable name="frontmatter" as="element()?" select="$map/*[contains(@class,' bookmap/frontmatter ')][1]"/>
-                <xsl:variable name="backmatter" as="element()?" select="$map/*[contains(@class,' bookmap/backmatter ')][1]"/>
+                <xsl:variable name="frontmatter" as="element()?" select="$map/*[contains-token(@class, 'bookmap/frontmatter')][1]"/>
+                <xsl:variable name="backmatter" as="element()?" select="$map/*[contains-token(@class, 'bookmap/backmatter')][1]"/>
                 <xsl:choose>
                     <xsl:when test="exists($glossaryList)">
-                        <xsl:sequence select="($map/descendant::*[contains(@class,' map/topicref ')][. &lt;&lt; $indexList/parent::*][not(ancestor::*[. is $glossaryList])][not(. is $frontmatter)][not(. is $backmatter)])[position() eq last()]"/>
+                        <xsl:sequence select="($map/descendant::*[contains-token(@class, 'map/topicref')][. &lt;&lt; $indexList/parent::*][not(ancestor::*[. is $glossaryList])][not(. is $frontmatter)][not(. is $backmatter)])[position() eq last()]"/>
                     </xsl:when>
                     <xsl:otherwise>
-                        <xsl:sequence select="($map/descendant::*[contains(@class,' map/topicref ')][. &lt;&lt; $indexList/parent::*][not(. is $frontmatter)][not(. is $backmatter)])[position() eq last()]"/>
+                        <xsl:sequence select="($map/descendant::*[contains-token(@class, 'map/topicref')][. &lt;&lt; $indexList/parent::*][not(. is $frontmatter)][not(. is $backmatter)])[position() eq last()]"/>
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:sequence select="($map/descendant::*[contains(@class,' map/topicref ')])[position() eq last()]"/>
+                <xsl:sequence select="($map/descendant::*[contains-token(@class, 'map/topicref')])[position() eq last()]"/>
             </xsl:otherwise>
             <!--
-            <xsl:when test="$map//*[contains(@class,' bookmap/indexlist ')][empty(@href)] or ($map//*[contains(@class,' bookmap/glossarylist ')][empty(@href)][child::*[contains(@class, ' glossentry/glossentry ')]] and $pSortGlossEntry)">
+            <xsl:when test="$map//*[contains-token(@class, 'bookmap/indexlist')][empty(@href)] or ($map//*[contains-token(@class, 'bookmap/glossarylist')][empty(@href)][child::*[contains-token(@class, 'glossentry/glossentry')]] and $pSortGlossEntry)">
                 <!-\- XSL-FO processor does not refer to the index-key defined after <indexlist>.
                      So we must choose <topicref> before <indexlist>.
                      Also topicref under the <glossarylist> is not appropriate because they will be sorted before processing.
@@ -160,13 +160,13 @@
                      This code is written under the assumption that <indexlist> and <glossarylist> are written in <backmatter>
                      2011-12-22 t.makita
                  -\->
-                <xsl:variable name="indexList" as="element()*" select="$map//*[contains(@class,' bookmap/indexlist ')][empty(@href)][1]"/>
-                <xsl:variable name="glossaryList" as="element()*" select="$map//*[contains(@class,' bookmap/glossarylist ')][empty(@href)][child::*[contains(@class, ' glossentry/glossentry ')]][1]"/>
+                <xsl:variable name="indexList" as="element()*" select="$map//*[contains-token(@class, 'bookmap/indexlist')][empty(@href)][1]"/>
+                <xsl:variable name="glossaryList" as="element()*" select="$map//*[contains-token(@class, 'bookmap/glossarylist')][empty(@href)][child::*[contains-token(@class, 'glossentry/glossentry')]][1]"/>
                 <xsl:variable name="exceptElement" as="element()" select="($glossaryList | $indexList)[1]"/>
-                <xsl:sequence select="$map/descendant::*[contains(@class,' map/topicref ')][. &lt;&lt; $exceptElement/parent::*][position()=last()]"/>
+                <xsl:sequence select="$map/descendant::*[contains-token(@class, 'map/topicref')][. &lt;&lt; $exceptElement/parent::*][position()=last()]"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:sequence select="$map/descendant::*[contains(@class,' map/topicref ')][position()=last()]"/>
+                <xsl:sequence select="$map/descendant::*[contains-token(@class, 'map/topicref')][position()=last()]"/>
             </xsl:otherwise>
             -->
         </xsl:choose>
@@ -178,17 +178,18 @@
     <xsl:variable name="classUnknown" select="'unknown'" as="xs:string"/>
     <xsl:variable name="ditamapClass" as="xs:string">
         <xsl:choose>
-            <xsl:when test="$root/*[1][contains(@class,' map/map ')][contains(@class,' bookmap/bookmap ')]">
+            <xsl:when test="$root/*[1][contains-token(@class, 'map/map')][contains-token(@class, 'bookmap/bookmap')]">
                 <xsl:sequence select="$classBookMap"/>
             </xsl:when>
             <xsl:when test="$root/*[1][@class='- map/map ']">
                 <xsl:sequence select="$classMap"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:call-template name="errorExit">
+                <xsl:call-template name="errorExitWithFileInfo">
                     <xsl:with-param name="prmMes">
-                        <xsl:value-of select="ahf:replace($stMes100,('%class','%file'),(string($root/*[1]/@class),string($root/*[1]/@xtrf)))"/>
+                        <xsl:value-of select="ahf:replace($stMes100,('%class'),(string($root/*[1]/@class)))"/>
                     </xsl:with-param>
+                    <xsl:with-param name="prmElem" select="$root/*[1]"/>
                 </xsl:call-template>
             </xsl:otherwise>
         </xsl:choose>
@@ -219,23 +220,23 @@
     </xsl:variable>
     
     <!-- Part existence (bookmap only) -->
-    <xsl:variable name="isPartExist" as="xs:boolean" select="exists($root/*[1][contains(@class, ' bookmap/bookmap ')]/*[contains(@class, ' bookmap/part ')])"/>
+    <xsl:variable name="isPartExist" as="xs:boolean" select="exists($root/*[1][contains-token(@class, 'bookmap/bookmap')]/*[contains-token(@class, 'bookmap/part')])"/>
     
     <!-- Chapter existence (bookmap only) -->
-    <xsl:variable name="isChapterExist" as="xs:boolean" select="exists($root/*[1][contains(@class, ' bookmap/bookmap ')]/*[contains(@class, ' bookmap/chapter ')])"/>
+    <xsl:variable name="isChapterExist" as="xs:boolean" select="exists($root/*[1][contains-token(@class, 'bookmap/bookmap')]/*[contains-token(@class, 'bookmap/chapter')])"/>
 
     <!-- Cover existence (bookmap only)-->
-    <xsl:variable name="hasCover" as="xs:boolean" select="exists($map/*[contains(@class, ' bookmap/frontmatter ')]//*[contains(@class,' map/topicref ')][ahf:isCoverTopicRef(.)]) or
-        exists($map/*[contains(@class, ' bookmap/backmatter ')]//*[contains(@class,' map/topicref ')][ahf:isCoverTopicRef(.)])"/>
+    <xsl:variable name="hasCover" as="xs:boolean" select="exists($map/*[contains-token(@class, 'bookmap/frontmatter')]//*[contains-token(@class, 'map/topicref')][ahf:isCoverTopicRef(.)]) or
+        exists($map/*[contains-token(@class, 'bookmap/backmatter')]//*[contains-token(@class, 'map/topicref')][ahf:isCoverTopicRef(.)])"/>
 
     <!-- Keys -->
     <!-- topic content by id (topics that is referenced from topicref only)-->
-    <xsl:key name="topicById"  match="/*//*[contains(@class, ' topic/topic')]" use="@id"/>
-    <xsl:key name="topicByOid" match="/*//*[contains(@class, ' topic/topic')]" use="@oid"/>
+    <xsl:key name="topicById"  match="/*//*[contains-token(@class, 'topic/topic')]" use="@id"/>
+    <xsl:key name="topicByOid" match="/*//*[contains-token(@class, 'topic/topic')]" use="@oid"/>
     <!--topicref by href -->
-    <xsl:key name="topicrefByHref" match="/*/*[contains(@class, ' map/map ')]
-                                          //*[contains(@class, ' map/topicref ')]
-                                             [not(ancestor::*[contains(@class, ' map/reltable ')])]"
+    <xsl:key name="topicrefByHref" match="/*/*[contains-token(@class, 'map/map')]
+                                          //*[contains-token(@class, 'map/topicref')]
+                                             [not(ancestor::*[contains-token(@class, 'map/reltable')])]"
                                    use="@href"/>
     
     <!-- Elements by id -->
@@ -247,8 +248,8 @@
     <!-- topicref by key 
          Added 2010/01/05
      -->
-    <xsl:key name="topicrefByKey" match="/*/*[contains(@class,' map/map ')]
-                                          //*[contains(@class, ' map/topicref ')]" 
+    <xsl:key name="topicrefByKey" match="/*/*[contains-token(@class, 'map/map')]
+                                          //*[contains-token(@class, 'map/topicref')]" 
                                   use="tokenize(@keys, '[\s]+')"/>
     
     <!-- *************************************** 
@@ -261,7 +262,7 @@
                 <xsl:sequence select="()"/>
             </xsl:when>
             <xsl:when test="$isBookMap">
-                <xsl:apply-templates select="$root/*[contains(@class, ' bookmap/bookmap ')]/*[contains(@class, ' bookmap/booktitle ')]/*[contains(@class, ' bookmap/booklibrary ')]">
+                <xsl:apply-templates select="$root/*[contains-token(@class, 'bookmap/bookmap')]/*[contains-token(@class, 'bookmap/booktitle')]/*[contains-token(@class, 'bookmap/booklibrary')]">
                     <xsl:with-param name="prmTopicRef" tunnel="yes" select="()"/>
                     <xsl:with-param name="prmNeedId"   tunnel="yes" select="false()"/>
                     <xsl:with-param name="prmMakeCover" tunnel="yes" select="true()"/>
@@ -278,16 +279,16 @@
         <xsl:choose>
             <xsl:when test="$isMap">
                 <xsl:choose>
-                    <xsl:when test="$root/*[contains(@class, ' map/map ')]/*[contains(@class, ' topic/title ')]">
-                        <xsl:apply-templates select="$root/*[contains(@class, ' map/map ')]/*[contains(@class, ' topic/title ')]" >
+                    <xsl:when test="$root/*[contains-token(@class, 'map/map')]/*[contains-token(@class, 'topic/title')]">
+                        <xsl:apply-templates select="$root/*[contains-token(@class, 'map/map')]/*[contains-token(@class, 'topic/title')]" >
                             <xsl:with-param name="prmTopicRef" tunnel="yes" select="()"/>
                             <xsl:with-param name="prmNeedId"   tunnel="yes" select="false()"/>
                             <xsl:with-param name="prmMakeCover" tunnel="yes" select="true()"/>
                         </xsl:apply-templates>
                     </xsl:when>
-                    <xsl:when test="$root/*[contains(@class, ' map/map ')]/@title">
+                    <xsl:when test="$root/*[contains-token(@class, 'map/map')]/@title">
                         <fo:inline>
-                            <xsl:value-of select="$root/*[contains(@class, ' map/map ')]/@title"/>
+                            <xsl:value-of select="$root/*[contains-token(@class, 'map/map')]/@title"/>
                         </fo:inline>
                     </xsl:when>
                     <xsl:otherwise>
@@ -297,15 +298,15 @@
             </xsl:when>
             <xsl:when test="$isBookMap">
                 <xsl:choose>
-                    <xsl:when test="$root/*[contains(@class, ' bookmap/bookmap ')]/*[contains(@class, ' bookmap/booktitle ')]">
-                        <xsl:apply-templates select="$root/*[contains(@class, ' bookmap/bookmap ')]/*[contains(@class, ' bookmap/booktitle ')]/*[contains(@class, ' bookmap/mainbooktitle ')]">
+                    <xsl:when test="$root/*[contains-token(@class, 'bookmap/bookmap')]/*[contains-token(@class, 'bookmap/booktitle')]">
+                        <xsl:apply-templates select="$root/*[contains-token(@class, 'bookmap/bookmap')]/*[contains-token(@class, 'bookmap/booktitle')]/*[contains-token(@class, 'bookmap/mainbooktitle')]">
                             <xsl:with-param name="prmTopicRef" tunnel="yes" select="()"/>
                             <xsl:with-param name="prmNeedId"   tunnel="yes" select="false()"/>
                             <xsl:with-param name="prmMakeCover" tunnel="yes" select="true()"/>
                         </xsl:apply-templates>
                     </xsl:when>
                     <xsl:otherwise>
-                        <xsl:apply-templates select="$root/*[contains(@class, ' bookmap/bookmap ')]/*[contains(@class, ' topic/title ')]">
+                        <xsl:apply-templates select="$root/*[contains-token(@class, 'bookmap/bookmap')]/*[contains-token(@class, 'topic/title')]">
                             <xsl:with-param name="prmTopicRef" tunnel="yes" select="()"/>
                             <xsl:with-param name="prmNeedId"   tunnel="yes" select="false()"/>
                             <xsl:with-param name="prmMakeCover" tunnel="yes" select="true()"/>
@@ -328,7 +329,7 @@
                 <xsl:sequence select="()"/>
             </xsl:when>
             <xsl:when test="$isBookMap">
-                <xsl:apply-templates select="$root/*[contains(@class, ' bookmap/bookmap ')]/*[contains(@class, ' bookmap/booktitle ')]/*[contains(@class, ' bookmap/booktitlealt ')]">
+                <xsl:apply-templates select="$root/*[contains-token(@class, 'bookmap/bookmap')]/*[contains-token(@class, 'bookmap/booktitle')]/*[contains-token(@class, 'bookmap/booktitlealt')]">
                     <xsl:with-param name="prmTopicRef" tunnel="yes" select="()"/>
                     <xsl:with-param name="prmNeedId"   tunnel="yes" select="false()"/>
                     <xsl:with-param name="prmMakeCover" tunnel="yes" select="true()"/>

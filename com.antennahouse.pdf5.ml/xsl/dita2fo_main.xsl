@@ -1,15 +1,15 @@
 <?xml version='1.0' encoding="UTF-8" ?>
 <!--
-****************************************************************
-DITA to XSL-FO Stylesheet
-Module: Main control.
-Copyright © 2009-2009 Antenna House, Inc. All rights reserved.
-Antenna House is a trademark of Antenna House, Inc.
-URL    : http://www.antennahouse.com/
-E-mail : info@antennahouse.com
-****************************************************************
+    ****************************************************************
+    DITA to XSL-FO Stylesheet
+    Module: Main control.
+    Copyright © 2009-2009 Antenna House, Inc. All rights reserved.
+    Antenna House is a trademark of Antenna House, Inc.
+    URL    : http://www.antennahouse.com/
+    E-mail : info@antennahouse.com
+    ****************************************************************
 -->
-<xsl:stylesheet version="2.0" 
+<xsl:stylesheet version="3.0" 
  xmlns:fo="http://www.w3.org/1999/XSL/Format" 
  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
  xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -29,7 +29,7 @@ E-mail : info@antennahouse.com
         <!-- Plug-in name and version -->
         <xsl:variable name="pluginAuthor" as="xs:string" select="'Antenna House'"/>
         <xsl:variable name="pluginName" as="xs:string" select="'PDF5-ML'"/>
-        <xsl:variable name="pluginVersion" as="xs:string" select="'1.1.0'"/>
+        <xsl:variable name="pluginVersion" as="xs:string" select="'1.2.0'"/>
         <xsl:message select="concat($pluginAuthor,' ',$pluginName,' plug-in Version: ',$pluginVersion)"/>
         <!-- XSLT processor information -->
         <xsl:variable name="vendor" as="xs:string" select="system-property('xsl:vendor')"/>
@@ -65,6 +65,7 @@ E-mail : info@antennahouse.com
         <xsl:call-template name="documentCheck"/>
         <fo:root>
             <xsl:copy-of select="ahf:getAttributeSet('atsRoot')"/>
+            <xsl:copy-of select="ahf:getFoStyleAndProperty($map)"/>
             
             <!-- Complement xml:lang -->
             <xsl:attribute name="xml:lang" select="$documentLang"/>
@@ -88,14 +89,14 @@ E-mail : info@antennahouse.com
             <!-- Process main contents -->
             <xsl:choose>
                 <xsl:when test="$isBookMap">
-                    <xsl:apply-templates select="$map/*[contains(@class, ' bookmap/frontmatter ')]"/>
-                    <xsl:apply-templates select="$map/*[contains(@class, ' bookmap/part ') or contains(@class, ' bookmap/chapter ')]"/>
-                    <xsl:apply-templates select="$map/*[contains(@class, ' bookmap/appendices ')]/*[contains(@class, ' bookmap/appendix ')]"/>
-                    <xsl:apply-templates select="$map/*[contains(@class, ' bookmap/appendix ')]"/>
-                    <xsl:apply-templates select="$map/*[contains(@class, ' bookmap/backmatter ')]"/>
+                    <xsl:apply-templates select="$map/*[contains-token(@class, 'bookmap/frontmatter')]"/>
+                    <xsl:apply-templates select="$map/*[contains-token(@class, 'bookmap/part') or contains-token(@class, 'bookmap/chapter')]"/>
+                    <xsl:apply-templates select="$map/*[contains-token(@class, 'bookmap/appendices')]/*[contains-token(@class, 'bookmap/appendix')]"/>
+                    <xsl:apply-templates select="$map/*[contains-token(@class, 'bookmap/appendix')]"/>
+                    <xsl:apply-templates select="$map/*[contains-token(@class, 'bookmap/backmatter')]"/>
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:apply-templates select="$map/*[contains(@class, ' map/topicref ')]"/>
+                    <xsl:apply-templates select="$map/*[contains-token(@class, 'map/topicref')]"/>
                 </xsl:otherwise>
             </xsl:choose>
             

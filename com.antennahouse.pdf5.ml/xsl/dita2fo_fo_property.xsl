@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet version="2.0" 
+<xsl:stylesheet version="3.0" 
     xmlns:fo="http://www.w3.org/1999/XSL/Format" 
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -30,6 +30,7 @@
         <xsl:param name="prmElem" as="element()"/>
         <xsl:sequence select="ahf:getFoStyle($prmElem)"/>
         <xsl:sequence select="ahf:getFoProperty($prmElem)"/>
+        <xsl:sequence select="$prmElem/@axf:*"/>
     </xsl:function>
 
     <!-- 
@@ -99,15 +100,17 @@
                                     <xsl:attribute name="{$propName}" select="$propValue"/>
                                 </xsl:when>
                                 <xsl:otherwise>
-                                    <xsl:call-template name="warningContinue">
-                                        <xsl:with-param name="prmMes" select="ahf:replace($stMes802,('%propName','%xtrc','%xtrf'),($propName,string($prmElem/@xtrc),string($prmElem/@xtrf)))"/>
+                                    <xsl:call-template name="warningContinueWithFileInfo">
+                                        <xsl:with-param name="prmMes" select="ahf:replace($stMes802,('%propName'),($propName,string($prmElem/@xtrc)))"/>
+                                        <xsl:with-param name="prmElem" select="$prmElem"/>
                                     </xsl:call-template>
                                 </xsl:otherwise>
                             </xsl:choose>                            
                         </xsl:when>
                         <xsl:otherwise>
-                            <xsl:call-template name="warningContinue">
-                                <xsl:with-param name="prmMes" select="ahf:replace($stMes800,('%foAttr','%xtrc','%xtrf'),($foAttr,string($prmElem/@xtrc),string($prmElem/@xtrf)))"/>
+                            <xsl:call-template name="warningContinueWithFileInfo">
+                                <xsl:with-param name="prmMes" select="ahf:replace($stMes800,('%foAttr'),($foAttr))"/>
+                                <xsl:with-param name="prmElem" select="$prmElem"/>
                             </xsl:call-template>
                         </xsl:otherwise>
                     </xsl:choose>
@@ -164,8 +167,9 @@
                                     <xsl:attribute name="{$propName}" select="$propReplaceResult"/>
                                 </xsl:when>
                                 <xsl:otherwise>
-                                    <xsl:call-template name="warningContinue">
-                                        <xsl:with-param name="prmMes" select="ahf:replace($stMes806,('%propName','%xtrc','%xtrf'),($propName,string($prmElem/@xtrc),string($prmElem/@xtrf)))"/>
+                                    <xsl:call-template name="warningContinueWithFileInfo">
+                                        <xsl:with-param name="prmMes" select="ahf:replace($stMes806,('%propName'),($propName))"/>
+                                        <xsl:with-param name="prmElem" select="$prmElem"/>
                                     </xsl:call-template>
                                 </xsl:otherwise>
                             </xsl:choose>                            
@@ -249,8 +253,9 @@
                             </xsl:choose>                            
                         </xsl:when>
                         <xsl:otherwise>
-                            <xsl:call-template name="warningContinue">
-                                <xsl:with-param name="prmMes" select="ahf:replace($stMes800,('%foAttr','%xtrc','%xtrf'),($foAttr,string($prmElem/@xtrc),string($prmElem/@xtrf)))"/>
+                            <xsl:call-template name="warningContinueWithFileInfo">
+                                <xsl:with-param name="prmMes" select="ahf:replace($stMes800,('%foAttr'),($foAttr))"/>
+                                <xsl:with-param name="prmElem" select="$prmElem"/>
                             </xsl:call-template>
                         </xsl:otherwise>
                     </xsl:choose>

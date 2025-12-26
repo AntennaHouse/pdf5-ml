@@ -28,7 +28,7 @@
                                 </field>
                                 <field name="scenarioIds">
                                     <list>
-                                        <String>DITA Map PDF - ACME - dita-ot-2.1.0</String>
+                                        <String>DITA Map PDF - ACME - dita-ot-4.2.4</String>
                                     </list>
                                 </field>
                                 <field name="scenarioTypes">
@@ -46,7 +46,7 @@
                                 </field>
                                 <field name="scenarioIds">
                                     <list>
-                                        <String>DITA Map PDF - ACME - dita-ot-2.1.0</String>
+                                        <String>DITA Map PDF - ACME - dita-ot-4.2.4</String>
                                     </list>
                                 </field>
                                 <field name="scenarioTypes">
@@ -141,7 +141,7 @@
                                                 <String>Formatter directory</String>
                                             </field>
                                             <field name="value">
-                                                <String>C:\Program Files\Antenna House\AHFormatterV62</String>
+                                                <String>C:\Program Files\Antenna House\FormatterV74</String>
                                             </field>
                                             <field name="defaultValue">
                                                 <null/>
@@ -164,7 +164,7 @@
                                                 <String>Formatter setting file</String>
                                             </field>
                                             <field name="value">
-                                                <String>C:\Program Files\Antenna House\AHFormatterV62\ahf_setting.xml</String>
+                                                <String>C:\Program Files\Antenna House\FormatterV74\AHFSettings.xml</String>
                                             </field>
                                             <field name="defaultValue">
                                                 <null/>
@@ -287,7 +287,7 @@
                                     <null/>
                                 </field>
                                 <field name="name">
-                                    <String>DITA Map PDF - ACME - dita-ot-2.1.0</String>
+                                    <String>DITA Map PDF - ACME - dita-ot-4.2.4</String>
                                 </field>
                                 <field name="baseURL">
                                     <null/>
@@ -385,7 +385,7 @@
                                                 <String>AH Formatter directory</String>
                                             </field>
                                             <field name="value">
-                                                <String>C:\Program Files\Antenna House\AHFormatterV62</String>
+                                                <String>C:\Program Files\Antenna House\FormatterV74</String>
                                             </field>
                                             <field name="defaultValue">
                                                 <null/>
@@ -405,10 +405,10 @@
                                                 <String>ahf.opt</String>
                                             </field>
                                             <field name="description">
-                                                <String>AH Formatter setting file</String>
+                                                <String>Antenna House Formatter setting file</String>
                                             </field>
                                             <field name="value">
-                                                <String>C:\Program Files\Antenna House\AHFormatterV62\ahf_setting.xml</String>
+                                                <String>C:\Program Files\Antenna House\FormatterV74\AHFSettings.xml</String>
                                             </field>
                                             <field name="defaultValue">
                                                 <null/>
@@ -591,7 +591,7 @@
                                     <null/>
                                 </field>
                                 <field name="name">
-                                    <String>ACME Map to PDF - dita-ot-2.1.0 (Saxon 9.1B)</String>
+                                    <String>ACME Map to PDF - dita-ot-4.2.4 (Saxon 9.1B)</String>
                                 </field>
                                 <field name="baseURL">
                                     <null/>
@@ -686,10 +686,10 @@
                                                 <String>ahf.dir</String>
                                             </field>
                                             <field name="description">
-                                                <String>AH Formatter directory</String>
+                                                <String>Antenna House Formatter directory</String>
                                             </field>
                                             <field name="value">
-                                                <String>C:\Program Files\Antenna House\AHFormatterV62</String>
+                                                <String>C:\Program Files\Antenna House\FormatterV74</String>
                                             </field>
                                             <field name="defaultValue">
                                                 <null/>
@@ -712,7 +712,7 @@
                                                 <String>AH Formatter setting file</String>
                                             </field>
                                             <field name="value">
-                                                <String>C:\Program Files\Antenna House\AHFormatterV62\ahf_setting.xml</String>
+                                                <String>C:\Program Files\Antenna House\FormatterV74\AHFSettings.xml</String>
                                             </field>
                                             <field name="defaultValue">
                                                 <null/>
@@ -873,7 +873,7 @@
                                                 <String>DITA-OT version</String>
                                             </field>
                                             <field name="value">
-                                                <String>2.1.0</String>
+                                                <String>4.2.4</String>
                                             </field>
                                             <field name="defaultValue">
                                                 <null/>
@@ -987,7 +987,7 @@
                                     <null/>
                                 </field>
                                 <field name="name">
-                                    <String>ACME Merged to PDF - dita-ot-2.1.0 (Saxon 9.1B)</String>
+                                    <String>ACME Merged to PDF - dita-ot-4.2.4 (Saxon 9.1B)</String>
                                 </field>
                                 <field name="baseURL">
                                     <null/>

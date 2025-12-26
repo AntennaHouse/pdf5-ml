@@ -9,7 +9,7 @@
     E-mail : info@antennahouse.com
     ****************************************************************
 -->
-<xsl:stylesheet version="2.0" 
+<xsl:stylesheet version="3.0" 
     xmlns:fo="http://www.w3.org/1999/XSL/Format" 
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -25,11 +25,11 @@
         return:      fo:inline
         note:		
     -->
-    <xsl:template match="*[contains(@class, ' markup-d/markupname ')]" mode="MODE_GET_STYLE" as="xs:string*" priority="4">
+    <xsl:template match="*[contains-token(@class, 'markup-d/markupname')]" mode="MODE_GET_STYLE" as="xs:string*" priority="4">
         <xsl:sequence select="'atsMarkupName'"/>
     </xsl:template>
     
-    <xsl:template match="*[contains(@class, ' markup-d/markupname ')]" priority="4">
+    <xsl:template match="*[contains-token(@class, 'markup-d/markupname')]" priority="4">
         <xsl:call-template name="processMarkupName"/>
     </xsl:template>
     

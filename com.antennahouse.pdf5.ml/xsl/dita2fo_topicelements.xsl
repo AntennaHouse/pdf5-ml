@@ -1,15 +1,15 @@
 <?xml version='1.0' encoding="UTF-8" ?>
 <!--
-****************************************************************
-DITA to XSL-FO Stylesheet 
-Module: Topic elements stylesheet
-Copyright © 2009-2011 Antenna House, Inc. All rights reserved.
-Antenna House is a trademark of Antenna House, Inc.
-URL    : http://www.antennahouse.com/
-E-mail : info@antennahouse.com
-****************************************************************
+    ****************************************************************
+    DITA to XSL-FO Stylesheet 
+    Module: Topic elements stylesheet
+    Copyright © 2009-2011 Antenna House, Inc. All rights reserved.
+    Antenna House is a trademark of Antenna House, Inc.
+    URL    : http://www.antennahouse.com/
+    E-mail : info@antennahouse.com
+    ****************************************************************
 -->
-<xsl:stylesheet version="2.0" 
+<xsl:stylesheet version="3.0" 
  xmlns:fo="http://www.w3.org/1999/XSL/Format" 
  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
  xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -27,7 +27,7 @@ E-mail : info@antennahouse.com
      return:    style name
      note:      This template is common for topic/task/concept/reference
      -->
-    <xsl:template match="*[contains(@class, ' topic/topic ')]" mode="MODE_GET_STYLE" as="xs:string*">
+    <xsl:template match="*[contains-token(@class, 'topic/topic')]" mode="MODE_GET_STYLE" as="xs:string*">
         <xsl:sequence select="'atsBase'"/>
     </xsl:template>    
     
@@ -37,7 +37,7 @@ E-mail : info@antennahouse.com
      return:    none
      note:      none
      -->
-    <xsl:template match="*[contains(@class, ' topic/titlealts ')]">
+    <xsl:template match="*[contains-token(@class, 'topic/titlealts')]">
     </xsl:template>
     <!-- 
      function:  navtitle template
@@ -45,7 +45,7 @@ E-mail : info@antennahouse.com
      return:    none
      note:      none
      -->
-    <xsl:template match="*[contains(@class, ' topic/navtitle ')]">
+    <xsl:template match="*[contains-token(@class, 'topic/navtitle')]">
         <xsl:apply-templates/>
     </xsl:template>
     
@@ -55,7 +55,7 @@ E-mail : info@antennahouse.com
      return:    none
      note:      none
      -->
-    <xsl:template match="*[contains(@class, ' topic/searchtitle ')]">
+    <xsl:template match="*[contains-token(@class, 'topic/searchtitle')]">
     </xsl:template>
     
     <!-- 
@@ -69,11 +69,11 @@ E-mail : info@antennahouse.com
                 Ignore empty abstract.
                 2023-05-10 t.makita
      -->
-    <xsl:template match="*[contains(@class, ' topic/abstract ')]" mode="MODE_GET_STYLE" as="xs:string*">
+    <xsl:template match="*[contains-token(@class, 'topic/abstract')]" mode="MODE_GET_STYLE" as="xs:string*">
         <xsl:sequence select="'atsAbstract'"/>
     </xsl:template>    
 
-    <xsl:template match="*[contains(@class, ' topic/abstract ')][ahf:isEmptyElement(.)]" priority="2">
+    <xsl:template match="*[contains-token(@class, 'topic/abstract')][ahf:isEmptyElement(.)]" priority="2">
         <xsl:variable name="abstract" as="element()" select="."/>
         <xsl:if test="@id">
             <fo:wrapper>
@@ -84,7 +84,7 @@ E-mail : info@antennahouse.com
         </xsl:if>
     </xsl:template>
 
-    <xsl:template match="*[contains(@class, ' topic/abstract ')]">
+    <xsl:template match="*[contains-token(@class, 'topic/abstract')]">
         <xsl:call-template name="processAbstract"/>
     </xsl:template>
     
@@ -106,9 +106,9 @@ E-mail : info@antennahouse.com
                 2023-05-10 t.makita
 
      -->
-    <xsl:template match="*[contains(@class, ' topic/shortdesc ')]" mode="MODE_GET_STYLE" as="xs:string*">
+    <xsl:template match="*[contains-token(@class, 'topic/shortdesc')]" mode="MODE_GET_STYLE" as="xs:string*">
         <xsl:choose>
-            <xsl:when test="parent::*[contains(@class, ' topic/abstract ')]">
+            <xsl:when test="parent::*[contains-token(@class, 'topic/abstract')]">
                 <xsl:sequence select="()"/>
             </xsl:when>
             <xsl:otherwise>
@@ -117,7 +117,7 @@ E-mail : info@antennahouse.com
         </xsl:choose>
     </xsl:template>    
 
-    <xsl:template match="*[contains(@class, ' topic/shortdesc ')][empty(parent::*[contains(@class, ' topic/abstract ')])][ahf:isEmptyElement(.)]" priority="2">
+    <xsl:template match="*[contains-token(@class, 'topic/shortdesc')][empty(parent::*[contains-token(@class, 'topic/abstract')])][ahf:isEmptyElement(.)]" priority="2">
         <xsl:variable name="shortdesc" as="element()" select="."/>
         <xsl:if test="@id">
             <fo:wrapper>
@@ -128,9 +128,9 @@ E-mail : info@antennahouse.com
         </xsl:if>
     </xsl:template>
 
-    <xsl:template match="*[contains(@class, ' topic/shortdesc ')]">
+    <xsl:template match="*[contains-token(@class, 'topic/shortdesc')]">
         <xsl:choose>
-            <xsl:when test="parent::*[contains(@class, ' topic/abstract ')]">
+            <xsl:when test="parent::*[contains-token(@class, 'topic/abstract')]">
                 <!-- Child of abstract -->
                 <fo:wrapper>
                     <xsl:call-template name="ahf:getUnivAtts"/>
@@ -159,11 +159,11 @@ E-mail : info@antennahouse.com
                 Ignore empty body.
                 2023-05-10 t.makita
      -->
-    <xsl:template match="*[contains(@class, ' topic/body ')]" mode="MODE_GET_STYLE" as="xs:string*">
+    <xsl:template match="*[contains-token(@class, 'topic/body')]" mode="MODE_GET_STYLE" as="xs:string*">
         <xsl:sequence select="'atsBody'"/>
     </xsl:template>    
 
-    <xsl:template match="*[contains(@class, ' topic/body ')][ahf:isEmptyElement(.)]" priority="2">
+    <xsl:template match="*[contains-token(@class, 'topic/body')][ahf:isEmptyElement(.)]" priority="2">
         <xsl:variable name="body" as="element()" select="."/>
         <xsl:if test="@id">
             <fo:wrapper>
@@ -174,7 +174,7 @@ E-mail : info@antennahouse.com
         </xsl:if>
     </xsl:template>
     
-    <xsl:template match="*[contains(@class, ' topic/body ')]">
+    <xsl:template match="*[contains-token(@class, 'topic/body')]">
         <xsl:variable name="body" select="."/>
         <fo:block>
             <xsl:call-template name="getAttributeSetWithLang"/>
@@ -184,7 +184,7 @@ E-mail : info@antennahouse.com
             <!-- Make fo:index-range-end FO object that has @start 
                  but has no corresponding @end indexterm in body.
              -->
-            <xsl:apply-templates select="$body//*[contains(@class, ' topic/indexterm ')]">
+            <xsl:apply-templates select="$body//*[contains-token(@class, 'topic/indexterm')]">
                 <xsl:with-param name="prmNeedId" tunnel="yes" select="false()"/>
                 <xsl:with-param name="prmMakeComplementEnd" tunnel="yes" select="true()"/>
                 <xsl:with-param name="prmRangeElem" tunnel="yes" select="$body"/>
@@ -198,7 +198,7 @@ E-mail : info@antennahouse.com
         return:     fo:block
         note:       Bodydiv needs no special formattings. (2011-10-25 t.makita)		
     -->
-    <xsl:template match="*[contains(@class, ' topic/bodydiv ')]">
+    <xsl:template match="*[contains-token(@class, 'topic/bodydiv')]">
         <fo:block>
             <xsl:call-template name="ahf:getUnivAtts"/>
             <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>

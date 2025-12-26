@@ -9,7 +9,7 @@
     E-mail : info@antennahouse.com
     ****************************************************************
 -->
-<xsl:stylesheet version="2.0" 
+<xsl:stylesheet version="3.0" 
     xmlns:fo="http://www.w3.org/1999/XSL/Format" 
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -33,7 +33,7 @@
     <xsl:function name="ahf:isAutoEquationNumber" as="xs:boolean">
         <xsl:param name="prmEquationNumber" as="element()?"/>
         <xsl:choose>
-            <xsl:when test="$prmEquationNumber[contains(@class,' equation-d/equation-number ')]">
+            <xsl:when test="$prmEquationNumber[contains-token(@class, 'equation-d/equation-number')]">
                 <xsl:choose>
                     <xsl:when test="$pAssumeEquationNumberAsAuto">
                         <xsl:sequence select="true()"/>
@@ -69,13 +69,13 @@
     -->
     <xsl:function name="ahf:hasAutoEquationNumber" as="xs:boolean">
         <xsl:param name="prmEquationBlock" as="element()?"/>
-        <xsl:variable name="equationNumber" as="element()?" select="($prmEquationBlock/*[contains(@class,' equation-d/equation-number ')])[1]"/>
+        <xsl:variable name="equationNumber" as="element()?" select="($prmEquationBlock/*[contains-token(@class, 'equation-d/equation-number')])[1]"/>
         <xsl:sequence select="ahf:isAutoEquationNumber($equationNumber)"/>
     </xsl:function>    
 
     <xsl:function name="ahf:hasManualEquationNumber" as="xs:boolean">
         <xsl:param name="prmEquationBlock" as="element()?"/>
-        <xsl:variable name="equationNumber" as="element()?" select="($prmEquationBlock/*[contains(@class,' equation-d/equation-number ')])[1]"/>
+        <xsl:variable name="equationNumber" as="element()?" select="($prmEquationBlock/*[contains-token(@class, 'equation-d/equation-number')])[1]"/>
         <xsl:sequence select="ahf:isManualEquationNumber($equationNumber)"/>
     </xsl:function>    
     
@@ -87,13 +87,13 @@
     -->
     <xsl:function name="ahf:hasEquationNumber" as="xs:boolean">
         <xsl:param name="prmEquationBlock" as="element()?"/>
-        <xsl:variable name="equationNumber" as="element()?" select="($prmEquationBlock/*[contains(@class,' equation-d/equation-number ')])[1]"/>
+        <xsl:variable name="equationNumber" as="element()?" select="($prmEquationBlock/*[contains-token(@class, 'equation-d/equation-number')])[1]"/>
         <xsl:sequence select="exists($equationNumber)"/>
     </xsl:function>    
 
     <xsl:function name="ahf:hasNoEquationNumber" as="xs:boolean">
         <xsl:param name="prmEquationBlock" as="element()?"/>
-        <xsl:variable name="equationNumber" as="element()?" select="($prmEquationBlock/*[contains(@class,' equation-d/equation-number ')])[1]"/>
+        <xsl:variable name="equationNumber" as="element()?" select="($prmEquationBlock/*[contains-token(@class, 'equation-d/equation-number')])[1]"/>
         <xsl:sequence select="empty($equationNumber)"/>
     </xsl:function>    
     

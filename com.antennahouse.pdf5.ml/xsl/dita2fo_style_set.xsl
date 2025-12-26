@@ -13,7 +13,7 @@
 	$glStyleDefs: Attribute set
 	****************************************************************
 -->
-<xsl:stylesheet version="2.0" 
+<xsl:stylesheet version="3.0" 
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
     xmlns:axf="http://www.antennahouse.com/names/XSL/Extensions"
@@ -86,7 +86,7 @@
 		<xsl:variable name="xmlLang" as="xs:string*">
 			<xsl:sequence select="$documentLang"/>
 			<xsl:for-each select="$map/descendant-or-self::*/@xml:lang
-								| $root//*[contains(@class,' topic/topic ')]/descendant-or-self::*/@xml:lang">
+								| $root//*[contains-token(@class, 'topic/topic')]/descendant-or-self::*/@xml:lang">
 				<xsl:sequence select="ahf:nomalizeXmlLang(string(.))"/>
 			</xsl:for-each>
 		</xsl:variable>

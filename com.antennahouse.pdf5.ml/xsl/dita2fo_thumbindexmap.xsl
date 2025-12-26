@@ -1,15 +1,15 @@
 <?xml version='1.0' encoding="UTF-8" ?>
 <!--
-****************************************************************
-DITA to XSL-FO Stylesheet
-Module: Make thumb index map.
-Copyright © 2009-2015 Antenna House, Inc. All rights reserved.
-Antenna House is a trademark of Antenna House, Inc.
-URL    : http://www.antennahouse.com/
-E-mail : info@antennahouse.com
-****************************************************************
+    ****************************************************************
+    DITA to XSL-FO Stylesheet
+    Module: Make thumb index map.
+    Copyright © 2009-2015 Antenna House, Inc. All rights reserved.
+    Antenna House is a trademark of Antenna House, Inc.
+    URL    : http://www.antennahouse.com/
+    E-mail : info@antennahouse.com
+    ****************************************************************
 -->
-<xsl:stylesheet version="2.0" 
+<xsl:stylesheet version="3.0" 
  xmlns:fo="http://www.w3.org/1999/XSL/Format" 
  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
  xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -43,25 +43,25 @@ E-mail : info@antennahouse.com
                 2015-08-23 t.makita
      -->
     <xsl:template name="makeChapterMap">
-        <xsl:apply-templates select="/*/*[contains(@class, ' map/map ')]
-                                       /*[contains(@class, ' map/topicref ')]
-                                         [not(contains(@class, ' bookmap/appendices '))]
-                                         [not(contains(@class, ' bookmap/frontmatter '))]
-                                         [not(contains(@class, ' bookmap/backmatter '))]
-                                   | /*/*[contains(@class, ' map/map ')]
-                                       /*[contains(@class, ' bookmap/appendices ')]
-                                       /*[contains(@class, ' bookmap/appendix ')]
-                                   | /*/*[contains(@class, ' map/map ')]
-                                       /*[contains(@class, ' bookmap/frontmatter ')]
-                                      //*[contains(@class, ' bookmap/toc ')]
-                                   | /*/*[contains(@class, ' map/map ')]
-                                       /*[contains(@class, ' bookmap/backmatter ')]
-                                      //*[contains(@class, ' bookmap/indexlist ')]"
+        <xsl:apply-templates select="/*/*[contains-token(@class, 'map/map')]
+                                       /*[contains-token(@class, 'map/topicref')]
+                                         [not(contains-token(@class, 'bookmap/appendices'))]
+                                         [not(contains-token(@class, 'bookmap/frontmatter'))]
+                                         [not(contains-token(@class, 'bookmap/backmatter'))]
+                                   | /*/*[contains-token(@class, 'map/map')]
+                                       /*[contains-token(@class, 'bookmap/appendices')]
+                                       /*[contains-token(@class, 'bookmap/appendix')]
+                                   | /*/*[contains-token(@class, 'map/map')]
+                                       /*[contains-token(@class, 'bookmap/frontmatter')]
+                                      //*[contains-token(@class, 'bookmap/toc')]
+                                   | /*/*[contains-token(@class, 'map/map')]
+                                       /*[contains-token(@class, 'bookmap/backmatter')]
+                                      //*[contains-token(@class, 'bookmap/indexlist')]"
                              mode="MAKE_CHAPTER_MAP">
         </xsl:apply-templates>
     </xsl:template>
     
-    <xsl:template match="*[contains(@class, ' bookmap/toc ')]" mode="MAKE_CHAPTER_MAP" priority="2">
+    <xsl:template match="*[contains-token(@class, 'bookmap/toc')]" mode="MAKE_CHAPTER_MAP" priority="2">
         <xsl:element name="chaptermap">
             <xsl:attribute name="id"/>
             <xsl:attribute name="class" select="$cClassToc"/>
@@ -72,7 +72,7 @@ E-mail : info@antennahouse.com
         </xsl:element>
     </xsl:template>
     
-    <xsl:template match="*[contains(@class, ' bookmap/indexlist ')]" mode="MAKE_CHAPTER_MAP" priority="2">
+    <xsl:template match="*[contains-token(@class, 'bookmap/indexlist')]" mode="MAKE_CHAPTER_MAP" priority="2">
         <xsl:element name="chaptermap">
             <xsl:attribute name="id"/>
             <xsl:attribute name="class" select="$cClassIndex"/>
@@ -83,13 +83,13 @@ E-mail : info@antennahouse.com
         </xsl:element>
     </xsl:template>
     
-    <xsl:template match="*[contains(@class, ' map/topicref ')]" mode="MAKE_CHAPTER_MAP">
+    <xsl:template match="*[contains-token(@class, 'map/topicref')]" mode="MAKE_CHAPTER_MAP">
         <xsl:variable name="topicRef" as="element()" select="."/>
         <xsl:variable name="linkContents" as="element()?" select="ahf:getTopicFromTopicRef($topicRef)"/>
         <xsl:variable name="title" as="node()*">
             <xsl:choose>
                 <xsl:when test="exists($linkContents)">
-                    <xsl:variable name="title" as="element()" select="$linkContents/child::*[contains(@class, ' topic/title ')][1]"/>
+                    <xsl:variable name="title" as="element()" select="$linkContents/child::*[contains-token(@class, 'topic/title')][1]"/>
                     <fo:inline>
                         <xsl:call-template name="getAttributeSetWithLang">
                             <xsl:with-param name="prmAttrSetName" select="'atsThumbIndexBlock'"/>
@@ -102,8 +102,8 @@ E-mail : info@antennahouse.com
                         </xsl:apply-templates>
                     </fo:inline>
                 </xsl:when>
-                <xsl:when test="$topicRef/*[contains(@class,' map/topicmeta ')]/*[contains(@class,' topic/navtitle ')]">
-                    <xsl:variable name="navTitle" as="element()" select="$topicRef/*[contains(@class,' map/topicmeta ')]/*[contains(@class,' topic/navtitle ')][1]"/>
+                <xsl:when test="$topicRef/*[contains-token(@class, 'map/topicmeta')]/*[contains-token(@class, 'topic/navtitle')]">
+                    <xsl:variable name="navTitle" as="element()" select="$topicRef/*[contains-token(@class, 'map/topicmeta')]/*[contains-token(@class, 'topic/navtitle')][1]"/>
                     <fo:inline>
                         <xsl:call-template name="getAttributeSetWithLang">
                             <xsl:with-param name="prmAttrSetName" select="'atsThumbIndexBlock'"/>
@@ -132,25 +132,26 @@ E-mail : info@antennahouse.com
         <xsl:variable name="id" select="ahf:generateId($topicRef,())"/>
         <xsl:variable name="class" as="xs:string">
             <xsl:choose>
-                <xsl:when test="contains(@class, ' bookmap/part ')">
+                <xsl:when test="contains-token(@class, 'bookmap/part')">
                     <xsl:sequence select="$cClassPart"/>
                 </xsl:when>
-                <xsl:when test="contains(@class, ' bookmap/chapter ')">
+                <xsl:when test="contains-token(@class, 'bookmap/chapter')">
                     <xsl:sequence select="$cClassChapter"/>
                 </xsl:when>
-                <xsl:when test="contains(@class, ' bookmap/appendix ')">
+                <xsl:when test="contains-token(@class, 'bookmap/appendix')">
                     <xsl:sequence select="$cClassAppendix"/>
                 </xsl:when>
-                <xsl:when test="contains(parent::*/@class, ' bookmap/part ')">
+                <xsl:when test="contains-token(parent::*/@class, 'bookmap/part')">
                     <xsl:sequence select="$cClassChapter"/>
                 </xsl:when>
-                <xsl:when test="contains(parent::*/@class, ' map/map ')">
+                <xsl:when test="contains-token(parent::*/@class, 'map/map')">
                     <xsl:sequence select="$cClassChapter"/>
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:call-template name="warningContinue">
+                    <xsl:call-template name="warningContinueWithFileInfo">
                         <xsl:with-param name="prmMes"
-                                        select="ahf:replace($stMes700,('%class','%file'),(string(@class),string(@xtrf)))"/>
+                                        select="ahf:replace($stMes700,('%class'),(string(@class)))"/>
+                        <xsl:with-param name="prmElem" select="."/>
                     </xsl:call-template>
                     <xsl:sequence select="$cClassChapter"/>
                 </xsl:otherwise>
@@ -159,7 +160,7 @@ E-mail : info@antennahouse.com
         <xsl:choose>
             <xsl:when test="$class eq $cClassPart">
                 <xsl:variable name="label" as="xs:string">
-                    <xsl:variable name="partCount" as="xs:integer" select="count(preceding-sibling::*[contains(@class,' bookmap/part ')]|.)"/>
+                    <xsl:variable name="partCount" as="xs:integer" select="count(preceding-sibling::*[contains-token(@class, 'bookmap/part')]|.)"/>
                     <xsl:variable name="partCountFormat" as="xs:string" select="ahf:getVarValue('Part_Count_Format')"/>
                     <xsl:number format="{$partCountFormat}" value="$partCount"/>
                 </xsl:variable>
@@ -174,7 +175,7 @@ E-mail : info@antennahouse.com
             </xsl:when>
             <xsl:when test="$class eq $cClassChapter">
                 <xsl:variable name="label" as="xs:string">
-                    <xsl:variable name="chapterCount" as="xs:integer" select="count(preceding-sibling::*[contains(@class,' map/topicref ')][not(contains(@class,' bookmap/frontmatter '))]|.)"/>
+                    <xsl:variable name="chapterCount" as="xs:integer" select="count(preceding-sibling::*[contains-token(@class, 'map/topicref')][not(contains-token(@class, 'bookmap/frontmatter'))]|.)"/>
                     <xsl:variable name="chapterCountFormat" as="xs:string" select="ahf:getVarValue('Chapter_Count_Format')"/>
                     <xsl:number format="{$chapterCountFormat}" value="$chapterCount"/>
                 </xsl:variable>
@@ -189,7 +190,7 @@ E-mail : info@antennahouse.com
             </xsl:when>
             <xsl:when test="$class eq $cClassAppendix">
                 <xsl:variable name="label" as="xs:string">
-                    <xsl:variable name="appendixCount" as="xs:integer" select="count(preceding-sibling::*[contains(@class,' bookmap/appendix ')]|.)"/>
+                    <xsl:variable name="appendixCount" as="xs:integer" select="count(preceding-sibling::*[contains-token(@class, 'bookmap/appendix')]|.)"/>
                     <xsl:variable name="appendixCountFormat" as="xs:string" select="ahf:getVarValue('Appendix_Count_Format')"/>
                     <xsl:number format="{$appendixCountFormat}" value="$appendixCount"/>
                 </xsl:variable>

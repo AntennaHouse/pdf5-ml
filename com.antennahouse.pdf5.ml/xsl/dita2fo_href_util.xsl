@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!--
-**************************************************************
-DITA to XSL-FO Stylesheet
-@href Attribute Utility Templates
-**************************************************************
-File Name : dita2fo_href_util.xsl
-**************************************************************
-Copyright © 2009 2014 Antenna House, Inc. All rights reserved.
-Antenna House is a trademark of Antenna House, Inc.
-URL : http://www.antennahouse.com/
-**************************************************************
+    **************************************************************
+    DITA to XSL-FO Stylesheet
+    @href Attribute Utility Templates
+    **************************************************************
+    File Name : dita2fo_href_util.xsl
+    **************************************************************
+    Copyright © 2009 2014 Antenna House, Inc. All rights reserved.
+    Antenna House is a trademark of Antenna House, Inc.
+    URL : http://www.antennahouse.com/
+    **************************************************************
 -->
 
-<xsl:stylesheet version="2.0" 
+<xsl:stylesheet version="3.0" 
     xmlns:fo="http://www.w3.org/1999/XSL/Format" 
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -83,13 +83,14 @@ URL : http://www.antennahouse.com/
         <xsl:variable name="topicId" as="xs:string" select="if (string($destElementId)) then substring-before(substring-after($prmHref,'#'), '/') else (substring-after($prmHref,'#'))"/>
         <xsl:variable name="topicElement" as="element()?" select="key('topicById', $topicId,$root)[1]"/>
         <xsl:variable name="destElement" as="element()?" select="if (string($destElementId) and exists($topicElement)) then key('elementById',$destElementId,$topicElement)[1] else ()"/>
-        <xsl:variable name="localTopicId" as="xs:string" select="string($prmElem/ancestor::*[contains(@class,' topic/topic ')][last()]/@id)"/>
+        <xsl:variable name="localTopicId" as="xs:string" select="string($prmElem/ancestor::*[contains-token(@class, 'topic/topic')][last()]/@id)"/>
         <xsl:variable name="topicRef" as="element()?" select="if ($topicId eq $localTopicId) then $prmTopicRef else ahf:getTopicRef($topicElement)"/>
         <xsl:choose>
             <xsl:when test="empty($topicRef)">
-                <xsl:call-template name="warningContinue">
+                <xsl:call-template name="warningContinueWithFileInfo">
                     <xsl:with-param name="prmMes" 
-                        select="ahf:replace($stMes072,('%href','%ohref','%file'),(string($prmElem/@href),string($prmElem/@ohref),string($prmElem/@xtrf)))"/>
+                        select="ahf:replace($stMes072,('%href','%ohref'),(string($prmElem/@href),string($prmElem/@ohref)))"/>
+                    <xsl:with-param name="prmElem" select="$prmElem"/>
                 </xsl:call-template>
                 <xsl:sequence select="()"/>
             </xsl:when>
@@ -104,9 +105,10 @@ URL : http://www.antennahouse.com/
                 <xsl:attribute name="internal-destination" select="$destId"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:call-template name="warningContinue">
+                <xsl:call-template name="warningContinueWithFileInfo">
                     <xsl:with-param name="prmMes"
-                        select="ahf:replace($stMes030,('%href','%ohref','%file'),(string($prmElem/@href),string($prmElem/@ohref),string($prmElem/@xtrf)))"/>
+                        select="ahf:replace($stMes030,('%href','%ohref'),(string($prmElem/@href),string($prmElem/@ohref)))"/>
+                    <xsl:with-param name="prmElem" select="$prmElem"/>
                 </xsl:call-template>
                 <xsl:sequence select="()"/>
             </xsl:otherwise>
@@ -148,16 +150,17 @@ URL : http://www.antennahouse.com/
         <xsl:variable name="topicId" as="xs:string" select="if (string($destElementId)) then substring-before(substring-after($prmHref,'#'), '/') else (substring-after($prmHref,'#'))"/>
         <xsl:variable name="topicElement" as="element()?" select="key('topicById', $topicId,$root)[1]"/>
         <xsl:variable name="destElement" as="element()?" select="if (string($destElementId) and exists($topicElement)) then key('elementById',$destElementId,$topicElement)[1] else ()"/>
-        <xsl:variable name="localTopicId" as="xs:string" select="string($prmElem/ancestor::*[contains(@class,' topic/topic ')][last()]/@id)"/>
+        <xsl:variable name="localTopicId" as="xs:string" select="string($prmElem/ancestor::*[contains-token(@class, 'topic/topic')][last()]/@id)"/>
         <xsl:variable name="topicRef" as="element()?" select="if ($topicId eq $localTopicId) then $prmTopicRef else ahf:getTopicRef($topicElement)"/>
         <xsl:choose>
             <xsl:when test="not(ahf:isLocalHref($prmHref))">
                 <xsl:sequence select="()"/>
             </xsl:when>
             <xsl:when test="empty($topicRef)">
-                <xsl:call-template name="warningContinue">
+                <xsl:call-template name="warningContinueWithFileInfo">
                     <xsl:with-param name="prmMes" 
-                        select="ahf:replace($stMes072,('%href','%ohref','%file'),(string($prmElem/@href),string($prmElem/@ohref),string($prmElem/@xtrf)))"/>
+                        select="ahf:replace($stMes072,('%href','%ohref'),(string($prmElem/@href),string($prmElem/@ohref)))"/>
+                    <xsl:with-param name="prmElem" select="$prmElem"/>
                 </xsl:call-template>
                 <xsl:sequence select="()"/>
             </xsl:when>
@@ -170,9 +173,10 @@ URL : http://www.antennahouse.com/
                 <xsl:sequence select="$topicRef"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:call-template name="warningContinue">
+                <xsl:call-template name="warningContinueWithFileInfo">
                     <xsl:with-param name="prmMes"
-                        select="ahf:replace($stMes030,('%href','%ohref','%file'),(string($prmElem/@href),string($prmElem/@ohref),string($prmElem/@xtrf)))"/>
+                        select="ahf:replace($stMes030,('%href','%ohref'),(string($prmElem/@href),string($prmElem/@ohref)))"/>
+                    <xsl:with-param name="prmElem" select="$prmElem"/>
                 </xsl:call-template>
                 <xsl:sequence select="()"/>
             </xsl:otherwise>

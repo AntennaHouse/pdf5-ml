@@ -1,14 +1,14 @@
 <!--
-****************************************************************
-DITA to XSL-FO Stylesheet 
-Module: Hazard Statement Domain elements stylesheet
-Copyright © 2009-2019 Antenna House, Inc. All rights reserved.
-Antenna House is a trademark of Antenna House, Inc.
-URL    : http://www.antennahouse.com/
-E-mail : info@antennahouse.com
-****************************************************************
+    ****************************************************************
+    DITA to XSL-FO Stylesheet 
+    Module: Hazard Statement Domain elements stylesheet
+    Copyright © 2009-2019 Antenna House, Inc. All rights reserved.
+    Antenna House is a trademark of Antenna House, Inc.
+    URL    : http://www.antennahouse.com/
+    E-mail : info@antennahouse.com
+    ****************************************************************
 -->
-<xsl:stylesheet version="2.0" 
+<xsl:stylesheet version="3.0" 
     xmlns:fo="http://www.w3.org/1999/XSL/Format" 
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -24,8 +24,8 @@ E-mail : info@antennahouse.com
      note:      Hazardstatement is specialized from note
                 Only @type="caution/warning/danger" are supported.
      -->
-    <xsl:template match="*[contains(@class, ' hazard-d/hazardstatement ')]" priority="2">
-        <xsl:variable name="hazardSymbolCount" as="xs:integer" select="count(*[contains(@class,' hazard-d/hazardsymbol ')])"/>
+    <xsl:template match="*[contains-token(@class, 'hazard-d/hazardstatement')]" priority="2">
+        <xsl:variable name="hazardSymbolCount" as="xs:integer" select="count(*[contains-token(@class, 'hazard-d/hazardsymbol')])"/>
         <xsl:choose>
             <xsl:when test="$hazardSymbolCount gt 0">
                 <fo:table>
@@ -83,8 +83,8 @@ E-mail : info@antennahouse.com
                     </fo:table-header>
                     <fo:table-body>
                         <xsl:copy-of select="ahf:getAttributeSet('atsHazardStatementTableBody')"/>
-                        <xsl:variable name="hazardSymbols" select="*[contains(@class,' hazard-d/hazardsymbol ')]" as="element()*"/>
-                        <xsl:variable name="hazardMessagePanel" select="*[contains(@class,' hazard-d/messagepanel ')]" as="element()*"/>
+                        <xsl:variable name="hazardSymbols" select="*[contains-token(@class, 'hazard-d/hazardsymbol')]" as="element()*"/>
+                        <xsl:variable name="hazardMessagePanel" select="*[contains-token(@class, 'hazard-d/messagepanel')]" as="element()*"/>
                         <!-- Contens of hazardstatement -->
                         <xsl:for-each select="$hazardMessagePanel">
                             <fo:table-row>
@@ -150,7 +150,7 @@ E-mail : info@antennahouse.com
                     </fo:table-header>
                     <fo:table-body>
                         <xsl:copy-of select="ahf:getAttributeSet('atsHazardStatementTableBody')"/>
-                        <xsl:variable name="hazardMessagePanel" select="*[contains(@class,' hazard-d/messagepanel ')]" as="element()*"/>
+                        <xsl:variable name="hazardMessagePanel" select="*[contains-token(@class, 'hazard-d/messagepanel')]" as="element()*"/>
                         <!-- Contens of hazardstatement -->
                         <xsl:for-each select="$hazardMessagePanel">
                             <fo:table-row>
@@ -173,7 +173,7 @@ E-mail : info@antennahouse.com
      return:    fo:external-graphic with fo:block/fo:block-container
      note:	
      -->
-    <xsl:template match="*[contains(@class, ' hazard-d/hazardsymbol ')]" priority="2">
+    <xsl:template match="*[contains-token(@class, 'hazard-d/hazardsymbol')]" priority="2">
         <xsl:choose>
             <xsl:when test="$pAutoScaleDownToFit">
                 <fo:block-container>

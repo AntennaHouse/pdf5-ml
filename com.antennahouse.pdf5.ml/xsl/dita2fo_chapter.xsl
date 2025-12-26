@@ -9,7 +9,7 @@
     E-mail : info@antennahouse.com
     ****************************************************************
 -->
-<xsl:stylesheet version="2.0" 
+<xsl:stylesheet version="3.0" 
  xmlns:fo="http://www.w3.org/1999/XSL/Format" 
  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
  xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -24,13 +24,13 @@
      return:    part, chapter contents
      note:      Called from dita2fo_main.xsl
      -->
-    <xsl:template match="/*/*[contains(@class, ' map/map ')]
-                           /*[contains(@class, ' map/topicref ')]
-                             [not(contains(@class, ' bookmap/frontmatter '))]
-                             [not(contains(@class, ' bookmap/backmatter '))]
-                       | /*/*[contains(@class, ' map/map ')]
-                           /*[contains(@class, ' bookmap/appendices ')]
-                           /*[contains(@class, ' bookmap/appendix ')]">
+    <xsl:template match="/*/*[contains-token(@class, 'map/map')]
+                           /*[contains-token(@class, 'map/topicref')]
+                             [not(contains-token(@class, 'bookmap/frontmatter'))]
+                             [not(contains-token(@class, 'bookmap/backmatter'))]
+                       | /*/*[contains-token(@class, 'map/map')]
+                           /*[contains-token(@class, 'bookmap/appendices')]
+                           /*[contains-token(@class, 'bookmap/appendix')]">
         <xsl:call-template name="processChapterMain"/>
     </xsl:template>
     
@@ -47,20 +47,20 @@
             <xsl:choose>
                 <xsl:when test="$isBookMap">
                     <xsl:choose>
-                        <xsl:when test="contains(@class, ' bookmap/part ')">
-                            <xsl:if test="not(preceding-sibling::*[contains(@class, ' bookmap/part ')])">
+                        <xsl:when test="contains-token(@class, 'bookmap/part')">
+                            <xsl:if test="not(preceding-sibling::*[contains-token(@class, 'bookmap/part')])">
                                 <xsl:attribute name="initial-page-number" select="'1'"/>
                             </xsl:if>
                         </xsl:when>
-                        <xsl:when test="contains(@class, ' bookmap/chapter ') and not(parent::*[contains(@class, ' bookmap/part ')])">
-                            <xsl:if test="not(preceding-sibling::*[contains(@class, ' bookmap/chapter ')])">
+                        <xsl:when test="contains-token(@class, 'bookmap/chapter') and not(parent::*[contains-token(@class, 'bookmap/part')])">
+                            <xsl:if test="not(preceding-sibling::*[contains-token(@class, 'bookmap/chapter')])">
                                 <xsl:attribute name="initial-page-number" select="'1'"/>
                             </xsl:if>
                         </xsl:when>
                     </xsl:choose>
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:if test="not(preceding-sibling::*[contains(@class, ' map/topicref ')])">
+                    <xsl:if test="not(preceding-sibling::*[contains-token(@class, 'map/topicref')])">
                         <xsl:attribute name="initial-page-number" select="'1'"/>
                     </xsl:if>
                 </xsl:otherwise>
@@ -99,7 +99,7 @@
      return:    fo:block
      note:      none
      -->
-    <xsl:template match="*[contains(@class,' map/topicref ')][@href]" mode="PROCESS_TOPICREF">
+    <xsl:template match="*[contains-token(@class, 'map/topicref')][@href]" mode="PROCESS_TOPICREF">
     
         <xsl:variable name="topicRef" select="."/>
         <!-- get topic from @href -->
@@ -117,24 +117,24 @@
                             <xsl:choose>
                                 <xsl:when test="$isBookMap">
                                     <xsl:choose>
-                                        <xsl:when test="exists($topicRef/ancestor-or-self::*[contains(@class, ' bookmap/part ')])">
-                                            <xsl:variable name="part" as="element()" select="$topicRef/ancestor-or-self::*[contains(@class, ' bookmap/part ')][1]"/>
-                                            <xsl:variable name="topicRefs" as="element()*" select="$part/descendant-or-self::*[contains(@class,' map/topicref ')][. &lt;&lt; $topicRef]"/>
-                                            <xsl:if test="empty($part/preceding-sibling::*[contains(@class, ' bookmap/part ')]) and empty($topicRefs)">
+                                        <xsl:when test="exists($topicRef/ancestor-or-self::*[contains-token(@class, 'bookmap/part')])">
+                                            <xsl:variable name="part" as="element()" select="$topicRef/ancestor-or-self::*[contains-token(@class, 'bookmap/part')][1]"/>
+                                            <xsl:variable name="topicRefs" as="element()*" select="$part/descendant-or-self::*[contains-token(@class, 'map/topicref')][. &lt;&lt; $topicRef]"/>
+                                            <xsl:if test="empty($part/preceding-sibling::*[contains-token(@class, 'bookmap/part')]) and empty($topicRefs)">
                                                 <xsl:attribute name="initial-page-number" select="'1'"/>
                                             </xsl:if>
                                         </xsl:when>
-                                        <xsl:when test="contains(@class, ' bookmap/chapter ') and empty(parent::*[contains(@class, ' bookmap/part ')])">
-                                            <xsl:variable name="chapter" as="element()" select="$topicRef/ancestor-or-self::*[contains(@class, ' bookmap/chapter ')][1]"/>
-                                            <xsl:variable name="topicRefs" as="element()*" select="$chapter/descendant-or-self::*[contains(@class,' map/topicref ')][. &lt;&lt; $topicRef]"/>
-                                            <xsl:if test="empty($chapter/preceding-sibling::*[contains(@class, ' bookmap/chapter ')]) and empty($topicRefs)">
+                                        <xsl:when test="contains-token(@class, 'bookmap/chapter') and empty(parent::*[contains-token(@class, 'bookmap/part')])">
+                                            <xsl:variable name="chapter" as="element()" select="$topicRef/ancestor-or-self::*[contains-token(@class, 'bookmap/chapter')][1]"/>
+                                            <xsl:variable name="topicRefs" as="element()*" select="$chapter/descendant-or-self::*[contains-token(@class, 'map/topicref')][. &lt;&lt; $topicRef]"/>
+                                            <xsl:if test="empty($chapter/preceding-sibling::*[contains-token(@class, 'bookmap/chapter')]) and empty($topicRefs)">
                                                 <xsl:attribute name="initial-page-number" select="'1'"/>
                                             </xsl:if>
                                         </xsl:when>
                                     </xsl:choose>
                                 </xsl:when>
                                 <xsl:otherwise>
-                                    <xsl:if test="empty($map/descendant-or-self::*[contains(@class, ' map/topicref ')][exists(@href)][. &lt;&lt; $topicRef])">
+                                    <xsl:if test="empty($map/descendant-or-self::*[contains-token(@class, 'map/topicref')][exists(@href)][. &lt;&lt; $topicRef])">
                                         <xsl:attribute name="initial-page-number" select="'1'"/>
                                     </xsl:if>
                                 </xsl:otherwise>
@@ -178,15 +178,16 @@
                 </xsl:choose>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:call-template name="warningContinue">
+                <xsl:call-template name="warningContinueWithFileInfo">
                     <xsl:with-param name="prmMes" 
-                     select="ahf:replace($stMes070,('%href','%file'),(string(@href),string(@xtrf)))"/>
+                     select="ahf:replace($stMes070,('%href'),(string(@href)))"/>
+                    <xsl:with-param name="prmElem" select="$topicRef"/>
                 </xsl:call-template>
             </xsl:otherwise>
         </xsl:choose>
     
         <!-- Process children-->
-        <xsl:apply-templates select="child::*[contains(@class,' map/topicref ')]" mode="PROCESS_TOPICREF"/>
+        <xsl:apply-templates select="child::*[contains-token(@class, 'map/topicref')]" mode="PROCESS_TOPICREF"/>
     
         <!-- generate fo:index-range-end for metadata -->
         <xsl:call-template name="processIndextermInMetadataEnd">
@@ -207,7 +208,7 @@
                 Remove $pAdoptNavTitle.
                 2015-08-08 t.makita
      -->
-    <xsl:template match="*[contains(@class,' map/topicref ')][not(@href)]" mode="PROCESS_TOPICREF">
+    <xsl:template match="*[contains-token(@class, 'map/topicref')][not(@href)]" mode="PROCESS_TOPICREF">
         <xsl:variable name="topicRef" select="." as="element()"/>
         <xsl:variable name="titleMode" select="ahf:getTitleMode($topicRef,())" as="xs:integer"/>
         <fo:block>
@@ -239,14 +240,14 @@
                         <xsl:with-param name="prmTopicContent" select="()"/>
                     </xsl:call-template>
                 </xsl:when>
-                <xsl:when test="$topicRef/ancestor-or-self::*[contains(@class, ' bookmap/appendix ')]">
+                <xsl:when test="$topicRef/ancestor-or-self::*[contains-token(@class, 'bookmap/appendix')]">
                     <!-- appendix content -->
                     <xsl:call-template name="genAppendixTitle">
                         <xsl:with-param name="prmTopicRef" select="$topicRef"/>
                         <xsl:with-param name="prmTopicContent" select="()"/>
                     </xsl:call-template>
                 </xsl:when>
-                <!--xsl:when test="$topicRef[contains(@class, ' bookmap/appendices ')]">
+                <!--xsl:when test="$topicRef[contains-token(@class, 'bookmap/appendices')]">
                     <!-\- appendices content -\->
                     <xsl:call-template name="genAppendicesTitle">
                         <xsl:with-param name="prmTopicRef" tunnel="yes" select="$topicRef"/>
@@ -262,7 +263,7 @@
                 </xsl:otherwise>
             </xsl:choose>
         </fo:block>
-        <xsl:apply-templates select="child::*[contains(@class,' map/topicref ')]" mode="PROCESS_TOPICREF"/>
+        <xsl:apply-templates select="child::*[contains-token(@class, 'map/topicref')]" mode="PROCESS_TOPICREF"/>
     
         <!-- generate fo:index-range-end for metadata -->
         <xsl:call-template name="processIndextermInMetadataEnd">
@@ -282,11 +283,11 @@
                 Move page-break control from topic/title to topic level.
                 2014-09-13 t.makita
      -->
-    <xsl:template match="*[contains(@class, ' topic/topic ')]" mode="PROCESS_MAIN_CONTENT">
+    <xsl:template match="*[contains-token(@class, 'topic/topic')]" mode="PROCESS_MAIN_CONTENT">
         <xsl:param name="prmTopicRef" tunnel="yes"  required="yes" as="element()"/>
         <xsl:param name="prmTitleMode"   required="yes" as="xs:integer"/>
         
-        <xsl:variable name="isTopLevelTopic" as="xs:boolean" select="empty(ancestor::*[contains(@class,' topic/topic ')])"/>
+        <xsl:variable name="isTopLevelTopic" as="xs:boolean" select="empty(ancestor::*[contains-token(@class, 'topic/topic')])"/>
         <xsl:copy-of select="ahf:genChangeBarBeginElem(.)"/>
         <fo:block>
             <xsl:call-template name="getAttributeSetWithLang"/>
@@ -316,14 +317,14 @@
                         <xsl:with-param name="prmTopicContent" select="."/>
                     </xsl:call-template>
                 </xsl:when>
-                <xsl:when test="ancestor::*[contains(@class, ' topic/topic ')]">
+                <xsl:when test="ancestor::*[contains-token(@class, 'topic/topic')]">
                     <!-- Nested concept, reference, task -->
                     <xsl:call-template name="genSquareBulletTitle">
                         <xsl:with-param name="prmTopicRef" select="$prmTopicRef"/>
                         <xsl:with-param name="prmTopicContent" select="."/>
                     </xsl:call-template>
                 </xsl:when>
-                <xsl:when test="$prmTopicRef/ancestor-or-self::*[contains(@class, ' bookmap/appendix ')]">
+                <xsl:when test="$prmTopicRef/ancestor-or-self::*[contains-token(@class, 'bookmap/appendix')]">
                     <!-- appendix content -->
                     <xsl:call-template name="genAppendixTitle">
                         <xsl:with-param name="prmTopicRef" select="$prmTopicRef"/>
@@ -340,16 +341,16 @@
             </xsl:choose>
     
             <!-- abstract/shortdesc -->
-            <xsl:apply-templates select="child::*[contains(@class, ' topic/abstract ')] | child::*[contains(@class, ' topic/shortdesc ')]"/>
+            <xsl:apply-templates select="child::*[contains-token(@class, 'topic/abstract')] | child::*[contains-token(@class, 'topic/shortdesc')]"/>
             
             <!-- body -->
-            <xsl:apply-templates select="child::*[contains(@class, ' topic/body ')]"/>
+            <xsl:apply-templates select="child::*[contains-token(@class, 'topic/body')]"/>
     		
             <!-- postnote -->
             <xsl:if test="$pDisplayFnAtEndOfTopic">
                 <xsl:call-template name="makePostNote">
                     <xsl:with-param name="prmTopicRef"     select="$prmTopicRef"/>
-                    <xsl:with-param name="prmTopicContent" select="./*[contains(@class,' topic/body ')]"/>
+                    <xsl:with-param name="prmTopicContent" select="./*[contains-token(@class, 'topic/body')]"/>
                 </xsl:call-template>
             </xsl:if>
             
@@ -360,10 +361,10 @@
             </xsl:call-template>
     
             <!-- related-links -->
-            <xsl:apply-templates select="child::*[contains(@class,' topic/related-links ')]"/>
+            <xsl:apply-templates select="child::*[contains-token(@class, 'topic/related-links')]"/>
     
             <!-- nested concept/reference/task -->
-            <xsl:apply-templates select="child::*[contains(@class, ' topic/topic ')]" mode="PROCESS_MAIN_CONTENT">
+            <xsl:apply-templates select="child::*[contains-token(@class, 'topic/topic')]" mode="PROCESS_MAIN_CONTENT">
                 <xsl:with-param name="prmTitleMode"  select="$prmTitleMode"/>
             </xsl:apply-templates>
         </fo:block>
@@ -384,14 +385,14 @@
         <xsl:param name="prmTopicContent" required="yes" as="element()?"/>
         
         <!-- Nesting level in the bookmap -->
-        <xsl:variable name="level" as="xs:integer" select="count($prmTopicRef/ancestor-or-self::*[contains(@class, ' map/topicref ')])"/>
+        <xsl:variable name="level" as="xs:integer" select="count($prmTopicRef/ancestor-or-self::*[contains-token(@class, 'map/topicref')])"/>
         <!-- top level topic -->
         <xsl:variable name="isTopLevelTopic" as="xs:boolean">
             <xsl:choose>
                 <xsl:when test="empty($prmTopicContent)">
                     <xsl:sequence select="true()"/>
                 </xsl:when>
-                <xsl:when test="empty($prmTopicContent/ancestor::*[contains(@class,' topic/topic ')])">
+                <xsl:when test="empty($prmTopicContent/ancestor::*[contains-token(@class, 'topic/topic')])">
                     <xsl:sequence select="true()"/>
                 </xsl:when>
                 <xsl:otherwise>

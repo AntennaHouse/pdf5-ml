@@ -9,7 +9,7 @@
     E-mail : info@antennahouse.com
     ****************************************************************
 -->
-<xsl:stylesheet version="2.0" 
+<xsl:stylesheet version="3.0" 
     xmlns:fo="http://www.w3.org/1999/XSL/Format" 
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -47,7 +47,7 @@
                      
                      As a result the PDF plug-in does not do anything about above. Only calls next priority template (fig template) by xsl:next-match.
     -->
-    <xsl:template match="*[contains(@class, ' equation-d/equation-figure ')]" priority="2">
+    <xsl:template match="*[contains-token(@class, 'equation-d/equation-figure')]" priority="2">
         <xsl:next-match/>
     </xsl:template>
     
@@ -58,7 +58,7 @@
         note:		equation-inline is the specialization of ph element. 
                     The PDF plug-in only calls ph template by xsl:next-match.
     -->
-    <xsl:template match="*[contains(@class, ' equation-d/equation-inline ')]" priority="2">
+    <xsl:template match="*[contains-token(@class, 'equation-d/equation-inline')]" priority="2">
         <xsl:next-match/>
     </xsl:template>
     
@@ -86,7 +86,7 @@
         <xsl:sequence select="$equationBlockNonTextualParent"/>
     </xsl:variable>
     
-    <xsl:template match="*[contains(@class, ' equation-d/equation-block ')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
+    <xsl:template match="*[contains-token(@class, 'equation-d/equation-block')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
         <xsl:variable name="hasNonTextualParent" as="xs:boolean">
             <xsl:variable name="parentClass" as="xs:string" select="string(parent::*[1]/@class)"/>
             <xsl:sequence select="ahf:seqContains($parentClass,$equationBlockNonTextualParent)"/>
@@ -95,9 +95,9 @@
         <xsl:sequence select="if ($hasNonTextualParent) then 'atsEquationBlockNonTextualParent' else 'atsEquationBlockTextualParent'"/>
     </xsl:template>
     
-    <xsl:template match="*[contains(@class, ' equation-d/equation-block ')]" priority="2">
+    <xsl:template match="*[contains-token(@class, 'equation-d/equation-block')]" priority="2">
         <xsl:variable name="equationBlock" as="element()" select="."/>
-        <xsl:variable name="candidateEquationNumber" as="element()?" select="$equationBlock/*[contains(@class,' equation-d/equation-number ')][1]"/>
+        <xsl:variable name="candidateEquationNumber" as="element()?" select="$equationBlock/*[contains-token(@class, 'equation-d/equation-number')][1]"/>
         <xsl:variable name="hasNoEquationNumber" as="xs:boolean" select="ahf:hasNoEquationNumber($equationBlock)"/>
         <xsl:variable name="candidateEquationBody" as="node()*">
             <xsl:variable name="candidateEquation" as="element()?" select="ahf:getCandidateEquationElement($equationBlock)"/>
@@ -105,11 +105,11 @@
                 <xsl:if test="exists($candidateEquation)">
                     <xsl:sequence select="ahf:getCandidateEquationElementsGroup($equationBlock)"/>
                 </xsl:if>
-                <xsl:sequence select="$equationBlock/*[contains(@class,' equation-d/equation-number ')]"/>
+                <xsl:sequence select="$equationBlock/*[contains-token(@class, 'equation-d/equation-number')]"/>
             </xsl:variable>
             <xsl:sequence select="(node() except $exceptEquationGroup) | $candidateEquation"/>
         </xsl:variable>
-        <xsl:variable name="isInEquationFigure" as="xs:boolean" select="exists(ancestor::*[contains(@class,' equation-d/equation-figure ')])"/>
+        <xsl:variable name="isInEquationFigure" as="xs:boolean" select="exists(ancestor::*[contains-token(@class, 'equation-d/equation-figure')])"/>
         <xsl:variable name="outputEquationAndNumber" as="xs:boolean">
             <xsl:choose>
                 <xsl:when test="$pNumberEquationBlockUnconditionally">
@@ -182,14 +182,14 @@
         <xsl:param name="prmEquationBlock" as="element()"/>
         <xsl:variable name="prmEquation" as="element()*" select="$prmEquationBlock/*"/>
         <xsl:choose>
-            <xsl:when test="$prmEquation[contains(@class,' mathml-d/mathml ')]">
-                <xsl:sequence select="($prmEquation[contains(@class,' mathml-d/mathml ')])[1]"/>
+            <xsl:when test="$prmEquation[contains-token(@class, 'mathml-d/mathml')]">
+                <xsl:sequence select="($prmEquation[contains-token(@class, 'mathml-d/mathml')])[1]"/>
             </xsl:when>
-            <xsl:when test="$prmEquation[contains(@class,' topic/image ')][ends-with(string(@src),'.mml') or ends-with(string(@src),'.xml') or ends-with(string(@src),'.svg') or ends-with(string(@src),'.pdf')]">
-                <xsl:sequence select="($prmEquation[contains(@class,' topic/image ')][ends-with(string(@src),'.mml') or ends-with(string(@src),'.xml') or ends-with(string(@src),'.svg') or ends-with(string(@src),'.pdf')])[1]"/>
+            <xsl:when test="$prmEquation[contains-token(@class, 'topic/image')][ends-with(string(@src),'.mml') or ends-with(string(@src),'.xml') or ends-with(string(@src),'.svg') or ends-with(string(@src),'.pdf')]">
+                <xsl:sequence select="($prmEquation[contains-token(@class, 'topic/image')][ends-with(string(@src),'.mml') or ends-with(string(@src),'.xml') or ends-with(string(@src),'.svg') or ends-with(string(@src),'.pdf')])[1]"/>
             </xsl:when>
-            <xsl:when test="$prmEquation[contains(@class,' svg-d/svg-container ')]">
-                <xsl:sequence select="($prmEquation[contains(@class,' svg-d/svg-container ')])[1]"/>
+            <xsl:when test="$prmEquation[contains-token(@class, 'svg-d/svg-container')]">
+                <xsl:sequence select="($prmEquation[contains-token(@class, 'svg-d/svg-container')])[1]"/>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:sequence select="()"/>
@@ -211,9 +211,9 @@
     <xsl:function name="ahf:getCandidateEquationElementsGroup" as="element()*">
         <xsl:param name="prmEquationBlock" as="element()"/>
         <xsl:variable name="prmEquation" as="element()*" select="$prmEquationBlock/*"/>
-        <xsl:variable name="mathmlElem" as="element()*" select="$prmEquation[contains(@class,' mathml-d/mathml ')]"/>
-        <xsl:variable name="imageElem" as="element()*" select="$prmEquation[contains(@class,' topic/image ')]"/>
-        <xsl:variable name="svgElem" as="element()*" select="$prmEquation[contains(@class,' svg-d/svg-container ')]"/>
+        <xsl:variable name="mathmlElem" as="element()*" select="$prmEquation[contains-token(@class, 'mathml-d/mathml')]"/>
+        <xsl:variable name="imageElem" as="element()*" select="$prmEquation[contains-token(@class, 'topic/image')]"/>
+        <xsl:variable name="svgElem" as="element()*" select="$prmEquation[contains-token(@class, 'svg-d/svg-container')]"/>
         <xsl:sequence select="$mathmlElem | $imageElem | $svgElem"/>
     </xsl:function>
 
@@ -223,11 +223,11 @@
         return:	    fo:inline
         note:		empty equation-number will be automatically numbered, otherwise only apply templates to child node
     -->
-    <xsl:template match="*[contains(@class, ' equation-d/equation-number ')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
+    <xsl:template match="*[contains-token(@class, 'equation-d/equation-number')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
         <xsl:sequence select="'atsEquationNumber'"/>
     </xsl:template>
     
-    <xsl:template match="*[contains(@class, ' equation-d/equation-number ')]" as="element()" priority="2">
+    <xsl:template match="*[contains-token(@class, 'equation-d/equation-number')]" as="element()" priority="2">
         <fo:inline>
             <xsl:call-template name="getAttributeSetWithLang"/>
             <xsl:call-template name="ahf:getUnivAtts"/>
@@ -288,7 +288,7 @@
         <xsl:param name="prmTopicRef" tunnel="yes" required="yes" as="element()?"/>
         <xsl:param name="prmEquationNumber" required="no" as="element()" select="."/>
         
-        <xsl:variable name="equationBlock" as="element()" select="$prmEquationNumber/ancestor-or-self::*[contains(@class,' equation-d/equation-block ')][1]"/>
+        <xsl:variable name="equationBlock" as="element()" select="$prmEquationNumber/ancestor-or-self::*[contains-token(@class, 'equation-d/equation-block')][1]"/>
         <xsl:variable name="titlePrefix" as="xs:string">
             <xsl:choose>
                 <xsl:when test="$pAddNumberingTitlePrefix">
@@ -308,7 +308,7 @@
             </xsl:choose>
         </xsl:variable>
         
-        <xsl:variable name="topic" as="element()" select="$prmEquationNumber/ancestor::*[contains(@class, ' topic/topic ')][position() eq last()]"/>
+        <xsl:variable name="topic" as="element()" select="$prmEquationNumber/ancestor::*[contains-token(@class, 'topic/topic')][position() eq last()]"/>
         
         <xsl:variable name="equationNumberPreviousAmount" as="xs:integer">
             <xsl:variable name="topicId" as="xs:string">
@@ -326,29 +326,29 @@
         <xsl:variable name="equationNumberCurrentAmount" as="xs:integer">
             <xsl:choose>
                 <xsl:when test="$pNumberEquationBlockUnconditionally and not($pExcludeAutoNumberingFromEquationFigure)">
-                    <xsl:sequence select="count($topic//*[contains(@class,' equation-d/equation-block ')]
-                                                    [not(ancestor::*[contains(@class,' topic/related-links ')])]
+                    <xsl:sequence select="count($topic//*[contains-token(@class, 'equation-d/equation-block')]
+                                                    [not(ancestor::*[contains-token(@class, 'topic/related-links')])]
                                                     [ahf:hasAutoEquationNumber(.) or ahf:hasNoEquationNumber(.)]
                                                     [. &lt;&lt; $equationBlock]|$equationBlock)"/>
                 </xsl:when>
                 <xsl:when test="$pNumberEquationBlockUnconditionally and $pExcludeAutoNumberingFromEquationFigure">
                     <xsl:variable name="equationBlockCountOutsideEquationFigure" as="xs:integer" 
-                        select="count($topic//*[contains(@class,' equation-d/equation-block ')]
-                                                [not(ancestor::*[contains(@class,' topic/related-links ')])]
+                        select="count($topic//*[contains-token(@class, 'equation-d/equation-block')]
+                                                [not(ancestor::*[contains-token(@class, 'topic/related-links')])]
                                                 [ahf:hasNoEquationNumber(.) or ahf:hasAutoEquationNumber(.) ]
-                                                [empty(ancestor::*[contains(@class,' equation-d/equation-figure ')])]
+                                                [empty(ancestor::*[contains-token(@class, 'equation-d/equation-figure')])]
                                                 [. &lt;&lt; $equationBlock])"/>
                     <xsl:variable name="equationBlockCountInsideEquationFigure" as="xs:integer"
-                        select="count($topic//*[contains(@class,' equation-d/equation-block ')]
-                                                [not(ancestor::*[contains(@class,' topic/related-links ')])]
+                        select="count($topic//*[contains-token(@class, 'equation-d/equation-block')]
+                                                [not(ancestor::*[contains-token(@class, 'topic/related-links')])]
                                                 [ahf:hasEquationNumber(.) and ahf:hasAutoEquationNumber(.) ]
-                                                [exists(ancestor::*[contains(@class,' equation-d/equation-figure ')])]
+                                                [exists(ancestor::*[contains-token(@class, 'equation-d/equation-figure')])]
                                                 [. &lt;&lt; $equationBlock])"/>
                     <xsl:sequence select="$equationBlockCountOutsideEquationFigure + $equationBlockCountInsideEquationFigure + 1"/>
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:sequence select="count($topic//*[contains(@class,' equation-d/equation-block ')]
-                                                    [not(ancestor::*[contains(@class,' topic/related-links ')])]
+                    <xsl:sequence select="count($topic//*[contains-token(@class, 'equation-d/equation-block')]
+                                                    [not(ancestor::*[contains-token(@class, 'topic/related-links')])]
                                                     [ahf:hasAutoEquationNumber(.)]
                                                     [. &lt;&lt; $equationBlock]|$equationBlock)"/>
                 </xsl:otherwise>

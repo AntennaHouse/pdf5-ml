@@ -9,7 +9,7 @@
     E-mail : info@antennahouse.com
     ****************************************************************
 -->
-<xsl:stylesheet version="2.0" 
+<xsl:stylesheet version="3.0" 
     xmlns:fo="http://www.w3.org/1999/XSL/Format" 
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -25,7 +25,7 @@
         note:		cm is empty element.
                     There is no needs to make mode="MODE_GET_STYLE" template.
     -->
-    <xsl:template match="*[contains(@class, ' ch-d/cm ')]" priority="2">
+    <xsl:template match="*[contains-token(@class, 'ch-d/cm')]" priority="2">
         <xsl:variable name="check" as="element()" select="." />
         <xsl:choose>
             <xsl:when test="string($check/@value) eq 'yes'">
@@ -73,10 +73,10 @@
         return:	    fo:block
         note:		none
     -->
-    <xsl:template match="*[contains(@class, ' ch-d/br ')]" priority="2">
+    <xsl:template match="*[contains-token(@class, 'ch-d/br')]" priority="2">
         <xsl:variable name="br" as="element()" select="." />
         <xsl:choose>
-            <xsl:when test="exists($br/preceding-sibling::node()[1][contains(@class,' ch-d/br ')])">
+            <xsl:when test="exists($br/preceding-sibling::node()[1][contains-token(@class, 'ch-d/br')])">
                 <!-- Continiuous br -->
                 <fo:block>
                     <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>

@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-****************************************************************
-DITA to XSL-FO Stylesheet
-Module: SVG domain templates
-Copyright © 2009-2016 Antenna House, Inc. All rights reserved.
-Antenna House is a trademark of Antenna House, Inc.
-URL    : http://www.antennahouse.com/
-E-mail : info@antennahouse.com
-****************************************************************
+    ****************************************************************
+    DITA to XSL-FO Stylesheet
+    Module: SVG domain templates
+    Copyright © 2009-2016 Antenna House, Inc. All rights reserved.
+    Antenna House is a trademark of Antenna House, Inc.
+    URL    : http://www.antennahouse.com/
+    E-mail : info@antennahouse.com
+    ****************************************************************
 -->
-<xsl:stylesheet version="2.0" 
+<xsl:stylesheet version="3.0" 
     xmlns:fo="http://www.w3.org/1999/XSL/Format" 
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -24,7 +24,7 @@ E-mail : info@antennahouse.com
      return:	fo:wrapper
      note:		svg-container is only a container of SVG itself or svgref
      -->
-    <xsl:template match="*[contains(@class, ' svg-d/svg-container ')]" priority="2">
+    <xsl:template match="*[contains-token(@class, 'svg-d/svg-container')]" priority="2">
         <fo:wrapper>
             <xsl:call-template name="ahf:getUnivAtts"/>
             <xsl:apply-templates/>
@@ -54,7 +54,7 @@ E-mail : info@antennahouse.com
      note:		svg-ref may only exits as the child of svg-container.
                 So ahf:getFoStyleAndProperty() is applied here.
      -->
-    <xsl:template match="*[contains(@class, ' svg-d/svgref ')]" priority="2">
+    <xsl:template match="*[contains-token(@class, 'svg-d/svgref')]" priority="2">
         <fo:external-graphic>
             <xsl:call-template name="ahf:getUnivAtts"/>
             <xsl:attribute name="src" select="ahf:getImageUrl(.)"/>

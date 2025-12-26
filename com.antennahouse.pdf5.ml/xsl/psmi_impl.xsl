@@ -17,7 +17,7 @@ FOR A PARTICULAR PURPOSE.
 
  2009/07/15 Modified by t.makita Antenna House, Inc. 
  - Change encoding to UTF-8.
- - Change XSLT version from 1.0 to 2.0.
+ - Change XSLT version from 1.0 to 3.0.
  - Remove some restrictions.
 
  2021/06/08 Modified by t.makita Antenna House, Inc.
@@ -31,7 +31,7 @@ FOR A PARTICULAR PURPOSE.
                 xmlns:ahf="http://www.antennahouse.com/names/XSLT/Functions/Document"
                 xmlns:ahp="http://www.antennahouse.com/names/XSLT/Document/PageControl"
                 exclude-result-prefixes="psmi ahp ahf"
-                version="2.0">
+                version="3.0">
   
   <!-- Parameter: Generate last fo:page-sequence/@id -->
   <xsl:param name="PRM_LAST_PAGESEQ_ID" as="xs:string" required="no" select="''"/>

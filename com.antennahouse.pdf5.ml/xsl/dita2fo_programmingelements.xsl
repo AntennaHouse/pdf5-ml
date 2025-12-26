@@ -1,15 +1,15 @@
 <?xml version='1.0' encoding="UTF-8" ?>
 <!--
-****************************************************************
-DITA to XSL-FO Stylesheet 
-Module: Programming elements stylesheet
-Copyright © 2009-2009 Antenna House, Inc. All rights reserved.
-Antenna House is a trademark of Antenna House, Inc.
-URL    : http://www.antennahouse.com/
-E-mail : info@antennahouse.com
-****************************************************************
+    ****************************************************************
+    DITA to XSL-FO Stylesheet 
+    Module: Programming elements stylesheet
+    Copyright © 2009-2009 Antenna House, Inc. All rights reserved.
+    Antenna House is a trademark of Antenna House, Inc.
+    URL    : http://www.antennahouse.com/
+    E-mail : info@antennahouse.com
+    ****************************************************************
 -->
-<xsl:stylesheet version="2.0" 
+<xsl:stylesheet version="3.0" 
  xmlns:fo="http://www.w3.org/1999/XSL/Format" 
  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
  xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -23,11 +23,11 @@ E-mail : info@antennahouse.com
      return:	fo:inline
      note:		none
      -->
-    <xsl:template match="*[contains(@class, ' pr-d/apiname ')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
+    <xsl:template match="*[contains-token(@class, 'pr-d/apiname')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
         <xsl:sequence select="'atsApiName'"/>
     </xsl:template>    
 
-    <xsl:template match="*[contains(@class,' pr-d/apiname ')]" priority="2">
+    <xsl:template match="*[contains-token(@class, 'pr-d/apiname')]" priority="2">
         <fo:inline>
             <xsl:call-template name="getAttributeSetWithLang"/>
             <xsl:call-template name="ahf:getUnivAtts"/>
@@ -42,11 +42,11 @@ E-mail : info@antennahouse.com
      return:	fo:block
      note:		
      -->
-    <xsl:template match="*[contains(@class, ' pr-d/codeblock ')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
+    <xsl:template match="*[contains-token(@class, 'pr-d/codeblock')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
         <xsl:sequence select="'atsCodeBlock'"/>
     </xsl:template>    
 
-    <xsl:template match="*[contains(@class, ' pr-d/codeblock ')]" priority="2">
+    <xsl:template match="*[contains-token(@class, 'pr-d/codeblock')]" priority="2">
         <xsl:variable name="codeBlockAttr" as="attribute()*">
             <xsl:call-template name="getAttributeSetWithLang"/>
         </xsl:variable>
@@ -65,11 +65,11 @@ E-mail : info@antennahouse.com
      return:	fo:inline
      note:		none
      -->
-    <xsl:template match="*[contains(@class, ' pr-d/codeph ')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
+    <xsl:template match="*[contains-token(@class, 'pr-d/codeph')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
         <xsl:sequence select="'atsCodePh'"/>
     </xsl:template>    
     
-    <xsl:template match="*[contains(@class,' pr-d/codeph ')]" priority="2">
+    <xsl:template match="*[contains-token(@class, 'pr-d/codeph')]" priority="2">
         <fo:inline>
             <xsl:call-template name="getAttributeSetWithLang"/>
             <xsl:call-template name="ahf:getUnivAtts"/>
@@ -84,11 +84,11 @@ E-mail : info@antennahouse.com
      return:	fo:inline
      note:		none
      -->
-    <xsl:template match="*[contains(@class, ' pr-d/option ')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
+    <xsl:template match="*[contains-token(@class, 'pr-d/option')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
         <xsl:sequence select="'atsOption'"/>
     </xsl:template>    
 
-    <xsl:template match="*[contains(@class,' pr-d/option ')]" priority="2">
+    <xsl:template match="*[contains-token(@class, 'pr-d/option')]" priority="2">
         <fo:inline>
             <xsl:call-template name="getAttributeSetWithLang"/>
             <xsl:call-template name="ahf:getUnivAtts"/>
@@ -103,11 +103,11 @@ E-mail : info@antennahouse.com
      return:	fo:inline
      note:		none
      -->
-    <xsl:template match="*[contains(@class, ' pr-d/parmname ')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
+    <xsl:template match="*[contains-token(@class, 'pr-d/parmname')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
         <xsl:sequence select="'atsParamName'"/>
     </xsl:template>    
     
-    <xsl:template match="*[contains(@class,' pr-d/parmname ')]" priority="2">
+    <xsl:template match="*[contains-token(@class, 'pr-d/parmname')]" priority="2">
         <fo:inline>
             <xsl:call-template name="getAttributeSetWithLang"/>
             <xsl:call-template name="ahf:getUnivAtts"/>
@@ -122,11 +122,11 @@ E-mail : info@antennahouse.com
      return:	fo:wrapper
      note:		none
      -->
-    <xsl:template match="*[contains(@class, ' pr-d/parml ')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
+    <xsl:template match="*[contains-token(@class, 'pr-d/parml')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
         <xsl:sequence select="'atsParml'"/>
     </xsl:template>    
 
-    <xsl:template match="*[contains(@class,' pr-d/parml ')]" priority="2">
+    <xsl:template match="*[contains-token(@class, 'pr-d/parml')]" priority="2">
         <xsl:variable name="doCompact" select="string(@compact) eq 'yes'" as="xs:boolean"/>
         <fo:wrapper>
             <xsl:call-template name="getAttributeSetWithLang"/>
@@ -144,11 +144,11 @@ E-mail : info@antennahouse.com
      return:	fo:block
      note:		none
      -->
-    <xsl:template match="*[contains(@class, ' pr-d/plentry ')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
+    <xsl:template match="*[contains-token(@class, 'pr-d/plentry')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
         <xsl:sequence select="'atsPlEntry'"/>
     </xsl:template>
 
-    <xsl:template match="*[contains(@class,' pr-d/plentry ')]" priority="2">
+    <xsl:template match="*[contains-token(@class, 'pr-d/plentry')]" priority="2">
         <xsl:param name="prmDoCompact" required="yes" tunnel="yes" as="xs:boolean"/>
         
         <fo:block>
@@ -188,11 +188,11 @@ E-mail : info@antennahouse.com
      return:	fo:block
      note:		none
      -->
-    <xsl:template match="*[contains(@class, ' pr-d/pt ')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
+    <xsl:template match="*[contains-token(@class, 'pr-d/pt')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
         <xsl:sequence select="'atsPt'"/>
     </xsl:template>
     
-    <xsl:template match="*[contains(@class,' pr-d/pt ')]" priority="2">
+    <xsl:template match="*[contains-token(@class, 'pr-d/pt')]" priority="2">
         <fo:block>
             <xsl:call-template name="getAttributeSetWithLang"/>
             <xsl:call-template name="ahf:getUnivAtts"/>
@@ -207,11 +207,11 @@ E-mail : info@antennahouse.com
      return:	fo:block
      note:		none
      -->
-    <xsl:template match="*[contains(@class, ' pr-d/pd ')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
+    <xsl:template match="*[contains-token(@class, 'pr-d/pd')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
         <xsl:sequence select="'atsPd'"/>
     </xsl:template>
     
-    <xsl:template match="*[contains(@class,' pr-d/pd ')]" priority="2">
+    <xsl:template match="*[contains-token(@class, 'pr-d/pd')]" priority="2">
         <fo:block>
             <xsl:call-template name="getAttributeSetWithLang"/>
             <xsl:call-template name="ahf:getUnivAtts"/>
@@ -226,7 +226,7 @@ E-mail : info@antennahouse.com
      return:	fo:inline
      note:		none
      -->
-    <xsl:template match="*[contains(@class,' pr-d/synph ')]" priority="2">
+    <xsl:template match="*[contains-token(@class, 'pr-d/synph')]" priority="2">
         <fo:inline>
             <xsl:call-template name="ahf:getUnivAtts"/>
             <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
@@ -240,11 +240,11 @@ E-mail : info@antennahouse.com
      return:	fo:block
      note:		Syntaxdiagram belongs figure.
      -->
-    <xsl:template match="*[contains(@class, ' pr-d/syntaxdiagram ')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
+    <xsl:template match="*[contains-token(@class, 'pr-d/syntaxdiagram')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
         <xsl:sequence select="'atsSyntaxDiagram'"/>
     </xsl:template>
 
-    <xsl:template match="*[contains(@class,' pr-d/syntaxdiagram ')]" priority="2">
+    <xsl:template match="*[contains-token(@class, 'pr-d/syntaxdiagram')]" priority="2">
         <xsl:param name="prmTopicRef" tunnel="yes" required="yes" as="element()?"/>
         <xsl:param name="prmNeedId" tunnel="yes" required="no" as="xs:boolean" select="true()"/>
 
@@ -259,13 +259,13 @@ E-mail : info@antennahouse.com
                 <xsl:attribute name="id" select="ahf:generateId(.,$prmTopicRef)"/>
             </xsl:if>
             <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
-            <xsl:apply-templates select="*[not(contains(@class,' topic/title '))]"/>
-            <xsl:if test="descendant::*[contains(@class,' pr-d/synnote ')]">
+            <xsl:apply-templates select="*[not(contains-token(@class, 'topic/title'))]"/>
+            <xsl:if test="descendant::*[contains-token(@class, 'pr-d/synnote')]">
                 <xsl:call-template name="outputSynNote"/>
             </xsl:if>
         </fo:block>
         <!-- process title last -->
-        <xsl:apply-templates select="*[contains(@class,' topic/title ')]"/>
+        <xsl:apply-templates select="*[contains-token(@class, 'topic/title')]"/>
     </xsl:template>
     
     <!-- 
@@ -281,7 +281,7 @@ E-mail : info@antennahouse.com
             <xsl:call-template name="getAttributeSetWithLang">
                 <xsl:with-param name="prmAttrSetName" select="'atsSynNoteListBlock'"/>
             </xsl:call-template>
-            <xsl:for-each select="descendant::*[contains(@class, ' pr-d/synnote ')]">
+            <xsl:for-each select="descendant::*[contains-token(@class, 'pr-d/synnote')]">
                 <xsl:variable name="synnote" select="."/>
                 <fo:list-item>
                     <xsl:call-template name="getAttributeSetWithLang">
@@ -305,8 +305,8 @@ E-mail : info@antennahouse.com
                                     </xsl:call-template>
                                     <xsl:number select="."
                                                 level="any" 
-                                                count="*[contains(@class, ' pr-d/synnote ')][not(@callout)]"
-                                                from="*[contains(@class,' pr-d/syntaxdiagram')]"/>
+                                                count="*[contains-token(@class, 'pr-d/synnote')][not(@callout)]"
+                                                from="*[contains-token(@class, 'pr-d/syntaxdiagram')]"/>
                                 </xsl:otherwise>
                             </xsl:choose>
                         </fo:block>
@@ -337,13 +337,13 @@ E-mail : info@antennahouse.com
      return:	fo:block
      note:		none
      -->
-    <xsl:template match="*[contains(@class,' pr-d/groupseq ')]
-                      |  *[contains(@class,' pr-d/groupcomp ')]
-                      |  *[contains(@class,' pr-d/groupchoice ')]"
+    <xsl:template match="*[contains-token(@class, 'pr-d/groupseq')]
+                      |  *[contains-token(@class, 'pr-d/groupcomp')]
+                      |  *[contains-token(@class, 'pr-d/groupchoice')]"
         mode="MODE_GET_STYLE" as="xs:string*" priority="2">
         <xsl:choose>
-            <xsl:when test="parent::*[contains(@class, ' pr-d/syntaxdiagram ')]
-                         or parent::*[contains(@class, ' pr-d/fragment ')]">
+            <xsl:when test="parent::*[contains-token(@class, 'pr-d/syntaxdiagram')]
+                         or parent::*[contains-token(@class, 'pr-d/fragment')]">
                 <xsl:sequence select="'atsGroup'"/>
             </xsl:when>
             <xsl:otherwise>
@@ -352,13 +352,13 @@ E-mail : info@antennahouse.com
         </xsl:choose>
     </xsl:template>
 
-    <xsl:template match="*[contains(@class,' pr-d/groupseq ')]
-                      |  *[contains(@class,' pr-d/groupcomp ')]
-                      |  *[contains(@class,' pr-d/groupchoice ')]"
+    <xsl:template match="*[contains-token(@class, 'pr-d/groupseq')]
+                      |  *[contains-token(@class, 'pr-d/groupcomp')]
+                      |  *[contains-token(@class, 'pr-d/groupchoice')]"
                   priority="2">
         <xsl:choose>
-            <xsl:when test="parent::*[contains(@class, ' pr-d/syntaxdiagram ')]
-                         or parent::*[contains(@class, ' pr-d/fragment ')]">
+            <xsl:when test="parent::*[contains-token(@class, 'pr-d/syntaxdiagram')]
+                         or parent::*[contains-token(@class, 'pr-d/fragment')]">
                 <fo:block>
                     <xsl:call-template name="getAttributeSetWithLang"/>
                     <xsl:call-template name="ahf:getUnivAtts"/>
@@ -378,14 +378,14 @@ E-mail : info@antennahouse.com
     
     <!-- current context is groupseq, groupcomp or groupchoice -->
     <xsl:template name="processGroup">
-        <xsl:variable name="isGroupChoice" as="xs:boolean" select="contains(@class,' pr-d/groupchoice ')"/>
+        <xsl:variable name="isGroupChoice" as="xs:boolean" select="contains-token(@class, 'pr-d/groupchoice')"/>
         <xsl:variable name="isOptional"    as="xs:boolean" select="string(@importance) eq 'optional'"/>
-        <xsl:variable name="hasRepSep"     as="xs:boolean" select="exists(child::*[contains(@class,' pr-d/repsep ')])"/>
+        <xsl:variable name="hasRepSep"     as="xs:boolean" select="exists(child::*[contains-token(@class, 'pr-d/repsep')])"/>
         <xsl:variable name="isRequiredRepsep" 
-                      select="if ($hasRepSep) then string(child::*[contains(@class,' pr-d/repsep ')]/@importance) eq 'required' else false()"/>
+                      select="if ($hasRepSep) then string(child::*[contains-token(@class, 'pr-d/repsep')]/@importance) eq 'required' else false()"/>
         <xsl:variable name="needOr"        select="ahf:sdNeedOr(.)"/>
         
-        <xsl:apply-templates select="*[contains(@class,' topic/title ')]"/>
+        <xsl:apply-templates select="*[contains-token(@class, 'topic/title')]"/>
         
         <xsl:if test="$needOr">
             <!-- | -->
@@ -405,7 +405,7 @@ E-mail : info@antennahouse.com
                 <xsl:with-param name="prmVarName" select="'Sd_Choice_Prefix'"/>
             </xsl:call-template>
         </xsl:if>
-        <xsl:apply-templates select="child::*[not(contains(@class,' pr-d/repsep '))][not(contains(@class,' topic/title '))]"/>
+        <xsl:apply-templates select="child::*[not(contains-token(@class, 'pr-d/repsep'))][not(contains-token(@class, 'topic/title'))]"/>
         <xsl:if test="$isGroupChoice">
             <!-- } -->
             <xsl:call-template name="getVarValueWithLangAsText">
@@ -418,14 +418,14 @@ E-mail : info@antennahouse.com
                 <xsl:with-param name="prmVarName" select="'Sd_Repeat_Prefix'"/>
             </xsl:call-template>
             <!-- , (etc) -->
-            <xsl:apply-templates select="*[contains(@class,' pr-d/repsep ')]"/>
+            <xsl:apply-templates select="*[contains-token(@class, 'pr-d/repsep')]"/>
             <xsl:if test="$isGroupChoice">
                 <!-- { -->
                 <xsl:call-template name="getVarValueWithLangAsText">
                     <xsl:with-param name="prmVarName" select="'Sd_Choice_Prefix'"/>
                 </xsl:call-template>
             </xsl:if>
-            <xsl:apply-templates select="child::*[not(contains(@class,' pr-d/repsep '))][not(contains(@class,' topic/title '))]">
+            <xsl:apply-templates select="child::*[not(contains-token(@class, 'pr-d/repsep'))][not(contains-token(@class, 'topic/title'))]">
                 <xsl:with-param name="prmNeedId" tunnel="yes" select="false()"/>
             </xsl:apply-templates>
             <xsl:if test="$isGroupChoice">
@@ -463,9 +463,9 @@ E-mail : info@antennahouse.com
     
     <xsl:function name="ahf:sdNeedOr" as="xs:boolean">
         <xsl:param name="prmElement" as="element()"/>
-        <xsl:sequence select="$prmElement/parent::*[contains(@class,' pr-d/groupchoice ')] 
-                  and  (count($prmElement/preceding-sibling::*[not(contains(@class, ' pr-d/repsep '))]
-                                                                [not(contains(@class, ' topic/title '))]) gt 0)"/>
+        <xsl:sequence select="$prmElement/parent::*[contains-token(@class, 'pr-d/groupchoice')] 
+                  and  (count($prmElement/preceding-sibling::*[not(contains-token(@class, 'pr-d/repsep'))]
+                                                                [not(contains-token(@class, 'topic/title'))]) gt 0)"/>
     </xsl:function>
     
     
@@ -475,7 +475,7 @@ E-mail : info@antennahouse.com
      return:	fo:wrapper
      note:		none
      -->
-    <xsl:template match="*[contains(@class,' pr-d/fragment ')]" priority="2">
+    <xsl:template match="*[contains-token(@class, 'pr-d/fragment')]" priority="2">
         <fo:wrapper>
             <xsl:call-template name="ahf:getUnivAtts"/>
             <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
@@ -492,7 +492,7 @@ E-mail : info@antennahouse.com
      return:	fo:inline
      note:		none
      -->
-    <xsl:template match="*[contains(@class,' pr-d/fragref ')]" priority="2">
+    <xsl:template match="*[contains-token(@class, 'pr-d/fragref')]" priority="2">
         <xsl:variable name="isOptional" as="xs:boolean" select="string(@importance) eq 'optional'"/>
         <xsl:variable name="orgTitle" as="node()*">
             <xsl:apply-templates/>
@@ -505,9 +505,9 @@ E-mail : info@antennahouse.com
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:variable name="fragmentId" select="substring-after(@href,'/')"/>
-                    <xsl:variable name="fragmentElement" select="if (string($fragmentId)) then key('elementById',$fragmentId,ancestor::*[contains(@class, ' pr-d/syntaxdiagram ')])[1] else ()" as="element()?"/>
+                    <xsl:variable name="fragmentElement" select="if (string($fragmentId)) then key('elementById',$fragmentId,ancestor::*[contains-token(@class, 'pr-d/syntaxdiagram')])[1] else ()" as="element()?"/>
                     <xsl:variable name="fragmentTitle" as="node()*">
-                        <xsl:apply-templates select="$fragmentElement/*[contains(@class, ' topic/title ')]" mode="GET_CONTENTS"/>
+                        <xsl:apply-templates select="$fragmentElement/*[contains-token(@class, 'topic/title')]" mode="GET_CONTENTS"/>
                     </xsl:variable>
                     <xsl:copy-of select="$fragmentTitle"/>
                 </xsl:otherwise>
@@ -550,7 +550,7 @@ E-mail : info@antennahouse.com
      return:	fo:wrapper
      note:		none
      -->
-    <xsl:template match="*[contains(@class,' pr-d/synblk ')]" priority="2">
+    <xsl:template match="*[contains-token(@class, 'pr-d/synblk')]" priority="2">
         <fo:wrapper>
             <xsl:call-template name="ahf:getUnivAtts"/>
             <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
@@ -564,10 +564,10 @@ E-mail : info@antennahouse.com
      return:	fo:basic-link
      note:		none
      -->
-    <xsl:template match="*[contains(@class,' pr-d/synnote ')]" priority="2">
+    <xsl:template match="*[contains-token(@class, 'pr-d/synnote')]" priority="2">
         <xsl:param name="prmTopicRef" tunnel="yes" required="yes"  as="element()?"/>
     
-        <xsl:variable name="syntaxDiagramElement" select="ancestor::*[contains(@class,' pr-d/syntaxdiagram ')][1]"/>
+        <xsl:variable name="syntaxDiagramElement" select="ancestor::*[contains-token(@class, 'pr-d/syntaxdiagram')][1]"/>
         <xsl:choose>
             <xsl:when test="@id">
                 <!-- referenced by synnoteref -->
@@ -590,8 +590,8 @@ E-mail : info@antennahouse.com
                             </xsl:call-template>
                             <xsl:number select="."
                                         level="any" 
-                                        count="*[contains(@class, ' pr-d/synnote ')][not(@callout)]"
-                                        from="*[contains(@class,' pr-d/syntaxdiagram')]"/>
+                                        count="*[contains-token(@class, 'pr-d/synnote')][not(@callout)]"
+                                        from="*[contains-token(@class, 'pr-d/syntaxdiagram')]"/>
                         </xsl:otherwise>
                     </xsl:choose>
                 </fo:basic-link>
@@ -605,22 +605,21 @@ E-mail : info@antennahouse.com
      return:	fo:basic-link
      note:		referenced synnote must exist in the same sytaxdiagram.
      -->
-    <xsl:template match="*[contains(@class,' pr-d/synnoteref ')]" priority="2">
+    <xsl:template match="*[contains-token(@class, 'pr-d/synnoteref')]" priority="2">
         <xsl:param name="prmTopicRef" tunnel="yes" required="yes"  as="element()?"/>
         
         <xsl:variable name="href" as="xs:string" select="@href"/>
         <xsl:variable name="synNoteId" as="xs:string" select="substring-after($href,'/')"/>
         
-        <xsl:variable name="syntaxDiagramElement" as="element()" select="ancestor::*[contains(@class, ' pr-d/syntaxdiagram ')][1]"/>
+        <xsl:variable name="syntaxDiagramElement" as="element()" select="ancestor::*[contains-token(@class, 'pr-d/syntaxdiagram')][1]"/>
         <xsl:variable name="synNoteElement" as="element()?" select="if (string($synNoteId)) then key('elementById',$synNoteId,$syntaxDiagramElement)[1] else ()"/>
         
         <xsl:choose>
             <xsl:when test="empty($synNoteElement)">
                 <!-- DITA-OT already outputs DOTX032E error in topicpull -->
-                <xsl:call-template name="warningContinue">
-                    <xsl:with-param name="prmMes">
-                        <xsl:value-of select="ahf:replace($stMes060,('%file','%trace','%href'),(string(@xtrf),string(@xtrc),string(@ohref)))"/>
-                    </xsl:with-param>
+                <xsl:call-template name="warningContinueWithFileInfo">
+                    <xsl:with-param name="prmMes" select="ahf:replace($stMes060,('%href'),(string(@ohref)))"/>
+                    <xsl:with-param name="prmElem" select="."/>
                 </xsl:call-template>
             </xsl:when>
             <xsl:otherwise>
@@ -644,8 +643,8 @@ E-mail : info@antennahouse.com
                             </xsl:call-template>
                             <xsl:number select="$synNoteElement"
                                         level="any" 
-                                        count="*[contains(@class, ' pr-d/synnote ')][not(@callout)]"
-                                        from="*[contains(@class,' pr-d/syntaxdiagram')]"/>
+                                        count="*[contains-token(@class, 'pr-d/synnote')][not(@callout)]"
+                                        from="*[contains-token(@class, 'pr-d/syntaxdiagram')]"/>
                         </xsl:otherwise>
                     </xsl:choose>
                 </fo:basic-link>
@@ -659,11 +658,11 @@ E-mail : info@antennahouse.com
      return:	fo:inline
      note:		none
      -->
-    <xsl:template match="*[contains(@class, ' pr-d/kwd ')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
+    <xsl:template match="*[contains-token(@class, 'pr-d/kwd')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
         <xsl:sequence select="if (string(@importance) eq 'default') then 'atsKwdDefault' else 'atsKwd'"/>
     </xsl:template>
 
-    <xsl:template match="*[contains(@class,' pr-d/kwd ')]" priority="2">
+    <xsl:template match="*[contains-token(@class, 'pr-d/kwd')]" priority="2">
         <xsl:variable name="isOptional"  as="xs:boolean" select="string(@importance) eq 'optional'"/>
         <xsl:variable name="needOr"      as="xs:boolean" select="ahf:sdNeedOr(.)"/>
     
@@ -697,11 +696,11 @@ E-mail : info@antennahouse.com
      return:	fo:inline
      note:		none
      -->
-    <xsl:template match="*[contains(@class, ' pr-d/var ')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
+    <xsl:template match="*[contains-token(@class, 'pr-d/var')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
         <xsl:sequence select="if (string(@importance) eq 'default') then 'atsVarDefault' else 'atsVar'"/>
     </xsl:template>
 
-    <xsl:template match="*[contains(@class,' pr-d/var ')]" priority="2">
+    <xsl:template match="*[contains-token(@class, 'pr-d/var')]" priority="2">
         <xsl:variable name="isOptional"  as="xs:boolean" select="string(@importance) eq 'optional'"/>
         <xsl:variable name="needOr"      as="xs:boolean" select="ahf:sdNeedOr(.)"/>
     
@@ -736,11 +735,11 @@ E-mail : info@antennahouse.com
      return:	fo:inline
      note:		none
      -->
-    <xsl:template match="*[contains(@class, ' pr-d/oper ')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
+    <xsl:template match="*[contains-token(@class, 'pr-d/oper')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
         <xsl:sequence select="if (string(@importance) eq 'default') then 'atsOperDefault' else 'atsOper'"/>
     </xsl:template>
     
-    <xsl:template match="*[contains(@class,' pr-d/oper ')]" priority="2">
+    <xsl:template match="*[contains-token(@class, 'pr-d/oper')]" priority="2">
         <xsl:variable name="isOptional"  as="xs:boolean" select="string(@importance) eq 'optional'"/>
         <xsl:variable name="needOr"      as="xs:boolean" select="ahf:sdNeedOr(.)"/>
     
@@ -774,11 +773,11 @@ E-mail : info@antennahouse.com
      return:	fo:inline
      note:		none
      -->
-    <xsl:template match="*[contains(@class, ' pr-d/delim ')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
+    <xsl:template match="*[contains-token(@class, 'pr-d/delim')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
         <xsl:sequence select="if (string(@importance) eq 'default') then 'atsDelimDefault' else 'atsDelim'"/>
     </xsl:template>
 
-    <xsl:template match="*[contains(@class,' pr-d/delim ')]" priority="2">
+    <xsl:template match="*[contains-token(@class, 'pr-d/delim')]" priority="2">
         <xsl:variable name="isOptional"  as="xs:boolean" select="string(@importance) eq 'optional'"/>
         <xsl:variable name="needOr"      as="xs:boolean" select="ahf:sdNeedOr(.)"/>
     
@@ -812,11 +811,11 @@ E-mail : info@antennahouse.com
      return:	fo:inline
      note:		none
      -->
-    <xsl:template match="*[contains(@class, ' pr-d/sep ')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
+    <xsl:template match="*[contains-token(@class, 'pr-d/sep')]" mode="MODE_GET_STYLE" as="xs:string*" priority="2">
         <xsl:sequence select="if (string(@importance) eq 'default') then 'atsSepDefault' else 'atsSep'"/>
     </xsl:template>
 
-    <xsl:template match="*[contains(@class,' pr-d/sep ')]" priority="2">
+    <xsl:template match="*[contains-token(@class, 'pr-d/sep')]" priority="2">
         <xsl:variable name="isOptional"  as="xs:boolean" select="string(@importance) eq 'optional'"/>
         <xsl:variable name="needOr"      as="xs:boolean" select="ahf:sdNeedOr(.)"/>
         
@@ -850,7 +849,7 @@ E-mail : info@antennahouse.com
      return:	fo:inline
      note:		@importance is processed in processGroup template.
      -->
-    <xsl:template match="*[contains(@class,' pr-d/repsep ')]" priority="2">
+    <xsl:template match="*[contains-token(@class, 'pr-d/repsep')]" priority="2">
         <fo:inline>
             <xsl:call-template name="ahf:getLocalizationAtts"/>
             <xsl:call-template name="ahf:getIdAtts"/>

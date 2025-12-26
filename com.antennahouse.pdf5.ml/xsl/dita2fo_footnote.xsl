@@ -1,15 +1,15 @@
 <?xml version='1.0' encoding="UTF-8" ?>
 <!--
-****************************************************************
-DITA to XSL-FO Stylesheet
-Module: Make footnote as postnote
-Copyright © 2009-2012 Antenna House, Inc. All rights reserved.
-Antenna House is a trademark of Antenna House, Inc.
-URL    : http://www.antennahouse.com/
-E-mail : info@antennahouse.com
-****************************************************************
+    ****************************************************************
+    DITA to XSL-FO Stylesheet
+    Module: Make footnote as postnote
+    Copyright © 2009-2012 Antenna House, Inc. All rights reserved.
+    Antenna House is a trademark of Antenna House, Inc.
+    URL    : http://www.antennahouse.com/
+    E-mail : info@antennahouse.com
+    ****************************************************************
 -->
-<xsl:stylesheet version="2.0" 
+<xsl:stylesheet version="3.0" 
  xmlns:fo="http://www.w3.org/1999/XSL/Format" 
  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
  xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -31,7 +31,7 @@ E-mail : info@antennahouse.com
     <xsl:template name="makePostNote">
         <xsl:param name="prmTopicRef" required="yes" as="element()"/>
         <xsl:param name="prmTopicContent" required="yes" as="element()?"/>
-        <xsl:variable name="noteCount" select="if (exists($prmTopicContent)) then count($prmTopicContent/descendant::*[contains(@class,' topic/fn ')][ahf:isValidFn(.)]) else 0"/>
+        <xsl:variable name="noteCount" select="if (exists($prmTopicContent)) then count($prmTopicContent/descendant::*[contains-token(@class, 'topic/fn')][ahf:isValidFn(.)]) else 0"/>
         <xsl:if test="$noteCount gt 0">
             <xsl:call-template name="makePostNoteSub">
                 <xsl:with-param name="prmTopicRef" select="$prmTopicRef"/>
@@ -91,7 +91,7 @@ E-mail : info@antennahouse.com
      note:      Apply language specific style only for the style named 'atsPostnoteLi'.
                 2015-04-08 t.makita
      -->
-    <xsl:template match="*[contains(@class, ' topic/fn ')]" mode="MODE_GET_STYLE" as="xs:string*">
+    <xsl:template match="*[contains-token(@class, 'topic/fn')]" mode="MODE_GET_STYLE" as="xs:string*">
         <xsl:sequence select="'atsPostnoteLi'"/>
     </xsl:template>    
 
@@ -101,7 +101,7 @@ E-mail : info@antennahouse.com
         
         <fo:list-block>
             <xsl:copy-of select="ahf:getAttributeSet('atsPostnoteListBlock')"/>
-            <xsl:for-each select="$prmTopicContent/descendant::*[contains(@class,' topic/fn ')][ahf:isValidFn(.)]">
+            <xsl:for-each select="$prmTopicContent/descendant::*[contains-token(@class, 'topic/fn')][ahf:isValidFn(.)]">
                 <xsl:variable name="fn" select="."/>
                 <fo:list-item>
                     <xsl:call-template name="getAttributeSetWithLang">
@@ -152,20 +152,20 @@ E-mail : info@antennahouse.com
     <xsl:template name="makeFootNote">
         <xsl:param name="prmElement"  required="yes" as="element()+"/>
         
-        <xsl:variable name="desc" as="element()?" select="$prmElement[contains(@class,' topic/desc ')]"/>
+        <xsl:variable name="desc" as="element()?" select="$prmElement[contains-token(@class, 'topic/desc')]"/>
         <xsl:variable name="elemExceptDesc" as="element()+" select="$prmElement except $desc"/>
         <xsl:variable name="upperElements" as="element()*">
-            <xsl:sequence select="$desc/parent::*[contains(@class,' topic/table ')]/ancestor::*[contains(@class, ' topic/tgroup ')]"/>
+            <xsl:sequence select="$desc/parent::*[contains-token(@class, 'topic/table')]/ancestor::*[contains-token(@class, 'topic/tgroup')]"/>
             <xsl:for-each select="$elemExceptDesc">
-                <xsl:sequence select="$elemExceptDesc/ancestor::*[contains(@class, ' topic/tgroup ')] | 
-                    $elemExceptDesc/ancestor::*[contains(@class, ' topic/simpletable ')] | 
-                    $elemExceptDesc/ancestor::*[contains(@class, ' topic/ul ')] | 
-                    $elemExceptDesc/ancestor::*[contains(@class, ' topic/ol ')] |
-                    $elemExceptDesc/ancestor::*[contains(@class, ' topic/dl ')] |
-                    $elemExceptDesc/ancestor::*[contains(@class, ' glossentry/glossdef ')]"/>
+                <xsl:sequence select="$elemExceptDesc/ancestor::*[contains-token(@class, 'topic/tgroup')] | 
+                    $elemExceptDesc/ancestor::*[contains-token(@class, 'topic/simpletable')] | 
+                    $elemExceptDesc/ancestor::*[contains-token(@class, 'topic/ul')] | 
+                    $elemExceptDesc/ancestor::*[contains-token(@class, 'topic/ol')] |
+                    $elemExceptDesc/ancestor::*[contains-token(@class, 'topic/dl')] |
+                    $elemExceptDesc/ancestor::*[contains-token(@class, 'glossentry/glossdef')]"/>
             </xsl:for-each>
         </xsl:variable>
-        <xsl:variable name="fnCount" select="count($prmElement/descendant::*[contains(@class,' topic/fn ')][ahf:isValidFn(.)])"/>
+        <xsl:variable name="fnCount" select="count($prmElement/descendant::*[contains-token(@class, 'topic/fn')][ahf:isValidFn(.)])"/>
         <xsl:if test="empty($upperElements) and $fnCount gt 0">
             <xsl:call-template name="makeFootNoteSub">
                 <xsl:with-param name="prmElement" select="$prmElement"/>
@@ -210,10 +210,9 @@ E-mail : info@antennahouse.com
     <xsl:template name="processFootNote">
         <xsl:param name="prmElement" required="yes" as="element()+"/>
         
-        <xsl:message select="'[processFootNote]'"/>
         <fo:list-block>
             <xsl:copy-of select="ahf:getAttributeSet('atsPostnoteListBlock')"/>
-            <xsl:variable name="fnSeq" as="element()*" select="$prmElement/descendant::*[contains(@class,' topic/fn ')][ahf:isValidFn(.)]"/>
+            <xsl:variable name="fnSeq" as="element()*" select="$prmElement/descendant::*[contains-token(@class, 'topic/fn')][ahf:isValidFn(.)]"/>
             <xsl:for-each select="$fnSeq">
                 <xsl:variable name="fn" select="."/>
                 <fo:list-item>
@@ -259,7 +258,7 @@ E-mail : info@antennahouse.com
      -->
     <xsl:function name="ahf:isValidFn" as="xs:boolean">
         <xsl:param name="prmFn" as="element()"/>
-        <xsl:variable name="isValidFn" as="xs:boolean" select="empty($prmFn[contains(@class,' pr-d/synnote ')]) and empty($prmFn/ancestor::*[contains(@class,' topic/xref ')])"/>
+        <xsl:variable name="isValidFn" as="xs:boolean" select="empty($prmFn[contains-token(@class, 'pr-d/synnote')]) and empty($prmFn/ancestor::*[contains-token(@class, 'topic/xref')])"/>
         <xsl:sequence select="$isValidFn"/>
     </xsl:function>
 

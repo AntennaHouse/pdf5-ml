@@ -18,6 +18,7 @@
   <extension-point id="depend.com.antennahouse.pdf5.ml.transform.fo.pdf.post" name="Convert XSL-FO to PDF post-target"/>
   <feature extension="dita.conductor.target.relative" value="integrator.xml" type="file"/>
   <feature extension="dita.conductor.lib.import" file="lib/versioncomp-0.1.jar"/>
+  <!--feature extension="dita.conductor.lib.import" file="lib/rel-uri-util-0.1.jar"/-->
   <transtype name="pdf5.ml" desc="PDF">
     <param name="style.def.file" desc="Style definition file" type="file"/>
     <param name="include.frontmatter.to.toc" desc="Specifies whether to include frontmatter topicref in toc." type="enum">
@@ -157,13 +158,21 @@
       <val>yes</val>
       <val default="true">no</val>
     </param>
-    <param name="use.index.common.xslt3" desc="Specifies the XSLT 3.0 index common build." type="enum">
+    <!--param name="use.index.common.xslt3" desc="Specifies the XSLT 3.0 index common build." type="enum">
+      <val default="true">no</val>
+      <val>yes</val>
+    </param-->
+    <param name="fo.in.output.folder" desc="Specifies the final FO file location. The default value is output folder, otherwise it is in temporary folder." type="enum">
+      <val default="true">yes</val>
+      <val>no</val>
+    </param>
+    <param name="adopt.preprocess2" desc="Specifies whether to adopt preprocess2." type="enum">
       <val default="true">no</val>
       <val>yes</val>
     </param>
-    <param name="fo.in.output.folder" desc="Specifies the final FO file location. The default value is output folder, otherwise it is in temporary folder." type="enum">
+    <param name="debug.fo" desc="Specifies whether to output XSL-FO as indented." type="enum">
+      <val default="true">no</val>
       <val>yes</val>
-      <val>no</val>
     </param>
     <param name="ahf.dir" desc="Specifies AH Formatter directory" type="string"/>
     <param name="ahf.opt" desc="Specifies AH Formatter option setting file" type="file"/>

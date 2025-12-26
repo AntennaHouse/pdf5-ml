@@ -5,6 +5,12 @@
        2015-05-07 t.makita
      - Add parameter extension
        2017-05-13 t.makita
+     - Remove Saxon transform, adopt only JAXP transform.
+       Add Saxon configuration file for library call in preprocess2.
+       2024-10-03 t.makita
+     - Add indent final XSL-FO target
+       2025-04-28
+     - Remove use.index.common.xslt3 property. 
      [Parameter] 
      prmInputFile:  Merged middle file path
      prmOutputFile: PDF file path
@@ -37,8 +43,10 @@
     <!-- Final FO file location -->
     <target name="build.fo.folder">
         <property name="fo.in.output.folder" value="yes"/>
-        <property name="final.fo.file" value="${dita.map.output.dir}${file.separator}${dita.map.filename.root}.fo" if:true="${fo.in.output.folder}"/>
+        <property name="final.fo.file" value="${output.dir}${file.separator}${dita.map.filename.root}.fo" if:true="${fo.in.output.folder}"/>
         <property name="final.fo.file" value="${build.temp.dir}${file.separator}${dita.map.filename.root}.fo" unless:true="${fo.in.output.folder}"/>
+        <property name="final.fo.indent.file" value="${output.dir}${file.separator}${dita.map.filename.root}_indent.fo" if:true="${fo.in.output.folder}"/>
+        <property name="final.fo.indent.file" value="${build.temp.dir}${file.separator}${dita.map.filename.root}_indent.fo" unless:true="${fo.in.output.folder}"/>
     </target>
     
     <target name="transform.merged2pdf.impl" depends="build.fo.folder">
@@ -62,6 +70,11 @@
             <param name="prmOutputFile" value="${final.fo.file}"/>
         </antcall>
 
+        <antcall target="output.fo.indented" if:true="${debug.fo}">
+            <param name="prmInputFile" value="${final.fo.file}"/>
+            <param name="prmOutputFile" value="${final.fo.indent.file}"/>
+        </antcall>            
+
         <antcall target="transform.fo2pdf">
             <param name="prmInputFile" value="${final.fo.file}"/>
             <param name="prmOutputFile" value="${prmOutputFile}"/>
@@ -79,7 +92,7 @@
         
     <target name="transform.merged.impl">
         <property name="stylesheet" value="${xsl.dir}${file.separator}dita2fo_convmerged_shell.xsl"/>
-        <antcall target="transform.merged.common">
+        <antcall target="transform.merged.common.jaxp">
             <param name="prmInputFile" value="${prmInputFile}"/>
             <param name="prmOutputFile" value="${prmOutputFile}"/>
             <param name="prmStylesheetFile" value="${stylesheet}"/>
@@ -95,14 +108,14 @@
     
     <target name="transform.merged2psmi.impl">
         <property name="stylesheet" value="${xsl.dir}${file.separator}dita2fo_shell.xsl"/>
-        <antcall target="transform.merged.common">
+        <antcall target="transform.merged.common.jaxp">
             <param name="prmInputFile" value="${prmInputFile}"/>
             <param name="prmOutputFile" value="${prmOutputFile}"/>
             <param name="prmStylesheetFile" value="${stylesheet}"/>
         </antcall>
     </target>
 
-    <target name="transform.merged.common">
+    <!--target name="transform.merged.common">
         <antcall target="transform.merged.common.saxon">
             <param name="prmInputFile" value="${prmInputFile}"/>
             <param name="prmOutputFile" value="${prmOutputFile}"/>
@@ -113,13 +126,11 @@
             <param name="prmOutputFile" value="${prmOutputFile}"/>
             <param name="prmStylesheetFile" value="${stylesheet}"/>
         </antcall>
-    </target>
+    </target-->
 
-    <target name="transform.merged.common.jaxp" depends="build.project.class.path"
-        unless="${use.saxon.transform}">
+    <target name="transform.merged.common.jaxp" depends="build.project.class.path">
         <echo message="Stylesheet=${prmStylesheetFile}"/>
         <echo message="use.i18n.index.lib=${use.i18n.index.lib}"/>
-        <echo message="user.input.dir=${user.input.dir}"/>
         <property name="classpath" refid="project.class.path"/>
         <xslt processor="trax" in="${prmInputFile}" out="${prmOutputFile}"
             style="${prmStylesheetFile}" classpathref="project.class.path" force="true">
@@ -131,6 +142,8 @@
                 <!--attribute name="http://saxon.sf.net/feature/enableAssertions" value="true"/-->
                 <!-- Trace -->
                 <!--attribute name="http://saxon.sf.net/feature/traceListenerClass" value="net.sf.saxon.trace.XSLTTraceListener"/-->
+                <!-- Configuration file -->
+                <!--attribute name="http://saxon.sf.net/feature/configuration-file" value="${basedir}${file.separator}config${file.separator}saxon-config.xml"/-->
             </factory>
             <param name="PRM_STYLE_DEF_FILE" expression="${style.def.file}" if:set="style.def.file"/>
             <param name="PRM_INCLUDE_FRONTMATTER_TO_TOC" expression="${include.frontmatter.to.toc}" if:set="include.frontmatter.to.toc"/>
@@ -178,19 +191,22 @@
             <param name="PRM_OT_VERSION" expression="${otversion}" if:set="otversion"/>
             <param name="PRM_TEMP_DIR_URL" expression="${temp.dir.url}" if:set="temp.dir.url"/>
             <param name="PRM_BUILD_MAP" expression="${build.map}" if:set="build.map"/>
+            <param name="PRM_ADOPT_PREPROCESS2" expression="${adopt.preprocess2}" if:set="adopt.preprocess2"/>
+            <param name="PRM_JOB_XML_URL" expression="${job.xml.url}" if:set="job.xml.url"/>
             
             <dita:extension id="com.antennahouse.pdf5.ml.param" behavior="org.dita.dost.platform.InsertAction"/>
             <sysproperty key="com.innodata.i18n.home" value="${i18n.home}"/>
             <sysproperty key="use.i18n.index.lib" value="${use.i18n.index.lib}"/>
             <sysproperty key="ot.version" value="${otversion}"/>
-            <sysproperty key="use.index.common.xslt3" value="${use.index.common.xslt3}" if:set="use.index.common.xslt3"/>
+            <!--sysproperty key="use.index.common.xslt3" value="${use.index.common.xslt3}" if:set="use.index.common.xslt3"/-->
+            <sysproperty key="adopt.preprocess2" value="${adopt.preprocess2}" if:set="adopt.preprocess2"/>
             <xmlcatalog refid="dita.catalog"/>
         </xslt>
     </target>
-
-    <target name="transform.merged.common.saxon" depends="build.project.class.path"
+    
+    <!--target name="transform.merged.common.saxon" depends="build.project.class.path"
         if="${use.saxon.transform}">
-        <!-- XSLT Transformation Class Name -->
+        <!-/- XSLT Transformation Class Name -/->
         <property name="transformer.classname" value="net.sf.saxon.Transform"/>
         <echo message="Stylesheet=${prmStylesheetFile}"/>
         <echo message="use.i18n.index.lib=${use.i18n.index.lib}"/>
@@ -217,8 +233,8 @@
             <arg line='"PRM_USE_OID=${use.oid}"' if:set="use.oid"/>
             <arg line='"PRM_FORMAT_DL_AS_BLOCK=${format.dl.as.block}"' if:set="format.dl.as.block"/>
             <arg line='"PRM_DEBUG_STYLE=${debug.style}"' if:set="debug.style"/>
-            <!--arg line='"PRM_APPLY_TOC_ATTR=${apply.toc.attr}"' if:set="apply.toc.attr"/-->
-            <!--arg line='"PRM_ONLINE_PDF=${online.pdf}"' if:set="online.pdf"/-->
+            <!-/-arg line='"PRM_APPLY_TOC_ATTR=${apply.toc.attr}"' if:set="apply.toc.attr"/-/->
+            <!-/-arg line='"PRM_ONLINE_PDF=${online.pdf}"' if:set="online.pdf"/-/->
             <arg line='"PRM_SORT_GLOSSENTRY=${sort.glossentry}"' if:set="sort.glossentry"/>
             <arg line='"PRM_OUTPUT_START_MESSAGE=${output.start.message}"' if:set="output.start.message"/>
             <arg line='"PRM_AUTO_SCALE_DOWN_TO_FIT=${auto.scale.down.to.fit}"' if:set="auto.scale.down.to.fit"/>
@@ -250,6 +266,8 @@
             <arg line='"PRM_OT_VERSION=${otversion}"' if:set="otversion"/>
             <arg line='"PRM_TEMP_DIR_URL=${temp.dir.url}"' if:set="temp.dir.url"/> 
             <arg line='"PRM_BUILD_MAP=${build.map}"' if:set="build.map"/> 
+            <arg line='"PRM_ADOPT_PREPROCESS2=${dita2pdf5.ml.adopt.preprocess2}"' if:set="dita2pdf5.ml.adopt.preprocess2"/>
+            <arg line='"PRM_JOB_XML_URL=${job.xml.url}"' if:set="job.xml.url"/>
             
             <dita:extension id="com.antennahouse.pdf5.ml.saxon.param" behavior="org.dita.dost.platform.InsertAction"/>
             <sysproperty key="com.innodata.i18n.home" value="${i18n.home}"/>
@@ -257,7 +275,7 @@
             <sysproperty key="ot.version" value="${otversion}"/>
             <sysproperty key="use.index.common.xslt3" value="${use.index.common.xslt3}" if:set="use.index.common.xslt3"/>
         </java>
-    </target>
+    </target-->
 
     <!-- Make XSL-FO from XSL-FO(PSMI) -->
     <target name="transform.psmi2fo">
@@ -266,6 +284,14 @@
             <param name="PRM_LAST_PAGESEQ_ID" expression="${last.pageseq.id}" if:set="last.pageseq.id"/>
             <param name="PRM_LAST_PAGESEQ_OFFSET" expression="${last.pageseq.offset}" if:set="last.pageseq.offset"/>
             <dita:extension id="com.antennahouse.pdf5.ml.psmi.param" behavior="org.dita.dost.platform.InsertAction"/>
+            <xmlcatalog refid="dita.catalog"/>
+        </xslt>
+    </target>
+
+    <!-- Indent XSL-FO -->
+    <target name="output.fo.indented">
+        <property name="stylesheet" value="${xsl.dir}${file.separator}indent.xsl"/>
+        <xslt processor="trax" in="${prmInputFile}" out="${prmOutputFile}" style="${stylesheet}">
             <xmlcatalog refid="dita.catalog"/>
         </xslt>
     </target>

@@ -1,15 +1,15 @@
 <?xml version='1.0' encoding="UTF-8" ?>
 <!--
-****************************************************************
-DITA to XSL-FO Stylesheet
-Module: Floating figure module
-Copyright © 2009-2019 Antenna House, Inc. All rights reserved.
-Antenna House is a trademark of Antenna House, Inc.
-URL    : http://www.antennahouse.com/
-E-mail : info@antennahouse.com
-****************************************************************
+    ****************************************************************
+    DITA to XSL-FO Stylesheet
+    Module: Floating figure module
+    Copyright © 2009-2019 Antenna House, Inc. All rights reserved.
+    Antenna House is a trademark of Antenna House, Inc.
+    URL    : http://www.antennahouse.com/
+    E-mail : info@antennahouse.com
+    ****************************************************************
 -->
-<xsl:stylesheet version="2.0" 
+<xsl:stylesheet version="3.0" 
  xmlns:fo="http://www.w3.org/1999/XSL/Format" 
  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
  xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -82,7 +82,7 @@ E-mail : info@antennahouse.com
     
     <xsl:function name="ahf:isFloatFigure" as="xs:boolean">
         <xsl:param name="prmElement" as="element()"/>
-        <xsl:sequence select="exists($prmElement[contains(@class, ' floatfig-d/floatfig ')]) or exists($prmElement[contains(@class, ' topic/fig ')][ahf:getOutputClass($prmElement) = $ocFloatFigure])"/>
+        <xsl:sequence select="exists($prmElement[contains-token(@class, 'floatfig-d/floatfig')]) or exists($prmElement[contains-token(@class, 'topic/fig')][ahf:getOutputClass($prmElement) = $ocFloatFigure])"/>
     </xsl:function>
 
     <xsl:variable name="floatSpecNone" as="xs:string" select="ahf:getVarValue('ocFloatNone')"/>
@@ -100,7 +100,7 @@ E-mail : info@antennahouse.com
      -->
     <xsl:function name="ahf:isFloatFigureGroup" as="xs:boolean">
         <xsl:param name="prmElement" as="element()"/>
-        <xsl:sequence select="exists($prmElement[contains(@class, ' floatfig-d/floatfig-group ')]) or exists($prmElement[contains(@class, ' topic/figgroup ')][ahf:getOutputClass($prmElement) = $ocFloatFigGroup])"/>
+        <xsl:sequence select="exists($prmElement[contains-token(@class, 'floatfig-d/floatfig-group')]) or exists($prmElement[contains-token(@class, 'topic/figgroup')][ahf:getOutputClass($prmElement) = $ocFloatFigGroup])"/>
     </xsl:function>
 
     <!-- 
@@ -112,10 +112,10 @@ E-mail : info@antennahouse.com
     <xsl:function name="ahf:getFloatSpec" as="xs:string?">
         <xsl:param name="prmElement" as="element()"/>
         <xsl:choose>
-            <xsl:when test="$prmElement[contains(@class, ' floatfig-d/floatfig ')]">
+            <xsl:when test="$prmElement[contains-token(@class, 'floatfig-d/floatfig')]">
                 <xsl:sequence select="$prmElement/@float"/>
             </xsl:when>
-            <xsl:when test="$prmElement[contains(@class, ' topic/fig ')][ahf:getOutputClass($prmElement) = $ocFloatFigure]">
+            <xsl:when test="$prmElement[contains-token(@class, 'topic/fig')][ahf:getOutputClass($prmElement) = $ocFloatFigure]">
                 <xsl:variable name="outputClass" as="xs:string+" select="ahf:getOutputClass($prmElement)"/>
                 <xsl:choose>
                     <xsl:when test="$outputClass = $floatSpecNone">
@@ -147,10 +147,10 @@ E-mail : info@antennahouse.com
     <xsl:function name="ahf:getFloatFigGroupSpec" as="xs:string?">
         <xsl:param name="prmElement" as="element()"/>
         <xsl:choose>
-            <xsl:when test="$prmElement[contains(@class, ' floatfig-d/floatfig-group ')]">
+            <xsl:when test="$prmElement[contains-token(@class, 'floatfig-d/floatfig-group')]">
                 <xsl:sequence select="$prmElement/@float"/>
             </xsl:when>
-            <xsl:when test="$prmElement[contains(@class, ' topic/figgroup ')][ahf:getOutputClass($prmElement) = $ocFloatFigGroup]">
+            <xsl:when test="$prmElement[contains-token(@class, 'topic/figgroup')][ahf:getOutputClass($prmElement) = $ocFloatFigGroup]">
                 <xsl:variable name="outputClass" as="xs:string+" select="ahf:getOutputClass($prmElement)"/>
                 <xsl:choose>
                     <xsl:when test="$outputClass = $floatSpecAuto">
@@ -210,18 +210,18 @@ E-mail : info@antennahouse.com
                 <xsl:call-template name="getAttributeSet">
                     <xsl:with-param name="prmAttrSetName" select="'atsFloatFigBc'"/>
                 </xsl:call-template>
-                <xsl:apply-templates select="node() except *[ahf:seqContains(@class, (' topic/title ',' topic/desc '))]"/>
-                <xsl:apply-templates select="*[contains(@class, ' topic/title ')]"/>
-                <xsl:apply-templates select="*[contains(@class, ' topic/desc ')]"/>
+                <xsl:apply-templates select="node() except *[ahf:seqContainsToken(@class, ('topic/title','topic/desc'))]"/>
+                <xsl:apply-templates select="*[contains-token(@class, 'topic/title')]"/>
+                <xsl:apply-templates select="*[contains-token(@class, 'topic/desc')]"/>
             </fo:block-container>
         </fo:float>
     </xsl:template>
 
-    <xsl:template match="*[ahf:isFloatFigure(.) or ahf:isFloatFigureGroup(.)]/*[contains(@class, ' topic/title ')]" mode="MODE_GET_STYLE" as="xs:string*" priority="6">
+    <xsl:template match="*[ahf:isFloatFigure(.) or ahf:isFloatFigureGroup(.)]/*[contains-token(@class, 'topic/title')]" mode="MODE_GET_STYLE" as="xs:string*" priority="6">
         <xsl:sequence select="'atsFloatFigTitle'"/>
     </xsl:template>
     
-    <xsl:template match="*[ahf:isFloatFigure(.)]/*[contains(@class, ' topic/title ')]" priority="6" name="processFloatFigTitle">
+    <xsl:template match="*[ahf:isFloatFigure(.)]/*[contains-token(@class, 'topic/title')]" priority="6" name="processFloatFigTitle">
         <fo:block>
             <xsl:call-template name="getAttributeSetWithLang"/>
             <xsl:call-template name="ahf:getUnivAtts"/>
@@ -230,11 +230,11 @@ E-mail : info@antennahouse.com
         </fo:block>
     </xsl:template>
 
-    <xsl:template match="*[ahf:isFloatFigure(.) or ahf:isFloatFigureGroup(.)]/*[contains(@class, ' topic/desc ')]" mode="MODE_GET_STYLE" as="xs:string*" priority="6">
+    <xsl:template match="*[ahf:isFloatFigure(.) or ahf:isFloatFigureGroup(.)]/*[contains-token(@class, 'topic/desc')]" mode="MODE_GET_STYLE" as="xs:string*" priority="6">
         <xsl:sequence select="'atsFloatFigDesc'"/>
     </xsl:template>
     
-    <xsl:template match="*[ahf:isFloatFigure(.)]/*[contains(@class, ' topic/desc ')]" priority="6" name="processFloatFigDesc">
+    <xsl:template match="*[ahf:isFloatFigure(.)]/*[contains-token(@class, 'topic/desc')]" priority="6" name="processFloatFigDesc">
         <fo:block>
             <xsl:call-template name="getAttributeSetWithLang"/>
             <xsl:call-template name="ahf:getUnivAtts"/>
@@ -247,8 +247,8 @@ E-mail : info@antennahouse.com
         <fo:wrapper>
             <xsl:call-template name="ahf:getUnivAtts"/>
             <xsl:copy-of select="ahf:getFoStyleAndProperty(.)"/>
-            <xsl:apply-templates select="node() except *[contains(@class, ' topic/title ')]"/>
-            <xsl:apply-templates select="*[contains(@class, ' topic/title ')]"/>
+            <xsl:apply-templates select="node() except *[contains-token(@class, 'topic/title')]"/>
+            <xsl:apply-templates select="*[contains-token(@class, 'topic/title')]"/>
         </fo:wrapper>
     </xsl:template>
     
@@ -294,9 +294,9 @@ E-mail : info@antennahouse.com
                     <xsl:with-param name="prmAttrSetName" select="'atsFloatFigGroupBc'"/>
                 </xsl:call-template>
                 <fo:block>
-                    <xsl:apply-templates select="node() except *[ahf:seqContains(@class, (' topic/title ',' topic/desc '))]"/>
-                    <xsl:apply-templates select="*[contains(@class, ' topic/title ')]"/>
-                    <xsl:apply-templates select="*[contains(@class, ' topic/desc ')]"/>
+                    <xsl:apply-templates select="node() except *[ahf:seqContainsToken(@class, ('topic/title','topic/desc'))]"/>
+                    <xsl:apply-templates select="*[contains-token(@class, 'topic/title')]"/>
+                    <xsl:apply-templates select="*[contains-token(@class, 'topic/desc')]"/>
                 </fo:block>
             </fo:block-container>
         </fo:float>

@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!--
-**************************************************************
-DITA to XSL-FO Stylesheet
-Utility Templates
-**************************************************************
-File Name : dita2fo_util.xsl
-**************************************************************
-Copyright © 2009 2009 Antenna House, Inc. All rights reserved.
-Antenna House is a trademark of Antenna House, Inc.
-URL : http://www.antennahouse.com/
-**************************************************************
+    **************************************************************
+    DITA to XSL-FO Stylesheet
+    Utility Templates
+    **************************************************************
+    File Name : dita2fo_util.xsl
+    **************************************************************
+    Copyright © 2009 2009 Antenna House, Inc. All rights reserved.
+    Antenna House is a trademark of Antenna House, Inc.
+    URL : http://www.antennahouse.com/
+    **************************************************************
 -->
 
-<xsl:stylesheet version="2.0" 
+<xsl:stylesheet version="3.0" 
 	xmlns:fo="http://www.w3.org/1999/XSL/Format" 
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
 	xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -411,6 +411,30 @@ URL : http://www.antennahouse.com/
         </xsl:choose>
     </xsl:function>
 
+    <xsl:function name="ahf:seqContainsToken" as="xs:boolean">
+        <xsl:param name="prmStr" as="xs:string?"/>
+        <xsl:param name="prmDstStrSeq" as="xs:string*"/>
+        <xsl:choose>
+            <xsl:when test="empty($prmStr)">
+                <xsl:sequence select="false()"/>
+            </xsl:when>
+            <xsl:when test="count($prmDstStrSeq) ge 1">
+                <xsl:variable name="dstStr" as="xs:string" select="$prmDstStrSeq[1]"/>
+                <xsl:choose>
+                    <xsl:when test="contains-token($prmStr,$dstStr)">
+                        <xsl:sequence select="true()"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:sequence select="ahf:seqContainsToken($prmStr,$prmDstStrSeq[position() gt 1])"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:sequence select="false()"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:function>
+    
     <!-- 
         function:	Return true() if $prmStr starts with the given $prmDstStrSeq[N].
         param:	    prmStr, prmDstStrSeq

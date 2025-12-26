@@ -1,15 +1,15 @@
 <?xml version='1.0' encoding="UTF-8" ?>
 <!--
-****************************************************************
-DITA to XSL-FO Stylesheet
-Module: Generate title module.
-Copyright © 2009-2011 Antenna House, Inc. All rights reserved.
-Antenna House is a trademark of Antenna House, Inc.
-URL    : http://www.antennahouse.com/
-E-mail : info@antennahouse.com
-****************************************************************
+    ****************************************************************
+    DITA to XSL-FO Stylesheet
+    Module: Generate title module.
+    Copyright © 2009-2011 Antenna House, Inc. All rights reserved.
+    Antenna House is a trademark of Antenna House, Inc.
+    URL    : http://www.antennahouse.com/
+    E-mail : info@antennahouse.com
+    ****************************************************************
 -->
-<xsl:stylesheet version="2.0" 
+<xsl:stylesheet version="3.0" 
  xmlns:fo="http://www.w3.org/1999/XSL/Format" 
  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
  xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -29,14 +29,14 @@ E-mail : info@antennahouse.com
         
         <!--xsl:variable name="isNoToc" select="boolean($prmTopicRef/@toc='no')"/-->
         <xsl:variable name="isNoToc" select="ahf:isTocNo($prmTopicRef)"/>
-        <!--xsl:variable name="hasNoTocAncestor" select="boolean($prmTopicRef/ancestor::*[contains(@class,' map/topicref ')][@toc='no'])"/-->
-        <xsl:variable name="hasNoTocAncestor" select="boolean($prmTopicRef/ancestor::*[contains(@class,' map/topicref ')][ahf:isTocNo(.)])"/>
+        <!--xsl:variable name="hasNoTocAncestor" select="boolean($prmTopicRef/ancestor::*[contains-token(@class, 'map/topicref')][@toc='no'])"/-->
+        <xsl:variable name="hasNoTocAncestor" select="boolean($prmTopicRef/ancestor::*[contains-token(@class, 'map/topicref')][ahf:isTocNo(.)])"/>
         <xsl:variable name="isNestedTopic" as="xs:boolean">
             <xsl:choose>
                 <xsl:when test="empty($prmTopicContent)">
                     <xsl:sequence select="false()"/>
                 </xsl:when>
-                <xsl:when test="$prmTopicContent/ancestor::*[contains(@class, ' topic/topic ')]">
+                <xsl:when test="$prmTopicContent/ancestor::*[contains-token(@class, 'topic/topic')]">
                     <xsl:sequence select="true()"/>
                 </xsl:when>
                 <xsl:otherwise>
@@ -98,7 +98,7 @@ E-mail : info@antennahouse.com
         </xsl:variable>
         <xsl:choose>
             <xsl:when test="exists($prmTopicContent)">
-                <xsl:variable name="titleElement" select="$prmTopicContent/*[contains(@class, ' topic/title ')][1]"/>
+                <xsl:variable name="titleElement" select="$prmTopicContent/*[contains-token(@class, 'topic/title')][1]"/>
                 <fo:block>
                     <xsl:call-template name="getAttributeSetWithLang">
                         <xsl:with-param name="prmAttrSetName" select="$attrSetName"/>
@@ -130,8 +130,8 @@ E-mail : info@antennahouse.com
                         <xsl:with-param name="prmTopicContent"  select="$prmTopicContent"/>
                     </xsl:call-template>
                     <xsl:choose>
-                        <xsl:when test="$prmTopicRef/*[contains(@class,' map/topicmeta ')]/*[contains(@class,' topic/navtitle ')]">
-                            <xsl:apply-templates select="$prmTopicRef/*[contains(@class,' map/topicmeta ')]/*[contains(@class,' topic/navtitle ')]">
+                        <xsl:when test="$prmTopicRef/*[contains-token(@class, 'map/topicmeta')]/*[contains-token(@class, 'topic/navtitle')]">
+                            <xsl:apply-templates select="$prmTopicRef/*[contains-token(@class, 'map/topicmeta')]/*[contains-token(@class, 'topic/navtitle')]">
                                 <xsl:with-param name="prmTopicRef" tunnel="yes" select="$prmTopicRef"/>
                                 <xsl:with-param name="prmNavTitleStyle" tunnel="yes" select="$attrSetName"/>
                             </xsl:apply-templates>
@@ -177,7 +177,7 @@ E-mail : info@antennahouse.com
         <xsl:param name="prmTopicContent" required="yes" as="element()?"/>
         
         <!-- Nesting level in the bookmap -->
-        <xsl:variable name="level" select="count($prmTopicRef/ancestor-or-self::*[contains(@class, ' map/topicref ')])"/>
+        <xsl:variable name="level" select="count($prmTopicRef/ancestor-or-self::*[contains-token(@class, 'map/topicref')])"/>
         <!-- Title prefix -->
         <xsl:variable name="titlePrefix">
             <xsl:call-template name="genTitlePrefix">
@@ -199,7 +199,7 @@ E-mail : info@antennahouse.com
         </xsl:variable>
         <xsl:choose>
             <xsl:when test="exists($prmTopicContent)">
-                <xsl:variable name="titleElement" as="element()" select="$prmTopicContent/child::*[contains(@class, ' topic/title ')][1]"/>
+                <xsl:variable name="titleElement" as="element()" select="$prmTopicContent/child::*[contains-token(@class, 'topic/title')][1]"/>
                 <xsl:variable name="titleForMarker" as="node()*">
                     <xsl:apply-templates select="$titleElement" mode="GET_CONTENTS">
                         <xsl:with-param name="prmRequiredProperty" tunnel="yes" select="('font-family')"/>
@@ -252,8 +252,8 @@ E-mail : info@antennahouse.com
             <xsl:otherwise>
                 <xsl:variable name="titleForMarker" as="node()*">
                     <xsl:choose>
-                        <xsl:when test="$prmTopicRef/*[contains(@class,' map/topicmeta ')]/*[contains(@class,' topic/navtitle ')]">
-                            <xsl:apply-templates select="$prmTopicRef/*[contains(@class,' map/topicmeta ')]/*[contains(@class,' topic/navtitle ')]" mode="GET_CONTENTS">
+                        <xsl:when test="$prmTopicRef/*[contains-token(@class, 'map/topicmeta')]/*[contains-token(@class, 'topic/navtitle')]">
+                            <xsl:apply-templates select="$prmTopicRef/*[contains-token(@class, 'map/topicmeta')]/*[contains-token(@class, 'topic/navtitle')]" mode="GET_CONTENTS">
                                 <xsl:with-param name="prmRequiredProperty" tunnel="yes" select="('font-family')"/>
                             </xsl:apply-templates>
                         </xsl:when>
@@ -295,8 +295,8 @@ E-mail : info@antennahouse.com
                         <xsl:text> </xsl:text>
                     </xsl:if>
                     <xsl:choose>
-                        <xsl:when test="$prmTopicRef/*[contains(@class,' map/topicmeta ')]/*[contains(@class,' topic/navtitle ')]">
-                            <xsl:apply-templates select="$prmTopicRef/*[contains(@class,' map/topicmeta ')]/*[contains(@class,' topic/navtitle ')]">
+                        <xsl:when test="$prmTopicRef/*[contains-token(@class, 'map/topicmeta')]/*[contains-token(@class, 'topic/navtitle')]">
+                            <xsl:apply-templates select="$prmTopicRef/*[contains-token(@class, 'map/topicmeta')]/*[contains-token(@class, 'topic/navtitle')]">
                                 <xsl:with-param name="prmTopicRef" tunnel="yes" select="$prmTopicRef"/>
                                 <xsl:with-param name="prmNavTitleStyle" tunnel="yes" select="$attrSetName"/>
                             </xsl:apply-templates>
@@ -316,7 +316,7 @@ E-mail : info@antennahouse.com
      return:	title contents
      note:		
      -->
-    <xsl:template match="*[contains(@class, ' topic/title ')]">
+    <xsl:template match="*[contains-token(@class, 'topic/title')]">
         <xsl:apply-templates/>
     </xsl:template>
     
@@ -331,7 +331,7 @@ E-mail : info@antennahouse.com
         <xsl:param name="prmTopicContent" required="yes" as="element()?"/>
         
         <!-- Nesting level in the bookmap -->
-        <xsl:variable name="level" as="xs:integer" select="count($prmTopicRef/ancestor-or-self::*[contains(@class, ' map/topicref ')])"/>
+        <xsl:variable name="level" as="xs:integer" select="count($prmTopicRef/ancestor-or-self::*[contains-token(@class, 'map/topicref')])"/>
     
         <!-- Title prefix -->
         <xsl:variable name="titlePrefix">
@@ -356,7 +356,7 @@ E-mail : info@antennahouse.com
         <xsl:choose>
             <xsl:when test="exists($prmTopicContent)">
                 <!--title -->
-                <xsl:variable name="titleElement" as="element()" select="$prmTopicContent/child::*[contains(@class, ' topic/title ')][1]"/>
+                <xsl:variable name="titleElement" as="element()" select="$prmTopicContent/child::*[contains-token(@class, 'topic/title')][1]"/>
                 <xsl:variable name="titleForMarker" as="node()*">
                     <xsl:apply-templates select="$titleElement" mode="GET_CONTENTS">
                         <xsl:with-param name="prmRequiredProperty" tunnel="yes" select="('font-family')"/>
@@ -406,8 +406,8 @@ E-mail : info@antennahouse.com
             <xsl:otherwise>
                 <xsl:variable name="titleForMarker" as="node()*">
                     <xsl:choose>
-                        <xsl:when test="$prmTopicRef/*[contains(@class,' map/topicmeta ')]/*[contains(@class,' topic/navtitle ')]">
-                            <xsl:apply-templates select="$prmTopicRef/*[contains(@class,' map/topicmeta ')]/*[contains(@class,' topic/navtitle ')]" mode="GET_CONTENTS">
+                        <xsl:when test="$prmTopicRef/*[contains-token(@class, 'map/topicmeta')]/*[contains-token(@class, 'topic/navtitle')]">
+                            <xsl:apply-templates select="$prmTopicRef/*[contains-token(@class, 'map/topicmeta')]/*[contains-token(@class, 'topic/navtitle')]" mode="GET_CONTENTS">
                                 <xsl:with-param name="prmRequiredProperty" tunnel="yes" select="('font-family')"/>
                             </xsl:apply-templates>
                         </xsl:when>
@@ -449,8 +449,8 @@ E-mail : info@antennahouse.com
                         <xsl:text> </xsl:text>
                     </xsl:if>
                     <xsl:choose>
-                        <xsl:when test="$prmTopicRef/*[contains(@class,' map/topicmeta ')]/*[contains(@class,' topic/navtitle ')]">
-                            <xsl:apply-templates select="$prmTopicRef/*[contains(@class,' map/topicmeta ')]/*[contains(@class,' topic/navtitle ')]">
+                        <xsl:when test="$prmTopicRef/*[contains-token(@class, 'map/topicmeta')]/*[contains-token(@class, 'topic/navtitle')]">
+                            <xsl:apply-templates select="$prmTopicRef/*[contains-token(@class, 'map/topicmeta')]/*[contains-token(@class, 'topic/navtitle')]">
                                 <xsl:with-param name="prmTopicRef" tunnel="yes" select="$prmTopicRef"/>
                                 <xsl:with-param name="prmNavTitleStyle" tunnel="yes" select="$attrSetName"/>
                             </xsl:apply-templates>
@@ -481,8 +481,8 @@ E-mail : info@antennahouse.com
             <xsl:copy-of select="ahf:getLocalizationAtts($prmTopicRef)"/>
             <fo:marker marker-class-name="{$cTitleBody}">
                 <xsl:choose>
-                    <xsl:when test="$prmTopicRef/*[contains(@class,' map/topicmeta ')]/*[contains(@class,' topic/navtitle ')]">
-                        <xsl:apply-templates select="$prmTopicRef/*[contains(@class,' map/topicmeta ')]/*[contains(@class,' topic/navtitle ')]" mode="GET_CONTENTS">
+                    <xsl:when test="$prmTopicRef/*[contains-token(@class, 'map/topicmeta')]/*[contains-token(@class, 'topic/navtitle')]">
+                        <xsl:apply-templates select="$prmTopicRef/*[contains-token(@class, 'map/topicmeta')]/*[contains-token(@class, 'topic/navtitle')]" mode="GET_CONTENTS">
                             <xsl:with-param name="prmTopicRef" select="$prmTopicRef"/>
                             <xsl:with-param name="prmNeedId"   select="false()"/>
                         </xsl:apply-templates>
@@ -500,8 +500,8 @@ E-mail : info@antennahouse.com
                 <xsl:with-param name="prmTopicContent" select="$prmTopicContent"/>
             </xsl:call-template>
             <xsl:choose>
-                <xsl:when test="$prmTopicRef/*[contains(@class,' map/topicmeta ')]/*[contains(@class,' topic/navtitle ')]">
-                    <xsl:apply-templates select="$prmTopicRef/*[contains(@class,' map/topicmeta ')]/*[contains(@class,' topic/navtitle ')]">
+                <xsl:when test="$prmTopicRef/*[contains-token(@class, 'map/topicmeta')]/*[contains-token(@class, 'topic/navtitle')]">
+                    <xsl:apply-templates select="$prmTopicRef/*[contains-token(@class, 'map/topicmeta')]/*[contains-token(@class, 'topic/navtitle')]">
                         <xsl:with-param name="prmTopicRef" select="$prmTopicRef"/>
                         <xsl:with-param name="prmNeedId"   select="true()"/>
                     </xsl:apply-templates>
@@ -528,7 +528,7 @@ E-mail : info@antennahouse.com
     
         <xsl:choose>
             <xsl:when test="exists($prmTopicContent)">
-                <xsl:variable name="titleElement" select="$prmTopicContent/child::*[contains(@class, ' topic/title ')][1]"/>
+                <xsl:variable name="titleElement" select="$prmTopicContent/child::*[contains-token(@class, 'topic/title')][1]"/>
                 <fo:list-block>
                     <xsl:call-template name="getAttributeSetWithLang">
                         <xsl:with-param name="prmAttrSetName" select="'atsHeader4List'"/>
@@ -621,8 +621,8 @@ E-mail : info@antennahouse.com
                                     <xsl:with-param name="prmElem" select="$prmTopicRef"/>
                                 </xsl:call-template>
                                 <xsl:choose>
-                                    <xsl:when test="$prmTopicRef/*[contains(@class,' map/topicmeta ')]/*[contains(@class,' topic/navtitle ')]">
-                                        <xsl:apply-templates select="$prmTopicRef/*[contains(@class,' map/topicmeta ')]/*[contains(@class,' topic/navtitle ')]">
+                                    <xsl:when test="$prmTopicRef/*[contains-token(@class, 'map/topicmeta')]/*[contains-token(@class, 'topic/navtitle')]">
+                                        <xsl:apply-templates select="$prmTopicRef/*[contains-token(@class, 'map/topicmeta')]/*[contains-token(@class, 'topic/navtitle')]">
                                             <xsl:with-param name="prmTopicRef" tunnel="yes" select="$prmTopicRef"/>
                                             <xsl:with-param name="prmNavTitleStyle" tunnel="yes" select="'atsHeader4Body'"/>
                                         </xsl:apply-templates>
@@ -651,7 +651,7 @@ E-mail : info@antennahouse.com
         
         <xsl:choose>
             <xsl:when test="exists($prmTopicContent)">
-                <xsl:variable name="titleElement" select="$prmTopicContent/child::*[contains(@class, ' topic/title ')][1]"/>
+                <xsl:variable name="titleElement" select="$prmTopicContent/child::*[contains-token(@class, 'topic/title')][1]"/>
                 <fo:list-block>
                     <xsl:call-template name="getAttributeSetWithLang">
                         <xsl:with-param name="prmAttrSetName" select="'atsHeader5List'"/>
@@ -744,8 +744,8 @@ E-mail : info@antennahouse.com
                                     <xsl:with-param name="prmElem" select="$prmTopicRef"/>
                                 </xsl:call-template>
                                 <xsl:choose>
-                                    <xsl:when test="$prmTopicRef/*[contains(@class,' map/topicmeta ')]/*[contains(@class,' topic/navtitle ')]">
-                                        <xsl:apply-templates select="$prmTopicRef/*[contains(@class,' map/topicmeta ')]/*[contains(@class,' topic/navtitle ')]">
+                                    <xsl:when test="$prmTopicRef/*[contains-token(@class, 'map/topicmeta')]/*[contains-token(@class, 'topic/navtitle')]">
+                                        <xsl:apply-templates select="$prmTopicRef/*[contains-token(@class, 'map/topicmeta')]/*[contains-token(@class, 'topic/navtitle')]">
                                             <xsl:with-param name="prmTopicRef" tunnel="yes" select="$prmTopicRef"/>
                                             <xsl:with-param name="prmNavTitleStyle" tunnel="yes" select="'atsHeader5Body'"/>
                                         </xsl:apply-templates>
@@ -787,7 +787,7 @@ E-mail : info@antennahouse.com
                 <xsl:otherwise>
                     <xsl:variable name="id" select="substring-after($prmTopicRef/@href, '#')"/>
                     <xsl:variable name="topicContent" select="key('topicById', $id)[1]"/>
-                    <xsl:apply-templates select="$topicContent/*[contains(@class, ' topic/title ')]" mode="GET_CONTENTS"/>
+                    <xsl:apply-templates select="$topicContent/*[contains-token(@class, 'topic/title')]" mode="GET_CONTENTS"/>
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:variable>
@@ -816,19 +816,19 @@ E-mail : info@antennahouse.com
             <xsl:choose>
                 <xsl:when test="$isBookMap">
                     <xsl:choose>
-                        <xsl:when test="$prmTopicRef/ancestor::*[contains(@class, ' bookmap/frontmatter ')]">
+                        <xsl:when test="$prmTopicRef/ancestor::*[contains-token(@class, 'bookmap/frontmatter')]">
                             <xsl:sequence select="''"/>
                         </xsl:when>
-                        <xsl:when test="$prmTopicRef/self::*[contains(@class, ' bookmap/part ')]">
+                        <xsl:when test="$prmTopicRef/self::*[contains-token(@class, 'bookmap/part')]">
                             <xsl:sequence select="$cPartTitlePrefix"/>
                         </xsl:when>
-                        <xsl:when test="$prmTopicRef/self::*[contains(@class, ' bookmap/chapter ')]">
+                        <xsl:when test="$prmTopicRef/self::*[contains-token(@class, 'bookmap/chapter')]">
                             <xsl:sequence select="$cChapterTitlePrefix"/>
                         </xsl:when>
-                        <xsl:when test="$prmTopicRef/self::*[contains(@class, ' bookmap/appendix ')]">
+                        <xsl:when test="$prmTopicRef/self::*[contains-token(@class, 'bookmap/appendix')]">
                             <xsl:sequence select="$cAppendixTitle"/>
                         </xsl:when>
-                        <xsl:when test="$prmTopicRef/ancestor::*[contains(@class, ' bookmap/backmatter ')]">
+                        <xsl:when test="$prmTopicRef/ancestor::*[contains-token(@class, 'bookmap/backmatter')]">
                             <xsl:sequence select="''"/>
                         </xsl:when>
                         <xsl:otherwise>
@@ -848,19 +848,19 @@ E-mail : info@antennahouse.com
             <xsl:choose>
                 <xsl:when test="$isBookMap">
                     <xsl:choose>
-                        <xsl:when test="$prmTopicRef/ancestor::*[contains(@class, ' bookmap/frontmatter ')]">
+                        <xsl:when test="$prmTopicRef/ancestor::*[contains-token(@class, 'bookmap/frontmatter')]">
                             <xsl:sequence select="''"/>
                         </xsl:when>
-                        <xsl:when test="$prmTopicRef/self::*[contains(@class, ' bookmap/part ')]">
+                        <xsl:when test="$prmTopicRef/self::*[contains-token(@class, 'bookmap/part')]">
                             <xsl:sequence select="$cPartTitleSuffix"/>
                         </xsl:when>
-                        <xsl:when test="$prmTopicRef/self::*[contains(@class, ' bookmap/chapter ')]">
+                        <xsl:when test="$prmTopicRef/self::*[contains-token(@class, 'bookmap/chapter')]">
                             <xsl:sequence select="$cChapterTitleSuffix"/>
                         </xsl:when>
-                        <xsl:when test="$prmTopicRef/self::*[contains(@class, ' bookmap/appendix ')]">
+                        <xsl:when test="$prmTopicRef/self::*[contains-token(@class, 'bookmap/appendix')]">
                             <xsl:sequence select="''"/>
                         </xsl:when>
-                        <xsl:when test="$prmTopicRef/ancestor::*[contains(@class, ' bookmap/backmatter ')]">
+                        <xsl:when test="$prmTopicRef/ancestor::*[contains-token(@class, 'bookmap/backmatter')]">
                             <xsl:sequence select="''"/>
                         </xsl:when>
                         <xsl:otherwise>
@@ -880,19 +880,19 @@ E-mail : info@antennahouse.com
             <xsl:choose>
                 <xsl:when test="$isBookMap">
                     <xsl:choose>
-                        <xsl:when test="$prmTopicRef/ancestor::*[contains(@class, ' bookmap/frontmatter ')]">
+                        <xsl:when test="$prmTopicRef/ancestor::*[contains-token(@class, 'bookmap/frontmatter')]">
                             <xsl:sequence select="''"/>
                         </xsl:when>
-                        <xsl:when test="$prmTopicRef/ancestor-or-self::*[contains(@class, ' bookmap/part ')]">
+                        <xsl:when test="$prmTopicRef/ancestor-or-self::*[contains-token(@class, 'bookmap/part')]">
                             <xsl:sequence select="ahf:genLevelTitlePrefix($prmTopicRef)"/>
                         </xsl:when>
-                        <xsl:when test="$prmTopicRef/ancestor-or-self::*[contains(@class, ' bookmap/chapter ')]">
+                        <xsl:when test="$prmTopicRef/ancestor-or-self::*[contains-token(@class, 'bookmap/chapter')]">
                             <xsl:sequence select="ahf:genLevelTitlePrefix($prmTopicRef)"/>
                         </xsl:when>
-                        <xsl:when test="$prmTopicRef/ancestor-or-self::*[contains(@class, ' bookmap/appendix ')]">
+                        <xsl:when test="$prmTopicRef/ancestor-or-self::*[contains-token(@class, 'bookmap/appendix')]">
                             <xsl:sequence select="ahf:genLevelTitlePrefix($prmTopicRef)"/>
                         </xsl:when>
-                        <xsl:when test="$prmTopicRef/ancestor::*[contains(@class, ' bookmap/backmatter ')]">
+                        <xsl:when test="$prmTopicRef/ancestor::*[contains-token(@class, 'bookmap/backmatter')]">
                             <xsl:value-of select="''"/>
                         </xsl:when>
                         <xsl:otherwise>
@@ -933,7 +933,7 @@ E-mail : info@antennahouse.com
      -->
     <xsl:function name="ahf:genLevelTitlePrefix" as="xs:string">
         <xsl:param name="prmTopicRef" as="element()"/>
-        <xsl:variable name="ancestorOrSelfTopicRef" as="element()*" select="$prmTopicRef/ancestor-or-self::*[contains(@class,' map/topicref ')][not(contains(@class,' bookmap/appendices '))]"/>
+        <xsl:variable name="ancestorOrSelfTopicRef" as="element()*" select="$prmTopicRef/ancestor-or-self::*[contains-token(@class, 'map/topicref')][not(contains-token(@class, 'bookmap/appendices'))]"/>
         <xsl:variable name="levelString" as="xs:string*" select="ahf:getSibilingTopicrefCount($ancestorOrSelfTopicRef)"/>
         <xsl:sequence select="string-join($levelString,'')"/>
     </xsl:function>
@@ -949,8 +949,8 @@ E-mail : info@antennahouse.com
     <xsl:function name="ahf:genLevelTitlePrefixByCount" as="xs:string">
         <xsl:param name="prmTopicRef" as="element()"/>
         <xsl:param name="prmCutLimit" as="xs:integer"/>
-        <xsl:variable name="ancestorOrSelfTopicRef" as="element()*" select="($prmTopicRef/ancestor-or-self::*[contains(@class,' map/topicref ')])[position() le $prmCutLimit]"/>
-        <xsl:variable name="levelString" as="xs:string*" select="ahf:getSibilingTopicrefCount($ancestorOrSelfTopicRef[not(ahf:seqContains(@class,(' bookmap/appendices ',' bookmap/frontmatter ',' bookmap/backmatter ')))])"/>
+        <xsl:variable name="ancestorOrSelfTopicRef" as="element()*" select="($prmTopicRef/ancestor-or-self::*[contains-token(@class, 'map/topicref')])[position() le $prmCutLimit]"/>
+        <xsl:variable name="levelString" as="xs:string*" select="ahf:getSibilingTopicrefCount($ancestorOrSelfTopicRef[not(ahf:seqContainsToken(@class,('bookmap/appendices','bookmap/frontmatter','bookmap/backmatter')))])"/>
         <xsl:sequence select="string-join($levelString,'')"/>
     </xsl:function>
 
@@ -969,23 +969,23 @@ E-mail : info@antennahouse.com
                 <xsl:variable name="topicRef" as="element()" select="$prmTopicRefs[1]"/>
                 <xsl:variable name="precedingCountStr" as="xs:string">
                     <xsl:choose>
-                        <xsl:when test="$topicRef[contains(@class, ' bookmap/part ')]">
-                            <xsl:variable name="partCount" as="xs:integer" select="count($topicRef/preceding-sibling::*[contains(@class, ' map/topicref ')][contains(@class, ' bookmap/part ')][ahf:isToc(.)]|$topicRef)"/>
+                        <xsl:when test="$topicRef[contains-token(@class, 'bookmap/part')]">
+                            <xsl:variable name="partCount" as="xs:integer" select="count($topicRef/preceding-sibling::*[contains-token(@class, 'map/topicref')][contains-token(@class, 'bookmap/part')][ahf:isToc(.)]|$topicRef)"/>
                             <xsl:variable name="partCountFormat" as="xs:string" select="ahf:getVarValue('Part_Count_Format')"/>
                             <xsl:number format="{$partCountFormat}" value="$partCount"/>
                         </xsl:when>
-                        <xsl:when test="$topicRef[contains(@class, ' bookmap/chapter ')]">
-                            <xsl:variable name="chapterCount" as="xs:integer" select="count($topicRef/preceding-sibling::*[contains(@class, ' map/topicref ')][contains(@class, ' bookmap/chapter ')][ahf:isToc(.)]|$topicRef)"/>
+                        <xsl:when test="$topicRef[contains-token(@class, 'bookmap/chapter')]">
+                            <xsl:variable name="chapterCount" as="xs:integer" select="count($topicRef/preceding-sibling::*[contains-token(@class, 'map/topicref')][contains-token(@class, 'bookmap/chapter')][ahf:isToc(.)]|$topicRef)"/>
                             <xsl:variable name="chapterCountFormat" as="xs:string" select="ahf:getVarValue('Chapter_Count_Format')"/>
                             <xsl:number format="{$chapterCountFormat}" value="$chapterCount"/>
                         </xsl:when>
-                        <xsl:when test="$topicRef[contains(@class, ' bookmap/appendix ')]">
-                            <xsl:variable name="appendixCount" select="count($topicRef/preceding-sibling::*[contains(@class, ' map/topicref ')][contains(@class, ' bookmap/appendix ')][ahf:isToc(.)]|$topicRef)"/>
+                        <xsl:when test="$topicRef[contains-token(@class, 'bookmap/appendix')]">
+                            <xsl:variable name="appendixCount" select="count($topicRef/preceding-sibling::*[contains-token(@class, 'map/topicref')][contains-token(@class, 'bookmap/appendix')][ahf:isToc(.)]|$topicRef)"/>
                             <xsl:variable name="appendixCountFormat" as="xs:string" select="ahf:getVarValue('Appendix_Count_Format')"/>
                             <xsl:number format="{$appendixCountFormat}" value="$appendixCount"/>
                         </xsl:when>
                         <xsl:otherwise>
-                            <xsl:sequence select="string(count($topicRef/preceding-sibling::*[contains(@class, ' map/topicref ')][ahf:isToc(.)]|$topicRef))"/>
+                            <xsl:sequence select="string(count($topicRef/preceding-sibling::*[contains-token(@class, 'map/topicref')][ahf:isToc(.)]|$topicRef))"/>
                         </xsl:otherwise>
                     </xsl:choose>
                 </xsl:variable>

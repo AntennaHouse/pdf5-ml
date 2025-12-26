@@ -9,7 +9,7 @@
     E-mail : info@antennahouse.com
     ****************************************************************
 -->
-<xsl:stylesheet version="2.0" 
+<xsl:stylesheet version="3.0" 
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
     xmlns:ahf="http://www.antennahouse.com/names/XSLT/Functions/Document"
@@ -35,7 +35,7 @@
         <xsl:variable name="xmlLang" as="xs:string" select="@xml:lang => string()"/>
         <xsl:element name="map">
             <!-- Link resource targets -->
-            <xsl:variable name="resourecTopicRef" as="element()*" select="descendant::*[contains(@class,' map/topicref ')][string(@processing-role) eq 'resource-only'][ahf:seqContains(@outputclass,$gLinkTargetOutputClass)]"/>
+            <xsl:variable name="resourecTopicRef" as="element()*" select="descendant::*[contains-token(@class, 'map/topicref')][string(@processing-role) eq 'resource-only'][ahf:seqContains(@outputclass,$gLinkTargetOutputClass)]"/>
             <xsl:variable name="targetHrefs" as="xs:string*">
                 <xsl:for-each select="$resourecTopicRef">
                     <xsl:sequence select="ahf:bsToSlash(string(@href))"/>

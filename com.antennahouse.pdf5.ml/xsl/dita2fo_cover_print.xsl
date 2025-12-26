@@ -9,7 +9,7 @@
     E-mail : info@antennahouse.com
     ****************************************************************
 -->
-<xsl:stylesheet version="2.0"
+<xsl:stylesheet version="3.0"
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:fo="http://www.w3.org/1999/XSL/Format" 
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -70,7 +70,7 @@
                         <xsl:with-param name="prmElement" select="$prmTopicContent"/>
                     </xsl:call-template>
                     <xsl:copy-of select="ahf:getAttributeSetWithPageVariables('atsCoverBlockContainer')"/>
-                    <xsl:apply-templates select="$prmTopicContent/*[contains(@class,'topic/body ')]"/>
+                    <xsl:apply-templates select="$prmTopicContent/*[contains-token(@class, 'topic/body')]"/>
                 </fo:block-container>
             </fo:flow>
         </psmi:page-sequence>
@@ -82,7 +82,7 @@
      return:    fo:wrapper
      note:		
      -->
-    <xsl:template match="*[contains(@class, ' topic/body ')]" priority="20">
+    <xsl:template match="*[contains-token(@class, 'topic/body')]" priority="20">
         <xsl:param name="prmTopicRef" tunnel="yes" required="yes" as="element()?"/>
         <xsl:choose>
             <xsl:when test="ahf:isCoverTopicRef($prmTopicRef)">
@@ -103,7 +103,7 @@
      return:    fo:block-container
      note:		
      -->
-    <xsl:template match="*[contains(@class, ' topic/bodydiv ')]" priority="20">
+    <xsl:template match="*[contains-token(@class, 'topic/bodydiv')]" priority="20">
         <xsl:param name="prmTopicRef" tunnel="yes" required="yes" as="element()?"/>
         <xsl:choose>
             <xsl:when test="ahf:isCoverTopicRef($prmTopicRef)">
@@ -124,11 +124,11 @@
      return:    fo:block-container
      note:		
      -->
-    <xsl:template match="*[contains(@class, ' topic/bodydiv ')][descendant::*[contains(@class,' topic/image ')][@outputclass eq 'background']]" priority="22">
+    <xsl:template match="*[contains-token(@class, 'topic/bodydiv')][descendant::*[contains-token(@class, 'topic/image')][@outputclass eq 'background']]" priority="22">
         <xsl:param name="prmTopicRef" tunnel="yes" required="yes" as="element()?"/>
         <xsl:choose>
             <xsl:when test="ahf:isCoverTopicRef($prmTopicRef)">
-                <xsl:variable name="bgImageElem" as="element()*" select="descendant::*[contains(@class,' topic/image ')][@outputclass eq 'background'][1]"/>
+                <xsl:variable name="bgImageElem" as="element()*" select="descendant::*[contains-token(@class, 'topic/image')][@outputclass eq 'background'][1]"/>
                 <xsl:variable name="bgImageHref" as="xs:string" select="concat('url(',$pMapDirUrl,string($bgImageElem/@href),')')"/>
                 <fo:block-container>
                     <xsl:variable name="foProperty" as="attribute()*" select="ahf:getFoPropertyWithPageVariables(.)"/>
@@ -149,7 +149,7 @@
      return:    fo:block
      note:		
      -->
-    <xsl:template match="*[contains(@class, ' topic/section ')]" priority="20">
+    <xsl:template match="*[contains-token(@class, 'topic/section')]" priority="20">
         <xsl:param name="prmTopicRef" tunnel="yes" required="yes" as="element()?"/>
         <xsl:choose>
             <xsl:when test="ahf:isCoverTopicRef($prmTopicRef)">
@@ -170,11 +170,11 @@
      return:    ignore
      note:		
      -->
-    <xsl:template match="*[contains(@class, ' topic/draft-comment ')]" priority="20" mode="TEXT_ONLY">
+    <xsl:template match="*[contains-token(@class, 'topic/draft-comment')]" priority="20" mode="TEXT_ONLY">
         <xsl:next-match/>
     </xsl:template>
     
-    <xsl:template match="*[contains(@class, ' topic/draft-comment ')]" priority="20">
+    <xsl:template match="*[contains-token(@class, 'topic/draft-comment')]" priority="20">
         <xsl:param name="prmTopicRef" tunnel="yes" required="yes" as="element()?"/>
         <xsl:choose>
             <xsl:when test="ahf:isCoverTopicRef($prmTopicRef)"/>
@@ -190,7 +190,7 @@
      return:    see probe
      note:		
      -->
-    <xsl:template match="*[contains(@class, ' topic/image ')]" priority="20">
+    <xsl:template match="*[contains-token(@class, 'topic/image')]" priority="20">
         <xsl:param name="prmTopicRef" tunnel="yes" required="yes" as="element()?"/>
         <xsl:choose>
             <xsl:when test="not(ahf:isCoverTopicRef($prmTopicRef))">
@@ -236,7 +236,7 @@
      return:    fo:external-graphic
      note:      assume data/@name="barcode" express barcode
      -->
-    <xsl:template match="*[contains(@class, ' topic/data ')][string(@name) eq 'barcode']" priority="20">
+    <xsl:template match="*[contains-token(@class, 'topic/data')][string(@name) eq 'barcode']" priority="20">
         <xsl:param name="prmTopicRef" tunnel="yes" required="yes" as="element()?"/>
         <xsl:choose>
             <xsl:when test="ahf:isCoverTopicRef($prmTopicRef)">
@@ -265,7 +265,7 @@
      note:      data/@name="qrcode" expresses QR code
                 data/@href is the target URL
      -->
-    <xsl:template match="*[contains(@class, ' topic/data ')][string(@name) eq 'qrcode']" priority="20">
+    <xsl:template match="*[contains-token(@class, 'topic/data')][string(@name) eq 'qrcode']" priority="20">
         <xsl:param name="prmTopicRef" tunnel="yes" required="yes" as="element()?"/>
         <xsl:choose>
             <xsl:when test="ahf:isCoverTopicRef($prmTopicRef)">
@@ -288,7 +288,7 @@
      return:    fo:block
      note:      		
      -->
-    <xsl:template match="*[contains(@class, ' topic/p ')]" priority="20">
+    <xsl:template match="*[contains-token(@class, 'topic/p')]" priority="20">
         <xsl:param name="prmTopicRef" tunnel="yes" required="yes" as="element()?"/>
         <xsl:choose>
             <xsl:when test="ahf:isCoverTopicRef($prmTopicRef)">
@@ -309,7 +309,7 @@
      return:     fo:inline-container, fo:block
      note:		
     -->
-    <xsl:template match="*[contains(@class,' topic/ph ')][string(@outputclass) eq 'inline-container']" priority="20">
+    <xsl:template match="*[contains-token(@class, 'topic/ph')][string(@outputclass) eq 'inline-container']" priority="20">
         <xsl:param name="prmTopicRef" tunnel="yes" required="yes" as="element()?"/>
         
         <xsl:choose>
@@ -325,7 +325,7 @@
         </xsl:choose>
     </xsl:template>
     
-    <xsl:template match="*[contains(@class,' topic/ph ')][string(@outputclass) eq 'block']" priority="20">
+    <xsl:template match="*[contains-token(@class, 'topic/ph')][string(@outputclass) eq 'block']" priority="20">
         <xsl:param name="prmTopicRef" tunnel="yes" required="yes" as="element()?"/>
         
         <xsl:choose>

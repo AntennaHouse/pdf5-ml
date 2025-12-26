@@ -1,15 +1,15 @@
 <?xml version='1.0' encoding="UTF-8" ?>
 <!--
-****************************************************************
-DITA to XSL-FO Stylesheet
-Module: Change-bar generation templates
-Copyright © 2009-2018 Antenna House, Inc. All rights reserved.
-Antenna House is a trademark of Antenna House, Inc.
-URL    : http://www.antennahouse.com/
-E-mail : info@antennahouse.com
-****************************************************************
+    ****************************************************************
+    DITA to XSL-FO Stylesheet
+    Module: Change-bar generation templates
+    Copyright © 2009-2018 Antenna House, Inc. All rights reserved.
+    Antenna House is a trademark of Antenna House, Inc.
+    URL    : http://www.antennahouse.com/
+    E-mail : info@antennahouse.com
+    ****************************************************************
 -->
-<xsl:stylesheet version="2.0" 
+<xsl:stylesheet version="3.0" 
  xmlns:fo="http://www.w3.org/1999/XSL/Format" 
  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
  xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -25,13 +25,13 @@ E-mail : info@antennahouse.com
                 If this template is overrided by other plug-in it should set $prmChnageBarAlreadyProcessed value to true()
                 to avoid multiple fo:chage-bar-begin/end generation.
      -->
-    <xsl:template match="*[exists(ancestor::*[contains(@class,' topic/topic ')])]
-                          [empty(ancestor::*[contains(@class,' topic/prolog ')])]
-                          [empty(ancestor::*[contains(@class,' topic/related-links ')])]
-                          [empty(self::*[contains(@class,' topic/indexterm ')])]
-                          [empty(self::*[contains(@class,' topic/index-base ')])]
-                          [empty(self::*[contains(@class,' topic/fn ')])]
-                          [empty(self::*[contains(@class, ' topic/colspec ')])]
+    <xsl:template match="*[exists(ancestor::*[contains-token(@class, 'topic/topic')])]
+                          [empty(ancestor::*[contains-token(@class, 'topic/prolog')])]
+                          [empty(ancestor::*[contains-token(@class, 'topic/related-links')])]
+                          [empty(self::*[contains-token(@class, 'topic/indexterm')])]
+                          [empty(self::*[contains-token(@class, 'topic/index-base')])]
+                          [empty(self::*[contains-token(@class, 'topic/fn')])]
+                          [empty(self::*[contains-token(@class, 'topic/colspec')])]
                           " priority="50">
         <xsl:param name="prmChnageBarAlreadyProcessed" tunnel="yes" required="no" as="xs:boolean" select="false()"/>
         <xsl:choose>

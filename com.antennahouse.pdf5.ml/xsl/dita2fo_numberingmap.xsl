@@ -1,15 +1,15 @@
 <?xml version='1.0' encoding="UTF-8" ?>
 <!--
-****************************************************************
-DITA to XSL-FO Stylesheet
-Module: Make a numbering map for figure, table and footnote
-Copyright © 2009-2009 Antenna House, Inc. All rights reserved.
-Antenna House is a trademark of Antenna House, Inc.
-URL    : http://www.antennahouse.com/
-E-mail : info@antennahouse.com
-****************************************************************
+    ****************************************************************
+    DITA to XSL-FO Stylesheet
+    Module: Make a numbering map for figure, table and footnote
+    Copyright © 2009-2009 Antenna House, Inc. All rights reserved.
+    Antenna House is a trademark of Antenna House, Inc.
+    URL    : http://www.antennahouse.com/
+    E-mail : info@antennahouse.com
+    ****************************************************************
 -->
-<xsl:stylesheet version="2.0" 
+<xsl:stylesheet version="3.0" 
  xmlns:fo="http://www.w3.org/1999/XSL/Format" 
  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
  xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -99,22 +99,22 @@ E-mail : info@antennahouse.com
             <xsl:when test="$isMap">
                 <xsl:sequence select="1"/>
             </xsl:when>
-            <xsl:when test="$topElem[contains(@class,' bookmap/part ')]">
+            <xsl:when test="$topElem[contains-token(@class, 'bookmap/part')]">
                 <xsl:sequence select="2"/>
             </xsl:when>
-            <xsl:when test="$topElem[contains(@class,' bookmap/chapter ')]">
+            <xsl:when test="$topElem[contains-token(@class, 'bookmap/chapter')]">
                 <xsl:sequence select="1"/>
             </xsl:when>
-            <xsl:when test="$topElem[contains(@class,' bookmap/appendix ')]">
+            <xsl:when test="$topElem[contains-token(@class, 'bookmap/appendix')]">
                 <xsl:sequence select="1"/>
             </xsl:when>
-            <xsl:when test="$topElem[contains(@class,' bookmap/appendices ')]">
+            <xsl:when test="$topElem[contains-token(@class, 'bookmap/appendices')]">
                 <xsl:sequence select="2"/>
             </xsl:when>
-            <xsl:when test="$topElem[contains(@class,' bookmap/frontmatter ')]">
+            <xsl:when test="$topElem[contains-token(@class, 'bookmap/frontmatter')]">
                 <xsl:sequence select="1"/>
             </xsl:when>
-            <xsl:when test="$topElem[contains(@class,' bookmap/backmatter ')]">
+            <xsl:when test="$topElem[contains-token(@class, 'bookmap/backmatter')]">
                 <xsl:sequence select="1"/>
             </xsl:when>
             <xsl:otherwise>
@@ -130,16 +130,16 @@ E-mail : info@antennahouse.com
      note:        count only titled table
      -->
     <xsl:template name="makeTableCount" as="element()*">
-        <xsl:apply-templates select="$map/*[contains(@class, ' map/topicref ')]" mode="MODE_TABLE_COUNT"/>
+        <xsl:apply-templates select="$map/*[contains-token(@class, 'map/topicref')]" mode="MODE_TABLE_COUNT"/>
     </xsl:template>
     
-    <xsl:template match="*[contains(@class, ' map/topicref ')]" mode="MODE_TABLE_COUNT" as="element()">
+    <xsl:template match="*[contains-token(@class, 'map/topicref')]" mode="MODE_TABLE_COUNT" as="element()">
         <xsl:variable name="topicRef" as="element()" select="."/>
         <xsl:variable name="targetTopic" as="element()?" select="ahf:getTopicFromTopicRef($topicRef)"/>
         <xsl:variable name="tableCount" as="xs:integer">
             <xsl:choose>
                 <xsl:when test="exists($targetTopic)">
-                    <xsl:variable name="tables" as="element()*" select="$targetTopic/descendant::*[contains(@class,' topic/table ')][exists(*[contains(@class,' topic/title ')])]"/>
+                    <xsl:variable name="tables" as="element()*" select="$targetTopic/descendant::*[contains-token(@class, 'topic/table')][exists(*[contains-token(@class, 'topic/title')])]"/>
                     <xsl:sequence select="count($tables)"/>
                 </xsl:when>
                 <xsl:otherwise>
@@ -167,7 +167,7 @@ E-mail : info@antennahouse.com
             <xsl:attribute name="id" select="$topicId"/>
             <xsl:attribute name="count" select="$tableCount"/>
             <xsl:copy-of select="@class"/>
-            <xsl:apply-templates select="*[contains(@class, ' map/topicref ')]" mode="#current"/>
+            <xsl:apply-templates select="*[contains-token(@class, 'map/topicref')]" mode="#current"/>
         </xsl:element>
     </xsl:template>
     
@@ -217,16 +217,16 @@ E-mail : info@antennahouse.com
                   2020-03-22 t.makita
      -->
     <xsl:template name="makeFigureCount" as="element()*">
-        <xsl:apply-templates select="$map/*[contains(@class, ' map/topicref ')]" mode="MODE_FIGURE_COUNT"/>
+        <xsl:apply-templates select="$map/*[contains-token(@class, 'map/topicref')]" mode="MODE_FIGURE_COUNT"/>
     </xsl:template>
     
-    <xsl:template match="*[contains(@class, ' map/topicref ')]" mode="MODE_FIGURE_COUNT" as="element()">
+    <xsl:template match="*[contains-token(@class, 'map/topicref')]" mode="MODE_FIGURE_COUNT" as="element()">
         <xsl:variable name="topicRef" as="element()" select="."/>
         <xsl:variable name="targetTopic" as="element()?" select="ahf:getTopicFromTopicRef($topicRef)"/>
         <xsl:variable name="figureCount" as="xs:integer">
             <xsl:choose>
                 <xsl:when test="exists($targetTopic)">
-                    <xsl:variable name="figures" as="element()*" select="$targetTopic/descendant::*[contains(@class,' topic/fig ')][exists(*[contains(@class,' topic/title ')])][empty(ancestor::*[contains(@class,' topic/fig ')])][not(ahf:isFloatFigure(.))]"/>
+                    <xsl:variable name="figures" as="element()*" select="$targetTopic/descendant::*[contains-token(@class, 'topic/fig')][exists(*[contains-token(@class, 'topic/title')])][empty(ancestor::*[contains-token(@class, 'topic/fig')])][not(ahf:isFloatFigure(.))]"/>
                     <xsl:sequence select="count($figures)"/>
                 </xsl:when>
                 <xsl:otherwise>
@@ -254,7 +254,7 @@ E-mail : info@antennahouse.com
             <xsl:attribute name="id" select="$topicId"/>
             <xsl:attribute name="count" select="$figureCount"/>
             <xsl:copy-of select="@class"/>
-            <xsl:apply-templates select="*[contains(@class, ' map/topicref ')]" mode="#current"/>
+            <xsl:apply-templates select="*[contains-token(@class, 'map/topicref')]" mode="#current"/>
         </xsl:element>
     </xsl:template>
     
@@ -307,16 +307,16 @@ E-mail : info@antennahouse.com
      note:		
      -->
     <xsl:template name="makeFootnoteCount" as="element()*">
-        <xsl:apply-templates select="$map/*[contains(@class, ' map/topicref ')]" mode="MODE_FOOTNOTE_COUNT"/>
+        <xsl:apply-templates select="$map/*[contains-token(@class, 'map/topicref')]" mode="MODE_FOOTNOTE_COUNT"/>
     </xsl:template>
     
-    <xsl:template match="*[contains(@class, ' map/topicref ')]" mode="MODE_FOOTNOTE_COUNT" as="element()*">
+    <xsl:template match="*[contains-token(@class, 'map/topicref')]" mode="MODE_FOOTNOTE_COUNT" as="element()*">
         <xsl:variable name="topicRef" as="element()" select="."/>
         <xsl:variable name="targetTopic" as="element()?" select="ahf:getTopicFromTopicRef($topicRef)"/>
         <xsl:variable name="figureCount" as="xs:integer">
             <xsl:choose>
                 <xsl:when test="exists($targetTopic)">
-                    <xsl:variable name="footnotes" as="element()*" select="$targetTopic//*[contains(@class,' topic/fn ')][not(contains(@class,' pr-d/synnote '))][not(@callout)]"/>
+                    <xsl:variable name="footnotes" as="element()*" select="$targetTopic//*[contains-token(@class, 'topic/fn')][not(contains-token(@class, 'pr-d/synnote'))][not(@callout)]"/>
                     <xsl:sequence select="count($footnotes)"/>
                 </xsl:when>
                 <xsl:otherwise>
@@ -344,7 +344,7 @@ E-mail : info@antennahouse.com
             <xsl:attribute name="id" select="$topicId"/>
             <xsl:attribute name="count" select="$figureCount"/>
             <xsl:copy-of select="@class"/>
-            <xsl:apply-templates select="*[contains(@class, ' map/topicref ')]" mode="#current"/>
+            <xsl:apply-templates select="*[contains-token(@class, 'map/topicref')]" mode="#current"/>
         </xsl:element>
     </xsl:template>
     
@@ -451,8 +451,9 @@ E-mail : info@antennahouse.com
                 <xsl:sequence select="xs:integer($prevAmount)"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:call-template name="warningContinue">
+                <xsl:call-template name="warningContinueWithFileInfo">
                     <xsl:with-param name="prmMes" select="ahf:replace($stMes1604,('%id'),($topicId))"/>
+                    <xsl:with-param name="prmElem" select="$prmTopic"/>
                 </xsl:call-template>
                 <xsl:sequence select="0"/>
             </xsl:otherwise>
@@ -475,8 +476,9 @@ E-mail : info@antennahouse.com
                 <xsl:sequence select="xs:integer($prevAmount)"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:call-template name="warningContinue">
+                <xsl:call-template name="warningContinueWithFileInfo">
                     <xsl:with-param name="prmMes" select="ahf:replace($stMes1606,('%id'),($topicId))"/>
+                    <xsl:with-param name="prmElem" select="$prmTopic"/>
                 </xsl:call-template>
                 <xsl:sequence select="0"/>
             </xsl:otherwise>

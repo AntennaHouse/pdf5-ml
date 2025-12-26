@@ -1,15 +1,15 @@
 <?xml version='1.0' encoding="UTF-8" ?>
 <!--
-****************************************************************
-DITA to XSL-FO Stylesheet
-Module: Dir attribute template
-Copyright © 2009-2013 Antenna House, Inc. All rights reserved.
-Antenna House is a trademark of Antenna House, Inc.
-URL    : http://www.antennahouse.com/
-E-mail : info@antennahouse.com
-****************************************************************
+    ****************************************************************
+    DITA to XSL-FO Stylesheet
+    Module: Dir attribute template
+    Copyright © 2009-2013 Antenna House, Inc. All rights reserved.
+    Antenna House is a trademark of Antenna House, Inc.
+    URL    : http://www.antennahouse.com/
+    E-mail : info@antennahouse.com
+    ****************************************************************
 -->
-<xsl:stylesheet version="2.0" 
+<xsl:stylesheet version="3.0" 
  xmlns:fo="http://www.w3.org/1999/XSL/Format" 
  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
  xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -87,31 +87,31 @@ E-mail : info@antennahouse.com
         <xsl:variable name="class" as="xs:string" select="string($prmElem/@class)"/>
         <xsl:variable name="result" as="xs:boolean">
             <xsl:choose>
-                <xsl:when test="contains($class,' topic/colspec ')">
+                <xsl:when test="contains-token($class,'topic/colspec')">
                     <xsl:sequence select="false()"/>
                 </xsl:when>
-                <xsl:when test="contains($class,' topic/thead ')">
+                <xsl:when test="contains-token($class,'topic/thead')">
                     <xsl:sequence select="false()"/>
                 </xsl:when>
-                <xsl:when test="contains($class,' topic/tbody ')">
+                <xsl:when test="contains-token($class,'topic/tbody')">
                     <xsl:sequence select="false()"/>
                 </xsl:when>
-                <xsl:when test="contains($class,' topic/row ')">
+                <xsl:when test="contains-token($class,'topic/row')">
                     <xsl:sequence select="false()"/>
                 </xsl:when>
-                <xsl:when test="contains($class,' topic/entry ')">
+                <xsl:when test="contains-token($class,'topic/entry')">
                     <xsl:sequence select="false()"/>
                 </xsl:when>
-                <xsl:when test="contains($class,' topic/sthead ')">
+                <xsl:when test="contains-token($class,'topic/sthead')">
                     <xsl:sequence select="false()"/>
                 </xsl:when>
-                <xsl:when test="contains($class,' topic/strow ')">
+                <xsl:when test="contains-token($class,'topic/strow')">
                     <xsl:sequence select="false()"/>
                 </xsl:when>
-                <xsl:when test="contains($class,' topic/stentry ')">
+                <xsl:when test="contains-token($class,'topic/stentry')">
                     <xsl:sequence select="false()"/>
                 </xsl:when>
-                <xsl:when test="contains($class,' topic/topic ')">
+                <xsl:when test="contains-token($class,'topic/topic')">
                     <xsl:sequence select="false()"/>
                 </xsl:when>
                 <xsl:otherwise>

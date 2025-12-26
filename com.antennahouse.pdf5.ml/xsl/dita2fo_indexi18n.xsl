@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!--
-****************************************************************
-DITA to XSL-FO Stylesheet
-Module: Index generation template (Use I18n Index Library)
-Copyright © 2009-2009 Antenna House, Inc. All rights reserved.
-Antenna House is a trademark of Antenna House, Inc.
-URL    : http://www.antennahouse.com/
-E-mail : info@antennahouse.com
-****************************************************************
+    ****************************************************************
+    DITA to XSL-FO Stylesheet
+    Module: Index generation template (Use I18n Index Library)
+    Copyright © 2009-2009 Antenna House, Inc. All rights reserved.
+    Antenna House is a trademark of Antenna House, Inc.
+    URL    : http://www.antennahouse.com/
+    E-mail : info@antennahouse.com
+    ****************************************************************
 -->
-<xsl:stylesheet version="2.0" 
+<xsl:stylesheet version="3.0" 
  xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
  xmlns:fo="http://www.w3.org/1999/XSL/Format" 
  xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -28,8 +28,8 @@ E-mail : info@antennahouse.com
         ===============================================
     -->
     <xsl:variable name="indextermOrigin">
-        <xsl:apply-templates select="$map//*[contains(@class, ' map/topicref ')]
-                                            [not(ancestor::*[contains(@class,' map/reltable ')])]"
+        <xsl:apply-templates select="$map//*[contains-token(@class, 'map/topicref')]
+                                            [not(ancestor::*[contains-token(@class, 'map/reltable')])]"
                              mode="MAKE_INDEX_ORIGIN">
         </xsl:apply-templates>
     </xsl:variable>
@@ -53,13 +53,13 @@ E-mail : info@antennahouse.com
         ======================================================
       -->
     <!-- map/topicref -->
-    <xsl:template match="*[contains(@class, ' map/topicref ')]" mode="MAKE_INDEX_ORIGIN">
+    <xsl:template match="*[contains-token(@class, 'map/topicref')]" mode="MAKE_INDEX_ORIGIN">
         <xsl:variable name="topicRef" select="."/>
         
         <!-- topicref/topicmeta -->
-        <xsl:apply-templates select="$topicRef/*[contains(@class,$CLASS_TOPICMETA)]
-                                              /*[contains(@class,$CLASS_KEYWORDS)]
-                                              /*[contains(@class,$CLASS_INDEXTERM)]"
+        <xsl:apply-templates select="$topicRef/*[contains-token(@class,$CLASS_TOPICMETA)]
+                                              /*[contains-token(@class,$CLASS_KEYWORDS)]
+                                              /*[contains-token(@class,$CLASS_INDEXTERM)]"
                              mode="MAKE_INDEX_ORIGIN">
             <xsl:with-param name="prmTopicRef"      tunnel="yes" select="()"/>
             <xsl:with-param name="prmFoIndexKey"    select="''"/>
@@ -79,11 +79,11 @@ E-mail : info@antennahouse.com
     </xsl:template>
     
     <!-- Linked topic/topic -->
-    <xsl:template match="*[contains(@class, ' topic/topic ')]" mode="MAKE_INDEX_ORIGIN">
+    <xsl:template match="*[contains-token(@class, 'topic/topic')]" mode="MAKE_INDEX_ORIGIN">
         <xsl:param name="prmTopicRef" tunnel="yes" required="yes" as="element()"/>
         
-        <xsl:apply-templates select="descendant::*[contains(@class,$CLASS_INDEXTERM)]
-                                                  [not(ancestor::*[contains(@class,$CLASS_INDEXTERM)])]"
+        <xsl:apply-templates select="descendant::*[contains-token(@class,$CLASS_INDEXTERM)]
+                                                  [not(ancestor::*[contains-token(@class,$CLASS_INDEXTERM)])]"
                              mode="MAKE_INDEX_ORIGIN">
             <xsl:with-param name="prmTopicRef"      tunnel="yes" select="$prmTopicRef"/>
             <xsl:with-param name="prmFoIndexKey"    select="''"/>
@@ -100,7 +100,7 @@ E-mail : info@antennahouse.com
      return:   index-data nodeset
      note:     none
     -->
-    <xsl:template match="*[contains(@class, ' topic/indexterm ')]" mode="MAKE_INDEX_ORIGIN">
+    <xsl:template match="*[contains-token(@class, 'topic/indexterm')]" mode="MAKE_INDEX_ORIGIN">
         <xsl:param name="prmTopicRef"      tunnel="yes" required="yes" as="element()?"/>
         <xsl:param name="prmFoIndexKey"    required="yes" as="xs:string"/>
         <xsl:param name="prmFoIndexKeyForSee" required="yes" as="xs:string"/>
@@ -153,7 +153,7 @@ E-mail : info@antennahouse.com
         <xsl:variable name="indexSortasText" as="xs:string">
             <xsl:variable name="tempIndexSortasText" as="xs:string*">
                 <xsl:apply-templates mode="TEXT_ONLY" 
-                                     select="child::*[contains(@class,$CLASS_INDEX_SORTAS)]">
+                                     select="child::*[contains-token(@class,$CLASS_INDEX_SORTAS)]">
                     <xsl:with-param name="prmGetSortAsText"    tunnel="yes" select="true()"/>
                 </xsl:apply-templates>
             </xsl:variable>
@@ -212,9 +212,9 @@ E-mail : info@antennahouse.com
                 <xsl:when test="not(string($indextermText))">
                     <!-- Ignore indexterm that has no text -->
                 </xsl:when>
-            <xsl:when test="(child::*[contains(@class, $CLASS_INDEX_SEE)]) 
-                        and (child::*[contains(@class, $CLASS_INDEX_SEEALSO)])
-                        and not(child::*[contains(@class, $CLASS_INDEXTERM)])">
+            <xsl:when test="(child::*[contains-token(@class, $CLASS_INDEX_SEE)]) 
+                        and (child::*[contains-token(@class, $CLASS_INDEX_SEEALSO)])
+                        and not(child::*[contains-token(@class, $CLASS_INDEXTERM)])">
                 <!-- Ignore index-see. Adopt index-see-also only. -->
                 <xsl:element name="index-data">
                     <!--xsl:attribute name="id">
@@ -240,7 +240,7 @@ E-mail : info@antennahouse.com
                     <xsl:copy-of select="$currentIndextermElement"/>
                 </xsl:element>
                 <!-- Navigate to child index-see-also -->
-                <xsl:apply-templates select="child::*[contains(@class, $CLASS_INDEX_SEEALSO)]"
+                <xsl:apply-templates select="child::*[contains-token(@class, $CLASS_INDEX_SEEALSO)]"
                                      mode="MAKE_INDEX_ORIGIN">
                     <xsl:with-param name="prmTopicRef"      tunnel="yes" select="$prmTopicRef"/>
                     <xsl:with-param name="prmFoIndexKey"    select="$currentFoIndexKey"/>
@@ -249,11 +249,11 @@ E-mail : info@antennahouse.com
                     <xsl:with-param name="prmIndextermElem" select="$currentIndextermElement"/>
                 </xsl:apply-templates>
             </xsl:when>
-            <xsl:when test="child::*[contains(@class, $CLASS_INDEXTERM)]
-                         or child::*[contains(@class, $CLASS_INDEX_SEE)]">
+            <xsl:when test="child::*[contains-token(@class, $CLASS_INDEXTERM)]
+                         or child::*[contains-token(@class, $CLASS_INDEX_SEE)]">
                 <!-- Navigate to child indexterm,index-see -->
-                <xsl:apply-templates select="child::*[contains(@class, $CLASS_INDEXTERM)]
-                                            |child::*[contains(@class, $CLASS_INDEX_SEE)]"
+                <xsl:apply-templates select="child::*[contains-token(@class, $CLASS_INDEXTERM)]
+                                            |child::*[contains-token(@class, $CLASS_INDEX_SEE)]"
                                      mode="MAKE_INDEX_ORIGIN">
                     <xsl:with-param name="prmTopicRef"      tunnel="yes" select="$prmTopicRef"/>
                     <xsl:with-param name="prmFoIndexKey"    select="$currentFoIndexKey"/>
@@ -262,7 +262,7 @@ E-mail : info@antennahouse.com
                     <xsl:with-param name="prmIndextermElem" select="$currentIndextermElement"/>
                 </xsl:apply-templates>
             </xsl:when>
-            <xsl:when test="child::*[contains(@class, $CLASS_INDEX_SEEALSO)]">
+            <xsl:when test="child::*[contains-token(@class, $CLASS_INDEX_SEEALSO)]">
                 <!-- As index-see-also must generate indexkey reference and see also indication both,
                      here generates two index-data elements.
                  -->
@@ -290,7 +290,7 @@ E-mail : info@antennahouse.com
                     <xsl:copy-of select="$currentIndextermElement"/>
                 </xsl:element>
                 <!-- Navigate to child index-see-also -->
-                <xsl:apply-templates select="child::*[contains(@class, $CLASS_INDEX_SEEALSO)]"
+                <xsl:apply-templates select="child::*[contains-token(@class, $CLASS_INDEX_SEEALSO)]"
                                      mode="MAKE_INDEX_ORIGIN">
                     <xsl:with-param name="prmTopicRef"      tunnel="yes" select="$prmTopicRef"/>
                     <xsl:with-param name="prmFoIndexKey"    select="$currentFoIndexKey"/>
@@ -333,7 +333,7 @@ E-mail : info@antennahouse.com
      return:   index-data nodeset
      note:     none
     -->
-    <xsl:template match="*[contains(@class, ' indexing-d/index-see ')]" mode="MAKE_INDEX_ORIGIN">
+    <xsl:template match="*[contains-token(@class, 'indexing-d/index-see')]" mode="MAKE_INDEX_ORIGIN">
         <xsl:param name="prmTopicRef"      tunnel="yes" required="yes" as="element()?"/>
         <xsl:param name="prmFoIndexKey"    required="yes" as="xs:string"/>
         <xsl:param name="prmFoIndexKeyForSee"    required="yes" as="xs:string"/>
@@ -374,11 +374,11 @@ E-mail : info@antennahouse.com
     
         <!-- Nested indexterm count -->
         <xsl:variable name="nestedIndexterm" as="xs:integer">
-            <xsl:value-of select="count(descendant::*[contains(@class,$CLASS_INDEXTERM)])"/>
+            <xsl:value-of select="count(descendant::*[contains-token(@class,$CLASS_INDEXTERM)])"/>
         </xsl:variable>
         
         <xsl:choose>
-            <xsl:when test="not(parent::*/child::*[contains(@class, $CLASS_INDEXTERM)])">
+            <xsl:when test="not(parent::*/child::*[contains-token(@class, $CLASS_INDEXTERM)])">
                 <xsl:element name="index-data">
                     <!--xsl:attribute name="id">
                         <xsl:value-of select="ahf:generateId(.,$prmTopicRef)"/>
@@ -425,7 +425,7 @@ E-mail : info@antennahouse.com
      return:   index-data nodeset
      note:     none
     -->
-    <xsl:template match="*[contains(@class, ' indexing-d/index-see-also ')]" mode="MAKE_INDEX_ORIGIN">
+    <xsl:template match="*[contains-token(@class, 'indexing-d/index-see-also')]" mode="MAKE_INDEX_ORIGIN">
         <xsl:param name="prmTopicRef"      tunnel="yes" required="yes" as="element()?"/>
         <xsl:param name="prmFoIndexKey"    required="yes" as="xs:string"/>
         <xsl:param name="prmFoIndexKeyForSee"    required="yes" as="xs:string"/>
@@ -466,11 +466,11 @@ E-mail : info@antennahouse.com
         
         <!-- Nested indexterm count -->
         <xsl:variable name="nestedIndexterm" as="xs:integer">
-            <xsl:value-of select="count(descendant::*[contains(@class,$CLASS_INDEXTERM)])"/>
+            <xsl:value-of select="count(descendant::*[contains-token(@class,$CLASS_INDEXTERM)])"/>
         </xsl:variable>
     
         <xsl:choose>
-            <xsl:when test="not(parent::*/child::*[contains(@class, $CLASS_INDEXTERM)])">
+            <xsl:when test="not(parent::*/child::*[contains-token(@class, $CLASS_INDEXTERM)])">
                 <xsl:element name="index-data">
                     <!--xsl:attribute name="id">
                         <xsl:value-of select="ahf:generateId(.,$prmTopicRef)"/>

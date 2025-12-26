@@ -1,11 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-    xmlns:xs="http://www.w3.org/2001/XMLSchema"
-    xmlns:fo="http://www.w3.org/1999/XSL/Format"
-    xmlns:ahf="http://www.antennahouse.com/names/XSLT/Functions/Document"
-    exclude-result-prefixes="xs ahf"
-    version="2.0">
-    <!--
+<!--
     ****************************************************************
     DITA to XSL-FO Stylesheet 
     Module: Sorting utility template
@@ -15,6 +9,12 @@
     E-mail : info@antennahouse.com
     ****************************************************************
     -->
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:fo="http://www.w3.org/1999/XSL/Format"
+    xmlns:ahf="http://www.antennahouse.com/names/XSLT/Functions/Document"
+    exclude-result-prefixes="xs ahf"
+    version="3.0">
     
     <!--
      function:	Get sort-as
@@ -25,24 +25,24 @@
     <xsl:function name="ahf:getSortAs" as="xs:string">
         <xsl:param name="prmElem" as="element()"/>
         <xsl:choose>
-            <xsl:when test="$prmElem[contains(@class, ' map/topicref ')]">
+            <xsl:when test="$prmElem[contains-token(@class, 'map/topicref')]">
                 <xsl:choose>
-                    <xsl:when test="$prmElem/*[contains(@class, ' ut-d/sort-as ')]">
-                        <xsl:sequence select="ahf:processSortAs($prmElem/*[contains(@class, ' ut-d/sort-as ')][1])"/>
+                    <xsl:when test="$prmElem/*[contains-token(@class, 'ut-d/sort-as')]">
+                        <xsl:sequence select="ahf:processSortAs($prmElem/*[contains-token(@class, 'ut-d/sort-as')][1])"/>
                     </xsl:when>
-                    <xsl:when test="$prmElem/*[contains(@class,' map/topicmeta ')]/*[contains(@class, ' ut-d/sort-as ')]">
-                        <xsl:sequence select="ahf:processSortAs($prmElem/*[contains(@class,' map/topicmeta ')]/*[contains(@class, ' ut-d/sort-as ')][1])"/>
+                    <xsl:when test="$prmElem/*[contains-token(@class, 'map/topicmeta')]/*[contains-token(@class, 'ut-d/sort-as')]">
+                        <xsl:sequence select="ahf:processSortAs($prmElem/*[contains-token(@class, 'map/topicmeta')]/*[contains-token(@class, 'ut-d/sort-as')][1])"/>
                     </xsl:when>
                     <xsl:otherwise>
                         <xsl:variable name="topic" as="element()?" select="ahf:getTopicFromTopicRef($prmElem)"/>
                         <xsl:choose>
                             <xsl:when test="exists($topic)">
                                 <xsl:choose>
-                                    <xsl:when test="$topic/*[contains(@class,' topic/title ')]/*[contains(@class, ' ut-d/sort-as ')]">
-                                        <xsl:sequence select="ahf:processSortAs($topic/*[contains(@class,' topic/title ')]/*[contains(@class, ' ut-d/sort-as ')][1])"/>
+                                    <xsl:when test="$topic/*[contains-token(@class, 'topic/title')]/*[contains-token(@class, 'ut-d/sort-as')]">
+                                        <xsl:sequence select="ahf:processSortAs($topic/*[contains-token(@class, 'topic/title')]/*[contains-token(@class, 'ut-d/sort-as')][1])"/>
                                     </xsl:when>
-                                    <xsl:when test="$topic/*[contains(@class,' topic/prolog ')]/*[contains(@class, ' ut-d/sort-as ')]">
-                                        <xsl:sequence select="ahf:processSortAs($topic/*[contains(@class,' topic/prolog ')]/*[contains(@class, ' ut-d/sort-as ')][1])"/>
+                                    <xsl:when test="$topic/*[contains-token(@class, 'topic/prolog')]/*[contains-token(@class, 'ut-d/sort-as')]">
+                                        <xsl:sequence select="ahf:processSortAs($topic/*[contains-token(@class, 'topic/prolog')]/*[contains-token(@class, 'ut-d/sort-as')][1])"/>
                                     </xsl:when>
                                     <xsl:otherwise>
                                         <xsl:sequence select="''"/>
@@ -56,13 +56,13 @@
                     </xsl:otherwise>
                 </xsl:choose>                
             </xsl:when>
-            <xsl:when test="$prmElem[contains(@class, ' topic/topic ')]">
+            <xsl:when test="$prmElem[contains-token(@class, 'topic/topic')]">
                 <xsl:choose>
-                    <xsl:when test="$prmElem/*[contains(@class,' topic/title ')]/*[contains(@class, ' ut-d/sort-as ')]">
-                        <xsl:sequence select="ahf:processSortAs($prmElem/*[contains(@class,' topic/title ')]/*[contains(@class, ' ut-d/sort-as ')][1])"/>
+                    <xsl:when test="$prmElem/*[contains-token(@class, 'topic/title')]/*[contains-token(@class, 'ut-d/sort-as')]">
+                        <xsl:sequence select="ahf:processSortAs($prmElem/*[contains-token(@class, 'topic/title')]/*[contains-token(@class, 'ut-d/sort-as')][1])"/>
                     </xsl:when>
-                    <xsl:when test="$prmElem/*[contains(@class,' topic/prolog ')]/*[contains(@class, ' ut-d/sort-as ')]">
-                        <xsl:sequence select="ahf:processSortAs($prmElem/*[contains(@class,' topic/prolog ')]/*[contains(@class, ' ut-d/sort-as ')][1])"/>
+                    <xsl:when test="$prmElem/*[contains-token(@class, 'topic/prolog')]/*[contains-token(@class, 'ut-d/sort-as')]">
+                        <xsl:sequence select="ahf:processSortAs($prmElem/*[contains-token(@class, 'topic/prolog')]/*[contains-token(@class, 'ut-d/sort-as')][1])"/>
                     </xsl:when>
                     <xsl:otherwise>
                         <xsl:sequence select="''"/>
@@ -71,8 +71,8 @@
             </xsl:when>
             <xsl:otherwise>
                 <xsl:choose>
-                    <xsl:when test="$prmElem/*[contains(@class, ' ut-d/sort-as ')]">
-                        <xsl:sequence select="ahf:processSortAs($prmElem/*[contains(@class, ' ut-d/sort-as ')][1])"/>
+                    <xsl:when test="$prmElem/*[contains-token(@class, 'ut-d/sort-as')]">
+                        <xsl:sequence select="ahf:processSortAs($prmElem/*[contains-token(@class, 'ut-d/sort-as')][1])"/>
                     </xsl:when>
                     <xsl:otherwise>
                         <xsl:sequence select="''"/>

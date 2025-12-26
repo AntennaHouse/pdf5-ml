@@ -13,7 +13,7 @@
    version="1.1"
    inkscape:version="0.91 r13725"
    sodipodi:docname="caution.svg">
-  <metadata
+  <!--metadata
      id="metadata15">
     <rdf:RDF>
       <cc:Work
@@ -24,10 +24,10 @@
         <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
-  </metadata>
+  </metadata-->
   <defs
      id="defs13" />
-  <sodipodi:namedview
+  <!--sodipodi:namedview
      pagecolor="#ffffff"
      bordercolor="#666666"
      borderopacity="1"
@@ -50,7 +50,7 @@
      inkscape:window-x="702"
      inkscape:window-y="223"
      inkscape:window-maximized="0"
-     inkscape:current-layer="svg2" />
+     inkscape:current-layer="svg2" /-->
   <g
      id="layer1"
      transform="translate(-10.20399,-63.882802)">

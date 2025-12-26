@@ -13,7 +13,7 @@
    version="1.1"
    inkscape:version="0.91 r13725"
    sodipodi:docname="note.svg">
-  <metadata
+  <!--metadata
      id="metadata19">
     <rdf:RDF>
       <cc:Work
@@ -24,10 +24,10 @@
         <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
-  </metadata>
+  </metadata-->
   <defs
      id="defs17" />
-  <sodipodi:namedview
+  <!--sodipodi:namedview
      pagecolor="#ffffff"
      bordercolor="#666666"
      borderopacity="1"
@@ -50,7 +50,7 @@
      inkscape:window-x="540"
      inkscape:window-y="82"
      inkscape:window-maximized="0"
-     inkscape:current-layer="svg2" />
+     inkscape:current-layer="svg2" /-->
   <rect
      style="opacity:0;stroke-width:0.96399999"
      x="-22.3752"

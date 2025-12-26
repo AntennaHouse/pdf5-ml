@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!--
-**************************************************************
-DITA to XSL-FO Stylesheet
-Utility Templates
-**************************************************************
-File Name : dita2fo_dita_util.xsl
-**************************************************************
-Copyright © 2009 2014 Antenna House, Inc. All rights reserved.
-Antenna House is a trademark of Antenna House, Inc.
-URL : http://www.antennahouse.com/
-**************************************************************
+    **************************************************************
+    DITA to XSL-FO Stylesheet
+    Utility Templates
+    **************************************************************
+    File Name : dita2fo_dita_util.xsl
+    **************************************************************
+    Copyright © 2009 2014 Antenna House, Inc. All rights reserved.
+    Antenna House is a trademark of Antenna House, Inc.
+    URL : http://www.antennahouse.com/
+    **************************************************************
 -->
 
-<xsl:stylesheet version="2.0" 
+<xsl:stylesheet version="3.0" 
 	xmlns:fo="http://www.w3.org/1999/XSL/Format" 
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
 	xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -107,7 +107,7 @@ URL : http://www.antennahouse.com/
                 <!-- invalid parameter -->
                 <xsl:sequence select="()"/>
             </xsl:when>
-            <xsl:when test="not(contains($prmTopic/@class, ' topic/topic '))">
+            <xsl:when test="not(contains-token($prmTopic/@class, 'topic/topic'))">
                 <!-- It is not a topic! -->
                 <xsl:sequence select="()"/>
             </xsl:when>
@@ -118,9 +118,9 @@ URL : http://www.antennahouse.com/
                     <xsl:when test="exists($topicRef)">
                         <xsl:sequence select="$topicRef"/>
                     </xsl:when>
-                    <xsl:when test="$prmTopic/ancestor::*[contains(@class, ' topic/topic ')]">
+                    <xsl:when test="$prmTopic/ancestor::*[contains-token(@class, 'topic/topic')]">
                         <!-- search ancestor -->
-                        <xsl:sequence select="ahf:getTopicRef($prmTopic/ancestor::*[contains(@class, ' topic/topic ')][position()=last()])"/>
+                        <xsl:sequence select="ahf:getTopicRef($prmTopic/ancestor::*[contains-token(@class, 'topic/topic')][position()=last()])"/>
                     </xsl:when>
                     <xsl:otherwise>
                         <!-- not found -->
@@ -172,8 +172,8 @@ URL : http://www.antennahouse.com/
         <xsl:variable name="topicRefCount" as="xs:integer">
             <xsl:number select="$prmTopicRef"
                 level="any"
-                count="*[contains(@class,' map/topicref ')][string(@href) eq $href]"
-                from="*[contains(@class,' map/map ')]"
+                count="*[contains-token(@class, 'map/topicref')][string(@href) eq $href]"
+                from="*[contains-token(@class, 'map/map')]"
                 format="1"/>
         </xsl:variable>
         <xsl:sequence select="$topicRefCount"/>

@@ -1,15 +1,15 @@
 <?xml version='1.0' encoding="UTF-8" ?>
 <!--
-****************************************************************
-DITA to XSL-FO Stylesheet 
-Module: Static content stylesheet
-Copyright © 2009-2009 Antenna House, Inc. All rights reserved.
-Antenna House is a trademark of Antenna House, Inc.
-URL    : http://www.antennahouse.com/
-E-mail : info@antennahouse.com
-****************************************************************
+    ****************************************************************
+    DITA to XSL-FO Stylesheet 
+    Module: Static content stylesheet
+    Copyright © 2009-2009 Antenna House, Inc. All rights reserved.
+    Antenna House is a trademark of Antenna House, Inc.
+    URL    : http://www.antennahouse.com/
+    E-mail : info@antennahouse.com
+    ****************************************************************
 -->
-<xsl:stylesheet version="2.0" 
+<xsl:stylesheet version="3.0" 
  xmlns:fo="http://www.w3.org/1999/XSL/Format" 
  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
  xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -128,15 +128,16 @@ E-mail : info@antennahouse.com
          2014-09-14 t.makita
      -->
     <xsl:template name="chapterEndRight">
+        <xsl:variable name="topicRef" as="element()" select="."/>
         <xsl:if test="$pAddThumbnailIndex and $pBuildMap">
             <xsl:call-template name="genThumbIndex">
-                <xsl:with-param name="prmId" select="ahf:generateId(.,())"/>
+                <xsl:with-param name="prmId" select="ahf:generateId($topicRef,())"/>
                 <xsl:with-param name="prmClass">
                     <xsl:choose>
-                        <xsl:when test="ancestor-or-self::*[contains(@class, ' bookmap/part ')]">
+                        <xsl:when test="$topicRef/ancestor-or-self::*[contains-token(@class, 'bookmap/part')]">
                             <xsl:value-of select="$cClassPart"/>
                         </xsl:when>
-                        <xsl:when test="ancestor-or-self::*[contains(@class, ' bookmap/appendix ')]">
+                        <xsl:when test="$topicRef/ancestor-or-self::*[contains-token(@class, 'bookmap/appendix')]">
                             <xsl:value-of select="$cClassAppendix"/>
                         </xsl:when>
                         <xsl:otherwise>

@@ -9,7 +9,7 @@
     E-mail : info@antennahouse.com
     ****************************************************************
 -->
-<xsl:stylesheet version="2.0" 
+<xsl:stylesheet version="3.0" 
  xmlns:fo="http://www.w3.org/1999/XSL/Format" 
  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
  xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -25,12 +25,12 @@
      return:    fo:page-sequence
      note:      Called from dita2fo_main.xsl
      -->
-    <xsl:template match="*[contains(@class, ' bookmap/backmatter ')]" >
-        <xsl:if test="descendant::*[contains(@class,' map/topicref ')][@href]
-                    | descendant::*[contains(@class,' bookmap/toc ')][not(@href)]
-                    | descendant::*[contains(@class,' bookmap/indexlist ')][not(@href)]
-                    | descendant::*[contains(@class,' bookmap/figurelist ')][not(@href)]
-                    | descendant::*[contains(@class,' bookmap/tablelist ')][not(@href)]">
+    <xsl:template match="*[contains-token(@class, 'bookmap/backmatter')]" >
+        <xsl:if test="descendant::*[contains-token(@class, 'map/topicref')][@href]
+                    | descendant::*[contains-token(@class, 'bookmap/toc')][not(@href)]
+                    | descendant::*[contains-token(@class, 'bookmap/indexlist')][not(@href)]
+                    | descendant::*[contains-token(@class, 'bookmap/figurelist')][not(@href)]
+                    | descendant::*[contains-token(@class, 'bookmap/tablelist')][not(@href)]">
             <fo:page-sequence>
                 <xsl:call-template name="getAttributeSet">
                     <xsl:with-param name="prmAttrSetName" select="'atsPageSeqBackmatter'"/>
@@ -63,7 +63,7 @@
         return:     none
         note:       Call cover generation template
     -->
-    <xsl:template match="*[contains(@class, ' bookmap/backmatter ')]//*[contains(@class,' map/topicref ')][ahf:isCoverTopicRef(.)]" mode="PROCESS_BACKMATTER" priority="6">
+    <xsl:template match="*[contains-token(@class, 'bookmap/backmatter')]//*[contains-token(@class, 'map/topicref')][ahf:isCoverTopicRef(.)]" mode="PROCESS_BACKMATTER" priority="6">
         <xsl:variable name="topicRef" select="."/>
         <xsl:variable name="topicContent"  as="element()?" select="ahf:getTopicFromTopicRef($topicRef)"/>
         
@@ -75,9 +75,10 @@
                 </xsl:call-template>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:call-template name="warningContinue">
+                <xsl:call-template name="warningContinueWithFileInfo">
                     <xsl:with-param name="prmMes" 
-                        select="ahf:replace($stMes070,('%href','%file'),(string(@href),string(@xtrf)))"/>
+                        select="ahf:replace($stMes070,('%href'),(string(@href)))"/>
+                    <xsl:with-param name="prmElem" select="$topicRef"/>
                 </xsl:call-template>
             </xsl:otherwise>
         </xsl:choose>
@@ -91,7 +92,7 @@
         return:     none
         note:       Call templates using next-match. (2011-09-27 t.makita)
     -->
-    <xsl:template match="*[contains(@class, ' bookmap/backmatter ')]//*[contains(@class,' map/topicref ')]" mode="PROCESS_BACKMATTER" priority="4">
+    <xsl:template match="*[contains-token(@class, 'bookmap/backmatter')]//*[contains-token(@class, 'map/topicref')]" mode="PROCESS_BACKMATTER" priority="4">
         <xsl:variable name="topicRef" select="."/>
         <xsl:variable name="topicContent"  as="element()?" select="ahf:getTopicFromTopicRef($topicRef)"/>
     
@@ -122,7 +123,7 @@
     
     <!-- Ignore topicref level's topicmeta
      -->
-    <xsl:template match="*[contains(@class, ' map/topicmeta ')]" mode="PROCESS_BACKMATTER"/>
+    <xsl:template match="*[contains-token(@class, 'map/topicmeta')]" mode="PROCESS_BACKMATTER"/>
     
     <!-- 
      function:  Amendments templates
@@ -130,10 +131,10 @@
      return:    descendant topic contents
      note:		
      -->
-    <xsl:template match="*[contains(@class,' bookmap/amendments  ')][empty(@href)]" mode="PROCESS_BACKMATTER" priority="2">
+    <xsl:template match="*[contains-token(@class, 'bookmap/amendments')][empty(@href)]" mode="PROCESS_BACKMATTER" priority="2">
     </xsl:template>
     
-    <xsl:template match="*[contains(@class,' bookmap/amendments ')][exists(@href)]" mode="PROCESS_BACKMATTER" priority="2">
+    <xsl:template match="*[contains-token(@class, 'bookmap/amendments')][exists(@href)]" mode="PROCESS_BACKMATTER" priority="2">
         <xsl:next-match/>
     </xsl:template>
         
@@ -143,7 +144,7 @@
      return:    descendant topic contents
      note:		
      -->
-    <xsl:template match="*[contains(@class,' bookmap/booklists ')]" mode="PROCESS_BACKMATTER" priority="2">
+    <xsl:template match="*[contains-token(@class, 'bookmap/booklists')]" mode="PROCESS_BACKMATTER" priority="2">
         <xsl:apply-templates mode="#current"/>
     </xsl:template>
         
@@ -153,11 +154,11 @@
      return:    Automatic abbrevation list generation is not supported.
      note:		
      -->
-    <xsl:template match="*[contains(@class,' bookmap/abbrevlist ')][exists(@href)]" mode="PROCESS_BACKMATTER" priority="2">
+    <xsl:template match="*[contains-token(@class, 'bookmap/abbrevlist')][exists(@href)]" mode="PROCESS_BACKMATTER" priority="2">
         <xsl:next-match/>
     </xsl:template>
     
-    <xsl:template match="*[contains(@class,' bookmap/abbrevlist ')][empty(@href)]" mode="PROCESS_BACKMATTER" priority="2">
+    <xsl:template match="*[contains-token(@class, 'bookmap/abbrevlist')][empty(@href)]" mode="PROCESS_BACKMATTER" priority="2">
     </xsl:template>
         
     <!-- 
@@ -166,11 +167,11 @@
      return:	Automatic bibliography generation is not supported.
      note:		
      -->
-    <xsl:template match="*[contains(@class,' bookmap/bibliolist ')][exists(@href)]" mode="PROCESS_BACKMATTER" priority="2">
+    <xsl:template match="*[contains-token(@class, 'bookmap/bibliolist')][exists(@href)]" mode="PROCESS_BACKMATTER" priority="2">
         <xsl:next-match/>
     </xsl:template>
     
-    <xsl:template match="*[contains(@class,' bookmap/bibliolist ')][empty(@href)]" mode="PROCESS_BACKMATTER" priority="2">
+    <xsl:template match="*[contains-token(@class, 'bookmap/bibliolist')][empty(@href)]" mode="PROCESS_BACKMATTER" priority="2">
     </xsl:template>
         
     <!-- 
@@ -179,11 +180,11 @@
      return:    Automatic bibliography generation is not supported.
      note:		
      -->
-    <xsl:template match="*[contains(@class,' bookmap/booklist ')][exists(@href)]" mode="PROCESS_BACKMATTER" priority="2">
+    <xsl:template match="*[contains-token(@class, 'bookmap/booklist')][exists(@href)]" mode="PROCESS_BACKMATTER" priority="2">
         <xsl:next-match/>
     </xsl:template>
     
-    <xsl:template match="*[contains(@class,' bookmap/booklist ')][empty(@href)]" mode="PROCESS_BACKMATTER" priority="2">
+    <xsl:template match="*[contains-token(@class, 'bookmap/booklist')][empty(@href)]" mode="PROCESS_BACKMATTER" priority="2">
     </xsl:template>
         
     <!-- 
@@ -192,11 +193,11 @@
      return:    Figurelist content
      note:      Generates automatic figurelist generation
      -->
-    <xsl:template match="*[contains(@class,' bookmap/figurelist ')][exists(@href)]" mode="PROCESS_BACKMATTER" priority="2">
+    <xsl:template match="*[contains-token(@class, 'bookmap/figurelist')][exists(@href)]" mode="PROCESS_BACKMATTER" priority="2">
         <xsl:next-match/>
     </xsl:template>
     
-    <xsl:template match="*[contains(@class,' bookmap/figurelist ')][empty(@href)]" mode="PROCESS_BACKMATTER" priority="2" >
+    <xsl:template match="*[contains-token(@class, 'bookmap/figurelist')][empty(@href)]" mode="PROCESS_BACKMATTER" priority="2" >
         <xsl:call-template name="genFigureList"/>
     </xsl:template>
         
@@ -206,7 +207,7 @@
      return:    glossary list contents
      note:		
     -->
-    <xsl:template match="*[contains(@class,' bookmap/glossarylist ')]" mode="PROCESS_BACKMATTER" priority="2" >
+    <xsl:template match="*[contains-token(@class, 'bookmap/glossarylist')]" mode="PROCESS_BACKMATTER" priority="2" >
         <xsl:call-template name="genGlossaryList"/>
     </xsl:template>
         
@@ -216,11 +217,11 @@
      return:    Index contents
      note:		
      -->
-    <xsl:template match="*[contains(@class,' bookmap/indexlist ')][exists(@href)]" mode="PROCESS_BACKMATTER" priority="2">
+    <xsl:template match="*[contains-token(@class, 'bookmap/indexlist')][exists(@href)]" mode="PROCESS_BACKMATTER" priority="2">
         <xsl:next-match/>
     </xsl:template>
     
-    <xsl:template match="*[contains(@class,' bookmap/indexlist ')][empty(@href)]" mode="PROCESS_BACKMATTER" priority="2">
+    <xsl:template match="*[contains-token(@class, 'bookmap/indexlist')][empty(@href)]" mode="PROCESS_BACKMATTER" priority="2">
         <xsl:call-template name="genIndex"/>
     </xsl:template>
         
@@ -230,11 +231,11 @@
      return:    Table list content
      note:		
      -->
-    <xsl:template match="*[contains(@class,' bookmap/tablelist ')][exists(@href)]" mode="PROCESS_BACKMATTER" priority="2">
+    <xsl:template match="*[contains-token(@class, 'bookmap/tablelist')][exists(@href)]" mode="PROCESS_BACKMATTER" priority="2">
         <xsl:next-match/>
     </xsl:template>
     
-    <xsl:template match="*[contains(@class,' bookmap/tablelist ')][not(@href)]" mode="PROCESS_BACKMATTER" priority="2" >
+    <xsl:template match="*[contains-token(@class, 'bookmap/tablelist')][not(@href)]" mode="PROCESS_BACKMATTER" priority="2" >
         <xsl:call-template name="genTableList"/>
     </xsl:template>
         
@@ -244,11 +245,11 @@
      return:    none
      note:		
      -->
-    <xsl:template match="*[contains(@class,' bookmap/trademarklist ')][exists(@href)]" mode="PROCESS_BACKMATTER" priority="2">
+    <xsl:template match="*[contains-token(@class, 'bookmap/trademarklist')][exists(@href)]" mode="PROCESS_BACKMATTER" priority="2">
         <xsl:next-match/>
     </xsl:template>
     
-    <xsl:template match="*[contains(@class,' bookmap/trademarklist ')][not(@href)]" mode="PROCESS_BACKMATTER" priority="2" >
+    <xsl:template match="*[contains-token(@class, 'bookmap/trademarklist')][not(@href)]" mode="PROCESS_BACKMATTER" priority="2" >
     </xsl:template>
         
     <!-- 
@@ -257,11 +258,11 @@
      return:    toc contents
      note:		
      -->
-    <xsl:template match="*[contains(@class,' bookmap/toc ')][exists(@href)]" mode="PROCESS_BACKMATTER" priority="2">
+    <xsl:template match="*[contains-token(@class, 'bookmap/toc')][exists(@href)]" mode="PROCESS_BACKMATTER" priority="2">
         <xsl:next-match/>
     </xsl:template>
     
-    <xsl:template match="*[contains(@class,' bookmap/toc ')][empty(@href)]" mode="PROCESS_BACKMATTER" priority="2">
+    <xsl:template match="*[contains-token(@class, 'bookmap/toc')][empty(@href)]" mode="PROCESS_BACKMATTER" priority="2">
         <xsl:call-template name="genToc"/>
     </xsl:template>
     
@@ -271,10 +272,10 @@
      return:    descendant topic contents
      note:		
      -->
-    <xsl:template match="*[contains(@class,' bookmap/colophon ')][empty(@href)]" mode="PROCESS_BACKMATTER" priority="2">
+    <xsl:template match="*[contains-token(@class, 'bookmap/colophon')][empty(@href)]" mode="PROCESS_BACKMATTER" priority="2">
     </xsl:template>
     
-    <xsl:template match="*[contains(@class,' bookmap/colophon ')][exists(@href)]" mode="PROCESS_BACKMATTER" priority="2">
+    <xsl:template match="*[contains-token(@class, 'bookmap/colophon')][exists(@href)]" mode="PROCESS_BACKMATTER" priority="2">
         <xsl:next-match/>
     </xsl:template>
     
@@ -284,10 +285,10 @@
      return:    descendant topic contents
      note:		
      -->
-    <xsl:template match="*[contains(@class,' bookmap/dedication ')][empty(@href)]" mode="PROCESS_BACKMATTER" priority="2">
+    <xsl:template match="*[contains-token(@class, 'bookmap/dedication')][empty(@href)]" mode="PROCESS_BACKMATTER" priority="2">
     </xsl:template>
     
-    <xsl:template match="*[contains(@class,' bookmap/dedication ')][exists(@href)]" mode="PROCESS_BACKMATTER" priority="2">
+    <xsl:template match="*[contains-token(@class, 'bookmap/dedication')][exists(@href)]" mode="PROCESS_BACKMATTER" priority="2">
         <xsl:next-match/>
     </xsl:template>
         
@@ -297,7 +298,7 @@
      return:    descendant topic contents
      note:		
      -->
-    <xsl:template match="*[contains(@class,' bookmap/notices ')]" mode="PROCESS_BACKMATTER" priority="2">
+    <xsl:template match="*[contains-token(@class, 'bookmap/notices')]" mode="PROCESS_BACKMATTER" priority="2">
         <xsl:next-match/>
     </xsl:template>
         
@@ -308,7 +309,7 @@
      return:    title and descendant topic contents
      note:		
      -->
-    <xsl:template match="*[contains(@class,' map/topicref ')][not(@href)]" mode="PROCESS_BACKMATTER">
+    <xsl:template match="*[contains-token(@class, 'map/topicref')][not(@href)]" mode="PROCESS_BACKMATTER">
         <xsl:call-template name="processTopicRefWoHrefInBackmatter"/>
     </xsl:template>
     
@@ -317,9 +318,9 @@
         <xsl:variable name="topicRef" as="element()" select="."/>
         <xsl:variable name="level" 
             as="xs:integer"
-            select="count($topicRef/ancestor-or-self::*[contains(@class, ' map/topicref ')]
-                                                        [not(contains(@class, ' bookmap/backmatter '))]
-                                                        [not(contains(@class, ' bookmap/booklists '))]
+            select="count($topicRef/ancestor-or-self::*[contains-token(@class, 'map/topicref')]
+                                                        [not(contains-token(@class, 'bookmap/backmatter'))]
+                                                        [not(contains-token(@class, 'bookmap/booklists'))]
                                                         )"/>
         <xsl:variable name="titleMode" select="ahf:getTitleMode($topicRef,())" as="xs:integer"/>
         
@@ -362,7 +363,7 @@
             </xsl:choose>
         </fo:block>
 
-        <xsl:apply-templates select="child::*[contains(@class,' map/topicref ')]" mode="PROCESS_BACKMATTER"/>
+        <xsl:apply-templates select="child::*[contains-token(@class, 'map/topicref')]" mode="PROCESS_BACKMATTER"/>
 
     </xsl:template>
     
@@ -372,7 +373,7 @@
      return:    psmi:page-sequence or topic contents
      note:      Support landscape page in backmatter
      -->
-    <xsl:template match="*[contains(@class,' map/topicref ')][@href]" mode="PROCESS_BACKMATTER">
+    <xsl:template match="*[contains-token(@class, 'map/topicref')][@href]" mode="PROCESS_BACKMATTER">
         <xsl:variable name="topicRef" select="."/>
         <xsl:variable name="isLandscape" select="ahf:getOutputClass($topicRef) = $ocLandscape"/>
         <xsl:choose>
@@ -428,15 +429,16 @@
                 </xsl:apply-templates>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:call-template name="warningContinue">
+                <xsl:call-template name="warningContinueWithFileInfo">
                     <xsl:with-param name="prmMes" 
-                     select="ahf:replace($stMes070,('%href','%file'),(string(@href),string(@xtrf)))"/>
+                     select="ahf:replace($stMes070,('%href'),(string(@href)))"/>
+                    <xsl:with-param name="prmElem" select="$topicRef"/>
                 </xsl:call-template>
             </xsl:otherwise>
         </xsl:choose>
         
         <!-- Process children -->
-        <xsl:apply-templates select="child::*[contains(@class,' map/topicref ')]" mode="#current"/>
+        <xsl:apply-templates select="child::*[contains-token(@class, 'map/topicref')]" mode="#current"/>
 
     </xsl:template>
     
@@ -449,16 +451,16 @@
                 Add page-break control.
                 2019-09-14 t.makita
      -->
-    <xsl:template match="*[contains(@class, ' topic/topic ')]" mode="OUTPUT_BACKMATTER">
+    <xsl:template match="*[contains-token(@class, 'topic/topic')]" mode="OUTPUT_BACKMATTER">
         <xsl:param name="prmTopicRef"    tunnel="yes" required="yes" as="element()"/>
         <xsl:param name="prmTitleMode"   required="yes" as="xs:integer"/>
         
         <xsl:variable name="level" 
                       as="xs:integer"
-                      select="count($prmTopicRef/ancestor-or-self::*[contains(@class, ' map/topicref ')]
-                                                                   [not(contains(@class, ' bookmap/backmatter '))]
+                      select="count($prmTopicRef/ancestor-or-self::*[contains-token(@class, 'map/topicref')]
+                                                                   [not(contains-token(@class, 'bookmap/backmatter'))]
                                                                    )"/>
-        <xsl:variable name="isTopLevelTopic" as="xs:boolean" select="empty(ancestor::*[contains(@class,' topic/topic ')])"/>
+        <xsl:variable name="isTopLevelTopic" as="xs:boolean" select="empty(ancestor::*[contains-token(@class, 'topic/topic')])"/>
         <xsl:copy-of select="ahf:genChangeBarBeginElem(.)"/>
         <fo:block>
             <xsl:call-template name="getAttributeSetWithLang"/>
@@ -488,7 +490,7 @@
                         <xsl:with-param name="prmTopicContent" select="."/>
                     </xsl:call-template>
                 </xsl:when>
-                <xsl:when test="ancestor::*[contains(@class, ' topic/topic ')]">
+                <xsl:when test="ancestor::*[contains-token(@class, 'topic/topic')]">
                     <!-- Nested concept, reference, task -->
                     <xsl:call-template name="genSquareBulletTitle">
                         <xsl:with-param name="prmTopicRef" select="$prmTopicRef"/>
@@ -506,16 +508,16 @@
             </xsl:choose>
             
             <!-- abstract/shortdesc -->
-            <xsl:apply-templates select="child::*[contains(@class, ' topic/abstract ')] | child::*[contains(@class, ' topic/shortdesc ')]"/>
+            <xsl:apply-templates select="child::*[contains-token(@class, 'topic/abstract')] | child::*[contains-token(@class, 'topic/shortdesc')]"/>
             
             <!-- body -->
-            <xsl:apply-templates select="child::*[contains(@class, ' topic/body ')]"/>
+            <xsl:apply-templates select="child::*[contains-token(@class, 'topic/body')]"/>
     
             <!-- postnote -->
             <xsl:if test="$pDisplayFnAtEndOfTopic">
                 <xsl:call-template name="makePostNote">
                     <xsl:with-param name="prmTopicRef"     select="$prmTopicRef"/>
-                    <xsl:with-param name="prmTopicContent" select="./*[contains(@class,' topic/body ')]"/>
+                    <xsl:with-param name="prmTopicContent" select="./*[contains-token(@class, 'topic/body')]"/>
                 </xsl:call-template>
             </xsl:if>
             
@@ -526,10 +528,10 @@
             </xsl:call-template>
             
             <!-- related-links -->
-            <xsl:apply-templates select="child::*[contains(@class,' topic/related-links ')]"/>
+            <xsl:apply-templates select="child::*[contains-token(@class, 'topic/related-links')]"/>
             
             <!-- nested concept/reference/task -->
-            <xsl:apply-templates select="child::*[contains(@class, ' topic/topic ')]" mode="OUTPUT_BACKMATTER">
+            <xsl:apply-templates select="child::*[contains-token(@class, 'topic/topic')]" mode="OUTPUT_BACKMATTER">
                 <xsl:with-param name="prmTitleMode"  select="$prmTitleMode"/>
             </xsl:apply-templates>
         </fo:block>
@@ -550,15 +552,15 @@
         <!-- Nesting level in the bookmap -->
         <xsl:variable name="level" 
                       as="xs:integer"
-                      select="count($prmTopicRef/ancestor-or-self::*[contains(@class, ' map/topicref ')]
-                                                                    [not(contains(@class, ' bookmap/backmatter '))])"/>
+                      select="count($prmTopicRef/ancestor-or-self::*[contains-token(@class, 'map/topicref')]
+                                                                    [not(contains-token(@class, 'bookmap/backmatter'))])"/>
         <!-- top level topic -->
         <xsl:variable name="isTopLevelTopic" as="xs:boolean">
             <xsl:choose>
                 <xsl:when test="empty($prmTopicContent)">
                     <xsl:sequence select="true()"/>
                 </xsl:when>
-                <xsl:when test="empty($prmTopicContent/ancestor::*[contains(@class,' topic/topic ')])">
+                <xsl:when test="empty($prmTopicContent/ancestor::*[contains-token(@class, 'topic/topic')])">
                     <xsl:sequence select="true()"/>
                 </xsl:when>
                 <xsl:otherwise>

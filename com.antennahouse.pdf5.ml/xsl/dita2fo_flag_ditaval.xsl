@@ -1,15 +1,15 @@
 <?xml version='1.0' encoding="UTF-8" ?>
 <!--
-****************************************************************
-DITA to XSL-FO Stylesheet
-Module: .ditaval flag processing templates
-Copyright © 2009-2019 Antenna House, Inc. All rights reserved.
-Antenna House is a trademark of Antenna House, Inc.
-URL    : http://www.antennahouse.com/
-E-mail : info@antennahouse.com
-****************************************************************
+    ****************************************************************
+    DITA to XSL-FO Stylesheet
+    Module: .ditaval flag processing templates
+    Copyright © 2009-2019 Antenna House, Inc. All rights reserved.
+    Antenna House is a trademark of Antenna House, Inc.
+    URL    : http://www.antennahouse.com/
+    E-mail : info@antennahouse.com
+    ****************************************************************
 -->
-<xsl:stylesheet version="2.0" 
+<xsl:stylesheet version="3.0" 
     xmlns:fo="http://www.w3.org/1999/XSL/Format" 
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -202,7 +202,7 @@ E-mail : info@antennahouse.com
      return:	generate outer inline image and call next matching template
      note:		 
      -->
-    <xsl:template match="*[contains(@class,' topic/image ') or contains(@class,' topic/xref ')]
+    <xsl:template match="*[contains-token(@class, 'topic/image') or contains-token(@class, 'topic/xref')]
         [ahf:hasDitaValStartPropWithImageFlag(.) or ahf:hasDitaValEndPropWithImageFlag(.)]" 
         priority="20">
         <xsl:for-each select="ahf:getStartFlagWithImage(.)">
@@ -265,21 +265,21 @@ E-mail : info@antennahouse.com
      return:	ignore
      note:		Adding image to thead, tbody, row, sthead, strow is not supported.
      -->
-    <xsl:template match="*[contains(@class, ' ditaot-d/ditaval-startprop ')][parent::*[ahf:isTableTopElement(.)]]" priority="20"/>
-    <xsl:template match="*[contains(@class, ' ditaot-d/ditaval-endprop ')][parent::*[ahf:isTableTopElement(.)]]" priority="20"/>
-    <xsl:template match="*[contains(@class, ' ditaot-d/ditaval-startprop ')][parent::*[ahf:isTableRelatedElement(.)]]" priority="20"/>
-    <xsl:template match="*[contains(@class, ' ditaot-d/ditaval-endprop ')][parent::*[ahf:isTableRelatedElement(.)]]" priority="20"/>
+    <xsl:template match="*[contains-token(@class, 'ditaot-d/ditaval-startprop')][parent::*[ahf:isTableTopElement(.)]]" priority="20"/>
+    <xsl:template match="*[contains-token(@class, 'ditaot-d/ditaval-endprop')][parent::*[ahf:isTableTopElement(.)]]" priority="20"/>
+    <xsl:template match="*[contains-token(@class, 'ditaot-d/ditaval-startprop')][parent::*[ahf:isTableRelatedElement(.)]]" priority="20"/>
+    <xsl:template match="*[contains-token(@class, 'ditaot-d/ditaval-endprop')][parent::*[ahf:isTableRelatedElement(.)]]" priority="20"/>
     
-    <xsl:template match="*[contains(@class, ' ditaot-d/ditaval-startprop ')][parent::*[ahf:isListTopElement(.)]]" priority="20"/>
-    <xsl:template match="*[contains(@class, ' ditaot-d/ditaval-endprop ')][parent::*[ahf:isListTopElement(.)]]" priority="20"/>
-    <xsl:template match="*[contains(@class, ' ditaot-d/ditaval-startprop ')][parent::*[ahf:isListRelatedElement(.)]]" priority="20"/>
-    <xsl:template match="*[contains(@class, ' ditaot-d/ditaval-endprop ')][parent::*[ahf:isListRelatedElement(.)]]" priority="20"/>
+    <xsl:template match="*[contains-token(@class, 'ditaot-d/ditaval-startprop')][parent::*[ahf:isListTopElement(.)]]" priority="20"/>
+    <xsl:template match="*[contains-token(@class, 'ditaot-d/ditaval-endprop')][parent::*[ahf:isListTopElement(.)]]" priority="20"/>
+    <xsl:template match="*[contains-token(@class, 'ditaot-d/ditaval-startprop')][parent::*[ahf:isListRelatedElement(.)]]" priority="20"/>
+    <xsl:template match="*[contains-token(@class, 'ditaot-d/ditaval-endprop')][parent::*[ahf:isListRelatedElement(.)]]" priority="20"/>
     
-    <xsl:template match="*[contains(@class, ' ditaot-d/ditaval-startprop ')][parent::*[contains(@class,' topic/image ')]]" priority="20"/>
-    <xsl:template match="*[contains(@class, ' ditaot-d/ditaval-endprop ')][parent::*[contains(@class,' topic/image ')]]" priority="20"/>
+    <xsl:template match="*[contains-token(@class, 'ditaot-d/ditaval-startprop')][parent::*[contains-token(@class, 'topic/image')]]" priority="20"/>
+    <xsl:template match="*[contains-token(@class, 'ditaot-d/ditaval-endprop')][parent::*[contains-token(@class, 'topic/image')]]" priority="20"/>
     
-    <xsl:template match="*[contains(@class, ' ditaot-d/ditaval-startprop ')][parent::*[contains(@class,' topic/xref ')]]" priority="20"/>
-    <xsl:template match="*[contains(@class, ' ditaot-d/ditaval-endprop ')][parent::*[contains(@class,' topic/xref ')]]" priority="20"/>
+    <xsl:template match="*[contains-token(@class, 'ditaot-d/ditaval-startprop')][parent::*[contains-token(@class, 'topic/xref')]]" priority="20"/>
+    <xsl:template match="*[contains-token(@class, 'ditaot-d/ditaval-endprop')][parent::*[contains-token(@class, 'topic/xref')]]" priority="20"/>
     
     <!-- 
      function:	Template for ditaval-startprop, endprop element that has effective prop/startflag/@imageref or prop/endflag/@imageref 
@@ -287,13 +287,13 @@ E-mail : info@antennahouse.com
      return:	generate inline image
      note:		This template is intended to apply inline level elements without xref or image.
      -->
-    <xsl:template match="*[contains(@class, ' ditaot-d/ditaval-startprop ')]" priority="10">
+    <xsl:template match="*[contains-token(@class, 'ditaot-d/ditaval-startprop')]" priority="10">
         <xsl:call-template name="genInlineLevelImageOrTextForFlagging">
             <xsl:with-param name="prmFlagElem" select="*[self::prop or self::revprop]/startflag"/>
         </xsl:call-template>
     </xsl:template>
 
-    <xsl:template match="*[contains(@class, ' ditaot-d/ditaval-endprop ')]" priority="10">
+    <xsl:template match="*[contains-token(@class, 'ditaot-d/ditaval-endprop')]" priority="10">
         <xsl:call-template name="genInlineLevelImageOrTextForFlagging">
             <xsl:with-param name="prmFlagElem" select="*[self::prop or self::revprop]/endflag"/>
         </xsl:call-template>
@@ -307,15 +307,15 @@ E-mail : info@antennahouse.com
      -->
     <xsl:function name="ahf:isTableTopElement" as="xs:boolean">
         <xsl:param name="prmElem" as="element()"/>
-        <xsl:variable name="cTableTopClass" as="xs:string+" select="(' topic/table ', ' topic/simpletable ')"/>
-        <xsl:sequence select="ahf:seqContains(string($prmElem/@class),($cTableTopClass))"/>
+        <xsl:variable name="cTableTopClass" as="xs:string+" select="('topic/table', 'topic/simpletable')"/>
+        <xsl:sequence select="ahf:seqContainsToken(string($prmElem/@class),($cTableTopClass))"/>
     </xsl:function>
     
     <xsl:function name="ahf:isTableRelatedElement" as="xs:boolean">
         <xsl:param name="prmElem" as="element()"/>
-        <xsl:variable name="cTableRelatedClass" as="xs:string+" select="(' topic/tgroup ',' topic/thead ',' topic/tbody ',' topic/row ')"/>
-        <xsl:variable name="cSimpleTableRelatedClass" as="xs:string+" select="(' topic/sthead ',' topic/strow ')"/>
-        <xsl:sequence select="ahf:seqContains(string($prmElem/@class),($cTableRelatedClass,$cSimpleTableRelatedClass))"/>
+        <xsl:variable name="cTableRelatedClass" as="xs:string+" select="('topic/tgroup','topic/thead','topic/tbody','topic/row')"/>
+        <xsl:variable name="cSimpleTableRelatedClass" as="xs:string+" select="('topic/sthead','topic/strow')"/>
+        <xsl:sequence select="ahf:seqContainsToken(string($prmElem/@class),($cTableRelatedClass,$cSimpleTableRelatedClass))"/>
     </xsl:function>
     
     <!-- 
@@ -327,14 +327,14 @@ E-mail : info@antennahouse.com
     
     <xsl:function name="ahf:isListTopElement" as="xs:boolean">
         <xsl:param name="prmElem" as="element()"/>
-        <xsl:variable name="cListTopClass" as="xs:string+" select="(' topic/ol ',' topic/ul ',' topic/sl ',' topic/dl ')"/>
-        <xsl:sequence select="ahf:seqContains(string($prmElem/@class),$cListTopClass)"/>
+        <xsl:variable name="cListTopClass" as="xs:string+" select="('topic/ol','topic/ul','topic/sl','topic/dl')"/>
+        <xsl:sequence select="ahf:seqContainsToken(string($prmElem/@class),$cListTopClass)"/>
     </xsl:function>
     
     <xsl:function name="ahf:isListRelatedElement" as="xs:boolean">
         <xsl:param name="prmElem" as="element()"/>
-        <xsl:variable name="cListRelatedClass" as="xs:string+" select="(' topic/li ',' topic/sli ',' topic/dlhead ',' topic/dlentry ')"/>
-        <xsl:sequence select="ahf:seqContains(string($prmElem/@class),$cListRelatedClass)"/>
+        <xsl:variable name="cListRelatedClass" as="xs:string+" select="('topic/li','topic/sli','topic/dlhead','topic/dlentry')"/>
+        <xsl:sequence select="ahf:seqContainsToken(string($prmElem/@class),$cListRelatedClass)"/>
     </xsl:function>
     
     <!-- 
@@ -367,7 +367,7 @@ E-mail : info@antennahouse.com
      -->
     <xsl:function name="ahf:hasChildDitaValStartProp" as="xs:boolean">
         <xsl:param name="prmElem" as="element()"/>
-        <xsl:sequence select="exists($prmElem/*[1][contains(@class, ' ditaot-d/ditaval-startprop ')]/*[self::prop or self::revprop])"/>
+        <xsl:sequence select="exists($prmElem/*[1][contains-token(@class, 'ditaot-d/ditaval-startprop')]/*[self::prop or self::revprop])"/>
     </xsl:function>
     
     <!-- 
@@ -378,7 +378,7 @@ E-mail : info@antennahouse.com
      -->
     <xsl:function name="ahf:getGrandChildDitavalPropOrRevProp" as="element()*">
         <xsl:param name="prmElem" as="element()"/>
-        <xsl:sequence select="$prmElem/*[contains(@class, ' ditaot-d/ditaval-startprop ')]/*[self::prop or self::revprop]"/>
+        <xsl:sequence select="$prmElem/*[contains-token(@class, 'ditaot-d/ditaval-startprop')]/*[self::prop or self::revprop]"/>
     </xsl:function>
 
     <!-- 
@@ -389,7 +389,7 @@ E-mail : info@antennahouse.com
      -->
     <xsl:function name="ahf:getGrandChildDitavalRevProp" as="element()*">
         <xsl:param name="prmElem" as="element()"/>
-        <xsl:sequence select="$prmElem/*[contains(@class, ' ditaot-d/ditaval-startprop ')]/*[self::revprop]"/>
+        <xsl:sequence select="$prmElem/*[contains-token(@class, 'ditaot-d/ditaval-startprop')]/*[self::revprop]"/>
     </xsl:function>
     
     <!-- 
@@ -559,12 +559,12 @@ E-mail : info@antennahouse.com
      -->
     <xsl:function name="ahf:getStartFlagWithImage" as="element()*">
         <xsl:param name="prmElem" as="element()"/>
-        <xsl:sequence select="$prmElem/*[contains(@class,' ditaot-d/ditaval-startprop ')]/*[self::prop or self::revprop]/startflag"/>
+        <xsl:sequence select="$prmElem/*[contains-token(@class, 'ditaot-d/ditaval-startprop')]/*[self::prop or self::revprop]/startflag"/>
     </xsl:function>
     
     <xsl:function name="ahf:getEndFlagWithImage" as="element()*">
         <xsl:param name="prmElem" as="element()"/>
-        <xsl:sequence select="$prmElem/*[contains(@class,' ditaot-d/ditaval-endprop ')]/*[self::prop or self::revprop]/endflag"/>
+        <xsl:sequence select="$prmElem/*[contains-token(@class, 'ditaot-d/ditaval-endprop')]/*[self::prop or self::revprop]/endflag"/>
     </xsl:function>
 
     <!-- 
@@ -591,7 +591,7 @@ E-mail : info@antennahouse.com
      -->
     <xsl:function name="ahf:hasDitaValStartPropWithImageFlag" as="xs:boolean">
         <xsl:param name="prmElem" as="element()"/>
-        <xsl:sequence select="exists($prmElem/child::*[contains(@class, ' ditaot-d/ditaval-startprop ')][ahf:hasDitaValWithImageStartFlag(.)])"/>
+        <xsl:sequence select="exists($prmElem/child::*[contains-token(@class, 'ditaot-d/ditaval-startprop')][ahf:hasDitaValWithImageStartFlag(.)])"/>
     </xsl:function>
 
     <!-- 
@@ -602,7 +602,7 @@ E-mail : info@antennahouse.com
      -->
     <xsl:function name="ahf:hasDitaValEndPropWithImageFlag" as="xs:boolean">
         <xsl:param name="prmElem" as="element()"/>
-        <xsl:sequence select="exists($prmElem/child::*[contains(@class, ' ditaot-d/ditaval-endprop ')][ahf:hasDitaValWithImageEndFlag(.)])"/>
+        <xsl:sequence select="exists($prmElem/child::*[contains-token(@class, 'ditaot-d/ditaval-endprop')][ahf:hasDitaValWithImageEndFlag(.)])"/>
     </xsl:function>
 
     <!-- 

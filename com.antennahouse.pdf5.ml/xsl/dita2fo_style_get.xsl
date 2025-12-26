@@ -9,7 +9,7 @@
     E-mail : info@antennahouse.com
     ****************************************************************
 -->
-<xsl:stylesheet version="2.0" 
+<xsl:stylesheet version="3.0" 
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
     xmlns:fo="http://www.w3.org/1999/XSL/Format" 
@@ -131,12 +131,12 @@
     </xsl:template>
 
     <!-- We cannot decide topic/title or topiref/topicmeta/navtitle style in normal way. -->
-    <xsl:template match="*[contains(@class,' topic/topic ')]/*[contains(@class,' topic/title ')]" mode="MODE_GET_STYLE" as="xs:string*">
+    <xsl:template match="*[contains-token(@class, 'topic/topic')]/*[contains-token(@class, 'topic/title')]" mode="MODE_GET_STYLE" as="xs:string*">
         <xsl:param name="prmTopicTitleStyle" tunnel="yes" as="xs:string?" required="no" select="()"/>
         <xsl:sequence select="$prmTopicTitleStyle"/>
     </xsl:template>
 
-    <xsl:template match="*[contains(@class,' map/topicref ')]/*[contains(@class,' map/topicmeta ')]/*[contains(@class,' topic/navtitle ')]" mode="MODE_GET_STYLE" as="xs:string*">
+    <xsl:template match="*[contains-token(@class, 'map/topicref')]/*[contains-token(@class, 'map/topicmeta')]/*[contains-token(@class, 'topic/navtitle')]" mode="MODE_GET_STYLE" as="xs:string*">
         <xsl:param name="prmNavTitleStyle" tunnel="yes" as="xs:string?" required="no" select="()"/>
         <xsl:sequence select="$prmNavTitleStyle"/>
     </xsl:template>
@@ -314,7 +314,7 @@
         <xsl:param name="prmElem" as="element()"/>
         <xsl:variable name="tempXmlLangSeq" as="xs:string+">
             <xsl:choose>
-                <xsl:when test="$prmElem/ancestor-or-self::*[contains(@class,' topic/topic ')]">
+                <xsl:when test="$prmElem/ancestor-or-self::*[contains-token(@class, 'topic/topic')]">
                     <xsl:sequence select="$rootXmlLang"/>
                 </xsl:when>
                 <xsl:when test="empty($map/@xml:lang)">
@@ -340,7 +340,7 @@
         <!--xsl:variable name="curXmlLang" as="xs:string?" select="if (exists($prmElem/@xml:lang)) then ahf:nomalizeXmlLang(string($prmElem/@xml:lang)) else ()"/-->
         <xsl:variable name="ancestorOrSelfXmlLang" as="xs:string+">
             <xsl:choose>
-                <xsl:when test="$prmElem/ancestor-or-self::*[contains(@class,' topic/topic ')]">
+                <xsl:when test="$prmElem/ancestor-or-self::*[contains-token(@class, 'topic/topic')]">
                     <xsl:sequence select="$rootXmlLang"/>
                 </xsl:when>
                 <xsl:when test="empty($map/@xml:lang)">
