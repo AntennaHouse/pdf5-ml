@@ -29,7 +29,7 @@
         <!-- Plug-in name and version -->
         <xsl:variable name="pluginAuthor" as="xs:string" select="'Antenna House'"/>
         <xsl:variable name="pluginName" as="xs:string" select="'PDF5-ML'"/>
-        <xsl:variable name="pluginVersion" as="xs:string" select="'1.1.0'"/>
+        <xsl:variable name="pluginVersion" as="xs:string" select="'1.2.0'"/>
         <xsl:message select="concat($pluginAuthor,' ',$pluginName,' plug-in Version: ',$pluginVersion)"/>
         <!-- XSLT processor information -->
         <xsl:variable name="vendor" as="xs:string" select="system-property('xsl:vendor')"/>

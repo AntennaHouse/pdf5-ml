@@ -5,6 +5,18 @@
       Copyright (C) 2009-2023 Antenna House, Inc. All rights reserved.
              Antenna House is a trademark of Antenna House, Inc.
 _______________________________________________________________________________
+Dec, 2025
+V1.2.0
+- Change the XSLT version from 2.0 to 3.0.
+  Adopt contains-token() instead of contains() for matching template.
+- Refine the error processing template. Now most of error log contains the relevant file 
+  path and the line/column information.
+- Add support for "preprocess2". Specify property adopt.preprocess2=yes.
+- Add style for Georgian and Armenia.
+- Remove metadata in common graphic SVG images.
+- Add XSL-FO indentation step. Specify property debug.fo=yes.
+- Some bug fixes.
+
 Jul. 2023
 V1.1.0
 - Introduce dita2fo_util_node.xsl
