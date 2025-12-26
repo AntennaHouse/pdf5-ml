@@ -10,6 +10,7 @@
        2024-10-03 t.makita
      - Add indent final XSL-FO target
        2025-04-28
+     - Remove use.index.common.xslt3 property. 
      [Parameter] 
      prmInputFile:  Merged middle file path
      prmOutputFile: PDF file path
@@ -197,7 +198,7 @@
             <sysproperty key="com.innodata.i18n.home" value="${i18n.home}"/>
             <sysproperty key="use.i18n.index.lib" value="${use.i18n.index.lib}"/>
             <sysproperty key="ot.version" value="${otversion}"/>
-            <sysproperty key="use.index.common.xslt3" value="${use.index.common.xslt3}" if:set="use.index.common.xslt3"/>
+            <!--sysproperty key="use.index.common.xslt3" value="${use.index.common.xslt3}" if:set="use.index.common.xslt3"/-->
             <sysproperty key="adopt.preprocess2" value="${adopt.preprocess2}" if:set="adopt.preprocess2"/>
             <xmlcatalog refid="dita.catalog"/>
         </xslt>

@@ -35,14 +35,13 @@
          2021-05-22 t.makita
      -->
     <!--*-->
-    <xsl:include href="dita2fo_indexcommon.xsl"                  use-when="system-property('use.index.common.xslt3') ne 'yes' or xs:double(substring((system-property('ot.version')),1 ,3)) lt 3.4"/>
+    <!--xsl:include href="dita2fo_indexcommon.xsl"               use-when="system-property('use.index.common.xslt3') ne 'yes' or xs:double(substring((system-property('ot.version')),1 ,3)) lt 3.4"/>
     <xsl:include href="dita2fo_indexcommon_indexterm.xsl"        use-when="system-property('use.index.common.xslt3') eq 'yes' and xs:double(substring((system-property('ot.version')),1 ,3)) ge 3.4"/>
     <xsl:include href="dita2fo_indexcommon_index_out.xsl"        use-when="system-property('use.index.common.xslt3') eq 'yes' and xs:double(substring((system-property('ot.version')),1, 3)) ge 3.4"/>
-    <xsl:include href="dita2fo_indexcommon_index_final_tree.xsl" use-when="system-property('use.index.common.xslt3') eq 'yes' and xs:double(substring((system-property('ot.version')),1, 3)) ge 3.4"/>
-    <!--*-->
-
-    <!--xsl:include href="dita2fo_indexcommon_indexterm.xsl"/>
+    <xsl:include href="dita2fo_indexcommon_index_final_tree.xsl" use-when="system-property('use.index.common.xslt3') eq 'yes' and xs:double(substring((system-property('ot.version')),1, 3)) ge 3.4"/-->
+    <xsl:include href="dita2fo_indexcommon_indexterm.xsl"/>
     <xsl:include href="dita2fo_indexcommon_index_out.xsl"/>
-    <xsl:include href="dita2fo_indexcommon_index_final_tree.xsl"/-->
+    <xsl:include href="dita2fo_indexcommon_index_final_tree.xsl"/>
+    <!--*-->
     
 </xsl:stylesheet>

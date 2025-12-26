@@ -158,10 +158,10 @@
       <val>yes</val>
       <val default="true">no</val>
     </param>
-    <param name="use.index.common.xslt3" desc="Specifies the XSLT 3.0 index common build." type="enum">
+    <!--param name="use.index.common.xslt3" desc="Specifies the XSLT 3.0 index common build." type="enum">
       <val default="true">no</val>
       <val>yes</val>
-    </param>
+    </param-->
     <param name="fo.in.output.folder" desc="Specifies the final FO file location. The default value is output folder, otherwise it is in temporary folder." type="enum">
       <val default="true">yes</val>
       <val>no</val>
