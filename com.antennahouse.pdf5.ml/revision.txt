@@ -2,7 +2,7 @@
 
                  Antenna House PDF5-ML Plug-in Revision Notes
 
-      Copyright (C) 2009-2023 Antenna House, Inc. All rights reserved.
+      Copyright (C) 2009-2025 Antenna House, Inc. All rights reserved.
              Antenna House is a trademark of Antenna House, Inc.
 _______________________________________________________________________________
 Dec, 2025
