@@ -1,11 +1,11 @@
 <!DOCTYPE HTML><html xml:lang="en" lang="en">
    <head>
       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-      <title>Integrating PDF5-ML with oXygen XML Editor</title>
+      <title>Integrating PDF5-ML with Oxygen XML Editor</title>
       <link rel="stylesheet" href="toshi_en.css" type="text/css">
    </head>
    <body>
-      <h1 style="text-align:center;">Integrating PDF5-ML with oXygen XML Editor</h1>
+      <h1 style="text-align:center;">Integrating PDF5-ML with Oxygen XML Editor</h1>
       <p class="author">Feb, 2025.&nbsp;Antenna House, Inc.</p>
       <h2>Revision</h2>
       <table style="font-size:small;width:50%;line-height:0.9em;">
@@ -27,10 +27,10 @@
       <ul style="font-size:small;line-height:0.9em;">
          <li><a href="#overview">1&nbsp; Overview</a></li>
          <li><a href="#downloading">2&nbsp; Downloading PDF5-ML plug-in from GitHub</a></li>
-         <li><a href="#confirm-your-oXygen-dita-version-setting">3&nbsp; Confirm your oXygen XML Editor DITA version setting</a></li>
+         <li><a href="#confirm-your-Oxygen-dita-version-setting">3&nbsp; Confirm your Oxygen XML Editor DITA version setting</a></li>
          <li><a href="#copy-plugin-folder">4&nbsp; Copy plug-in folder into [DITA-OT]/plugins folder</a></li>
          <li><a href="#plugin-integration">5&nbsp; Plug-in integration</a></li>
-         <li><a href="#modify-transformation-scenario">6&nbsp; Modify transformation scenario for PDF5-ML plug-in</a></li>
+         <li><a href="#create-transformation-scenario">6&nbsp; Create transformation scenario for PDF5-ML plug-in</a></li>
          <li><a href="#test-transformation-scenario">7&nbsp; Test the transformation scenario</a></li>
       </ul>
       <hr>
@@ -39,7 +39,7 @@
       
       
       
-      <p>This document describes how to integrate PDF5-ML plug-in with oXygen XML Editor. </p>
+      <p>This document describes how to integrate PDF5-ML plug-in with Oxygen XML Editor. </p>
       
       
       <h2><a id="downloading">﻿</a><a id="d2e31">2&nbsp;Downloading PDF5-ML plug-in from GitHub</a></h2>
@@ -52,21 +52,21 @@
          <div class="fig-title">[Fig.1]&nbsp; Downloading or cloning PDF5-ML plug-in</div><img alt="" src="image/download-from-github.png" width="300"></div>
       
       
-      <h2><a id="confirm-your-oXygen-dita-version-setting">﻿</a><a id="d2e44">3&nbsp;Confirm your oXygen XML Editor DITA version setting</a></h2>
+      <h2><a id="confirm-your-Oxygen-dita-version-setting">﻿</a><a id="d2e44">3&nbsp;Confirm your Oxygen XML Editor DITA version setting</a></h2>
       
       
       
-      <p>Open your oXygen XML Editor DITA setting by clicking <span style="font-family:sans-serif;">[<span style="text-decoration:underline">O</span>ptions]</span>-<span style="font-family:sans-serif;">[<span style="text-decoration:underline">P</span>references]</span> and select <span style="font-family:sans-serif;">[DITA]</span></p>
+      <p>Open your Oxygen XML Editor DITA setting by clicking <span style="font-family:sans-serif;">[<span style="text-decoration:underline">O</span>ptions]</span>-<span style="font-family:sans-serif;">[<span style="text-decoration:underline">P</span>references]</span> and select <span style="font-family:sans-serif;">[DITA]</span></p>
       
       
       <div class="fig">
          <div class="fig-title">[Fig.2]&nbsp; Confirming which DITA-OT is selected.</div><img alt="" src="image/preferences-dita-ot.png" width="700"></div>
       
       
-      <p>Confirm your oXygen XML Editor DITA-OT folder. (Abbreviated as "[DITA-OT]")</p>
+      <p>Confirm your Oxygen XML Editor DITA-OT folder. (Abbreviated as "[DITA-OT]")</p>
       
       
-      <table summary="" width="800">
+      <table width="800">
          <thead>
             <tr>
                
@@ -78,9 +78,9 @@
          <tbody>
             <tr>
                
-               <td>Bult-in DITA-OT Publishing Engine (Based on DITA-OT 4.3.x)</td>
+               <td>Bult-in DITA-OT Publishing Engine (Based on DITA-OT 4.x)</td>
                
-               <td>[oXygen Install Folder]/frameworks/dita/DITA-OT
+               <td>[Oxygen Install Folder]/frameworks/dita/DITA-OT
                   </td>
                </tr>
             <tr>
@@ -112,8 +112,8 @@
       
       <ol>
          
-         <li>Invoke oXygen XML Editor with administrator authority.<br>
-            If you use Windows, select oXygen XML Editor icon in the desktop and from context
+         <li>Invoke Oxygen XML Editor with administrator authority.<br>
+            If you use Windows, select Oxygen XML Editor icon in the desktop and from context
             menu select "Run as administrator". 
             </li>
          
@@ -131,13 +131,14 @@
       
       <pre class="code">Executing:
                 "C:\Program Files\Oxygen XML Editor 28.0\frameworks/dita/DITA-OT/bin/dita.bat" -v --install
+                Added com.antennahouse.pdf5.ml
                 The process finished with exit code: 0
             </pre>
       
       
       
       
-      <h2><a id="modify-transformation-scenario">﻿</a><a id="d2e153">6&nbsp;Modify transformation scenario for PDF5-ML plug-in</a></h2>
+      <h2><a id="create-transformation-scenario">﻿</a><a id="d2e153">6&nbsp;Create transformation scenario for PDF5-ML plug-in</a></h2>
       
       
       
@@ -145,35 +146,32 @@
          
          <li>
             
-            <p>From oXygen XML Editor Configure Transformation Scenario, duplicate the "DITA Map
-               PDF - based on XSL-FO".</p>
+            <p>From Oxygen XML Editor "Configure Transformation Scenario", click <span style="text-decoration:underline">N</span>ew and select "<span style="text-decoration:underline">D</span>ITA-OT transformation".</p>
             
             
             <div class="fig">
-               <div class="fig-title">[Fig.3]&nbsp; Duplicate the "DITA Map PDF" Schenario.</div><img alt="" src="image/duplicate-dita-map-pdf.png" width="700"></div>
+               <div class="fig-title">[Fig.3]&nbsp; Select DITA-OT Transformation</div><img alt="" src="image/select-ditaot-transformation.png" width="300"></div>
             </li>
          
          <li>
             
-            <p>Modify the duplicated scenario</p>
+            <p>Edit the scenario</p>
             
             <ul>
                
-               <li>Modify name from "DITA Map PDF - based on XSL-FO - Copy" to "DITA Map PDF - PDF5-ML".</li>
+               <li>Modify name to "Antenna House PDF5-ML".</li>
                
                <li>Select "<span style="text-decoration:underline">P</span>roject options" or "<span style="text-decoration:underline">G</span>lobal options" according to your decision. If the former is selected, it can be used
                   only this project. If the latter is selected it can be used from any project.</li>
                
-               <li>Modify "transtype" parameter to "pdf5.ml".</li>
+               <li>Select "ahf.dir" parameter and set your Antenna House Formatter install folder.</li>
                
-               <li>Add "ahf.dir" parameter and set your Antenna House Formatter install folder.</li>
-               
-               <li>[Optional] Add "ahf.opt" parameter and set your favorite Antenna House Formatter option
-                  setting file path.</li>
+               <li>[Optional] Select "ahf.opt" parameter and set your favorite Antenna House Formatter
+                  option setting file path.</li>
                </ul>
             
             <div class="fig">
-               <div class="fig-title">[Fig.4]&nbsp; Edit transformation scenario.</div><img alt="" src="image/edit-scenario.png" width="700"></div>
+               <div class="fig-title">[Fig.4]&nbsp; Edit transformation scenario.</div><img alt="" src="image/edit-scenario.png" width="800"></div>
             
             <p><span style="font-family:Times New Roman;">☞ <strong>NOTE:&nbsp;</strong></span><em>For more details about Antenna House Formatter setting file, refer to <a href="https://www.antenna.co.jp/AHF/help/en/ahf-optset.html">Option Setting File</a>.</em></p>
             </li>
@@ -181,18 +179,18 @@
       
       
       
-      <h2><a id="test-transformation-scenario">﻿</a><a id="d2e199">7&nbsp;Test the transformation scenario</a></h2>
+      <h2><a id="test-transformation-scenario">﻿</a><a id="d2e202">7&nbsp;Test the transformation scenario</a></h2>
       
       
       
       <ol>
          
-         <li>Invoke oXygen XML Editor and open any ditamap file which you want to generate PDF
+         <li>Invoke Oxygen XML Editor and open any ditamap file which you want to generate PDF
             file.</li>
          
          <li>Click <span style="font-family:sans-serif;">[Doc<span style="text-decoration:underline">u</span>ment]</span>-<span style="font-family:sans-serif;">[<span style="text-decoration:underline">T</span>ransformation]</span>-<span style="font-family:sans-serif;">[<span style="text-decoration:underline">C</span>onfigure Transformation Scenario(s)...]</span></li>
          
-         <li>Select "DITA Map PDF - PDF5-ML" scenario.</li>
+         <li>Select "Antenna House PDF5-ML" scenario.</li>
          
          <li>Click <span style="font-family:sans-serif;">[<span style="text-decoration:underline">A</span>pply associated]</span></li>
          
@@ -203,10 +201,6 @@
       <div class="fig">
          <div class="fig-title">[Fig.5]&nbsp; Run transformation scenario.</div><img alt="" src="image/run-scenario.png" width="700"></div>
       
-      <p><span style="font-family:Times New Roman;">☞ <strong>NOTE:&nbsp;</strong></span><em>By clicking following point shows the build log in the oXygen XML Editor Windows.</em></p>
-      
-      <div class="fig">
-         <div class="fig-title">[Fig.6]&nbsp; Show build log button.</div><img alt="" src="image/build-log-button.png" width="700"></div>
       
       
       
