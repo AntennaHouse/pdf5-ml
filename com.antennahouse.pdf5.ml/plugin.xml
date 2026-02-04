@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<plugin id="com.antennahouse.pdf5.ml" version="1.1.0">
+<plugin id="com.antennahouse.pdf5.ml" version="1.2.1">
   <extension-point id="com.antennahouse.pdf5.ml.param" name="PDF XSLT parameters (JAXP)"/>
   <extension-point id="com.antennahouse.pdf5.ml.saxon.param" name="PDF XSLT parameters (SAXON)"/>
   <extension-point id="com.antennahouse.pdf5.ml.psmi.param" name="PDF XSLT parameters (PSMI)"/>
@@ -19,7 +19,7 @@
   <feature extension="dita.conductor.target.relative" value="integrator.xml" type="file"/>
   <feature extension="dita.conductor.lib.import" file="lib/versioncomp-0.1.jar"/>
   <!--feature extension="dita.conductor.lib.import" file="lib/rel-uri-util-0.1.jar"/-->
-  <transtype name="pdf5.ml" desc="PDF">
+  <transtype name="pdf5.ml" desc="Antenna House PDF5-ML" type="pdf">
     <param name="style.def.file" desc="Style definition file" type="file"/>
     <param name="include.frontmatter.to.toc" desc="Specifies whether to include frontmatter topicref in toc." type="enum">
       <val>yes</val>
@@ -162,9 +162,9 @@
       <val default="true">no</val>
       <val>yes</val>
     </param-->
-    <param name="fo.in.output.folder" desc="Specifies the final FO file location. The default value is output folder, otherwise it is in temporary folder." type="enum">
-      <val default="true">yes</val>
-      <val>no</val>
+    <param name="fo.in.output.folder" desc="Specifies the final FO file location. The default value is temporary folder, otherwise it is in output folder." type="enum">
+      <val default="true">no</val>
+      <val>yes</val>
     </param>
     <param name="adopt.preprocess2" desc="Specifies whether to adopt preprocess2." type="enum">
       <val default="true">no</val>
@@ -174,7 +174,7 @@
       <val default="true">no</val>
       <val>yes</val>
     </param>
-    <param name="ahf.dir" desc="Specifies AH Formatter directory" type="string"/>
+    <param name="ahf.dir" desc="Specifies AH Formatter directory" type="dir"/>
     <param name="ahf.opt" desc="Specifies AH Formatter option setting file" type="file"/>
     <param name="last.pageseq.id" desc="Specifies the last fo:page-sequence/@id value" type="string"/>
     <param name="last.pageseq.offset" desc="Specifies the last fo:page-sequence minus offset" type="string"/>
