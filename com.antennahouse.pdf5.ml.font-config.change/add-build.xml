@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <root>
-    <condition property="ahf.font.config.env" value="AHF70_64_FONT_CONFIGFILE">
+    <condition property="ahf.font.config.env" value="AHF75_64_FONT_CONFIGFILE">
         <not>
             <isset property="ahf.font.config.env"/>
         </not>
