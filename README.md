@@ -190,6 +190,10 @@ Paper size definition can be customized by yourself according to your output req
 
 This folder contains PDF5-ML plug-in files and folders. To install this plug-in, refer to pdf5-ml_manual.pdf.
 
+## com.antennahouse.pdf5.ml.font-config.change
+
+This folder contains dynamic font-config.xml change plug-in for Formatter setting. Refer to readme.txt for details.
+
 ## jp.acme-corporation.pdf.ml folder
 
 This folder contains sample plug-in that overrides PDF5-ML plug-in for your own customization.
