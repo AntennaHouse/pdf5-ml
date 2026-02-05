@@ -125,7 +125,7 @@ In this example "%plug-in-path%" notation is automatically replaced by the plug-
 
 For the most of DITA stylesheet programmers it is a headache problem to design the cover pages of the PDF publication. The component of a cover contains logo image, document title, web link, etc. They cannot be expressed by the flow object. Rather these components will be placed in  the absolute positioned object.
 
-This plug-in enables to locate items in cover by specifying the following @outputclass notation in map:
+This plug-in enables to locate items in cover by specifying the following `@outputclass` notation in map:
 
 ```xml
 <frontmatter>
