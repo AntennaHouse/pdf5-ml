@@ -2,6 +2,11 @@ readme.txt for com.antennahouse.pdf5.ml.font-config.change plug-in.
 
 This plug-in enables to change Antenna House Formatter font-config.xml for every DITA-OT building.
 
+Integration:
+
+Copy com.antennahouse.pdf5.ml.font-config.change folder to your [DITA-OT]/plugins.
+Integrate it by entering commend "dita --install" from [DITA-OT] command-line shell.
+
 Usage:
 
 1. font-config file environment variable
@@ -18,4 +23,4 @@ Usage:
   ant command-line
   -Dahf.font.config.file=[Formatter font-config.xml path]
 
-  There is no default value. Formatter will adopt installation setting.
+  There is no default value. This parameter is required.
