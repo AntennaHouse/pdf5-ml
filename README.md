@@ -1,8 +1,8 @@
 # Antenna House PDF5-ML Plugin
-PDF5-ML is the [DITA Open Toolkit][^3] PDF plug-in for actual business usage. It was derived from [PDF5][^7] plugin and radically refined from the beginning.
+PDF5-ML is the [DITA Open Toolkit](https://www.dita-ot.org/) PDF plug-in for actual business usage. It was derived from [PDF5](https://github.com/AntennaHouse/pdf5) plugin and radically refined from the beginning.
 
 ## FEATURES
-- Supports multiple language formatting in one [DITA][^5] document
+- Supports multiple language formatting in one [DITA](https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=dita) document
 - Realize conditional variable & style definition
 - Enables free format cover pages
 - Free paper size definition & selection
@@ -136,7 +136,7 @@ This plug-in enables to locate items in cover by specifying the following @outpu
 </frontmatter>
 ```
 
-If `topicref/@outputclass` is "coverN" format, this plugin generates `fo:block-container` from `topic/body/bodydiv`. Also using the `fo:prop` property introduced in [ah-dita][^8], you can make free format cover pages.
+If `topicref/@outputclass` is "coverN" format, this plugin generates `fo:block-container` from `topic/body/bodydiv`. Also using the `fo:prop` property introduced in [ah-dita](https://github.com/AntennaHouse/ah-dita), you can make free format cover pages.
 
 ![Cover page example](images/cover1.png)
 
@@ -202,7 +202,7 @@ This folder contains the sample DITA instance and formatted results.
 |---|---|
 |sample_en|This folder contains DITA elements and attribute test data. It also demonstrates index page generation.|
 |sample_ja|Contains Japanese index page example.|
-|sample_cover|Contains the example of cover page generation and three output-type (web, print-color and print-mono). This sample data needs DITA 1.3 RELAX NG schema and [ah-dita][^8] specialization to get the output.|
+|sample_cover|Contains the example of cover page generation and three output-type (web, print-color and print-mono). This sample data needs DITA 1.3 RELAX NG schema and [ah-dita](https://github.com/AntennaHouse/ah-dita) specialization to get the output.|
 |sample_udhr|Contains multi-language DITA instance example.|
 |sample_dita13|Contains DITA 1.3 example.|
 
@@ -213,13 +213,13 @@ This folder contains the HTML file that describes how to integrate PDF-ML with O
 
 ## Prereqsites
 
-1. This plug-in uses [Antenna House Formatter][^4] for PDF generation.
+1. This plug-in uses [Antenna House Formatter](http://antennahouse.com/product.htm) for PDF generation.
 2. This plug-in stylesheets are written in XSLT 3.0.
-3. Tested in [DITA-OT][^3] 3.7.4 or later.
+3. Tested in [DITA-OT](https://www.dita-ot.org/) 3.7.4 or later.
 
 ## Copyright
 Copyright (C) 2009-2026 Antenna House, Inc. All rights reserved.  
-Antenna House is a trademark of [Antenna House, Inc.][^2]
+Antenna House is a trademark of [Antenna House, Inc.](http://www.antennahouse.com/)
 
 This plug-in uses graphics from www.vectorbackground.net under the Creative Commons Attribution license.
 
@@ -227,13 +227,17 @@ This plug-in uses graphics from pixabay.com under the Creative Commons CC0.
 
 ## License
 
-This software is licensed under the [Apache License, Version 2.0][^1].
+This software is licensed under the [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0).
 
-[^1]: http://www.apache.org/licenses/LICENSE-2.0 "Apache License, Version 2.0"
-[^2]: http://www.antennahouse.com/ "Antenna House, Inc."
-[^3]: https://www.dita-ot.org/ "DITA Open Toolkit"
-[^4]: http://antennahouse.com/product.htm "Antenna House Formatter"
-[^5]: https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=dita "OASIS Darwin Information Typing Architecture (DITA)"
-[^6]: http://www.w3.org/TR/xsl/ "XSL Formatting Object"
-[^7]: https://github.com/AntennaHouse/pdf5 "Antenna House PDF5 Plug-in"
-[^8]: https://github.com/AntennaHouse/ah-dita "Antenna House DITA 1.3 specialization"
+
+
+
+
+[1]: http://www.apache.org/licenses/LICENSE-2.0 "Apache License, Version 2.0"
+[2]: http://www.antennahouse.com/ "Antenna House, Inc."
+[3]: http://sourceforge.net/projects/dita-ot/ "DITA Open Toolkit"
+[4]: http://antennahouse.com/product.htm "Antenna House Formatter"
+[5]: https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=dita "OASIS Darwin Information Typing Architecture (DITA)"
+[6]: http://www.w3.org/TR/xsl/ "XSL Formatting Object"
+[7]: https://github.com/AntennaHouse/pdf5
+[8]: https://github.com/AntennaHouse/ah-dita
