@@ -7,8 +7,7 @@
 	<body>
         <section>
             <title>fig/foreign for MathML example</title>
-			<p>This example is downloaded from http://www.antenna.co.jp/AHF/FOsample/FOsample.htm#EB. </p>
-            <fig id="math_001">
+        	<fig id="math_001">
             	<title>MathML example (1)</title>
 	            <foreign>
 	                <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML">
@@ -148,7 +147,6 @@
 	                </math>
 	            </foreign>
 	        </fig>
-			<p>This example is also downloaded from http://www.antenna.co.jp/AHF/FOsample/FOsample.htm#EB. </p>
             <fig id="math_002">
             	<title>MathML example (2)</title>
             <foreign>
@@ -193,7 +191,6 @@
         </section>
         <section>
             <title>fig/foreign for SVG example</title>
-			<p>This example is also downloaded http://www.antenna.co.jp/AHF/FOsample/foGraphic/SVG/MP1.svg. </p>
             <fig>
                 <title>SVG example</title>
                 <foreign>
