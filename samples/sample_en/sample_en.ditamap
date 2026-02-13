@@ -206,24 +206,24 @@
                     <topicmeta><linktext>[linktext] p_weirdtitle2.xml</linktext></topicmeta></topicref>
                 </relcell>
                 <relcell> 
-                    <topicref href="http://www.w3.org/TR/2006/REC-xsl11-20061205/xsl11.pdf" scope="external" type="pdf" linking="targetonly">
+                    <topicref href="http://www.w3.org/TR/2006/REC-xsl11-20061205/xsl11.pdf" scope="external" type="pdf" format="pdf" linking="targetonly">
                        <topicmeta><linktext><keyword>Extensible Stylesheet Language (XSL)</keyword> Version 1.1 (PDF)</linktext><shortdesc></shortdesc></topicmeta>
                     </topicref>
 
-                    <topicref href="http://www.w3.org/TR/xsl/" scope="external" type="pdf" linking="targetonly">
+                    <topicref href="http://www.w3.org/TR/xsl/" scope="external" format="pdf" linking="targetonly">
                         <topicmeta><linktext><keyword>Extensible Stylesheet Language (XSL)</keyword> Version 1.1 (HTML)</linktext><shortdesc></shortdesc></topicmeta>
                     </topicref>
 
 
-                    <topicref href="deadlink.pdf" scope="external" type="pdf" linking="targetonly">
+                    <topicref href="deadlink.pdf" scope="external" format="pdf" linking="targetonly">
                     <topicmeta><linktext><keyword>Extensible Stylesheet Language (XSL)</keyword> Version 1.1 (BOOK)</linktext><shortdesc></shortdesc></topicmeta>
                     </topicref>
 
-                    <topicref href="sample.pdf" scope="external" type="pdf" linking="targetonly">
+                    <topicref href="sample.pdf" scope="external" format="pdf" linking="targetonly">
                         <topicmeta><linktext>Sample PDF</linktext><shortdesc></shortdesc></topicmeta>
                     </topicref>
 
-                    <topicref href="sample_ja.pdf#topic_ja_2" scope="external" type="pdf" linking="targetonly">
+                    <topicref href="sample_ja.pdf#topic_ja_2" scope="external" format="pdf" linking="targetonly">
                         <topicmeta><linktext>Japanese Constitution Preamble</linktext><shortdesc></shortdesc></topicmeta>
                     </topicref>
 
