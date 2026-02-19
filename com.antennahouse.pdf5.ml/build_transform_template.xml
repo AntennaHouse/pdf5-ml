@@ -42,7 +42,7 @@
 
     <!-- Final FO file location -->
     <target name="build.fo.folder">
-        <property name="fo.in.output.folder" value="yes"/>
+        <property name="fo.in.output.folder" value="no"/>
         <property name="final.fo.file" value="${output.dir}${file.separator}${dita.map.filename.root}.fo" if:true="${fo.in.output.folder}"/>
         <property name="final.fo.file" value="${build.temp.dir}${file.separator}${dita.map.filename.root}.fo" unless:true="${fo.in.output.folder}"/>
         <property name="final.fo.indent.file" value="${output.dir}${file.separator}${dita.map.filename.root}_indent.fo" if:true="${fo.in.output.folder}"/>

@@ -34,7 +34,10 @@
                 </thead>
 					 <tbody>
 						<row>
-						  <entry colname="col1">
+						  <entry colname="col1" align="center" valign="middle">
+						      <image href="image/caution.png" placement="inline" width="3em">
+						          <alt>Caution image</alt>
+						      </image>
 						  </entry>
 						  <entry colname="col2">Indicates that caution is required
 							 for operation. This symbol is placed on the product to refer the user to the
@@ -44,21 +47,30 @@
 						  </entry>
 						</row>
 						<row>
-						  <entry colname="col1">
+						  <entry colname="col1" align="center" valign="middle">
+						      <image href="image/protective-grounding.png" placement="inline" width="4em">
+						          <alt>Protective grounding image</alt>
+						      </image>
 						  </entry>
 						  <entry colname="col2">Identifies a protective grounding
 							 terminal. Before using the product, ground the terminal.
 						  </entry>
 						</row>
 						<row>
-						  <entry colname="col1">
+						  <entry colname="col1" align="center" valign="middle">
+						      <image href="image/functional-grounding.png" placement="inline" width="3em">
+						          <alt>Functional grounding image</alt>
+						      </image>
 						  </entry>
 						  <entry colname="col2">Identifies a functional grounding
 							 terminal. Before using the product, ground the terminal.<fn>A terminal is a the point at which a conductor from an electrical component, device or network comes to an end and provides a point of connection to external circuits.</fn>
 						  </entry>
 						</row>
 						<row>
-						  <entry colname="col1">
+						  <entry colname="col1" align="center" valign="middle">
+						      <image href="image/ac-power.png" placement="inline" width="4em">
+						          <alt>AC power image</alt>
+						      </image>
 						  </entry>
 						  <entry colname="col2">Indicates an AC supply.<xref href="#concept_7FCFF8FD66F44819A8F4F03810EB6840/fn001"/><fn id="fn001">Power is defined as the rate of flow of energy past a given point. In alternating current circuits, energy storage elements such as inductance and capacitance may result in periodic reversals of the direction of energy flow. The portion of power flow that, averaged over a complete cycle of the AC waveform, results in net transfer of energy in one direction is known as real power. The portion of power flow due to stored energy, which returns to the source in each cycle, is known as reactive power.
 
@@ -66,20 +78,29 @@
 						  </entry>
 						</row>
 						<row>
-						  <entry colname="col1">
+						  <entry colname="col1" align="center" valign="middle">
+						      <image href="image/dc-power.png" placement="inline" width="4em">
+						          <alt>DC power image</alt>
+						      </image>
 						  </entry>
 						  <entry colname="col2">Indicates a DC supply.<fn id="fn_DA409A2C671E3C40BCDA9876">Direct current (DC) is the unidirectional flow of electric charge. Direct current is produced by such sources as batteries, thermocouples, solar cells, and commutator-type electric machines of the dynamo type. Direct current may flow in a conductor such as a wire, but can also be through semiconductors, insulators, or even through a vacuum as in electron or ion beams. The electric charge flows in a constant direction, distinguishing it from alternating current (AC).</fn>
 						  </entry>
 						</row>
 						<row>
-						  <entry colname="col1">
+						  <entry colname="col1" align="center" valign="middle">
+						      <image href="image/power-on.png" placement="inline" width="4em">
+						          <alt>Power ON image</alt>
+						      </image>
 						  </entry>
 						  <entry colname="col2">Indicates that the main switch is ON.
                           
 						  </entry>
 						</row>
 						<row>
-						  <entry colname="col1">
+						  <entry colname="col1" align="center" valign="middle">
+						      <image href="image/power-off.png" placement="inline" width="4em">
+						          <alt>Power OFF image</alt>
+						      </image>
 						  </entry>
 						  <entry colname="col2">Indicates that the main switch is
 							 OFF.
@@ -100,7 +121,7 @@
                 <dt>Warning</dt>
                     <dd>Indicates a potentially hazardous situation which, if
                     instructions are not followed, could result in death
-                    or serious injury.<fn callout="*@">In the People's Republic of China,
+                    or serious injury.<fn callout="***">In the People's Republic of China,
                     warning signs appear with a black border and a yellow 
                     background. In Sweden, Serbia, Bosnia and Herzegovina, Croatia, 
                     Greece, Finland, Iceland, the Republic of Macedonia and Poland, 

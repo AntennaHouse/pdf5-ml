@@ -1,5 +1,5 @@
 body {
-	background: white fixed no-repeat left top; margin: 1em 0.5em 1em 1.5cm; color: black; font-family: serif;
+	background: white fixed no-repeat left top; margin: 1em 0.5em 1em 1.5cm; color: black; font-family: sans-serif;
 }
 :link {
 	background: none transparent scroll repeat 0% 0%; color: #00c
@@ -15,6 +15,7 @@ table {
 	margin-left:1em;
 	border:thin solid black;  
 	border-collapse:collapse;
+	font-size: 0.8em;
 }
 
 tr {
@@ -25,7 +26,7 @@ th {
 	border:thin solid black;padding: 5px; background-color: rgb(192,220,254);
 }
 td {
-	font-family: serif; border:thin solid black;padding: 5px;
+	font-family: sans-serif; border:thin solid black;padding: 5px;
 }
 h1 {
 	text-align: left
@@ -58,7 +59,7 @@ h4 {
 	background: white; color: #005a9c
 }
 h1 {
-	font: 180% serif
+	font: 180% sans-serif
 }
 h2 {
 	font: 160% sans-serif;
@@ -100,7 +101,7 @@ div.head img {
 
 p {
 	margin-left: 1em;
-	font-family:serif;
+	font-family:sans-serif;
 }
 p.copyright {
 	font-size: small
@@ -126,14 +127,14 @@ div.fig-title {
 
 div.quote {
 	margin: 1em;
-	font-family:serif;
+	font-family:sans-serif;
 	font-style:italic;
 }
 
 div.fig {
 	margin-top: 1em;
 	margin-bottom: 1em;
-	font-family:serif;
+	font-family:sans-serif;
 }
 
 

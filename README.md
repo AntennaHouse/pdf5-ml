@@ -1,15 +1,17 @@
-# Antenna House PDF5-<i>ML</i> Plugin
-PDF5-ML is the [DITA Open Toolkit] [3] PDF plug-in for actual business usage. It was derived from [PDF5] [7] plugin and radically refined from the beginning.
+# Antenna House PDF5-ML Plugin
+PDF5-ML is the [DITA Open Toolkit](https://www.dita-ot.org/) PDF plug-in for actual business usage. It was derived from [PDF5](https://github.com/AntennaHouse/pdf5) plugin and radically refined from the beginning.
 
 ## FEATURES
- - Supports multiple language formatting in one DITA document
- - Realize conditional variable & style definition
- - Enables free format cover pages
- - Free paper size definition & selection
+- Supports multiple language formatting in one [DITA](https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=dita) document
+- Realize conditional variable & style definition
+- Enables free format cover pages
+- Free paper size definition & selection
 
 ## Multiple language formatting
-----------
-PDF5-ML supports xml:lang in any level elements of a topic.
+
+---
+
+PDF5-ML supports `xml:lang` in any level elements of a topic.
 
 ```xml
 <section>
@@ -20,7 +22,7 @@ PDF5-ML supports xml:lang in any level elements of a topic.
     <p>We say "<ph xml:lang="ko-KR">안녕하세요！</ph>" in Korean.</p>
 </section>
 ```
-This example is formatted as follows. The font is automatically assigned by @xml:lang value such as "MS Mincho" for Japanese, "SimSun" for Simplified Chinese, "Batang" for Korean.
+This example is formatted as follows. The font is automatically assigned by `@xml:lang` value such as "MS Mincho" for Japanese, "SimSun" for Simplified Chinese, "Batang" for Korean.
 
 ![Formatting ph](images/formatting-ph.png)
 
@@ -34,16 +36,11 @@ This example is formatted as follows. The font is automatically assigned by @xml
     <note type="note" xml:lang="ko-KR">이것은 한국어의 비고입니다 This is Korean note.</note>
 </section>
 ```
-This note sample is formatted as follows provided that bookmap/@xml:lang is "en-US".
+This note sample is formatted as follows provided that `bookmap/@xml:lang` is "en-US".
 
 ![Formatting note](images/formatting-note.png)
 
 The title of note for each language is selected automatically by xml:lang value. The stylesheet does not concern this selection. All of the settings are defined in external style definition files.
-
-
-If you build this data by DITA-OT PDF2 plug-in, you will get the following result:
-
-![Formatting note by PDF2](images/formatting-note-pdf2.png)
 
 ## Conditional variable & style definition
 
@@ -94,6 +91,7 @@ This plug-in doesn't use `xsl:attribute-set` without limited exception. Most of 
     <attribute name="space-before">2mm</attribute>
 </attribute-set>
 ```
+
 As shown above, `xsl:variable` like notation is supported using another namespace. An variable can be referenced by adding "$" to its name and it can be used in an attribute definition. This function is simpler than standard XSLT notation and makes it a great flexibility to define the structured style.
 
 ![Formatting TOC](images/toc.png)
@@ -103,11 +101,11 @@ As shown above, `xsl:variable` like notation is supported using another namespac
 
 There are predefined attributes for writing conditional variable or attribute-set.
 
-- @paper-size
-- @doc-type
-- @output-type
+- `@paper-size`
+- `@doc-type`
+- `@output-type`
 
-The following example shows the auto switching of images for default web based PDF, color print PDF and monochrome print PDF by using @output-type. The actual output-type will be supplied by `xsl:param` from the caller side.
+The following example shows the auto switching of images for default web based PDF, color print PDF and monochrome print PDF by using `@output-type`. The actual output-type will be supplied by `xsl:param` from the caller side.
 
 ```xml
 <variable name="Note_Icon">url(%plug-in-path%common-graphic/note.svg)</variable>
@@ -127,7 +125,7 @@ In this example "%plug-in-path%" notation is automatically replaced by the plug-
 
 For the most of DITA stylesheet programmers it is a headache problem to design the cover pages of the PDF publication. The component of a cover contains logo image, document title, web link, etc. They cannot be expressed by the flow object. Rather these components will be placed in  the absolute positioned object.
 
-This plug-in enables to locate items in cover by specifying the following @outputclass notation in map:
+This plug-in enables to locate items in cover by specifying the following `@outputclass` notation in map:
 
 ```xml
 <frontmatter>
@@ -138,7 +136,7 @@ This plug-in enables to locate items in cover by specifying the following @outpu
 </frontmatter>
 ```
 
-If topicref/@outputclass is "coverN" format, this plugin generates fo:block-container from topic/body/bodydiv. Also using the fo:prop property introduced in [ah-dita] [8], you can make free format cover pages.
+If `topicref/@outputclass` is "coverN" format, this plugin generates `fo:block-container` from `topic/body/bodydiv`. Also using the `fo:prop` property introduced in [ah-dita](https://github.com/AntennaHouse/ah-dita), you can make free format cover pages.
 
 ![Cover page example](images/cover1.png)
 
@@ -192,6 +190,10 @@ Paper size definition can be customized by yourself according to your output req
 
 This folder contains PDF5-ML plug-in files and folders. To install this plug-in, refer to pdf5-ml_manual.pdf.
 
+## com.antennahouse.pdf5.ml.font-config.change
+
+This folder contains dynamic font-config.xml change plug-in for Formatter setting. Refer to readme.txt for details.
+
 ## jp.acme-corporation.pdf.ml folder
 
 This folder contains sample plug-in that overrides PDF5-ML plug-in for your own customization.
@@ -204,18 +206,24 @@ This folder contains the sample DITA instance and formatted results.
 |---|---|
 |sample_en|This folder contains DITA elements and attribute test data. It also demonstrates index page generation.|
 |sample_ja|Contains Japanese index page example.|
-|sample_cover|Contains the example of cover page generation and three output-type (web, print-color and print-mono). This sample data needs DITA 1.3 RELAX NG schema and [ah-dita] [8] specialization to get the output.|
+|sample_cover|Contains the example of cover page generation and three output-type (web, print-color and print-mono). This sample data needs DITA 1.3 RELAX NG schema and [ah-dita](https://github.com/AntennaHouse/ah-dita) specialization to get the output.|
 |sample_udhr|Contains multi-language DITA instance example.|
 |sample_dita13|Contains DITA 1.3 example.|
 
 ## oxygen-integration folder
 
-This folder contains the HTML file that describes how to integrate PDF-ML with oXygen XML Editor.
+This folder contains the HTML file that describes how to integrate PDF-ML with Oxygen XML Editor.
 
+
+## Prereqsites
+
+1. This plug-in uses [Antenna House Formatter](http://antennahouse.com/product.htm) for PDF generation.
+2. This plug-in stylesheets are written in XSLT 3.0.
+3. Tested in [DITA-OT](https://www.dita-ot.org/) 3.7.4 or later.
 
 ## Copyright
-Copyright (C) 2009-2019 Antenna House, Inc. All rights reserved.  
-Antenna House is a trademark of [Antenna House, Inc.] [2]
+Copyright (C) 2009-2026 Antenna House, Inc. All rights reserved.  
+Antenna House is a trademark of [Antenna House, Inc.](http://www.antennahouse.com/)
 
 This plug-in uses graphics from www.vectorbackground.net under the Creative Commons Attribution license.
 
@@ -223,7 +231,11 @@ This plug-in uses graphics from pixabay.com under the Creative Commons CC0.
 
 ## License
 
-This software is licensed under the [Apache License, Version 2.0] [1].
+This software is licensed under the [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0).
+
+
+
+
 
 [1]: http://www.apache.org/licenses/LICENSE-2.0 "Apache License, Version 2.0"
 [2]: http://www.antennahouse.com/ "Antenna House, Inc."
