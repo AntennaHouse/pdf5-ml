@@ -2,9 +2,20 @@
 
                  Antenna House PDF5-ML Plug-in Revision Notes
 
-      Copyright (C) 2009-2025 Antenna House, Inc. All rights reserved.
+      Copyright (C) 2009-2026 Antenna House, Inc. All rights reserved.
              Antenna House is a trademark of Antenna House, Inc.
 _______________________________________________________________________________
+
+Feb, 2026
+V1.2.1
+- Update the additional plug-ins.
+  com.antennahouse.pdf5.ml.font-config.change
+- Update README.md.
+- Update oxygen-integration.htm.
+- Update DITA sample.
+  sample_en
+- Change default FO output to temporary folder. 
+
 Dec, 2025
 V1.2.0
 - Change the XSLT version from 2.0 to 3.0.
