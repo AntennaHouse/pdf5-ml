@@ -111,8 +111,23 @@
     
     <!-- indexterm is coded in dita2fo_indexcommon.xsl -->
     
-    <!-- required-cleanup -->
-    <xsl:template match="*[contains-token(@class, 'topic/required-cleanup')]" mode="TEXT_ONLY"/>
+    <!-- required-cleanup 
+    note: if pOutputRequiredCleanup is true(), then retain  its text
+    -->
+    <xsl:template match="*[contains-token(@class, 'topic/required-cleanup')]" mode="TEXT_ONLY">
+        <xsl:choose>
+            <xsl:when test="$pOutputRequiredCleanup">
+                <xsl:value-of select="$requiredCleanupTitlePrefix"/>
+                <xsl:if test="string(@remap)">
+                    <xsl:value-of select="$requiredCleanupRemap"/>
+                    <xsl:value-of select="@remap"/>
+                </xsl:if>
+                <xsl:value-of select="$requiredCleanupTitleSuffix"/>
+                <xsl:apply-templates mode="#current"/>
+            </xsl:when>
+            <xsl:otherwise/>
+        </xsl:choose>
+    </xsl:template>
     
     <!-- state -->
     <xsl:template match="*[contains-token(@class, 'topic/state')]" mode="TEXT_ONLY">

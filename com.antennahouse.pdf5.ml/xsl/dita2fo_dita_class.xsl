@@ -47,11 +47,11 @@
     </xsl:function>
 
     <!-- Ignorable elements that is pointed from xref 
+     note:		if pOutputRequiredCleanup is true(), then except it
      -->
     <xsl:variable name="ignorebleElementClasses" as="xs:string+" select="
         (
         'topic/draft-comment',
-        'topic/required-cleanup',
         'topic/related-links',
         'topic/link',
         'topic/linktext',
@@ -65,14 +65,15 @@
         'topic/foreign',
         'topic/unknown',
         'topic/fn',
-        'topic/xref'
+        'topic/xref',
+        if (not($pOutputRequiredCleanup)) then ('topic/required-cleanup') else ()
         )"/>
-    
+  
     <!-- 
      function:  Return $prmElem/@class has value in $ignorebleElementClasses
      param:     $prmElem
      return:    xs:boolean
-     note:		
+     note:		if pOutputRequiredCleanup is true(), then except it
      -->
     <xsl:function name="ahf:isIgnorebleElement" as="xs:boolean">
         <xsl:param name="prmElem" as="element()"/>
