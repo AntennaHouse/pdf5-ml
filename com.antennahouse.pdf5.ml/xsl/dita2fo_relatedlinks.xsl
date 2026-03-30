@@ -25,7 +25,7 @@
      note:		As noted in DITA specification, this stylesheet adopts links that have @role='friend'.
      -->
     <xsl:template match="*[contains-token(@class, 'topic/related-links')]">
-        <xsl:variable name="linkCount" select="count(descendant::*[contains-token(@class, 'topic/link')][ahf:isTargetLink(.)])" as="xs:integer"/>
+        <xsl:variable name="linkCount" select="count(descendant::*[contains-token(@class, 'topic/link')][ahf:isTargetLink(.)][ahf:isValidLink(.)])" as="xs:integer"/>
         <xsl:if test="$linkCount gt 0">
             <xsl:call-template name="makeRelatedLink">
                 <xsl:with-param name="prmRelatedLinks" select="."/>
@@ -33,10 +33,62 @@
         </xsl:if>
     </xsl:template>
     
+    <!-- 
+     function:  Judge target link
+     param:     prmLink
+     return:	xs:boolean
+     note:      As noted in DITA specification, this stylesheet adopts links that have @role='friend'.
+     -->
     <xsl:function name="ahf:isTargetLink" as="xs:boolean">
         <xsl:param name="prmLink" as="element()"/>
-        <xsl:sequence select="(string($prmLink/@role) = ('friend','other')) or empty($prmLink/@role)"/>
+        <xsl:sequence select="string($prmLink/@role) = ('friend','other','')"/>
     </xsl:function>
+
+    <!-- 
+     function:  Judge inside/outside link
+     param:     prmLink    
+     return:	xs:boolean
+     note:      If $prmLink/@href begins with '#', it is generated link by DITA-OT.
+     -->
+    <xsl:function name="ahf:isLinkInside" as="xs:boolean">
+        <xsl:param name="prmLink" as="element()?"/>
+        <xsl:sequence select="string($prmLink/@href) => starts-with('#')"/>
+    </xsl:function>
+    
+    <!-- 
+     function:  Judge scope
+     param:     prmLink
+     return:	xs:boolean
+     note:      If $prmLink/@scope has the value "external", it is assumed as external scope.
+     -->
+    <xsl:function name="ahf:hasExternalScope" as="xs:boolean">
+        <xsl:param name="prmLink" as="element()?"/>
+        <xsl:sequence select="string($prmLink/@scope) eq 'external'"/>
+    </xsl:function>
+    
+    <xsl:function name="ahf:hasNotExternalScope" as="xs:boolean">
+        <xsl:param name="prmLink" as="element()?"/>
+        <xsl:sequence select="ahf:hasExternalScope($prmLink) => not()"/>
+    </xsl:function>
+
+    <!-- 
+     function:  Judge link is valid
+     param:     prmLink
+     return:	xs:boolean
+     note:      
+     -->
+    <xsl:function name="ahf:isValidLink" as="xs:boolean">
+        <xsl:param name="prmLink" as="element()?"/>
+        <xsl:choose>
+            <xsl:when test="ahf:isLinkInside($prmLink) and ahf:hasNotExternalScope($prmLink)">
+                <xsl:sequence select="ahf:getTopicFromLink($prmLink) => exists()"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:sequence select="true()"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:function>
+    
     
     <!-- 
      function:	Make related-links block
@@ -108,7 +160,8 @@
         <xsl:param name="prmRelatedLinks" required="yes" as="element()"/>
         
         <xsl:for-each select="$prmRelatedLinks/descendant::*[contains-token(@class, 'topic/link')]
-                                                               [ahf:isTargetLink(.)]">
+                                                               [ahf:isTargetLink(.)]
+                                                               [ahf:isValidLink(.)]">
             <xsl:variable name="link" select="." as="element()"/>
             <xsl:variable name="href" select="string($link/@href)" as="xs:string"/>
             <xsl:variable name="ohref" select="string($link/@ohref)" as="xs:string"/>
@@ -116,7 +169,7 @@
             <xsl:variable name="linktext" as="node()*">
                 <xsl:apply-templates select="$link/linktext" mode="GET_CONTENTS"/>
             </xsl:variable>
-            <xsl:variable name="isLinkInside" as="xs:boolean" select="starts-with($href,'#')"/>
+            <xsl:variable name="isLinkInside" as="xs:boolean" select="ahf:isLinkInside($link)"/>
             <xsl:variable name="topicContent" as="element()?" select="if ($isLinkInside) then ahf:getTopicFromLink($link) else ()"/>
             <xsl:variable name="topicRef" as="element()?" select="if (exists($topicContent)) then ahf:getTopicRef($topicContent) else ()"/>
             <xsl:variable name="topicTitle" as="element()?" select="if (exists($topicContent)) then $topicContent/child::*[contains-token(@class, 'topic/title')][1] else ()"/>
@@ -164,7 +217,7 @@
             </fo:block>
         </xsl:for-each>
     </xsl:template>
-    
+
     <!-- 
      function:	Linktext template
      param:	    
