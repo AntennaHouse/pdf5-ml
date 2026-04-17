@@ -174,6 +174,11 @@
       <val default="true">no</val>
       <val>yes</val>
     </param>
+    <param name="copy.link.target.to.output.dir" desc="Specifies whether to copy resouces to output folder." type="enum">
+      <val default="true">no</val>
+      <val>yes</val>
+    </param>
+    <param name="link.target.output.class" desc="Specifies link target @outputclass value to copy." type="string"/>
     <param name="ahf.dir" desc="Specifies AH Formatter directory" type="dir"/>
     <param name="ahf.opt" desc="Specifies AH Formatter option setting file" type="file"/>
     <param name="last.pageseq.id" desc="Specifies the last fo:page-sequence/@id value" type="string"/>

@@ -214,6 +214,7 @@
 
     <!-- Make URL for .job.xml in temporary directory -->
     <makeurl property="job.xml.url" file="${dita.temp.dir}${file.separator}.job.xml" validate="no"/>
+    <property name="job.xml" value="${dita.temp.dir}${file.separator}.job.xml"/>
     
     <!-- Main target -->
     <target name="merged2pdf">
@@ -231,10 +232,22 @@
     
     <!-- Copy link target resource files into output directory -->
     <target name="copy.link.target.file">
-        <property name="map.property" value="map.property.xml"/>
+        <property name="map.property" value="${dita.temp.dir}${file.separator}map.property.xml"/>
+        <property name="job.property" value="${dita.temp.dir}${file.separator}job.property.xml"/>
         <dirname property="dita.input.dir" file="${args.input}"/>
+        <!-- generate root map name property file -->
+        <xslt processor="trax" in="${job.xml}" out="${job.property}" style="${basedir}${file.separator}xsl${file.separator}dita2fo_job_to_xml_property.xsl" force="true" failonerror="true">
+            <factory name="net.sf.saxon.TransformerFactoryImpl">
+                <attribute name="http://saxon.sf.net/feature/timing" value="true"/>
+            </factory>
+            <xmlcatalog>
+                <catalogpath path="${dita.plugin.org.dita.base.dir}/catalog-dita.xml"/>
+            </xmlcatalog>
+        </xslt>
+        <!-- Set 'user.input.file' property -->
+        <xmlproperty file="${job.property}" keeproot="false" collapseAttributes="false" semanticAttributes="false"/>
         <!-- generate XML property file -->
-        <xslt processor="trax" in="${dita.temp.dir}${file.separator}${dita.input.filename}" out="${dita.temp.dir}${file.separator}${map.property}" style="${basedir}${file.separator}xsl${file.separator}dita2fo_bookmap_to_xml_property.xsl" force="true" failonerror="true">
+        <xslt processor="trax" in="${dita.temp.dir}${file.separator}${user.input.file}" out="${map.property}" style="${basedir}${file.separator}xsl${file.separator}dita2fo_bookmap_to_xml_property.xsl" force="true" failonerror="true">
             <factory name="net.sf.saxon.TransformerFactoryImpl">
                 <attribute name="http://saxon.sf.net/feature/timing" value="true"/>
             </factory>
@@ -244,7 +257,7 @@
             </xmlcatalog>
         </xslt>
         <!-- Make property from XML -->
-        <xmlproperty file="${dita.temp.dir}${file.separator}${map.property}" keeproot="true" collapseAttributes="true" semanticAttributes="true"/>
+        <xmlproperty file="${map.property}" keeproot="true" collapseAttributes="true" semanticAttributes="true"/>
         <echo message="Target file:${map.link-target}"/>
         <!-- Copy them into output dir -->
         <copy todir="${dita.output.dir}">
