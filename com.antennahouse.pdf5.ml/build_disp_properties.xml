@@ -44,6 +44,8 @@
     <echo message="output.table.title.continued=${output.table.title.continued}"/>
     <echo message="output.table.footer.continued=${output.table.footer.continued}"/>
     <echo message="add.map.title.to.bookmark=${add.map.title.to.bookmark}"/>
+    <echo message="copy.link.target.to.output.dir=${copy.link.target.to.output.dir}"/>
+    <echo message="link.target.output.class=${link.target.output.class}"/>
     <echo message="use.i18n.index.lib=${use.i18n.index.lib}"/>
     <echo message="user.input.dir.url=${user.input.dir.url}"/>
     <echo message="output.dir.url=${output.dir.url}"/>

@@ -252,6 +252,8 @@
                 <attribute name="http://saxon.sf.net/feature/timing" value="true"/>
             </factory>
             <param name="PRM_LINK_TARGET_OUTPUT_CLASS" expression="${link.target.output.class}" if:set="link.target.output.class"/>
+            <param name="PRM_ADOPT_PREPROCESS2" expression="${adopt.preprocess2}" if:set="adopt.preprocess2"/>
+            <param name="PRM_JOB_XML_URI" expression="${job.xml.url}" if:set="job.xml.url"/>
             <xmlcatalog>
                 <catalogpath path="${dita.plugin.org.dita.base.dir}/catalog-dita.xml"/>
             </xmlcatalog>
