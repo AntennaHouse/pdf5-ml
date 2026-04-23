@@ -456,5 +456,9 @@
     <xsl:variable name="stMes5032" as="xs:string">
         <xsl:text>[imageUri 5032F] "%image-url" entry does not found in .job.xml．URL=%url</xsl:text>
     </xsl:variable>
+
+    <xsl:variable name="stMes5034" as="xs:string">
+        <xsl:text>[copy-resource 5034W] "%href" is not copied to outputdir because it has no file protocol.</xsl:text>
+    </xsl:variable>
     
 </xsl:stylesheet>

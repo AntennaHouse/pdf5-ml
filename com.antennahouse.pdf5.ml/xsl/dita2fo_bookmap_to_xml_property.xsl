@@ -25,44 +25,12 @@
     <xsl:param name="PRM_LINK_TARGET_OUTPUT_CLASS" as="xs:string" required="yes"/>
     <xsl:variable name="gLinkTargetOutputClass" as="xs:string+" select="tokenize($PRM_LINK_TARGET_OUTPUT_CLASS, '[;,\s]')"/>
 
-    <!--Adopt preprocess2 -->
-    <xsl:param name="PRM_ADOPT_PREPROCESS2" as="xs:string" required="yes"/>
-    <xsl:variable name="gAdoptPreprocess2" as="xs:boolean" select="$PRM_ADOPT_PREPROCESS2 eq $cYes"/>
-    <xsl:variable name="gNotAdoptPreprocess2" as="xs:boolean" select="not($gAdoptPreprocess2)"/>
-    
-    <!-- .job.xml uri: used only when $gAdoptPreprocess2 is true -->
+    <!-- .job.xml uri -->
     <xsl:param name="PRM_JOB_XML_URI" as="xs:string" required="yes"/>
     <xsl:variable name="gJobUriDoc" as="document-node()">
-        <xsl:choose>
-            <xsl:when test="$gAdoptPreprocess2">
-                <xsl:sequence select="doc($PRM_JOB_XML_URI)"/>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:document/>
-            </xsl:otherwise>
-        </xsl:choose>
+        <xsl:sequence select="doc($PRM_JOB_XML_URI)"/>
     </xsl:variable>
     
-    <!-- 
-     function:  map matching template
-     param:     none
-     return:    <map> element.
-     note:      
-     -->
-    <xsl:template match="*[@class => contains-token('map/map')][$gNotAdoptPreprocess2]">
-        <xsl:element name="map">
-            <!-- Link resource targets -->
-            <xsl:variable name="resourecTopicRef" as="element()*" select="descendant::*[contains-token(@class, 'map/topicref')][string(@processing-role) eq 'resource-only'][string(@outputclass) = $gLinkTargetOutputClass][@href]"/>
-            <xsl:variable name="targetHrefs" as="xs:string*">
-                <xsl:for-each select="$resourecTopicRef">
-                    <xsl:sequence select="ahf:bsToSlash(string(@href))"/>
-                </xsl:for-each>
-            </xsl:variable>
-            <xsl:element name="link-target">
-                <xsl:value-of select="string-join($targetHrefs,',')"/>
-            </xsl:element>
-        </xsl:element>
-    </xsl:template>
 
     <!-- 
      function:  map matching template
@@ -70,7 +38,7 @@
      return:    <map> element.
      note:      
      -->
-    <xsl:template match="*[@class => contains-token('map/map')][$gAdoptPreprocess2]">
+    <xsl:template match="*[@class => contains-token('map/map')]">
         <xsl:element name="map">
             <!-- Link resource targets -->
             <xsl:variable name="resourecTopicRef" as="element()*" select="descendant::*[contains-token(@class, 'map/topicref')][string(@processing-role) eq 'resource-only'][string(@outputclass) = $gLinkTargetOutputClass][@href]"/>
@@ -78,9 +46,16 @@
                 <xsl:for-each select="$resourecTopicRef">
                     <xsl:variable name="href" as="xs:string" select="string(@href)"/>
                     <xsl:variable name="path" as="xs:string" select="string($gJobUriDoc/job/files/file[string(@uri) eq $href]/@result)"/>
-                    <xsl:if test="starts-with($path,'file:/')">
-                        <xsl:sequence select="substring-after($path,'file:/')"/>
-                    </xsl:if>
+                    <xsl:choose>
+                        <xsl:when test="starts-with($path,'file:/')">
+                            <xsl:sequence select="substring-after($path,'file:/')"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:call-template name="warningContinue">
+                                <xsl:with-param name="prmMes" select="ahf:replace($stMes5034,('%href'),($href))"/>
+                            </xsl:call-template>                            
+                        </xsl:otherwise>
+                    </xsl:choose>
                 </xsl:for-each>
             </xsl:variable>
             <xsl:element name="link-target">
