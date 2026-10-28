@@ -488,7 +488,7 @@
                 <xsl:sequence select="concat('url(',string($prmImage/@href),')')"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:sequence select="concat('url(',$pMapDirUrl,string($prmImage/@href),')')"/>
+                <xsl:sequence select="concat('url(',$pProjDirUri,string($prmImage/@href),')')"/>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:function>
@@ -516,7 +516,7 @@
     
         <xsl:if test="$prmImage/@href">
             <!--xsl:message select="'$prmImage/@href=',string($prmImage/@href)"/>
-            <xsl:message select="'$pMapDirUrl=',$pMapDirUrl"/-->
+            <xsl:message select="'$pProjDirUri=',$pProjDirUri"/-->
             <xsl:variable name="url" as="xs:string" select="ahf:getImageUrl($prmImage)"/>
             <!--xsl:message select="'$url=',$url"/-->
             <xsl:attribute name="src" select="$url"/>

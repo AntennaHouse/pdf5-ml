@@ -30,6 +30,7 @@
     <echo message="make.alt.txt=${make.alt.txt}"/>
     <echo message="paper.size=${paper.size}"/>
     <echo message="image.in.output.folder=${image.in.output.folder}"/>
+    <echo message="user.input.dir.uri=${user.input.dir.uri}"/>
     <echo message="output.crop.region=${output.crop.region}"/>
     <echo message="output.type=${output.type}"/>
     <echo message="doc.type=${doc.type}"/>

@@ -14,11 +14,11 @@
     xmlns:ahf="http://www.antennahouse.com/names/XSLT/Functions/Document"
     exclude-result-prefixes="xs ahf">
 
-    <!-- Map directory
-         2021-07-24 t.makita
+    <!-- Project URI taken from ${user.input.dir.uri}
+         2026-10-28 t.makita
      -->
-    <xsl:param name="PRM_MAP_DIR_URL" required="yes" as="xs:string"/>
-    <xsl:variable name="pMapDirUrl" as="xs:string" select="ahf:reviseFileUrl($PRM_MAP_DIR_URL)"/>
+    <xsl:param name="PRM_PROJ_DIR_URI" required="yes" as="xs:string"/>
+    <xsl:variable name="pProjDirUri" as="xs:string" select="ahf:reviseFileUrl($PRM_PROJ_DIR_URI)"/>
     
     <!-- FO property name now defined as parameter!
          2019-12-21 t.makita

@@ -3,7 +3,7 @@
     ****************************************************************
     DITA to XSL-FO Stylesheet
     Module: .ditaval flag processing templates
-    Copyright © 2009-2019 Antenna House, Inc. All rights reserved.
+    Copyright © 2009-2026 Antenna House, Inc. All rights reserved.
     Antenna House is a trademark of Antenna House, Inc.
     URL    : http://www.antennahouse.com/
     E-mail : info@antennahouse.com
@@ -18,61 +18,86 @@
     exclude-result-prefixes="xs ahf dita-ot"
 >
     <!-- This template handles the result of DITAVAL file flagging.
-         The result of flagging is constructed by DITA-OT as follows:
+         The result of flagging is constructed by DITA-OT (4.4.1) as follows:
          
          [.ditaval]
-            <prop action="flag" att="audience" val="general" backcolor="#f1f1f1" color="#ff0000" style="italics">
-                <startflag imageref="start.png">
-                    <alt-text>START</alt-text>
-                </startflag>
-                <endflag imageref="end.png">
-                    <alt-text>END</alt-text>
-                </endflag>
-            </prop>
-            <revprop action="flag" val="deltaxml-add" backcolor="#e0ffe0" style="underline" changebar="style:solid;width:3pt;offset:5pt;color:blue">
-                <startflag imageref="start.png">
-                    <alt-text>START</alt-text>
-                </startflag>
-                <endflag imageref="end.png">
-                    <alt-text>END</alt-text>
-                </endflag>
-            </revprop>
+            <val>
+                <prop action="flag" att="audience" val="general" backcolor="#f1f1f1" color="#ff0000" style="italics">
+                    <startflag imageref="image/start-general.png">
+                        <alt-text>GENERAL-START</alt-text>
+                    </startflag>
+                    <endflag imageref="image/end-general.png">
+                        <alt-text>GENERAL-END</alt-text>
+                    </endflag>
+                </prop>
+                <revprop action="flag" val="deltaxml-add" backcolor="#e0ffe0" style="underline" changebar="style:solid;width:3pt;offset:5pt;color:blue">
+                    <startflag imageref="image/image-delta/delta-xml-start.png">
+                        <alt-text>DELTA-XML-START</alt-text>
+                    </startflag>
+                    <endflag imageref="image/image-delta/delta-xml-end.png">
+                        <alt-text>DELTA-XML-END</alt-text>
+                    </endflag>
+                </revprop>
+            </val>
          
          [Original authoring]
-            <p  audience="general" rev="deltaxml-add">This paragraph has rev="deltaxml-add" &amp; audience="general" attribute.</p>
+            <p audience="general" rev="deltaxml-add">This paragraph has rev="deltaxml-add" &amp; audience="general" attribute.</p>
          
-         [Merged middle file: Added indentation]
-            <p audience="general" class="- topic/p " rev="deltaxml-add" xtrc="p:1;16:51"
-                xtrf="file:/C:/Users/toshi/OneDrive/Documents/test/dita/20181217-revprop/cRevpropTest.dita">
-                <ditaval-startprop class="+ topic/foreign ditaot-d/ditaval-startprop " outputclass="color:#ff0000;background-color:#f1f1f1;font-style:italic;">
-                    <prop action="flag" backcolor="#f1f1f1" color="#ff0000" style="italics">
-                        <startflag action="flag" dita-ot:imagerefuri="start.png"
-                            dita-ot:original-imageref="start.png" imageref="start.png">
-                            <alt-text>START</alt-text>
-                        </startflag>
-                    </prop>
-                </ditaval-startprop>
-                <ditaval-startprop class="+ topic/foreign ditaot-d/ditaval-startprop " outputclass="background-color:#e0ffe0;text-decoration:underline;">
-                    <revprop action="flag" backcolor="#e0ffe0" changebar="style:solid;width:3pt;offset:5pt;color:blue" style="underline">
-                        <startflag action="flag" dita-ot:imagerefuri="start.png" dita-ot:original-imageref="start.png" imageref="start.png">
-                            <alt-text>START</alt-text>
+         [Merged middle file: Added indentation and insert back-slash in two hyphens]
+            <p audience="general" rev="deltaxml-add" class="- topic/p "
+                xtrf="file:/X:/User/ah-xhtml5/dita-oxygen/flagging/topic/test_flagging.dita"
+                xtrc="p:2;8:50">
+                <ditaval-startprop
+                    class="+ topic/foreign ditaot-d/ditaval-startprop "
+                    outputclass="flag__style-\-underline" style="background-color:#e0ffe0;">
+                    <revprop action="flag" backcolor="#e0ffe0" style="underline"
+                        changebar="style:solid;width:3pt;offset:5pt;color:blue">
+                        <startflag action="flag"
+                            dita-ot:imagerefuri="b404921b1dee1be10fb4e41c8286ac92854bac87.png"
+                            dita-ot:original-imageref="b404921b1dee1be10fb4e41c8286ac92854bac87.png"
+                            imageref="../ditaval/valfiles/image/image-delta/delta-xml-start.png">
+                            <alt-text>DELTA-XML-START</alt-text>
                         </startflag>
                     </revprop>
+                </ditaval-startprop>
+                <ditaval-startprop
+                    class="+ topic/foreign ditaot-d/ditaval-startprop "
+                    outputclass="flag__style-\-italics"
+                    style="color:#ff0000;background-color:#f1f1f1;">
+                    <prop action="flag" color="#ff0000" backcolor="#f1f1f1" style="italics">
+                        <startflag action="flag" 
+                            dita-ot:imagerefuri="82dfbeca5ccf5690b1067e654ccd2303785c7abf.png"
+                            dita-ot:original-imageref="82dfbeca5ccf5690b1067e654ccd2303785c7abf.png"
+                            imageref="../ditaval/valfiles/image/start-general.png">
+                            <alt-text>GENERAL-START</alt-text>
+                        </startflag>
+                    </prop>
                 </ditaval-startprop>
                 This paragraph has rev="deltaxml-add" &amp; audience="general" attribute.
-                <ditaval-endprop class="+ topic/foreign ditaot-d/ditaval-endprop ">
-                    <prop action="flag" backcolor="#f1f1f1" color="#ff0000" style="italics">
-                        <endflag action="flag" dita-ot:imagerefuri="end.png" dita-ot:original-imageref="end.png" imageref="end.png">
-                            <alt-text>END</alt-text>
-                        </endflag>
-                    </prop>
-                </ditaval-endprop>
-                <ditaval-endprop class="+ topic/foreign ditaot-d/ditaval-endprop ">
-                    <revprop action="flag" backcolor="#e0ffe0" changebar="style:solid;width:3pt;offset:5pt;color:blue" style="underline">
-                        <endflag action="flag" dita-ot:imagerefuri="end.png" dita-ot:original-imageref="end.png" imageref="end.png">
-                            <alt-text>END</alt-text>
+                <ditaval-endprop
+                    class="+ topic/foreign ditaot-d/ditaval-endprop ">
+                    <revprop action="flag"
+                        backcolor="#e0ffe0" style="underline"
+                        changebar="style:solid;width:3pt;offset:5pt;color:blue">
+                        <endflag action="flag"
+                            dita-ot:imagerefuri="26c735e71123d9b698ac73bbd384ca51b5f214e0.png"
+                            dita-ot:original-imageref="26c735e71123d9b698ac73bbd384ca51b5f214e0.png"
+                            imageref="../ditaval/valfiles/image/image-delta/delta-xml-end.png">
+                            <alt-text>DELTA-XML-END</alt-text>
                         </endflag>
                     </revprop>
+                </ditaval-endprop>
+                <ditaval-endprop
+                    class="+ topic/foreign ditaot-d/ditaval-endprop ">
+                    <prop action="flag"
+                        color="#ff0000" backcolor="#f1f1f1" style="italics">
+                        <endflag action="flag"
+                            dita-ot:imagerefuri="588a90709876381914eb219d7486be66730baa15.png"
+                            dita-ot:original-imageref="588a90709876381914eb219d7486be66730baa15.png"
+                            imageref="../ditaval/valfiles/image/end-general.png">
+                            <alt-text>GENERAL-END</alt-text>
+                        </endflag>
+                    </prop>
                 </ditaval-endprop>
             </p>
          
@@ -123,10 +148,10 @@
     </xsl:attribute-set>
     
     <!-- 
-     function:	Template for block-level elements that has ditaval-startprop, endprop element as its child.
-     param:		none
+     function:  Template for block-level elements that has ditaval-startprop, endprop element as its child.
+     param:     none
      return:	generate outer block image and call next matching template
-     note:		tgroup is not supported!
+     note:      tgroup is not supported!
      -->
     <xsl:template match="*[ahf:isListTopElement(.) or ahf:isTableTopElement(.)]
                           [ahf:hasDitaValStartPropWithImageFlag(.) or ahf:hasDitaValEndPropWithImageFlag(.)]" 
@@ -145,27 +170,19 @@
     </xsl:template>
     
     <!-- 
-     function:	Generate block level flag image or text 
-     param:		prmFlagElem (startflag or endflag)
+     function:  Generate block level flag image or text 
+     param:     prmFlagElem (startflag or endflag)
      return:	generated image or p elements with alt-text element contents
-     note:		Treat image as relative to map if it does not begin with "https:/", "http:/", "ftp:/", "file:/".
+     note:      DITA-OT set @imageref as project relative path.
+                There is no need to change in this template.
      -->
     <xsl:template name="genBlocLevelImageOrTextForFlagging" as="element()?">
         <xsl:param name="prmFlagElem" as="element()" required="yes"/>
         <xsl:choose>
-            <xsl:when test="exists($prmFlagElem/@dita-ot:imagerefuri)">
-                <xsl:variable name="imageRefUri" as="xs:string" select="string($prmFlagElem/@dita-ot:imagerefuri)"/>
+            <xsl:when test="exists($prmFlagElem/@imageref)">
+                <xsl:variable name="imageRefUri" as="xs:string" select="string($prmFlagElem/@imageref)"/>
                 <image xsl:use-attribute-sets="atsFlagBlockImage">
-                    <xsl:attribute name="href">
-                        <xsl:choose>
-                            <xsl:when test="ahf:isAbsUri($imageRefUri)">
-                                <xsl:value-of select="$imageRefUri"/>
-                            </xsl:when>
-                            <xsl:otherwise>
-                                <xsl:value-of select="concat($pMapDirUrl,$imageRefUri)"/>
-                            </xsl:otherwise>
-                        </xsl:choose>
-                    </xsl:attribute>
+                    <xsl:attribute name="href" select="$imageRefUri"/>
                     <xsl:if test="$prmFlagElem/alt-text">
                         <alt xsl:use-attribute-sets="atsAlt">
                             <xsl:copy-of select="$prmFlagElem/alt-text/node()"/>
@@ -185,20 +202,8 @@
     </xsl:template>
 
     <!-- 
-     function:	Judge absolute URI
-     param:		prmUri
-     return:	xs:boolean
-     note:		If $prmUri starts with "http:/" or "https:/" or "file:/", it is assumed to be absolute. 
-     -->
-    <xsl:function name="ahf:isAbsUri" as="xs:boolean">
-        <xsl:param name="prmUri" as="xs:string"/>
-        <xsl:variable name="absUriCandidate" as="xs:string+" select="('http:/','https:/','file:/','ftp:/')"/>
-        <xsl:sequence select="ahf:seqStartsWith($prmUri,$absUriCandidate)"/>
-    </xsl:function>
-
-    <!-- 
-     function:	Template for image, xref elements that has ditaval-startprop,endprop element as its child.
-     param:		none
+     function:  Template for image, xref elements that has ditaval-startprop,endprop element as its child.
+     param:     none
      return:	generate outer inline image and call next matching template
      note:		 
      -->
@@ -219,27 +224,18 @@
     </xsl:template>
 
     <!-- 
-     function:	Generate inline level flag image or text 
-     param:		prmFlagElem (startflag or endflag)
+     function:  Generate inline level flag image or text 
+     param:     prmFlagElem (startflag or endflag)
      return:	generated image or ph elements
-     note:		Treat image as relative to map if it does not begin with "https:/", "http:/", "ftp:/", "file:/".
+     note:      Treat image as relative to map if it does not begin with "https:/", "http:/", "ftp:/", "file:/".
      -->
     <xsl:template name="genInlineLevelImageOrTextForFlagging" as="element()?">
         <xsl:param name="prmFlagElem" as="element()?" required="yes"/>
         <xsl:choose>
-            <xsl:when test="exists($prmFlagElem/@dita-ot:imagerefuri)">
-                <xsl:variable name="imageRefUri" as="xs:string" select="string($prmFlagElem/@dita-ot:imagerefuri)"/>
+            <xsl:when test="exists($prmFlagElem/@imageref)">
+                <xsl:variable name="imageRefUri" as="xs:string" select="string($prmFlagElem/@imageref)"/>
                 <image xsl:use-attribute-sets="atsFlagInlineImage">
-                    <xsl:attribute name="href">
-                        <xsl:choose>
-                            <xsl:when test="ahf:isAbsUri($imageRefUri)">
-                                <xsl:value-of select="$imageRefUri"/>
-                            </xsl:when>
-                            <xsl:otherwise>
-                                <xsl:value-of select="concat($pMapDirUrl,$imageRefUri)"/>
-                            </xsl:otherwise>
-                        </xsl:choose>
-                    </xsl:attribute>
+                    <xsl:attribute name="href" select="$imageRefUri"/>
                     <xsl:if test="$prmFlagElem/alt-text">
                         <alt xsl:use-attribute-sets="atsAlt">
                             <xsl:copy-of select="$prmFlagElem/alt-text/node()"/>
@@ -260,10 +256,10 @@
     </xsl:template>
 
     <!-- 
-     function:	Template for ditaval-startprop,endprop element that is for the table, list, image, xref element
-     param:		none
+     function:  Template for ditaval-startprop,endprop element that is for the table, list, image, xref element
+     param:     none
      return:	ignore
-     note:		Adding image to thead, tbody, row, sthead, strow is not supported.
+     note:      Adding image to thead, tbody, row, sthead, strow is not supported.
      -->
     <xsl:template match="*[contains-token(@class, 'ditaot-d/ditaval-startprop')][parent::*[ahf:isTableTopElement(.)]]" priority="20"/>
     <xsl:template match="*[contains-token(@class, 'ditaot-d/ditaval-endprop')][parent::*[ahf:isTableTopElement(.)]]" priority="20"/>
@@ -282,10 +278,10 @@
     <xsl:template match="*[contains-token(@class, 'ditaot-d/ditaval-endprop')][parent::*[contains-token(@class, 'topic/xref')]]" priority="20"/>
     
     <!-- 
-     function:	Template for ditaval-startprop, endprop element that has effective prop/startflag/@imageref or prop/endflag/@imageref 
-     param:		none
+     function:  Template for ditaval-startprop, endprop element that has effective prop/startflag/@imageref or prop/endflag/@imageref 
+     param:     none
      return:	generate inline image
-     note:		This template is intended to apply inline level elements without xref or image.
+     note:      This template is intended to apply inline level elements without xref or image.
      -->
     <xsl:template match="*[contains-token(@class, 'ditaot-d/ditaval-startprop')]" priority="10">
         <xsl:call-template name="genInlineLevelImageOrTextForFlagging">
@@ -300,10 +296,10 @@
     </xsl:template>
 
     <!-- 
-     function:	Check table and descendant element
-     param:		prmElem
+     function:  Check table and descendant element
+     param:     prmElem
      return:	xs:boolean
-     note:		If $prmElem is table or it's descendant element, return true.
+     note:      If $prmElem is table or it's descendant element, return true.
      -->
     <xsl:function name="ahf:isTableTopElement" as="xs:boolean">
         <xsl:param name="prmElem" as="element()"/>
@@ -319,10 +315,10 @@
     </xsl:function>
     
     <!-- 
-     function:	Check list element
-     param:		prmElem
+     function:  Check list element
+     param:     prmElem
      return:	xs:boolean
-     note:		If $prmElem is ol, ul, sl, dl return true.
+     note:      If $prmElem is ol, ul, sl, dl return true.
      -->
     
     <xsl:function name="ahf:isListTopElement" as="xs:boolean">
@@ -338,10 +334,10 @@
     </xsl:function>
     
     <!-- 
-     function:	Template for element that has effective ditaval-startprop element as child
-     param:		none
+     function:  Template for element that has effective ditaval-startprop element as child
+     param:     none
      return:	copied result
-     note:		This template generates style from .ditaval prop or revprop/action="flag" element's style.
+     note:      This template generates style from .ditaval prop or revprop/action="flag" element's style.
                 This style is passed as $prmDitaValFlagStyle tunnel parameter.
                 This template also generates style from .ditaval revprop/action="flag" element's change-bar style.
                 This style is passed as $prmDitaValChangeBarStyle tunnel parameter.
@@ -360,8 +356,8 @@
     </xsl:template>
 
     <!-- 
-     function:	Check child has ditava-startprop element
-     param:		prmElem
+     function:  Check child has ditava-startprop element
+     param:     prmElem
      return:	xs:boolean
      note:		
      -->
@@ -371,10 +367,10 @@
     </xsl:function>
     
     <!-- 
-     function:	Get grand child ditava-startprop/prop or revprop element
-     param:		prmElem
+     function:  Get grand child ditava-startprop/prop or revprop element
+     param:     prmElem
      return:	element()*
-     note:		Return grand child ditaval-startprop/prop, revprop element.
+     note:      Return grand child ditaval-startprop/prop, revprop element.
      -->
     <xsl:function name="ahf:getGrandChildDitavalPropOrRevProp" as="element()*">
         <xsl:param name="prmElem" as="element()"/>
@@ -382,10 +378,10 @@
     </xsl:function>
 
     <!-- 
-     function:	Get grand child ditava-startprop/revprop element
-     param:		prmElem
+     function:  Get grand child ditava-startprop/revprop element
+     param:     prmElem
      return:	element()*
-     note:		Return grand child ditaval-startprop/revprop element.
+     note:      Return grand child ditaval-startprop/revprop element.
      -->
     <xsl:function name="ahf:getGrandChildDitavalRevProp" as="element()*">
         <xsl:param name="prmElem" as="element()"/>
@@ -413,8 +409,8 @@
     </xsl:function>
 
     <!-- 
-     function:	Generate CSS style notation from ditaval-startprop/prop/@color,@backcolor,@style attribute
-     param:		prmDitaValPropsOrRevProps
+     function:  Generate CSS style notation from ditaval-startprop/prop/@color,@backcolor,@style attribute
+     param:     prmDitaValPropsOrRevProps
      return:	xs:string
      note:		
      -->
@@ -551,9 +547,9 @@
     </xsl:function>
 
     <!-- 
-     function:	Get ditaval-startprop/prop or revprop/startflag and 
-                    ditaval-endprop/prop or revprop/endflag 
-     param:		prmElem
+     function:  Get ditaval-startprop/prop or revprop/startflag and 
+                ditaval-endprop/prop or revprop/endflag 
+     param:     prmElem
      return:	element()*
      note:		
      -->
@@ -568,10 +564,10 @@
     </xsl:function>
 
     <!-- 
-     function:	Get ditava-startprop/prop/startflag/@imageref or ditava-startprop/prop/endflag/@imageref
-     param:		prmElem
+     function:  Get ditava-startprop/prop/startflag/@imageref or ditava-startprop/prop/endflag/@imageref
+     param:     prmElem
      return:	xs:boolean
-     note:		Avoid DITA-OT image URI processing bug.
+     note:      Avoid DITA-OT image URI processing bug.
      -->
     <xsl:function name="ahf:getDitaValImageStartFlag" as="xs:string">
         <xsl:param name="prmElem" as="element()"/>
@@ -584,8 +580,8 @@
     </xsl:function>
 
     <!-- 
-     function:	Check child ditaval-startprop element that has prop/startflag/@imageref
-     param:		prmElem
+     function:  Check child ditaval-startprop element that has prop/startflag/@imageref
+     param:     prmElem
      return:	xs:boolean
      note:		
      -->
@@ -595,8 +591,8 @@
     </xsl:function>
 
     <!-- 
-     function:	Check child ditaval-endprop element that has prop/endflag/@imageref
-     param:		prmElem
+     function:  Check child ditaval-endprop element that has prop/endflag/@imageref
+     param:     prmElem
      return:	xs:boolean
      note:		
      -->
@@ -606,9 +602,9 @@
     </xsl:function>
 
     <!-- 
-     function:	Check ditaval-startprop/prop or revprop/startflag/@imageref or alt-text and 
-                      ditaval-endprop/prop or revprop/endflag/@imageref or alt-text 
-     param:		prmElem (ditaval-startprop or ditaval-endprop)
+     function:  Check ditaval-startprop/prop or revprop/startflag/@imageref or alt-text and 
+                ditaval-endprop/prop or revprop/endflag/@imageref or alt-text 
+     param:     prmElem (ditaval-startprop or ditaval-endprop)
      return:	xs:boolean
      note:		
      -->
@@ -621,6 +617,5 @@
         <xsl:param name="prmElem" as="element()"/>
         <xsl:sequence select="some $endflag in $prmElem/*[self::prop or self::revprop]/endflag satisfies (exists($endflag/@imageref) or string(normalize-space(string($endflag/alt-text))))"/>
     </xsl:function>
-    
 
 </xsl:stylesheet>

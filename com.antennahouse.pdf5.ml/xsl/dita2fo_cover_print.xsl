@@ -129,7 +129,7 @@
         <xsl:choose>
             <xsl:when test="ahf:isCoverTopicRef($prmTopicRef)">
                 <xsl:variable name="bgImageElem" as="element()*" select="descendant::*[contains-token(@class, 'topic/image')][@outputclass eq 'background'][1]"/>
-                <xsl:variable name="bgImageHref" as="xs:string" select="concat('url(',$pMapDirUrl,string($bgImageElem/@href),')')"/>
+                <xsl:variable name="bgImageHref" as="xs:string" select="concat('url(',$pProjDirUri,string($bgImageElem/@href),')')"/>
                 <fo:block-container>
                     <xsl:variable name="foProperty" as="attribute()*" select="ahf:getFoPropertyWithPageVariables(.)"/>
                     <xsl:copy-of select="$foProperty"/>
