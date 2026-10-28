@@ -213,7 +213,7 @@
     <property name="job.xml" value="${dita.temp.dir}${file.separator}.job.xml"/>
     
     <!-- Main target -->
-    <target name="merged2pdf">
+    <target name="merged2pdf" depends="gen.system.property">
     	<echo message="dita.temp.dir=${dita.temp.dir} build.temp.dir=${build.temp.dir}"/>
     	<echo message="dita.dir=${dita.dir}"/>
     	<echo message="basedir=${basedir}"/>
@@ -226,12 +226,9 @@
         </antcall>
     </target>
     
-    <!-- Copy link target resource files into output directory -->
-    <target name="copy.link.target.file">
-        <property name="map.property" value="${dita.temp.dir}${file.separator}map.property.xml"/>
+    <!-- Complement DITA-OT system propert (Available in DITA-OT 3.7.4. But missing in DITA-OT 4.x.) -->
+    <target name="gen.system.property">
         <property name="job.property" value="${dita.temp.dir}${file.separator}job.property.xml"/>
-        <dirname property="dita.input.dir" file="${args.input}"/>
-        <!-- generate root map name property file -->
         <xslt processor="trax" in="${job.xml}" out="${job.property}" style="${basedir}${file.separator}xsl${file.separator}dita2fo_job_to_xml_property.xsl" force="true" failonerror="true">
             <factory name="net.sf.saxon.TransformerFactoryImpl">
                 <attribute name="http://saxon.sf.net/feature/timing" value="true"/>
@@ -240,8 +237,17 @@
                 <catalogpath path="${dita.plugin.org.dita.base.dir}/catalog-dita.xml"/>
             </xmlcatalog>
         </xslt>
-        <!-- Set 'user.input.file' property -->
+        <!-- Set 'user.input.file', 'user.input.dir' property -->
         <xmlproperty file="${job.property}" keeproot="false" collapseAttributes="false" semanticAttributes="false"/>
+        <!-- Make URI for project root directory -->
+        <makeurl property="user.input.dir.uri" file="${user.input.dir}"/>
+    </target>
+    
+    <!-- Copy link target resource files into output directory -->
+    <target name="copy.link.target.file">
+        <property name="map.property" value="${dita.temp.dir}${file.separator}map.property.xml"/>
+        <dirname property="dita.input.dir" file="${args.input}"/>
+        <!-- generate root map name property file -->
         <!-- generate XML property file -->
         <xslt processor="trax" in="${dita.temp.dir}${file.separator}${user.input.file}" out="${map.property}" style="${basedir}${file.separator}xsl${file.separator}dita2fo_bookmap_to_xml_property.xsl" force="true" failonerror="true">
             <factory name="net.sf.saxon.TransformerFactoryImpl">

@@ -33,6 +33,10 @@
             <xsl:element name="user.input.file">
                 <xsl:value-of select="./property[string(@name) eq 'user.input.file']/string"/>
             </xsl:element>
+            <!-- Project directory -->
+            <xsl:element name="user.input.dir">
+                <xsl:value-of select="./property[string(@name) eq 'user.input.dir']/string"/>
+            </xsl:element>
         </xsl:element>
     </xsl:template>
 

@@ -107,7 +107,7 @@
     
     <!-- Merged middle file to PDF -->
     <ant dir="${dita.dir}${file.separator}${pdf5.ml.dir}${file.separator}${pdf5.ml.plugin.folder}" target="merged2pdf">
-        <property name="caller.basedir" value="${basedir}"/>
+      <property name="caller.basedir" value="${basedir}"/>
       <property name="build.map" value="yes"/>
     </ant>
   </target>
