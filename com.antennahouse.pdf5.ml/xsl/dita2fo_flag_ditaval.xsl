@@ -236,7 +236,7 @@
             <xsl:otherwise>
                 <!-- @imageref is relative to topic URI -->
                 <xsl:variable name="topicUri" as="xs:string" select="$prmFlagElem/ancestor::*[contains-token(@class,'topic/topic')][last()]/@xtrf => string() => ahf:substringBeforeLast('/')"/>
-                <xsl:sequence select="$topicUri || $imageRef"/>
+                <xsl:sequence select="$topicUri || '/' || $imageRef"/>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
