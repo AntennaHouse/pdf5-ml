@@ -13,6 +13,7 @@
     xmlns:fo="http://www.w3.org/1999/XSL/Format" 
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:map="http://www.w3.org/2005/xpath-functions/map"
     xmlns:ahf="http://www.antennahouse.com/names/XSLT/Functions/Document"
     xmlns:dita-ot="http://dita-ot.sourceforge.net/ns/201007/dita-ot"
     exclude-result-prefixes="xs ahf dita-ot"
@@ -180,7 +181,11 @@
         <xsl:param name="prmFlagElem" as="element()" required="yes"/>
         <xsl:choose>
             <xsl:when test="exists($prmFlagElem/@imageref)">
-                <xsl:variable name="imageRefUri" as="xs:string" select="string($prmFlagElem/@imageref)"/>
+                <xsl:variable name="imageRefUri" as="xs:string">
+                    <xsl:call-template name="getImageRefUri">
+                        <xsl:with-param name="prmFlagElem" select="$prmFlagElem"/>
+                    </xsl:call-template>
+                </xsl:variable>
                 <image xsl:use-attribute-sets="atsFlagBlockImage">
                     <xsl:attribute name="href" select="$imageRefUri"/>
                     <xsl:if test="$prmFlagElem/alt-text">
@@ -200,6 +205,42 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
+
+    <!-- 
+     function:  Get absolute URI from startflag or endflag element.
+     param:     prmFlagElem: startflag or endflag element
+     return:	Absolute URI from @imageref
+     note:		 
+     -->
+    <xsl:template name="getImageRefUri" as="xs:string">
+        <xsl:param name="prmFlagElem" as="element()"/>
+        <xsl:variable name="imageRef" as="xs:string" select="string($prmFlagElem/@imageref)"/>
+        <xsl:choose>
+            <xsl:when test="$pAdoptPreprocess2">
+                <xsl:variable name="imageUri" as="xs:string?" select="map:get($imageHrefToFileUriMap, $imageRef)"/>
+                <xsl:choose>
+                    <xsl:when test="$imageUri => exists()">
+                        <xsl:sequence select="$imageUri"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:call-template name="errorExit">
+                            <xsl:with-param name="prmMes" select="ahf:replace($stMes5032,('%image-url','%url'),($imageUri, $pJobXmlUrl))"/>
+                        </xsl:call-template>
+                        <xsl:sequence select="''"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:when>
+            <xsl:when test="ahf:isAbsoluteUri($imageRef)">
+                <xsl:sequence select="$imageRef"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <!-- @imageref is relative to topic URI -->
+                <xsl:variable name="topicUri" as="xs:string" select="$prmFlagElem/ancestor::*[contains-token(@class,'topic/topic')][last()]/@xtrf => string() => ahf:substringBeforeLast('/')"/>
+                <xsl:sequence select="$topicUri || $imageRef"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    
 
     <!-- 
      function:  Template for image, xref elements that has ditaval-startprop,endprop element as its child.
@@ -227,13 +268,17 @@
      function:  Generate inline level flag image or text 
      param:     prmFlagElem (startflag or endflag)
      return:	generated image or ph elements
-     note:      Treat image as relative to map if it does not begin with "https:/", "http:/", "ftp:/", "file:/".
+     note:      
      -->
     <xsl:template name="genInlineLevelImageOrTextForFlagging" as="element()?">
         <xsl:param name="prmFlagElem" as="element()?" required="yes"/>
         <xsl:choose>
             <xsl:when test="exists($prmFlagElem/@imageref)">
-                <xsl:variable name="imageRefUri" as="xs:string" select="string($prmFlagElem/@imageref)"/>
+                <xsl:variable name="imageRefUri" as="xs:string">
+                    <xsl:call-template name="getImageRefUri">
+                        <xsl:with-param name="prmFlagElem" select="$prmFlagElem"/>
+                    </xsl:call-template>
+                </xsl:variable>
                 <image xsl:use-attribute-sets="atsFlagInlineImage">
                     <xsl:attribute name="href" select="$imageRefUri"/>
                     <xsl:if test="$prmFlagElem/alt-text">

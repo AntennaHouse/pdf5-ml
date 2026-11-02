@@ -40,9 +40,11 @@
         as="xs:boolean"/>
 
     <!-- Adopt preprocess2
+         Defined in integrator.xml.
+         if:true or unless:true are used to judge.
      -->
     <xsl:param name="PRM_ADOPT_PREPROCESS2" required="no" as="xs:string" select="$cNo"/>
-    <xsl:variable name="pAdoptPreprocess2" as="xs:boolean" select="$PRM_ADOPT_PREPROCESS2 eq $cYes"/>
+    <xsl:variable name="pAdoptPreprocess2" as="xs:boolean" select="$PRM_ADOPT_PREPROCESS2 => ahf:isAntTrue()"/>
     
     <!-- .job.xml URL
          Needed in preprocess2

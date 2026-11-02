@@ -4,9 +4,9 @@
     DITA to XSL-FO Stylesheet
     Node Related Utility Templates
     **************************************************************
-    File Name : dita2xslfo_util_node.xsl
+    File Name : dita2fo_node_util.xsl
     **************************************************************
-    Copyright © 2009-2019 Antenna House, Inc. All rights reserved.
+    Copyright © 2009-2026 Antenna House, Inc. All rights reserved.
     Antenna House is a trademark of Antenna House, Inc.
     URL : http://www.antennahouse.com/
     **************************************************************

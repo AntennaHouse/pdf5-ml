@@ -1033,7 +1033,7 @@
                                         <xsl:with-param name="prmElem" select="$prmXref"/>
                                     </xsl:call-template>
                                 </xsl:variable>
-                                <xsl:sequence select="not($tempAdoptTitlePageOrder eq $false)"/>
+                                <xsl:sequence select="not($tempAdoptTitlePageOrder eq $cFalse)"/>
                             </xsl:variable>
                             <xsl:if test="$adoptTitlePageOrder">
                                 <xsl:copy-of  select="$prmXrefTitle"/>

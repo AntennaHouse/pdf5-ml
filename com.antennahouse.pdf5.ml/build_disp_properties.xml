@@ -55,6 +55,7 @@
     <echo message="output.index=${output.index}"/>
     <echo message="otversion=${otversion}"/>
     <echo message="temp.dir.url=${temp.dir.url}"/>
+    <echo message="adopt.preprocess2=${adopt.preprocess2}"/>
     <echo message="i18n.home=${i18n.home}"/>
     <echo message="use.i18n.index.lib=${use.i18n.index.lib}"/>
     <echo message="use.index.common.xslt3=${use.index.common.xslt3}"/>
