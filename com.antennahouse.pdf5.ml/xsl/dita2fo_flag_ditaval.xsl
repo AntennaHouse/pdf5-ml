@@ -496,7 +496,7 @@
                     </xsl:choose>
                 </xsl:variable>
                 <xsl:variable name="style" as="xs:string*">
-                    <xsl:variable name="styleVals" as="xs:string*" select="normalize-space(string($ditaValPropOrRevProp/@style)) => tokenize('\s+')"/>
+                    <xsl:variable name="styleVals" as="xs:string*" select="string($ditaValPropOrRevProp/@style) => tokenize('[\s]+')"/>
                     <xsl:for-each select="$styleVals">
                         <xsl:variable name="styleVal" as="xs:string" select="."/>
                         <xsl:choose>
