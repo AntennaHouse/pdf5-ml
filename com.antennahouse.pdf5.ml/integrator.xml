@@ -67,7 +67,7 @@
   
   <target name="topic2pdf5.ml" if="noMap" depends="dita2pdf5.ml.preprocess">
     <!-- Generate merged middle file from topic -->
-    <echo message="[pdf5.ml] Start generating merged middle file from topic."/>
+    <echo level="info" message="[pdf5.ml] Start generating merged middle file from topic."/>
     <makeurl file="${dita.temp.dir}${file.separator}${user.input.file}" property="topic.url" validate="yes"/>
     <xslt processor="trax" 
       in="${dita.dir}${file.separator}${pdf5.ml.dir}${file.separator}${pdf5.ml.plugin.folder}${file.separator}config${file.separator}topic-only-prototype.xml" 
@@ -95,7 +95,7 @@
 
   <target name="map2pdf5.ml" unless="noMap" depends="dita2pdf5.ml.preprocess">
     <!-- Call Java TopicMerge -->
-    <echo message="[pdf5.ml] Start generating merged middle file."/>
+    <echo level="info" message="[pdf5.ml] Start generating merged middle file."/>
   	<dirname property="dita.temp.dir.fullpath" file="${dita.temp.dir}${file.separator}dummy.file"/>
     <pipeline message="topicmerge" 
               inputmap="${dita.temp.dir.fullpath}${file.separator}${user.input.file}"

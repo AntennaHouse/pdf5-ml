@@ -107,7 +107,7 @@
             </and>
         </condition>
 
-        <echo>$prmMultiVol=${prmMultiVol}</echo>
+        <echo level="info">$prmMultiVol=${prmMultiVol}</echo>
 
         <dita:extension id="build.com.antennahouse.pdf5.ml.ahf.build.inclusion" behavior="org.dita.dost.platform.InsertAction"/>
         
@@ -122,11 +122,11 @@
     <target name="transform.fo2pdf.ahf.check">
         <fail unless="ahf.dir" message="ahf.dir folder does not exist or AHF_DIR environment variable is missing."/>
         <fail unless="ahf.cmd" message="Missing AH Formatter commandline executable (Windows) or shell (Linux) file at ahf.dir folder."/>
-        <echo>ahf.dir="${ahf.dir}"</echo>
-        <echo>ahf.opt="${ahf.opt}"</echo>
-        <echo>Execute command="${ahf.cmd}"</echo>
-        <echo>Input XSL-FO="${prmInputFile}"</echo>
-        <echo>Output PDF="${prmOutputFile}"</echo>
+        <echo level="info">ahf.dir="${ahf.dir}"</echo>
+        <echo level="info">ahf.opt="${ahf.opt}"</echo>
+        <echo level="info">Execute command="${ahf.cmd}"</echo>
+        <echo level="info">Input XSL-FO="${prmInputFile}"</echo>
+        <echo level="info">Output PDF="${prmOutputFile}"</echo>
     </target>
     
     <target name="transform.fo2pdf.option.and.multivol" if="option.and.multivol">
