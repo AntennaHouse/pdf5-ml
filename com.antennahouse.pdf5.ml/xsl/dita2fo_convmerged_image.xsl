@@ -18,42 +18,15 @@
  exclude-result-prefixes="xs map ahf uriutil"
 >
     <!-- dita2fo_convmerged_image.xsl
-         - Convert image/@href that is written in preprocess2 to relative path from main map.
-         - Get main map and image URL from .job.xml in temporary folder.
+         - Convert image/@href that is written in preprocess2 to absolute URI.
+         - Get image URI from .job.xml in temporary folder.
      -->
 
-    <xsl:variable name="imageHrefToFileUriMap" as="map(*)">
-        <xsl:map>
-            <xsl:for-each select="$pJobXmlDoc/job/files/file[@format eq 'image']">
-                <xsl:variable name="file" as="element()" select="."/>
-                <!-- 例： @uri="5dec42c2e803286d448f9ab87e61db729849b04a.tif"
-                          @src="file:/C:/Users/Toshihiko%20Makita/OneDrive/Document/User/ACME/sample-data/images/bird.tif" 
-                 -->
-                <xsl:map-entry key="$file/@uri => string()" select="$file/@src => string()"/>
-            </xsl:for-each>
-        </xsl:map>
-    </xsl:variable>
-    
-    <!--xsl:variable name="inputMapUri" as="xs:string">
-        <xsl:variable name="string" as="element()?" select="$pJobXmlDoc/job/property[@name eq 'InputMapDir.uri']/string"/>
-        <xsl:choose>
-            <xsl:when test="exists($string)">
-                <xsl:sequence select="$string => string()"/>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:call-template name="errorExit">
-                    <xsl:with-param name="prmMes" select="ahf:replace($stMes5030,('%url'),($pJobXmlUrl))"/>
-                </xsl:call-template>
-                <xsl:sequence select="''"/>
-            </xsl:otherwise>
-        </xsl:choose>
-    </xsl:variable-->
-    
     <!--
      function:    image
      param:       none
      return:      self and descendant element
-     note:        If preprocess2 is adopted, replace image/@href to relative path to main map.
+     note:        If preprocess2 is adopted, replace image/@href to absolute URI.
      -->
     <xsl:template match="*[contains-token(@class,'topic/image')][$pAdoptPreprocess2]" priority="10">
         <xsl:variable name="image" as="element()" select="."/>
@@ -62,14 +35,13 @@
         <xsl:copy>
             <xsl:copy-of select="@* except @href"/>
             <xsl:choose>
-                <xsl:when test="$scope eq 'external' or ahf:isAbsoluteImage($image)">
+                <xsl:when test="ahf:isAbsoluteImage($image)">
                     <xsl:copy-of select="@href"/>
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:variable name="imageUri" as="xs:string?" select="map:get($imageHrefToFileUriMap, $href)"/>
                     <xsl:choose>
                         <xsl:when test="$imageUri => exists()">
-                            <!--xsl:variable name="relativePath" as="xs:string" select="uriutil:getRelativePath($imageUri, $inputMapUri)"/-->
                             <xsl:attribute name="href" select="$imageUri"/>
                         </xsl:when>
                         <xsl:otherwise>
@@ -92,8 +64,9 @@
      -->
     <xsl:function name="ahf:isAbsoluteImage" as="xs:boolean">
         <xsl:param name="prmImage" as="element()"/>
+        <xsl:variable name="scope" as="xs:string" select="$prmImage/@scope => string()"/>
         <xsl:variable name="href" as="xs:string" select="$prmImage/@href => string()"/>
-        <xsl:sequence select="some $prefix in ('/', 'file:') satisfies starts-with($href, $prefix) or contains($href, '://')"/>
+        <xsl:sequence select="$scope eq 'external' or ahf:isAbsoluteUri($href)"/>
     </xsl:function>
-
+    
 </xsl:stylesheet>

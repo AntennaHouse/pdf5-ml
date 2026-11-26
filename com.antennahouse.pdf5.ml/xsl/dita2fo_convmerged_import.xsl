@@ -16,9 +16,12 @@
   <xsl:include href="dita2fo_flag_ditaval.xsl"/>
   <xsl:include href="dita2fo_message.xsl"/>
   <xsl:include href="dita2fo_util.xsl"/>
+  <xsl:include href="dita2fo_ot_util.xsl"/>
+  <xsl:include href="dita2fo_uri_util.xsl"/>
   <xsl:include href="dita2fo_error_util.xsl"/>
   <xsl:include href="dita2fo_convmerged.xsl"/>
   <xsl:include href="dita2fo_convmerged_image.xsl"/>
+  <xsl:include href="dita2fo_convmerged_image_map.xsl"/>
   <xsl:include href="dita2fo_convmerged_message.xsl"/>
   <xsl:include href="dita2fo_generate_history_id.xsl"/>
   

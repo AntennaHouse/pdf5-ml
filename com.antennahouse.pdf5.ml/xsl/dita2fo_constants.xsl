@@ -24,8 +24,8 @@
     <xsl:variable name="cNo" select="'no'" as="xs:string"/>
     
     <!-- Inner flag/attribute value: true/false -->
-    <xsl:variable name="true" select="'true'" as="xs:string"/>
-    <xsl:variable name="false" select="'false'" as="xs:string"/>
+    <xsl:variable name="cTrue" select="'true'" as="xs:string"/>
+    <xsl:variable name="cFalse" select="'false'" as="xs:string"/>
     
     <xsl:variable name="NaN" select="'NaN'" as="xs:string"/>
     <xsl:variable name="lf" select="'&#x0A;'" as="xs:string"/>

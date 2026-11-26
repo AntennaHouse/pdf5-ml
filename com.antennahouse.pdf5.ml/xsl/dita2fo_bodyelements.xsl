@@ -481,7 +481,7 @@
     <xsl:function name="ahf:getImageUrl" as="xs:string">
         <xsl:param name="prmImage" as="element()"/>
         <xsl:choose>
-            <xsl:when test="string($prmImage/@scope) eq 'external' or  ahf:isAbsoluteImage($prmImage)">
+            <xsl:when test="ahf:isAbsoluteImage($prmImage)">
                 <xsl:sequence select="concat('url(',string($prmImage/@href),')')"/>
             </xsl:when>
             <xsl:when test="$pImageInOutputFolder">
@@ -501,8 +501,9 @@
      -->
     <xsl:function name="ahf:isAbsoluteImage" as="xs:boolean">
         <xsl:param name="prmImage" as="element()"/>
+        <xsl:variable name="scope" as="xs:string" select="$prmImage/@scope => string()"/>
         <xsl:variable name="href" as="xs:string" select="$prmImage/@href => string()"/>
-        <xsl:sequence select="some $prefix in ('/', 'file:') satisfies starts-with($href, $prefix) or contains($href, '://')"/>
+        <xsl:sequence select="$scope eq 'external' or ahf:isAbsoluteUri($href)"/>
     </xsl:function>
     
     <!--

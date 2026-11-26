@@ -8,63 +8,64 @@
   -->
 <project name="Dispaly properties for this build">
   <target name="build.disp.property">
-    <echo message="*-- Plug-in Parameters -----------------------------------------*"/>
-    <echo message="style.def.file=${style.def.file}"/>
-    <echo message="include.frontmatter.to.toc=${include.frontmatter.to.toc}"/>
-    <echo message="add.numbering.title.prefix=${add.numbering.title.prefix}"/>
-    <echo message="add.part.to.title=${add.part.to.title}"/>
-    <echo message="add.thumbnail.index=${add.thumbnail.index}"/>
-    <echo message="assume.sortas.pinyin=${assume.sortas.pinyin}"/>
-    <echo message="xml.lang=${xml.lang}"/>
-    <echo message="make.see.link=${make.see.link}"/>
-    <echo message="output.draft.comment=${output.draft.comment}"/>
-    <echo message="output.required.cleanup=${output.required.cleanup}"/>
-    <echo message="use.oid=${use.oid}"/>
-    <echo message="format.dl.as.block=${format.dl.as.block}"/>
-    <echo message="debug.style=${debug.style}"/>
-    <echo message="sort.glossentry=${sort.glossentry}"/>
-    <echo message="output.start.message=${output.start.message}"/>
-    <echo message="auto.scale.down.to.fit=${auto.scale.down.to.fit}"/>
-    <echo message="make.toc.for.map=${make.toc.for.map}"/>
-    <echo message="make.index.for.map=${make.index.for.map}"/>
-    <echo message="make.alt.txt=${make.alt.txt}"/>
-    <echo message="paper.size=${paper.size}"/>
-    <echo message="image.in.output.folder=${image.in.output.folder}"/>
-    <echo message="user.input.dir.uri=${user.input.dir.uri}"/>
-    <echo message="output.crop.region=${output.crop.region}"/>
-    <echo message="output.type=${output.type}"/>
-    <echo message="doc.type=${doc.type}"/>
-    <echo message="brand.type=${brand.type}"/>
-    <echo message="exclude.cover.from.counting.page=${exclude.cover.from.counting.page}"/>
-    <echo message="number.equation.block.unconditionally=${number.equation.block.unconditionally}"/>
-    <echo message="exclude.auto.numbering.from.equation.figure=${exclude.auto.numbering.from.equation.figure}"/>
-    <echo message="assume.equation.number.as.auto=${assume.equation.number.as.auto}"/>
-    <echo message="display.fn.at.end.of.topic=${display.fn.at.end.of.topic}"/>
-    <echo message="adopt.mathml.alttext=${adopt.mathml.alttext}"/>
-    <echo message="enable.landscape.page=${enable.landscape.page}"/>
-    <echo message="output.table.title.continued=${output.table.title.continued}"/>
-    <echo message="output.table.footer.continued=${output.table.footer.continued}"/>
-    <echo message="add.map.title.to.bookmark=${add.map.title.to.bookmark}"/>
-    <echo message="copy.link.target.to.output.dir=${copy.link.target.to.output.dir}"/>
-    <echo message="link.target.output.class=${link.target.output.class}"/>
-    <echo message="use.i18n.index.lib=${use.i18n.index.lib}"/>
-    <echo message="user.input.dir.url=${user.input.dir.url}"/>
-    <echo message="output.dir.url=${output.dir.url}"/>
-    <echo message="dita.map.filename.root=${dita.map.filename.root}"/>
-    <echo message="debug.index=${debug.index}"/>
-    <echo message="output.index=${output.index}"/>
-    <echo message="otversion=${otversion}"/>
-    <echo message="temp.dir.url=${temp.dir.url}"/>
-    <echo message="i18n.home=${i18n.home}"/>
-    <echo message="use.i18n.index.lib=${use.i18n.index.lib}"/>
-    <echo message="use.index.common.xslt3=${use.index.common.xslt3}"/>
-    <echo message="last.pageseq.id=${last.pageseq.id}"/>
-    <echo message="last.pageseq.offset=${last.pageseq.offset}"/>
+    <echo level="info" message="*-- Plug-in Parameters -----------------------------------------*"/>
+    <echo level="info" message="style.def.file=${style.def.file}"/>
+    <echo level="info" message="include.frontmatter.to.toc=${include.frontmatter.to.toc}"/>
+    <echo level="info" message="add.numbering.title.prefix=${add.numbering.title.prefix}"/>
+    <echo level="info" message="add.part.to.title=${add.part.to.title}"/>
+    <echo level="info" message="add.thumbnail.index=${add.thumbnail.index}"/>
+    <echo level="info" message="assume.sortas.pinyin=${assume.sortas.pinyin}"/>
+    <echo level="info" message="xml.lang=${xml.lang}"/>
+    <echo level="info" message="make.see.link=${make.see.link}"/>
+    <echo level="info" message="output.draft.comment=${output.draft.comment}"/>
+    <echo level="info" message="output.required.cleanup=${output.required.cleanup}"/>
+    <echo level="info" message="use.oid=${use.oid}"/>
+    <echo level="info" message="format.dl.as.block=${format.dl.as.block}"/>
+    <echo level="info" message="debug.style=${debug.style}"/>
+    <echo level="info" message="sort.glossentry=${sort.glossentry}"/>
+    <echo level="info" message="output.start.message=${output.start.message}"/>
+    <echo level="info" message="auto.scale.down.to.fit=${auto.scale.down.to.fit}"/>
+    <echo level="info" message="make.toc.for.map=${make.toc.for.map}"/>
+    <echo level="info" message="make.index.for.map=${make.index.for.map}"/>
+    <echo level="info" message="make.alt.txt=${make.alt.txt}"/>
+    <echo level="info" message="paper.size=${paper.size}"/>
+    <echo level="info" message="image.in.output.folder=${image.in.output.folder}"/>
+    <echo level="info" message="user.input.dir.uri=${user.input.dir.uri}"/>
+    <echo level="info" message="output.crop.region=${output.crop.region}"/>
+    <echo level="info" message="output.type=${output.type}"/>
+    <echo level="info" message="doc.type=${doc.type}"/>
+    <echo level="info" message="brand.type=${brand.type}"/>
+    <echo level="info" message="exclude.cover.from.counting.page=${exclude.cover.from.counting.page}"/>
+    <echo level="info" message="number.equation.block.unconditionally=${number.equation.block.unconditionally}"/>
+    <echo level="info" message="exclude.auto.numbering.from.equation.figure=${exclude.auto.numbering.from.equation.figure}"/>
+    <echo level="info" message="assume.equation.number.as.auto=${assume.equation.number.as.auto}"/>
+    <echo level="info" message="display.fn.at.end.of.topic=${display.fn.at.end.of.topic}"/>
+    <echo level="info" message="adopt.mathml.alttext=${adopt.mathml.alttext}"/>
+    <echo level="info" message="enable.landscape.page=${enable.landscape.page}"/>
+    <echo level="info" message="output.table.title.continued=${output.table.title.continued}"/>
+    <echo level="info" message="output.table.footer.continued=${output.table.footer.continued}"/>
+    <echo level="info" message="add.map.title.to.bookmark=${add.map.title.to.bookmark}"/>
+    <echo level="info" message="copy.link.target.to.output.dir=${copy.link.target.to.output.dir}"/>
+    <echo level="info" message="link.target.output.class=${link.target.output.class}"/>
+    <echo level="info" message="use.i18n.index.lib=${use.i18n.index.lib}"/>
+    <echo level="info" message="user.input.dir.url=${user.input.dir.url}"/>
+    <echo level="info" message="output.dir.url=${output.dir.url}"/>
+    <echo level="info" message="dita.map.filename.root=${dita.map.filename.root}"/>
+    <echo level="info" message="debug.index=${debug.index}"/>
+    <echo level="info" message="output.index=${output.index}"/>
+    <echo level="info" message="otversion=${otversion}"/>
+    <echo level="info" message="temp.dir.url=${temp.dir.url}"/>
+    <echo level="info" message="adopt.preprocess2=${adopt.preprocess2}"/>
+    <echo level="info" message="i18n.home=${i18n.home}"/>
+    <echo level="info" message="use.i18n.index.lib=${use.i18n.index.lib}"/>
+    <echo level="info" message="use.index.common.xslt3=${use.index.common.xslt3}"/>
+    <echo level="info" message="last.pageseq.id=${last.pageseq.id}"/>
+    <echo level="info" message="last.pageseq.offset=${last.pageseq.offset}"/>
       
-    <echo message="ahf.dir=${ahf.dir}"/>
-    <echo message="ahf.opt=${ahf.opt}"/>
-    <echo message="use.saxon.transform=${use.saxon.transform}"/>
-    <echo message="fo.in.output.folder=${fo.in.output.folder}"/>
-    <echo message="*----------------------------------------------------------------*"/>
+    <echo level="info" message="ahf.dir=${ahf.dir}"/>
+    <echo level="info" message="ahf.opt=${ahf.opt}"/>
+    <echo level="info" message="use.saxon.transform=${use.saxon.transform}"/>
+    <echo level="info" message="fo.in.output.folder=${fo.in.output.folder}"/>
+    <echo level="info" message="*----------------------------------------------------------------*"/>
   </target>
 </project>

@@ -214,10 +214,10 @@
     
     <!-- Main target -->
     <target name="merged2pdf" depends="gen.system.property">
-    	<echo message="dita.temp.dir=${dita.temp.dir} build.temp.dir=${build.temp.dir}"/>
-    	<echo message="dita.dir=${dita.dir}"/>
-    	<echo message="basedir=${basedir}"/>
-    	<echo message="outputFile=${output.dir}${file.separator}${output.pdf}"/>
+        <echo level="info" message="dita.temp.dir=${dita.temp.dir} build.temp.dir=${build.temp.dir}"/>
+        <echo level="info" message="dita.dir=${dita.dir}"/>
+        <echo level="info" message="basedir=${basedir}"/>
+        <echo level="info" message="outputFile=${output.dir}${file.separator}${output.pdf}"/>
         <antcall target="build.disp.property"/>
         <antcall target="copy.link.target.file" if:true="${copy.link.target.to.output.dir.confirm}"/>
         <antcall target="transform.merged2pdf.impl">
@@ -261,7 +261,7 @@
         </xslt>
         <!-- Make property from XML -->
         <xmlproperty file="${map.property}" keeproot="true" collapseAttributes="true" semanticAttributes="true"/>
-        <echo message="Target file:${map.link-target}"/>
+        <echo level="info" message="Target file:${map.link-target}"/>
         <!-- Copy them into output dir -->
         <copy todir="${dita.output.dir}">
             <mapper type="flatten"/>
