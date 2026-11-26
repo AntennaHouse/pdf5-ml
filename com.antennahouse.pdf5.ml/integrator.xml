@@ -50,23 +50,23 @@
   
   </target>
   
-  <target name="dita2pdf5.ml" depends="dita2pdf5.ml.init, build-init, dita2pdf5.ml.preprocess">
+  <target name="dita2pdf5.ml" depends="dita2pdf5.ml.init, build-init, dita2pdf5.ml.preprocess" xmlns:if="ant:if" xmlns:unless="ant:unless">
     <!--echo message="[pdf5.ml DEBUG] args.input = ${args.input}"/>
     <echo message="[pdf5.ml DEBUG] noMap = ${noMap}"/-->
-    <antcall target="map2pdf5.ml"/>
-    <antcall target="topic2pdf5.ml"/>
-  </target> 
-  
-  <target name="dita2pdf5.ml.preprocess" xmlns:if="ant:if" xmlns:unless="ant:unless">
-    <antcall target="dita2pdf5.ml.preprocess2.impl" if:true="${adopt.preprocess2}"/>
-    <antcall target="dita2pdf5.ml.preprocess.impl"  unless:true="${adopt.preprocess2}"/>
-    <!--echo message="[pdf5.ml preprocess DEBUG] args.input = ${args.input}"/>
-    <echo message="[pdf5.ml preprocess DEBUG] noMap = ${noMap}"/-->
     <condition property="noMap" unless:set="noMap" value="true" else="false">
       <not>
         <matches string="${args.input}" pattern="\.ditamap$" casesensitive="false"/>
       </not>
     </condition>
+    <!--echo message="[pdf5.ml DEBUG] args.input = ${args.input}"/>
+    <echo message="[pdf5.ml DEBUG] noMap = ${noMap}"/-->
+    <antcall target="map2pdf5.ml" unless:true="${noMap}"/>
+    <antcall target="topic2pdf5.ml" if:true="${noMap}"/>
+  </target> 
+  
+  <target name="dita2pdf5.ml.preprocess" xmlns:if="ant:if" xmlns:unless="ant:unless">
+    <antcall target="dita2pdf5.ml.preprocess2.impl" if:true="${adopt.preprocess2}"/>
+    <antcall target="dita2pdf5.ml.preprocess.impl"  unless:true="${adopt.preprocess2}"/>
   </target>
   
   <target name="dita2pdf5.ml.preprocess2.impl">
@@ -77,7 +77,7 @@
     <antcall target="preprocess"/>
   </target>
   
-  <target name="topic2pdf5.ml" if="noMap">
+  <target name="topic2pdf5.ml">
     <!-- Generate merged middle file from topic -->
     <echo level="info" message="[pdf5.ml] Start generating merged middle file from topic."/>
     <basename property="dita.input.filename" file="${args.input}"/>
@@ -106,7 +106,7 @@
     </ant>
   </target>
 
-  <target name="map2pdf5.ml" unless="noMap">
+  <target name="map2pdf5.ml">
     <!-- Call Java TopicMerge -->
     <echo level="info" message="[pdf5.ml] Start generating merged middle file."/>
   	<dirname property="dita.temp.dir.fullpath" file="${dita.temp.dir}${file.separator}dummy.file"/>
