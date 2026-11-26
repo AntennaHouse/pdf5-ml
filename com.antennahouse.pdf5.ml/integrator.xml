@@ -46,7 +46,7 @@
     <property name="build-step.chunk" value="false" unless:true="${ot.version.less.than.4}"/>
     <property name="preprocess.chunk.skip" value="true" if:true="${ot.version.less.than.4}"/>
     
-    <property name="clean-preprocess.use-result-filename" value="false"/>
+    <property name="clean-preprocess.use-result-filename" value="true"/>
   
   </target>
   
